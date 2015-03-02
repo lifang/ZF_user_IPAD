@@ -10,4 +10,14 @@
 
 @interface ZYHomeViewController : UIViewController
 
+{
+
+
+
+    UIView*rootview;
+
+
+
+
+}
 @end

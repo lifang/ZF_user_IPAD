@@ -7,15 +7,20 @@
 //
 
 //动画持续时间，该时间与压栈和出栈时间相当
-#define SLIDE_ANIMATION_DURATION 0.35
+#define SLIDE_ANIMATION_DURATION 0
 //#import "ZYSettingViewController.h"
 #import "ZYCustomTabBarViewController.h"
 
 #import "MBProgressHUD.h"
 //#import "UIDevice+IdentifierAddition.h"
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
-#define iOS7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0)
-
+#ifdef iOS8
+#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
+#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+#else
+#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.width
+#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.height
+#endif
 @interface ZYCustomTabBarViewController (private)
 {
     
@@ -36,14 +41,14 @@
 @synthesize previousNavViewController = _previousNavViewController;
 - (void)test
 {
-    NSLog(@"123");
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
        
         
-        
+        NSLog(@"123---%f",[UIDevice currentDevice].systemVersion.floatValue);
+
         
         
     }
@@ -61,12 +66,13 @@
     [self createui];
 
 	
-    _seletedIndex = 1;
+    _seletedIndex = 0;
         //用self.赋值默认会调set方法
 		self.seletedIndex = _seletedIndex;
    
     
-
+    self.view.backgroundColor=[UIColor whiteColor];
+    
     
     
     
@@ -91,9 +97,16 @@
 -(void)createui
 {
     
-    if (iOS7) {
-        _tabView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, SCREEN_WIDTH)];
+    if (iOS8) {
+        _tabView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, SCREEN_HEIGHT)];
         
+        
+    }
+    else
+    {
+        _tabView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, SCREEN_WIDTH)];
+
+    
     }
 
     
@@ -110,7 +123,19 @@
     
     UIButton*button1=[UIButton buttonWithType:UIButtonTypeCustom];
     
-    button1.frame=CGRectMake(10,SCREEN_WIDTH/8,  40, 50);
+    
+    
+    if (iOS8) {
+        button1.frame=CGRectMake(10,SCREEN_HEIGHT/8,  40, 50);
+
+        
+    }
+    else
+    {
+        button1.frame=CGRectMake(10,SCREEN_WIDTH/8,  40, 50);
+
+        
+    }
     button1.tag=1;
     
 
@@ -122,21 +147,56 @@
     [button1 setContentEdgeInsets:UIEdgeInsetsMake(0,0,10,0)];
     UIButton*button2=[UIButton buttonWithType:UIButtonTypeCustom];
      button2.tag=2;
-    button2.frame=CGRectMake(10,2*SCREEN_WIDTH/8,   40, 50);
+    
+    
+    if (iOS8) {
+        button2.frame=CGRectMake(10,2*SCREEN_HEIGHT/8,   40, 50);
+        
+        
+    }
+    else
+    {
+        button2.frame=CGRectMake(10,2*SCREEN_WIDTH/8,   40, 50);
+        
+        
+    }
     [_tabView addSubview:button2];
     [button2 setImage:[UIImage imageNamed:[_nomalImageArray objectAtIndex:1]] forState:UIControlStateNormal];
     [button2.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [button2 setContentEdgeInsets:UIEdgeInsetsMake(0,0,10,0)];
     UIButton*button3=[UIButton buttonWithType:UIButtonTypeCustom];
      button3.tag=3;
-    button3.frame=CGRectMake(10,3*SCREEN_WIDTH/8,   40, 50);
+    
+    
+    if (iOS8) {
+        button3.frame=CGRectMake(10,3*SCREEN_HEIGHT/8,   40, 50);
+        
+        
+    }
+    else
+    {
+        button3.frame=CGRectMake(10,3*SCREEN_WIDTH/8,   40, 50);
+        
+        
+    }
     [_tabView addSubview:button3];
     [button3 setImage:[UIImage imageNamed:[_nomalImageArray objectAtIndex:2]] forState:UIControlStateNormal];
     [button3.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [button3 setContentEdgeInsets:UIEdgeInsetsMake(0,0,10,0)];
     UIButton*button4=[UIButton buttonWithType:UIButtonTypeCustom];
      button4.tag=4;
-    button4.frame=CGRectMake(10,4*SCREEN_WIDTH/8,   40, 50);
+    
+    if (iOS8) {
+        button4.frame=CGRectMake(10,4*SCREEN_HEIGHT/8,   40, 50);
+        
+        
+    }
+    else
+    {
+        button4.frame=CGRectMake(10,4*SCREEN_WIDTH/8,   40, 50);
+        
+        
+    }
     [_tabView addSubview:button4];
     [button4 setImage:[UIImage imageNamed:[_nomalImageArray objectAtIndex:3]] forState:UIControlStateNormal];
     [button4.imageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -151,54 +211,123 @@
     [button2 addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [button3 addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [button4 addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_WIDTH/8+40,  60, 20)];
-    [_tabView addSubview:lab1];
-    UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_WIDTH/8+40,  60, 20)];
-    [_tabView addSubview:lab2];
-    UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_WIDTH/8+40,  60, 20)];
-    [_tabView addSubview:lab3];
-    UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_WIDTH/8+40,  60, 20)];
-    [_tabView addSubview:lab4];
-    lab1.text=@"首页";
-    lab1.tag=10;
     
     
-    lab2.text=@"购物车";
-    lab2.tag=11;
-    lab3.tag=12;
-    lab4.tag=13;
-    lab1.font=[UIFont systemFontOfSize:12];
     
-    lab2.font=[UIFont systemFontOfSize:12];
-    
-    lab3.font=[UIFont systemFontOfSize:12];
-    
-    lab4.font=[UIFont systemFontOfSize:12];
-    
-    lab3.text=@"我的消息";
-    lab4.text=@"我的";
-    lab1.textAlignment=    NSTextAlignmentCenter;
-    lab2.textAlignment=    NSTextAlignmentCenter;
-    lab3.textAlignment=    NSTextAlignmentCenter;
-    lab4.textAlignment=    NSTextAlignmentCenter;
-    
-    lab1.textColor = [UIColor colorWithWhite:1 alpha:1];
-    lab2.textColor = [UIColor colorWithWhite:1 alpha:1];
-    lab3.textColor = [UIColor colorWithWhite:1 alpha:1];
-    lab4.textColor = [UIColor colorWithWhite:1 alpha:1];
-    
+    if (iOS8) {
+        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_HEIGHT/8+40,  60, 20)];
+        [_tabView addSubview:lab1];
+        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_HEIGHT/8+40,  60, 20)];
+        [_tabView addSubview:lab2];
+        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_HEIGHT/8+40,  60, 20)];
+        [_tabView addSubview:lab3];
+        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_HEIGHT/8+40,  60, 20)];
+        [_tabView addSubview:lab4];
+        lab1.text=@"首页";
+        lab1.tag=10;
+        
+        
+        lab2.text=@"购物车";
+        lab2.tag=11;
+        lab3.tag=12;
+        lab4.tag=13;
+        lab1.font=[UIFont systemFontOfSize:12];
+        
+        lab2.font=[UIFont systemFontOfSize:12];
+        
+        lab3.font=[UIFont systemFontOfSize:12];
+        
+        lab4.font=[UIFont systemFontOfSize:12];
+        
+        lab3.text=@"我的消息";
+        lab4.text=@"我的";
+        lab1.textAlignment=    NSTextAlignmentCenter;
+        lab2.textAlignment=    NSTextAlignmentCenter;
+        lab3.textAlignment=    NSTextAlignmentCenter;
+        lab4.textAlignment=    NSTextAlignmentCenter;
+        
+        lab1.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab2.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab3.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab4.textColor = [UIColor colorWithWhite:1 alpha:1];
+        
+
+        
+    }
+    else
+    {
+        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_WIDTH/8+40,  60, 20)];
+        [_tabView addSubview:lab1];
+        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_WIDTH/8+40,  60, 20)];
+        [_tabView addSubview:lab2];
+        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_WIDTH/8+40,  60, 20)];
+        [_tabView addSubview:lab3];
+        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_WIDTH/8+40,  60, 20)];
+        [_tabView addSubview:lab4];
+        lab1.text=@"首页";
+        lab1.tag=10;
+        
+        
+        lab2.text=@"购物车";
+        lab2.tag=11;
+        lab3.tag=12;
+        lab4.tag=13;
+        lab1.font=[UIFont systemFontOfSize:12];
+        
+        lab2.font=[UIFont systemFontOfSize:12];
+        
+        lab3.font=[UIFont systemFontOfSize:12];
+        
+        lab4.font=[UIFont systemFontOfSize:12];
+        
+        lab3.text=@"我的消息";
+        lab4.text=@"我的";
+        lab1.textAlignment=    NSTextAlignmentCenter;
+        lab2.textAlignment=    NSTextAlignmentCenter;
+        lab3.textAlignment=    NSTextAlignmentCenter;
+        lab4.textAlignment=    NSTextAlignmentCenter;
+        
+        lab1.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab2.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab3.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab4.textColor = [UIColor colorWithWhite:1 alpha:1];
+        
  
+        
+    }
+    
     
     
     
     UIButton*button5=[UIButton buttonWithType:UIButtonTypeCustom];
     
-    button5.frame=CGRectMake(10,SCREEN_HEIGHT-80,  40, 50);
+    if (iOS8) {
+        button5.frame=CGRectMake(10,SCREEN_HEIGHT-80,  40, 50);
+        
+        
+    }
+    else
+    {
+        button5.frame=CGRectMake(10,SCREEN_WIDTH-80,  40, 50);
+        
+        
+    }
     
     
     
     [_tabView addSubview:button5];
     [button5 setImage:[UIImage imageNamed:@"set"] forState:UIControlStateNormal];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //    [button5 addTarget:self action:@selector(setclick) forControlEvents:UIControlEventTouchUpInside];
 
     
@@ -272,12 +401,22 @@
 	}
     //设置当前视图的大小
     
-    UIView*bigvie=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
-    NSLog(@"%f",SCREEN_WIDTH);
+    NSLog(@"%f",self.view.frame.size.width);
+if(iOS8)
+{
 
+    currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_WIDTH - 60,SCREEN_HEIGHT);
+
+
+}
+    else
+    {
     
-	currentViewController.view.frame = CGRectMake(60, 0,  bigvie.frame.size.width - 60,bigvie.frame.size.height);
+        currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH+260);
+
+    }
+    
 	
     //添加到Tab上
 	[self.view addSubview:currentViewController.view];
@@ -374,12 +513,15 @@
 {
 	//根据压栈还是出栈设置TabBar初始位置
 	CGRect tempRect = _tabView.frame;
-	tempRect.origin.x = self.view.bounds.size.width * ( (direction == ZYSlideDirectionRight) ? -1 : 1);
+    
+    
+	tempRect.origin.x = 60 * ( (direction == ZYSlideDirectionRight) ? -1 : 1);
 	_tabView.frame = tempRect;
 	 
     //执行动画
 	[UIView animateWithDuration:isAnimated ? SLIDE_ANIMATION_DURATION : 0 delay:0 options:0 animations:^
 	 {
+         
 		 //动画效果
 		 CGRect tempRect = _tabView.frame;
 		 tempRect.origin.x = 0;
@@ -393,7 +535,8 @@
 		 UIViewController *currentViewController = [_viewControllers objectAtIndex:_seletedIndex];
 		 
 		 CGRect viewRect = currentViewController.view.frame;
-		 viewRect.size.height = self.view.bounds.size.height - 60;
+		 viewRect.origin.x = 60;
+
 		 currentViewController.view.frame = viewRect;
 	 }];
 }
@@ -408,7 +551,12 @@
 	UIViewController *currentViewController = [_viewControllers objectAtIndex:_seletedIndex];
 	//重置高度
 	CGRect viewRect = currentViewController.view.frame;
-	viewRect.size.height = self.view.bounds.size.height;
+    
+	viewRect.size.width = self.view.bounds.size.width+60;
+    
+    viewRect.origin.x = 0;
+
+    
 	currentViewController.view.frame = viewRect;
 	
     //设置TabBar的位置
@@ -421,7 +569,7 @@
      {
          //根据压栈还是出栈设置动画效果
 		 CGRect tempRect = _tabView.frame;
-		 tempRect.origin.x = self.view.bounds.size.width * (direction == ZYSlideDirectionLeft ? -1 : 1);
+		 tempRect.origin.x = 60* (direction == ZYSlideDirectionLeft ? -1 : 1);
 		 _tabView.frame = tempRect;
 		 
      }

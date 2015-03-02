@@ -51,7 +51,7 @@
     self.tabBarViewController.viewControllers = array;
     //设置TabBar默认选中的是哪一个
     //用 对象. 赋值默认会调set方法
-    [self.tabBarViewController setSeletedIndex:1];
+    [self.tabBarViewController setSeletedIndex:0];
 
     //设置window的根视图
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];

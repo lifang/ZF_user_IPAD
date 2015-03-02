@@ -1,32 +1,30 @@
 //
-//  ShoppingViewController.m
-//  ZhangFu
+//  GoodListViewController.m
+//  iPadff
 //
-//  Created by comdosoft on 15/2/28.
+//  Created by comdosoft on 15/3/2.
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import "ShoppingViewController.h"
+#import "GoodListViewController.h"
 
-@interface ShoppingViewController ()
+@interface GoodListViewController ()
 
 @end
 
-@implementation ShoppingViewController
+@implementation GoodListViewController
 
 - (void)viewDidLoad {
-    
-    
-    
-    
-    
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor cyanColor];
-    
-    
-    NSLog(@"%f",self.view.frame.size.height);
-
     // Do any additional setup after loading the view.
+    self.navigationController.navigationBarHidden = NO;
+    
+    UIView*vi=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH)];
+    [self.view addSubview:vi];
+    
+
+    self.view.backgroundColor=[UIColor purpleColor];
+    
 }
 
 - (void)didReceiveMemoryWarning {
