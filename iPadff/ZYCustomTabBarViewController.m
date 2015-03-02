@@ -15,8 +15,7 @@
 //#import "UIDevice+IdentifierAddition.h"
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define iOS7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0)
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+
 @interface ZYCustomTabBarViewController (private)
 {
     
@@ -194,7 +193,7 @@
     
     UIButton*button5=[UIButton buttonWithType:UIButtonTypeCustom];
     
-    button5.frame=CGRectMake(10,SCREEN_WIDTH-80,  40, 50);
+    button5.frame=CGRectMake(10,SCREEN_HEIGHT-80,  40, 50);
     
     
     
@@ -273,9 +272,12 @@
 	}
     //设置当前视图的大小
     
-    NSLog(@"%f",SCREEN_WIDTH);
+    UIView*bigvie=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
-	currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH);
+    NSLog(@"%f",SCREEN_WIDTH);
+
+    
+	currentViewController.view.frame = CGRectMake(60, 0,  bigvie.frame.size.width - 60,bigvie.frame.size.height);
 	
     //添加到Tab上
 	[self.view addSubview:currentViewController.view];

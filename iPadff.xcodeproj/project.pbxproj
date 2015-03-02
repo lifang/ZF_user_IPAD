@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */; };
+		0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */; };
 		0ED065AB1A9EE397005DF849 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065AA1A9EE397005DF849 /* main.m */; };
 		0ED065AE1A9EE397005DF849 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065AD1A9EE397005DF849 /* AppDelegate.m */; };
 		0ED065B11A9EE398005DF849 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065B01A9EE398005DF849 /* ViewController.m */; };
@@ -14,14 +16,12 @@
 		0ED065B61A9EE398005DF849 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED065B51A9EE398005DF849 /* Images.xcassets */; };
 		0ED065B91A9EE398005DF849 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ED065B71A9EE398005DF849 /* LaunchScreen.xib */; };
 		0ED065C51A9EE398005DF849 /* iPadffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065C41A9EE398005DF849 /* iPadffTests.m */; };
-		0ED065D01A9EE7B4005DF849 /* ZYCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065CF1A9EE7B4005DF849 /* ZYCustomTabBarViewController.m */; };
 		0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065D21A9EE801005DF849 /* FLViewController.m */; };
 		0ED065D61A9EE81D005DF849 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065D51A9EE81D005DF849 /* MBProgressHUD.m */; };
 		0ED065E51A9EE9D8005DF849 /* BasicNagigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065E41A9EE9D8005DF849 /* BasicNagigationController.m */; };
 		0ED6ACE91AA16CDA00D3B025 /* MyimagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6ACE81AA16CDA00D3B025 /* MyimagesViewController.m */; };
 		0ED6ACEE1AA16D4A00D3B025 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6ACED1AA16D4A00D3B025 /* MyViewController.m */; };
 		0ED6ACF21AA16D6400D3B025 /* ShoppingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6ACF11AA16D6400D3B025 /* ShoppingViewController.m */; };
-		0ED6ACF61AA16D9B00D3B025 /* ZYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6ACF51AA16D9B00D3B025 /* ZYHomeViewController.m */; };
 		0ED6AD011AA16EEA00D3B025 /* 平板UI套件-用户版_89.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACF91AA16EEA00D3B025 /* 平板UI套件-用户版_89.png */; };
 		0ED6AD021AA16EEA00D3B025 /* shopping_nomal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACFA1AA16EEA00D3B025 /* shopping_nomal.png */; };
 		0ED6AD031AA16EEA00D3B025 /* Myinages_nomal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACFB1AA16EEA00D3B025 /* Myinages_nomal.png */; };
@@ -55,6 +55,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomTabBarViewController.h; sourceTree = "<group>"; };
+		0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomTabBarViewController.m; sourceTree = "<group>"; };
+		0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYHomeViewController.h; sourceTree = "<group>"; };
+		0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYHomeViewController.m; sourceTree = "<group>"; };
 		0ED065A51A9EE397005DF849 /* iPadff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPadff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ED065A91A9EE397005DF849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ED065AA1A9EE397005DF849 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -68,8 +72,6 @@
 		0ED065BE1A9EE398005DF849 /* iPadffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iPadffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ED065C31A9EE398005DF849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ED065C41A9EE398005DF849 /* iPadffTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iPadffTests.m; sourceTree = "<group>"; };
-		0ED065CE1A9EE7B4005DF849 /* ZYCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomTabBarViewController.h; sourceTree = "<group>"; };
-		0ED065CF1A9EE7B4005DF849 /* ZYCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomTabBarViewController.m; sourceTree = "<group>"; };
 		0ED065D11A9EE801005DF849 /* FLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLViewController.h; sourceTree = "<group>"; };
 		0ED065D21A9EE801005DF849 /* FLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLViewController.m; sourceTree = "<group>"; };
 		0ED065D41A9EE81D005DF849 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -83,8 +85,6 @@
 		0ED6ACED1AA16D4A00D3B025 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		0ED6ACF01AA16D6400D3B025 /* ShoppingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingViewController.h; sourceTree = "<group>"; };
 		0ED6ACF11AA16D6400D3B025 /* ShoppingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingViewController.m; sourceTree = "<group>"; };
-		0ED6ACF41AA16D9B00D3B025 /* ZYHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYHomeViewController.h; sourceTree = "<group>"; };
-		0ED6ACF51AA16D9B00D3B025 /* ZYHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYHomeViewController.m; sourceTree = "<group>"; };
 		0ED6ACF91AA16EEA00D3B025 /* 平板UI套件-用户版_89.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "平板UI套件-用户版_89.png"; sourceTree = "<group>"; };
 		0ED6ACFA1AA16EEA00D3B025 /* shopping_nomal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping_nomal.png; sourceTree = "<group>"; };
 		0ED6ACFB1AA16EEA00D3B025 /* Myinages_nomal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Myinages_nomal.png; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 				0ED6ACE41AA16C8600D3B025 /* Controllers */,
 				0ED065AC1A9EE397005DF849 /* AppDelegate.h */,
 				0ED065AD1A9EE397005DF849 /* AppDelegate.m */,
-				0ED065CE1A9EE7B4005DF849 /* ZYCustomTabBarViewController.h */,
-				0ED065CF1A9EE7B4005DF849 /* ZYCustomTabBarViewController.m */,
+				0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */,
+				0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */,
 				0ED065B21A9EE398005DF849 /* Main.storyboard */,
 				0ED065B51A9EE398005DF849 /* Images.xcassets */,
 				0ED065B71A9EE398005DF849 /* LaunchScreen.xib */,
@@ -231,8 +231,8 @@
 		0ED6ACF31AA16D6A00D3B025 /* Homepages */ = {
 			isa = PBXGroup;
 			children = (
-				0ED6ACF41AA16D9B00D3B025 /* ZYHomeViewController.h */,
-				0ED6ACF51AA16D9B00D3B025 /* ZYHomeViewController.m */,
+				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
+				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
 			);
 			name = Homepages;
 			sourceTree = "<group>";
@@ -409,16 +409,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ED6AD0F1AA1912F00D3B025 /* LocationButton.m in Sources */,
-				0ED6ACF61AA16D9B00D3B025 /* ZYHomeViewController.m in Sources */,
 				0ED6ACF21AA16D6400D3B025 /* ShoppingViewController.m in Sources */,
 				0ED065B11A9EE398005DF849 /* ViewController.m in Sources */,
 				0ED065D61A9EE81D005DF849 /* MBProgressHUD.m in Sources */,
+				0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */,
 				0ED065AE1A9EE397005DF849 /* AppDelegate.m in Sources */,
 				0ED6ACEE1AA16D4A00D3B025 /* MyViewController.m in Sources */,
-				0ED065D01A9EE7B4005DF849 /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065E51A9EE9D8005DF849 /* BasicNagigationController.m in Sources */,
 				0ED065AB1A9EE397005DF849 /* main.m in Sources */,
 				0ED6ACE91AA16CDA00D3B025 /* MyimagesViewController.m in Sources */,
+				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
