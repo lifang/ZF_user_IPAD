@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"%f  %f",SCREEN_HEIGHT,SCREEN_WIDTH);
     UIView*vei=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_HEIGHT , SCREEN_WIDTH+100 )];
     [self.view addSubview:vei];
     

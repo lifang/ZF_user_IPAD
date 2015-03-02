@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7ADED84D-6706-44DE-A27F-640CC179C564</string>
+	<key>IDESourceControlProjectName</key>
+	<string>iPadff</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>85789E35F027BD34CE883A8D139B704FBB225D57</key>
+		<string>github.com:lifang/ZF_user_IPAD.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iPadff.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>85789E35F027BD34CE883A8D139B704FBB225D57</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:lifang/ZF_user_IPAD.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>85789E35F027BD34CE883A8D139B704FBB225D57</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>85789E35F027BD34CE883A8D139B704FBB225D57</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iPadff</string>
+		</dict>
+	</array>
+</dict>
+</plist>
