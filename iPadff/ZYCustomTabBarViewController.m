@@ -10,13 +10,13 @@
 #define SLIDE_ANIMATION_DURATION 0.35
 //#import "ZYSettingViewController.h"
 #import "ZYCustomTabBarViewController.h"
-
+#import "MyimagesViewController.h"
+#import "LoginViewController.h"
 #import "MBProgressHUD.h"
 //#import "UIDevice+IdentifierAddition.h"
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define iOS7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0)
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+
 @interface ZYCustomTabBarViewController (private)
 {
     
@@ -62,7 +62,7 @@
     [self createui];
 
 	
-    _seletedIndex = 1;
+    _seletedIndex = 0;
         //用self.赋值默认会调set方法
 		self.seletedIndex = _seletedIndex;
    
@@ -194,7 +194,7 @@
     
     UIButton*button5=[UIButton buttonWithType:UIButtonTypeCustom];
     
-    button5.frame=CGRectMake(10,SCREEN_WIDTH-80,  40, 50);
+    button5.frame=CGRectMake(10,SCREEN_HEIGHT-80,  40, 50);
     
     
     
@@ -273,9 +273,12 @@
 	}
     //设置当前视图的大小
     
-    NSLog(@"%f",SCREEN_WIDTH);
+    UIView*bigvie=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     
-	currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH);
+    NSLog(@"%f",SCREEN_WIDTH);
+
+    
+	currentViewController.view.frame = CGRectMake(60, 0,  bigvie.frame.size.width - 60,bigvie.frame.size.height);
 	
     //添加到Tab上
 	[self.view addSubview:currentViewController.view];
@@ -293,6 +296,16 @@
     
     //用self.赋值默认会调set方法
     [self setSeletedIndex:index];
+    
+    if (index==2) {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
     
 //	self.seletedIndex = index;
     NSLog(@"mmmmmmm%d",index);

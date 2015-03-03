@@ -5,7 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>7ADED84D-6706-44DE-A27F-640CC179C564</string>
+=======
+	<string>9F566936-B7EB-4A4D-BC21-C48C0CBDFFA0</string>
+>>>>>>> da03699854b77e5db0328f95ee25687ad6266591
 	<key>IDESourceControlProjectName</key>
 	<string>iPadff</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +38,11 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>85789E35F027BD34CE883A8D139B704FBB225D57</string>
 			<key>IDESourceControlWCCName</key>
+<<<<<<< HEAD
 			<string>iPadff</string>
+=======
+			<string>ZF_user_IPAD</string>
+>>>>>>> da03699854b77e5db0328f95ee25687ad6266591
 		</dict>
 	</array>
 </dict>

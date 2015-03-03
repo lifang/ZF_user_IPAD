@@ -15,5 +15,5 @@
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #define kImageName(name) [UIImage imageNamed:name]
 #define kColor(r,g,b,a) [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:a]
-
+#import "UIImage+Extention.h"
 #endif

@@ -28,19 +28,19 @@
 
 - (void)initAndLayoutUI {
     CGFloat centerY = self.frame.size.height / 2 + self.frame.origin.y;
-    UIImageView *locationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, centerY - 7, 11, 15)];
-    locationView.image = kImageName(@"home_location.png");
+    UIImageView *locationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, centerY - 3, 19, 25)];
+    locationView.image = kImageName(@"location_left");
     [self addSubview:locationView];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(locationView.bounds.size.width, 0, 50, self.bounds.size.height)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(locationView.bounds.size.width-8, 0, 50, self.bounds.size.height+20)];
     _nameLabel.backgroundColor = [UIColor clearColor];
-    _nameLabel.font = [UIFont systemFontOfSize:14.f];
+    _nameLabel.font = [UIFont systemFontOfSize:16.f];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-    _nameLabel.text = @"上海市";
+    _nameLabel.text = @"上海";
     [self addSubview:_nameLabel];
     
-    UIImageView *arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x + _nameLabel.frame.size.width, centerY - 2, 9, 5)];
-    arrowView.image = kImageName(@"home_arrow.png");
+    UIImageView *arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x + _nameLabel.frame.size.width, centerY + 6, 9, 5)];
+    arrowView.image = kImageName(@"home_arrow");
     [self addSubview:arrowView];
 }
 
