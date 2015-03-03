@@ -548,6 +548,7 @@ if(iOS8)
 - (void)hideTabBar:(ZYSlideDirection)direction animated:(BOOL)isAnimated
 {
     //获得当前视图控制器
+ 
 	UIViewController *currentViewController = [_viewControllers objectAtIndex:_seletedIndex];
 	//重置高度
 	CGRect viewRect = currentViewController.view.frame;
