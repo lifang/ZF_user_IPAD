@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "FindPasswordViewController.h"
 #import "RegisterViewController.h"
+#import "NetworkInterface.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UITextField *userField;
@@ -65,6 +66,7 @@
     [loginView addSubview:_userField];
     
     _passwordField = [[UITextField alloc]init];
+    _passwordField.secureTextEntry = YES;
     _passwordField.borderStyle = UITextBorderStyleLine;
     _passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _passwordField.frame = CGRectMake(CGRectGetMaxX(userImage.frame) + 10, passwordImage.frame.origin.y, loginView.frame.size.width * 0.65, userImage.frame.size.height);
@@ -103,8 +105,50 @@
 
 -(void)loginClick:(UIButton *)sender
 {
-    NSLog(@"点击了登陆！");
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (!_userField.text || [_userField.text isEqualToString:@""] || !_passwordField.text || [_passwordField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"用户名或密码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"正在登录...";
+    [NetworkInterface loginWithUsername:_userField.text password:_passwordField.text isAlreadyEncrypt:NO finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                [hud hide:YES];
+                int errorCode = [[object objectForKey:@"code"] intValue];
+                if (errorCode == RequestFail) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                                    message:[object objectForKey:@"message"]
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                }
+                else if (errorCode == RequestSuccess) {
+                    NSLog(@"%@",object);
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+            }
+            else {
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+    
 }
 
 -(void)exitClick

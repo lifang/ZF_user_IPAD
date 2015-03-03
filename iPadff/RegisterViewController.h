@@ -10,4 +10,8 @@
 
 @interface RegisterViewController : UIViewController
 
+@property (nonatomic, strong) NSString *validate;
+
+@property (nonatomic, strong) NSString *phoneNumber;
+
 @end

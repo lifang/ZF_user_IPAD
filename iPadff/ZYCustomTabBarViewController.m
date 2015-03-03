@@ -10,7 +10,7 @@
 #define SLIDE_ANIMATION_DURATION 0
 //#import "ZYSettingViewController.h"
 #import "ZYCustomTabBarViewController.h"
-#import "MyimagesViewController.h"
+#import "MessageViewController.h"
 #import "LoginViewController.h"
 #import "MBProgressHUD.h"
 //#import "UIDevice+IdentifierAddition.h"
