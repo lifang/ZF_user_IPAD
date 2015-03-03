@@ -172,7 +172,6 @@
         case 1000: {
             //选择POS机
             GoodListViewController *listC = [[GoodListViewController alloc] init];
-//            BasicNagigationController*nav=[[BasicNagigationController alloc]initWithRootViewController:listC];
             
 
             listC.hidesBottomBarWhenPushed =  YES ;
