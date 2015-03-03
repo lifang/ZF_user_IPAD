@@ -30,7 +30,7 @@
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
     MyimagesViewController *viewController3 = [[MyimagesViewController alloc] init];
-    MyViewController*viewController4 = [[MyViewController alloc] init];
+    MyViewController *viewController4 = [[MyViewController alloc] init];
     
     
     //创建一个导航，以第一个视图控制器为根视图

@@ -10,7 +10,8 @@
 #define SLIDE_ANIMATION_DURATION 0
 //#import "ZYSettingViewController.h"
 #import "ZYCustomTabBarViewController.h"
-
+#import "MyimagesViewController.h"
+#import "LoginViewController.h"
 #import "MBProgressHUD.h"
 //#import "UIDevice+IdentifierAddition.h"
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
@@ -426,7 +427,6 @@ if(iOS8)
 	
 }
 -(void)tabBarButtonClicked:(id)sender
-
 {
     //获得索引
 	UIButton *btn = (UIButton *)sender;
@@ -434,6 +434,16 @@ if(iOS8)
     
     //用self.赋值默认会调set方法
     [self setSeletedIndex:index];
+    
+    if (index==2) {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
     
 //	self.seletedIndex = index;
     NSLog(@"mmmmmmm%d",index);

@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kLocationButtonWidth  70.f   //定位按钮宽度
+#define kLocationButtonWidth  140.f   //定位按钮宽度
 
 @interface LocationButton : UIButton
 
