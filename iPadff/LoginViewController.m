@@ -35,7 +35,7 @@
     btnClick.frame = CGRectMake(0, 0, 30, 30);
     [btnClick addTarget:self action:@selector(exitClick) forControlEvents:UIControlEventTouchUpInside];
     [exitImage addSubview:btnClick];
-    exitImage.image = kImageName(@"X");
+    exitImage.image = kImageName(@"exit");
     exitImage.frame = CGRectMake(15, 15, 30, 30);
     [loginView addSubview:exitImage];
     UILabel *loginLabel = [[UILabel alloc]initWithFrame:CGRectMake(loginView.frame.size.width * 0.5 - 20, 10, 50, 40)];

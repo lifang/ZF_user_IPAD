@@ -10,7 +10,6 @@
 
 @interface LocationButton ()
 
-@property (nonatomic, strong) UILabel *nameLabel;
 
 @end
 
@@ -32,11 +31,10 @@
     locationView.image = kImageName(@"location_left");
     [self addSubview:locationView];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(locationView.bounds.size.width-8, 0, 50, self.bounds.size.height+20)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(locationView.bounds.size.width-2, 0, 80, self.bounds.size.height+20)];
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.font = [UIFont systemFontOfSize:16.f];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-    _nameLabel.text = @"上海";
     [self addSubview:_nameLabel];
     
     UIImageView *arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(_nameLabel.frame.origin.x + _nameLabel.frame.size.width, centerY + 6, 9, 5)];
