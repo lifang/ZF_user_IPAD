@@ -21,6 +21,7 @@
 
 @implementation AppDelegate
 
+
 +(AppDelegate *)shareAppDelegate
 {
     return [UIApplication sharedApplication].delegate;
@@ -33,7 +34,8 @@
     _cityID = @"1";
     _userID = @"1";
     _token = @"123";
-    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
     MessageViewController *viewController3 = [[MessageViewController alloc] init];
@@ -64,7 +66,9 @@
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];
     self.naviController.navigationBarHidden = YES;
         [self.window setRootViewController:self.naviController];
-
+    _cityID = @"1";
+    _userID = @"8";
+    _token = @"123";
 
     // Override point for customization after application launch.
     return YES;

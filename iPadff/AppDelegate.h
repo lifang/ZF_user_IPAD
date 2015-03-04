@@ -13,12 +13,13 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *naviController;
-@property(nonatomic,strong) NSString *cityID;
+@property (nonatomic, strong) NSString *cityID;
 @property(nonatomic,strong)NSString *userID;
 @property(nonatomic,strong)NSString *token;
 
 + (AppDelegate *)shareAppDelegate;
 
+//登录后返回
 
 @end
 
