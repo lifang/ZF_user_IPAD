@@ -20,12 +20,15 @@
 @end
 
 @implementation AppDelegate
-
++ (AppDelegate *)shareAppDelegate {
+    return [UIApplication sharedApplication].delegate;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
-    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+
     
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
@@ -57,7 +60,9 @@
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];
     self.naviController.navigationBarHidden = YES;
         [self.window setRootViewController:self.naviController];
-
+    _cityID = @"1";
+    _userID = @"8";
+    _token = @"123";
 
     // Override point for customization after application launch.
     return YES;

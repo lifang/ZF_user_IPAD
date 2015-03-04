@@ -1,13 +1,13 @@
 //
-//  GoodListViewController.h
+//  SearchViewController.h
 //  ZFUB
 //
-//  Created by 徐宝桥 on 15/1/24.
+//  Created by 徐宝桥 on 15/1/26.
 //  Copyright (c) 2015年 ___MyCompanyName___. All rights reserved.
 //
 
 #import "CommonViewController.h"
 
-@interface GoodListViewController : CommonViewController
+@interface SearchViewController : CommonViewController
 
 @end

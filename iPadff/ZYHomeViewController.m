@@ -57,24 +57,55 @@
 -(void)initPollingView
 {
     //图片比例 40:17
-    _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT*0.4)];
+    
+    if(iOS7)
+    {
+        _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_HEIGHT, SCREEN_WIDTH*0.4)];
+
+    }
+    else
+    {
+        _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT*0.4)];
+
+    
+    }
     [self.view addSubview:_pollingView];
 }
 - (void)initNavigationView {
 
 //    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT/2-47, 20, 134, 38)];
-    
+ 
     
 
-    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT/2-67-60, 20, 134, 38)];
+    UIImageView *topView = [[UIImageView alloc] init ];
     topView.image = kImageName(@"home_logo.png");
     [rootview addSubview:topView];
     
-    UIImageView *itemImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT/2+100, 25, 119, 30)];
+    UIImageView *itemImageView = [[UIImageView alloc]init ];
     itemImageView.image = kImageName(@"home_right.png");
     [self.view addSubview:itemImageView];
+    
+    
+    
     LocationButton *rightBtn = [[LocationButton alloc]init];
-    rightBtn.frame = CGRectMake(CGRectGetMaxX(itemImageView.frame) + 260, itemImageView.frame.origin.y, 60, 30);
+    
+    if(iOS7)
+    {
+        topView.frame = CGRectMake(SCREEN_HEIGHT/2-67-60, 20, 134, 38);
+        itemImageView.frame = CGRectMake(SCREEN_HEIGHT/2+15, 25, 119, 30);
+               rightBtn.frame = CGRectMake(SCREEN_HEIGHT-160, itemImageView.frame.origin.y, 60, 30);
+        
+    }
+    else
+    {
+        topView.frame = CGRectMake(SCREEN_WIDTH/2-67-60, 20, 134, 38);
+        itemImageView.frame = CGRectMake(SCREEN_WIDTH/2+15, 25, 119, 30);
+        
+
+        rightBtn.frame = CGRectMake(SCREEN_WIDTH-160, itemImageView.frame.origin.y, 60, 30);
+        
+        
+    }
     [self.view addSubview:rightBtn];
     
     [rootview addSubview:itemImageView];
@@ -119,40 +150,68 @@
         
         if(i<4)
         {
-            button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i+1)-32,SCREEN_HEIGHT/2+50,  64, 64);
-            lable.frame=CGRectMake((2*i+1)*(SCREEN_WIDTH-60)/8-32,SCREEN_HEIGHT/2+110,  80, 54);
-            if (button.tag==1000) {
-                UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)* 1.6, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
-                line1.backgroundColor = kColor(242, 242, 242, 1.0);
-                [self.view addSubview:line1];
-                UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(button.frame.origin.x-40, CGRectGetMaxY(button.frame)+50, SCREEN_WIDTH * 0.85, 2)];
-                line2.backgroundColor = kColor(242, 242, 242, 1.0);
-                [self.view addSubview:line2];
-                
-            }
-            if (button.tag==1001) {
-                UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)*1.2, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
-                line1.backgroundColor = kColor(242, 242, 242, 1.0);
-                [self.view addSubview:line1];
-            }
-            if (button.tag==1002) {
-                UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)*1.15, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
-                line1.backgroundColor = kColor(242, 242, 242, 1.0);
-                [self.view addSubview:line1];
-            }
-            if(iOS8)
+//            button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i+1)-32,SCREEN_HEIGHT/2+50,  64, 64);
+//            lable.frame=CGRectMake((2*i+1)*(SCREEN_WIDTH-60)/8-32,SCREEN_HEIGHT/2+110,  80, 54);
+            
+            if(iOS7)
             {
-                button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i+1)-32,SCREEN_HEIGHT/2+50,  64, 64);
-                lable.frame=CGRectMake((2*i+1)*(SCREEN_WIDTH-60)/8-32,SCREEN_HEIGHT/2+110,  80, 54);
+                
+                button.frame=CGRectMake((SCREEN_HEIGHT-60)/8*(2*i+1)-32,SCREEN_WIDTH/2+50,  64, 64);
+                lable.frame=CGRectMake((2*i+1)*(SCREEN_HEIGHT-60)/8-32,SCREEN_WIDTH/2+110,  80, 54);
+                
+                if (button.tag==1000) {
+                    
+                    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)* 1.6, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
+                    line1.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line1];
+                    
+                    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(button.frame.origin.x-40, CGRectGetMaxY(button.frame)+50, SCREEN_HEIGHT-156, 2)];
+                    line2.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line2];
+                    
+                }
+                if (button.tag==1001) {
+                    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)*1.2, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
+                    line1.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line1];
+                }
+                if (button.tag==1002) {
+                    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)*1.15, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
+                    line1.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line1];
+                }
+
+                
+
+               
             }
         
             else
                 
             {
-                button.frame=CGRectMake((SCREEN_HEIGHT-60)/8*(2*i+1)-32,SCREEN_WIDTH/2+50,  64, 64);
-                lable.frame=CGRectMake((2*i+1)*(SCREEN_HEIGHT-60)/8-32,SCREEN_WIDTH/2+110,  80, 54);
-  
-                
+                button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i+1)-32,SCREEN_HEIGHT/2+50,  64, 64);
+                lable.frame=CGRectMake((2*i+1)*(SCREEN_WIDTH-60)/8-32,SCREEN_HEIGHT/2+110,  80, 54);
+                if (button.tag==1000) {
+                    
+                    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)* 1.6, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
+                    line1.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line1];
+                    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(button.frame.origin.x-40, CGRectGetMaxY(button.frame)+50, SCREEN_WIDTH -156, 2)];
+                    line2.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line2];
+                    
+                }
+                if (button.tag==1001) {
+                    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)*1.2, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
+                    line1.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line1];
+                }
+                if (button.tag==1002) {
+                    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)*1.15, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];
+                    line1.backgroundColor = kColor(242, 242, 242, 1.0);
+                    [self.view addSubview:line1];
+                }
+
             }
 
             
@@ -164,13 +223,16 @@
         {
             
             
-            if(iOS8)
+            if(iOS7)
             {
+                lable.frame=CGRectMake((2*i-7)*(SCREEN_HEIGHT-60)/8-32,SCREEN_WIDTH/2+250,  80, 54);
                 
-                lable.frame=CGRectMake((2*i-7)*(SCREEN_WIDTH-60)/8-32,SCREEN_HEIGHT/2+250,  80, 54);
+                
+                button.frame=CGRectMake((SCREEN_HEIGHT-60)/8*(2*i-7)-32,SCREEN_WIDTH/2+200,  64, 64);
+                
+
                 
                 
-                button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i-7)-32,SCREEN_HEIGHT/2+200,  64, 64);
                 
                 
             }
@@ -179,11 +241,14 @@
                 
             {
                 
-                lable.frame=CGRectMake((2*i-7)*(SCREEN_HEIGHT-60)/8-32,SCREEN_WIDTH/2+250,  80, 54);
+                
+                lable.frame=CGRectMake((2*i-7)*(SCREEN_WIDTH-60)/8-32,SCREEN_HEIGHT/2+250,  80, 54);
                 
                 
-                button.frame=CGRectMake((SCREEN_HEIGHT-60)/8*(2*i-7)-32,SCREEN_WIDTH/2+200,  64, 64);
+                button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i-7)-32,SCREEN_HEIGHT/2+200,  64, 64);
                 
+                
+
                 
             }
         }

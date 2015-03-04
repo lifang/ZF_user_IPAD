@@ -8,8 +8,8 @@
 
 #import "BasicNagigationController.h"
 #import "FontColorAndSize.h"
-#define navBtnWidth 27
-#define navBtnHeight 27
+#define navBtnWidth 25
+#define navBtnHeight 40
 #define iOS7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0)
 @interface BasicNagigationController ()
 
@@ -32,7 +32,7 @@
     [super viewDidLoad];
     //change all navigationbar color
     if (iOS7) {
-        [[UINavigationBar appearance] setBarTintColor:[UIColor cyanColor]];
+        [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
         
     }
     
@@ -64,7 +64,7 @@
 //}
 -(UIBarButtonItem*)customLeftBackButton{
     
-    UIImage *image=[UIImage imageNamed:@"优惠详细_03"];
+    UIImage *image=[UIImage imageNamed:@"back_btn_white"];
     
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
     
