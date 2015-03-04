@@ -15,6 +15,16 @@
 @property(nonatomic,strong)UITextField *newsPassword;
 @property(nonatomic,strong)UITextField *makeSurePassword;
 
+@property(nonatomic,assign) BOOL isMobile;
+@property(nonatomic,strong)UIButton *sendButton;
+@property(nonatomic,strong)UILabel *authLabel;
+@property(nonatomic,strong)UILabel *newpassworLabel;
+@property(nonatomic,strong)UILabel *makesurepasswordLabel;
+@property(nonatomic,strong)UIButton *makeSureBtn;
+@property(nonatomic,strong)UIView *line;
+
+@property(nonatomic,strong)UIButton *presentBtn;
+
 @end
 
 @implementation FindPasswordViewController
@@ -59,12 +69,14 @@
     [self.view addSubview:_phoneField];
     
     UIButton *authGetBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _phoneField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
+    _sendButton = authGetBtn;
     [authGetBtn addTarget:self action:@selector(authClick:) forControlEvents:UIControlEventTouchUpInside];
     [authGetBtn setBackgroundColor:mainColor];
     [authGetBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.view addSubview:authGetBtn];
     
     UILabel *authCode = [[UILabel alloc]init];
+    _authLabel = authCode;
     authCode.font = [UIFont systemFontOfSize:20];
     authCode.text = @"输入验证码";
     authCode.frame = CGRectMake(280, CGRectGetMaxY(phoneOrEmail.frame) + 20, 140, 40);
@@ -84,12 +96,14 @@
     [self.view addSubview:_authField];
     
     UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
+    _makeSureBtn = makeSureBtn;
     [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
     [makeSureBtn setBackgroundColor:mainColor];
     [makeSureBtn setTitle:@"检查" forState:UIControlStateNormal];
     [self.view addSubview:makeSureBtn];
     
     UILabel *password = [[UILabel alloc]init];
+    _newpassworLabel = password;
     password.font = [UIFont systemFontOfSize:20];
     password.text = @"输入新密码";
     password.frame = CGRectMake(280, CGRectGetMaxY(authCode.frame)+ 40, 140, 40);
@@ -108,6 +122,7 @@
     [self.view addSubview:_newsPassword];
     
     UILabel *makeSurepassword = [[UILabel alloc]init];
+    _makesurepasswordLabel = makeSurepassword;
     makeSurepassword.font = [UIFont systemFontOfSize:20];
     makeSurepassword.text = @"确认新密码";
     makeSurepassword.frame = CGRectMake(280, CGRectGetMaxY(password.frame)+ 10, 140, 40);
@@ -126,11 +141,13 @@
     [self.view addSubview:_makeSurePassword];
     
     UIView *line = [[UIView alloc]init];
+    _line = line;
     line.frame = CGRectMake(40, CGRectGetMaxY(_makeSurePassword.frame) + 50, self.view.frame.size.width * 0.9, 1);
     line.backgroundColor = kColor(225, 224, 224, 1.0);
     [self.view addSubview:line];
     
     UIButton *presentBtn = [[UIButton alloc]init];
+    _presentBtn = presentBtn;
     [presentBtn addTarget:self action:@selector(presentClick:) forControlEvents:UIControlEventTouchUpInside];
     [presentBtn setTitle:@"提交" forState:UIControlStateNormal];
     [presentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -153,6 +170,9 @@
 -(void)authClick:(UIButton *)sender
 {
     NSLog(@"点击了验证码！");
+    if (!_isMobile) {
+        
+    }
 }
 
 -(void)makeSureClick:(UIButton *)sender
@@ -165,6 +185,65 @@
     rightV.image = kImageName(@"check_right");
     [rightBigV addSubview:rightV];
     _authField.rightView = rightBigV;
+}
+
+
+- (void)setIsMobile:(BOOL)isMobile {
+    _isMobile = isMobile;
+    if (_isMobile) {
+        [_sendButton setTitle:@"发送验证码" forState:UIControlStateNormal];
+        _authLabel.hidden = NO;
+        _makeSureBtn.hidden = NO;
+        _authField.hidden = NO;
+        _newpassworLabel.hidden = NO;
+        _newsPassword.hidden = NO;
+        _makesurepasswordLabel.hidden = NO;
+        _makeSurePassword.hidden = NO;
+        _presentBtn.hidden = NO;
+        _line.hidden = NO;
+    }
+    else {
+        [_sendButton setTitle:@"发送重置邮箱" forState:UIControlStateNormal];
+        _authLabel.hidden = YES;
+        _makeSureBtn.hidden = YES;
+        _authField.hidden = YES;
+        _newpassworLabel.hidden = YES;
+        _newsPassword.hidden = YES;
+        _makesurepasswordLabel.hidden = YES;
+        _makeSurePassword.hidden = YES;
+        _presentBtn.hidden = YES;
+        _line.hidden = YES;
+    }
+}
+
+#pragma mark - UITextField
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == _phoneField) {
+        if ([string isEqualToString:@""]) {
+            //删除
+            if ([textField.text length] > 0 && [[textField.text substringToIndex:[textField.text length] - 1] containsString:@"@"]) {
+                self.isMobile = NO;
+            }
+            else {
+                self.isMobile = YES;
+            }
+        }
+        else if ([textField.text containsString:@"@"] || [string containsString:@"@"]) {
+            self.isMobile = NO;
+        }
+        else {
+            self.isMobile = YES;
+        }
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if (textField==_phoneField) {
+        self.isMobile = YES;
+    }
+    return YES;
 }
 
 

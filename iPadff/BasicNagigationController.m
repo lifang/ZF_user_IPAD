@@ -10,7 +10,6 @@
 #import "FontColorAndSize.h"
 #define navBtnWidth 25
 #define navBtnHeight 40
-#define iOS7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0)
 @interface BasicNagigationController ()
 
 @end
@@ -33,6 +32,7 @@
     //change all navigationbar color
     if (iOS7) {
         [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
+        [[UINavigationBar appearance] setBarTintColor:[UIColor grayColor]];
         
     }
     

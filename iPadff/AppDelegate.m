@@ -11,7 +11,7 @@
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #import "ZYHomeViewController.h"
-#import "MyimagesViewController.h"
+#import "MessageViewController.h"
 #import "MyViewController.h"
 #import "ShoppingViewController.h"
 #import "BasicNagigationController.h"
@@ -20,19 +20,25 @@
 @end
 
 @implementation AppDelegate
-+ (AppDelegate *)shareAppDelegate {
+
+
++(AppDelegate *)shareAppDelegate
+{
     return [UIApplication sharedApplication].delegate;
 }
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
+    //数据
+    _cityID = @"1";
+    _userID = @"1";
+    _token = @"123";
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
-    
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
-    MyimagesViewController *viewController3 = [[MyimagesViewController alloc] init];
+    MessageViewController *viewController3 = [[MessageViewController alloc] init];
     MyViewController *viewController4 = [[MyViewController alloc] init];
     
     
