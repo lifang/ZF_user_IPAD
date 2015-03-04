@@ -10,4 +10,14 @@
 
 @interface GoodListViewController : CommonViewController
 
+{
+    
+    UICollectionViewFlowLayout *flowLayout;
+    UIButton*button1;
+    UIButton*button2;
+    NSInteger changA;
+    
+
+
+}
 @end

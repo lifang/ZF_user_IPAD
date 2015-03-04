@@ -126,16 +126,16 @@
     
     
     
-    if (iOS8) {
-        button1.frame=CGRectMake(10,SCREEN_HEIGHT/8,  40, 50);
+    if (iOS7) {
 
-        
+        button1.frame=CGRectMake(10,SCREEN_WIDTH/8,  40, 50);
+
     }
     else
     {
-        button1.frame=CGRectMake(10,SCREEN_WIDTH/8,  40, 50);
 
-        
+        button1.frame=CGRectMake(10,SCREEN_HEIGHT/8,  40, 50);
+
     }
     button1.tag=1;
     

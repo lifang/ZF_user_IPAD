@@ -30,11 +30,11 @@
 {
     [super viewDidLoad];
     //change all navigationbar color
-    if (iOS7) {
+    
         [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
-        [[UINavigationBar appearance] setBarTintColor:[UIColor grayColor]];
+//        [[UINavigationBar appearance] setBarTintColor:[UIColor grayColor]];
         
-    }
+ 
     
     // Do any additional setup after loading the view.
 }

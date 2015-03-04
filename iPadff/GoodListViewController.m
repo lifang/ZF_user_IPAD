@@ -19,12 +19,16 @@
 #import "AppDelegate.h"
 #import "TreeDataHandle.h"
 #import "GoodDetailViewController.h"
+#import "GoodsCellCollectionViewCell.h"
+#import "MJRefresh.h"
 
-@interface GoodListViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,SortViewDelegate,RefreshDelegate>
+#import "GoodsCollectionViewCell2.h"
+
+@interface GoodListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate,SortViewDelegate>
 
 @property (nonatomic, strong) ZFSearchBar *searchBar;
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UICollectionView *tableView;
 
 @property (nonatomic, strong) SortView *sortView;
 
@@ -57,6 +61,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    changA=8;
+    
     // Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = NO;
     self.view.backgroundColor=[UIColor whiteColor];
@@ -94,14 +101,18 @@
     
     self.navigationItem.titleView = _searchBar;
     
+    
+    
     UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shoppingButton.frame = CGRectMake(0, 0, 24, 24);
-    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
+    [shoppingButton setImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
+    
+//    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
     [shoppingButton addTarget:self action:@selector(goShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     filterButton.frame = CGRectMake(0, 0, 24, 24);
-    [filterButton setBackgroundImage:kImageName(@"good_right2.png") forState:UIControlStateNormal];
+    [filterButton setBackgroundImage:kImageName(@"good_right2@2x.png") forState:UIControlStateNormal];
     [filterButton addTarget:self action:@selector(filterGoods:) forControlEvents:UIControlEventTouchUpInside];
     
     //设置间距
@@ -117,7 +128,7 @@
 - (void)setHeaderAndFooterView {
     UIView *footerView = [[UIView alloc] init];
     footerView.backgroundColor = [UIColor clearColor];
-    _tableView.tableFooterView = footerView;
+//    _tableView.tableFooterView = footerView;
 }
 
 - (void)initContentView {
@@ -127,6 +138,8 @@
                       @"价格降序",
                       @"评分最高",
                       nil];
+    
+    
     _sortView = [[SortView alloc] initWithFrame:CGRectMake(0, 0, 360, 60)];
     _sortView.delegate = self;
     
@@ -148,12 +161,77 @@
     
     [self.view addSubview:_sortView];
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    button1=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    
+    
+    if (iOS7) {
+        
+        button1.frame=CGRectMake(SCREEN_HEIGHT-180,10,  40, 40);
+        
+    }
+    else
+    {
+        
+        button1.frame=CGRectMake(SCREEN_WIDTH-180,10,  40, 40);
+        
+    }
+    
+    
+    
+    [self.view addSubview:button1];
+    [button1 setImage:[UIImage imageNamed:@"9kind_height"] forState:UIControlStateNormal];
+    [button1 addTarget:self action:@selector(change9) forControlEvents:UIControlEventTouchUpInside];
+    
+    button2=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    
+    
+    if (iOS7) {
+        
+        button2.frame=CGRectMake(SCREEN_HEIGHT-100,10,  40, 40);
+        
+    }
+    else
+    {
+        
+        button2.frame=CGRectMake(SCREEN_WIDTH-100,10,  40, 40);
+        
+    }
+    
+    
+    
+    [self.view addSubview:button2];
+    [button2 setImage:[UIImage imageNamed:@"8kind_normal"] forState:UIControlStateNormal];
+    [button2 addTarget:self action:@selector(change8) forControlEvents:UIControlEventTouchUpInside];
+    
+
+    
+    flowLayout=[[UICollectionViewFlowLayout alloc] init];
+    
+    
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
+    flowLayout.sectionInset = UIEdgeInsetsMake(30, 20, 20, 20);//设置其边
+    
+    
+    
+    
+    
+    
+    _tableView  = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    [_tableView registerClass:[GoodsCellCollectionViewCell class] forCellWithReuseIdentifier:@"myCell"];
+    
+    [_tableView registerClass:[GoodsCollectionViewCell2 class] forCellWithReuseIdentifier:@"myCells"];
+
+    [flowLayout setItemSize:CGSizeMake(200, 200)];//设置cell的尺寸
+
+    
+    
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.backgroundColor = kColor(244, 243, 243, 1);
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [self setHeaderAndFooterView];
+//    [self setHeaderAndFooterView];
     [self.view addSubview:_tableView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
                                                           attribute:NSLayoutAttributeTop
@@ -188,30 +266,101 @@
     
     
     
+//    if(iOS7)
+//    {
+//        _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.height, 80)];
+//        _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.height, 60)];
+//
+//    }else
+//    {
+//        
+//        _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
+//        
+//        _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
+//
+//        
+//        
+//    }
+    [_tableView addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [_tableView headerBeginRefreshing];
+    //上拉
+    [_tableView addFooterWithTarget:self action:@selector(loadMoreStatuses)];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    _tableView.headerPullToRefreshText = @"下拉可以刷新了";
+    _tableView.headerReleaseToRefreshText = @"松开马上刷新了";
+    _tableView.headerRefreshingText = @">.< 正在努力加载中!";
+    
+    _tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _tableView.footerRefreshingText = @">.< 正在努力加载中!";
+    
+}
+-(void)change8
+{
+    changA=9;
+
+    [button1 setImage:[UIImage imageNamed:@"9kind_normal"] forState:UIControlStateNormal];
+
+    [button2 setImage:[UIImage imageNamed:@"8kind_height"] forState:UIControlStateNormal];
+    
     if(iOS7)
+        
     {
-        _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.height, 80)];
-        _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.height, 60)];
+    
+        [flowLayout setItemSize:CGSizeMake(SCREEN_HEIGHT, 120)];//设置cell的尺寸
 
-    }else
-    {
-        
-        _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
-        
-        _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
-
-        
-        
     }
-    _topRefreshView.direction = PullFromTop;
-    _topRefreshView.delegate = self;
-    [_tableView addSubview:_topRefreshView];
+    else
+        
+    {
+    
+        [flowLayout setItemSize:CGSizeMake(SCREEN_WIDTH, 120)];//设置cell的尺寸
+
+    }
+
+    [_tableView reloadData];
+    
+}
+-(void)change9
+{
+    changA=8;
+    
+    [flowLayout setItemSize:CGSizeMake(120, 120)];//设置cell的尺寸
+
+    [button2 setImage:[UIImage imageNamed:@"8kind_normal"] forState:UIControlStateNormal];
+
+    [button1 setImage:[UIImage imageNamed:@"9kind_height"] forState:UIControlStateNormal];
+    [_tableView reloadData];
+
+}
+//下拉刷新加载更多微博数据
+-(void)loadNewStatuses:(UIRefreshControl *)refreshControl
+{
+    
+    [self firstLoadData];
+
+
+//上拉加载
+
+
     
     
-    _bottomRefreshView.direction = PullFromBottom;
-    _bottomRefreshView.delegate = self;
-    _bottomRefreshView.hidden = YES;
-    [_tableView addSubview:_bottomRefreshView];
+    //    });
+}
+
+//上拉刷新加载更多微博数据
+-(void)loadMoreStatuses
+{
+    [self downloadDataWithPage:self.page isMore:YES];
+
+    
+  
+    
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [_Seatchtable footerEndRefreshing];
+    //
+    //    });
 }
 
 #pragma mark - Data
@@ -274,12 +423,19 @@
     BOOL isRent = [[_filterDict objectForKey:s_rent] boolValue];
     CGFloat maxPrice = [[_filterDict objectForKey:s_maxPrice] floatValue];
     CGFloat minPrice = [[_filterDict objectForKey:s_minPrice] floatValue];
+    
+    
+  
+
     //***************************************
     [NetworkInterface getGoodListWithCityID:delegate.cityID sortType:_filterType brandID:brandItem category:catrgoryItem channelID:channelItem payCardID:cardItem tradeID:tradeItem slipID:slipItem date:dateItem maxPrice:maxPrice minPrice:minPrice keyword:_keyword onlyRent:isRent page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
         if (success) {
+            [_tableView footerEndRefreshing];
+            [_tableView headerEndRefreshing];
+
             NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
             if ([object isKindOfClass:[NSDictionary class]]) {
@@ -312,20 +468,20 @@
         else {
             hud.labelText = kNetworkFailed;
         }
-        if (!isMore) {
-            [self refreshViewFinishedLoadingWithDirection:PullFromTop];
-        }
-        else {
-            [self refreshViewFinishedLoadingWithDirection:PullFromBottom];
-        }
+//        if (!isMore) {
+//            [self refreshViewFinishedLoadingWithDirection:PullFromTop];
+//        }
+//        else {
+//            [self refreshViewFinishedLoadingWithDirection:PullFromBottom];
+//        }
     }];
 }
 
 - (void)parseDataWithDictionary:(NSDictionary *)dict {
-    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
         return;
     }
-    NSArray *goodList = [dict objectForKey:@"result"];
+    NSArray *goodList = [[dict objectForKey:@"result"] objectForKey:@"list"];
     for (int i = 0; i < [goodList count]; i++) {
         GoodListModel *good = [[GoodListModel alloc] initWithParseDictionary:[goodList objectAtIndex:i]];
         [_dataItem addObject:good];
@@ -354,64 +510,123 @@
 }
 
 #pragma mark - TableView
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
+{
+    
     return [_dataItem count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *identifier = @"Goods";
-    GoodsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[GoodsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+
+
+{
+    if(changA==8)
+    {
+    
+        GoodsCollectionViewCell2 *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"myCells" forIndexPath:indexPath];
+        GoodListModel *good = [_dataItem objectAtIndex:indexPath.row];
+        
+        
+        [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:good.goodImagePath]
+                            placeholderImage:kImageName(@"test1.png")];
+        cell.titleLabel.text = good.goodName;
+        cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",good.goodPrice];
+        
+        
+        cell.salesVolumeLabel.text = [NSString stringWithFormat:@"已售%@",good.goodSaleNumber];
+        cell.brandLabel.text = [NSString stringWithFormat:@"品牌型号   %@%@",good.goodBrand,good.goodModel];
+        cell.channelLabel.text = [NSString stringWithFormat:@"支付通道   %@",good.goodChannel];
+        if (good.isRent)
+            
+        {
+            cell.attrView.hidden = NO;
+        }
+        else {
+            cell.attrView.hidden = YES;
+        }
+        
+        return cell;
+
+    
     }
-    GoodListModel *good = [_dataItem objectAtIndex:indexPath.row];
-    [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:good.goodImagePath]
-                        placeholderImage:kImageName(@"test1.png")];
-    cell.titleLabel.text = good.goodName;
-    cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",good.goodPrice];
-    cell.salesVolumeLabel.text = [NSString stringWithFormat:@"已售%@",good.goodSaleNumber];
-    cell.brandLabel.text = [NSString stringWithFormat:@"品牌型号   %@%@",good.goodBrand,good.goodModel];
-    cell.channelLabel.text = [NSString stringWithFormat:@"支付通道   %@",good.goodChannel];
-    if (good.isRent) {
-        cell.attrView.hidden = NO;
-    }
-    else {
-        cell.attrView.hidden = YES;
+    else
+        
+    {
+        GoodsCellCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"myCell" forIndexPath:indexPath];
+        GoodListModel *good = [_dataItem objectAtIndex:indexPath.row];
+        
+        
+        [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:good.goodImagePath]
+                            placeholderImage:kImageName(@"test1.png")];
+        cell.titleLabel.text = good.goodName;
+        cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",good.goodPrice];
+        
+        
+        cell.salesVolumeLabel.text = [NSString stringWithFormat:@"已售%@",good.goodSaleNumber];
+        cell.brandLabel.text = [NSString stringWithFormat:@"品牌型号   %@%@",good.goodBrand,good.goodModel];
+        cell.channelLabel.text = [NSString stringWithFormat:@"支付通道   %@",good.goodChannel];
+        if (good.isRent)
+            
+        {
+            cell.attrView.hidden = NO;
+        }
+        else {
+            cell.attrView.hidden = YES;
+        }
+        
+        return cell;
+
+    
+    
     }
     
-    return cell;
+    
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return kGoodCellHeight;
-}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//- (void)tableView:(UICollectionView *)tableView willDisplayCell:(UICollectionViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+//        [tableView setSeparatorInset:UIEdgeInsetsZero];
+//    }
+//    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+//        [tableView setLayoutMargins:UIEdgeInsetsZero];
+//    }
+//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+//        [cell setLayoutMargins:UIEdgeInsetsZero];
+//    }
+//}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return kGoodCellHeight;
+//}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     GoodListModel *good = [_dataItem objectAtIndex:indexPath.row];
     GoodDetailViewController *detailC = [[GoodDetailViewController alloc] init];
+    
+    detailC.hidesBottomBarWhenPushed =  YES ;
+    
     detailC.goodID = good.goodID;
     [self.navigationController pushViewController:detailC animated:YES];
 }
-
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    GoodListModel *good = [_dataItem objectAtIndex:indexPath.row];
+//    GoodDetailViewController *detailC = [[GoodDetailViewController alloc] init];
+//    
+//    detailC.hidesBottomBarWhenPushed =  YES ;
+//
+//    detailC.goodID = good.goodID;
+//    [self.navigationController pushViewController:detailC animated:YES];
+//}
+//
 #pragma mark - UISearchBar
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
@@ -448,96 +663,97 @@
 }
 
 #pragma mark - Refresh
-
-- (void)refreshViewReloadData {
-    _reloading = YES;
-}
-
-- (void)refreshViewFinishedLoadingWithDirection:(PullDirection)direction {
-    _reloading = NO;
-    if (direction == PullFromTop) {
-        [_topRefreshView refreshViewDidFinishedLoading:_tableView];
-    }
-    else if (direction == PullFromBottom) {
-        _bottomRefreshView.frame = CGRectMake(0, _tableView.contentSize.height, _tableView.bounds.size.width, 60);
-        [_bottomRefreshView refreshViewDidFinishedLoading:_tableView];
-    }
-    [self updateFooterViewFrame];
-}
-
-- (BOOL)refreshViewIsLoading:(RefreshView *)view {
-    return _reloading;
-}
-
-- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
-    [self refreshViewReloadData];
-    //loading...
-    if (view == _topRefreshView) {
-        [self pullDownToLoadData];
-    }
-    else if (view == _bottomRefreshView) {
-        [self pullUpToLoadData];
-    }
-}
-
-- (void)updateFooterViewFrame {
-    _bottomRefreshView.frame = CGRectMake(0, _tableView.contentSize.height, _tableView.bounds.size.width, 60);
-    _bottomRefreshView.hidden = NO;
-    if (_tableView.contentSize.height < _tableView.frame.size.height) {
-        _bottomRefreshView.hidden = YES;
-    }
-}
-
-#pragma mark - UIScrollView
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    _primaryOffsetY = scrollView.contentOffset.y;
-    
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == _tableView) {
-        CGPoint newPoint = scrollView.contentOffset;
-        if (_primaryOffsetY < newPoint.y) {
-            //上拉
-            if (_bottomRefreshView.hidden) {
-                return;
-            }
-            [_bottomRefreshView refreshViewDidScroll:scrollView];
-        }
-        else {
-            //下拉
-            [_topRefreshView refreshViewDidScroll:scrollView];
-        }
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (scrollView == _tableView) {
-        CGPoint newPoint = scrollView.contentOffset;
-        if (_primaryOffsetY < newPoint.y) {
-            //上拉
-            if (_bottomRefreshView.hidden) {
-                return;
-            }
-            [_bottomRefreshView refreshViewDidEndDragging:scrollView];
-        }
-        else {
-            //下拉
-            [_topRefreshView refreshViewDidEndDragging:scrollView];
-        }
-    }
-}
+//
+//- (void)refreshViewReloadData {
+//    _reloading = YES;
+//}
+//
+//- (void)refreshViewFinishedLoadingWithDirection:(PullDirection)direction {
+//    _reloading = NO;
+//    if (direction == PullFromTop) {
+//        [_topRefreshView refreshViewDidFinishedLoading:_tableView];
+//    }
+//    else if (direction == PullFromBottom) {
+//        _bottomRefreshView.frame = CGRectMake(0, _tableView.contentSize.height, _tableView.bounds.size.width, 60);
+//        [_bottomRefreshView refreshViewDidFinishedLoading:_tableView];
+//    }
+//    [self updateFooterViewFrame];
+//}
+//
+//- (BOOL)refreshViewIsLoading:(RefreshView *)view {
+//    return _reloading;
+//}
+//
+//- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
+//    [self refreshViewReloadData];
+//    //loading...
+//    if (view == _topRefreshView) {
+//        [self pullDownToLoadData];
+//    }
+//    else if (view == _bottomRefreshView) {
+//        [self pullUpToLoadData];
+//    }
+//}
+//
+//- (void)updateFooterViewFrame {
+//    _bottomRefreshView.frame = CGRectMake(0, _tableView.contentSize.height, _tableView.bounds.size.width, 60);
+//    _bottomRefreshView.hidden = NO;
+//    if (_tableView.contentSize.height < _tableView.frame.size.height) {
+//        _bottomRefreshView.hidden = YES;
+//    }
+//}
+//
+//#pragma mark - UIScrollView
+//
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+//    _primaryOffsetY = scrollView.contentOffset.y;
+//    
+//}
+//
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    if (scrollView == _tableView) {
+//        CGPoint newPoint = scrollView.contentOffset;
+//        if (_primaryOffsetY < newPoint.y) {
+//            //上拉
+//            if (_bottomRefreshView.hidden) {
+//                return;
+//            }
+//            [_bottomRefreshView refreshViewDidScroll:scrollView];
+//        }
+//        else {
+//            //下拉
+//            [_topRefreshView refreshViewDidScroll:scrollView];
+//        }
+//    }
+//}
+//
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+//    if (scrollView == _tableView) {
+//        CGPoint newPoint = scrollView.contentOffset;
+//        if (_primaryOffsetY < newPoint.y) {
+//            //上拉
+//            if (_bottomRefreshView.hidden) {
+//                return;
+//            }
+//            [_bottomRefreshView refreshViewDidEndDragging:scrollView];
+//        }
+//        else {
+//            //下拉
+//            [_topRefreshView refreshViewDidEndDragging:scrollView];
+//        }
+//    }
+//}
 
 #pragma mark - 上下拉刷新
 //下拉刷新
-- (void)pullDownToLoadData {
-    [self firstLoadData];
-}
-
-//上拉加载
-- (void)pullUpToLoadData {
-    [self downloadDataWithPage:self.page isMore:YES];
-}
+//- (void)pullDownToLoadData {
+//    
+//    [self firstLoadData];
+//}
+//
+////上拉加载
+//- (void)pullUpToLoadData {
+//    [self downloadDataWithPage:self.page isMore:YES];
+//}
 
 @end

@@ -30,11 +30,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    //数据
-    _cityID = @"1";
-    _userID = @"1";
-    _token = @"123";
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+  
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
@@ -51,7 +48,6 @@
     //创建一个数组保存导航和另外四个视图控制器
     NSArray *array = [NSArray arrayWithObjects:navController3,navController,navController4,navController2,nil];
     //释放
-    NSLog(@"%f%f",SCREEN_HEIGHT,SCREEN_WIDTH);
 
     
     //创建一个自定义的TabBar
