@@ -8,6 +8,7 @@
 
 #import "SortView.h"
 
+
 @interface SortButton : UIButton
 
 @end
@@ -37,9 +38,26 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = kColor(247, 250, 251, 1);
-        UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        backView.image = kImageName(@"filterbackground.png");
-        [self addSubview:backView];
+        
+        
+        if(iOS7)
+        {
+            UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(180-SCREEN_HEIGHT/2, 0,SCREEN_HEIGHT, frame.size.height)];
+            
+            backView.image = kImageName(@"filterbackground.png");
+            [self addSubview:backView];
+        }else
+        {
+            
+            UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(180-SCREEN_WIDTH/2, 0,SCREEN_WIDTH, frame.size.height)];
+            backView.image = kImageName(@"filterbackground.png");
+            [self addSubview:backView];
+            
+            
+            
+        }
+
+       
     }
     return self;
 }
