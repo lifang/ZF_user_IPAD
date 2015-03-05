@@ -17,4 +17,6 @@
 @property(nonatomic,strong)UILabel *timeLabel;
 
 @property(nonatomic,assign)BOOL btnStatus;
+
+-(void)btnClicked;
 @end

@@ -16,14 +16,17 @@
 
 @property(nonatomic,strong)UIButton *konggeBtn;
 
+@property(nonatomic,assign)BOOL isAll;
+
 @end
 
 @implementation MessageViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
-    
+    self.isAll = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,7 +52,7 @@
     UIView *navbarView = [[UIView alloc]init];
     navbarView.userInteractionEnabled = YES;
     UIButton *konggeBtn = [[UIButton alloc]init];
-    [konggeBtn setBackgroundImage:[UIImage imageNamed:@"noSelected"] forState:UIControlStateNormal];
+    [konggeBtn setBackgroundImage:[UIImage imageNamed:@"noSelected1"] forState:UIControlStateNormal];
     [konggeBtn addTarget:self action:@selector(konggeClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.konggeBtn = konggeBtn;
     self.isSelected = YES;
@@ -92,9 +95,13 @@
 {
     if (self.isSelected == YES) {
         [_konggeBtn setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+        _isAll = YES;
+        [self.tableView reloadData];
     }
     else{
         [_konggeBtn setBackgroundImage:[UIImage imageNamed:@"noSelected"] forState:UIControlStateNormal];
+        _isAll = NO;
+        [self.tableView reloadData];
     }
     self.isSelected = !_isSelected;
 }
@@ -121,6 +128,8 @@
     cell.textLabel.text = @"黑金卡的哈驾驶机动按键设计都金卡的加拉科技的......";
     cell.detailTextLabel.text = @"2014-10-20";
     cell.timeLabel.text = @"20:23:23";
+    cell.btnStatus = _isAll;
+    [cell btnClicked];
     return  cell;
 }
 
@@ -132,6 +141,7 @@
 //    [self.navigationController pushViewController:dynamicVC animated:YES];
 //    SLog(@"点击了第%ld行",indexPath.row);
     MessageChildViewController *messageChildV = [[MessageChildViewController alloc]init];
+    messageChildV.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageChildV animated:YES];
 }
 

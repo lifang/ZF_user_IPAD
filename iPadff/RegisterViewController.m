@@ -11,8 +11,9 @@
 #import "NetworkInterface.h"
 #import "PhoneSuccessViewController.h"
 #import "EmailSuccessViewController.h"
+#import "LocationViewController.h"
 
-@interface RegisterViewController ()<UITextFieldDelegate,UIAlertViewDelegate>
+@interface RegisterViewController ()<UITextFieldDelegate,UIAlertViewDelegate,sendCity>
 
 @property(nonatomic,strong)UITextField *phoneField;
 @property(nonatomic,strong)UITextField *authField;
@@ -25,14 +26,32 @@
 @property(nonatomic,strong)UIButton *sendButton;
 @property(nonatomic,strong)UILabel *authLabel;
 @property(nonatomic,strong)UIButton *makeSureBtn;
-
+@property(nonatomic,strong)LocationViewController *locationVC;
+@property(nonatomic,strong)NSString *cityName;
+@property(nonatomic,strong)NSString *cityId;
 @end
 
 @implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    LocationViewController *locationVC = [[LocationViewController alloc]init];
+    locationVC.delegate = self;
+    self.locationVC = locationVC;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
     [self initUI];
+}
+
+-(void)sendCity:(NSString *)city WithCity_id:(NSString *)city_id
+{
+    self.cityName = city;
+    self.cityId = city_id;
+    _locationField.placeholder = nil;
+    _locationField.text = nil;
+    
 }
 
 -(void)initUI
@@ -147,10 +166,12 @@
     [self.view addSubview:location];
     
     _locationField = [[UITextField alloc]init];
+    _locationField.userInteractionEnabled = NO;
     _locationField.borderStyle = UITextBorderStyleLine;
     _locationField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _locationField.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , location.frame.origin.y, self.view.frame.size.width * 0.25, makeSurepassword.frame.size.height);
     _locationField.placeholder = @"请选择城市";
+    _locationField.text = _cityName;
     [_locationField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _locationField.delegate = self;
     _locationField.leftViewMode = UITextFieldViewModeAlways;
@@ -158,9 +179,10 @@
     _locationField.leftView = placeholderV4;
     _locationField.rightViewMode = UITextFieldViewModeAlways;
     UIButton *rightBtn = [[UIButton alloc]init];
-    rightBtn.frame = CGRectMake(0, 0, 50, 40);
-    [rightBtn setBackgroundImage:kImageName(@"location_right") forState:UIControlStateNormal];
-    _locationField.rightView = rightBtn;
+    [rightBtn addTarget:self action:@selector(locationCity) forControlEvents:UIControlEventTouchUpInside];
+    rightBtn.frame = CGRectMake(CGRectGetMaxX(_locationField.frame) - 50, _locationField.frame.origin.y, 50, 40);
+    [rightBtn setBackgroundImage:kImageName(@"arrow_line") forState:UIControlStateNormal];
+    [self.view addSubview:rightBtn];
     [self.view addSubview:_locationField];
     
     UIView *line = [[UIView alloc]init];
@@ -175,6 +197,12 @@
     [presentBtn setBackgroundColor:mainColor];
     presentBtn.frame = CGRectMake(CGRectGetMaxX(password.frame) + 20, CGRectGetMaxY(line.frame) + 40, 240, 40);
     [self.view addSubview:presentBtn];
+}
+
+-(void)locationCity
+{
+    [self.navigationController pushViewController:_locationVC animated:YES];
+    
 }
 
 -(void)setIsChecked:(BOOL)isChecked

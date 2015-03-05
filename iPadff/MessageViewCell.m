@@ -31,7 +31,7 @@
         self.detailTextLabel.textColor = [UIColor blackColor];
         self.leftBtn = [[UIButton alloc]init];
         self.btnStatus = YES;
-        [_leftBtn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_leftBtn addTarget:self action:@selector(btnClicked) forControlEvents:UIControlEventTouchUpInside];
         [_leftBtn setBackgroundImage:[UIImage imageNamed:@"noSelected"] forState:UIControlStateNormal];
         [self addSubview:_leftBtn];
         self.timeLabel = [[UILabel alloc]init];
@@ -41,7 +41,7 @@
     return self;
 }
 
--(void)btnClicked:(id)sender
+-(void)btnClicked
 {
     if (self.btnStatus == YES) {
         [_leftBtn setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];

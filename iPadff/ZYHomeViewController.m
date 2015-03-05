@@ -11,44 +11,55 @@
 #import "PollingView.h"
 #import "GoodListViewController.h"
 #import "BasicNagigationController.h"
-@interface ZYHomeViewController ()
+#import "DredgeViewController.h"
+#import "LocationViewController.h"
+@interface ZYHomeViewController ()<sendCity>
 @property(nonatomic,strong)PollingView *pollingView;
+@property(nonatomic,strong)LocationViewController *locationVC;
+@property(nonatomic,strong)NSString *cityName;
+@property(nonatomic,strong)NSString *cityId;
+@property(nonatomic,strong)LocationButton *locationBtn;
 @end
 
 @implementation ZYHomeViewController
 - (void)viewWillAppear:(BOOL)animated
 {
+    _locationVC.delegate = self;
     self.navigationController.navigationBarHidden = YES;
+    _locationBtn.nameLabel.text = _cityName;
+}
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+-(void)sendCity:(NSString *)city WithCity_id:(NSString *)city_id
+{
+    _cityName = city;
+    _cityId = city_id;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.cityName = @"上海市";
+    LocationViewController *locationVC = [[LocationViewController alloc]init];
+    self.locationVC = locationVC;
     UIView*vei=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH -60, SCREEN_HEIGHT )];
     [self.view addSubview:vei];
     if(iOS8)
     {
         rootview=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH -60, SCREEN_HEIGHT )];
         [self.view addSubview:rootview];
-    
-        
         rootview.backgroundColor=[UIColor whiteColor];
-        
     }
-    
     else
-        
     {
         rootview=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_HEIGHT -60, SCREEN_WIDTH )];
         [self.view addSubview:rootview];
         NSLog(@"%f",SCREEN_WIDTH);
-        
         rootview.backgroundColor=[UIColor whiteColor];
-        
-        
     }
-
-   
     [self initNavigationView];
     [self initPollingView];
     [self initModuleView];
@@ -88,12 +99,14 @@
     
     
     LocationButton *rightBtn = [[LocationButton alloc]init];
+    self.locationBtn = rightBtn;
+    [_locationBtn addTarget:self action:@selector(locationClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     if(iOS7)
     {
         topView.frame = CGRectMake(SCREEN_HEIGHT/2-67-60, 20, 134, 38);
         itemImageView.frame = CGRectMake(SCREEN_HEIGHT/2+15, 25, 119, 30);
-               rightBtn.frame = CGRectMake(SCREEN_HEIGHT-160, itemImageView.frame.origin.y, 60, 30);
+               rightBtn.frame = CGRectMake(SCREEN_HEIGHT-180, itemImageView.frame.origin.y, 60, 30);
         
     }
     else
@@ -102,7 +115,7 @@
         itemImageView.frame = CGRectMake(SCREEN_WIDTH/2+15, 25, 119, 30);
         
 
-        rightBtn.frame = CGRectMake(SCREEN_WIDTH-160, itemImageView.frame.origin.y, 60, 30);
+        rightBtn.frame = CGRectMake(SCREEN_WIDTH-180, itemImageView.frame.origin.y, 60, 30);
         
         
     }
@@ -111,6 +124,11 @@
     [rootview addSubview:itemImageView];
     [self initModuleView];
 
+}
+
+-(void)locationClicked:(id)sender
+{
+    [self.navigationController pushViewController:_locationVC animated:YES];
 }
 - (void)initModuleView {
        NSArray *nameArray = [NSArray arrayWithObjects:
@@ -229,11 +247,7 @@
                 
                 
                 button.frame=CGRectMake((SCREEN_HEIGHT-60)/8*(2*i-7)-32,SCREEN_WIDTH/2+200,  64, 64);
-                
-
-                
-                
-                
+        
                 
             }
             
@@ -246,8 +260,6 @@
                 
                 
                 button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i-7)-32,SCREEN_HEIGHT/2+200,  64, 64);
-                
-                
 
                 
             }
@@ -272,6 +284,9 @@
             break;
         case 1001: {
             //开通认证
+            DredgeViewController *dregeVC = [[DredgeViewController alloc]init];
+            dregeVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:dregeVC animated:YES];
         }
             break;
         case 1002: {

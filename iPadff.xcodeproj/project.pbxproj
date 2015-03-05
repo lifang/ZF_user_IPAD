@@ -98,6 +98,13 @@
 		1A3943FA1AA446CD0035DE4F /* FindPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3943F91AA446CD0035DE4F /* FindPasswordViewController.m */; };
 		1A3944011AA44D5D0035DE4F /* UIImage+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3944001AA44D5D0035DE4F /* UIImage+Extention.m */; };
 		1A3944041AA464C80035DE4F /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3944031AA464C80035DE4F /* RegisterViewController.m */; };
+		1A6516461AA6E1CF008223BD /* DredgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6516451AA6E1CF008223BD /* DredgeViewController.m */; };
+		1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6516481AA6E6F0008223BD /* DredgeViewCell.m */; };
+		1A65164C1AA6F42E008223BD /* ApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A65164B1AA6F42E008223BD /* ApplicationViewController.m */; };
+		1A6FC31F1AA6A61B00F4C6AC /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6FC31C1AA6A61B00F4C6AC /* CityModel.m */; };
+		1A6FC3201AA6A61B00F4C6AC /* CityHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6FC31E1AA6A61B00F4C6AC /* CityHandle.m */; };
+		1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6FC3221AA6A66900F4C6AC /* LocationViewController.m */; };
+		1A6FC3251AA6A76C00F4C6AC /* city.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6FC3241AA6A76C00F4C6AC /* city.js */; };
 		1A727B251AA57BFC00E1643D /* NetworkInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A727B201AA57BFC00E1643D /* NetworkInterface.m */; };
 		1A727B261AA57BFC00E1643D /* NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A727B221AA57BFC00E1643D /* NetworkRequest.m */; };
 		1A727B271AA57BFC00E1643D /* EncryptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A727B241AA57BFC00E1643D /* EncryptHelper.m */; };
@@ -281,6 +288,19 @@
 		1A3944001AA44D5D0035DE4F /* UIImage+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extention.m"; sourceTree = "<group>"; };
 		1A3944021AA464C80035DE4F /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		1A3944031AA464C80035DE4F /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		1A6516441AA6E1CF008223BD /* DredgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeViewController.h; sourceTree = "<group>"; };
+		1A6516451AA6E1CF008223BD /* DredgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DredgeViewController.m; sourceTree = "<group>"; };
+		1A6516471AA6E6F0008223BD /* DredgeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeViewCell.h; sourceTree = "<group>"; };
+		1A6516481AA6E6F0008223BD /* DredgeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DredgeViewCell.m; sourceTree = "<group>"; };
+		1A65164A1AA6F42E008223BD /* ApplicationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationViewController.h; sourceTree = "<group>"; };
+		1A65164B1AA6F42E008223BD /* ApplicationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationViewController.m; sourceTree = "<group>"; };
+		1A6FC31B1AA6A61B00F4C6AC /* CityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityModel.h; sourceTree = "<group>"; };
+		1A6FC31C1AA6A61B00F4C6AC /* CityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
+		1A6FC31D1AA6A61B00F4C6AC /* CityHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityHandle.h; sourceTree = "<group>"; };
+		1A6FC31E1AA6A61B00F4C6AC /* CityHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityHandle.m; sourceTree = "<group>"; };
+		1A6FC3211AA6A66900F4C6AC /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		1A6FC3221AA6A66900F4C6AC /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		1A6FC3241AA6A76C00F4C6AC /* city.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = city.js; sourceTree = "<group>"; };
 		1A727B1F1AA57BFC00E1643D /* NetworkInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkInterface.h; sourceTree = "<group>"; };
 		1A727B201AA57BFC00E1643D /* NetworkInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkInterface.m; sourceTree = "<group>"; };
 		1A727B211AA57BFC00E1643D /* NetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRequest.h; sourceTree = "<group>"; };
@@ -480,6 +500,7 @@
 		0ED065A71A9EE397005DF849 /* iPadff */ = {
 			isa = PBXGroup;
 			children = (
+				1A6FC31A1AA6A5EB00F4C6AC /* City_Encoding */,
 				0ECE7DA21AA5587A00E250B6 /* Model */,
 				0ECE7D9D1AA5581F00E250B6 /* Tools */,
 				1A53649D1AA5516A006ECC33 /* Network */,
@@ -504,6 +525,7 @@
 		0ED065A81A9EE397005DF849 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1A6FC3241AA6A76C00F4C6AC /* city.js */,
 				0ED065A91A9EE397005DF849 /* Info.plist */,
 				0ED065C11A9EE398005DF849 /* iPadffTests */,
 				0ED6AD091AA1851F00D3B025 /* iPadff.pch */,
@@ -575,6 +597,7 @@
 		0ED6ACF31AA16D6A00D3B025 /* Homepages */ = {
 			isa = PBXGroup;
 			children = (
+				1A6516431AA6E18A008223BD /* DredgeV */,
 				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
 				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
 				0ECE7DB61AA55B2300E250B6 /* POS */,
@@ -666,6 +689,8 @@
 				1AA8FF4E1AA40601009D41B3 /* PollingView.m */,
 				1AC7F9461AA5BEB400C99F5C /* MessageViewCell.h */,
 				1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */,
+				1A6516471AA6E6F0008223BD /* DredgeViewCell.h */,
+				1A6516481AA6E6F0008223BD /* DredgeViewCell.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -722,6 +747,28 @@
 			name = Network;
 			sourceTree = "<group>";
 		};
+		1A6516431AA6E18A008223BD /* DredgeV */ = {
+			isa = PBXGroup;
+			children = (
+				1A6516441AA6E1CF008223BD /* DredgeViewController.h */,
+				1A6516451AA6E1CF008223BD /* DredgeViewController.m */,
+				1A65164A1AA6F42E008223BD /* ApplicationViewController.h */,
+				1A65164B1AA6F42E008223BD /* ApplicationViewController.m */,
+			);
+			name = DredgeV;
+			sourceTree = "<group>";
+		};
+		1A6FC31A1AA6A5EB00F4C6AC /* City_Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				1A6FC31B1AA6A61B00F4C6AC /* CityModel.h */,
+				1A6FC31C1AA6A61B00F4C6AC /* CityModel.m */,
+				1A6FC31D1AA6A61B00F4C6AC /* CityHandle.h */,
+				1A6FC31E1AA6A61B00F4C6AC /* CityHandle.m */,
+			);
+			name = City_Encoding;
+			sourceTree = "<group>";
+		};
 		1AA8FF501AA4074D009D41B3 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,6 +818,8 @@
 				1A727B291AA5813A00E1643D /* PhoneSuccessViewController.m */,
 				1A727B2B1AA5957100E1643D /* EmailSuccessViewController.h */,
 				1A727B2C1AA5957100E1643D /* EmailSuccessViewController.m */,
+				1A6FC3211AA6A66900F4C6AC /* LocationViewController.h */,
+				1A6FC3221AA6A66900F4C6AC /* LocationViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -868,6 +917,7 @@
 				0ED6AD2C1AA19BC800D3B025 /* home1.png in Resources */,
 				0ED8EB981AA69E9700CE9F61 /* good_right1..png in Resources */,
 				0ED065B41A9EE398005DF849 /* Main.storyboard in Resources */,
+				1A6FC3251AA6A76C00F4C6AC /* city.js in Resources */,
 				0ED6AD081AA16EEA00D3B025 /* Myhight.png in Resources */,
 				0ED6AD011AA16EEA00D3B025 /* 平板UI套件-用户版_89.png in Resources */,
 				0ED8EBEE1AA6E2BC00CE9F61 /* 8kind_height.png in Resources */,
@@ -914,6 +964,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */,
 				1AA8FF771AA4074D009D41B3 /* UIImage+GIF.m in Sources */,
 				1A727B2D1AA5957100E1643D /* EmailSuccessViewController.m in Sources */,
 				0ED8EBE41AA6D7E000CE9F61 /* MJRefreshHeaderView.m in Sources */,
@@ -923,6 +974,7 @@
 				0ECE7DAC1AA55A0100E250B6 /* TreeView.m in Sources */,
 				1AA8FF751AA4074D009D41B3 /* SDWebImagePrefetcher.m in Sources */,
 				0ED6ACF21AA16D6400D3B025 /* ShoppingViewController.m in Sources */,
+				1A6FC31F1AA6A61B00F4C6AC /* CityModel.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
 				0ED8EBE21AA6D7E000CE9F61 /* MJRefreshConst.m in Sources */,
 				1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */,
@@ -934,6 +986,7 @@
 				0ECE7DA51AA5589400E250B6 /* TreeDataHandle.m in Sources */,
 				0ED8EBF41AA6E94A00CE9F61 /* GoodsCollectionViewCell2.m in Sources */,
 				0ECE7DCB1AA55E2B00E250B6 /* GoodsCell.m in Sources */,
+				1A6FC3201AA6A61B00F4C6AC /* CityHandle.m in Sources */,
 				0ED8EBE61AA6D7E000CE9F61 /* UIScrollView+MJRefresh.m in Sources */,
 				1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */,
 				0ED8EBA31AA6A6D700CE9F61 /* ShoppingCartFooterView.m in Sources */,
@@ -963,9 +1016,11 @@
 				0ED065AB1A9EE397005DF849 /* main.m in Sources */,
 				0ECE7D961AA5579800E250B6 /* SearchViewController.m in Sources */,
 				1A3943FA1AA446CD0035DE4F /* FindPasswordViewController.m in Sources */,
+				1A65164C1AA6F42E008223BD /* ApplicationViewController.m in Sources */,
 				1AA8FF4F1AA40601009D41B3 /* PollingView.m in Sources */,
 				0ECE7DA81AA558CC00E250B6 /* TreeNodeModel.m in Sources */,
 				1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */,
+				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				1A727B251AA57BFC00E1643D /* NetworkInterface.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
 				0ECE7DA11AA5584F00E250B6 /* SearchHistoryHelper.m in Sources */,
@@ -978,6 +1033,7 @@
 				0ECE7DB31AA55A2B00E250B6 /* TreeNode.m in Sources */,
 				1AA8FF711AA4074D009D41B3 /* SDWebImageDecoder.m in Sources */,
 				1A3944041AA464C80035DE4F /* RegisterViewController.m in Sources */,
+				1A6516461AA6E1CF008223BD /* DredgeViewController.m in Sources */,
 				0ED8EBE11AA6D7E000CE9F61 /* MJRefreshBaseView.m in Sources */,
 				0ED8EBE31AA6D7E000CE9F61 /* MJRefreshFooterView.m in Sources */,
 				1AA8FF741AA4074D009D41B3 /* SDWebImageManager.m in Sources */,
