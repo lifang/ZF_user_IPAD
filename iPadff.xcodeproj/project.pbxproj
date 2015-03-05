@@ -111,6 +111,10 @@
 		1A727B2A1AA5813A00E1643D /* PhoneSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A727B291AA5813A00E1643D /* PhoneSuccessViewController.m */; };
 		1A727B2D1AA5957100E1643D /* EmailSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A727B2C1AA5957100E1643D /* EmailSuccessViewController.m */; };
 		1A727B651AA5A91000E1643D /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A727B641AA5A91000E1643D /* MessageViewController.m */; };
+		1A76D85D1AA7EE0700E9851C /* TerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D85C1AA7EE0700E9851C /* TerminalViewController.m */; };
+		1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D85F1AA7F20E00E9851C /* TerminalViewCell.m */; };
+		1A76D8641AA820C200E9851C /* DealRoadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8631AA820C200E9851C /* DealRoadController.m */; };
+		1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8661AA8501900E9851C /* TopDealRoadCell.m */; };
 		1AA8FF4F1AA40601009D41B3 /* PollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF4E1AA40601009D41B3 /* PollingView.m */; };
 		1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF521AA4074D009D41B3 /* NSData+ImageContentType.m */; };
 		1AA8FF6F1AA4074D009D41B3 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF541AA4074D009D41B3 /* SDImageCache.m */; };
@@ -313,6 +317,14 @@
 		1A727B2C1AA5957100E1643D /* EmailSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailSuccessViewController.m; sourceTree = "<group>"; };
 		1A727B631AA5A91000E1643D /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		1A727B641AA5A91000E1643D /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		1A76D85B1AA7EE0700E9851C /* TerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalViewController.h; sourceTree = "<group>"; };
+		1A76D85C1AA7EE0700E9851C /* TerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalViewController.m; sourceTree = "<group>"; };
+		1A76D85E1AA7F20E00E9851C /* TerminalViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalViewCell.h; sourceTree = "<group>"; };
+		1A76D85F1AA7F20E00E9851C /* TerminalViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalViewCell.m; sourceTree = "<group>"; };
+		1A76D8621AA820C200E9851C /* DealRoadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealRoadController.h; sourceTree = "<group>"; };
+		1A76D8631AA820C200E9851C /* DealRoadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadController.m; sourceTree = "<group>"; };
+		1A76D8651AA8501900E9851C /* TopDealRoadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopDealRoadCell.h; sourceTree = "<group>"; };
+		1A76D8661AA8501900E9851C /* TopDealRoadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopDealRoadCell.m; sourceTree = "<group>"; };
 		1AA8FF4D1AA40601009D41B3 /* PollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollingView.h; sourceTree = "<group>"; };
 		1AA8FF4E1AA40601009D41B3 /* PollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollingView.m; sourceTree = "<group>"; };
 		1AA8FF511AA4074D009D41B3 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -597,6 +609,8 @@
 		0ED6ACF31AA16D6A00D3B025 /* Homepages */ = {
 			isa = PBXGroup;
 			children = (
+				1A76D8611AA81DDD00E9851C /* DealRoad */,
+				1A76D85A1AA7EDDF00E9851C /* Terminal */,
 				1A6516431AA6E18A008223BD /* DredgeV */,
 				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
 				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
@@ -691,6 +705,10 @@
 				1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */,
 				1A6516471AA6E6F0008223BD /* DredgeViewCell.h */,
 				1A6516481AA6E6F0008223BD /* DredgeViewCell.m */,
+				1A76D85E1AA7F20E00E9851C /* TerminalViewCell.h */,
+				1A76D85F1AA7F20E00E9851C /* TerminalViewCell.m */,
+				1A76D8651AA8501900E9851C /* TopDealRoadCell.h */,
+				1A76D8661AA8501900E9851C /* TopDealRoadCell.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -767,6 +785,24 @@
 				1A6FC31E1AA6A61B00F4C6AC /* CityHandle.m */,
 			);
 			name = City_Encoding;
+			sourceTree = "<group>";
+		};
+		1A76D85A1AA7EDDF00E9851C /* Terminal */ = {
+			isa = PBXGroup;
+			children = (
+				1A76D85B1AA7EE0700E9851C /* TerminalViewController.h */,
+				1A76D85C1AA7EE0700E9851C /* TerminalViewController.m */,
+			);
+			name = Terminal;
+			sourceTree = "<group>";
+		};
+		1A76D8611AA81DDD00E9851C /* DealRoad */ = {
+			isa = PBXGroup;
+			children = (
+				1A76D8621AA820C200E9851C /* DealRoadController.h */,
+				1A76D8631AA820C200E9851C /* DealRoadController.m */,
+			);
+			name = DealRoad;
 			sourceTree = "<group>";
 		};
 		1AA8FF501AA4074D009D41B3 /* SDWebImage */ = {
@@ -968,6 +1004,7 @@
 				1AA8FF771AA4074D009D41B3 /* UIImage+GIF.m in Sources */,
 				1A727B2D1AA5957100E1643D /* EmailSuccessViewController.m in Sources */,
 				0ED8EBE41AA6D7E000CE9F61 /* MJRefreshHeaderView.m in Sources */,
+				1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */,
 				1A727B2A1AA5813A00E1643D /* PhoneSuccessViewController.m in Sources */,
 				0ED6AD0F1AA1912F00D3B025 /* LocationButton.m in Sources */,
 				0ECE7DD81AA55EF100E250B6 /* GoodListModel.m in Sources */,
@@ -983,6 +1020,7 @@
 				0ECE7DD41AA55EBC00E250B6 /* CircleView.m in Sources */,
 				0ED8EB9E1AA6A6CB00CE9F61 /* AfterSaleView.m in Sources */,
 				0ED065D61A9EE81D005DF849 /* MBProgressHUD.m in Sources */,
+				1A76D85D1AA7EE0700E9851C /* TerminalViewController.m in Sources */,
 				0ECE7DA51AA5589400E250B6 /* TreeDataHandle.m in Sources */,
 				0ED8EBF41AA6E94A00CE9F61 /* GoodsCollectionViewCell2.m in Sources */,
 				0ECE7DCB1AA55E2B00E250B6 /* GoodsCell.m in Sources */,
@@ -1012,6 +1050,7 @@
 				0ED065E51A9EE9D8005DF849 /* BasicNagigationController.m in Sources */,
 				1AA8FF7B1AA4074D009D41B3 /* UIView+WebCacheOperation.m in Sources */,
 				1AA8FF781AA4074D009D41B3 /* UIImage+MultiFormat.m in Sources */,
+				1A76D8641AA820C200E9851C /* DealRoadController.m in Sources */,
 				1A727B261AA57BFC00E1643D /* NetworkRequest.m in Sources */,
 				0ED065AB1A9EE397005DF849 /* main.m in Sources */,
 				0ECE7D961AA5579800E250B6 /* SearchViewController.m in Sources */,
@@ -1020,6 +1059,7 @@
 				1AA8FF4F1AA40601009D41B3 /* PollingView.m in Sources */,
 				0ECE7DA81AA558CC00E250B6 /* TreeNodeModel.m in Sources */,
 				1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */,
+				1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */,
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				1A727B251AA57BFC00E1643D /* NetworkInterface.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
