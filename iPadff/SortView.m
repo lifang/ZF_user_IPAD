@@ -52,9 +52,6 @@
             UIImageView *backView = [[UIImageView alloc] initWithFrame:CGRectMake(180-SCREEN_WIDTH/2, 0,SCREEN_WIDTH, frame.size.height)];
             backView.image = kImageName(@"filterbackground.png");
             [self addSubview:backView];
-            
-            
-            
         }
 
        

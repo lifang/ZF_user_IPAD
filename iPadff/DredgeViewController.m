@@ -83,6 +83,9 @@
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);
     footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
+    if (iOS7) {
+        footerView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 1);
+    }
     self.tableView.tableFooterView = footerView;
 }
 

@@ -69,6 +69,9 @@
     UIView *line = [[UIView alloc]init];
     line.backgroundColor = kColor(224, 224, 224, 1.0);
     line.frame = CGRectMake(0, 7, SCREEN_WIDTH, 0.6);
+    if (iOS7) {
+        line.frame = CGRectMake(0, 7, SCREEN_HEIGHT, 0.6);
+    }
     [headerView addSubview:line];
     headerView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = headerView;
