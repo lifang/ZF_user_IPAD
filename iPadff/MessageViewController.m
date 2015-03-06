@@ -30,7 +30,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController.navigationBar setBackgroundImage:[kImageName(@"gray")
+    [self.navigationController.navigationBar setBackgroundImage:[kImageName(@"DarkGray")
                                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(1, 0, 43, 0)]
                                                   forBarMetrics:UIBarMetricsDefault];
 }
@@ -47,7 +47,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"gray"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"DarkGray"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
     
     UIView *navbarView = [[UIView alloc]init];
     navbarView.userInteractionEnabled = YES;

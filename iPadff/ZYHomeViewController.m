@@ -280,7 +280,6 @@
         case 1000: {
             //选择POS机
             GoodListViewController *listC = [[GoodListViewController alloc] init];
-            
             listC.hidesBottomBarWhenPushed =  YES ;
            [self.navigationController pushViewController:listC animated:YES];
         }

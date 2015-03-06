@@ -63,7 +63,7 @@
     self.naviController.navigationBarHidden = YES;
         [self.window setRootViewController:self.naviController];
     _cityID = @"1";
-    _userID = @"8";
+    _userID = @"80";
     _token = @"123";
 
     // Override point for customization after application launch.

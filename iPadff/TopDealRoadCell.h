@@ -10,6 +10,5 @@
 
 @interface TopDealRoadCell : UITableViewCell
 
-@property(nonatomic,assign)int buttonIdex;
 
 @end
