@@ -10,6 +10,13 @@
 #define kGoodCellHeight  136.f
 #import "UIImageView+WebCache.h"
 @interface GoodsCellCollectionViewCell : UICollectionViewCell
+//bigtitle
+@property (nonatomic, strong) UILabel *bigtitleLabel;
+@property (nonatomic, strong) UILabel *bigimages;
+@property (nonatomic, strong) UILabel *pricelable;
+@property (nonatomic, strong) UILabel *salemorelable;
+@property (nonatomic, strong) UILabel *rootline;
+
 //图片框
 @property (nonatomic, strong) UIImageView *pictureView;
 //标题

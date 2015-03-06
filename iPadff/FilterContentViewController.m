@@ -156,21 +156,25 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     cell.textLabel.font = [UIFont systemFontOfSize:15.f];
+    
     cell.textLabel.text = [(TreeNodeModel *)item nodeName];
     cell.textLabel.backgroundColor = [UIColor clearColor];
     
     if ([(TreeNodeModel *)item isSelected]) {
         cell.imageView.image = kImageName(@"btn_selected.png");
     }
-    else {
+    else
+    {
         cell.imageView.image = kImageName(@"btn_unselected.png");
     }
-    if ([treeNodeInfo.childrenTreeNodes count] > 0) {
+    if ([treeNodeInfo.childrenTreeNodes count] > 0)
+    {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 16, 10)];
         imageView.image = [UIImage imageNamed:@"arrow_down.png"];
         cell.accessoryView = imageView;
     }
-    else {
+    else
+    {
         cell.accessoryView = nil;
     }
     return cell;
@@ -194,13 +198,16 @@
     animation.fillMode = kCAFillModeForwards;
     [cell.accessoryView.layer addAnimation:animation forKey:@"transform"];
     
-    if ([treeNodeInfo.childrenTreeNodes count] <= 0) {
+    if ([treeNodeInfo.childrenTreeNodes count] <= 0)
+    {
         TreeNodeModel *node = (TreeNodeModel *)item;
         node.isSelected = !node.isSelected;
-        if (node.isSelected) {
+        if (node.isSelected)
+        {
             cell.imageView.image = kImageName(@"btn_selected.png");
         }
-        else {
+        else
+        {
             cell.imageView.image = kImageName(@"btn_unselected.png");
         }
     }

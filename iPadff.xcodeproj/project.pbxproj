@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EC905EC1AA93AB40053B694 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC905EB1AA93AB40053B694 /* FilterViewController.m */; };
+		0EC905EE1AA947060053B694 /* select_height.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC905ED1AA947060053B694 /* select_height.png */; };
+		0EC905F01AA9470C0053B694 /* select_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC905EF1AA9470C0053B694 /* select_normal.png */; };
 		0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */; };
 		0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */; };
 		0ECE7D891AA556F200E250B6 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D881AA556F200E250B6 /* CommonViewController.m */; };
 		0ECE7D951AA5579800E250B6 /* GoodListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D8C1AA5579800E250B6 /* GoodListViewController.m */; };
 		0ECE7D961AA5579800E250B6 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D8E1AA5579800E250B6 /* SearchViewController.m */; };
-		0ECE7D971AA5579800E250B6 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D901AA5579800E250B6 /* FilterViewController.m */; };
 		0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D921AA5579800E250B6 /* FilterContentViewController.m */; };
 		0ECE7D991AA5579800E250B6 /* GoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D941AA5579800E250B6 /* GoodDetailViewController.m */; };
 		0ECE7D9C1AA557C700E250B6 /* ZFSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D9B1AA557C700E250B6 /* ZFSearchBar.m */; };
@@ -142,6 +144,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0EC905EA1AA93AB40053B694 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		0EC905EB1AA93AB40053B694 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		0EC905ED1AA947060053B694 /* select_height.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select_height.png; sourceTree = "<group>"; };
+		0EC905EF1AA9470C0053B694 /* select_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select_normal.png; sourceTree = "<group>"; };
 		0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomTabBarViewController.h; sourceTree = "<group>"; };
 		0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomTabBarViewController.m; sourceTree = "<group>"; };
 		0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYHomeViewController.h; sourceTree = "<group>"; };
@@ -153,8 +159,6 @@
 		0ECE7D8C1AA5579800E250B6 /* GoodListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodListViewController.m; sourceTree = "<group>"; };
 		0ECE7D8D1AA5579800E250B6 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		0ECE7D8E1AA5579800E250B6 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		0ECE7D8F1AA5579800E250B6 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
-		0ECE7D901AA5579800E250B6 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		0ECE7D911AA5579800E250B6 /* FilterContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterContentViewController.h; sourceTree = "<group>"; };
 		0ECE7D921AA5579800E250B6 /* FilterContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterContentViewController.m; sourceTree = "<group>"; };
 		0ECE7D931AA5579800E250B6 /* GoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetailViewController.h; sourceTree = "<group>"; };
@@ -428,8 +432,8 @@
 				0ECE7D8C1AA5579800E250B6 /* GoodListViewController.m */,
 				0ECE7D8D1AA5579800E250B6 /* SearchViewController.h */,
 				0ECE7D8E1AA5579800E250B6 /* SearchViewController.m */,
-				0ECE7D8F1AA5579800E250B6 /* FilterViewController.h */,
-				0ECE7D901AA5579800E250B6 /* FilterViewController.m */,
+				0EC905EA1AA93AB40053B694 /* FilterViewController.h */,
+				0EC905EB1AA93AB40053B694 /* FilterViewController.m */,
 				0ECE7D911AA5579800E250B6 /* FilterContentViewController.h */,
 				0ECE7D921AA5579800E250B6 /* FilterContentViewController.m */,
 				0ECE7D931AA5579800E250B6 /* GoodDetailViewController.h */,
@@ -625,10 +629,12 @@
 		0ED6ACF81AA16ECB00D3B025 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0EC905ED1AA947060053B694 /* select_height.png */,
 				0ED8EBEA1AA6E2BC00CE9F61 /* 8kind_height.png */,
 				0ED8EBEB1AA6E2BC00CE9F61 /* 9kind_height.png */,
 				0ED8EBEC1AA6E2BC00CE9F61 /* 9kind_normal.png */,
 				0ED8EBED1AA6E2BC00CE9F61 /* 8kind_normal.png */,
+				0EC905EF1AA9470C0053B694 /* select_normal.png */,
 				0ED8EBC91AA6ACC900CE9F61 /* test1@2x.png */,
 				0ED8EB951AA69E7300CE9F61 /* good_right2 .png */,
 				0ED8EB931AA69E1500CE9F61 /* good_search.png */,
@@ -924,6 +930,8 @@
 				0ECE7DE21AA5795A00E250B6 /* btn_unselected@2x.png in Resources */,
 				0ECE7DE41AA5797400E250B6 /* arrow_down@2x.png in Resources */,
 				0ED6AD2E1AA19BC800D3B025 /* home3.png in Resources */,
+				0EC905EE1AA947060053B694 /* select_height.png in Resources */,
+				0EC905F01AA9470C0053B694 /* select_normal.png in Resources */,
 				0ED8EBEF1AA6E2BC00CE9F61 /* 9kind_height.png in Resources */,
 				0ED065B91A9EE398005DF849 /* LaunchScreen.xib in Resources */,
 				0ECE7DDA1AA5739B00E250B6 /* good_right1@2x.png in Resources */,
@@ -980,6 +988,7 @@
 				1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */,
 				1A727B651AA5A91000E1643D /* MessageViewController.m in Sources */,
 				1A3944011AA44D5D0035DE4F /* UIImage+Extention.m in Sources */,
+				0EC905EC1AA93AB40053B694 /* FilterViewController.m in Sources */,
 				0ECE7DD41AA55EBC00E250B6 /* CircleView.m in Sources */,
 				0ED8EB9E1AA6A6CB00CE9F61 /* AfterSaleView.m in Sources */,
 				0ED065D61A9EE81D005DF849 /* MBProgressHUD.m in Sources */,
@@ -1026,7 +1035,6 @@
 				0ECE7DA11AA5584F00E250B6 /* SearchHistoryHelper.m in Sources */,
 				0ECE7D951AA5579800E250B6 /* GoodListViewController.m in Sources */,
 				1AA8FF791AA4074D009D41B3 /* UIImageView+HighlightedWebCache.m in Sources */,
-				0ECE7D971AA5579800E250B6 /* FilterViewController.m in Sources */,
 				0ECE7D9C1AA557C700E250B6 /* ZFSearchBar.m in Sources */,
 				0ED8EBC21AA6A75000CE9F61 /* ShoppingCartModel.m in Sources */,
 				0ECE7D891AA556F200E250B6 /* CommonViewController.m in Sources */,
