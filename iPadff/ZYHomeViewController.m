@@ -13,6 +13,9 @@
 #import "BasicNagigationController.h"
 #import "DredgeViewController.h"
 #import "LocationViewController.h"
+#import "TerminalViewController.h"
+#import "DealRoadController.h"
+
 @interface ZYHomeViewController ()<sendCity>
 @property(nonatomic,strong)PollingView *pollingView;
 @property(nonatomic,strong)LocationViewController *locationVC;
@@ -277,7 +280,6 @@
         case 1000: {
             //选择POS机
             GoodListViewController *listC = [[GoodListViewController alloc] init];
-            
             listC.hidesBottomBarWhenPushed =  YES ;
            [self.navigationController pushViewController:listC animated:YES];
         }
@@ -291,16 +293,16 @@
             break;
         case 1002: {
             //终端管理
-//            TerminalManagerController *managerC = [[TerminalManagerController alloc] init];
-//            managerC.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:managerC animated:YES];
+            TerminalViewController *terminalVC = [[TerminalViewController alloc]init];
+            terminalVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:terminalVC animated:YES];
         }
             break;
         case 1003: {
             //交易流水
-//            DealFlowViewController *dealFlowC = [[DealFlowViewController alloc] init];
-//            dealFlowC.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:dealFlowC animated:YES];
+            DealRoadController *dealVC = [[DealRoadController alloc]init];
+            dealVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:dealVC animated:YES];
         }
             break;
         case 1004: {

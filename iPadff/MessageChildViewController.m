@@ -30,9 +30,6 @@
 
 -(void)initUI
 {
-    CGFloat topMargin = 16;
-    CGFloat leftMargin = 16;
-    
     //创建主view
     UIScrollView *contentView = [[UIScrollView alloc]init];
     contentView.frame = self.view.bounds;
@@ -48,6 +45,9 @@
     topLabelSize = [topLabelStr sizeWithFont:[UIFont systemFontOfSize:20] constrainedToSize:CGSizeMake(200.0, 5000)];
     topLabel.numberOfLines = 0;
     topLabel.frame = CGRectMake(180, 40, SCREEN_WIDTH * 0.6, topLabelSize.height);
+    if (iOS7) {
+        topLabel.frame = CGRectMake(180, 40, SCREEN_HEIGHT * 0.6, topLabelSize.height);
+    }
     [contentView addSubview:topLabel];
     //创建时间Label
     UILabel *timeLabel = [[UILabel alloc]init];
@@ -75,6 +75,9 @@
     [contentView addSubview:textLabel];
     [self.view addSubview:contentView];
     contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(textLabel.frame) + 70);
+    if (iOS7) {
+        contentView.contentSize = CGSizeMake(SCREEN_HEIGHT, CGRectGetMaxY(textLabel.frame) + 70);
+    }
     self.contentView = contentView;
 
 
