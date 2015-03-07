@@ -174,21 +174,32 @@
                     
                     for(int i=0;i<arry.count;i++)
                     {
-                        [_chagnearry addObject:[[arry objectAtIndex:i] objectForKey:@"value"] ];
+                        TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                        tree.nodeID=[[arry objectAtIndex:i] objectForKey:@"id"];
+                        tree.nodeName=[[arry objectAtIndex:i] objectForKey:@"value"];
+
+                        [_chagnearry addObject:tree ];
                         
                     }
                     NSArray*arry6=[[object objectForKey:@"result"] objectForKey:[namekey objectAtIndex:6]];
                     for(int i=0;i<arry6.count;i++)
                     {
-                        [_chagnearry6 addObject:[[arry6 objectAtIndex:i] objectForKey:@"value"] ];
+                        TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                        tree.nodeID=[[arry6 objectAtIndex:i] objectForKey:@"id"];
+                        tree.nodeName=[[arry6 objectAtIndex:i] objectForKey:@"value"];
                         
+                        [_chagnearry6 addObject:tree ];
+                       
                     }
                     NSArray*arry1=[[object objectForKey:@"result"] objectForKey:[namekey objectAtIndex:2]];
                     
                     for(int i=0;i<arry1.count;i++)
                     {
-                        [_chagnearry2 addObject:[[arry1 objectAtIndex:i] objectForKey:@"value"] ];
+                        TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                        tree.nodeID=[[arry1 objectAtIndex:i] objectForKey:@"id"];
+                        tree.nodeName=[[arry1 objectAtIndex:i] objectForKey:@"value"];
                         
+                        [_chagnearry2 addObject:tree ];
                     }
                     NSArray*arry2=[[object objectForKey:@"result"] objectForKey:[namekey objectAtIndex:1]];
                     
@@ -199,22 +210,31 @@
                         for(int i=0;i<at.count;i++)
                         {
                             
-                        [_chagnearry1 addObject:[[at objectAtIndex:i] objectForKey:@"value"] ];
-                        }
+                            TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                            tree.nodeID=[[at objectAtIndex:i] objectForKey:@"id"];
+                            tree.nodeName=[[at objectAtIndex:i] objectForKey:@"value"];
+                            
+                            [_chagnearry1 addObject:tree ];                        }
                     }
                     NSArray*arry3=[[object objectForKey:@"result"] objectForKey:[namekey objectAtIndex:3]];
                     
                     for(int i=0;i<arry3.count;i++)
                     {
-                        [_chagnearry3 addObject:[[arry3 objectAtIndex:i] objectForKey:@"value"] ];
+                        TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                        tree.nodeID=[[arry3 objectAtIndex:i] objectForKey:@"id"];
+                        tree.nodeName=[[arry3 objectAtIndex:i] objectForKey:@"value"];
                         
+                        [_chagnearry3 addObject:tree ];
                     }
                     NSArray*arry4=[[object objectForKey:@"result"] objectForKey:[namekey objectAtIndex:4]];
                     
                     for(int i=0;i<arry4.count;i++)
                     {
-                        [_chagnearry4 addObject:[[arry4 objectAtIndex:i] objectForKey:@"value"] ];
+                        TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                        tree.nodeID=[[arry4 objectAtIndex:i] objectForKey:@"id"];
+                        tree.nodeName=[[arry4 objectAtIndex:i] objectForKey:@"value"];
                         
+                        [_chagnearry4 addObject:tree ];
                     }
                     
                     NSArray*arry5=[[object objectForKey:@"result"] objectForKey:[namekey objectAtIndex:5]];
@@ -222,8 +242,11 @@
                     
                     for(int i=0;i<arry5.count;i++)
                     {
-                        [_chagnearry5 addObject:[[arry5 objectAtIndex:i] objectForKey:@"value"] ];
+                        TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                        tree.nodeID=[[arry5 objectAtIndex:i] objectForKey:@"id"];
+                        tree.nodeName=[[arry5 objectAtIndex:i] objectForKey:@"value"];
                         
+                        [_chagnearry5 addObject:tree ];
                     }
                     
                     [bigarry addObject:_chagnearry];
@@ -275,15 +298,42 @@
         return;
     }
 
+    for(int i=0;i<7;i++)
+    {    NSMutableArray *selectedFilterItem = [[NSMutableArray alloc] init];
+
+        NSArray*arry=[bigarry objectAtIndex:i];
+
+        [selectedFilterItem removeAllObjects];
+        
+        for (TreeNodeModel *node in arry) {
+            if (node.isSelected)
+            {
+                
+                [selectedFilterItem addObject:node];
+                
+            }
+            
+    
+        }
+        [_filterDict setObject:selectedFilterItem forKey:[namekey objectAtIndex:i]];
+
+    
+    }
+    
+    
+
+
     [_filterDict setObject:[NSNumber numberWithBool:rentbool] forKey:s_rent];
     [_filterDict setObject:[NSNumber numberWithFloat:[_highField.text intValue]] forKey:s_maxPrice];
     [_filterDict setObject:[NSNumber numberWithFloat:[_lowField.text intValue]] forKey:s_minPrice];
     [[NSNotificationCenter defaultCenter] postNotificationName:UpdateGoodListNotification object:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+
 }
 
 - (IBAction)filterCanceled:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -390,8 +440,23 @@
         UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
         
         phonebutton.frame=CGRectMake( 200, 15,30, 30);
-        [phonebutton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
-        //    [phonebutton addTarget:self action:@selector(callclick:) forControlEvents:UIControlEventTouchUpInside];
+        if (_allbool[section])
+        {
+            
+            [phonebutton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+            
+            
+            
+        }
+        else
+        {
+        
+            [phonebutton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+
+        }
+
+        [phonebutton addTarget:self action:@selector(allclick:) forControlEvents:UIControlEventTouchUpInside];
+        phonebutton.tag=section+1026;
         
         [rootimageview addSubview:phonebutton];
         
@@ -413,14 +478,26 @@
                     UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
                     whichkindButton.frame= CGRectMake(290+i*140, 15, 30, 30);
                     [rootimageview addSubview:whichkindButton];
-                    [whichkindButton addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
-                    [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-                    
+                    [whichkindButton addTarget:self action:@selector(selsctButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+                    TreeNodeModel *node = [[bigarry objectAtIndex:section] objectAtIndex:i];
+
+                    if (node.isSelected) {
+                        
+                        [whichkindButton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                    }
+                    else {
+                        [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                        
+                    }
+                    whichkindButton.tag=section*1000+i;
+
                     UILabel*whichlable=[[UILabel alloc]init];
                     whichlable.frame=CGRectMake(320+i*140, 15, 100, 30);
                     whichlable.font=[UIFont systemFontOfSize:15];
                     [rootimageview addSubview:whichlable];
-                    whichlable.text=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                    TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                    
+                    whichlable.text=tr.nodeName;
                     
                     
                     
@@ -434,15 +511,26 @@
                     UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
                     whichkindButton.frame= CGRectMake(290+i*140, 15, 30, 30);
                     [rootimageview addSubview:whichkindButton];
-                    //                [whichkindButton addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
-                    [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                          [whichkindButton addTarget:self action:@selector(selsctButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+                    TreeNodeModel *node = [[bigarry objectAtIndex:section] objectAtIndex:i];
                     
+                    if (node.isSelected) {
+                        
+                        [whichkindButton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                    }
+                    else {
+                        [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                        
+                    }
+                    whichkindButton.tag=section*1000+i;
+
                     UILabel*whichlable=[[UILabel alloc]init];
                     whichlable.frame=CGRectMake(320+i*140, 15, 100, 30);
                     whichlable.font=[UIFont systemFontOfSize:15];
                     [rootimageview addSubview:whichlable];
-                    whichlable.text=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                    TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
                     
+                    whichlable.text=tr.nodeName;
                     
                     
                     
@@ -460,14 +548,28 @@
                     UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
                     whichkindButton.frame= CGRectMake(290+i%4*140, i/4*60+15, 30, 30);
                     [rootimageview addSubview:whichkindButton];
-                    [whichkindButton addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
-                    [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                    whichkindButton.tag=section*1000+i;
+                    
+                    
+                    [whichkindButton addTarget:self action:@selector(selsctButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+                    TreeNodeModel *node = [[bigarry objectAtIndex:section] objectAtIndex:i];
+                    
+                    if (node.isSelected) {
+                        
+                        [whichkindButton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                    }
+                    else {
+                        [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                        
+                    }
                     
                     UILabel*whichlable=[[UILabel alloc]init];
                     whichlable.frame=CGRectMake(320+i%4*140, i/4*60+15, 100, 30);
                     whichlable.font=[UIFont systemFontOfSize:15];
                     [rootimageview addSubview:whichlable];
-                    whichlable.text=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                    TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                    
+                    whichlable.text=tr.nodeName;
                     
                     
                     
@@ -513,7 +615,7 @@
         
         _switchButton =[UIButton buttonWithType:UIButtonTypeCustom];
    _switchButton.Frame=CGRectMake(50, 65, 30, 30);
-        [_switchButton addTarget:self action:@selector(rentboolclick:) forControlEvents:UIControlEventTouchUpInside];
+        [_switchButton addTarget:self action:@selector(rentboolclick) forControlEvents:UIControlEventTouchUpInside];
         
         [rootimageviews addSubview:_switchButton];
         
@@ -557,11 +659,13 @@
         
         }
         
-   
+        _lowField.keyboardType = UIKeyboardTypeNumberPad;
+        _highField.keyboardType = UIKeyboardTypeNumberPad;
+
         _lowField.font = [UIFont systemFontOfSize:14.f];
         _lowField.backgroundColor = [UIColor clearColor];
         _lowField.textAlignment = NSTextAlignmentCenter;
-        _lowField.placeholder = @"0¥  ";
+        _lowField.placeholder = @"0  ";
         _lowField.delegate = self;
         CALayer *layer=[_lowField layer];
         //是否设置边框以及是否可见
@@ -585,11 +689,11 @@
 
         _highField.font = [UIFont systemFontOfSize:14.f];
         _highField.backgroundColor = [UIColor clearColor];
-        _highField.placeholder = @"0¥  ";
+        _highField.placeholder = @"0 ";
         _highField.delegate = self;
 
-        _lowField.text = [NSString stringWithFormat:@"%d¥     ",[[_filterDict objectForKey:s_minPrice] intValue]];
-        _highField.text = [NSString stringWithFormat:@"%d¥    ",[[_filterDict objectForKey:s_maxPrice] intValue]];
+        _lowField.text = [NSString stringWithFormat:@"%d    ",[[_filterDict objectForKey:s_minPrice] intValue]];
+        _highField.text = [NSString stringWithFormat:@"%d   ",[[_filterDict objectForKey:s_maxPrice] intValue]];
         _highField.textAlignment = NSTextAlignmentCenter;
 
         CALayer *layers=[_highField layer];
@@ -658,6 +762,52 @@
         
             return rootimageviews;
     }
+
+
+}
+-(void)allclick:(UIButton*)sender
+{
+
+    UIButton *button=(UIButton *)sender;
+    
+    //根据按钮的tag值找到所找按钮所在的区
+    int section=button.tag-1026;
+    
+    //取反  如果布尔数组中的值是yes=>>no.no=>>yes
+    _allbool[section]=!_allbool[section];
+    
+    [_tableView reloadData];
+
+
+}
+-(void)rentboolclick
+{
+
+    rentbool=!rentbool;
+    [_filterDict setObject:[NSNumber numberWithBool:rentbool] forKey:s_rent];
+    [_tableView reloadData];
+    
+
+
+}
+-(void)selsctButtonclick:(UIButton*)sender
+{
+    NSInteger b=sender.tag/1000;
+    
+    TreeNodeModel *node = [[bigarry objectAtIndex:b] objectAtIndex:sender.tag-b*1000];
+    
+    NSLog(@"%@--%@---%@",node.nodeName,node.nodeID,node.children);
+    
+    node.isSelected = !node.isSelected;
+    if (node.isSelected) {
+        
+        [sender setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+    }
+    else {
+        [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+
+    }
+
 
 
 }
@@ -1069,9 +1219,71 @@
 
 #pragma mark - UITextField
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+- (BOOL)textFieldShouldReturn:(UITextField *)textField              // called when 'return' key pressed. return NO to ignore.
+{
+    [self  closeKeyboard];
+    
+    
+    [_lowField resignFirstResponder];
+    [_highField resignFirstResponder];
+
     return YES;
 }
+-(void)closeKeyboard
+{
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    if(iOS7)
+    {
+    
+        _tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+
+    }
+    
+    else
+    
+    {
+        
+        _tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+ 
+        
+        
+    }
+    
+    
+    [UIView commitAnimations];
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+
+{ NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    
+    if(iOS7)
+    {
+        
+        _tableView.frame=CGRectMake(0, -160, SCREEN_HEIGHT, SCREEN_WIDTH);
+        
+    }
+    
+    else
+        
+    {
+        
+        _tableView.frame=CGRectMake(0, -160, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        
+        
+    }
+    
+    
+    
+    [UIView commitAnimations];
+    
+    
+}
+
 
 @end

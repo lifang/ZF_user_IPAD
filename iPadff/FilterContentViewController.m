@@ -79,7 +79,9 @@
 - (void)saveSelectedFilterWithArray:(NSArray *)item
                         resultArray:(NSMutableArray *)resultItem {
     for (TreeNodeModel *node in item) {
-        if (node.isSelected) {
+        if (node.isSelected)
+        
+        {
             [resultItem addObject:node];
         }
         if (node.children) {

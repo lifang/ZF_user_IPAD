@@ -61,7 +61,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+  filterC = [[FilterViewController alloc] init];
     changA=8;
     
     // Do any additional setup after loading the view.
@@ -390,9 +390,15 @@
 //根据字典中选中条件获取请求需要的数组
 - (NSArray *)filterForKey:(NSString *)key {
     NSArray *filterItem = [_filterDict objectForKey:key];
+    
+    
     for (TreeNodeModel *node in filterItem) {
+        NSLog(@"%@",node.nodeID);
+        
         //若筛选条件包含全部，数组返回nil
-        if ([node.nodeID isEqualToString:kNoneFilterID]) {
+        if ([[NSString stringWithFormat:@"%@",node.nodeID] isEqualToString:kNoneFilterID])
+        
+        {
             return nil;
         }
     }
@@ -498,7 +504,7 @@
 
 
 - (IBAction)filterGoods:(id)sender {
-    FilterViewController *filterC = [[FilterViewController alloc] init];
+    
     filterC.filterDict = _filterDict;
     filterC.hidesBottomBarWhenPushed =  YES ;
 

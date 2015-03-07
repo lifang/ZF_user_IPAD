@@ -12,7 +12,11 @@
 static NSString *UpdateGoodListNotification = @"UpdateGoodListNotification";
 
 @interface FilterViewController : CommonViewController
-{        BOOL _flagArray[8];
+{
+    
+    BOOL _flagArray[8];
+    BOOL _allbool[8];
+
     NSArray*namekey;
     NSArray*nameking;
     NSMutableArray*_chagnearry;
