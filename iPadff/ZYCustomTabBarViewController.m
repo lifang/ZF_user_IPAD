@@ -563,7 +563,7 @@ if(iOS8)
 	//重置高度
 	CGRect viewRect = currentViewController.view.frame;
     
-	viewRect.size.width = self.view.bounds.size.width+60;
+	viewRect.size.width = self.view.bounds.size.width;
     
     viewRect.origin.x = 0;
 

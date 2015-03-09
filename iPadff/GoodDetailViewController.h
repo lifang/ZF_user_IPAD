@@ -10,6 +10,17 @@
 
 @interface GoodDetailViewController : CommonViewController
 
+{
+    
+        CGFloat leftSpace ;  //左侧间距
+        
+        
+    CGFloat  originXs;
+    
+    
+        
+
+}
 @property (nonatomic, strong) NSString *goodID;
 
 @end
