@@ -27,7 +27,7 @@
     _pictureView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 110, 110)];
     [self.contentView addSubview:_pictureView];
         //标题
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_pictureView.frame.origin.x, _pictureView.frame.origin.y+_pictureView.frame.size.height, _pictureView.frame.size.width, 30)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_pictureView.frame.origin.x, _pictureView.frame.origin.y+_pictureView.frame.size.height, _pictureView.frame.size.width, 20)];
 
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont systemFontOfSize:14.f];
@@ -49,17 +49,17 @@
 //    [self.contentView addSubview:_brandLabel];
     
     //支付通道
-    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, _titleLabel.frame.origin.y+_titleLabel.frame.size.height, _pictureView.frame.size.width, 30)];
+    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(_titleLabel.frame.origin.x, _titleLabel.frame.origin.y+_titleLabel.frame.size.height, _pictureView.frame.size.width, 20)];
     _channelLabel.backgroundColor = [UIColor clearColor];
     _channelLabel.font = [UIFont systemFontOfSize:11.f];
     [self.contentView addSubview:_channelLabel];
-    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_channelLabel.frame.origin.x, _channelLabel.frame.origin.y+_channelLabel.frame.size.height, _channelLabel.frame.size.width, 30)];
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_channelLabel.frame.origin.x, _channelLabel.frame.origin.y+_channelLabel.frame.size.height, _channelLabel.frame.size.width, 20)];
     _priceLabel.backgroundColor = [UIColor clearColor];
     _priceLabel.font = [UIFont boldSystemFontOfSize:14.f];
     _priceLabel.textColor = kColor(255, 102, 36, 1);
     [self.contentView addSubview:_priceLabel];
 
-    _salesVolumeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_priceLabel.frame.origin.x+_channelLabel.frame.size.width-70, _channelLabel.frame.origin.y+_priceLabel.frame.size.height, 70, 30)];
+    _salesVolumeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_priceLabel.frame.origin.x+_channelLabel.frame.size.width-50, _channelLabel.frame.origin.y+_priceLabel.frame.size.height, 70, 20)];
     _salesVolumeLabel.backgroundColor = [UIColor clearColor];
     _salesVolumeLabel.font = [UIFont systemFontOfSize:12.f];
     _salesVolumeLabel.textColor = kColor(177, 176, 176, 1);

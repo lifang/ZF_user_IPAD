@@ -61,7 +61,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+  filterC = [[FilterViewController alloc] init];
     changA=8;
     
     // Do any additional setup after loading the view.
@@ -223,7 +223,7 @@
     
     [_tableView registerClass:[GoodsCollectionViewCell2 class] forCellWithReuseIdentifier:@"myCells"];
 
-    [flowLayout setItemSize:CGSizeMake(200, 200)];//设置cell的尺寸
+    [flowLayout setItemSize:CGSizeMake(120, 120)];//设置cell的尺寸
 
     
     
@@ -390,9 +390,15 @@
 //根据字典中选中条件获取请求需要的数组
 - (NSArray *)filterForKey:(NSString *)key {
     NSArray *filterItem = [_filterDict objectForKey:key];
+    
+    
     for (TreeNodeModel *node in filterItem) {
+        NSLog(@"%@",node.nodeID);
+        
         //若筛选条件包含全部，数组返回nil
-        if ([node.nodeID isEqualToString:kNoneFilterID]) {
+        if ([[NSString stringWithFormat:@"%@",node.nodeID] isEqualToString:kNoneFilterID])
+        
+        {
             return nil;
         }
     }
@@ -492,15 +498,21 @@
 #pragma mark - Action
 
 - (IBAction)goShoppingCart:(id)sender {
-    [self.tabBarController setSelectedIndex:1];
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del.tabBarViewController setSeletedIndex:1];
 }
 
+
 - (IBAction)filterGoods:(id)sender {
-    FilterViewController *filterC = [[FilterViewController alloc] init];
+    
     filterC.filterDict = _filterDict;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:filterC];
-    [NavigationBarAttr setNavigationBarStyle:nav];
-    [self presentViewController:nav animated:YES completion:nil];
+    filterC.hidesBottomBarWhenPushed =  YES ;
+
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:filterC];
+//    [NavigationBarAttr setNavigationBarStyle:nav];
+    [self.navigationController pushViewController:filterC animated:YES];
+    
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - Notification
@@ -559,7 +571,27 @@
     {
         GoodsCellCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"myCell" forIndexPath:indexPath];
         GoodListModel *good = [_dataItem objectAtIndex:indexPath.row];
+        if(indexPath.row==0)
+        {
+            
+            cell.bigimages.hidden=NO;
+
+            cell.bigtitleLabel.hidden=NO;
+            cell.pricelable.hidden=NO;
+            cell.salemorelable.hidden=NO;
+
+            NSLog(@"%f",cell.bigtitleLabel.frame.size.width);
+            
+
+        }
+        else
+        {
         
+            cell.bigtitleLabel.hidden=YES;
+            cell.bigimages.hidden=YES;
+            cell.pricelable.hidden=YES;
+            cell.salemorelable.hidden=YES;
+        }
         
         [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:good.goodImagePath]
                             placeholderImage:kImageName(@"test1.png")];

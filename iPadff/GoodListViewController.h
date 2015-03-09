@@ -7,7 +7,7 @@
 //
 
 #import "CommonViewController.h"
-
+#import "FilterViewController.h"
 @interface GoodListViewController : CommonViewController
 
 {
@@ -17,7 +17,8 @@
     UIButton*button2;
     NSInteger changA;
     
-
+    FilterViewController *filterC;
+    
 
 }
 @end

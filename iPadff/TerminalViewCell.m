@@ -19,6 +19,9 @@
         CGFloat mainBtnW = 110.f;
         CGFloat mainBtnH = 40.f;
         CGFloat mainBtnX = (SCREEN_WIDTH - 130.f);
+        if (iOS7) {
+            mainBtnX = SCREEN_HEIGHT - 130.f;
+        }
         CGFloat mainBtnY = 20.f;
         
         self.terminalLabel = [[UILabel alloc]init];
