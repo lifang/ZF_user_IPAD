@@ -45,13 +45,13 @@
         self.applicationBtn = [[UIButton alloc]init];
         [_applicationBtn setTitle:@"申请开通" forState:UIControlStateNormal];
         [_applicationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_applicationBtn setBackgroundColor:[UIColor orangeColor]];
+        [_applicationBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
         [self addSubview:_applicationBtn];
         
         self.vedioConfirmBtn = [[UIButton alloc]init];
         [_vedioConfirmBtn setTitle:@"视频认证" forState:UIControlStateNormal];
         [_vedioConfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_vedioConfirmBtn setBackgroundColor:[UIColor orangeColor]];
+        [_vedioConfirmBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
         [self addSubview:_vedioConfirmBtn];
         
     }

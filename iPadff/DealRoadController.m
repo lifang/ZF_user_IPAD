@@ -17,9 +17,19 @@
 #import "TerminalChoseCell.h"
 #import "AppDelegate.h"
 #import "TerminalModel.h"
+#import "RefreshView.h"
 #import "TradeModel.h"
+#import "DealRoadDetailController.h"
 
-@interface DealRoadController ()<UITextFieldDelegate>
+typedef enum {
+    TimeStart = 0,
+    TimeEnd,
+}TimeType;
+
+static NSString *s_defaultTerminalNum = @"请选择终端号";
+
+@interface DealRoadController ()<UITextFieldDelegate,RefreshDelegate>
+
 /** 顶部五个Button */
 @property(nonatomic,strong)UIButton *publickBtn;
 @property(nonatomic,strong)UIButton *privateBtn;
@@ -60,6 +70,17 @@
 //确认按钮
 @property(nonatomic,strong)UIButton *startSure;
 @property(nonatomic,strong)UIButton *endSure;
+/***************上下拉刷新**********/
+@property (nonatomic, strong) RefreshView *topRefreshView;
+@property (nonatomic, strong) RefreshView *bottomRefreshView;
+
+@property (nonatomic, assign) BOOL reloading;
+@property (nonatomic, assign) CGFloat primaryOffsetY;
+@property (nonatomic, assign) int page;
+/**********************************/
+@property (nonatomic, assign) TimeType timeType;
+//交易状态
+@property(nonatomic,strong)NSString *DealState;
 
 @end
 
@@ -95,6 +116,31 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(TradeType)tradeTypeFromIndex:(NSInteger)index
+{
+    TradeType type = TradeTypeNone;
+    switch (index) {
+        case 1:
+            type = TradeTypeTransfer;
+            break;
+        case 2:
+            type = TradeTypeConsume;
+            break;
+        case 3:
+            type = TradeTypeRepayment;
+            break;
+        case 4:
+            type = TradeTypeLife;
+            break;
+        case 5:
+            type = TradeTypeTelephoneFare;
+            break;
+        default:
+            break;
+    }
+    return type;
 }
 
 #pragma mark 导航栏
@@ -287,7 +333,7 @@
     UIButton *startFindBtn = [[UIButton alloc]init];
     [startFindBtn addTarget:self action:@selector(startFind) forControlEvents:UIControlEventTouchUpInside];
     [startFindBtn setTitle:@"开始查询" forState:UIControlStateNormal];
-    [startFindBtn setBackgroundColor:[UIColor orangeColor]];
+    [startFindBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
     [startFindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     startFindBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     startFindBtn.frame = CGRectMake(_terminalField.frame.origin.x, CGRectGetMaxY(_terminalField.frame) + 30, 100, 40);
@@ -296,23 +342,86 @@
     UIButton *startStatisticsBtn = [[UIButton alloc]init];
     [startStatisticsBtn addTarget:self action:@selector(startStatistics) forControlEvents:UIControlEventTouchUpInside];
     [startStatisticsBtn setTitle:@"开始统计" forState:UIControlStateNormal];
-    [startStatisticsBtn setBackgroundColor:[UIColor orangeColor]];
+    [startStatisticsBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
     [startStatisticsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     startStatisticsBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     startStatisticsBtn.frame = CGRectMake(CGRectGetMaxX(startFindBtn.frame) + 60, CGRectGetMaxY(_terminalField.frame) + 30, 100, 40);
     [_contentView addSubview:startStatisticsBtn];
+    [self setRefreshView];
     
 }
 
-#pragma mark 中间View 按钮的点击事件
+#pragma mark 添加上下拉View
+
+-(void)setRefreshView
+{
+    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
+    _topRefreshView.direction = PullFromTop;
+    _topRefreshView.delegate = self;
+    [self.tableView addSubview:_topRefreshView];
+    
+    _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
+    _bottomRefreshView.direction = PullFromBottom;
+    _bottomRefreshView.delegate = self;
+    _bottomRefreshView.hidden = YES;
+    [self.tableView addSubview:_bottomRefreshView];
+}
+
+#pragma mark 开始查询 开始统计
 -(void)startFind
 {
-    NSLog(@"点击了开始查询！ 为上排第%d个按钮",_buttonIndex);
+    if ([_terminalField.text isEqualToString:s_defaultTerminalNum]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"请选择终端号"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_startTime || [_startTime isEqualToString:@"开始时间"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"请选择开始时间"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_endTime || [_endTime isEqualToString:@"结束时间"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"请选择结束时间"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    NSDate *start = [self dateFromString:_startTime];
+    NSDate *end = [self dateFromString:_endTime];
+    if (!([start earlierDate:end] == start)) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"开始时间不能晚于结束时间"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    [self firstLoadData];
 }
 
 -(void)startStatistics
 {
     NSLog(@"点击了开始统计！为上排第%d个按钮",_buttonIndex);
+    DealRoadDetailController *detailVC = [[DealRoadDetailController alloc]init];
+    detailVC.hidesBottomBarWhenPushed = YES;
+    detailVC.startTime = _startTime;
+    detailVC.endTime = _endTime;
+    detailVC.terminalNumber = _terminalField.text;
+    detailVC.tradeType = [self tradeTypeFromIndex:_buttonIndex];
+    [self.navigationController pushViewController:detailVC animated:YES];
+    
 }
 
 -(void)rightBtnClicked:(UIButton *)button
@@ -424,10 +533,12 @@
     if (button.tag == 10001) {
         if (_isChecked == YES) {
             //什么都不做
+            [self tradeTypeFromIndex:1];
         }
         else{
             _buttonIndex = 1;
-            [self.tableView reloadData];
+            [self tradeTypeFromIndex:1];
+            [self downloadDataWithPage:1 isMore:NO];
             [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
             _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
             _publickBtn.frame = CGRectMake(_publicX, _privateY, 120, 40);
@@ -454,8 +565,9 @@
     //消费
     if (button.tag == 10002) {
         _buttonIndex = 2;
+        [self tradeTypeFromIndex:2];
         _isChecked = NO;
-        [self.tableView reloadData];
+        [self downloadDataWithPage:1 isMore:NO];
         [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _privateBtn.frame = CGRectMake(_privateX, _privateY, 120, 40);
@@ -478,9 +590,10 @@
     }
     //还款
     if (button.tag == 10003) {
+        [self tradeTypeFromIndex:3];
         _buttonIndex = 3;
         _isChecked = NO;
-        [self.tableView reloadData];
+        [self downloadDataWithPage:1 isMore:NO];
         [_huankuanBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _huankuanBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _huankuanBtn.frame = CGRectMake(_huankuanX, _privateY, 120, 40);
@@ -504,8 +617,9 @@
     //生活充值
     if (button.tag == 10004) {
         _buttonIndex = 4;
+        [self tradeTypeFromIndex:4];
         _isChecked = NO;
-        [self.tableView reloadData];
+        [self downloadDataWithPage:1 isMore:NO];
         [_shenghuochongzhiBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _shenghuochongzhiBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _shenghuochongzhiBtn.frame = CGRectMake(_shenghuochongzhiX, _privateY, 120, 40);
@@ -528,9 +642,10 @@
     }
     //话费充值
     if (button.tag == 10005) {
+        [self tradeTypeFromIndex:5];
         _buttonIndex = 5;
         _isChecked = NO;
-        [self.tableView reloadData];
+        [self downloadDataWithPage:1 isMore:NO];
         [_huafeichongzhiBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _huafeichongzhiBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _huafeichongzhiBtn.frame = CGRectMake(_huafeichongzhiX, _privateY, 120, 40);
@@ -576,7 +691,7 @@
             return 1;
         }
         else{
-           return 5;
+           return _tradeRecords.count;
         }
     }
 }
@@ -604,58 +719,81 @@ else
     {
         if (_buttonIndex == 1) {
             TransferCell *cell = [TransferCell cellWithTableView:tableView];
-            cell.timeLabel.text = @"2014-12-22 20:22:22";
-            cell.payLabel.text = @"123456789***456";
-            cell.getLabel.text = @"123456789***456";
-            cell.terminalLabel.text = @"1234567887654321";
-            cell.dealMoney.text = @"￥99999.99";
-            cell.dealStates.text = @"成功";
+            TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
+            cell.timeLabel.text = model.tradeTime;
+            cell.payLabel.text = model.payFromAccount;
+            cell.getLabel.text = model.payIntoAccount;
+            cell.terminalLabel.text = model.terminalNumber;
+            cell.dealMoney.text = model.amount;
+            [self StringWithdealStates:model.tradeStatus];
+            cell.dealStates.text = _DealState;
             return cell;
         }
         
         if (_buttonIndex == 3) {
             RepaymentCell *cell = [RepaymentCell cellWithTableView:tableView];
-            cell.timeLabel.text = @"2014-12-22 20:22:22";
-            cell.payLabel.text = @"123456789***456";
-            cell.payToLabel.text = @"123456789***456";
-            cell.terminalLabel.text = @"1234567887654321";
-            cell.dealMoney.text = @"￥99999.99";
-            cell.dealStates.text = @"成功";
+            TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
+            cell.timeLabel.text = model.tradeTime;
+            cell.payLabel.text = model.payFromAccount;
+            cell.payToLabel.text = model.payIntoAccount;
+            cell.terminalLabel.text = model.terminalNumber;
+            cell.dealMoney.text = model.amount;
+            [self StringWithdealStates:model.tradeStatus];
+            cell.dealStates.text = _DealState;
             return cell;
         }
         if (_buttonIndex == 4) {
             LiferechargeCell *cell = [LiferechargeCell cellWithTableView:tableView];
-            cell.timeLabel.text = @"2014-12-22 20:22:22";
-            cell.usernameLabel.text = @"张*名";
-            cell.useraccountLabel.text = @"123456789***456";
-            cell.terminalLabel.text = @"1234567887654321";
-            cell.dealMoney.text = @"￥99999.99";
-            cell.dealStates.text = @"成功";
+            TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
+            cell.timeLabel.text = model.tradeTime;
+            cell.usernameLabel.text = model.accountName;
+            cell.useraccountLabel.text = model.accountNumber;
+            cell.terminalLabel.text = model.terminalNumber;
+            cell.dealMoney.text = model.amount;
+            [self StringWithdealStates:model.tradeStatus];
+            cell.dealStates.text = _DealState;
             return cell;
         }
         if (_buttonIndex == 5) {
             TelephonechargeCell *cell = [TelephonechargeCell cellWithTableView:tableView];
-            cell.timeLabel.text = @"2014-12-22 20:22:22";
-            cell.phoneNumLabel.text = @"156****1775";
-            cell.terminalLabel.text = @"1234567887654321";
-            cell.dealMoney.text = @"￥99999.99";
-            cell.dealStates.text = @"成功";
+            TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
+            cell.timeLabel.text = model.tradeTime;
+            cell.phoneNumLabel.text = model.phoneNumber;
+            cell.terminalLabel.text = model.terminalNumber;
+            cell.dealMoney.text = model.amount;
+            [self StringWithdealStates:model.tradeStatus];
+            cell.dealStates.text = _DealState;
             return cell;
         }
         
         else {
             ConsumptionCell *cell = [ConsumptionCell cellWithTableView:tableView];
-            cell.timeLabel.text = @"2014-12-22 20:22:22";
-            cell.settleLabel.text = @"2014-12-22 20:22:22";
-            cell.poundageLabel.text = @"￥99999.99";
-            cell.terminalLabel.text = @"1234567887654321";
-            cell.dealMoney.text = @"￥99999.99";
-            cell.dealStates.text = @"成功";
+            TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
+            cell.timeLabel.text = model.tradeTime;
+            cell.settleLabel.text = model.payedTime;
+            cell.poundageLabel.text = model.poundage;
+            cell.terminalLabel.text = model.terminalNumber;
+            cell.dealMoney.text = model.amount;
+            [self StringWithdealStates:model.tradeStatus];
+            cell.dealStates.text = _DealState;
             return cell;
         }
         
     }
 }
+}
+
+- (void)StringWithdealStates:(NSString *)dealStates
+{
+    if ([dealStates isEqualToString:@"1"]) {
+        self.DealState = @"待付款";
+    }
+    if ([dealStates isEqualToString:@"2"]) {
+        self.DealState = @"成功";
+    }
+    if ([dealStates isEqualToString:@"3"]) {
+        self.DealState = @"失败";
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -692,11 +830,16 @@ else
         _terminalField.text = model.terminalNum;
         [_terminalTableView removeFromSuperview];
     }
+    if (indexPath.section == 0) {
+        
+    }
     else{
     //内容点击跳转
     DealRoadChildController *dealVC = [[DealRoadChildController alloc]init];
-    dealVC.tradeID = @"1";
-    dealVC.tradeType = TradeTypeTelephoneFare;
+    TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
+    TradeType tradeType = [self tradeTypeFromIndex:_buttonIndex];
+    dealVC.tradeID = model.tradeID;
+    dealVC.tradeType = tradeType;
     dealVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:dealVC animated:YES];
     }
@@ -740,6 +883,64 @@ else
     }];
 }
 
+- (void)firstLoadData {
+    _page = 1;
+    [self downloadDataWithPage:_page isMore:NO];
+}
+
+- (void)downloadDataWithPage:(int)page isMore:(BOOL)isMore {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    TradeType tradeType = [self tradeTypeFromIndex:_buttonIndex];
+    [NetworkInterface searchTradeRecordWithToken:delegate.token tradeType:tradeType terminalNumber:_terminalField.text startTime:_startTime endTime:_endTime page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    if (!isMore) {
+                        [_tradeRecords removeAllObjects];
+                    }
+                    if ([[object objectForKey:@"result"] count] > 0) {
+                        //有数据
+                        self.page++;
+                        [hud hide:YES];
+                    }
+                    else {
+                        //无数据
+                        hud.labelText = @"没有更多数据了...";
+                    }
+                    [self parseTradeDataWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+        if (!isMore) {
+            [self refreshViewFinishedLoadingWithDirection:PullFromTop];
+        }
+        else {
+            [self refreshViewFinishedLoadingWithDirection:PullFromBottom];
+        }
+    }];
+}
+
+
+
 #pragma mark - Data
 
 //解析终端信息
@@ -762,8 +963,11 @@ else
     for (int i = 0; i < [tradeList count]; i++) {
         TradeModel *trade = [[TradeModel alloc] initWithParseDictionary:[tradeList objectAtIndex:i]];
         [_tradeRecords addObject:trade];
+        NSLog(@"~~~~~~~~~~%@",trade.payIntoAccount);
+        NSLog(@"**********%@",trade.payedTime);
     }
-//    [_tableView reloadData];
+    
+    [self.tableView reloadData];
 }
 
 //将日期转化成字符串yyyy-MM-dd格式
@@ -783,5 +987,98 @@ else
     [format setDateFormat:@"yyyy-MM-dd"];
     return [format dateFromString:string];
 }
+
+#pragma mark - Refresh
+
+- (void)refreshViewReloadData {
+    _reloading = YES;
+}
+
+- (void)refreshViewFinishedLoadingWithDirection:(PullDirection)direction {
+    _reloading = NO;
+    if (direction == PullFromTop) {
+        [_topRefreshView refreshViewDidFinishedLoading:self.tableView];
+    }
+    else if (direction == PullFromBottom) {
+        _bottomRefreshView.frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, 60);
+        [_bottomRefreshView refreshViewDidFinishedLoading:self.tableView];
+    }
+    [self updateFooterViewFrame];
+}
+
+- (BOOL)refreshViewIsLoading:(RefreshView *)view {
+    return _reloading;
+}
+
+- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
+    [self refreshViewReloadData];
+    //loading...
+    if (view == _topRefreshView) {
+        [self pullDownToLoadData];
+    }
+    else if (view == _bottomRefreshView) {
+        [self pullUpToLoadData];
+    }
+}
+
+- (void)updateFooterViewFrame {
+    _bottomRefreshView.frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, 60);
+    _bottomRefreshView.hidden = NO;
+    if (self.tableView.contentSize.height < self.tableView.frame.size.height) {
+        _bottomRefreshView.hidden = YES;
+    }
+}
+
+#pragma mark - UIScrollView
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _primaryOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidScroll:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidScroll:scrollView];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == self.tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidEndDragging:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidEndDragging:scrollView];
+        }
+    }
+}
+
+#pragma mark - 上下拉刷新
+//下拉刷新
+- (void)pullDownToLoadData {
+    [self firstLoadData];
+}
+
+//上拉加载
+- (void)pullUpToLoadData {
+    [self downloadDataWithPage:self.page isMore:YES];
+}
+
 
 @end

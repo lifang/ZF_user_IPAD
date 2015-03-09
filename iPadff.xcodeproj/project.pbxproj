@@ -117,6 +117,10 @@
 		1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D85F1AA7F20E00E9851C /* TerminalViewCell.m */; };
 		1A76D8641AA820C200E9851C /* DealRoadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8631AA820C200E9851C /* DealRoadController.m */; };
 		1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8661AA8501900E9851C /* TopDealRoadCell.m */; };
+		1A8EE2BF1AAD78490014A7A5 /* TerminalAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8EE2BE1AAD78480014A7A5 /* TerminalAddViewController.m */; };
+		1A8EE2C21AAD8D3C0014A7A5 /* InstitutionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8EE2C11AAD8D3C0014A7A5 /* InstitutionModel.m */; };
+		1A8EE2C51AAD99DE0014A7A5 /* DealRoadDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8EE2C41AAD99DE0014A7A5 /* DealRoadDetailController.m */; };
+		1A8EE2CA1AADABA80014A7A5 /* TerminalManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A8EE2C81AADABA80014A7A5 /* TerminalManagerModel.m */; };
 		1A94EB6C1AA943530056E921 /* TransferCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB6B1AA943530056E921 /* TransferCell.m */; };
 		1A94EB6F1AA9437C0056E921 /* ConsumptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB6E1AA9437C0056E921 /* ConsumptionCell.m */; };
 		1A94EB721AA952600056E921 /* RepaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB711AA952600056E921 /* RepaymentCell.m */; };
@@ -338,6 +342,14 @@
 		1A76D8631AA820C200E9851C /* DealRoadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadController.m; sourceTree = "<group>"; };
 		1A76D8651AA8501900E9851C /* TopDealRoadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopDealRoadCell.h; sourceTree = "<group>"; };
 		1A76D8661AA8501900E9851C /* TopDealRoadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopDealRoadCell.m; sourceTree = "<group>"; };
+		1A8EE2BD1AAD78480014A7A5 /* TerminalAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalAddViewController.h; sourceTree = "<group>"; };
+		1A8EE2BE1AAD78480014A7A5 /* TerminalAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalAddViewController.m; sourceTree = "<group>"; };
+		1A8EE2C01AAD8D3C0014A7A5 /* InstitutionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstitutionModel.h; sourceTree = "<group>"; };
+		1A8EE2C11AAD8D3C0014A7A5 /* InstitutionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstitutionModel.m; sourceTree = "<group>"; };
+		1A8EE2C31AAD99DE0014A7A5 /* DealRoadDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealRoadDetailController.h; sourceTree = "<group>"; };
+		1A8EE2C41AAD99DE0014A7A5 /* DealRoadDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadDetailController.m; sourceTree = "<group>"; };
+		1A8EE2C71AADABA80014A7A5 /* TerminalManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalManagerModel.h; sourceTree = "<group>"; };
+		1A8EE2C81AADABA80014A7A5 /* TerminalManagerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalManagerModel.m; sourceTree = "<group>"; };
 		1A94EB6A1AA943530056E921 /* TransferCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferCell.h; sourceTree = "<group>"; };
 		1A94EB6B1AA943530056E921 /* TransferCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferCell.m; sourceTree = "<group>"; };
 		1A94EB6D1AA9437C0056E921 /* ConsumptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsumptionCell.h; sourceTree = "<group>"; };
@@ -437,6 +449,10 @@
 		0ECE7DA21AA5587A00E250B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1A8EE2C71AADABA80014A7A5 /* TerminalManagerModel.h */,
+				1A8EE2C81AADABA80014A7A5 /* TerminalManagerModel.m */,
+				1A8EE2C01AAD8D3C0014A7A5 /* InstitutionModel.h */,
+				1A8EE2C11AAD8D3C0014A7A5 /* InstitutionModel.m */,
 				1A94EB821AA98E430056E921 /* TerminalModel.h */,
 				1A94EB831AA98E430056E921 /* TerminalModel.m */,
 				1A94EB7C1AA96CA10056E921 /* TradeModel.h */,
@@ -828,6 +844,8 @@
 			children = (
 				1A76D85B1AA7EE0700E9851C /* TerminalViewController.h */,
 				1A76D85C1AA7EE0700E9851C /* TerminalViewController.m */,
+				1A8EE2BD1AAD78480014A7A5 /* TerminalAddViewController.h */,
+				1A8EE2BE1AAD78480014A7A5 /* TerminalAddViewController.m */,
 			);
 			name = Terminal;
 			sourceTree = "<group>";
@@ -839,6 +857,8 @@
 				1A76D8631AA820C200E9851C /* DealRoadController.m */,
 				1A94EB791AA967950056E921 /* DealRoadChildController.h */,
 				1A94EB7A1AA967950056E921 /* DealRoadChildController.m */,
+				1A8EE2C31AAD99DE0014A7A5 /* DealRoadDetailController.h */,
+				1A8EE2C41AAD99DE0014A7A5 /* DealRoadDetailController.m */,
 			);
 			name = DealRoad;
 			sourceTree = "<group>";
@@ -1067,6 +1087,7 @@
 				0ED8EBE41AA6D7E000CE9F61 /* MJRefreshHeaderView.m in Sources */,
 				1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */,
 				1A727B2A1AA5813A00E1643D /* PhoneSuccessViewController.m in Sources */,
+				1A8EE2BF1AAD78490014A7A5 /* TerminalAddViewController.m in Sources */,
 				0ED6AD0F1AA1912F00D3B025 /* LocationButton.m in Sources */,
 				0ECE7DD81AA55EF100E250B6 /* GoodListModel.m in Sources */,
 				0ECE7DAC1AA55A0100E250B6 /* TreeView.m in Sources */,
@@ -1076,6 +1097,7 @@
 				1A6FC31F1AA6A61B00F4C6AC /* CityModel.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
 				0ED8EBE21AA6D7E000CE9F61 /* MJRefreshConst.m in Sources */,
+				1A8EE2C51AAD99DE0014A7A5 /* DealRoadDetailController.m in Sources */,
 				1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */,
 				1A94EB781AA956620056E921 /* TelephonechargeCell.m in Sources */,
 				1A727B651AA5A91000E1643D /* MessageViewController.m in Sources */,
@@ -1100,6 +1122,7 @@
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,
 				0ECE7DC31AA55D7A00E250B6 /* NavigationBarAttr.m in Sources */,
 				0ECE7DB41AA55A2B00E250B6 /* TreeNodeCollection.m in Sources */,
+				1A8EE2C21AAD8D3C0014A7A5 /* InstitutionModel.m in Sources */,
 				1AA8FF7A1AA4074D009D41B3 /* UIImageView+WebCache.m in Sources */,
 				0ED8EBA41AA6A6D700CE9F61 /* FormView.m in Sources */,
 				1A94EB751AA9542A0056E921 /* LiferechargeCell.m in Sources */,
@@ -1114,6 +1137,7 @@
 				0ED8EB921AA69B9300CE9F61 /* RegularFormat.m in Sources */,
 				1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */,
 				0ED8EB9D1AA6A6CB00CE9F61 /* ModuleView.m in Sources */,
+				1A8EE2CA1AADABA80014A7A5 /* TerminalManagerModel.m in Sources */,
 				0ED6ACEE1AA16D4A00D3B025 /* MyViewController.m in Sources */,
 				1A94EB811AA98B4A0056E921 /* TerminalChoseCell.m in Sources */,
 				1AA8FF701AA4074D009D41B3 /* SDWebImageCompat.m in Sources */,

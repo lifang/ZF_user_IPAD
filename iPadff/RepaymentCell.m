@@ -74,11 +74,11 @@
     
     _payToLabel.frame = CGRectMake(CGRectGetMaxX(_payLabel.frame) , mainY, 180, mainY);
     
-    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_payToLabel.frame) - 25, mainY, 200, mainY);
+    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_payToLabel.frame) - 5, mainY, 200, mainY);
     
     _dealMoney.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) - 24, mainY, 100, mainY);
     
-    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) + 70, mainY, 30, mainY);
+    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) + 50, mainY, 50, mainY);
     
 }
 
