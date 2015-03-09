@@ -74,11 +74,11 @@
     
     _useraccountLabel.frame = CGRectMake(CGRectGetMaxX(_usernameLabel.frame) - 40 , mainY, 180, mainY);
     
-    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_useraccountLabel.frame) - 25, mainY, 200, mainY);
+    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_useraccountLabel.frame) , mainY, 200, mainY);
     
     _dealMoney.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) - 15, mainY, 100, mainY);
     
-    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) + 70, mainY, 30, mainY);
+    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) + 45, mainY, 50, mainY);
     
 }
 

@@ -66,6 +66,11 @@
     _phoneField.leftViewMode = UITextFieldViewModeAlways;
     UIView *placeholderV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _phoneField.leftView = placeholderV;
+    CALayer *readBtnLayer = [_phoneField layer];
+    [readBtnLayer setMasksToBounds:YES];
+    [readBtnLayer setCornerRadius:2.0];
+    [readBtnLayer setBorderWidth:1.0];
+    [readBtnLayer setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_phoneField];
     
     UIButton *authGetBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _phoneField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
@@ -93,6 +98,11 @@
     UIView *placeholderV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _authField.leftView = placeholderV1;
     _authField.rightViewMode = UITextFieldViewModeAlways;
+    CALayer *readBtnLayer1 = [_authField layer];
+    [readBtnLayer1 setMasksToBounds:YES];
+    [readBtnLayer1 setCornerRadius:2.0];
+    [readBtnLayer1 setBorderWidth:1.0];
+    [readBtnLayer1 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_authField];
     
     UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
@@ -119,6 +129,11 @@
     _newsPassword.leftViewMode = UITextFieldViewModeAlways;
     UIView *placeholderV2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _newsPassword.leftView = placeholderV2;
+    CALayer *readBtnLayer2 = [_newsPassword layer];
+    [readBtnLayer2 setMasksToBounds:YES];
+    [readBtnLayer2 setCornerRadius:2.0];
+    [readBtnLayer2 setBorderWidth:1.0];
+    [readBtnLayer2 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_newsPassword];
     
     UILabel *makeSurepassword = [[UILabel alloc]init];
@@ -138,6 +153,11 @@
     _makeSurePassword.leftViewMode = UITextFieldViewModeAlways;
     UIView *placeholderV3 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _makeSurePassword.leftView = placeholderV3;
+    CALayer *readBtnLayer3 = [_makeSurePassword layer];
+    [readBtnLayer3 setMasksToBounds:YES];
+    [readBtnLayer3 setCornerRadius:2.0];
+    [readBtnLayer3 setBorderWidth:1.0];
+    [readBtnLayer3 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_makeSurePassword];
     
     UIView *line = [[UIView alloc]init];

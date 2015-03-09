@@ -19,6 +19,9 @@
         CGFloat mainBtnW = 110.f;
         CGFloat mainBtnH = 40.f;
         CGFloat mainBtnX = (SCREEN_WIDTH - 130.f);
+        if (iOS7) {
+            mainBtnX = SCREEN_HEIGHT - 130.f;
+        }
         CGFloat mainBtnY = 20.f;
         
         self.terminalLabel = [[UILabel alloc]init];
@@ -38,7 +41,7 @@
         _dredgeStatus.textAlignment = UITextAlignmentCenter;
         [self addSubview:_dredgeStatus];
         
-        if ([reuseIdentifier isEqualToString:@"cell-已开通"]) {
+        if ([reuseIdentifier isEqualToString:@"cell-1"]) {
             for (int i = 0; i < 2; i++) {
                 UIButton *button = [[UIButton alloc]init];
                 button.titleLabel.font = [UIFont systemFontOfSize:17];
@@ -61,7 +64,7 @@
                 }
             }
         }
-        if ([reuseIdentifier isEqualToString:@"cell-未开通"]) {
+        if ([reuseIdentifier isEqualToString:@"cell-3"]) {
             for (int i = 0; i < 3; i++) {
                 UIButton *button = [[UIButton alloc]init];
                 button.titleLabel.font = [UIFont systemFontOfSize:17];
@@ -87,7 +90,7 @@
                 }
             }
         }
-        if ([reuseIdentifier isEqualToString:@"cell-部分开通"]) {
+        if ([reuseIdentifier isEqualToString:@"cell-2"]) {
             for (int i = 0; i < 4; i++) {
                 UIButton *button = [[UIButton alloc]init];
                 button.titleLabel.font = [UIFont systemFontOfSize:17];
@@ -116,7 +119,7 @@
                 }
             }
         }
-        if ([reuseIdentifier isEqualToString:@"cell-已停用"]) {
+        if ([reuseIdentifier isEqualToString:@"cell-5"]) {
             for (int i = 0; i < 2; i++) {
                 UIButton *button = [[UIButton alloc]init];
                 button.titleLabel.font = [UIFont systemFontOfSize:17];
@@ -139,7 +142,7 @@
                 }
             }
         }
-        if ([reuseIdentifier isEqualToString:@"cell-已注销"]) {
+        if ([reuseIdentifier isEqualToString:@"cell-4"]) {
             for (int i = 0; i < 1; i++) {
                 UIButton *button = [[UIButton alloc]init];
                 button.titleLabel.font = [UIFont systemFontOfSize:17];

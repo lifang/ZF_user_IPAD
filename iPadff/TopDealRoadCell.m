@@ -191,7 +191,7 @@
         [_contentViews addSubview:label2];
         
         UILabel *label3 = [[UILabel alloc]init];
-        label3.text = @"账户密码";
+        label3.text = @"账户号码";
         label3.frame = CGRectMake(CGRectGetMaxX(label2.frame) + mainMargin, 5, 100, 20);
         label3.font = [UIFont systemFontOfSize:14];
         [_contentViews addSubview:label3];

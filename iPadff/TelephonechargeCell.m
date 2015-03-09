@@ -67,11 +67,11 @@
     
     _phoneNumLabel.frame = CGRectMake(CGRectGetMaxX(_timeLabel.frame) + 80 , mainY, 180, mainY);
     
-    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_phoneNumLabel.frame) + 15, mainY, 200, mainY);
+    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_phoneNumLabel.frame) + 35, mainY, 200, mainY);
     
     _dealMoney.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 30, mainY, 100, mainY);
     
-    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) + 90, mainY, 30, mainY);
+    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) + 70, mainY, 50, mainY);
     
 }
 

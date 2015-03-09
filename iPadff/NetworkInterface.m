@@ -139,7 +139,7 @@ static NSString *HTTP_GET  = @"GET";
     //参数
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
     [paramDict setObject:token forKey:@"token"];
-    [paramDict setObject:userID forKey:@"customersId"];
+    [paramDict setObject:[NSNumber numberWithInt:[userID intValue]] forKey:@"customersId"];
     [paramDict setObject:[NSNumber numberWithInt:page] forKey:@"indexPage"];
     [paramDict setObject:[NSNumber numberWithInt:rows] forKey:@"pageNum"];
     //url

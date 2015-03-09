@@ -63,6 +63,11 @@
     _userField.leftViewMode = UITextFieldViewModeAlways;
     UIView *placeholderV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _userField.leftView = placeholderV;
+    CALayer *readBtnLayer = [_userField layer];
+    [readBtnLayer setMasksToBounds:YES];
+    [readBtnLayer setCornerRadius:2.0];
+    [readBtnLayer setBorderWidth:1.0];
+    [readBtnLayer setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [loginView addSubview:_userField];
     
     _passwordField = [[UITextField alloc]init];
@@ -76,11 +81,16 @@
     _passwordField.leftViewMode = UITextFieldViewModeAlways;
     UIView *placeholderV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _passwordField.leftView = placeholderV1;
+    CALayer *readBtnLayer1 = [_passwordField layer];
+    [readBtnLayer1 setMasksToBounds:YES];
+    [readBtnLayer1 setCornerRadius:2.0];
+    [readBtnLayer1 setBorderWidth:1.0];
+    [readBtnLayer1 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [loginView addSubview:_passwordField];
     
     UIButton *loginBtn = [[UIButton alloc]init];
     [loginBtn addTarget:self action:@selector(loginClick:) forControlEvents:UIControlEventTouchUpInside];
-    [loginBtn setBackgroundColor:[UIColor orangeColor]];
+    [loginBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
     [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
     loginBtn.titleLabel.tintColor = [UIColor whiteColor];
     loginBtn.frame = CGRectMake(_userField.frame.origin.x, CGRectGetMaxY(_passwordField.frame) + 30, _userField.frame.size.width, userImage.frame.size.height);

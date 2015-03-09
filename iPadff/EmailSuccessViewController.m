@@ -77,7 +77,7 @@
     [loginBtn setTitle:@"马上登陆" forState:UIControlStateNormal];
     [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     loginBtn.titleLabel.font = mainFont;
-    [loginBtn setBackgroundColor:[UIColor orangeColor]];
+    [loginBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
     loginBtn.frame = CGRectMake(label2.frame.origin.x + 70, CGRectGetMaxY(line.frame) + 40, 240, 40);
     [self.view addSubview:loginBtn];
     
