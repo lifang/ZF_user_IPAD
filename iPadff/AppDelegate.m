@@ -12,7 +12,7 @@
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #import "ZYHomeViewController.h"
 #import "MessageViewController.h"
-#import "MyViewController.h"
+#import "MineViewController.h"
 #import "ShoppingViewController.h"
 #import "BasicNagigationController.h"
 @interface AppDelegate ()
@@ -36,7 +36,7 @@
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
     MessageViewController *viewController3 = [[MessageViewController alloc] init];
-    MyViewController *viewController4 = [[MyViewController alloc] init];
+    MineViewController *viewController4 = [[MineViewController alloc] init];
     
     
     //创建一个导航，以第一个视图控制器为根视图

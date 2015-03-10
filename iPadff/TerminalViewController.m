@@ -13,6 +13,7 @@
 #import "RefreshView.h"
 #import "TerminalAddViewController.h"
 #import "TerminalManagerModel.h"
+#import "TerminalChildController.h"
 
 
 @interface TerminalViewController ()<terminalCellSendBtnClicked,RefreshDelegate,addTerminal>
@@ -282,6 +283,7 @@
     }
 }
 
+
 #pragma mark terminalCell的代理
 -(void)terminalCellBtnClicked:(int)btnTag
 {
@@ -326,11 +328,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];
-    //    DynamicChildViewController *dynamicVC = [[DynamicChildViewController alloc]init];
-    //    dynamicVC.page =  status.ids;
-    //    [self.navigationController pushViewController:dynamicVC animated:YES];
-    //    SLog(@"点击了第%ld行",indexPath.row);
+    TerminalChildController *terminalChildV = [[TerminalChildController alloc]init];
+    terminalChildV.hidesBottomBarWhenPushed = YES;
+    TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];
+    terminalChildV.dealStatus = model.TM_status;
+    [self.navigationController pushViewController:terminalChildV animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

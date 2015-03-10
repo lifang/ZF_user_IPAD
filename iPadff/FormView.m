@@ -303,7 +303,7 @@
     CGFloat borderSpace = 20.f;
     NSInteger columnCount = [titleArray count];
     NSInteger itemCount = [itemArray count];
-    CGFloat itemWidth = (kScreenWidth - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
+    CGFloat itemWidth = (kScreenWidth - 550 - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
     //竖线
     CGFloat lineHeight = menuHeight + itemCount * (contentHeight + kLineHeight) + kLineHeight * 2;
     
@@ -312,7 +312,7 @@
         
         UIView *vLine = [[UIView alloc] init];
         vLine.translatesAutoresizingMaskIntoConstraints = NO;
-        vLine.backgroundColor = kColor(255, 102, 36, 1);
+        vLine.backgroundColor = kColor(211, 211, 211, 1);
         [self addSubview:vLine];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:vLine
                                                          attribute:NSLayoutAttributeTop
@@ -346,7 +346,7 @@
     //横线
     UIView *firstLine = [[UIView alloc] init];
     firstLine.translatesAutoresizingMaskIntoConstraints = NO;
-    firstLine.backgroundColor = kColor(255, 102, 36, 1);
+    firstLine.backgroundColor = kColor(211, 211, 211, 1);
     [self addSubview:firstLine];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
                                                      attribute:NSLayoutAttributeTop
@@ -385,7 +385,7 @@
         
         UIView *hLine = [[UIView alloc] init];
         hLine.translatesAutoresizingMaskIntoConstraints = NO;
-        hLine.backgroundColor = kColor(255, 102, 36, 1);
+        hLine.backgroundColor = kColor(211, 211, 211, 1);
         [self addSubview:hLine];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:hLine
                                                          attribute:NSLayoutAttributeTop
