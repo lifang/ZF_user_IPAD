@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EC8D6071AAE7D9D003661C5 /* ShoppingCartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D6061AAE7D9D003661C5 /* ShoppingCartController.m */; };
+		0EC8D60A1AAE7E43003661C5 /* ShoppingCartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */; };
+		0EC8D60D1AAE7FA4003661C5 /* ShoppingCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60C1AAE7FA4003661C5 /* ShoppingCartModel.m */; };
+		0EC8D6101AAE800A003661C5 /* ShoppingCartFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60F1AAE800A003661C5 /* ShoppingCartFooterView.m */; };
 		0EC905EC1AA93AB40053B694 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC905EB1AA93AB40053B694 /* FilterViewController.m */; };
 		0EC905EE1AA947060053B694 /* select_height.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC905ED1AA947060053B694 /* select_height.png */; };
 		0EC905F01AA9470C0053B694 /* select_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC905EF1AA9470C0053B694 /* select_normal.png */; };
@@ -17,6 +21,8 @@
 		0ECABF4C1AAD30D900413489 /* GoodButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECABF4B1AAD30D900413489 /* GoodButton.m */; };
 		0ECABF521AAD318B00413489 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECABF511AAD318B00413489 /* FormView.m */; };
 		0ECABF551AAD31A400413489 /* RateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECABF541AAD31A400413489 /* RateModel.m */; };
+		0ECCB2D71AAECBF100E0591E /* numberback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D61AAECBF100E0591E /* numberback@2x.png */; };
+		0ECCB2D91AAECC6A00E0591E /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D81AAECC6A00E0591E /* gray@2x.png */; };
 		0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */; };
 		0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */; };
 		0ECE7D891AA556F200E250B6 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D881AA556F200E250B6 /* CommonViewController.m */; };
@@ -58,7 +64,6 @@
 		0ED065D61A9EE81D005DF849 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065D51A9EE81D005DF849 /* MBProgressHUD.m */; };
 		0ED065E51A9EE9D8005DF849 /* BasicNagigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065E41A9EE9D8005DF849 /* BasicNagigationController.m */; };
 		0ED6ACEE1AA16D4A00D3B025 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6ACED1AA16D4A00D3B025 /* MyViewController.m */; };
-		0ED6ACF21AA16D6400D3B025 /* ShoppingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6ACF11AA16D6400D3B025 /* ShoppingViewController.m */; };
 		0ED6AD011AA16EEA00D3B025 /* 平板UI套件-用户版_89.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACF91AA16EEA00D3B025 /* 平板UI套件-用户版_89.png */; };
 		0ED6AD021AA16EEA00D3B025 /* shopping_nomal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACFA1AA16EEA00D3B025 /* shopping_nomal.png */; };
 		0ED6AD031AA16EEA00D3B025 /* Myinages_nomal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACFB1AA16EEA00D3B025 /* Myinages_nomal.png */; };
@@ -85,8 +90,6 @@
 		0ED8EB981AA69E9700CE9F61 /* good_right1..png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED8EB971AA69E9700CE9F61 /* good_right1..png */; };
 		0ED8EB9D1AA6A6CB00CE9F61 /* ModuleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED8EB9A1AA6A6CB00CE9F61 /* ModuleView.m */; };
 		0ED8EB9E1AA6A6CB00CE9F61 /* AfterSaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED8EB9C1AA6A6CB00CE9F61 /* AfterSaleView.m */; };
-		0ED8EBA31AA6A6D700CE9F61 /* ShoppingCartFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED8EBA01AA6A6D700CE9F61 /* ShoppingCartFooterView.m */; };
-		0ED8EBC21AA6A75000CE9F61 /* ShoppingCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED8EBB51AA6A75000CE9F61 /* ShoppingCartModel.m */; };
 		0ED8EBCA1AA6ACC900CE9F61 /* test1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED8EBC91AA6ACC900CE9F61 /* test1@2x.png */; };
 		0ED8EBD01AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED8EBCF1AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.m */; };
 		0ED8EBE11AA6D7E000CE9F61 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED8EBD41AA6D7E000CE9F61 /* MJRefreshBaseView.m */; };
@@ -166,6 +169,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0EC8D6051AAE7D9D003661C5 /* ShoppingCartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartController.h; sourceTree = "<group>"; };
+		0EC8D6061AAE7D9D003661C5 /* ShoppingCartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartController.m; sourceTree = "<group>"; };
+		0EC8D6081AAE7E43003661C5 /* ShoppingCartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartCell.h; sourceTree = "<group>"; };
+		0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartCell.m; sourceTree = "<group>"; };
+		0EC8D60B1AAE7FA4003661C5 /* ShoppingCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartModel.h; sourceTree = "<group>"; };
+		0EC8D60C1AAE7FA4003661C5 /* ShoppingCartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartModel.m; sourceTree = "<group>"; };
+		0EC8D60E1AAE800A003661C5 /* ShoppingCartFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartFooterView.h; sourceTree = "<group>"; };
+		0EC8D60F1AAE800A003661C5 /* ShoppingCartFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartFooterView.m; sourceTree = "<group>"; };
 		0EC905EA1AA93AB40053B694 /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
 		0EC905EB1AA93AB40053B694 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		0EC905ED1AA947060053B694 /* select_height.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select_height.png; sourceTree = "<group>"; };
@@ -184,6 +195,8 @@
 		0ECABF511AAD318B00413489 /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
 		0ECABF531AAD31A400413489 /* RateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateModel.h; sourceTree = "<group>"; };
 		0ECABF541AAD31A400413489 /* RateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateModel.m; sourceTree = "<group>"; };
+		0ECCB2D61AAECBF100E0591E /* numberback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numberback@2x.png"; sourceTree = "<group>"; };
+		0ECCB2D81AAECC6A00E0591E /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomTabBarViewController.h; sourceTree = "<group>"; };
 		0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomTabBarViewController.m; sourceTree = "<group>"; };
 		0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYHomeViewController.h; sourceTree = "<group>"; };
@@ -256,8 +269,6 @@
 		0ED065E61A9EEA38005DF849 /* FontColorAndSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontColorAndSize.h; sourceTree = "<group>"; };
 		0ED6ACEC1AA16D4A00D3B025 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
 		0ED6ACED1AA16D4A00D3B025 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
-		0ED6ACF01AA16D6400D3B025 /* ShoppingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingViewController.h; sourceTree = "<group>"; };
-		0ED6ACF11AA16D6400D3B025 /* ShoppingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingViewController.m; sourceTree = "<group>"; };
 		0ED6ACF91AA16EEA00D3B025 /* 平板UI套件-用户版_89.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "平板UI套件-用户版_89.png"; sourceTree = "<group>"; };
 		0ED6ACFA1AA16EEA00D3B025 /* shopping_nomal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping_nomal.png; sourceTree = "<group>"; };
 		0ED6ACFB1AA16EEA00D3B025 /* Myinages_nomal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Myinages_nomal.png; sourceTree = "<group>"; };
@@ -289,10 +300,6 @@
 		0ED8EB9A1AA6A6CB00CE9F61 /* ModuleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleView.m; sourceTree = "<group>"; };
 		0ED8EB9B1AA6A6CB00CE9F61 /* AfterSaleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AfterSaleView.h; sourceTree = "<group>"; };
 		0ED8EB9C1AA6A6CB00CE9F61 /* AfterSaleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AfterSaleView.m; sourceTree = "<group>"; };
-		0ED8EB9F1AA6A6D700CE9F61 /* ShoppingCartFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartFooterView.h; sourceTree = "<group>"; };
-		0ED8EBA01AA6A6D700CE9F61 /* ShoppingCartFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartFooterView.m; sourceTree = "<group>"; };
-		0ED8EBB41AA6A75000CE9F61 /* ShoppingCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartModel.h; sourceTree = "<group>"; };
-		0ED8EBB51AA6A75000CE9F61 /* ShoppingCartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartModel.m; sourceTree = "<group>"; };
 		0ED8EBC91AA6ACC900CE9F61 /* test1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test1@2x.png"; sourceTree = "<group>"; };
 		0ED8EBCE1AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsCellCollectionViewCell.h; sourceTree = "<group>"; };
 		0ED8EBCF1AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsCellCollectionViewCell.m; sourceTree = "<group>"; };
@@ -464,6 +471,8 @@
 		0ECE7DA21AA5587A00E250B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0EC8D60B1AAE7FA4003661C5 /* ShoppingCartModel.h */,
+				0EC8D60C1AAE7FA4003661C5 /* ShoppingCartModel.m */,
 				0ECABF531AAD31A400413489 /* RateModel.h */,
 				0ECABF541AAD31A400413489 /* RateModel.m */,
 				0ECABF471AAD30AE00413489 /* ChannelModel.h */,
@@ -484,8 +493,6 @@
 				0ECE7DA41AA5589400E250B6 /* TreeDataHandle.m */,
 				0ECE7DA61AA558CC00E250B6 /* TreeNodeModel.h */,
 				0ECE7DA71AA558CC00E250B6 /* TreeNodeModel.m */,
-				0ED8EBB41AA6A75000CE9F61 /* ShoppingCartModel.h */,
-				0ED8EBB51AA6A75000CE9F61 /* ShoppingCartModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -545,6 +552,8 @@
 		0ECE7DC81AA55E0800E250B6 /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				0EC8D6081AAE7E43003661C5 /* ShoppingCartCell.h */,
+				0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */,
 				0ED8EBCE1AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.h */,
 				0ED8EBCF1AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.m */,
 				0ED8EBF21AA6E94A00CE9F61 /* GoodsCollectionViewCell2.h */,
@@ -674,8 +683,8 @@
 		0ED6ACEF1AA16D5000D3B025 /* Shopping */ = {
 			isa = PBXGroup;
 			children = (
-				0ED6ACF01AA16D6400D3B025 /* ShoppingViewController.h */,
-				0ED6ACF11AA16D6400D3B025 /* ShoppingViewController.m */,
+				0EC8D6051AAE7D9D003661C5 /* ShoppingCartController.h */,
+				0EC8D6061AAE7D9D003661C5 /* ShoppingCartController.m */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";
@@ -713,6 +722,8 @@
 		0ED6ACF81AA16ECB00D3B025 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0ECCB2D81AAECC6A00E0591E /* gray@2x.png */,
+				0ECCB2D61AAECBF100E0591E /* numberback@2x.png */,
 				0EC905ED1AA947060053B694 /* select_height.png */,
 				0ED8EBEA1AA6E2BC00CE9F61 /* 8kind_height.png */,
 				0ED8EBEB1AA6E2BC00CE9F61 /* 9kind_height.png */,
@@ -761,12 +772,12 @@
 			isa = PBXGroup;
 			children = (
 				0ECABF501AAD318B00413489 /* FormView.h */,
+				0EC8D60E1AAE800A003661C5 /* ShoppingCartFooterView.h */,
+				0EC8D60F1AAE800A003661C5 /* ShoppingCartFooterView.m */,
 				0ECABF511AAD318B00413489 /* FormView.m */,
 				0ECABF4A1AAD30D900413489 /* GoodButton.h */,
 				0ECABF4B1AAD30D900413489 /* GoodButton.m */,
 				1A94EB691AA943060056E921 /* DealRoadCells */,
-				0ED8EB9F1AA6A6D700CE9F61 /* ShoppingCartFooterView.h */,
-				0ED8EBA01AA6A6D700CE9F61 /* ShoppingCartFooterView.m */,
 				0ED8EB991AA6A6CB00CE9F61 /* ModuleView.h */,
 				0ED8EB9A1AA6A6CB00CE9F61 /* ModuleView.m */,
 				0ED8EB9B1AA6A6CB00CE9F61 /* AfterSaleView.h */,
@@ -1050,6 +1061,7 @@
 				0ED8EBF01AA6E2BC00CE9F61 /* 9kind_normal.png in Resources */,
 				0ED8EBCA1AA6ACC900CE9F61 /* test1@2x.png in Resources */,
 				0ED8EBE91AA6D7F400CE9F61 /* MJRefresh.bundle in Resources */,
+				0ECCB2D91AAECC6A00E0591E /* gray@2x.png in Resources */,
 				0ED8EB941AA69E1500CE9F61 /* good_search.png in Resources */,
 				0ED6AD021AA16EEA00D3B025 /* shopping_nomal.png in Resources */,
 				0ED6AD321AA19BC800D3B025 /* home7.png in Resources */,
@@ -1062,6 +1074,7 @@
 				0ED6AD011AA16EEA00D3B025 /* 平板UI套件-用户版_89.png in Resources */,
 				0ED8EBEE1AA6E2BC00CE9F61 /* 8kind_height.png in Resources */,
 				0ECE7DE21AA5795A00E250B6 /* btn_unselected@2x.png in Resources */,
+				0ECCB2D71AAECBF100E0591E /* numberback@2x.png in Resources */,
 				0ECE7DE41AA5797400E250B6 /* arrow_down@2x.png in Resources */,
 				0ED6AD2E1AA19BC800D3B025 /* home3.png in Resources */,
 				0EC905EE1AA947060053B694 /* select_height.png in Resources */,
@@ -1118,7 +1131,6 @@
 				0ECE7DAC1AA55A0100E250B6 /* TreeView.m in Sources */,
 				1AA8FF751AA4074D009D41B3 /* SDWebImagePrefetcher.m in Sources */,
 				1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */,
-				0ED6ACF21AA16D6400D3B025 /* ShoppingViewController.m in Sources */,
 				1A6FC31F1AA6A61B00F4C6AC /* CityModel.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
 				0ED8EBE21AA6D7E000CE9F61 /* MJRefreshConst.m in Sources */,
@@ -1143,7 +1155,6 @@
 				1A6FC3201AA6A61B00F4C6AC /* CityHandle.m in Sources */,
 				0ED8EBE61AA6D7E000CE9F61 /* UIScrollView+MJRefresh.m in Sources */,
 				1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */,
-				0ED8EBA31AA6A6D700CE9F61 /* ShoppingCartFooterView.m in Sources */,
 				0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */,
 				0ECE7DB51AA55A2B00E250B6 /* TreeNodeInfo.m in Sources */,
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,
@@ -1164,6 +1175,7 @@
 				1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */,
 				0ED8EB9D1AA6A6CB00CE9F61 /* ModuleView.m in Sources */,
 				1A8EE2CA1AADABA80014A7A5 /* TerminalManagerModel.m in Sources */,
+				0EC8D6101AAE800A003661C5 /* ShoppingCartFooterView.m in Sources */,
 				0ED6ACEE1AA16D4A00D3B025 /* MyViewController.m in Sources */,
 				1A94EB811AA98B4A0056E921 /* TerminalChoseCell.m in Sources */,
 				1AA8FF701AA4074D009D41B3 /* SDWebImageCompat.m in Sources */,
@@ -1172,9 +1184,11 @@
 				1AA8FF781AA4074D009D41B3 /* UIImage+MultiFormat.m in Sources */,
 				1A76D8641AA820C200E9851C /* DealRoadController.m in Sources */,
 				0ECABF521AAD318B00413489 /* FormView.m in Sources */,
+				0EC8D6071AAE7D9D003661C5 /* ShoppingCartController.m in Sources */,
 				1A727B261AA57BFC00E1643D /* NetworkRequest.m in Sources */,
 				0ED065AB1A9EE397005DF849 /* main.m in Sources */,
 				0ECE7D961AA5579800E250B6 /* SearchViewController.m in Sources */,
+				0EC8D60A1AAE7E43003661C5 /* ShoppingCartCell.m in Sources */,
 				1A3943FA1AA446CD0035DE4F /* FindPasswordViewController.m in Sources */,
 				1A65164C1AA6F42E008223BD /* ApplicationViewController.m in Sources */,
 				1AA8FF4F1AA40601009D41B3 /* PollingView.m in Sources */,
@@ -1183,6 +1197,7 @@
 				1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */,
 				0ECABF4C1AAD30D900413489 /* GoodButton.m in Sources */,
 				1A94EB721AA952600056E921 /* RepaymentCell.m in Sources */,
+				0EC8D60D1AAE7FA4003661C5 /* ShoppingCartModel.m in Sources */,
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				1A727B251AA57BFC00E1643D /* NetworkInterface.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
@@ -1190,7 +1205,6 @@
 				0ECE7D951AA5579800E250B6 /* GoodListViewController.m in Sources */,
 				1AA8FF791AA4074D009D41B3 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0ECE7D9C1AA557C700E250B6 /* ZFSearchBar.m in Sources */,
-				0ED8EBC21AA6A75000CE9F61 /* ShoppingCartModel.m in Sources */,
 				0ECABF551AAD31A400413489 /* RateModel.m in Sources */,
 				0ECE7D891AA556F200E250B6 /* CommonViewController.m in Sources */,
 				0ECE7DB31AA55A2B00E250B6 /* TreeNode.m in Sources */,

@@ -19,7 +19,7 @@
 #define kLineHeight   0.5f
 
 #define kPageSize 10   //分页加载每页行数
-
+#define NavTitle_FONTSIZE  36
 #define kServiceURL @"http://114.215.149.242:18080/ZFMerchant/api"
 
 #define kImageName(name) [UIImage imageNamed:name]
@@ -32,6 +32,8 @@
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
+#define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]
+#define NavTitle_FONT(s) [UIFont fontWithName:@"[STHeitiSC](Medium)" size:s]
 
 
 #define kServiceReturnWrong  @"服务端数据返回错误"

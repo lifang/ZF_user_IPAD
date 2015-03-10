@@ -13,7 +13,7 @@
 #import "ZYHomeViewController.h"
 #import "MessageViewController.h"
 #import "MyViewController.h"
-#import "ShoppingViewController.h"
+#import "ShoppingCartController.h"
 #import "BasicNagigationController.h"
 @interface AppDelegate ()
 
@@ -31,10 +31,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
   
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
-    ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
+    ShoppingCartController *viewController2 = [[ShoppingCartController alloc] init];
     MessageViewController *viewController3 = [[MessageViewController alloc] init];
     MyViewController *viewController4 = [[MyViewController alloc] init];
     

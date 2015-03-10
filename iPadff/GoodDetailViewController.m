@@ -32,10 +32,16 @@ static CGFloat topImageHeight = 180.f;
 @end
 
 @implementation GoodDetailViewController
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.title=@"商品详情";
+    
     [self downloadGoodDetail];
 }
 
@@ -324,7 +330,7 @@ static CGFloat topImageHeight = 180.f;
             [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
             rentButton.titleLabel.font = [UIFont systemFontOfSize: 15.0];
-            rentButton.tag=i;
+            rentButton.tag=i+1024;
 
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:rentButton];
@@ -349,7 +355,7 @@ static CGFloat topImageHeight = 180.f;
             [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
             rentButton.titleLabel.font = [UIFont systemFontOfSize: 15.0];
-            rentButton.tag=i;
+            rentButton.tag=i+1024;
             
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:rentButton];
@@ -512,7 +518,9 @@ static CGFloat topImageHeight = 180.f;
     GoodDetaildetailViewController*good=[[GoodDetaildetailViewController alloc]init];
     good.goodID=self.goodID;
     good.hidesBottomBarWhenPushed =  YES ;
-
+    UIButton*but=(UIButton*)sender;
+    
+    good.secletA=but.tag;
     
     [self.navigationController pushViewController:good animated:YES];
     

@@ -61,6 +61,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+
   filterC = [[FilterViewController alloc] init];
     changA=8;
     
@@ -212,7 +215,7 @@
     
     
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
-    flowLayout.sectionInset = UIEdgeInsetsMake(30, 20, 20, 20);//设置其边
+    flowLayout.sectionInset = UIEdgeInsetsMake(10, 20, 30, 20);//设置其边
     
     
     
@@ -224,7 +227,7 @@
     
     [_tableView registerClass:[GoodsCollectionViewCell2 class] forCellWithReuseIdentifier:@"myCells"];
 
-    [flowLayout setItemSize:CGSizeMake(120, 120)];//设置cell的尺寸
+    [flowLayout setItemSize:CGSizeMake(120, 170)];//设置cell的尺寸
 
     
     
@@ -327,7 +330,7 @@
 {
     changA=8;
     
-    [flowLayout setItemSize:CGSizeMake(120, 120)];//设置cell的尺寸
+    [flowLayout setItemSize:CGSizeMake(120, 170)];//设置cell的尺寸
 
     [button2 setImage:[UIImage imageNamed:@"8kind_normal"] forState:UIControlStateNormal];
 
