@@ -9,8 +9,28 @@
 #import "DredgeViewController.h"
 #import "DredgeViewCell.h"
 #import "ApplicationViewController.h"
+#import "RefreshView.h"
+#import "AppDelegate.h"
+#import "NetworkInterface.h"
+#import "TerminalManagerModel.h"
 
-@interface DredgeViewController ()
+@interface DredgeViewController ()<RefreshDelegate>
+
+@property(nonatomic,strong)UIView *headerView;
+
+/***************上下拉刷新**********/
+@property (nonatomic, strong) RefreshView *topRefreshView;
+@property (nonatomic, strong) RefreshView *bottomRefreshView;
+
+@property (nonatomic, assign) BOOL reloading;
+@property (nonatomic, assign) CGFloat primaryOffsetY;
+@property (nonatomic, assign) int page;
+/**********************************/
+
+@property(nonatomic,strong)NSString *status;
+
+//终端信息数据
+@property (nonatomic, strong) NSMutableArray *applyList;
 
 @end
 
@@ -18,8 +38,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _applyList = [[NSMutableArray alloc]init];
     [self setupNavBar];
     [self setupHeaderView];
+    [self setupRefreshView];
+    [self firstLoadData];
+}
+
+-(void)setupRefreshView
+{
+    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
+    _topRefreshView.direction = PullFromTop;
+    _topRefreshView.delegate = self;
+    [self.tableView addSubview:_topRefreshView];
+    
+    _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 60)];
+    _bottomRefreshView.direction = PullFromBottom;
+    _bottomRefreshView.delegate = self;
+    _bottomRefreshView.hidden = YES;
+    [self.tableView addSubview:_bottomRefreshView];
 }
 
 -(void)setupHeaderView
@@ -62,12 +99,13 @@
         bottomView.frame = CGRectMake(0, 36, SCREEN_HEIGHT, 24);
     }
     [headerView addSubview:bottomView];
+    self.headerView = headerView;
     self.tableView.tableHeaderView = headerView;
     
 }
 -(void)setupNavBar
 {
-    self.title = @"开通认证 ";
+    self.title = @"开通认证";
     self.view.backgroundColor = [UIColor whiteColor];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
@@ -98,6 +136,193 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Request
+
+- (void)firstLoadData {
+    _page = 1;
+    [self downloadDataWithPage:_page isMore:NO];
+}
+
+- (void)downloadDataWithPage:(int)page isMore:(BOOL)isMore {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface getApplyListWithToken:delegate.token userID:delegate.userID page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    if (!isMore) {
+                        [_applyList removeAllObjects];
+                    }
+                    if ([[object objectForKey:@"result"] count] > 0) {
+                        //有数据
+                        self.page++;
+                        [hud hide:YES];
+                    }
+                    else {
+                        //无数据
+                        hud.labelText = @"没有更多数据了...";
+                    }
+                    [self parseApplyDataWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+        if (!isMore) {
+            [self refreshViewFinishedLoadingWithDirection:PullFromTop];
+        }
+        else {
+            [self refreshViewFinishedLoadingWithDirection:PullFromBottom];
+        }
+    }];
+}
+
+#pragma mark - Data
+
+- (void)parseApplyDataWithDictionary:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+        return;
+    }
+    NSArray *TM_List = [dict objectForKey:@"result"];
+    for (int i = 0; i < [TM_List count]; i++) {
+        TerminalManagerModel *tm_Model = [[TerminalManagerModel alloc] initWithParseDictionary:[TM_List objectAtIndex:i]];
+        [_applyList addObject:tm_Model];
+    }
+    [self.tableView reloadData];
+}
+
+#pragma mark - Refresh
+
+- (void)refreshViewReloadData {
+    _reloading = YES;
+}
+
+- (void)refreshViewFinishedLoadingWithDirection:(PullDirection)direction {
+    _reloading = NO;
+    if (direction == PullFromTop) {
+        [_topRefreshView refreshViewDidFinishedLoading:self.tableView];
+    }
+    else if (direction == PullFromBottom) {
+        _bottomRefreshView.frame = CGRectMake(0,self.tableView.contentSize.height, self.tableView.bounds.size.width, 60);
+        [_bottomRefreshView refreshViewDidFinishedLoading:self.tableView];
+    }
+    [self updateFooterViewFrame];
+}
+
+- (BOOL)refreshViewIsLoading:(RefreshView *)view {
+    return _reloading;
+}
+
+- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
+    [self refreshViewReloadData];
+    //loading...
+    if (view == _topRefreshView) {
+        [self pullDownToLoadData];
+    }
+    else if (view == _bottomRefreshView) {
+        [self pullUpToLoadData];
+    }
+}
+
+- (void)updateFooterViewFrame {
+    _bottomRefreshView.frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, 60);
+    _bottomRefreshView.hidden = NO;
+    if (self.tableView.contentSize.height < self.tableView.frame.size.height) {
+        _bottomRefreshView.hidden = YES;
+    }
+}
+
+#pragma mark - UIScrollView
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _primaryOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidScroll:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidScroll:scrollView];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == self.tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidEndDragging:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidEndDragging:scrollView];
+        }
+    }
+}
+
+#pragma mark - 上下拉刷新
+//下拉刷新
+- (void)pullDownToLoadData {
+    [self firstLoadData];
+}
+
+//上拉加载
+- (void)pullUpToLoadData {
+    [self downloadDataWithPage:self.page isMore:YES];
+}
+- (NSString *)getStatusString {
+    NSString *statusString = nil;
+    int index = [_status intValue];
+    switch (index) {
+        case TerminalStatusOpened:
+            statusString = @"已开通";
+            break;
+        case TerminalStatusPartOpened:
+            statusString = @"部分开通";
+            break;
+        case TerminalStatusUnOpened:
+            statusString = @"未开通";
+            break;
+        case TerminalStatusCanceled:
+            statusString = @"已注销";
+            break;
+        case TerminalStatusStopped:
+            statusString = @"已停用";
+            break;
+        default:
+            break;
+    }
+    return statusString;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -105,20 +330,22 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return _applyList.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DredgeViewCell *cell = [DredgeViewCell cellWithTableView:tableView];
-    cell.terminalLabel.text = @"1234567890987612";
-    cell.posLabel.text = @"泰山TS900";
-    cell.payRoad.text = @"快钱宝";
-    cell.dredgeStatus.text = @"未开通";
+    TerminalManagerModel *model = [_applyList objectAtIndex:indexPath.row];
+    cell.terminalLabel.text = model.TM_serialNumber;
+    cell.posLabel.text = model.TM_brandsName;
+    cell.payRoad.text = model.TM_channelName;
+    self.status = model.TM_status;
+    cell.dredgeStatus.text = [self getStatusString];
     
     //用来标识数据的id
-    cell.applicationBtn.tag = 1234;
-    cell.vedioConfirmBtn.tag = 1111;
+    cell.applicationBtn.tag = [model.TM_ID intValue];
+    cell.vedioConfirmBtn.tag = [model.TM_ID intValue];
     
     [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.vedioConfirmBtn addTarget:self action:@selector(vedioConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -165,5 +392,13 @@
     }
 }
 
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 40.f;
+//}
+//
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    return _headerView;
+//}
 
 @end

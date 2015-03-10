@@ -290,6 +290,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     [_contentView addSubview:dateLabel];
     
     _dateField1 = [[UITextField alloc]init];
+    _dateField1.userInteractionEnabled = NO;
     _dateField1.borderStyle = UITextBorderStyleLine;
     _dateField1.delegate = self;
     UIView *t = [[UIView alloc]init];
@@ -314,6 +315,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     
     _dateField2 = [[UITextField alloc]init];
     _dateField2.borderStyle = UITextBorderStyleLine;
+    _dateField2.userInteractionEnabled = NO;
     _dateField2.delegate = self;
     UIView *f = [[UIView alloc]init];
     f.frame = CGRectMake(0, 0, 10, 40);

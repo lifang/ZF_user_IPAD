@@ -25,7 +25,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         UIFont *mainFont = [UIFont systemFontOfSize:16];
-        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.terminalLabel = [[UILabel alloc]init];
         _terminalLabel.font = mainFont;
         [self addSubview:_terminalLabel];
@@ -67,13 +67,13 @@
     CGFloat mainheight = 24.f;
     CGFloat mainY = 60.f;
     
-    _terminalLabel.frame = CGRectMake(70, mainY, mainWidth, mainheight);
+    _terminalLabel.frame = CGRectMake(85, mainY, mainWidth, mainheight);
     
-    _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 60, mainY, mainWidth * 0.5, mainheight);
+    _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 70, mainY, mainWidth * 0.5, mainheight);
     
-    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 120, mainY, mainWidth * 0.5, mainheight);
+    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 100, mainY, mainWidth * 0.5, mainheight);
     
-    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 85, mainY, mainWidth * 0.5, mainheight);
+    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 65, mainY, mainWidth * 0.5, mainheight);
     
     _applicationBtn.frame = CGRectMake(CGRectGetMaxX(_dredgeStatus.frame) + 100, mainY / 3, mainWidth * 0.7, mainheight * 1.5);
     

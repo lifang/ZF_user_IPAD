@@ -8,12 +8,12 @@
 
 #import "AppDelegate.h"
 #import "ZYCustomTabBarViewController.h"
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+
 #import "ZYHomeViewController.h"
 #import "MessageViewController.h"
-#import "MyViewController.h"
+//#import "MyViewController.h"
 #import "ShoppingCartController.h"
+#import "MineViewController.h"
 #import "BasicNagigationController.h"
 @interface AppDelegate ()
 
@@ -36,7 +36,7 @@
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingCartController *viewController2 = [[ShoppingCartController alloc] init];
     MessageViewController *viewController3 = [[MessageViewController alloc] init];
-    MyViewController *viewController4 = [[MyViewController alloc] init];
+    MineViewController *viewController4 = [[MineViewController alloc] init];
     
     
     //创建一个导航，以第一个视图控制器为根视图

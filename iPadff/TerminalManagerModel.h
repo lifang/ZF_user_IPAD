@@ -28,7 +28,7 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *TM_channelName;  //通道
 
-@property (nonatomic, strong) NSString *TM_brandsName;  //通道
+@property (nonatomic, strong) NSString *TM_brandsName;  //品牌
 
 - (id)initWithParseDictionary:(NSDictionary *)dict;
 
