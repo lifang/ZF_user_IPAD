@@ -114,12 +114,13 @@
     filterButton.frame = CGRectMake(0, 0, 24, 24);
     [filterButton setBackgroundImage:kImageName(@"good_right2@2x.png") forState:UIControlStateNormal];
     [filterButton addTarget:self action:@selector(filterGoods:) forControlEvents:UIControlEventTouchUpInside];
+    NSLog(@"%f",self.view.frame.size.width);
     
     //设置间距
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                target:nil
                                                                                action:nil];
-    spaceItem.width = 60;
+    spaceItem.width = 30;
     UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
     UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:filterButton];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,shoppingItem,filterItem, nil];
@@ -435,12 +436,13 @@
 
     //***************************************
     [NetworkInterface getGoodListWithCityID:delegate.cityID sortType:_filterType brandID:brandItem category:catrgoryItem channelID:channelItem payCardID:cardItem tradeID:tradeItem slipID:slipItem date:dateItem maxPrice:maxPrice minPrice:minPrice keyword:_keyword onlyRent:isRent page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
+        [_tableView footerEndRefreshing];
+        [_tableView headerEndRefreshing];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
         if (success) {
-            [_tableView footerEndRefreshing];
-            [_tableView headerEndRefreshing];
+            
 
             NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
