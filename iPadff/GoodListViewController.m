@@ -107,14 +107,14 @@
     
     
     UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    shoppingButton.frame = CGRectMake(0, 0, 24, 24);
+    shoppingButton.frame = CGRectMake(0, 0, 30, 30);
     [shoppingButton setImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
     
 //    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
     [shoppingButton addTarget:self action:@selector(goShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    filterButton.frame = CGRectMake(0, 0, 24, 24);
+    filterButton.frame = CGRectMake(0, 0, 30, 30);
     [filterButton setBackgroundImage:kImageName(@"good_right2@2x.png") forState:UIControlStateNormal];
     [filterButton addTarget:self action:@selector(filterGoods:) forControlEvents:UIControlEventTouchUpInside];
     NSLog(@"%f",self.view.frame.size.width);

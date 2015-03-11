@@ -66,6 +66,7 @@ int     _seletedIndex;
 @property (nonatomic,retain) NSArray  *viewControllers;
 @property (nonatomic,assign)int    seletedIndex;
 
+@property (nonatomic,assign)int    AG;
 
 
 - (void)showTabBar:(ZYSlideDirection)direction animated:(BOOL)isAnimated;
