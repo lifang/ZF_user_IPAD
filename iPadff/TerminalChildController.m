@@ -43,7 +43,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
-    self.dealStatus = @"2";
     //初始化数据
     _records = [[NSMutableArray alloc] init];
     _ratesItems = [[NSMutableArray alloc] init];
@@ -615,7 +614,7 @@
         tipLabel.translatesAutoresizingMaskIntoConstraints = NO;
         tipLabel.backgroundColor = [UIColor clearColor];
         tipLabel.textColor = kColor(108, 108, 108, 1);
-        tipLabel.font = [UIFont systemFontOfSize:10.f];
+        tipLabel.font = [UIFont systemFontOfSize:14.f];
         tipLabel.text = @"追踪记录：";
         [_scrollView addSubview:tipLabel];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tipLabel
@@ -624,7 +623,7 @@
                                                                  toItem:openTitleLabel
                                                               attribute:NSLayoutAttributeBottom
                                                              multiplier:1.0
-                                                               constant:openHeight + lineSpace]];
+                                                               constant:openHeight + 30]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tipLabel
                                                               attribute:NSLayoutAttributeLeft
                                                               relatedBy:NSLayoutRelationEqual
@@ -645,7 +644,7 @@
                                                                  toItem:nil
                                                               attribute:NSLayoutAttributeNotAnAttribute
                                                              multiplier:1.0
-                                                               constant:labelHeight]];
+                                                               constant:labelHeight * 2]];
         
         RecordView *recordView = [[RecordView alloc] initWithRecords:self.records
                                                                width:(kScreenWidth - leftSpace * 2)];
@@ -655,10 +654,10 @@
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:recordView
                                                               attribute:NSLayoutAttributeTop
                                                               relatedBy:NSLayoutRelationEqual
-                                                                 toItem:openTitleLabel
+                                                                 toItem:tipLabel
                                                               attribute:NSLayoutAttributeBottom
                                                              multiplier:1.0
-                                                               constant:lineSpace * 2 + openHeight]];
+                                                               constant:4.f]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:recordView
                                                               attribute:NSLayoutAttributeLeft
                                                               relatedBy:NSLayoutRelationEqual
@@ -732,7 +731,7 @@
     CGFloat leftSpace = 70.f;
     CGFloat rightSpce = 20.f;
     CGFloat labelHeight = 18.f;
-    CGFloat vSpace = 10.f;
+    CGFloat vSpace = 4.f;
     CGFloat titleWidth = 100.f;
     
     //标题label
@@ -775,7 +774,7 @@
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:18.f];
-    label.textColor = kColor(108, 108, 108, 1);
+    label.textColor = kColor(68, 68, 68, 1.0);
     [_scrollView addSubview:label];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                           attribute:NSLayoutAttributeTop
@@ -920,13 +919,13 @@
           withTopView:(UIView *)topView
           middleSpace:(CGFloat)space
                  data:(OpeningModel *)dataModel {
-    CGFloat leftSpace = 20.f;
-    CGFloat labelHeight = 20.f;
+    CGFloat leftSpace = 70.f;
+    CGFloat labelHeight = 18.f;
     CGFloat vSpace = 0.f;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:13.f];
-    label.textColor = kColor(108, 108, 108, 1);
+    label.font = [UIFont systemFontOfSize:18.f];
+    label.textColor = kColor(42, 42, 42, 1);
     label.text = dataModel.resourceKey;
     [_scrollView addSubview:label];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
@@ -953,16 +952,16 @@
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeRight
-                                                             multiplier:0.5
+                                                             multiplier:0.4
                                                                constant:0.f]];
     }
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
+                                                             toItem:nil
                                                           attribute:NSLayoutAttributeWidth
-                                                         multiplier:0.4
-                                                           constant:-leftSpace]];
+                                                         multiplier:1.0
+                                                           constant:150.f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -999,14 +998,14 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:0.0
-                                                           constant:20.f]];
+                                                           constant:25.f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:btn
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:20.f]];
+                                                           constant:25.f]];
 }
 
 
@@ -1054,6 +1053,15 @@
             
         default:
             break;
+    }
+}
+
+#pragma mark - Action
+
+- (IBAction)scanImage:(id)sender {
+    NSLog(@"%ld",[(UIButton *)sender tag]);
+    for (UIView *view in _scrollView.subviews) {
+        NSLog(@"%@",view);
     }
 }
 

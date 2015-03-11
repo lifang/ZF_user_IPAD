@@ -183,11 +183,11 @@
     CGFloat mainheight = 24.f;
     CGFloat mainY = 30.f;
     
-    _terminalLabel.frame = CGRectMake(20, mainY, mainWidth, mainheight);
+    _terminalLabel.frame = CGRectMake(30, mainY, mainWidth, mainheight);
     
     _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 20, mainY, mainWidth * 0.5, mainheight);
     
-    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 65, mainY, mainWidth * 0.5, mainheight);
+    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 35, mainY, mainWidth * 0.5 + 30, mainheight);
     
     _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 20, mainY, mainWidth * 0.5, mainheight);
 }
