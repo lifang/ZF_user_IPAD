@@ -20,15 +20,17 @@
 @end
 
 @implementation GoodDetaildetailViewController
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"商品详情";
     
-    self.secletA=3;
+  
     
     [self downloadGoodDetail];
-    [self setSeletedIndex:2];
     
     // Do any additional setup after loading the view.
 }
@@ -42,13 +44,13 @@
     if(iOS7)
     {
         
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH)];
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_HEIGHT, SCREEN_WIDTH)];
         
         
     }
     else
     {
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
         
         
     }
@@ -231,7 +233,8 @@
                                    titleArray:[NSArray arrayWithObjects:@"交易类",@"费率",@"说明", nil]];
     [view addSubview:otherForm];
 
-      _mainScrollView.contentSize = CGSizeMake(0, otherForm.frame.size.height+otherForm.frame.origin.y+100);
+      _mainScrollView.contentSize = CGSizeMake(0, otherForm.frame.size.height+otherForm.frame.origin.y+160);
+    [self setSeletedIndex:self.secletA];
 
     
     return view;
@@ -286,11 +289,10 @@
         for (int i = 0; i < 5; i++ ) {
             
             UIButton *rentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rentButton.tag=i;
+            rentButton.tag=i+1024;
 
             rentButton.frame = CGRectMake(viewgf.frame.size.width / 11*(2*i +1), 22, viewgf.frame.size.width / 11, 45);
             [rentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
             rentButton.titleLabel.font = [UIFont systemFontOfSize: 15.0];
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
@@ -318,7 +320,7 @@
             rentButton.titleLabel.font = [UIFont systemFontOfSize: 15.0];
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [viewgf addSubview:rentButton];
-            rentButton.tag=i;
+            rentButton.tag=i+1024;
             
             UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewgf.frame.size.width / 4*(i+1), 30, 1, 30)];
             line.backgroundColor = [UIColor grayColor];
@@ -350,12 +352,12 @@
     NSLog(@"%d",aIndex);
 
     UIButton *previousButton = (UIButton *)[self.view viewWithTag:self.secletA];
-    [previousButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [previousButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.secletA = aIndex;
     
     //设置为正常状态下的图片
     UIButton *currentButton = (UIButton *)[self.view viewWithTag:(aIndex )];
-    [currentButton setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+    [currentButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 }
 /*
 #pragma mark - Navigation

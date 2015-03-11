@@ -404,17 +404,17 @@
     
     
     NSLog(@"%f",self.view.frame.size.width);
-if(iOS8)
+if(iOS7)
 {
+    currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH+260);
 
-    currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_WIDTH - 60,SCREEN_HEIGHT);
 
 
 }
     else
     {
     
-        currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH+260);
+        currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_WIDTH - 60,SCREEN_HEIGHT);
 
     }
     

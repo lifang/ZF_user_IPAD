@@ -8,12 +8,12 @@
 
 #import "AppDelegate.h"
 #import "ZYCustomTabBarViewController.h"
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+
 #import "ZYHomeViewController.h"
 #import "MessageViewController.h"
+//#import "MyViewController.h"
+#import "ShoppingCartController.h"
 #import "MineViewController.h"
-#import "ShoppingViewController.h"
 #import "BasicNagigationController.h"
 @interface AppDelegate ()
 
@@ -31,10 +31,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
   
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
-    ShoppingViewController *viewController2 = [[ShoppingViewController alloc] init];
+    ShoppingCartController *viewController2 = [[ShoppingCartController alloc] init];
     MessageViewController *viewController3 = [[MessageViewController alloc] init];
     MineViewController *viewController4 = [[MineViewController alloc] init];
     
