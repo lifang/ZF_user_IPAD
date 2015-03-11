@@ -217,14 +217,15 @@
 #pragma mark - Data
 
 - (void)parseTerminalDataWithDictionary:(NSDictionary *)dict {
-    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
         return;
     }
-    NSArray *TM_List = [dict objectForKey:@"result"];
+    NSArray *TM_List = [[dict objectForKey:@"result"] objectForKey:@"list"];
     for (int i = 0; i < [TM_List count]; i++) {
         TerminalManagerModel *tm_Model = [[TerminalManagerModel alloc] initWithParseDictionary:[TM_List objectAtIndex:i]];
         [_terminalItems addObject:tm_Model];
     }
+    NSLog(@"~~~~~~~~%@",_terminalItems);
     [self.tableView reloadData];
 }
 
@@ -332,6 +333,7 @@
     terminalChildV.hidesBottomBarWhenPushed = YES;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];
     terminalChildV.dealStatus = model.TM_status;
+    terminalChildV.tm_ID = model.TM_ID;
     [self.navigationController pushViewController:terminalChildV animated:YES];
 }
 
