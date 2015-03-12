@@ -7,6 +7,7 @@
 //
 
 #import "MyMessageViewController.h"
+#import "SwitchView.h"
 
 @interface MyMessageViewController ()
 
@@ -16,9 +17,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor blackColor];
     [self setLeftViewWith:ChooseViewMyMessage];
+    self.view.backgroundColor = kColor(252, 251, 251, 1.0);
+    [self setupHeaderView];
+}
+
+-(void)setupHeaderView
+{
+    NSArray *nameArr = [NSArray arrayWithObjects:@"基础信息",@"安全",@"地址管理",@"积分", nil];
+    SwitchView *swithView = [[SwitchView alloc]initWithFrame:CGRectMake(160.f, 0, SCREEN_WIDTH - 160.f, 80) With:nameArr];
+    [self.view addSubview:swithView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,14 +34,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
