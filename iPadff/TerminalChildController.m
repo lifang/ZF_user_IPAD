@@ -34,6 +34,7 @@
 @property (nonatomic, strong) NSString *merchantPhone;
 @property (nonatomic, strong) NSString *orderNumber;
 @property (nonatomic, strong) NSString *createTime;
+@property (nonatomic, assign) int page;
 
 @end
 
@@ -47,7 +48,7 @@
     _ratesItems = [[NSMutableArray alloc] init];
     _openItems = [[NSMutableArray alloc] init];
     [self initAndLayoutUI];
-    [self downloadDetail];
+    [self downloadDataWithPage:self.page isMore:YES];
 
 }
 
@@ -808,11 +809,11 @@
 
 #pragma mark - Request
 
-- (void)downloadDetail {
+- (void)downloadDataWithPage:(int)page isMore:(BOOL)isMore {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface getTerminalDetailWithToken:delegate.token userID:delegate.userID tmID:_tm_ID finished:^(BOOL success, NSData *response) {
+    [NetworkInterface getTerminalManagerListWithToken:delegate.token userID:delegate.userID page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;

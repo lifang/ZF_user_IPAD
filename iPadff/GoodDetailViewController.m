@@ -41,9 +41,23 @@ static CGFloat topImageHeight = 180.f;
     // Do any additional setup after loading the view.
     
     self.title=@"商品详情";
+    UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shoppingButton.frame = CGRectMake(0, 0, 30, 30);
+    [shoppingButton setImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
+    
+    [shoppingButton addTarget:self action:@selector(goShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
+    
+        UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
+    self.navigationItem.rightBarButtonItem=shoppingItem;
+    
     
     [self downloadGoodDetail];
 }
+- (IBAction)goShoppingCart:(id)sender {
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del.tabBarViewController setSeletedIndex:1];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

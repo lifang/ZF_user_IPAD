@@ -12,6 +12,7 @@
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
 #import "ShoppingCartModel.h"
+#import "ShoppingCartOrderController.h"
 
 @interface ShoppingCartController ()<UITableViewDataSource,UITableViewDelegate,ShoppingCartDelegate,SelectedShopCartDelegate>
 
@@ -119,7 +120,7 @@
     
     for (ShoppingCartModel *model in _dataItem) {
         if (model.isSelected) {
-            summaryPrice += model.cartPrice * model.cartCount + model.channelCost;
+            summaryPrice += (model.cartPrice + model.channelCost) * model.cartCount;
             sumall +=  model.cartCount ;
 
         }
@@ -223,6 +224,8 @@
     _finishButton.layer.masksToBounds = YES;
     _finishButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [_finishButton setTitle:@"结算" forState:UIControlStateNormal];
+    [_finishButton addTarget:self action:@selector(orderConfirm:) forControlEvents:UIControlEventTouchUpInside];
+
     [_finishButton setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
     [rootview addSubview:_finishButton];
     //选中按钮
@@ -231,6 +234,15 @@
     
     [_selectedButton addTarget:self action:@selector(selectedAll) forControlEvents:UIControlEventTouchUpInside];
     [rootview addSubview:_selectedButton];
+    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _deleteButton.frame=CGRectMake(20, 50, 30, 30);
+
+    _deleteButton.layer.cornerRadius = 4.f;
+    _deleteButton.layer.masksToBounds = YES;
+    [_deleteButton setImage:kImageName(@"delete.png") forState:UIControlStateNormal];
+    [_deleteButton addTarget:self action:@selector(deleteOrder) forControlEvents:UIControlEventTouchUpInside];
+    [rootview addSubview:_deleteButton];
+
     //全选文字
     _selectedLabel = [[UILabel alloc]  initWithFrame:CGRectMake(60, 10, 30, 30)];
     
@@ -238,6 +250,14 @@
     _selectedLabel.font = [UIFont systemFontOfSize:15.f];
     _selectedLabel.textColor = kColor(128, 126, 126, 1);
     _selectedLabel.text = @"全选";
+    UILabel*deletelable = [[UILabel alloc]  initWithFrame:CGRectMake(60, 50, 30, 30)];
+    
+    deletelable.backgroundColor = [UIColor clearColor];
+    deletelable.font = [UIFont systemFontOfSize:15.f];
+    deletelable.textColor = kColor(128, 126, 126, 1);
+    deletelable.text = @"删除";
+    [rootview addSubview:deletelable];
+
     if (isSelecteds) {
         
         [_selectedButton setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];
@@ -281,6 +301,34 @@
     
 
 }// custom view for footer. will be adjusted to default or specified footer height
+- (IBAction)orderConfirm:(id)sender {
+    NSMutableArray *selectedOrder = [[NSMutableArray alloc] init];
+    for (ShoppingCartModel *model in _dataItem) {
+        if (model.isSelected) {
+            [selectedOrder addObject:model];
+        }
+    }
+    if ([selectedOrder count] <= 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请至少选择一件商品";
+        return;
+    }
+    ShoppingCartOrderController *orderC = [[ShoppingCartOrderController alloc] init];
+    orderC.shoppingCartItem = selectedOrder;
+    orderC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:orderC animated:YES];
+}
+
+- (void)deleteOrder
+ {
+     
+     
+     
+}
+
 - (void)selectedAll {
     NSLog(@"%hhd", _selectedButton.selected);
     

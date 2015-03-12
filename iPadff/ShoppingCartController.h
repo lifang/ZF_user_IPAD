@@ -18,6 +18,8 @@ CGFloat summaryPrice;
 
 }
 @property (nonatomic, strong) UIButton *selectedButton;
+@property (nonatomic, strong) UIButton *deleteButton;
+
 //全选文字 颜色根据是否选中变化
 @property (nonatomic, strong) UILabel *selectedLabel;
 @property (nonatomic, strong) UILabel *numbertotalLabel;

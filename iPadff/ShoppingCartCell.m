@@ -391,12 +391,7 @@
     [self.contentView addSubview:_numberField];
     
     
-    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _deleteButton.layer.cornerRadius = 4.f;
-    _deleteButton.layer.masksToBounds = YES;
-    [_deleteButton setBackgroundImage:kImageName(@"delete.png") forState:UIControlStateNormal];
-    [_deleteButton addTarget:self action:@selector(deleteOrder:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.contentView addSubview:_deleteButton];
+    //    [self.contentView addSubview:_deleteButton];
     
        [self normalStyleUI ];
 
@@ -412,7 +407,7 @@
     self.titleLabel.text = cart.cartTitle;
     self.brandLabel.text = [NSString stringWithFormat:@"品牌型号   %@",cart.cartModel];
     self.channelLabel.text = [NSString stringWithFormat:@"支付通道   %@",cart.cartChannel];
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",cart.cartPrice * cart.cartCount + cart.channelCost];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",(cart.cartPrice + cart.channelCost) * cart.cartCount];
     self.countLabel.text = [NSString stringWithFormat:@"X %d",cart.cartCount];
     if (cart.isSelected) {
         [_selectedButton setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];

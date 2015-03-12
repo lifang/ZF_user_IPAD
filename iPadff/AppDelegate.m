@@ -28,7 +28,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-  
+    self.tabBarViewController.AG=78;
+    
 //   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];

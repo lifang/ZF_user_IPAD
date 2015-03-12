@@ -69,7 +69,7 @@
 	
     _seletedIndex = 0;
         //用self.赋值默认会调set方法
-		self.seletedIndex = _seletedIndex;
+//		self.seletedIndex = _seletedIndex;
    
     
     self.view.backgroundColor=[UIColor whiteColor];
@@ -403,18 +403,29 @@
     //设置当前视图的大小
     
     
-    NSLog(@"%f",self.view.frame.size.width);
 if(iOS7)
 {
-    currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH+260);
+    if(self.AG==0)
+    {
+        currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH+260);
 
+    }
+    else
+    {
+        currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_HEIGHT - 60,SCREEN_WIDTH);
+
+    }
+    self.AG=79;
 
 
 }
     else
     {
     
-        currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_WIDTH - 60,SCREEN_HEIGHT);
+        
+            currentViewController.view.frame = CGRectMake(60, 0,  SCREEN_WIDTH - 60,SCREEN_HEIGHT);
+            
+   
 
     }
     
