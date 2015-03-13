@@ -413,7 +413,7 @@
     OrderModel *model = [_orderItems objectAtIndex:indexPath.section];
     OrderDetailController *detailC = [[OrderDetailController alloc] init];
     detailC.hidesBottomBarWhenPushed =  YES ;
-]
+
     
     
     
