@@ -103,6 +103,7 @@
 
 -(void)loginClick
 {
+    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

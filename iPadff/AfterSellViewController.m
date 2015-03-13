@@ -14,8 +14,12 @@
 #import "ChangeGoodCell.h"
 #import "UpdateCell.h"
 #import "RentBackCell.h"
+#import "RefreshView.h"
+#import "AppDelegate.h"
+#import "NetworkInterface.h"
+#import "CustomerServiceModel.h"
 
-@interface AfterSellViewController ()<UITableViewDataSource,UITableViewDelegate,ServiceBtnClickDelegate,CancelCellBtnClickDelegate,SalesReturnCellBtnClickDelegate,ChangeGoodCellBtnClickDelegate,UpdateCellBtnClickDelegate,RentBackCellBtnClickDelegate>
+@interface AfterSellViewController ()<UITableViewDataSource,UITableViewDelegate,ServiceBtnClickDelegate,CancelCellBtnClickDelegate,SalesReturnCellBtnClickDelegate,ChangeGoodCellBtnClickDelegate,UpdateCellBtnClickDelegate,RentBackCellBtnClickDelegate,RefreshDelegate,UIAlertViewDelegate>
 
 @property(nonatomic,strong)UIButton *serviceBtn;
 
@@ -47,6 +51,19 @@
 
 @property(nonatomic,assign)BOOL isFirst;
 
+@property(nonatomic,assign)CSType csType;
+
+/***************上下拉刷新**********/
+@property (nonatomic, strong) RefreshView *topRefreshView;
+@property (nonatomic, strong) RefreshView *bottomRefreshView;
+
+@property (nonatomic, assign) BOOL reloading;
+@property (nonatomic, assign) CGFloat primaryOffsetY;
+@property (nonatomic, assign) int page;
+/**********************************/
+
+@property(nonatomic,strong)NSMutableArray *AfterSelldateArray;
+
 @end
 
 @implementation AfterSellViewController
@@ -58,25 +75,29 @@
 //        _tableView.backgroundColor = kColor(214, 214, 214, 1.0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.frame = CGRectMake(160, 80, SCREEN_WIDTH - 160, SCREEN_HEIGHT);
+        _tableView.frame = CGRectMake(160, 80, SCREEN_WIDTH - 160, SCREEN_HEIGHT - 80);
         if (iOS7) {
-            _tableView.frame = CGRectMake(160, 80, SCREEN_HEIGHT - 160, SCREEN_WIDTH);
+            _tableView.frame = CGRectMake(160, 80, SCREEN_HEIGHT - 160, SCREEN_WIDTH - 100);
         }
+        
+        [self setupRefreshView];
     }
     return _tableView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.isFirst = YES;
     self.view.backgroundColor = kColor(251, 251, 251, 1.0);
     self.buttonIndex = 1;
+    _AfterSelldateArray = [[NSMutableArray alloc]init];
     _dateArray = [[NSMutableArray alloc]init];
     NSArray *arr = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",nil];
     [_dateArray addObjectsFromArray:arr];
     [self setLeftViewWith:ChooseViewAfterSell];
     [self setupHeaderView];
     [self.view addSubview:self.tableView];
+    [self firstLoadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,6 +192,22 @@
     [headerView addSubview:alterationBtn];
     
     [self.view addSubview:headerView];
+    
+}
+
+-(void)setupRefreshView
+{
+    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(-120, -80, self.view.frame.size.width, 80)];
+    _topRefreshView.direction = PullFromTop;
+    _topRefreshView.delegate = self;
+    [_tableView addSubview:_topRefreshView];
+    
+    _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(-120, -80, self.view.frame.size.width,80)];
+    _bottomRefreshView.direction = PullFromBottom;
+    _bottomRefreshView.delegate = self;
+    _bottomRefreshView.hidden = YES;
+    [_tableView addSubview:_bottomRefreshView];
+
 }
 
 #pragma mark 顶部BTN的点击切换
@@ -185,7 +222,8 @@
             _buttonIndex = 1;
 //            [self tradeTypeFromIndex:1];
 //            [self downloadDataWithPage:1 isMore:NO];
-            [_tableView reloadData];
+            [_tableView scrollsToTop];
+            [self firstLoadData];
             [_serviceBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
             _serviceBtn.titleLabel.font = [UIFont systemFontOfSize:20];
             _serviceBtn.frame = CGRectMake(_serviceBtnX, _serviceBtnY, 110, 40);
@@ -216,7 +254,8 @@
     //注销
     if (button.tag == 20002) {
         _buttonIndex = 2;
-         [_tableView reloadData];
+        [_tableView scrollsToTop];
+         [self firstLoadData];
         [_cancelBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         _cancelBtn.frame = CGRectMake(_cancelBtnX - 10, _serviceBtnY, 110, 40);
@@ -246,7 +285,8 @@
     //退货
     if (button.tag == 20003) {
         _buttonIndex = 3;
-         [_tableView reloadData];
+        [_tableView scrollsToTop];
+        [self firstLoadData];
         [_salesReturnBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _salesReturnBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         _salesReturnBtn.frame = CGRectMake(_salesReturnBtnX - 10, _serviceBtnY, 110, 40);
@@ -276,7 +316,8 @@
     //换货
     if (button.tag == 20004) {
         _buttonIndex = 4;
-         [_tableView reloadData];
+        [_tableView scrollsToTop];
+         [self firstLoadData];
         [_changeBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _changeBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         _changeBtn.frame = CGRectMake(_changeBtnX - 10, _serviceBtnY, 110, 40);
@@ -307,7 +348,8 @@
     //换货
     if (button.tag == 20004) {
         _buttonIndex = 4;
-         [_tableView reloadData];
+        [_tableView scrollsToTop];
+         [self firstLoadData];
         [_changeBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _changeBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         _changeBtn.frame = CGRectMake(_changeBtnX - 10, _serviceBtnY, 110, 40);
@@ -337,7 +379,8 @@
     //更新资料
     if (button.tag == 20005) {
         _buttonIndex = 5;
-         [_tableView reloadData];
+        [_tableView scrollsToTop];
+         [self firstLoadData];
         _isChecked = NO;
         [_updateDataBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _updateDataBtn.titleLabel.font = [UIFont systemFontOfSize:20];
@@ -367,7 +410,8 @@
     //租凭退还
     if (button.tag == 20006) {
         _buttonIndex = 6;
-         [_tableView reloadData];
+        [_tableView scrollsToTop];
+         [self firstLoadData];
         _isChecked = NO;
         [_alterationBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _alterationBtn.titleLabel.font = [UIFont systemFontOfSize:20];
@@ -396,6 +440,200 @@
     
 }
 
+-(void)csTypeWithButtonIdex:(int)buttonIndex
+{
+    switch (_buttonIndex) {
+        case 1:
+            self.csType = CSTypeRepair;
+            break;
+        case 2:
+            self.csType = CSTypeCancel;
+            break;
+        case 3:
+            self.csType = CSTypeReturn;
+            break;
+        case 4:
+            self.csType = CSTypeChange;
+            break;
+        case 5:
+            self.csType = CSTypeUpdate;
+            break;
+        case 6:
+            self.csType = CSTypeLease;
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - Requst
+
+-(void)firstLoadData
+{
+    _page = 1;
+    [self downloadDataWithPage:_page isMore:NO];
+}
+
+- (void)downloadDataWithPage:(int)page isMore:(BOOL)isMore {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [self csTypeWithButtonIdex:_buttonIndex];
+    [NetworkInterface getCSListWithToken:delegate.token userID:delegate.userID csType:_csType page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    if (!isMore) {
+                        [_AfterSelldateArray removeAllObjects];
+                    }
+                    if ([[object objectForKey:@"result"] count] > 0) {
+                        //有数据
+                        self.page++;
+                        [hud hide:YES];
+                    }
+                    else {
+                        //无数据
+                        hud.labelText = @"没有更多数据了...";
+                    }
+                    [self parseCSDataWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+        if (!isMore) {
+            [self refreshViewFinishedLoadingWithDirection:PullFromTop];
+        }
+        else {
+            [self refreshViewFinishedLoadingWithDirection:PullFromBottom];
+        }
+        
+    }];
+}
+
+#pragma mark - Data
+
+- (void)parseCSDataWithDictionary:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    NSArray *csList = [[dict objectForKey:@"result"] objectForKey:@"content"];
+    for (int i = 0; i < [csList count]; i++) {
+        CustomerServiceModel *model = [[CustomerServiceModel alloc] initWithParseDictionary:[csList objectAtIndex:i]];
+        [_AfterSelldateArray addObject:model];
+    }
+    [_tableView reloadData];
+}
+
+#pragma mark - Refresh
+
+- (void)refreshViewReloadData {
+    _reloading = YES;
+}
+
+- (void)refreshViewFinishedLoadingWithDirection:(PullDirection)direction {
+    _reloading = NO;
+    if (direction == PullFromTop) {
+        [_topRefreshView refreshViewDidFinishedLoading:_tableView];
+    }
+    else if (direction == PullFromBottom) {
+        _bottomRefreshView.frame = CGRectMake(-120, _tableView.contentSize.height , _tableView.bounds.size.width, 60);
+        [_bottomRefreshView refreshViewDidFinishedLoading:_tableView];
+    }
+    [self updateFooterViewFrame];
+}
+
+- (BOOL)refreshViewIsLoading:(RefreshView *)view {
+    return _reloading;
+}
+
+- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
+    [self refreshViewReloadData];
+    //loading...
+    if (view == _topRefreshView) {
+        [self pullDownToLoadData];
+    }
+    else if (view == _bottomRefreshView) {
+        [self pullUpToLoadData];
+    }
+}
+
+- (void)updateFooterViewFrame {
+    _bottomRefreshView.frame = CGRectMake(-120, _tableView.contentSize.height , _tableView.bounds.size.width, 60);
+    _bottomRefreshView.hidden = NO;
+    if (_tableView.contentSize.height < _tableView.frame.size.height) {
+        _bottomRefreshView.hidden = YES;
+    }
+}
+
+#pragma mark - UIScrollView
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _primaryOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == _tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidScroll:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidScroll:scrollView];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == _tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidEndDragging:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidEndDragging:scrollView];
+        }
+    }
+}
+
+#pragma mark - 上下拉刷新
+//下拉刷新
+- (void)pullDownToLoadData {
+    [self firstLoadData];
+}
+
+//上拉加载
+- (void)pullUpToLoadData {
+    [self downloadDataWithPage:self.page isMore:YES];
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -408,7 +646,7 @@
     if (section == 0) {
         return 1;
     }else{
-        return 5;
+        return _AfterSelldateArray.count;
     }
 }
 
@@ -424,137 +662,110 @@
     //内容Cell
     {
         //维修
-        if (_buttonIndex == 1) {
-            self.isFirst = YES;
-            NSString *ID = [NSString stringWithFormat:@"ServiceCell%@",[_dateArray objectAtIndex:indexPath.row]];
+        if (_buttonIndex == 1 && _AfterSelldateArray.count!=0) {
+            CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+            _isFirst = YES;
+            NSString *ID = [NSString stringWithFormat:@"ServiceCell%@",model.status];
             ServiceCell *serviceCell = [tableView dequeueReusableCellWithIdentifier:ID];
             if (serviceCell == nil) {
                 serviceCell = [[ServiceCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             serviceCell.ServieceBtnDelgete = self;
-            if (indexPath.row == 0) {
-                serviceCell.seviceNum.text = @"12312312312312";
-                serviceCell.terminalLabel.text = @"123131313131313";
-                serviceCell.seviceTime.text = @"2014-09-10 20:22:22";
-            }
-            
-            if (indexPath.row == 1) {
-                serviceCell.seviceNum.text = @"12312312312312";
-                serviceCell.terminalLabel.text = @"123131313131313";
-                serviceCell.seviceTime.text = @"2014-09-10 20:22:22";
-            }
+            serviceCell.seviceNum.text = model.applyNum;
+            serviceCell.terminalLabel.text = model.terminalNum;
+            serviceCell.seviceTime.text = model.createTime;
+            serviceCell.selectedID = model.csID;
             return serviceCell;
         }
         //退货
-        if (_buttonIndex == 3) {
-            self.isFirst = NO;
-            NSString *ID = [NSString stringWithFormat:@"SalesReturnCell%@",[_dateArray objectAtIndex:indexPath.row]];
+        if (_buttonIndex == 3&& _AfterSelldateArray.count!=0) {
+            CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+            _isFirst = NO;
+            NSString *ID = [NSString stringWithFormat:@"SalesReturnCell%@",model.status];
             SalesReturnCell *salesReturnCell = [tableView dequeueReusableCellWithIdentifier:ID];
             if (salesReturnCell == nil) {
                 salesReturnCell = [[SalesReturnCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             salesReturnCell.SalesReturnCellBtnDelegate = self;
-            if (indexPath.row == 0) {
-                salesReturnCell.SalesReturnNum.text = @"12312312312312";
-                salesReturnCell.terminalLabel.text = @"123131313131313";
-                salesReturnCell.SalesReturnTime.text = @"2014-09-10 20:22:22";
-            }
-            
-            if (indexPath.row == 1) {
-                salesReturnCell.SalesReturnNum.text = @"12312312312312";
-                salesReturnCell.terminalLabel.text = @"123131313131313";
-                salesReturnCell.SalesReturnTime.text = @"2014-09-10 20:22:22";
-            }
+            salesReturnCell.SalesReturnNum.text = model.applyNum;
+            salesReturnCell.terminalLabel.text = model.terminalNum;
+            salesReturnCell.SalesReturnTime.text = model.createTime;
+            salesReturnCell.selectedID = model.csID;
+
             return salesReturnCell;
         }
         //换货
-        if (_buttonIndex == 4) {
-            self.isFirst = NO;
-            NSString *ID = [NSString stringWithFormat:@"ChangeGoodCell%@",[_dateArray objectAtIndex:indexPath.row]];
+        if (_buttonIndex == 4&& _AfterSelldateArray.count!=0) {
+            CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+            _isFirst = NO;
+            NSString *ID = [NSString stringWithFormat:@"ChangeGoodCell%@",model.status];
             ChangeGoodCell *changeGoodCell = [tableView dequeueReusableCellWithIdentifier:ID];
             if (changeGoodCell == nil) {
                 changeGoodCell = [[ChangeGoodCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             changeGoodCell.ChangeGoodCellBtnDelegate = self;
-            if (indexPath.row == 0) {
-                changeGoodCell.ChangeGoodNum.text = @"12312312312312";
-                changeGoodCell.terminalLabel.text = @"123131313131313";
-                changeGoodCell.ChangeGoodTime.text = @"2014-09-10 20:22:22";
-            }
-            
-            if (indexPath.row == 1) {
-                changeGoodCell.ChangeGoodNum.text = @"12312312312312";
-                changeGoodCell.terminalLabel.text = @"123131313131313";
-                changeGoodCell.ChangeGoodTime.text = @"2014-09-10 20:22:22";
-            }
+            changeGoodCell.ChangeGoodNum.text = model.applyNum;
+            changeGoodCell.terminalLabel.text = model.terminalNum;
+            changeGoodCell.ChangeGoodTime.text = model.createTime;
+            changeGoodCell.selectedID = model.csID;
             return changeGoodCell;
         }
         //更新资料
-        if (_buttonIndex == 5) {
-            self.isFirst = NO;
-            NSString *ID = [NSString stringWithFormat:@"UpdateCell%@",[_dateArray objectAtIndex:indexPath.row]];
+        if (_buttonIndex == 5&& _AfterSelldateArray.count!=0) {
+            CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+            _isFirst = NO;
+            NSString *ID = [NSString stringWithFormat:@"UpdateCell%@",model.status];
             UpdateCell *updateCell = [tableView dequeueReusableCellWithIdentifier:ID];
             if (updateCell == nil) {
                 updateCell = [[UpdateCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             updateCell.UpdateCellBtnDelegate = self;
-            if (indexPath.row == 0) {
-                updateCell.UpdateNum.text = @"12312312312312";
-                updateCell.terminalLabel.text = @"123131313131313";
-                updateCell.UpdateTime.text = @"2014-09-10 20:22:22";
-            }
-            
-            if (indexPath.row == 1) {
-                updateCell.UpdateNum.text = @"12312312312312";
-                updateCell.terminalLabel.text = @"123131313131313";
-                updateCell.UpdateTime.text = @"2014-09-10 20:22:22";
-            }
+            updateCell.UpdateNum.text = model.applyNum;
+            updateCell.terminalLabel.text = model.terminalNum;
+            updateCell.UpdateTime.text = model.createTime;
+            updateCell.selectedID = model.csID;
             return updateCell;
         }
         //租凭退还
-        if (_buttonIndex == 6) {
-            self.isFirst = NO;
-            NSString *ID = [NSString stringWithFormat:@"RentBackCell%@",[_dateArray objectAtIndex:indexPath.row]];
+        if (_buttonIndex == 6&& _AfterSelldateArray.count!=0) {
+            CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+            _isFirst = NO;
+            NSString *ID = [NSString stringWithFormat:@"RentBackCell%@",model.status];
             RentBackCell *rentbackCell = [tableView dequeueReusableCellWithIdentifier:ID];
             if (rentbackCell == nil) {
                 rentbackCell = [[RentBackCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             rentbackCell.RentBackCellBtnDelegate = self;
-            if (indexPath.row == 0) {
-                rentbackCell.RentBackNum.text = @"12312312312312";
-                rentbackCell.terminalLabel.text = @"123131313131313";
-                rentbackCell.RentBackTime.text = @"2014-09-10 20:22:22";
-            }
-            
-            if (indexPath.row == 1) {
-                rentbackCell.RentBackNum.text = @"12312312312312";
-                rentbackCell.terminalLabel.text = @"123131313131313";
-                rentbackCell.RentBackTime.text = @"2014-09-10 20:22:22";
-            }
+            rentbackCell.RentBackNum.text = model.applyNum;
+            rentbackCell.terminalLabel.text = model.terminalNum;
+            rentbackCell.RentBackTime.text = model.createTime;
+            rentbackCell.selectedID = model.csID;
             return rentbackCell;
         }
         //注销
-        else{
-            NSString *ID = [NSString stringWithFormat:@"CancelCell%@",[_dateArray objectAtIndex:indexPath.row]];
+        if (_buttonIndex == 2&& _AfterSelldateArray.count!=0){
+            CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+            NSString *ID = [NSString stringWithFormat:@"CancelCell%@",model.status];
             CancelCell *cancelCell = [tableView dequeueReusableCellWithIdentifier:ID];
             _isFirst = NO;
             if (cancelCell == nil) {
                 cancelCell = [[CancelCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             cancelCell.CancelCellBtndelegate = self;
-            if (indexPath.row == 0) {
-                cancelCell.CancelNum.text = @"12312312312312";
-                cancelCell.terminalLabel.text = @"123131313131313";
-                cancelCell.CancelTime.text = @"2014-09-10 20:22:22";
-            }
-            
-            if (indexPath.row == 1) {
-                cancelCell.CancelNum.text = @"12312312312312";
-                cancelCell.terminalLabel.text = @"123131313131313";
-                cancelCell.CancelTime.text = @"2014-09-10 20:22:22";
+            cancelCell.CancelNum.text = model.applyNum;
+            cancelCell.terminalLabel.text = model.terminalNum;
+            cancelCell.CancelTime.text = model.createTime;
+            cancelCell.selectedID = model.csID;
+            return cancelCell;
+        }
+        else{
+            NSString *ID = @"kong";
+            CancelCell *cancelCell = [tableView dequeueReusableCellWithIdentifier:ID];
+            _isFirst = NO;
+            if (cancelCell == nil) {
+                cancelCell = [[CancelCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             return cancelCell;
-
         }
     }
 }
@@ -564,8 +775,8 @@
     if (indexPath.section == 0) {
         return 60;
     }else{
-        NSString *str = [_dateArray objectAtIndex:indexPath.row];
-        if ([str isEqualToString:@"1"]) {
+        CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+        if ([model.status isEqualToString:@"1"]) {
             if (_isFirst) {
                 return 120;
             }else{
@@ -592,11 +803,11 @@
 //}
 
 #pragma mark - 维修页面Btn点击事件
--(void)serviceBtnClick:(int)btnTag
+-(void)serviceBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
     switch (btnTag) {
         case 111:
-            NSLog(@"点击了支付维修费");
+            NSLog(@"点击了支付维修费 id为%@",selectedID);
             break;
         case 112:
             NSLog(@"点击了取消申请");
@@ -610,11 +821,11 @@
 }
 
 #pragma mark - 注销页面Btn点击事件
--(void)CancelCellBtnClick:(int)btnTag
+-(void)CancelCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
     switch (btnTag) {
         case 222:
-            NSLog(@"点击了取消申请");
+            NSLog(@"点击了取消申请 id为%@",selectedID);
             break;
         case 223:
             NSLog(@"点击了重新提交注销");
@@ -625,11 +836,11 @@
 }
 
 #pragma mark - 退货页面Btn点击事件
--(void)SalesReturnCellBtnClick:(int)btnTag
+-(void)SalesReturnCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
     switch (btnTag) {
         case 224:
-            NSLog(@"点击了取消申请");
+            NSLog(@"点击了取消申请 id为%@",selectedID);
             break;
         case 225:
             NSLog(@"点击了提交物流信息");
@@ -640,11 +851,11 @@
 }
 
 #pragma mark - 换货页面Btn点击事件
--(void)ChangeGoodCellBtnClick:(int)btnTag
+-(void)ChangeGoodCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
     switch (btnTag) {
         case 226:
-            NSLog(@"点击了取消申请");
+            NSLog(@"点击了取消申请 id为%@",selectedID);
             break;
         case 227:
             NSLog(@"点击了提交物流信息");
@@ -655,11 +866,11 @@
 }
 
 #pragma mark - 更新资料页面Btn点击事件
--(void)UpdateCellBtnClick:(int)btnTag
+-(void)UpdateCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
     switch (btnTag) {
         case 228:
-            NSLog(@"点击了取消申请");
+            NSLog(@"点击了取消申请 id为%@",selectedID);
             break;
         default:
             break;
@@ -667,11 +878,11 @@
 }
 
 #pragma mark - 租凭退还页面Btn点击事件
--(void)RentBackCellBtnClick:(int)btnTag
+-(void)RentBackCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
     switch (btnTag) {
         case 229:
-            NSLog(@"点击了取消申请");
+            NSLog(@"点击了取消申请 id为%@",selectedID);
             break;
         default:
             break;

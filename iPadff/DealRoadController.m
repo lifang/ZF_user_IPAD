@@ -448,7 +448,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];
     datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
     datePicker.datePickerMode = UIDatePickerModeDate;
-    datePicker.frame = CGRectMake(_dateField1.frame.origin.x, CGRectGetMaxY(_dateField1.frame) + 80, _dateField1.frame.size.width, 160);
+    datePicker.frame = CGRectMake(_dateField1.frame.origin.x - 30, CGRectGetMaxY(_dateField1.frame) + 80, _dateField1.frame.size.width + 60, 160);
     self.datePickerStart = datePicker;
     [_datePickerStart addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
     UIButton *makeSureBtn = [[UIButton alloc]init];
@@ -475,7 +475,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];
     datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
     datePicker.datePickerMode = UIDatePickerModeDate;
-    datePicker.frame = CGRectMake(_dateField2.frame.origin.x, CGRectGetMaxY(_dateField2.frame) + 80, _dateField2.frame.size.width, 160);
+    datePicker.frame = CGRectMake(_dateField2.frame.origin.x - 30, CGRectGetMaxY(_dateField2.frame) + 80, _dateField2.frame.size.width + 60, 160);
     self.datePickerEnd = datePicker;
     [_datePickerEnd addTarget:self action:@selector(endPick) forControlEvents:UIControlEventValueChanged];
     UIButton *makeSureBtn = [[UIButton alloc]init];
@@ -958,15 +958,13 @@ else
 }
 
 - (void)parseTradeDataWithDictionary:(NSDictionary *)dict {
-    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
         return;
     }
-    NSArray *tradeList = [dict objectForKey:@"result"];
+    NSArray *tradeList = [[dict objectForKey:@"result"] objectForKey:@"list"];
     for (int i = 0; i < [tradeList count]; i++) {
         TradeModel *trade = [[TradeModel alloc] initWithParseDictionary:[tradeList objectAtIndex:i]];
         [_tradeRecords addObject:trade];
-        NSLog(@"~~~~~~~~~~%@",trade.payIntoAccount);
-        NSLog(@"**********%@",trade.payedTime);
     }
     
     [self.tableView reloadData];

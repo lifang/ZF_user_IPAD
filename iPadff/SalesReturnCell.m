@@ -67,7 +67,7 @@
                     [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
                     button.tag = i + 224;
                     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 10, mainBtnW, mainBtnH);
+                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 4, mainBtnW, mainBtnH);
                     button.backgroundColor = [UIColor clearColor];
                     [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                     [button setTitle:@"取消申请" forState:UIControlStateNormal];
@@ -118,7 +118,7 @@
     CGFloat mainY = self.frame.size.height / 2 - 5;
     CGFloat mainH = 10.f;
     
-    _SalesReturnNum.frame = CGRectMake(10, mainY, 160, mainH);
+    _SalesReturnNum.frame = CGRectMake(30, mainY, 160, mainH);
     
     _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_SalesReturnNum.frame), mainY, 160, mainH);
     
@@ -135,13 +135,13 @@
         type = SalesReturnCellTypeReady;
     }
     if ([reuseIdentifier isEqualToString:@"SalesReturnCell2"]) {
-        type = SalesReturnCellTypeAbolish;
-    }
-    if ([reuseIdentifier isEqualToString:@"SalesReturnCell3"]) {
-        type = SalesReturnCellTypeDone;
+        type = SalesReturnCellTypeIng;
     }
     if ([reuseIdentifier isEqualToString:@"SalesReturnCell4"]) {
-        type = SalesReturnCellTypeIng;
+        type = SalesReturnCellTypeDone;
+    }
+    if ([reuseIdentifier isEqualToString:@"SalesReturnCell5"]) {
+        type = SalesReturnCellTypeAbolish;
     }
     return type;
 }
@@ -155,7 +155,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.SalesReturnCellBtnDelegate SalesReturnCellBtnClick:button.tag];
+    [self.SalesReturnCellBtnDelegate SalesReturnCellBtnClick:button.tag WithSelectedID:_selectedID];
 }
 
 

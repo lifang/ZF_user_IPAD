@@ -17,8 +17,10 @@
         
     CGFloat  originXs;
     
+    UIButton*  _shopcartButton;
+    UIButton*  _buyGoodButton;
+
     
-        
 
 }
 @property (nonatomic, strong) NSString *goodID;

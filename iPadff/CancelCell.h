@@ -20,7 +20,7 @@ typedef enum{
 //点击协议
 @protocol CancelCellBtnClickDelegate <NSObject>
 @optional
--(void)CancelCellBtnClick:(int)btnTag;
+-(void)CancelCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID;
 @end
 
 
@@ -33,6 +33,8 @@ typedef enum{
 @property(nonatomic,strong)UILabel *CancelTime;
 /** 注销状态 */
 @property(nonatomic,strong)UILabel *CancelStatus;
+
+@property(nonatomic,strong)NSString *selectedID;
 
 @property(nonatomic,assign)CancelCellBtnType CancelCellBtntype;
 @property(nonatomic,weak)id<CancelCellBtnClickDelegate> CancelCellBtndelegate;

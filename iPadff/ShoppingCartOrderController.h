@@ -11,6 +11,12 @@
 
 @interface ShoppingCartOrderController : OrderConfirmController
 
+{
+
+    UIButton *defaultbutton;
+    
+    UIImageView*bigsview;
+}
 //若从购物车跳转过来 保存选中的数据
 @property (nonatomic, strong) NSArray *shoppingCartItem;
 @property (nonatomic, strong) UIView *addressView;   //地址view

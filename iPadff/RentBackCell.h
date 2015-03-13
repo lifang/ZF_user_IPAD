@@ -20,7 +20,7 @@ typedef enum{
 //点击协议
 @protocol RentBackCellBtnClickDelegate <NSObject>
 @optional
--(void)RentBackCellBtnClick:(int)btnTag;
+-(void)RentBackCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID;
 @end
 
 
@@ -34,6 +34,8 @@ typedef enum{
 @property(nonatomic,strong)UILabel *RentBackTime;
 /** 租凭退还状态 */
 @property(nonatomic,strong)UILabel *RentBackStatus;
+
+@property(nonatomic,strong)NSString *selectedID;
 
 @property(nonatomic,assign)RentBackCellType RentBackCelltype;
 @property(nonatomic,weak)id<RentBackCellBtnClickDelegate> RentBackCellBtnDelegate;

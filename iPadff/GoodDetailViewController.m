@@ -130,6 +130,9 @@ static CGFloat topImageHeight = 180.f;
     _rentButton = [GoodButton buttonWithType:UIButtonTypeCustom];
     [_rentButton setButtonAttrWithTitle:@"租赁"];
     [_rentButton addTarget:self action:@selector(rentGood:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+   
     [self initSubViews];
 }
 
@@ -284,7 +287,31 @@ static CGFloat topImageHeight = 180.f;
         _rentButton.hidden = YES;
     }
     
+    _shopcartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, 80, 40);
+    _shopcartButton.layer.cornerRadius = 4.f;
+    _shopcartButton.layer.masksToBounds = YES;
+//    _shopcartButton.layer.borderWidth = 1.f;
+    [_shopcartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_shopcartButton setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
+    [_shopcartButton setBackgroundImage:kImageName(@"yellowback") forState:UIControlStateNormal];
+
+    [_shopcartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
+    _shopcartButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [_shopcartButton addTarget:self action:@selector(addShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
+    [_mainScrollView addSubview:_shopcartButton];
     
+    //立即购买
+    _buyGoodButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _buyGoodButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x+90, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, 80, 40);
+    _buyGoodButton.layer.cornerRadius = 4.f;
+    _buyGoodButton.layer.masksToBounds = YES;
+    [_buyGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+    [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
+    _buyGoodButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [_buyGoodButton addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
+    [_mainScrollView addSubview:_buyGoodButton];
+
     
 
     //按钮view
@@ -319,11 +346,11 @@ static CGFloat topImageHeight = 180.f;
     
     if(iOS7)
     {
-        view.frame=CGRectMake(0, originY, SCREEN_HEIGHT , 90 );
+        view.frame=CGRectMake(0, SCREEN_WIDTH-65-64, SCREEN_HEIGHT , 65 );
         
     }else
     {
-        view.frame=CGRectMake(0, originY, SCREEN_WIDTH , 90 );
+        view.frame=CGRectMake(0, SCREEN_HEIGHT-65-64, SCREEN_WIDTH , 65 );
 
         
         
@@ -339,7 +366,7 @@ static CGFloat topImageHeight = 180.f;
         for (int i = 0; i < 5; i++ ) {
             
             UIButton *rentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rentButton.frame = CGRectMake(view.frame.size.width / 11*(2*i +1), 22, view.frame.size.width / 11, 45);
+            rentButton.frame = CGRectMake(view.frame.size.width / 11*(2*i +1), 10, view.frame.size.width / 11, 45);
             [rentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
@@ -348,7 +375,7 @@ static CGFloat topImageHeight = 180.f;
 
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:rentButton];
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 5*(i+1), 30, 1, 30)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 5*(i+1), 20, 1, 30)];
             line.backgroundColor = [UIColor grayColor];
             [view addSubview:line];
         }
@@ -364,7 +391,7 @@ static CGFloat topImageHeight = 180.f;
         for (int i = 0; i < 4; i++ ) {
             
             UIButton *rentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rentButton.frame = CGRectMake(view.frame.size.width / 9*(2*i +1), 22, view.frame.size.width / 9, 45);
+            rentButton.frame = CGRectMake(view.frame.size.width / 9*(2*i +1), 10, view.frame.size.width / 9, 45);
             [rentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
@@ -373,7 +400,7 @@ static CGFloat topImageHeight = 180.f;
             
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [view addSubview:rentButton];
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 4*(i+1), 30, 1, 30)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 4*(i+1), 20, 1, 30)];
             line.backgroundColor = [UIColor grayColor];
             [view addSubview:line];
         }
@@ -498,18 +525,41 @@ static CGFloat topImageHeight = 180.f;
 - (IBAction)selectedChannel:(id)sender {
     GoodButton *btn = (GoodButton *)sender;
     btn.selected = YES;
+    if ([_detailModel.defaultChannel.channelID isEqualToString:btn.ID]) {
+        NSLog(@"!");
+    }
+    else {
+        NSLog(@"~~~");
+        ChannelModel *newModel = nil;
+        for (ChannelModel *model in _detailModel.channelItem) {
+            if ([model.channelID isEqualToString:btn.ID]) {
+                newModel = model;
+                break;
+            }
+        }
+        _detailModel.defaultChannel = newModel;
+        for (UIView *view in _mainScrollView.subviews) {
+            [view removeFromSuperview];
+        }
+        [self initSubViews];
+    }
+
 }
 
 - (IBAction)buyGood:(id)sender {
     NSLog(@"buy ");
     _buyButton.selected = YES;
     _rentButton.selected = NO;
+    _shopcartButton.enabled = YES;
+    [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
 }
 
 - (IBAction)rentGood:(id)sender {
     NSLog(@"rent");
     _buyButton.selected = NO;
     _rentButton.selected = YES;
+    _shopcartButton.enabled = NO;
+    [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];
 }
 
 - (IBAction)scanFactoryInfo:(id)sender {
@@ -525,6 +575,15 @@ static CGFloat topImageHeight = 180.f;
 }
 
 - (IBAction)scanOpenInfo:(id)sender {
+    
+}
+//加入购物车
+- (IBAction)addShoppingCart:(id)sender {
+    
+}
+
+//立即购买
+- (IBAction)buyNow:(id)sender {
     
 }
 

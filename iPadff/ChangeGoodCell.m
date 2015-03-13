@@ -14,7 +14,6 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        NSLog(@"~~~~~%@",reuseIdentifier);
         UIFont *mainFont = [UIFont systemFontOfSize:14];
         CGFloat mainBtnW = 110.f;
         CGFloat mainBtnH = 40.f;
@@ -67,7 +66,7 @@
                     [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
                     button.tag = i + 226;
                     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 10, mainBtnW, mainBtnH);
+                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 4, mainBtnW, mainBtnH);
                     button.backgroundColor = [UIColor clearColor];
                     [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                     [button setTitle:@"取消申请" forState:UIControlStateNormal];
@@ -118,7 +117,7 @@
     CGFloat mainY = self.frame.size.height / 2 - 5;
     CGFloat mainH = 10.f;
     
-    _ChangeGoodNum.frame = CGRectMake(10, mainY, 160, mainH);
+    _ChangeGoodNum.frame = CGRectMake(30, mainY, 160, mainH);
     
     _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_ChangeGoodNum.frame), mainY, 160, mainH);
     
@@ -135,13 +134,13 @@
         type = ChangeGoodCellTypeReady;
     }
     if ([reuseIdentifier isEqualToString:@"ChangeGoodCell2"]) {
-        type = ChangeGoodCellTypeAbolish;
-    }
-    if ([reuseIdentifier isEqualToString:@"ChangeGoodCell3"]) {
-        type = ChangeGoodCellTypeDone;
+        type = ChangeGoodCellTypeIng;
     }
     if ([reuseIdentifier isEqualToString:@"ChangeGoodCell4"]) {
-        type = ChangeGoodCellTypeIng;
+        type = ChangeGoodCellTypeDone;
+    }
+    if ([reuseIdentifier isEqualToString:@"ChangeGoodCell5"]) {
+        type = ChangeGoodCellTypeAbolish;
     }
     return type;
 }
@@ -155,7 +154,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.ChangeGoodCellBtnDelegate ChangeGoodCellBtnClick:button.tag];
+    [self.ChangeGoodCellBtnDelegate ChangeGoodCellBtnClick:button.tag WithSelectedID:_selectedID];
 }
 
 @end

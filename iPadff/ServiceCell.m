@@ -115,8 +115,6 @@
                 case ServieceBtnTypeCancel:
                 _seviceStatus.text = @"已取消";
                 break;
-                
-             
 
             default:
                 break;
@@ -154,7 +152,7 @@
     CGFloat mainY = self.frame.size.height / 2 - 5;
     CGFloat mainH = 10.f;
     
-    _seviceNum.frame = CGRectMake(10, mainY, 160, mainH);
+    _seviceNum.frame = CGRectMake(30, mainY, 160, mainH);
     
     _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_seviceNum.frame), mainY, 160, mainH);
     
@@ -175,7 +173,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.ServieceBtnDelgete serviceBtnClick:button.tag];
+    [self.ServieceBtnDelgete serviceBtnClick:button.tag WithSelectedID:_selectedID];
 }
 
 @end

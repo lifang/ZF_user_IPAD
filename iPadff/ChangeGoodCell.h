@@ -11,16 +11,16 @@
 //枚举状态
 typedef enum{
     ChangeGoodCellTypeNone = 0,     //无
-    ChangeGoodCellTypeIng = 1,  //换货中
-    ChangeGoodCellTypeAbolish = 2,//已取消
-    ChangeGoodCellTypeDone = 3,//处理完成
-    ChangeGoodCellTypeReady = 4,//待处理
+    ChangeGoodCellTypeReady = 1,//待处理
+    ChangeGoodCellTypeIng = 2,  //换货中
+    ChangeGoodCellTypeDone = 4,//处理完成
+    ChangeGoodCellTypeAbolish = 5,//已取消
 }ChangeGoodCellType;
 
 //点击协议
 @protocol ChangeGoodCellBtnClickDelegate <NSObject>
 @optional
--(void)ChangeGoodCellBtnClick:(int)btnTag;
+-(void)ChangeGoodCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID;
 @end
 
 @interface ChangeGoodCell : UITableViewCell
@@ -32,6 +32,8 @@ typedef enum{
 @property(nonatomic,strong)UILabel *ChangeGoodTime;
 /** 换货状态 */
 @property(nonatomic,strong)UILabel *ChangeGoodStatus;
+
+@property(nonatomic,strong)NSString *selectedID;
 
 @property(nonatomic,assign)ChangeGoodCellType ChangeGoodCelltype;
 @property(nonatomic,weak)id<ChangeGoodCellBtnClickDelegate> ChangeGoodCellBtnDelegate;
