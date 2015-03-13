@@ -215,14 +215,7 @@
     [_detailFooterView addSubview:ensureButton];
 }
 
-- (void)btnSetSelected {
-    if (_billBtn.isSelected) {
-        [_billBtn setBackgroundImage:kImageName(@"btn_selected.png") forState:UIControlStateNormal];
-    }
-    else {
-        [_billBtn setBackgroundImage:kImageName(@"btn_unselected.png") forState:UIControlStateNormal];
-    }
-}
+
 
 
 #pragma mark - UITableView
@@ -249,42 +242,6 @@
 }
 
 #pragma mark - Action
-
-- (IBAction)needBill:(id)sender {
-    _billBtn.selected = !_billBtn.selected;
-    [self btnSetSelected];
-}
-
-- (IBAction)billType:(id)sender {
-    NSMutableArray *listArray = [NSMutableArray arrayWithObjects:
-                                 [KxMenuItem menuItem:@"公司"
-                                                image:nil
-                                               target:self
-                                               action:@selector(selectBillType:)
-                                        selectedTitle:nil
-                                                  tag:1],
-                                 [KxMenuItem menuItem:@"个人"
-                                                image:nil
-                                               target:self
-                                               action:@selector(selectBillType:)
-                                        selectedTitle:nil
-                                                  tag:2],
-                                 nil];
-    CGRect factRect = [[_typeBtn superview] convertRect:_typeBtn.frame toView:self.view];
-    CGRect rect = CGRectMake(factRect.origin.x + factRect.size.width / 2, factRect.origin.y, 0, 0);
-    [KxMenu showMenuInView:self.view fromRect:rect menuItems:listArray];
-}
-
-- (IBAction)selectBillType:(KxMenuItem *)sender {
-    if (sender.tag == 1) {
-        _billType = BillTypeCompany;
-        [_typeBtn setTitle:@"公司" forState:UIControlStateNormal];
-    }
-    else {
-        _billType = BillTypePerson;
-        [_typeBtn setTitle:@"个人" forState:UIControlStateNormal];
-    }
-}
 
 - (IBAction)ensureOrder:(id)sender {
     

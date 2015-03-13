@@ -10,4 +10,11 @@
 
 @interface MyOrderViewController : MineCommonController
 
+{ UIView *headerView ;
+    
+    NSInteger A;
+    UIButton*bugbutton ;
+    UIButton*rentbutton;
+    
+}
 @end

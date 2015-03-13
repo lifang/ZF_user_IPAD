@@ -45,13 +45,14 @@
         //        logoImageView1.userInteractionEnabled=YES;
         
         [self addSubview:logoImageView];
-        UILabel*loglable  = [[UILabel alloc]initWithFrame:CGRectMake(55, 5, 30, 30)];
+    logoabel  = [[UILabel alloc]initWithFrame:CGRectMake(55, 5, 40, 30)];
 
         
+        logoabel.textColor=kColor(233, 91, 38, 1);
         
         
-        //        label.font=[UIFont systemFontOfSize:10];
-        [self addSubview:loglable];
+        logoabel.font=[UIFont systemFontOfSize:15];
+        [self addSubview:logoabel];
 
         
         
