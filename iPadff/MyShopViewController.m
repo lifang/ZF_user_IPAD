@@ -13,10 +13,14 @@
 #import "AppDelegate.h"
 #import "RefreshView.h"
 #import "MerchantDetailViewController.h"
+#import "CreatMerchantViewController.h"
 
 @interface MyShopViewController ()<UITableViewDataSource,UITableViewDelegate,RefreshDelegate>
 @property (nonatomic, strong) NSMutableArray *MerchantItems;
 @property(nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic, assign) BOOL isMultiDelete;
+
 /***************上下拉刷新**********/
 @property (nonatomic, strong) RefreshView *topRefreshView;
 @property (nonatomic, strong) RefreshView *bottomRefreshView;
@@ -43,12 +47,11 @@
     [self setupHeaderView];
     [self initAndLayoutUI];
     [self firstLoadData];
-    /*
-     // [[NSNotificationCenter defaultCenter] addObserver:self
-     selector:@selector(refreshMerchantList:)
+    
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMerchantList:)
      name:RefreshMerchantListNotification
      object:nil];
-     */
+    
     
 }
 
@@ -63,6 +66,19 @@
         headerView.frame = CGRectMake(160, 0, SCREEN_HEIGHT - 160.f, 80);
     }
     [self.view addSubview:headerView];
+    
+    UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    deleteButton.frame = CGRectMake(SCREEN_WIDTH-280, 20, 40, 40);
+    [deleteButton setBackgroundImage:kImageName(@"merchant1.png") forState:UIControlStateNormal];
+    [deleteButton addTarget:self action:@selector(multiDelete:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:deleteButton];
+    
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addButton.frame = CGRectMake(SCREEN_WIDTH-340, 20, 40, 40);
+    [addButton setBackgroundImage:kImageName(@"merchant2.png") forState:UIControlStateNormal];
+    [addButton addTarget:self action:@selector(addMerchant:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:addButton];
+   
 }
 
 #pragma mark - UI
@@ -222,6 +238,22 @@
     [_tableView reloadData];
 }
 
+#pragma mark - Action
+
+- (void)multiDelete:(id)sender {
+    self.isMultiDelete = !_isMultiDelete;
+}
+
+- (void)addMerchant:(id)sender {
+    CreatMerchantViewController *createVC = [[CreatMerchantViewController alloc] init];
+    [self.navigationController pushViewController:createVC animated:YES];
+}
+
+- (void)setIsMultiDelete:(BOOL)isMultiDelete {
+    _isMultiDelete = isMultiDelete;
+    [_tableView setEditing:_isMultiDelete animated:YES];
+}
+
 
 #pragma mark - Table view data source
 
@@ -257,16 +289,36 @@
     
 }
 
+/*
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     return 80;
     
 }
+*/
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (_isMultiDelete) {
+        return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+    }
+    else {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"11111");
+    }
+    else if (editingStyle == 3) {
+        NSLog(@"33333");
+    }
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // if (!self.isMultiDelete) {
+     if (!self.isMultiDelete) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MerchantModel *model = [_MerchantItems objectAtIndex:indexPath.row];
     MerchantDetailViewController *detailVC = [[MerchantDetailViewController alloc] init];
@@ -274,8 +326,21 @@
     detailVC.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:detailVC animated:YES];
     
-    // }
+     }
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
 
 #pragma mark - UIScrollView
 

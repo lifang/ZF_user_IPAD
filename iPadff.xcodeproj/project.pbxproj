@@ -10,6 +10,9 @@
 		0D714C641AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */; };
 		0D714C671AB2ED10007FF2C5 /* MerchantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */; };
 		0D714C6A1AB2ED20007FF2C5 /* EditMerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */; };
+		0D714C6D1AB314BC007FF2C5 /* CreatMerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C6C1AB314BC007FF2C5 /* CreatMerchantViewController.m */; };
+		0D714C6F1AB320BC007FF2C5 /* merchant1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */; };
+		0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C701AB320CA007FF2C5 /* merchant2@2x.png */; };
 		0EBBC5851AB13A8400E0ED16 /* typekill.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5841AB13A8400E0ED16 /* typekill.png */; };
 		0EBBC5871AB1573500E0ED16 /* yellowback.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5861AB1573500E0ED16 /* yellowback.png */; };
 		0EBBC58E1AB1660400E0ED16 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5891AB1660400E0ED16 /* OrderDetailController.m */; };
@@ -221,6 +224,10 @@
 		0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantDetailViewController.m; sourceTree = "<group>"; };
 		0D714C681AB2ED18007FF2C5 /* EditMerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditMerchantViewController.h; sourceTree = "<group>"; };
 		0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditMerchantViewController.m; sourceTree = "<group>"; };
+		0D714C6B1AB314BC007FF2C5 /* CreatMerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatMerchantViewController.h; sourceTree = "<group>"; };
+		0D714C6C1AB314BC007FF2C5 /* CreatMerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatMerchantViewController.m; sourceTree = "<group>"; };
+		0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchant1@2x.png"; sourceTree = "<group>"; };
+		0D714C701AB320CA007FF2C5 /* merchant2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchant2@2x.png"; sourceTree = "<group>"; };
 		0EBBC5841AB13A8400E0ED16 /* typekill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typekill.png; sourceTree = "<group>"; };
 		0EBBC5861AB1573500E0ED16 /* yellowback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowback.png; sourceTree = "<group>"; };
 		0EBBC5881AB1660400E0ED16 /* OrderDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
@@ -589,6 +596,8 @@
 				0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */,
 				0D714C651AB2ED09007FF2C5 /* MerchantDetailViewController.h */,
 				0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */,
+				0D714C6B1AB314BC007FF2C5 /* CreatMerchantViewController.h */,
+				0D714C6C1AB314BC007FF2C5 /* CreatMerchantViewController.m */,
 				0D714C681AB2ED18007FF2C5 /* EditMerchantViewController.h */,
 				0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */,
 			);
@@ -929,6 +938,8 @@
 		0ED6ACF81AA16ECB00D3B025 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */,
+				0D714C701AB320CA007FF2C5 /* merchant2@2x.png */,
 				0EBBC5861AB1573500E0ED16 /* yellowback.png */,
 				0EBBC5841AB13A8400E0ED16 /* typekill.png */,
 				0EC688C61AB1238E00F4058B /* xx.png */,
@@ -1359,6 +1370,7 @@
 				0ED6AD0B1AA18E7400D3B025 /* set.png in Resources */,
 				0ED6AD311AA19BC800D3B025 /* home6.png in Resources */,
 				0ECE7DE01AA5793F00E250B6 /* btn_selected@2x.png in Resources */,
+				0D714C6F1AB320BC007FF2C5 /* merchant1@2x.png in Resources */,
 				0ED8EBF11AA6E2BC00CE9F61 /* 8kind_normal.png in Resources */,
 				0ED6AD331AA19BC800D3B025 /* home8.png in Resources */,
 				0ED6AD131AA193D800D3B025 /* home_right.png in Resources */,
@@ -1367,6 +1379,7 @@
 				0ECE7DEE1AA57B3500E250B6 /* orange@2x.png in Resources */,
 				0ECE7DDE1AA5764300E250B6 /* good_search@2x.png in Resources */,
 				0ED6AD111AA1938800D3B025 /* home_logo.png in Resources */,
+				0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */,
 				0ED6AD051AA16EEA00D3B025 /* home_hight.png in Resources */,
 				0ED6AD031AA16EEA00D3B025 /* Myinages_nomal.png in Resources */,
 				0ED6AD301AA19BC800D3B025 /* home5.png in Resources */,
@@ -1481,6 +1494,7 @@
 				1A4258731AB018E100F470C9 /* ApplyPlanViewController.m in Sources */,
 				1AA8FF731AA4074D009D41B3 /* SDWebImageDownloaderOperation.m in Sources */,
 				0ED8EB921AA69B9300CE9F61 /* RegularFormat.m in Sources */,
+				0D714C6D1AB314BC007FF2C5 /* CreatMerchantViewController.m in Sources */,
 				1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */,
 				1A8E7C601AB12D7B00C021CE /* AfterTitleCell.m in Sources */,
 				0ED8EB9D1AA6A6CB00CE9F61 /* ModuleView.m in Sources */,
