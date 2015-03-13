@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D714C641AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */; };
+		0D714C671AB2ED10007FF2C5 /* MerchantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */; };
+		0D714C6A1AB2ED20007FF2C5 /* EditMerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */; };
 		0EBBC5851AB13A8400E0ED16 /* typekill.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5841AB13A8400E0ED16 /* typekill.png */; };
 		0EBBC5871AB1573500E0ED16 /* yellowback.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5861AB1573500E0ED16 /* yellowback.png */; };
 		0EBBC58E1AB1660400E0ED16 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5891AB1660400E0ED16 /* OrderDetailController.m */; };
@@ -212,6 +215,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D714C621AB2ECF4007FF2C5 /* MerchantImageLoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantImageLoadViewController.h; sourceTree = "<group>"; };
+		0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantImageLoadViewController.m; sourceTree = "<group>"; };
+		0D714C651AB2ED09007FF2C5 /* MerchantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantDetailViewController.h; sourceTree = "<group>"; };
+		0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantDetailViewController.m; sourceTree = "<group>"; };
+		0D714C681AB2ED18007FF2C5 /* EditMerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditMerchantViewController.h; sourceTree = "<group>"; };
+		0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditMerchantViewController.m; sourceTree = "<group>"; };
 		0EBBC5841AB13A8400E0ED16 /* typekill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typekill.png; sourceTree = "<group>"; };
 		0EBBC5861AB1573500E0ED16 /* yellowback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowback.png; sourceTree = "<group>"; };
 		0EBBC5881AB1660400E0ED16 /* OrderDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
@@ -571,6 +580,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D714C611AB2EBA1007FF2C5 /* Merchant */ = {
+			isa = PBXGroup;
+			children = (
+				1A4258651AB0163800F470C9 /* MyShopViewController.h */,
+				1A4258661AB0163800F470C9 /* MyShopViewController.m */,
+				0D714C621AB2ECF4007FF2C5 /* MerchantImageLoadViewController.h */,
+				0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */,
+				0D714C651AB2ED09007FF2C5 /* MerchantDetailViewController.h */,
+				0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */,
+				0D714C681AB2ED18007FF2C5 /* EditMerchantViewController.h */,
+				0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */,
+			);
+			name = Merchant;
+			sourceTree = "<group>";
+		};
 		0EC99CA01AAFE67500D20386 /* KxMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -844,13 +868,12 @@
 		0ED6ACEB1AA16D3900D3B025 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				0D714C611AB2EBA1007FF2C5 /* Merchant */,
 				1A8E7C741AB17DFC00C021CE /* Mymessage */,
 				1A8E7C731AB179C500C021CE /* AfterSell */,
 				0EC99CB01AAFE91400D20386 /* MyOrder */,
 				1A42585F1AB008F900F470C9 /* MineCommonController.h */,
 				1A4258601AB008F900F470C9 /* MineCommonController.m */,
-				1A4258651AB0163800F470C9 /* MyShopViewController.h */,
-				1A4258661AB0163800F470C9 /* MyShopViewController.m */,
 				1A4258711AB018E100F470C9 /* ApplyPlanViewController.h */,
 				1A4258721AB018E100F470C9 /* ApplyPlanViewController.m */,
 			);
@@ -1369,6 +1392,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D714C6A1AB2ED20007FF2C5 /* EditMerchantViewController.m in Sources */,
+				0D714C641AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m in Sources */,
 				1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */,
 				1AA8FF771AA4074D009D41B3 /* UIImage+GIF.m in Sources */,
 				1A727B2D1AA5957100E1643D /* EmailSuccessViewController.m in Sources */,
@@ -1444,6 +1469,7 @@
 				0EC99C9F1AAFE62900D20386 /* AddressModel.m in Sources */,
 				1A94EB751AA9542A0056E921 /* LiferechargeCell.m in Sources */,
 				0ECE7DD51AA55EBC00E250B6 /* RefreshView.m in Sources */,
+				0D714C671AB2ED10007FF2C5 /* MerchantDetailViewController.m in Sources */,
 				0ED065AE1A9EE397005DF849 /* AppDelegate.m in Sources */,
 				0ED8EBD01AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.m in Sources */,
 				0EC99C961AAFE59300D20386 /* ShoppingCartOrderController.m in Sources */,
