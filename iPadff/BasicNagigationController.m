@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
     //change all navigationbar color
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
         [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
 //        [[UINavigationBar appearance] setBarTintColor:[UIColor grayColor]];
         

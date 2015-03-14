@@ -63,7 +63,7 @@ typedef enum {
     _orderNoLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _orderNoLabel.backgroundColor = [UIColor clearColor];
     _orderNoLabel.textColor = kColor(117, 117, 117, 1);
-    _orderNoLabel.font = [UIFont systemFontOfSize:8.f];
+    _orderNoLabel.font = [UIFont systemFontOfSize:12.f];
     [headerView addSubview:_orderNoLabel];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_orderNoLabel
                                                                  attribute:NSLayoutAttributeTop
@@ -71,7 +71,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0
-                                                                  constant:0.f]];
+                                                                  constant:10.f]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_orderNoLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -98,7 +98,7 @@ typedef enum {
     _timeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _timeLabel.backgroundColor = [UIColor clearColor];
     _timeLabel.textColor = kColor(117, 117, 117, 1);
-    _timeLabel.font = [UIFont systemFontOfSize:8.f];
+    _timeLabel.font = [UIFont systemFontOfSize:12.f];
     [headerView addSubview:_timeLabel];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
                                                                  attribute:NSLayoutAttributeTop
@@ -106,7 +106,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0
-                                                                  constant:0.f]];
+                                                                  constant:10.f]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -134,7 +134,7 @@ typedef enum {
     _statusLabel.backgroundColor = [UIColor clearColor];
     _statusLabel.textColor = kColor(117, 117, 117, 1);
     _statusLabel.textAlignment = NSTextAlignmentRight;
-    _statusLabel.font = [UIFont systemFontOfSize:11.f];
+    _statusLabel.font = [UIFont systemFontOfSize:13.f];
     [headerView addSubview:_statusLabel];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_statusLabel
                                                                  attribute:NSLayoutAttributeTop
@@ -142,7 +142,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0
-                                                                  constant:0.f]];
+                                                                  constant:10.f]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_statusLabel
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual
@@ -281,7 +281,7 @@ typedef enum {
     _totalCountLabel = [[UILabel alloc] init];
     _totalCountLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _totalCountLabel.backgroundColor = [UIColor clearColor];
-    _totalCountLabel.font = [UIFont systemFontOfSize:10.f];
+    _totalCountLabel.font = [UIFont systemFontOfSize:14.f];
     _totalCountLabel.textColor = kColor(117, 117, 117, 1);
     [headerView addSubview:_totalCountLabel];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_totalCountLabel
@@ -316,7 +316,7 @@ typedef enum {
     _deliveryFeeLabel = [[UILabel alloc] init];
     _deliveryFeeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _deliveryFeeLabel.backgroundColor = [UIColor clearColor];
-    _deliveryFeeLabel.font = [UIFont systemFontOfSize:10.f];
+    _deliveryFeeLabel.font = [UIFont systemFontOfSize:14.f];
     _deliveryFeeLabel.textColor = kColor(117, 117, 117, 1);
     [headerView addSubview:_deliveryFeeLabel];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_deliveryFeeLabel
@@ -351,7 +351,7 @@ typedef enum {
     _payLabel = [[UILabel alloc] init];
     _payLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _payLabel.backgroundColor = [UIColor clearColor];
-    _payLabel.font = [UIFont systemFontOfSize:12.f];
+    _payLabel.font = [UIFont systemFontOfSize:14.f];
     _payLabel.textColor = kColor(117, 117, 117, 1);
     _payLabel.textAlignment = NSTextAlignmentRight;
     [headerView addSubview:_payLabel];
@@ -412,7 +412,7 @@ typedef enum {
         [cancelBtn addTarget:self action:@selector(cancelOrder:) forControlEvents:UIControlEventTouchUpInside];
         [cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         
-        cancelBtn.layer.cornerRadius = 5;
+//        cancelBtn.layer.cornerRadius = 5;
         
         
         cancelBtn.layer.masksToBounds = YES;
@@ -428,7 +428,7 @@ typedef enum {
         [payBtn setTitle:@"付款" forState:UIControlStateNormal];
         payBtn.layer.masksToBounds = YES;
 
-        payBtn.layer.cornerRadius = 5;
+//        payBtn.layer.cornerRadius = 5;
         [payBtn setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         
         [headerView addSubview:payBtn];
@@ -441,7 +441,7 @@ typedef enum {
         [reviewBtn setTitle:@"评价" forState:UIControlStateNormal];
         reviewBtn.layer.masksToBounds = YES;
 
-        reviewBtn.layer.cornerRadius = 5;
+//        reviewBtn.layer.cornerRadius = 5;
         [reviewBtn setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
 
         [headerView addSubview:reviewBtn];
@@ -474,7 +474,7 @@ typedef enum {
     CGFloat labelHeight = 14.f;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:12.f];
+    label.font = [UIFont systemFontOfSize:13.f];
     label.textAlignment = alignment;
     [headerView addSubview:label];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:label
@@ -588,7 +588,7 @@ typedef enum {
                         style:(NSString *)style{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    button.layer.cornerRadius = 4;
+//    button.layer.cornerRadius = 4;
     button.layer.masksToBounds = YES;
     if ([style isEqualToString:orderBtnStyleFirst]) {
         button.layer.borderWidth = 1.f;

@@ -219,8 +219,8 @@
     
     
     _finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _finishButton.frame=CGRectMake(wide-80, 70, 60, 40);
-    _finishButton.layer.cornerRadius = 4;
+    _finishButton.frame=CGRectMake(wide-120, 70, 100, 40);
+//    _finishButton.layer.cornerRadius = 4;
     _finishButton.layer.masksToBounds = YES;
     _finishButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [_finishButton setTitle:@"结算" forState:UIControlStateNormal];
@@ -237,7 +237,7 @@
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _deleteButton.frame=CGRectMake(20, 50, 30, 30);
 
-    _deleteButton.layer.cornerRadius = 4.f;
+//    _deleteButton.layer.cornerRadius = 4.f;
     _deleteButton.layer.masksToBounds = YES;
     [_deleteButton setImage:kImageName(@"delete.png") forState:UIControlStateNormal];
     [_deleteButton addTarget:self action:@selector(deleteOrder) forControlEvents:UIControlEventTouchUpInside];
@@ -281,7 +281,7 @@
     
     
     
-    _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-240, 70, 160, 25)];
+    _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-280, 70, 160, 25)];
     
     _totalLabel.backgroundColor = [UIColor clearColor];
     
@@ -291,7 +291,7 @@
     _totalLabel.text =[NSString stringWithFormat:@"合计：￥%.2f",summaryPrice];
     [rootview addSubview:_totalLabel];
     //文字
-    UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-200, 95, 100, 15)];
+    UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-240, 95, 100, 15)];
     detailLabel.backgroundColor = [UIColor clearColor];
     detailLabel.font = [UIFont systemFontOfSize:12.f];
     detailLabel.textAlignment = NSTextAlignmentRight;

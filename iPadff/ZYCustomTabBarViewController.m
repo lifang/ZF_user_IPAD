@@ -112,7 +112,7 @@
 
     
     [self.view addSubview:_tabView];
-    _tabView.backgroundColor=[UIColor grayColor];
+    _tabView.backgroundColor=[UIColor colorWithWhite:0.2 alpha:1];
 
     
    

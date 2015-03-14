@@ -10,19 +10,10 @@
 
 @interface GoodDetailViewController : CommonViewController
 
-{
-    
-        CGFloat leftSpace ;  //左侧间距
-        
-        
-    CGFloat  originXs;
-    
-    UIButton*  _shopcartButton;
-    UIButton*  _buyGoodButton;
-
-    
+{    UIView *view;
 
 }
 @property (nonatomic, strong) NSString *goodID;
+@property (nonatomic, assign) NSInteger  secletA;
 
 @end

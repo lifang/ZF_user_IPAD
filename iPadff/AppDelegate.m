@@ -30,7 +30,7 @@
     
     self.tabBarViewController.AG=78;
     
-//   [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingCartController *viewController2 = [[ShoppingCartController alloc] init];

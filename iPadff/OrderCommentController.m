@@ -44,7 +44,7 @@
     footerView.backgroundColor = [UIColor clearColor];
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     submitBtn.frame = CGRectMake(80, 20, kScreenWidth - 160, 40);
-    submitBtn.layer.cornerRadius = 4;
+//    submitBtn.layer.cornerRadius = 4;
     submitBtn.layer.masksToBounds = YES;
     submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];

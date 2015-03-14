@@ -189,24 +189,24 @@
     firstLine.backgroundColor = kColor(135, 135, 135, 1);
     [_detailFooterView addSubview:firstLine];
     CGFloat space = 10.f;
-    CGFloat btnWidth = 60.f;
+    CGFloat btnWidth = 100.f;
     CGFloat btnHeight = 36.f;
     
-    _payLabel = [[UILabel alloc] initWithFrame:CGRectMake(space, 10, wide - space * 3 - btnWidth, 20)];
+    _payLabel = [[UILabel alloc] initWithFrame:CGRectMake(space, 10, wide - space * 3 - btnWidth-40, 20)];
     _payLabel.backgroundColor = [UIColor clearColor];
     _payLabel.font = [UIFont boldSystemFontOfSize:14.f];
     _payLabel.textAlignment = NSTextAlignmentRight;
     [_detailFooterView addSubview:_payLabel];
     
-    _deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(space, 30, wide - space * 3 - btnWidth, 20)];
+    _deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(space, 30, wide - space * 3 - btnWidth-40, 20)];
     _deliveryLabel.backgroundColor = [UIColor clearColor];
     _deliveryLabel.font = [UIFont systemFontOfSize:14.f];
     _deliveryLabel.textAlignment = NSTextAlignmentRight;
     [_detailFooterView addSubview:_deliveryLabel];
     
     UIButton *ensureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    ensureButton.frame = CGRectMake(wide - space - btnWidth, 12, btnWidth, btnHeight);
-    ensureButton.layer.cornerRadius = 4.f;
+    ensureButton.frame = CGRectMake(wide - space - btnWidth-40, 12, btnWidth, btnHeight);
+//    ensureButton.layer.cornerRadius = 4.f;
     ensureButton.layer.masksToBounds = YES;
     [ensureButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
     [ensureButton setTitle:@"确认" forState:UIControlStateNormal];
@@ -245,6 +245,7 @@
 
 - (IBAction)ensureOrder:(id)sender {
     
+
 }
 
 #pragma mark - UITextField

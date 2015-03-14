@@ -22,13 +22,33 @@
 @implementation GoodDetaildetailViewController
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBarHidden = NO;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title=@"商品详情";
     
-  
+    self.title=@"商品详情";
+    self.view.backgroundColor=[UIColor whiteColor];
+    
+    self.navigationController.navigationBarHidden = NO;
+
+    if(iOS7)
+    {
+        
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH)];
+        
+        
+    }
+    else
+    {
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+        
+    }
+    
+    _mainScrollView.backgroundColor = [UIColor whiteColor];
+    
+    [self.view addSubview:_mainScrollView];
+
     
     [self downloadGoodDetail];
     
@@ -41,27 +61,10 @@
 }
 - (void)initAndLayoutUI {
     
-    if(iOS7)
-    {
-        
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_HEIGHT, SCREEN_WIDTH)];
-        
-        
-    }
-    else
-    {
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        
-        
-    }
-
-    _mainScrollView.backgroundColor = [UIColor whiteColor];
-    
-    [self.view addSubview:_mainScrollView];
     
     UIView *handleView = [self handleViewWithOriginY:0];
     [_mainScrollView addSubview:handleView];
-    UIView *handleViewfrdef= [self  handleViewWithOriginYs: 90];
+    UIView *handleViewfrdef= [self  handleViewWithOriginYs: 70];
     [_mainScrollView addSubview:handleViewfrdef];
 
 
@@ -149,7 +152,7 @@
     originY +=  10;
     UILabel *posTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, kScreenWidth - leftSpace - rightSpace, labelHeight)];
     
-    [self setLabel:posTitleLabel withTitle:@"POS信息" font:[UIFont systemFontOfSize:14.f]];
+    [self setLabels:posTitleLabel withTitle:@"POS信息" font:[UIFont systemFontOfSize:14.f]];
     [view addSubview:posTitleLabel];
 
     //划线
@@ -179,7 +182,7 @@
     //支付通道信息
     originY += labelHeight + 10;
     UILabel *cTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, kScreenWidth - leftSpace - rightSpace, labelHeight)];
-    [self setLabel:cTitleLabel withTitle:@"支付通道信息" font:[UIFont systemFontOfSize:13.f]];
+    [self setLabels:cTitleLabel withTitle:@"支付通道信息" font:[UIFont systemFontOfSize:13.f]];
      [view addSubview:cTitleLabel];
 
     //划线
@@ -248,16 +251,16 @@
     CGFloat labelHeight = 20.f;
     CGFloat middleLeftSpace = leftSpace + titleLabelWidth + 5;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, offsetY, titleLabelWidth, labelHeight)];
-    [self setLabel:titleLabel withTitle:title font:[UIFont systemFontOfSize:14.f]];
+    [self setLabels:titleLabel withTitle:title font:[UIFont systemFontOfSize:14.f]];
     
     [view addSubview:titleLabel];
     
     
     UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(middleLeftSpace, offsetY, kScreenWidth - middleLeftSpace, labelHeight)];
-    [self setLabel:contentLabel withTitle:content font:[UIFont systemFontOfSize:14.f]];
+    [self setLabels:contentLabel withTitle:content font:[UIFont systemFontOfSize:14.f]];
     
 }
-- (void)setLabel:(UILabel *)label withTitle:(NSString *)title font:(UIFont *)font{
+- (void)setLabels:(UILabel *)label withTitle:(NSString *)title font:(UIFont *)font{
     label.backgroundColor = [UIColor clearColor];
     label.font = font;
     label.text = title;
@@ -269,11 +272,11 @@
     
     if(iOS7)
     {
-        viewgf.frame=CGRectMake(0, originY, SCREEN_HEIGHT , 90 );
+        viewgf.frame=CGRectMake(0, originY, SCREEN_HEIGHT , 65 );
         
     }else
     {
-        viewgf.frame=CGRectMake(0, originY, SCREEN_WIDTH , 90 );
+        viewgf.frame=CGRectMake(0, originY, SCREEN_WIDTH , 65 );
         
         
         

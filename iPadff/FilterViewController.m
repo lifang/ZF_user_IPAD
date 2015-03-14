@@ -734,7 +734,7 @@
 
             
         }
-        canebutton.layer.cornerRadius = 4;
+//        canebutton.layer.cornerRadius = 4;
         canebutton.layer.masksToBounds = YES;
         canebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
         [canebutton setTitle:@"取消" forState:UIControlStateNormal];
@@ -750,7 +750,7 @@
         //设置边框线的颜色
         [layercane setBorderColor:[kColor(255, 102, 36, 1) CGColor]];
         
-        signOut.layer.cornerRadius = 4;
+//        signOut.layer.cornerRadius = 4;
         signOut.layer.masksToBounds = YES;
         signOut.titleLabel.font = [UIFont systemFontOfSize:16.f];
         [signOut setTitle:@"确认" forState:UIControlStateNormal];

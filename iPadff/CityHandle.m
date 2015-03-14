@@ -8,7 +8,30 @@
 
 #import "CityHandle.h"
 
+static NSArray *s_cityList = nil;
+static NSArray *s_provinceList = nil;
+
 @implementation CityHandle
+
++ (NSArray *)shareProvinceList {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!s_provinceList) {
+            s_provinceList = [[self class] getProvinceList];
+        }
+    });
+    return s_provinceList;
+}
+
++ (NSArray *)shareCityList {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!s_cityList) {
+            s_cityList = [[self class] getCityList];
+        }
+    });
+    return s_cityList;
+}
 
 //省
 + (NSArray *)getProvinceList {
@@ -20,7 +43,7 @@
 
 //城市
 + (NSArray *)getCityList {
-    NSArray *provinceList = [[self class] getProvinceList];
+    NSArray *provinceList = [[self class] shareProvinceList];
     NSMutableArray *cityList = [[NSMutableArray alloc] init];
     for (int i = 0; i < [provinceList count]; i++) {
         NSDictionary *provinceDict = [provinceList objectAtIndex:i];
@@ -40,7 +63,7 @@
 
 + (NSString *)getCityNameWithCityID:(NSString *)cityID {
     NSString *cityName = nil;
-    NSArray *cityList = [[self class] getCityList];
+    NSArray *cityList = [[self class] shareCityList];
     for (CityModel *city in cityList) {
         if ([city.cityID isEqualToString:cityID]) {
             cityName = city.cityName;
@@ -50,9 +73,46 @@
     return cityName;
 }
 
++ (NSInteger)getProvinceIndexWithCityID:(NSString *)cityID {
+    CityModel *cityModel = nil;
+    NSArray *cityList = [[self class] shareCityList];
+    for (CityModel *city in cityList) {
+        if ([city.cityID isEqualToString:cityID]) {
+            cityModel = city;
+            break;
+        }
+    }
+    NSInteger index = 0;
+    for (int i = 0; i < [[[self class] shareProvinceList] count]; i++) {
+        NSDictionary *provinceDict = [[[self class] shareProvinceList] objectAtIndex:i];
+        NSString *parentID = [NSString stringWithFormat:@"%@",[provinceDict objectForKey:@"id"]];
+        if ([parentID isEqualToString:cityModel.parentID]) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
++ (NSInteger)getCityIndexWithCityID:(NSString *)cityID {
+    NSInteger provinceIndex = [[self class] getProvinceIndexWithCityID:cityID];
+    NSDictionary *provinceDict = [[[self class] shareProvinceList] objectAtIndex:provinceIndex];
+    NSArray *cityForProvince = [provinceDict objectForKey:@"cities"];
+    NSInteger index = 0;
+    for (int i = 0; i < [cityForProvince count]; i++) {
+        NSDictionary *cityDict = [cityForProvince objectAtIndex:i];
+        NSString *city_ID = [NSString stringWithFormat:@"%@",[cityDict objectForKey:@"id"]];
+        if ([city_ID isEqualToString:cityID]) {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
+
 //城市排序
 + (NSArray *)sortCityList {
-    NSArray *cityList = [[self class] getCityList];
+    NSArray *cityList = [[self class] shareCityList];
     NSArray *sortDescriptors = [NSArray arrayWithObject:
                                 [NSSortDescriptor sortDescriptorWithKey:@"cityPinYin"
                                                               ascending:YES]];

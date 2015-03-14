@@ -56,7 +56,7 @@
 
         
         
-        namelabel  = [[UILabel alloc]initWithFrame:CGRectMake(100, 5, 60, 30)];
+        namelabel  = [[UILabel alloc]initWithFrame:CGRectMake(100, 5, 80, 30)];
 
         namelabel.numberOfLines=0;
         
@@ -64,7 +64,7 @@
         
         //        label.textAlignment = NSTextAlignmentCenter;
         
-        //        label.font=[UIFont systemFontOfSize:10];
+      namelabel.font=[UIFont systemFontOfSize:15];
         [self addSubview:namelabel];
         
         // Initialization code
@@ -81,10 +81,10 @@
         [self addSubview:citylable];
         //        simplenamelabel.textColor=[UIColor grayColor];
         
-        addresslable=[[UILabel alloc]initWithFrame:CGRectMake(300, 5, 200, 30)];
+        addresslable=[[UILabel alloc]initWithFrame:CGRectMake(400, 5, 300, 30)];
         [self addSubview:addresslable];
         
-        postlable  = [[UILabel alloc] initWithFrame:CGRectMake(520, 5, 60, 30)];
+        postlable  = [[UILabel alloc] initWithFrame:CGRectMake(wide-120-100, 5, 60, 30)];
         
         
         postlable.backgroundColor=[UIColor clearColor];
@@ -92,12 +92,12 @@
         
         //        label.textAlignment = NSTextAlignmentCenter;
         
-        //        label.font=[UIFont systemFontOfSize:10];
         [self addSubview:postlable];
-        phonelable  = [[UILabel alloc] initWithFrame:CGRectMake(600, 5, 100, 30)];
+        phonelable  = [[UILabel alloc] initWithFrame:CGRectMake(wide-120, 5, 100, 30)];
         
         
-        
+        phonelable.font=[UIFont systemFontOfSize:14];
+
         
         
         
