@@ -67,7 +67,7 @@
                     [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
                     button.tag = i + 222;
                     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 10, mainBtnW, mainBtnH);
+                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 4, mainBtnW, mainBtnH);
                     button.backgroundColor = [UIColor clearColor];
                     [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                     [button setTitle:@"取消申请" forState:UIControlStateNormal];
@@ -118,7 +118,7 @@
     CGFloat mainY = self.frame.size.height / 2 - 5;
     CGFloat mainH = 10.f;
     
-    _CancelNum.frame = CGRectMake(10, mainY, 160, mainH);
+    _CancelNum.frame = CGRectMake(30, mainY, 160, mainH);
     
     _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_CancelNum.frame), mainY, 160, mainH);
     
@@ -135,13 +135,13 @@
         type = CancelCellBtnReady;
     }
     if ([reuseIdentifier isEqualToString:@"CancelCell2"]) {
-        type = CancelCellBtnAbolish;
-    }
-    if ([reuseIdentifier isEqualToString:@"CancelCell3"]) {
-        type = CancelCellBtnDone;
+        type = CancelCellBtnIng;
     }
     if ([reuseIdentifier isEqualToString:@"CancelCell4"]) {
-        type = CancelCellBtnIng;
+        type = CancelCellBtnDone;
+    }
+    if ([reuseIdentifier isEqualToString:@"CancelCell5"]) {
+        type = CancelCellBtnAbolish;
     }
     return type;
 }
@@ -155,7 +155,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.CancelCellBtndelegate CancelCellBtnClick:button.tag];
+    [self.CancelCellBtndelegate CancelCellBtnClick:button.tag WithSelectedID:_selectedID];
 }
 
 

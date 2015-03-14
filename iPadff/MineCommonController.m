@@ -7,7 +7,7 @@
 //
 
 #import "MineCommonController.h"
-#import "MyMessageViewController.h"
+#import "BaseInformationViewController.h"
 #import "MyShopViewController.h"
 #import "MyOrderViewController.h"
 #import "AfterSellViewController.h"
@@ -76,8 +76,8 @@
 //我的信息
 -(void)messageBtnClick
 {
-    MyMessageViewController *messageVC = [[MyMessageViewController alloc]init];
-    [self.navigationController pushViewController:messageVC animated:NO];
+    BaseInformationViewController *baseInformationVC = [[BaseInformationViewController alloc]init];
+    [self.navigationController pushViewController:baseInformationVC animated:NO];
 }
 //我的商户
 -(void)shopBtnClick

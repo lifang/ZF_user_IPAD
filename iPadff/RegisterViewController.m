@@ -38,12 +38,15 @@
     LocationViewController *locationVC = [[LocationViewController alloc]init];
     locationVC.delegate = self;
     self.locationVC = locationVC;
+    [self initUI];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self initUI];
+    [super viewWillAppear:animated];
+    _locationField.text = _cityName;
 }
+
 
 -(void)sendCity:(NSString *)city WithCity_id:(NSString *)city_id
 {
@@ -51,7 +54,6 @@
     self.cityId = city_id;
     _locationField.placeholder = nil;
     _locationField.text = nil;
-    
 }
 
 -(void)initUI
@@ -191,7 +193,6 @@
     _locationField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _locationField.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , location.frame.origin.y, self.view.frame.size.width * 0.25, makeSurepassword.frame.size.height);
     _locationField.placeholder = @"请选择城市";
-    _locationField.text = _cityName;
     [_locationField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _locationField.delegate = self;
     _locationField.leftViewMode = UITextFieldViewModeAlways;

@@ -23,4 +23,5 @@
 + (NSInteger)getProvinceIndexWithCityID:(NSString *)cityID;
 + (NSInteger)getCityIndexWithCityID:(NSString *)cityID;
 
+
 @end

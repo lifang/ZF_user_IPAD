@@ -67,7 +67,7 @@
                     [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
                     button.tag = i + 229;
                     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 10, mainBtnW, mainBtnH);
+                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 4, mainBtnW, mainBtnH);
                     button.backgroundColor = [UIColor clearColor];
                     [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                     [button setTitle:@"取消申请" forState:UIControlStateNormal];
@@ -102,7 +102,7 @@
     CGFloat mainY = self.frame.size.height / 2 - 5;
     CGFloat mainH = 10.f;
     
-    _RentBackNum.frame = CGRectMake(10, mainY, 160, mainH);
+    _RentBackNum.frame = CGRectMake(30, mainY, 160, mainH);
     
     _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_RentBackNum.frame), mainY, 160, mainH);
     
@@ -119,13 +119,13 @@
         type = RentBackCellTypeReady;
     }
     if ([reuseIdentifier isEqualToString:@"RentBackCell2"]) {
-        type = RentBackCellTypeAbolish;
-    }
-    if ([reuseIdentifier isEqualToString:@"RentBackCell3"]) {
-        type = RentBackCellTypeDone;
+        type = RentBackCellTypeIng;
     }
     if ([reuseIdentifier isEqualToString:@"RentBackCell4"]) {
-        type = RentBackCellTypeIng;
+        type = RentBackCellTypeDone;
+    }
+    if ([reuseIdentifier isEqualToString:@"RentBackCell5"]) {
+        type = RentBackCellTypeAbolish;
     }
     return type;
 }
@@ -138,7 +138,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.RentBackCellBtnDelegate RentBackCellBtnClick:button.tag];
+    [self.RentBackCellBtnDelegate RentBackCellBtnClick:button.tag WithSelectedID:_selectedID];
 }
 
 

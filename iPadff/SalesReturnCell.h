@@ -10,16 +10,16 @@
 //枚举状态
 typedef enum{
     SalesReturnCellTypeNone = 0,     //无
-    SalesReturnCellTypeIng = 1,  //退货中
-    SalesReturnCellTypeAbolish = 2,//已取消
-    SalesReturnCellTypeDone = 3,//处理完成
-    SalesReturnCellTypeReady = 4,//待处理
+    SalesReturnCellTypeReady = 1,//待处理
+    SalesReturnCellTypeIng = 2,  //退货中
+    SalesReturnCellTypeDone = 4,//处理完成
+    SalesReturnCellTypeAbolish = 5,//已取消
 }SalesReturnCellType;
 
 //点击协议
 @protocol SalesReturnCellBtnClickDelegate <NSObject>
 @optional
--(void)SalesReturnCellBtnClick:(int)btnTag;
+-(void)SalesReturnCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID;
 @end
 
 @interface SalesReturnCell : UITableViewCell
@@ -32,6 +32,8 @@ typedef enum{
 @property(nonatomic,strong)UILabel *SalesReturnTime;
 /** 退货状态 */
 @property(nonatomic,strong)UILabel *SalesReturnStatus;
+
+@property(nonatomic,strong)NSString *selectedID;
 
 @property(nonatomic,assign)SalesReturnCellType SalesReturnCelltype;
 @property(nonatomic,weak)id<SalesReturnCellBtnClickDelegate> SalesReturnCellBtnDelegate;

@@ -67,7 +67,7 @@
                     [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
                     button.tag = i + 228;
                     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 10, mainBtnW, mainBtnH);
+                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH + 4, mainBtnW, mainBtnH);
                     button.backgroundColor = [UIColor clearColor];
                     [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                     [button setTitle:@"取消申请" forState:UIControlStateNormal];
@@ -102,7 +102,7 @@
     CGFloat mainY = self.frame.size.height / 2 - 5;
     CGFloat mainH = 10.f;
     
-    _UpdateNum.frame = CGRectMake(10, mainY, 160, mainH);
+    _UpdateNum.frame = CGRectMake(30, mainY, 160, mainH);
     
     _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_UpdateNum.frame), mainY, 160, mainH);
     
@@ -119,13 +119,13 @@
         type = UpdateCellTypeReady;
     }
     if ([reuseIdentifier isEqualToString:@"UpdateCell2"]) {
-        type = UpdateCellTypeAbolish;
-    }
-    if ([reuseIdentifier isEqualToString:@"UpdateCell3"]) {
-        type = UpdateCellTypeDone;
+        type = UpdateCellTypeIng;
     }
     if ([reuseIdentifier isEqualToString:@"UpdateCell4"]) {
-        type = UpdateCellTypeIng;
+        type = UpdateCellTypeDone;
+    }
+    if ([reuseIdentifier isEqualToString:@"UpdateCell5"]) {
+        type = UpdateCellTypeAbolish;
     }
     return type;
 }
@@ -138,7 +138,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.UpdateCellBtnDelegate UpdateCellBtnClick:button.tag];
+    [self.UpdateCellBtnDelegate UpdateCellBtnClick:button.tag WithSelectedID:_selectedID];
 }
 
 @end

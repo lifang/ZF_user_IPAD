@@ -19,7 +19,7 @@ typedef enum{
 //点击协议
 @protocol UpdateCellBtnClickDelegate <NSObject>
 @optional
--(void)UpdateCellBtnClick:(int)btnTag;
+-(void)UpdateCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID;
 @end
 
 @interface UpdateCell : UITableViewCell
@@ -31,6 +31,8 @@ typedef enum{
 @property(nonatomic,strong)UILabel *UpdateTime;
 /** 更新资料状态 */
 @property(nonatomic,strong)UILabel *UpdateStatus;
+
+@property(nonatomic,strong)NSString *selectedID;
 
 @property(nonatomic,assign)UpdateCellType UpdateCelltype;
 @property(nonatomic,weak)id<UpdateCellBtnClickDelegate> UpdateCellBtnDelegate;
