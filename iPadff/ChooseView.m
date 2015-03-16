@@ -67,8 +67,8 @@
 - (id)initWithFrame:(CGRect)frame With:(ChooseViewType)ChooseViewtype;
 {
     if (self = [super initWithFrame:frame]) {
-        [self initUI];
         self.chooseType = ChooseViewtype;
+        [self initUI];
     }
     return self;
 }

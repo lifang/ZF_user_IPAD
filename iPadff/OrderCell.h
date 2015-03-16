@@ -10,8 +10,8 @@
 #import "OrderModel.h"
 #import "UIImageView+WebCache.h"
 
-#define kOrderShortCellHeight 122.f
-#define kOrderLongCellHeight 122.f
+#define kOrderShortCellHeight 142.f
+#define kOrderLongCellHeight 142.f
 
 @protocol OrderCellDelegate <NSObject>
 

@@ -8,12 +8,16 @@
 
 #import "OrderConfirmController.h"
 #import "ShoppingCartModel.h"
+static NSString *RefreshAddressListNotification = @"RefreshAddressListNotification";
 
 @interface ShoppingCartOrderController : OrderConfirmController
 
 {
 
     UIButton *defaultbutton;
+    BOOL defaultbool;
+    UIButton*_cityField;
+    NSInteger B;
     
     UIImageView*bigsview;
 }

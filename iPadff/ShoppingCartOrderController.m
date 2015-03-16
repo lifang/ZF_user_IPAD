@@ -10,11 +10,22 @@
 #import "PayWayViewController.h"
 #import "AddressTableViewCell.h"
 #import "KxMenu.h"
+#import "RegularFormat.h"
+#import "CityHandle.h"
+#import "NetworkInterface.h"
+#import "AppDelegate.h"
+@interface ShoppingCartOrderController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
-@interface ShoppingCartOrderController ()
 @property (nonatomic, strong) UIButton *typeBtn;
 
 @property (nonatomic, strong) UIView *detailFooterView;
+@property (nonatomic, strong) UIPickerView *pickerView;
+
+@property (nonatomic, strong) UIToolbar *toolbar;
+
+@property (nonatomic, strong) NSArray *cityArray;  //pickerView 第二列
+
+@property (nonatomic, strong) NSString *selectedCityID;
 
 @end
 
@@ -23,7 +34,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+    [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
     
     // Do any additional setup after loading the view.
 }
@@ -63,7 +75,7 @@
                                                   tag:2],
                                  nil];
     CGRect factRect = [[_typeBtn superview] convertRect:_typeBtn.frame toView:self.view];
-    CGRect rect = CGRectMake(factRect.origin.x + factRect.size.width / 2, factRect.origin.y, 0, 0);
+    CGRect rect = CGRectMake(factRect.origin.x + factRect.size.width / 2, factRect.origin.y+20, 0, 0);
     [KxMenu showMenuInView:self.view fromRect:rect menuItems:listArray];
 }
 
@@ -114,6 +126,9 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:RefreshShoppingCartNotification object:nil];
                     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
                     payWayC.totalPrice = [self getSummaryPrice];
+                    
+                    payWayC.hidesBottomBarWhenPushed =  YES ;
+
                     [self.navigationController pushViewController:payWayC animated:YES];
                 }
             }
@@ -164,6 +179,22 @@
 }
 
 #pragma mark - UITableView
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+ if(indexPath.section==0)
+ {
+ 
+ 
+ 
+     B=indexPath.row+1;
+     
+ 
+ 
+ 
+ }
+    [self.tableView reloadData];
+ 
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 
 {
@@ -184,7 +215,7 @@
             
         }
         CGFloat hearderHeight = 80.f;
-        CGFloat blackViewHeight = 80.f;
+       
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, hearderHeight)];
         headerView.backgroundColor = [UIColor whiteColor];
         
@@ -198,10 +229,8 @@
         self.addressView.backgroundColor = kColor(235, 233, 233, 1);
         [headerView addSubview: self.addressView];
         
-        CGFloat topSpace = 15.f;
-        CGFloat leftSpace = 20.f;
-        CGFloat rightSpace = 20.f;
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 60, 20.f)];
+     
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 60, 20.f)];
         self.nameLabel.backgroundColor = [UIColor clearColor];
         self.nameLabel.font = [UIFont boldSystemFontOfSize:14.f];
         [self.addressView addSubview:self.nameLabel];
@@ -215,18 +244,18 @@
         self.phoneLabel.text=@"所在地区";
         self.phoneLabel.textAlignment = NSTextAlignmentCenter;
 
-        self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(300, 0, 200, 20)];
+        self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(400, 0, 300, 20)];
         self.addressLabel.numberOfLines = 2;
         self.addressLabel.backgroundColor = [UIColor clearColor];
         self.addressLabel.font = [UIFont systemFontOfSize:14.f];
         [self.addressView addSubview:self.addressLabel];
         self.addressLabel.text=@"详细地址";
-        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(520, 0, 60, 20)];
+        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120-120, 0, 60, 20)];
         [self.addressView addSubview:postlable];
         postlable.textAlignment = NSTextAlignmentCenter;
 
           postlable.text=@"邮编";
-        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(600, 0, 60, 20)];
+        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120, 0, 60, 20)];
         [self.addressView addSubview:phonelable];
         phonelable.textAlignment = NSTextAlignmentCenter;
         
@@ -348,35 +377,56 @@
     
     for(int i=0;i<5;i++)
     {
-    
+   
     
         UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(20, i*50+60,100, 30)];
         [witeview addSubview:newaddress];
         newaddress.textAlignment = NSTextAlignmentCenter;
         
         newaddress.text=[arry objectAtIndex:i];
-        UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(140, i*50+60,280, 30)];
         
-        [witeview addSubview:neworiginaltextfield];
-        neworiginaltextfield.delegate=self;
+        if(i==3)
+        {
+            _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
+            _cityField.frame = CGRectMake(140, i*50+60,280, 30);
+            
+//            [_cityField setTitle:@"123" forState:UIControlStateNormal];
+            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            [_cityField setBackgroundImage:kImageName(@"city") forState:UIControlStateNormal];
+            
+            [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
+            [witeview addSubview:_cityField];
+        }
+        else
+        {
+            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(140, i*50+60,280, 30)];
+            neworiginaltextfield.tag=i+1056;
+            
+            [witeview addSubview:neworiginaltextfield];
+            //        neworiginaltextfield.delegate=self;
+            
+            CALayer *layer=[neworiginaltextfield layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            
+        }
         
-        CALayer *layer=[neworiginaltextfield layer];
-        //是否设置边框以及是否可见
-        [layer setMasksToBounds:YES];
-        //设置边框圆角的弧度
-        
-        //设置边框线的宽
-        //
-        [layer setBorderWidth:1];
-        //设置边框线的颜色
-        [layer setBorderColor:[[UIColor grayColor] CGColor]];
     
     }
 
      defaultbutton = [UIButton buttonWithType:UIButtonTypeCustom];
     defaultbutton.frame = CGRectMake(  30, 300, 30, 30);
-    [defaultbutton setImage:kImageName(@"select_height") forState:UIControlStateNormal];
-    [defaultbutton addTarget:self action:@selector(cancelclick) forControlEvents:UIControlEventTouchUpInside];
+    [defaultbutton setImage:kImageName(@"select_normal") forState:UIControlStateNormal];
+    [defaultbutton addTarget:self action:@selector(setDefaultAddress) forControlEvents:UIControlEventTouchUpInside];
     [witeview addSubview:defaultbutton];
     UILabel*defaultlable=[[UILabel alloc]initWithFrame:CGRectMake(60, 300,100, 30)];
     [witeview addSubview:defaultlable];
@@ -388,12 +438,258 @@
     UIButton*savebutton = [UIButton buttonWithType:UIButtonTypeCustom];
     savebutton.frame = CGRectMake(  40, 340, 100, 30);
     savebutton.center=CGPointMake(wide/4, 380);
-    savebutton.layer.cornerRadius=10;
+//    savebutton.layer.cornerRadius=10;
     
     [savebutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
     [savebutton setTitle:@"保存" forState:UIControlStateNormal];
-    [savebutton addTarget:self action:@selector(cancelclick) forControlEvents:UIControlEventTouchUpInside];
+    [savebutton addTarget:self action:@selector(saveAddress) forControlEvents:UIControlEventTouchUpInside];
     [witeview addSubview:savebutton];
+}
+-(void)cityclick
+{
+
+    [self initPickerView];
+    
+
+}
+- (void)setDefaultAddress {
+    defaultbool = !defaultbool;
+    if(defaultbool)
+    {
+    
+        [defaultbutton setImage:kImageName(@"select_height") forState:UIControlStateNormal];
+
+    }
+    else
+    {
+        [defaultbutton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+
+    }
+
+
+}
+- (void)saveAddress {
+    
+    UITextField*_nameField=(UITextField*)[self.view viewWithTag:1056];
+    UITextField*_phoneField=(UITextField*)[self.view viewWithTag:1057];
+    UITextField*_zipField=(UITextField*)[self.view viewWithTag:1058];
+//    UITextField*_cityField=(UITextField*)[self.view viewWithTag:1059];
+
+    UITextField*_detailField=(UITextField*)[self.view viewWithTag:1060];
+
+
+    if (!_nameField.text || [_nameField.text isEqualToString:@""])
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写收件人姓名";
+        return;
+    }
+    if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写收件人电话";
+        return;
+    }
+    if (!_zipField.text || [_zipField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写邮编";
+        return;
+    }
+    if (!_cityField.currentTitle  || [_cityField.currentTitle isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请选择城市";
+        return;
+    }
+    if (!_detailField.text || [_detailField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写详细地址";
+        return;
+    }
+    if (!_nameField.text || [_nameField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"修改信息不能为空";
+        return;
+    }
+    if (!([RegularFormat isMobileNumber:_phoneField.text] || [RegularFormat isTelephoneNumber:_phoneField.text])) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的电话";
+        return;
+    }
+ 
+        [self addAddress];
+ 
+}
+- (IBAction)modifyLocation:(id)sender {
+    [self pickerScrollOut];
+//    NSInteger index = [self.pickerView selectedRowInComponent:1];
+//    _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
+//
+//    [_cityField setTitle:[[_cityArray objectAtIndex:index] objectForKey:@"name"] forState:UIControlStateNormal];
+//    
+//    NSLog(@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"name"]);
+    
+}
+- (void)initPickerView {
+    //pickerView
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height - 340, wide, 44)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(pickerScrollOut)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(modifyLocation:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil
+                                                                               action:nil];
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [self.view addSubview:_toolbar];
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, height - 296, wide, 296)];
+
+    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    
+    [self.view addSubview:_pickerView];
+}
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == 0) {
+        return [[CityHandle shareProvinceList] count];
+    }
+    else {
+        NSInteger provinceIndex = [pickerView selectedRowInComponent:0];
+        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:provinceIndex];
+        _cityArray = [provinceDict objectForKey:@"cities"];
+        return [_cityArray count];
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (component == 0) {
+        //省
+        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:row];
+        return [provinceDict objectForKey:@"name"];
+    }
+    else {
+        //市
+        return [[_cityArray objectAtIndex:row] objectForKey:@"name"];
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (component == 0) {
+        //省
+        [_pickerView reloadComponent:1];
+    }
+    else {
+        
+        [_cityField setTitle:[[_cityArray objectAtIndex:row] objectForKey:@"name"] forState:UIControlStateNormal];
+        _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:row] objectForKey:@"id"]];
+
+    }
+    NSLog(@"%@",_selectedCityID);
+    
+    
+}
+
+
+- (void)pickerScrollOut {
+    [UIView animateWithDuration:.3f animations:^{
+        _toolbar.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 44);
+        _pickerView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
+    }];
+}
+- (void)addAddress {
+    
+    UITextField*_nameField=(UITextField*)[self.view viewWithTag:1056];
+    UITextField*_phoneField=(UITextField*)[self.view viewWithTag:1057];
+    UITextField*_zipField=(UITextField*)[self.view viewWithTag:1058];
+    
+    UITextField*_detailField=(UITextField*)[self.view viewWithTag:1060];
+    
+
+    AddressType isDefault = AddressOther;
+    if (defaultbool) {
+        isDefault = AddressDefault;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface addAddressWithToken:delegate.token userID:delegate.userID cityID:_selectedCityID receiverName:_nameField.text phoneNumber:_phoneField.text zipCode:_zipField.text address:_detailField.text isDefault:isDefault finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshAddressListNotification object:nil];
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                                    message:@"新增地址成功"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+        
+    }];
 }
 -(void)cancelclick
 {
@@ -405,6 +701,13 @@
 
 
 }
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        [bigsview removeFromSuperview];
+
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 
 {
@@ -432,7 +735,7 @@ if(section==0)
     addressmangerbutton.frame = CGRectMake(wide-120, 10, 80, 40);
 //    [addressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:addressmangerbutton];
-    addressmangerbutton.layer.cornerRadius = 4.f;
+//    addressmangerbutton.layer.cornerRadius = 4.f;
     addressmangerbutton.layer.masksToBounds = YES;
     [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
     [addressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
@@ -442,7 +745,7 @@ if(section==0)
     newaddressmangerbutton.frame = CGRectMake(wide-220, 10, 80, 40);
     [addressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:newaddressmangerbutton];
-    newaddressmangerbutton.layer.cornerRadius = 4.f;
+//    newaddressmangerbutton.layer.cornerRadius = 4.f;
     newaddressmangerbutton.layer.masksToBounds = YES;
     [newaddressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
     [newaddressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
@@ -525,7 +828,7 @@ if(section==0)
     typebillLabel.text = @"发票类型";
     [billView addSubview:typebillLabel];
     _typeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _typeBtn.frame = CGRectMake(100, 10, 80, 34);
+    _typeBtn.frame = CGRectMake(100, 10, 100, 34);
     _typeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _typeBtn.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
 
@@ -547,7 +850,10 @@ if(section==0)
     [billView addSubview:billLabel];
     self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 0, wide/2 - 120, billHeight)];
     self.billField .delegate = self;
-    self.billField .placeholder = @"请输入发票抬头";
+    self.billField .placeholder = @"     请输入发票抬头";
+    
+//  self.billField.textInputMode= UIEdgeInsetsMake(0, 0, 0, 10);
+
     self.billField .font = [UIFont systemFontOfSize:14.f];
     self.billField .clearButtonMode = UITextFieldViewModeWhileEditing;
     [billView addSubview:self.billField ];
@@ -605,13 +911,44 @@ if(section==0)
         cell.addresslable.text=model.address;
         cell.phonelable.text=model.addressPhone;
         cell.postlable.text=model.zipCode;
-if([model.isDefault isEqualToString:@"1"])
-{
-cell.logoabel.text=@"默认";
-    cell.logoImageView.image=kImageName(@"select_height") ;
-    
+        if(B>0)
+        {if(indexPath.row==B-1)
+        {
+            cell.logoImageView.image=kImageName(@"select_height") ;
+            cell.logoabel.text=@"";
 
-}
+        
+        }
+            else
+            {
+                cell.logoImageView.image=kImageName(@"") ;
+                cell.logoabel.text=@"";
+
+            
+            }
+
+        
+        }else
+        {
+            if([model.isDefault isEqualToString:@"1"])
+            {
+                cell.logoabel.text=@"默认";
+                cell.logoImageView.image=kImageName(@"select_height") ;
+                
+                
+            }
+            else
+            {
+                cell.logoabel.text=@"";
+
+                cell.logoImageView.image=kImageName(@"") ;
+
+            }
+
+        
+        
+        }
+
     
         return cell;
 
@@ -625,23 +962,39 @@ cell.logoabel.text=@"默认";
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
             int count = [self getSummaryCount];
             CGFloat price = [self getSummaryPrice];
-            UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 20)];
+            UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 130, 30)];
             totalLabel.backgroundColor = [UIColor clearColor];
-            totalLabel.font = [UIFont systemFontOfSize:11.f];
+//            totalLabel.font = [UIFont systemFontOfSize:11.f];
             totalLabel.adjustsFontSizeToFitWidth = YES;
             totalLabel.text = [NSString stringWithFormat:@"共计：%d件商品",count];
             [cell.contentView addSubview:totalLabel];
             
-            UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 10, 100, 20)];
+            UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 20, 130, 30)];
             deliveryLabel.backgroundColor = [UIColor clearColor];
-            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
+//            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
             deliveryLabel.adjustsFontSizeToFitWidth = YES;
             deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"123"];
             [cell.contentView addSubview:deliveryLabel];
             
-            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 10, kScreenWidth - 220, 20)];
+            
+            CGFloat wide;
+            CGFloat height;
+            if(iOS7)
+            {
+                wide=SCREEN_HEIGHT;
+                height=SCREEN_WIDTH;
+                
+                
+            }
+            else
+            {  wide=SCREEN_WIDTH;
+                height=SCREEN_HEIGHT;
+                
+            }
+
+            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-200, 20,180, 30)];
             priceLabel.backgroundColor = [UIColor clearColor];
-            priceLabel.font = [UIFont boldSystemFontOfSize:12.f];
+//            priceLabel.font = [UIFont boldSystemFontOfSize:12.f];
             priceLabel.adjustsFontSizeToFitWidth = YES;
             priceLabel.text = [NSString stringWithFormat:@"合计：￥%.2f",price];
             [cell.contentView addSubview:priceLabel];
@@ -703,7 +1056,7 @@ cell.logoabel.text=@"默认";
     }else
     {
         if (indexPath.row == [_shoppingCartItem count]) {
-            return 90.f;
+            return 70.f;
         }
         return kOrderDetailCellHeight;
     }

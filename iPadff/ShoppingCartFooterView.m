@@ -48,7 +48,7 @@
     
     _finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _finishButton.frame=CGRectMake(wide-80, 50, 60, 40);
-    _finishButton.layer.cornerRadius = 4;
+//    _finishButton.layer.cornerRadius = 4;
     _finishButton.layer.masksToBounds = YES;
     _finishButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [_finishButton setTitle:@"结算" forState:UIControlStateNormal];

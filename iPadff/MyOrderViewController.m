@@ -87,10 +87,14 @@
     }
 
     
-    UIView *headerViews = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 70)];
+    UIView *headerViews = [[UIView alloc] initWithFrame:CGRectMake(160, 0, wide, 70)];
     headerViews.backgroundColor = [UIColor whiteColor];
-    _tableView.tableHeaderView = headerViews;
+    [self.view addSubview:headerViews];
     
+    UIView *headerViewsg = [[UIView alloc] initWithFrame:CGRectMake(0, 70, wide, 1)];
+    headerViewsg.backgroundColor = [UIColor grayColor];
+    [headerViews addSubview:headerViewsg];
+
     
 
    
@@ -136,11 +140,11 @@
 - (void)initAndLayoutUI {
      headerView = [[UIView alloc]init];
     if (iOS7) {
-        headerView.frame = CGRectMake(160, 0, SCREEN_HEIGHT - 160.f, SCREEN_WIDTH);
+        headerView.frame = CGRectMake(160, 70, SCREEN_HEIGHT - 160.f, SCREEN_WIDTH-70);
     }
     else
     {
-        headerView.frame = CGRectMake(160, 0, SCREEN_WIDTH - 160.f, SCREEN_HEIGHT);
+        headerView.frame = CGRectMake(160, 70, SCREEN_WIDTH - 160.f, SCREEN_HEIGHT-70);
 
     
     }

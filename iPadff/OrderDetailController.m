@@ -156,7 +156,7 @@
     if (status == OrderStatusUnPaid) {
         UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
         cancelButton.frame = CGRectMake(middleSpace, 12, btnWidth, btnHeight);
-        cancelButton.layer.cornerRadius = 4.f;
+//        cancelButton.layer.cornerRadius = 4.f;
         cancelButton.layer.masksToBounds = YES;
         cancelButton.layer.borderWidth = 1.f;
         cancelButton.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
@@ -169,7 +169,7 @@
         
         UIButton *payButton = [UIButton buttonWithType:UIButtonTypeCustom];
         payButton.frame = CGRectMake(btnWidth + 3 * middleSpace, 12, btnWidth, btnHeight);
-        payButton.layer.cornerRadius = 4.f;
+//        payButton.layer.cornerRadius = 4.f;
         payButton.layer.masksToBounds = YES;
         [payButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         [payButton setTitle:@"付款" forState:UIControlStateNormal];
@@ -180,7 +180,7 @@
     else if (status == OrderStatusSending) {
         UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
         commentButton.frame = CGRectMake(middleSpace, 12, kScreenWidth - 2 * middleSpace, btnHeight);
-        commentButton.layer.cornerRadius = 4.f;
+//        commentButton.layer.cornerRadius = 4.f;
         commentButton.layer.masksToBounds = YES;
         [commentButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         [commentButton setTitle:@"评价" forState:UIControlStateNormal];
@@ -501,6 +501,8 @@
     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
     payWayC.totalPrice = _orderDetail.orderTotalPrice;
     payWayC.orderID = _orderID;
+    payWayC.hidesBottomBarWhenPushed =  YES ;
+
     [self.navigationController pushViewController:payWayC animated:YES];
 }
 
