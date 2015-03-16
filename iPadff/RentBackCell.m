@@ -15,6 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         NSLog(@"~~~~~%@",reuseIdentifier);
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         UIFont *mainFont = [UIFont systemFontOfSize:14];
         CGFloat mainBtnW = 110.f;
         CGFloat mainBtnH = 40.f;

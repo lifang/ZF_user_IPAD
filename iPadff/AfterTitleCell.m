@@ -23,6 +23,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         NSLog(@"创建的标示%@",reuseIdentifier);
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.reuseIdentifierID = reuseIdentifier;
         UIView *bottomView = [[UIView alloc]init];
         bottomView.backgroundColor = kColor(226, 226, 226, 1.0);

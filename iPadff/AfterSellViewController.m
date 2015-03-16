@@ -18,8 +18,15 @@
 #import "AppDelegate.h"
 #import "NetworkInterface.h"
 #import "CustomerServiceModel.h"
+#import "SubmitLogisticsController.h"
+#import "RepairDetailController.h"
+#import "CancelDetailController.h"
+#import "ReturnDetailController.h"
+#import "ChangeDetailController.h"
+#import "UpdateDetailController.h"
+#import "RentDetailController.h"
 
-@interface AfterSellViewController ()<UITableViewDataSource,UITableViewDelegate,ServiceBtnClickDelegate,CancelCellBtnClickDelegate,SalesReturnCellBtnClickDelegate,ChangeGoodCellBtnClickDelegate,UpdateCellBtnClickDelegate,RentBackCellBtnClickDelegate,RefreshDelegate,UIAlertViewDelegate>
+@interface AfterSellViewController ()<UITableViewDataSource,UITableViewDelegate,ServiceBtnClickDelegate,CancelCellBtnClickDelegate,SalesReturnCellBtnClickDelegate,ChangeGoodCellBtnClickDelegate,UpdateCellBtnClickDelegate,RentBackCellBtnClickDelegate,RefreshDelegate,UIAlertViewDelegate,SubmitLogisticsClickWithDataDelegate>
 
 @property(nonatomic,strong)UIButton *serviceBtn;
 
@@ -64,6 +71,12 @@
 
 @property(nonatomic,strong)NSMutableArray *AfterSelldateArray;
 
+@property(nonatomic,strong)NSString *selectedId;
+
+@property(nonatomic,strong)NSString *companyName;
+@property(nonatomic,strong)NSString *submitNum;
+
+
 @end
 
 @implementation AfterSellViewController
@@ -85,11 +98,16 @@
     return _tableView;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFirst = YES;
     self.view.backgroundColor = kColor(251, 251, 251, 1.0);
     self.buttonIndex = 1;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList:) name:RefreshCSListNotification object:nil];
     _AfterSelldateArray = [[NSMutableArray alloc]init];
     _dateArray = [[NSMutableArray alloc]init];
     NSArray *arr = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",nil];
@@ -103,6 +121,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)refreshList:(NSNotification *)notification {
+    [self performSelector:@selector(firstLoadData) withObject:nil afterDelay:0.1f];
 }
 
 #pragma mark 创建顶部5个BTN View
@@ -790,6 +812,95 @@
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+    self.selectedId = model.csID;
+    switch (_csType) {
+        case CSTypeRepair:
+            [self pushRepairDetailWithcsID:_selectedId AndCsType:_csType];
+            break;
+            
+            case CSTypeCancel:
+            [self pushCancelDetailWithcsID:_selectedId AndCsType:_csType];
+            break;
+            
+            case CSTypeReturn:
+            [self pushReturnDetailWithcsID:_selectedId AndCsType:_csType];
+            break;
+            
+            case CSTypeChange:
+            [self pushChangeDetailWithcsID:_selectedId AndCsType:_csType];
+            break;
+            
+        case CSTypeUpdate:
+            [self pushUpdateDetailWithcsID:_selectedId AndCsType:_csType];
+            break;
+            
+        case CSTypeLease:
+            [self pushRentDetailWithcsID:_selectedId AndCsType:_csType];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)pushRepairDetailWithcsID:(NSString *)csId AndCsType:(CSType)csType
+{
+    RepairDetailController *repairVC = [[RepairDetailController alloc]init];
+    repairVC.hidesBottomBarWhenPushed = YES;
+    repairVC.csType = csType;
+    repairVC.csID = csId;
+    [self.navigationController pushViewController:repairVC animated:YES];
+}
+
+-(void)pushCancelDetailWithcsID:(NSString *)csId AndCsType:(CSType)csType
+{
+    CancelDetailController *cancelVC = [[CancelDetailController alloc]init];
+    cancelVC.hidesBottomBarWhenPushed = YES;
+    cancelVC.csType = csType;
+    cancelVC.csID = csId;
+    [self.navigationController pushViewController:cancelVC animated:YES];
+}
+
+-(void)pushReturnDetailWithcsID:(NSString *)csId AndCsType:(CSType)csType
+{
+    ReturnDetailController *returnVC = [[ReturnDetailController alloc]init];
+    returnVC.hidesBottomBarWhenPushed = YES;
+    returnVC.csType = csType;
+    returnVC.csID = csId;
+    [self.navigationController pushViewController:returnVC animated:YES];
+}
+
+-(void)pushChangeDetailWithcsID:(NSString *)csId AndCsType:(CSType)csType
+{
+    ChangeDetailController *changeVC = [[ChangeDetailController alloc]init];
+    changeVC.hidesBottomBarWhenPushed = YES;
+    changeVC.csType = csType;
+    changeVC.csID = csId;
+    [self.navigationController pushViewController:changeVC animated:YES];
+}
+
+-(void)pushUpdateDetailWithcsID:(NSString *)csId AndCsType:(CSType)csType
+{
+    UpdateDetailController *updateVC = [[UpdateDetailController alloc]init];
+    updateVC.hidesBottomBarWhenPushed = YES;
+    updateVC.csType = csType;
+    updateVC.csID = csId;
+    [self.navigationController pushViewController:updateVC animated:YES];
+}
+
+-(void)pushRentDetailWithcsID:(NSString *)csId AndCsType:(CSType)csType
+{
+    RentDetailController *rentVC = [[RentDetailController alloc]init];
+    rentVC.hidesBottomBarWhenPushed = YES;
+    rentVC.csType = csType;
+    rentVC.csID = csId;
+    [self.navigationController pushViewController:rentVC animated:YES];
+}
+
+
 //- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
 //        [tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -805,15 +916,18 @@
 #pragma mark - 维修页面Btn点击事件
 -(void)serviceBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
+    self.selectedId = selectedID;
     switch (btnTag) {
         case 111:
             NSLog(@"点击了支付维修费 id为%@",selectedID);
             break;
         case 112:
             NSLog(@"点击了取消申请");
+            [self setAlertView];
             break;
         case 113:
             NSLog(@"点击了提交物流信息");
+            [self submitRepair];
             break;
         default:
             break;
@@ -823,12 +937,15 @@
 #pragma mark - 注销页面Btn点击事件
 -(void)CancelCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
+    self.selectedId = selectedID;
     switch (btnTag) {
         case 222:
             NSLog(@"点击了取消申请 id为%@",selectedID);
+            [self setAlertView];
             break;
         case 223:
             NSLog(@"点击了重新提交注销");
+            [self submitCanncelApply];
             break;
         default:
             break;
@@ -838,12 +955,15 @@
 #pragma mark - 退货页面Btn点击事件
 -(void)SalesReturnCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
+    self.selectedId = selectedID;
     switch (btnTag) {
         case 224:
             NSLog(@"点击了取消申请 id为%@",selectedID);
+            [self setAlertView];
             break;
         case 225:
             NSLog(@"点击了提交物流信息");
+            [self submitRepair];
             break;
         default:
             break;
@@ -853,12 +973,15 @@
 #pragma mark - 换货页面Btn点击事件
 -(void)ChangeGoodCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
+    self.selectedId = selectedID;
     switch (btnTag) {
         case 226:
             NSLog(@"点击了取消申请 id为%@",selectedID);
+            [self setAlertView];
             break;
         case 227:
             NSLog(@"点击了提交物流信息");
+            [self submitRepair];
             break;
         default:
             break;
@@ -868,9 +991,11 @@
 #pragma mark - 更新资料页面Btn点击事件
 -(void)UpdateCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
+    self.selectedId = selectedID;
     switch (btnTag) {
         case 228:
             NSLog(@"点击了取消申请 id为%@",selectedID);
+            [self setAlertView];
             break;
         default:
             break;
@@ -880,12 +1005,161 @@
 #pragma mark - 租凭退还页面Btn点击事件
 -(void)RentBackCellBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
+    self.selectedId = selectedID;
     switch (btnTag) {
         case 229:
             NSLog(@"点击了取消申请 id为%@",selectedID);
+            [self setAlertView];
             break;
         default:
             break;
+    }
+}
+
+-(void)setAlertView
+{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示信息" message:@"确定取消申请?" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alertView show];
+}
+
+-(void)submitRepair
+{
+    SubmitLogisticsController *submitLogisticsVC = [[SubmitLogisticsController alloc]init];
+    submitLogisticsVC.SubmitLogisticsClickWithDataDelegate = self;
+    submitLogisticsVC.isChild = NO;
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:submitLogisticsVC];
+    
+    nav.navigationBarHidden = YES;
+    
+    nav.modalPresentationStyle = UIModalPresentationCustom;
+    
+    nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+-(void)SubmitLogisticsClickedWithName:(NSString *)companyName AndNum:(NSString *)logisticsNum
+{
+    self.companyName = companyName;
+    self.submitNum = logisticsNum;
+    [self submitLogisticInfo];
+}
+
+#pragma mark - 按钮事件请求
+//取消申请
+- (void)cancelApply {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface csCancelWithToken:delegate.token csID:_selectedId csType:_csType finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    hud.labelText = @"取消申请成功";
+                    [self firstLoadData];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+//重新提交注销申请
+- (void)submitCanncelApply {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface submitCancelInfoWithToken:delegate.token csID:_selectedId finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    hud.labelText = @"提交成功";
+                    [self firstLoadData];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+#pragma mark - Request
+
+- (void)submitLogisticInfo {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface csLogisticWithToken:delegate.token userID:delegate.userID csID:_selectedId csType:_csType logisticCompany:_companyName logisticNumber:_submitNum finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    hud.labelText = @"提交物流信息成功";
+                    [self firstLoadData];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self cancelApply];
     }
 }
 

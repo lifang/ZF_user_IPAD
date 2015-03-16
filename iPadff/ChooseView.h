@@ -35,6 +35,5 @@ typedef enum{
 
 @property(nonatomic,strong)UIImageView *imageView;
 
--(void)layoutImageViewWithChooseViewType:(ChooseViewType)choosetype;
 
 @end
