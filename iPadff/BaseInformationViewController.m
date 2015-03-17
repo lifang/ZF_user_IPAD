@@ -7,6 +7,8 @@
 //
 
 #import "BaseInformationViewController.h"
+#import "ChangePhoneController.h"
+#import "ChangeEmailController.h"
 
 @interface BaseInformationViewController ()<UITextFieldDelegate>
 
@@ -29,6 +31,7 @@
     [self.swithView setSelectedBtnAtIndex:1];
     NSLog(@"当前是~~~~~~~~~~~~%d",self.Index);
     self.view.backgroundColor = kColor(251, 251, 251, 1.0);
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self initAndLayoutUI];
 }
 
@@ -564,12 +567,16 @@
 //修改密码
 -(void)changePassWord
 {
-    
+    ChangePhoneController *changePhoneVC = [[ChangePhoneController alloc]init];
+    changePhoneVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:changePhoneVC animated:YES];
 }
 //修改邮箱
 -(void)changeEmail
 {
-    
+    ChangeEmailController *changeEmailVC =[[ChangeEmailController alloc]init];
+    changeEmailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:changeEmailVC animated:YES];
 }
 //点击了保存
 -(void)saveClicked

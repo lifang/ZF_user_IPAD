@@ -145,6 +145,11 @@
 		1A42586D1AB0187B00F470C9 /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A42586C1AB0187B00F470C9 /* MyOrderViewController.m */; };
 		1A4258701AB0189E00F470C9 /* AfterSellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A42586F1AB0189E00F470C9 /* AfterSellViewController.m */; };
 		1A4258731AB018E100F470C9 /* ApplyPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4258721AB018E100F470C9 /* ApplyPlanViewController.m */; };
+		1A5E10451AB7EB6C0082DA13 /* IntegralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10441AB7EB6C0082DA13 /* IntegralCell.m */; };
+		1A5E10491AB8015C0082DA13 /* ChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10481AB8015C0082DA13 /* ChangePhoneController.m */; };
+		1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E104B1AB801720082DA13 /* ChangeEmailController.m */; };
+		1A5E104F1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */; };
+		1A5E10521AB821BD0082DA13 /* ChangeEmialSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */; };
 		1A6516461AA6E1CF008223BD /* DredgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6516451AA6E1CF008223BD /* DredgeViewController.m */; };
 		1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6516481AA6E6F0008223BD /* DredgeViewCell.m */; };
 		1A65164C1AA6F42E008223BD /* ApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A65164B1AA6F42E008223BD /* ApplicationViewController.m */; };
@@ -459,6 +464,16 @@
 		1A42586F1AB0189E00F470C9 /* AfterSellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AfterSellViewController.m; sourceTree = "<group>"; };
 		1A4258711AB018E100F470C9 /* ApplyPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyPlanViewController.h; sourceTree = "<group>"; };
 		1A4258721AB018E100F470C9 /* ApplyPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyPlanViewController.m; sourceTree = "<group>"; };
+		1A5E10431AB7EB6C0082DA13 /* IntegralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralCell.h; sourceTree = "<group>"; };
+		1A5E10441AB7EB6C0082DA13 /* IntegralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralCell.m; sourceTree = "<group>"; };
+		1A5E10471AB8015C0082DA13 /* ChangePhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneController.h; sourceTree = "<group>"; };
+		1A5E10481AB8015C0082DA13 /* ChangePhoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneController.m; sourceTree = "<group>"; };
+		1A5E104A1AB801720082DA13 /* ChangeEmailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailController.h; sourceTree = "<group>"; };
+		1A5E104B1AB801720082DA13 /* ChangeEmailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailController.m; sourceTree = "<group>"; };
+		1A5E104D1AB819CD0082DA13 /* ChangePhoneSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneSuccessViewController.h; sourceTree = "<group>"; };
+		1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneSuccessViewController.m; sourceTree = "<group>"; };
+		1A5E10501AB821BD0082DA13 /* ChangeEmialSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmialSuccessViewController.h; sourceTree = "<group>"; };
+		1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmialSuccessViewController.m; sourceTree = "<group>"; };
 		1A6516441AA6E1CF008223BD /* DredgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeViewController.h; sourceTree = "<group>"; };
 		1A6516451AA6E1CF008223BD /* DredgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DredgeViewController.m; sourceTree = "<group>"; };
 		1A6516471AA6E6F0008223BD /* DredgeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeViewCell.h; sourceTree = "<group>"; };
@@ -1236,6 +1251,14 @@
 				1ADA04221AB2CE6C0074A58B /* AddressViewController.m */,
 				1ADA04241AB2CEAE0074A58B /* IntegralViewController.h */,
 				1ADA04251AB2CEAE0074A58B /* IntegralViewController.m */,
+				1A5E10471AB8015C0082DA13 /* ChangePhoneController.h */,
+				1A5E10481AB8015C0082DA13 /* ChangePhoneController.m */,
+				1A5E104A1AB801720082DA13 /* ChangeEmailController.h */,
+				1A5E104B1AB801720082DA13 /* ChangeEmailController.m */,
+				1A5E104D1AB819CD0082DA13 /* ChangePhoneSuccessViewController.h */,
+				1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */,
+				1A5E10501AB821BD0082DA13 /* ChangeEmialSuccessViewController.h */,
+				1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */,
 			);
 			name = Mymessage;
 			sourceTree = "<group>";
@@ -1321,6 +1344,8 @@
 			children = (
 				1ADD1EDF1AB6F0CE0014E528 /* AddressCell.h */,
 				1ADD1EE01AB6F0CE0014E528 /* AddressCell.m */,
+				1A5E10431AB7EB6C0082DA13 /* IntegralCell.h */,
+				1A5E10441AB7EB6C0082DA13 /* IntegralCell.m */,
 			);
 			name = MyMessageCell;
 			sourceTree = "<group>";
@@ -1524,6 +1549,7 @@
 				0EC905EC1AA93AB40053B694 /* FilterViewController.m in Sources */,
 				0ECE7DD41AA55EBC00E250B6 /* CircleView.m in Sources */,
 				0ED8EB9E1AA6A6CB00CE9F61 /* AfterSaleView.m in Sources */,
+				1A5E10521AB821BD0082DA13 /* ChangeEmialSuccessViewController.m in Sources */,
 				1A94EB6F1AA9437C0056E921 /* ConsumptionCell.m in Sources */,
 				0EC99A2B1AB2789100F5F204 /* HomeImageModel.m in Sources */,
 				1A8E7C631AB138C800C021CE /* ServiceCell.m in Sources */,
@@ -1569,6 +1595,7 @@
 				0EC99C961AAFE59300D20386 /* ShoppingCartOrderController.m in Sources */,
 				0ECABF491AAD30AE00413489 /* ChannelModel.m in Sources */,
 				1A94EB6C1AA943530056E921 /* TransferCell.m in Sources */,
+				1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */,
 				0ED8EBE51AA6D7E000CE9F61 /* UIScrollView+MJExtension.m in Sources */,
 				1AA8FF761AA4074D009D41B3 /* UIButton+WebCache.m in Sources */,
 				0EC99CB61AB0327600D20386 /* AddressTableViewCell.m in Sources */,
@@ -1596,6 +1623,7 @@
 				0ED065AB1A9EE397005DF849 /* main.m in Sources */,
 				0EC8D60A1AAE7E43003661C5 /* ShoppingCartCell.m in Sources */,
 				0EC99A251AB272D700F5F204 /* EncryptHelper.m in Sources */,
+				1A5E10451AB7EB6C0082DA13 /* IntegralCell.m in Sources */,
 				1A3943FA1AA446CD0035DE4F /* FindPasswordViewController.m in Sources */,
 				1A65164C1AA6F42E008223BD /* ApplicationViewController.m in Sources */,
 				0EBBC5931AB1663300E0ED16 /* OrderCell.m in Sources */,
@@ -1627,10 +1655,12 @@
 				1A6516461AA6E1CF008223BD /* DredgeViewController.m in Sources */,
 				0ED8EBE11AA6D7E000CE9F61 /* MJRefreshBaseView.m in Sources */,
 				0ED8EBE31AA6D7E000CE9F61 /* MJRefreshFooterView.m in Sources */,
+				1A5E10491AB8015C0082DA13 /* ChangePhoneController.m in Sources */,
 				1AA8FF741AA4074D009D41B3 /* SDWebImageManager.m in Sources */,
 				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
 				0ECE7DCE1AA55E4500E250B6 /* SortView.m in Sources */,
+				1A5E104F1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m in Sources */,
 				1AA8FF6F1AA4074D009D41B3 /* SDImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,19 +26,22 @@
         
         self.terminalLabel = [[UILabel alloc]init];
         _terminalLabel.font = mainFont;
+        _terminalLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_terminalLabel];
         
         self.posLabel = [[UILabel alloc]init];
+        _posLabel.textAlignment = NSTextAlignmentCenter;
         _posLabel.font = mainFont;
         [self addSubview:_posLabel];
         
         self.payRoad = [[UILabel alloc]init];
+        _payRoad.textAlignment = NSTextAlignmentCenter;
         _payRoad.font = mainFont;
         [self addSubview:_payRoad];
         
         self.dredgeStatus = [[UILabel alloc]init];
         _dredgeStatus.font = mainFont;
-        _dredgeStatus.textAlignment = UITextAlignmentCenter;
+        _dredgeStatus.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_dredgeStatus];
         
         if ([reuseIdentifier isEqualToString:@"cell-1"]) {
@@ -189,7 +192,7 @@
     
     _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 35, mainY, mainWidth * 0.5 + 30, mainheight);
     
-    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 20, mainY, mainWidth * 0.5, mainheight);
+    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 50, mainY, mainWidth * 0.5, mainheight);
 }
 
 @end
