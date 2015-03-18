@@ -57,14 +57,14 @@
     UILabel *first = [[UILabel alloc]init];
     first.font = mainFont;
     first.text = @"终端号";
-    first.frame = CGRectMake(60, 0, 70, 25);
+    first.frame = CGRectMake(100, 0, 70, 25);
     [bottomView addSubview:first];
     bottomView.backgroundColor = kColor(226, 226, 226, 1.0);
     
     UILabel *second = [[UILabel alloc]init];
     second.font = mainFont;
     second.text = @"POS机";
-    second.frame = CGRectMake(CGRectGetMaxX(first.frame) + 80, 0, 70, 25);
+    second.frame = CGRectMake(CGRectGetMaxX(first.frame) + 60, 0, 70, 25);
     [bottomView addSubview:second];
     
     UILabel *third = [[UILabel alloc]init];
@@ -76,7 +76,7 @@
     UILabel *fourth = [[UILabel alloc]init];
     fourth.font = mainFont;
     fourth.text = @"开通状态";
-    fourth.frame = CGRectMake(CGRectGetMaxX(third.frame) + 30, 0, 90, 25);
+    fourth.frame = CGRectMake(CGRectGetMaxX(third.frame) + 50, 0, 90, 25);
     [bottomView addSubview:fourth];
     
     bottomView.frame = CGRectMake(0, 36, SCREEN_WIDTH, 24);

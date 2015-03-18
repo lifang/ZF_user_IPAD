@@ -28,17 +28,21 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.terminalLabel = [[UILabel alloc]init];
         _terminalLabel.font = mainFont;
+        _terminalLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_terminalLabel];
         
         self.posLabel = [[UILabel alloc]init];
+        _posLabel.textAlignment = NSTextAlignmentCenter;
         _posLabel.font = mainFont;
         [self addSubview:_posLabel];
         
         self.payRoad = [[UILabel alloc]init];
+        _payRoad.textAlignment = NSTextAlignmentCenter;
         _payRoad.font = mainFont;
         [self addSubview:_payRoad];
         
         self.dredgeStatus = [[UILabel alloc]init];
+        _dredgeStatus.textAlignment = NSTextAlignmentCenter;
         _dredgeStatus.font = mainFont;
         [self addSubview:_dredgeStatus];
         
@@ -67,13 +71,13 @@
     CGFloat mainheight = 24.f;
     CGFloat mainY = 60.f;
     
-    _terminalLabel.frame = CGRectMake(85, mainY, mainWidth, mainheight);
+    _terminalLabel.frame = CGRectMake(45, mainY, mainWidth, mainheight);
     
-    _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 70, mainY, mainWidth * 0.5, mainheight);
+    _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 80, mainY, mainWidth * 0.5, mainheight);
     
     _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 100, mainY, mainWidth * 0.5, mainheight);
     
-    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 65, mainY, mainWidth * 0.5, mainheight);
+    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 90, mainY, mainWidth * 0.5, mainheight);
     
     _applicationBtn.frame = CGRectMake(CGRectGetMaxX(_dredgeStatus.frame) + 100, mainY / 3, mainWidth * 0.7, mainheight * 1.5);
     

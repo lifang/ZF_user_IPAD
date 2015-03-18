@@ -64,7 +64,7 @@
     UILabel *label4 = [[UILabel alloc]init];
     label4.font = mainFont;
     label4.text = @"激活成功后方能登陆";
-    label4.frame = CGRectMake(label2.frame.origin.x + 100, CGRectGetMaxY(label3.frame)-10, 180, 40);
+    label4.frame = CGRectMake(label2.frame.origin.x + 70, CGRectGetMaxY(label3.frame)-10, 180, 40);
     [self.view addSubview:label4];
     
     UIView *line = [[UIView alloc]init];
