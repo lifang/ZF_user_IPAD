@@ -76,7 +76,11 @@
 
 -(void)delete:(id)sender
 {
-
+    
+    if(_superTarget && [_superTarget respondsToSelector:@selector(delete:)])
+    {
+        [_superTarget performSelector:@selector(delete:) withObject:_merchantModel];
+    }
 
 }
 

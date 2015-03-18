@@ -49,7 +49,8 @@
     // Do any additional setup after loading the view.
      self.title = @"创建商户";
     // self.navigationController.hidesBottomBarWhenPushed=YES;
-
+     self.view.backgroundColor = [UIColor whiteColor];
+    
     _scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:_scrollView];
     [_scrollView makeConstraints:^(MASConstraintMaker *make) {
@@ -224,7 +225,6 @@
         make.left.equalTo(taxLB.mas_right).offset(24);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
         make.right.equalTo(self.view.centerX).offset(-44);
-       // make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
@@ -235,8 +235,7 @@
     organzationLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:organzationLB];
     [organzationLB makeConstraints:^(MASConstraintMaker *make) {
-       // make.right.equalTo(_organzationTF.left).offset(-24);
-         make.left.equalTo(self.view.centerX).offset(-20);
+        make.left.equalTo(self.view.centerX).offset(-20);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
         make.width.equalTo(@180);
         make.height.equalTo(@42);
@@ -257,7 +256,6 @@
     [_organzationTF makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.right).offset(-24);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
-       // make.width.equalTo(@278);
         make.left.equalTo(organzationLB.right).offset(24);
         make.height.equalTo(@42);
     }];
@@ -294,7 +292,6 @@
     [_locationTF makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(locationLB.mas_right).offset(24);
         make.top.equalTo(_taxTF.bottom).offset(48);
-       // make.width.equalTo(@278);
         make.right.equalTo(self.view.centerX).offset(-44);
         make.height.equalTo(@42);
     }];
@@ -309,7 +306,7 @@
         make.top.equalTo(_locationTF.top);
         make.height.equalTo(@42);
         make.right.equalTo(self.view.centerX).offset(-44);
-       // make.width.equalTo(@278);
+    
     }];
 
     //***
@@ -343,7 +340,6 @@
         make.left.equalTo(bankLB.mas_right).offset(24);
         make.top.equalTo(_locationTF.bottom).offset(48);
         make.right.equalTo(self.view.centerX).offset(-44);
-       // make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
@@ -354,7 +350,6 @@
     bank_IDLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:bank_IDLB];
     [bank_IDLB makeConstraints:^(MASConstraintMaker *make) {
-        //make.right.equalTo(_bank_IDTF.left).offset(-24);
         make.top.equalTo(_locationTF.bottom).offset(48);
         make.left.equalTo(self.view.centerX).offset(-20);
         make.width.equalTo(@180);
@@ -377,7 +372,6 @@
         make.right.equalTo(self.view.right).offset(-24);
         make.top.equalTo(_locationTF.bottom).offset(48);
         make.left.equalTo(bank_IDLB.right).offset(24);
-        //make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
@@ -419,8 +413,7 @@
     backImageLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:backImageLB];
     [backImageLB makeConstraints:^(MASConstraintMaker *make) {
-        //make.right.equalTo(_backImgv.left).offset(-24);
-        make.left.equalTo(self.view.centerX).offset(-44);
+        make.left.equalTo(self.view.centerX).offset(-20);
         make.top.equalTo(_bankTF.bottom).offset(48);
         make.width.equalTo(@200);
         make.height.equalTo(@42);
@@ -478,8 +471,7 @@
     licenseImageLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:licenseImageLB];
     [licenseImageLB makeConstraints:^(MASConstraintMaker *make) {
-        //make.right.equalTo(_licenseImgv.left).offset(-24);
-        make.left.equalTo(self.view.centerX).offset(-44);
+        make.left.equalTo(self.view.centerX).offset(-20);
         make.top.equalTo(_frontImgv.bottom).offset(48);
         make.width.equalTo(@200);
         make.height.equalTo(@42);
@@ -493,7 +485,7 @@
     [_scrollView addSubview:_licenseImgv];
     [_licenseImgv makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_frontImgv.bottom).offset(48);
-        make.left.equalTo(licenceLB.right).offset(24);
+        make.left.equalTo(licenseImageLB.right).offset(24);
         make.width.equalTo(@80);
         make.height.equalTo(@80);
         
@@ -536,7 +528,6 @@
     organzationImageLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:organzationImageLB];
     [organzationImageLB makeConstraints:^(MASConstraintMaker *make) {
-       // make.right.equalTo(_organzationImgv.left).offset(-24);
         make.left.equalTo(self.view.centerX).offset(-20);
         make.top.equalTo(_bodyImgv.bottom).offset(48);
         make.width.equalTo(@200);
@@ -629,7 +620,7 @@
 -(void)locationBtnPressed:(id)sender
 {
      [self pickerScrollIn];
-    NSLog(@"11111222222");
+      NSLog(@"11111222222");
 }
 
 - (void)modifyLocation:(id)sender {
@@ -646,44 +637,50 @@
 -(void) touchPressed:(UITapGestureRecognizer *)t
 {
     //上传图片
-    NSString *key = nil;
-    BOOL hasImage = NO;
+      NSString *key = nil;
+      BOOL hasImage = NO;
     CGPoint point  = [t locationInView:self.view];
     if(CGRectContainsPoint(_frontImgv.frame, point))
     {
-        NSLog(@"qunimei");
          key = key_frontImage;
+        [self selectedKey:key hasImage:hasImage];
        
     }
     else if(CGRectContainsPoint(_backImgv.frame, point))
     {
         key = key_backImage;
+        [self selectedKey:key hasImage:hasImage];
         
     }
      else if(CGRectContainsPoint(_bodyImgv.frame, point))
      {
          key = key_bodyImage;
+        [self selectedKey:key hasImage:hasImage];
      }
      else if(CGRectContainsPoint(_licenseImgv.frame, point))
      {
          key = key_licenseImage;
+        [self selectedKey:key hasImage:hasImage];
      }
      else if(CGRectContainsPoint(_taxImgv.frame, point))
      {
          key = key_taxImage;
+        [self selectedKey:key hasImage:hasImage];
      }
      else if(CGRectContainsPoint(_organzationImgv.frame, point))
      {
          key = key_organizationImage;
+        [self selectedKey:key hasImage:hasImage];
 
      }
      else if(CGRectContainsPoint(_bankImgv.frame, point))
      {
          key = key_bankImage;
+        [self selectedKey:key hasImage:hasImage];
 
      }
-    hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
-    [self selectedKey:key hasImage:hasImage];
+   // hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
+    //[self selectedKey:key hasImage:hasImage];
 
 }
 
