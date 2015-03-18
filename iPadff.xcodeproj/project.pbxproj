@@ -7,10 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D38871F1AB96F8E000DF1D6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0D3887051AB96F8E000DF1D6 /* LICENSE */; };
+		0D3887201AB96F8E000DF1D6 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3887081AB96F8E000DF1D6 /* MASCompositeConstraint.m */; };
+		0D3887211AB96F8E000DF1D6 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38870B1AB96F8E000DF1D6 /* MASConstraint.m */; };
+		0D3887221AB96F8E000DF1D6 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38870D1AB96F8E000DF1D6 /* MASConstraintMaker.m */; };
+		0D3887231AB96F8E000DF1D6 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38870F1AB96F8E000DF1D6 /* MASLayoutConstraint.m */; };
+		0D3887241AB96F8E000DF1D6 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3887131AB96F8E000DF1D6 /* MASViewAttribute.m */; };
+		0D3887251AB96F8E000DF1D6 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3887151AB96F8E000DF1D6 /* MASViewConstraint.m */; };
+		0D3887261AB96F8E000DF1D6 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3887171AB96F8E000DF1D6 /* NSArray+MASAdditions.m */; };
+		0D3887271AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38871A1AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		0D3887281AB96F8E000DF1D6 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38871C1AB96F8E000DF1D6 /* View+MASAdditions.m */; };
+		0D3887291AB96F8E000DF1D6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0D38871E1AB96F8E000DF1D6 /* README.md */; };
+		0D3887301AB96F98000DF1D6 /* HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38872D1AB96F98000DF1D6 /* HexColor.m */; };
+		0D3887311AB96F98000DF1D6 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 0D38872E1AB96F98000DF1D6 /* LICENCE */; };
+		0D3887321AB96F98000DF1D6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0D38872F1AB96F98000DF1D6 /* README.md */; };
+		0D3887361AB97020000DF1D6 /* MerchantTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3887351AB97020000DF1D6 /* MerchantTitleCell.m */; };
+		0D3887391AB9702B000DF1D6 /* MerchantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3887381AB9702B000DF1D6 /* MerchantCell.m */; };
+		0D38873C1AB970D7000DF1D6 /* CreateMerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38873B1AB970D7000DF1D6 /* CreateMerchantViewController.m */; };
 		0D714C641AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */; };
 		0D714C671AB2ED10007FF2C5 /* MerchantDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */; };
 		0D714C6A1AB2ED20007FF2C5 /* EditMerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */; };
-		0D714C6D1AB314BC007FF2C5 /* CreatMerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C6C1AB314BC007FF2C5 /* CreatMerchantViewController.m */; };
 		0D714C6F1AB320BC007FF2C5 /* merchant1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */; };
 		0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C701AB320CA007FF2C5 /* merchant2@2x.png */; };
 		0EBBC5851AB13A8400E0ED16 /* typekill.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5841AB13A8400E0ED16 /* typekill.png */; };
@@ -242,14 +258,47 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D3887051AB96F8E000DF1D6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		0D3887071AB96F8E000DF1D6 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
+		0D3887081AB96F8E000DF1D6 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
+		0D3887091AB96F8E000DF1D6 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
+		0D38870A1AB96F8E000DF1D6 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
+		0D38870B1AB96F8E000DF1D6 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
+		0D38870C1AB96F8E000DF1D6 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
+		0D38870D1AB96F8E000DF1D6 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
+		0D38870E1AB96F8E000DF1D6 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
+		0D38870F1AB96F8E000DF1D6 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
+		0D3887101AB96F8E000DF1D6 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
+		0D3887111AB96F8E000DF1D6 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
+		0D3887121AB96F8E000DF1D6 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
+		0D3887131AB96F8E000DF1D6 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
+		0D3887141AB96F8E000DF1D6 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
+		0D3887151AB96F8E000DF1D6 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
+		0D3887161AB96F8E000DF1D6 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		0D3887171AB96F8E000DF1D6 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		0D3887181AB96F8E000DF1D6 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		0D3887191AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		0D38871A1AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		0D38871B1AB96F8E000DF1D6 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
+		0D38871C1AB96F8E000DF1D6 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
+		0D38871D1AB96F8E000DF1D6 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		0D38871E1AB96F8E000DF1D6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0D38872C1AB96F98000DF1D6 /* HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColor.h; sourceTree = "<group>"; };
+		0D38872D1AB96F98000DF1D6 /* HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColor.m; sourceTree = "<group>"; };
+		0D38872E1AB96F98000DF1D6 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
+		0D38872F1AB96F98000DF1D6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0D3887341AB97006000DF1D6 /* MerchantTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantTitleCell.h; sourceTree = "<group>"; };
+		0D3887351AB97020000DF1D6 /* MerchantTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantTitleCell.m; sourceTree = "<group>"; };
+		0D3887371AB97025000DF1D6 /* MerchantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantCell.h; sourceTree = "<group>"; };
+		0D3887381AB9702B000DF1D6 /* MerchantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantCell.m; sourceTree = "<group>"; };
+		0D38873A1AB970D2000DF1D6 /* CreateMerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateMerchantViewController.h; sourceTree = "<group>"; };
+		0D38873B1AB970D7000DF1D6 /* CreateMerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateMerchantViewController.m; sourceTree = "<group>"; };
 		0D714C621AB2ECF4007FF2C5 /* MerchantImageLoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantImageLoadViewController.h; sourceTree = "<group>"; };
 		0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantImageLoadViewController.m; sourceTree = "<group>"; };
 		0D714C651AB2ED09007FF2C5 /* MerchantDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantDetailViewController.h; sourceTree = "<group>"; };
 		0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantDetailViewController.m; sourceTree = "<group>"; };
 		0D714C681AB2ED18007FF2C5 /* EditMerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditMerchantViewController.h; sourceTree = "<group>"; };
 		0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditMerchantViewController.m; sourceTree = "<group>"; };
-		0D714C6B1AB314BC007FF2C5 /* CreatMerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatMerchantViewController.h; sourceTree = "<group>"; };
-		0D714C6C1AB314BC007FF2C5 /* CreatMerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatMerchantViewController.m; sourceTree = "<group>"; };
 		0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchant1@2x.png"; sourceTree = "<group>"; };
 		0D714C701AB320CA007FF2C5 /* merchant2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchant2@2x.png"; sourceTree = "<group>"; };
 		0EBBC5841AB13A8400E0ED16 /* typekill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typekill.png; sourceTree = "<group>"; };
@@ -654,6 +703,76 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D3887041AB96F8E000DF1D6 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				0D3887051AB96F8E000DF1D6 /* LICENSE */,
+				0D3887061AB96F8E000DF1D6 /* Masonry */,
+				0D38871E1AB96F8E000DF1D6 /* README.md */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
+		0D3887061AB96F8E000DF1D6 /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				0D3887071AB96F8E000DF1D6 /* MASCompositeConstraint.h */,
+				0D3887081AB96F8E000DF1D6 /* MASCompositeConstraint.m */,
+				0D3887091AB96F8E000DF1D6 /* MASConstraint+Private.h */,
+				0D38870A1AB96F8E000DF1D6 /* MASConstraint.h */,
+				0D38870B1AB96F8E000DF1D6 /* MASConstraint.m */,
+				0D38870C1AB96F8E000DF1D6 /* MASConstraintMaker.h */,
+				0D38870D1AB96F8E000DF1D6 /* MASConstraintMaker.m */,
+				0D38870E1AB96F8E000DF1D6 /* MASLayoutConstraint.h */,
+				0D38870F1AB96F8E000DF1D6 /* MASLayoutConstraint.m */,
+				0D3887101AB96F8E000DF1D6 /* Masonry.h */,
+				0D3887111AB96F8E000DF1D6 /* MASUtilities.h */,
+				0D3887121AB96F8E000DF1D6 /* MASViewAttribute.h */,
+				0D3887131AB96F8E000DF1D6 /* MASViewAttribute.m */,
+				0D3887141AB96F8E000DF1D6 /* MASViewConstraint.h */,
+				0D3887151AB96F8E000DF1D6 /* MASViewConstraint.m */,
+				0D3887161AB96F8E000DF1D6 /* NSArray+MASAdditions.h */,
+				0D3887171AB96F8E000DF1D6 /* NSArray+MASAdditions.m */,
+				0D3887181AB96F8E000DF1D6 /* NSArray+MASShorthandAdditions.h */,
+				0D3887191AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.h */,
+				0D38871A1AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.m */,
+				0D38871B1AB96F8E000DF1D6 /* View+MASAdditions.h */,
+				0D38871C1AB96F8E000DF1D6 /* View+MASAdditions.m */,
+				0D38871D1AB96F8E000DF1D6 /* View+MASShorthandAdditions.h */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
+		0D38872A1AB96F98000DF1D6 /* HexColors */ = {
+			isa = PBXGroup;
+			children = (
+				0D38872B1AB96F98000DF1D6 /* Classes */,
+				0D38872E1AB96F98000DF1D6 /* LICENCE */,
+				0D38872F1AB96F98000DF1D6 /* README.md */,
+			);
+			path = HexColors;
+			sourceTree = "<group>";
+		};
+		0D38872B1AB96F98000DF1D6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0D38872C1AB96F98000DF1D6 /* HexColor.h */,
+				0D38872D1AB96F98000DF1D6 /* HexColor.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0D3887331AB96FE7000DF1D6 /* MerchantCell */ = {
+			isa = PBXGroup;
+			children = (
+				0D3887341AB97006000DF1D6 /* MerchantTitleCell.h */,
+				0D3887351AB97020000DF1D6 /* MerchantTitleCell.m */,
+				0D3887371AB97025000DF1D6 /* MerchantCell.h */,
+				0D3887381AB9702B000DF1D6 /* MerchantCell.m */,
+			);
+			name = MerchantCell;
+			sourceTree = "<group>";
+		};
 		0D714C611AB2EBA1007FF2C5 /* Merchant */ = {
 			isa = PBXGroup;
 			children = (
@@ -661,8 +780,8 @@
 				0D714C631AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m */,
 				0D714C651AB2ED09007FF2C5 /* MerchantDetailViewController.h */,
 				0D714C661AB2ED10007FF2C5 /* MerchantDetailViewController.m */,
-				0D714C6B1AB314BC007FF2C5 /* CreatMerchantViewController.h */,
-				0D714C6C1AB314BC007FF2C5 /* CreatMerchantViewController.m */,
+				0D38873A1AB970D2000DF1D6 /* CreateMerchantViewController.h */,
+				0D38873B1AB970D7000DF1D6 /* CreateMerchantViewController.m */,
 				0D714C681AB2ED18007FF2C5 /* EditMerchantViewController.h */,
 				0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */,
 			);
@@ -1005,6 +1124,8 @@
 		0ED6ACF71AA16EB000D3B025 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0D38872A1AB96F98000DF1D6 /* HexColors */,
+				0D3887041AB96F8E000DF1D6 /* Masonry */,
 				0EC99CA01AAFE67500D20386 /* KxMenu */,
 				0ED8EBD11AA6D7CB00CE9F61 /* MJ */,
 				1AA8FF501AA4074D009D41B3 /* SDWebImage */,
@@ -1084,6 +1205,7 @@
 		0ED6AD0C1AA1911F00D3B025 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				0D3887331AB96FE7000DF1D6 /* MerchantCell */,
 				1ADD1EDE1AB6F0B20014E528 /* MyMessageCell */,
 				0EC99A261AB276EE00F5F204 /* PollingView.h */,
 				0EC99A271AB276EE00F5F204 /* PollingView.m */,
@@ -1492,6 +1614,7 @@
 				0ECE7DE41AA5797400E250B6 /* arrow_down@2x.png in Resources */,
 				0ED6AD2E1AA19BC800D3B025 /* home3.png in Resources */,
 				0EC905EE1AA947060053B694 /* select_height.png in Resources */,
+				0D3887311AB96F98000DF1D6 /* LICENCE in Resources */,
 				0EC905F01AA9470C0053B694 /* select_normal.png in Resources */,
 				0ED8EBEF1AA6E2BC00CE9F61 /* 9kind_height.png in Resources */,
 				0ED065B91A9EE398005DF849 /* LaunchScreen.xib in Resources */,
@@ -1514,6 +1637,7 @@
 				0ED6AD051AA16EEA00D3B025 /* home_hight.png in Resources */,
 				0ED6AD031AA16EEA00D3B025 /* Myinages_nomal.png in Resources */,
 				0ED6AD301AA19BC800D3B025 /* home5.png in Resources */,
+				0D38871F1AB96F8E000DF1D6 /* LICENSE in Resources */,
 				0ED065B61A9EE398005DF849 /* Images.xcassets in Resources */,
 				0ECE7DE61AA579FE00E250B6 /* good_rent@2x.png in Resources */,
 				0EC688C51AB1237800F4058B /* backimage.png in Resources */,
@@ -1536,10 +1660,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D3887361AB97020000DF1D6 /* MerchantTitleCell.m in Sources */,
 				1ADD1ED11AB6C0D90014E528 /* CancelDetailController.m in Sources */,
 				0D714C6A1AB2ED20007FF2C5 /* EditMerchantViewController.m in Sources */,
 				0ECA83931AB82F3F003B005B /* NetworkRequest.m in Sources */,
 				0ECA83811AB81886003B005B /* BuyOrderViewController.m in Sources */,
+				0D3887301AB96F98000DF1D6 /* HexColor.m in Sources */,
 				1ADD1EC81AB6A5610014E528 /* CustomerServiceHandle.m in Sources */,
 				0D714C641AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m in Sources */,
 				1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */,
@@ -1549,6 +1675,7 @@
 				1AA8FF771AA4074D009D41B3 /* UIImage+GIF.m in Sources */,
 				1A727B2D1AA5957100E1643D /* EmailSuccessViewController.m in Sources */,
 				0EC99C991AAFE5F300D20386 /* OrderDetailCell.m in Sources */,
+				0D3887271AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0ED8EBE41AA6D7E000CE9F61 /* MJRefreshHeaderView.m in Sources */,
 				1ADA041D1AB2C8120074A58B /* SafeViewController.m in Sources */,
 				1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */,
@@ -1560,6 +1687,7 @@
 				1A8EE2BF1AAD78490014A7A5 /* TerminalAddViewController.m in Sources */,
 				0ED6AD0F1AA1912F00D3B025 /* LocationButton.m in Sources */,
 				0ECE7DD81AA55EF100E250B6 /* GoodListModel.m in Sources */,
+				0D3887211AB96F8E000DF1D6 /* MASConstraint.m in Sources */,
 				0ED5FD3C1AB910A90057385C /* MyMessageViewController.m in Sources */,
 				1A8E7C691AB1696A00C021CE /* SalesReturnCell.m in Sources */,
 				0ECA838B1AB82D7D003B005B /* ImageScrollView.m in Sources */,
@@ -1568,11 +1696,14 @@
 				1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */,
 				1A6FC31F1AA6A61B00F4C6AC /* CityModel.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
+				0D3887201AB96F8E000DF1D6 /* MASCompositeConstraint.m in Sources */,
 				1A8E7C771AB17EBC00C021CE /* SwitchView.m in Sources */,
 				1A8E7C6F1AB1699600C021CE /* UpdateCell.m in Sources */,
 				1A4258671AB0163800F470C9 /* MyShopViewController.m in Sources */,
 				0ED8EBE21AA6D7E000CE9F61 /* MJRefreshConst.m in Sources */,
 				1ADD1ED41AB6C9140014E528 /* ReturnDetailController.m in Sources */,
+				0D3887251AB96F8E000DF1D6 /* MASViewConstraint.m in Sources */,
+				0D3887321AB96F98000DF1D6 /* README.md in Sources */,
 				1A8EE2C51AAD99DE0014A7A5 /* DealRoadDetailController.m in Sources */,
 				0EC99C9C1AAFE61200D20386 /* OrderGoodModel.m in Sources */,
 				1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */,
@@ -1588,6 +1719,7 @@
 				0ECE7DD41AA55EBC00E250B6 /* CircleView.m in Sources */,
 				0ED8EB9E1AA6A6CB00CE9F61 /* AfterSaleView.m in Sources */,
 				1A5E10521AB821BD0082DA13 /* ChangeEmialSuccessViewController.m in Sources */,
+				0D3887391AB9702B000DF1D6 /* MerchantCell.m in Sources */,
 				1A94EB6F1AA9437C0056E921 /* ConsumptionCell.m in Sources */,
 				0EC99A2B1AB2789100F5F204 /* HomeImageModel.m in Sources */,
 				1A8E7C631AB138C800C021CE /* ServiceCell.m in Sources */,
@@ -1598,6 +1730,8 @@
 				1A76D85D1AA7EE0700E9851C /* TerminalViewController.m in Sources */,
 				1ADA04231AB2CE6C0074A58B /* AddressViewController.m in Sources */,
 				0ECE7DA51AA5589400E250B6 /* TreeDataHandle.m in Sources */,
+				0D3887291AB96F8E000DF1D6 /* README.md in Sources */,
+				0D3887241AB96F8E000DF1D6 /* MASViewAttribute.m in Sources */,
 				0EC99A281AB276EE00F5F204 /* PollingView.m in Sources */,
 				1A94EB7B1AA967950056E921 /* DealRoadChildController.m in Sources */,
 				0ED8EBF41AA6E94A00CE9F61 /* GoodsCollectionViewCell2.m in Sources */,
@@ -1620,6 +1754,7 @@
 				0ECA83921AB82F3F003B005B /* NetworkInterface.m in Sources */,
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,
 				1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */,
+				0D3887221AB96F8E000DF1D6 /* MASConstraintMaker.m in Sources */,
 				0ECE7DC31AA55D7A00E250B6 /* NavigationBarAttr.m in Sources */,
 				0ECE7DB41AA55A2B00E250B6 /* TreeNodeCollection.m in Sources */,
 				1A8EE2C21AAD8D3C0014A7A5 /* InstitutionModel.m in Sources */,
@@ -1637,11 +1772,11 @@
 				1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */,
 				0ED8EBE51AA6D7E000CE9F61 /* UIScrollView+MJExtension.m in Sources */,
 				1AA8FF761AA4074D009D41B3 /* UIButton+WebCache.m in Sources */,
+				0D3887261AB96F8E000DF1D6 /* NSArray+MASAdditions.m in Sources */,
 				0EC99CB61AB0327600D20386 /* AddressTableViewCell.m in Sources */,
 				1A4258731AB018E100F470C9 /* ApplyPlanViewController.m in Sources */,
 				1AA8FF731AA4074D009D41B3 /* SDWebImageDownloaderOperation.m in Sources */,
 				0ED8EB921AA69B9300CE9F61 /* RegularFormat.m in Sources */,
-				0D714C6D1AB314BC007FF2C5 /* CreatMerchantViewController.m in Sources */,
 				1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */,
 				1A8E7C601AB12D7B00C021CE /* AfterTitleCell.m in Sources */,
 				0ED8EB9D1AA6A6CB00CE9F61 /* ModuleView.m in Sources */,
@@ -1665,6 +1800,7 @@
 				1A65164C1AA6F42E008223BD /* ApplicationViewController.m in Sources */,
 				0EBBC5931AB1663300E0ED16 /* OrderCell.m in Sources */,
 				0ECE7DA81AA558CC00E250B6 /* TreeNodeModel.m in Sources */,
+				0D3887231AB96F8E000DF1D6 /* MASLayoutConstraint.m in Sources */,
 				1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */,
 				1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */,
 				0EBBC58F1AB1660400E0ED16 /* PayWayViewController.m in Sources */,
@@ -1680,6 +1816,7 @@
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
 				0ECE7DA11AA5584F00E250B6 /* SearchHistoryHelper.m in Sources */,
 				0ECE7D951AA5579800E250B6 /* GoodListViewController.m in Sources */,
+				0D3887281AB96F8E000DF1D6 /* View+MASAdditions.m in Sources */,
 				1AA8FF791AA4074D009D41B3 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0ECE7D9C1AA557C700E250B6 /* ZFSearchBar.m in Sources */,
 				0ECABF551AAD31A400413489 /* RateModel.m in Sources */,
@@ -1695,6 +1832,7 @@
 				1AA8FF741AA4074D009D41B3 /* SDWebImageManager.m in Sources */,
 				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
+				0D38873C1AB970D7000DF1D6 /* CreateMerchantViewController.m in Sources */,
 				0ECE7DCE1AA55E4500E250B6 /* SortView.m in Sources */,
 				1A5E104F1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m in Sources */,
 				1AA8FF6F1AA4074D009D41B3 /* SDImageCache.m in Sources */,
