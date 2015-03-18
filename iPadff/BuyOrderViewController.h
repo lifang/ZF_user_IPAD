@@ -1,19 +1,17 @@
 //
-//  ShoppingCartOrderController.h
+//  BuyOrderViewController.h
 //  ZFUB
 //
-//  Created by 徐宝桥 on 15/3/10.
+//  Created by 徐宝桥 on 15/3/13.
 //  Copyright (c) 2015年 ___MyCompanyName___. All rights reserved.
 //
 
 #import "OrderConfirmController.h"
-#import "ShoppingCartModel.h"
-static NSString *RefreshAddressListNotification = @"RefreshAddressListNotification";
+#import "GoodDetialModel.h"
 
-@interface ShoppingCartOrderController : OrderConfirmController
-
+@interface BuyOrderViewController : OrderConfirmController
 {
-
+    
     UIButton *defaultbutton;
     BOOL defaultbool;
     UIButton*_cityField;
@@ -44,6 +42,6 @@ static NSString *RefreshAddressListNotification = @"RefreshAddressListNotificati
 
 @property (nonatomic, strong) UITextField *reviewField;  //留言
 
-//@property (nonatomic, strong) UILabel *payLabel;
-//@property (nonatomic, strong) UILabel *deliveryLabel;
+@property (nonatomic, strong) GoodDetialModel *goodDetail;
+
 @end

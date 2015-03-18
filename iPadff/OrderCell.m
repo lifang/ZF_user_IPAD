@@ -113,7 +113,7 @@ typedef enum {
                                                                     toItem:_orderNoLabel
                                                                  attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:0.f]];
+                                                                  constant:-40.f]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
                                                                  attribute:NSLayoutAttributeWidth
                                                                  relatedBy:NSLayoutRelationEqual
@@ -421,7 +421,7 @@ typedef enum {
         [cancelBtn setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
         [cancelBtn setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
         [headerView addSubview:cancelBtn];
-        cancelBtn.frame=CGRectMake(wide-180, 65, 80, 30);
+        cancelBtn.frame=CGRectMake(wide-180, 70, 100, 30);
         
         UIButton *payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [payBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
@@ -432,7 +432,7 @@ typedef enum {
         [payBtn setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         
         [headerView addSubview:payBtn];
-        payBtn.frame=CGRectMake(wide-180, 30, 80, 30);
+        payBtn.frame=CGRectMake(wide-180, 30, 100, 30);
     }
     else if ([_identifier isEqualToString:sendingIdentifier]) {
         //已发货

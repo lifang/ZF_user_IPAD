@@ -9,6 +9,7 @@
 #import "OrderDetailCell.h"
 
 @implementation OrderDetailCell
+@synthesize linlable;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -72,7 +73,7 @@
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _nameLabel.backgroundColor = [UIColor clearColor];
-    _nameLabel.font = [UIFont boldSystemFontOfSize:12.f];
+    _nameLabel.font = [UIFont boldSystemFontOfSize:14.f];
     [self.contentView addSubview:_nameLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_nameLabel
                                                                  attribute:NSLayoutAttributeTop
@@ -120,27 +121,36 @@
 
     //价格
     _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 30, 100, 30)];
-    _priceLabel.textColor = kColor(255, 102, 36, 1);
+//    _priceLabel.textColor = kColor(255, 102, 36, 1);
     _priceLabel.font = [UIFont boldSystemFontOfSize:16.f];
-    
+    _priceLabel.textAlignment = NSTextAlignmentCenter;
+
     [self.contentView addSubview:_priceLabel];
     //数量
-    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 60, 30)];
-    
-    _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
-    
-    [self.contentView addSubview:_numberLabel];
+//    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 80, 30)];
+//    
+//    _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
+//    _numberLabel.textAlignment = NSTextAlignmentCenter;
+//
+//    [self.contentView addSubview:_numberLabel];
     //型号
     
-    _brandLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 40, 100, 20)];
-    _brandLabel.font = [UIFont boldSystemFontOfSize:12.f];
+    _brandLabel = [[UILabel alloc]initWithFrame:CGRectMake(110, 40, wide-140, 20)];
+    _brandLabel.font = [UIFont boldSystemFontOfSize:14.f];
     
     [self.contentView addSubview:_brandLabel];
     //支付通道
-    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 60, 100, 20)];
-    _channelLabel.font = [UIFont systemFontOfSize:12.f];
+    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 60, wide-140, 20)];
+    _channelLabel.font = [UIFont systemFontOfSize:14.f];
 
     [self.contentView addSubview:_channelLabel];
+    linlable  = [[UILabel alloc] initWithFrame:CGRectMake(0, 89, wide, 1)];
+    
+    
+    linlable.backgroundColor=[UIColor grayColor];
+    
+    
+    [self addSubview:linlable];
 
 }
 

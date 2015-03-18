@@ -89,8 +89,8 @@
         }
         if (i < [itemNames count] - 1)
         {
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(originX - kLineHeight, 10, kLineHeight, rect.size.height - 20)];
-            line.backgroundColor = kColor(88, 93, 95, 1);
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(originX - kLineHeight, 25, kLineHeight, rect.size.height - 50)];
+            line.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
             [self addSubview:line];
         }
     }

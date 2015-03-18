@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UILabel *brandLabel;
 
 @property (nonatomic, strong) UILabel *channelLabel;
+@property (nonatomic, retain)UILabel *linlable;
 
 - (void)setContentsWithData:(OrderGoodModel *)data;
 

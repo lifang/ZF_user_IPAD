@@ -13,6 +13,7 @@ static NSString *RefreshMyOrderListNotification = @"RefreshMyOrderListNotificati
 
 @interface OrderDetailController : CommonViewController
 
+
 @property (nonatomic, strong) NSString *orderID;
 
 @end

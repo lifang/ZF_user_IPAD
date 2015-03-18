@@ -128,16 +128,17 @@
     
     if (iOS7) {
 
-        button1.frame=CGRectMake(10,SCREEN_WIDTH/8,  40, 50);
+        button1.frame=CGRectMake(10,SCREEN_WIDTH/8-40,  40, 50);
 
     }
     else
     {
 
-        button1.frame=CGRectMake(10,SCREEN_HEIGHT/8,  40, 50);
+        button1.frame=CGRectMake(10,SCREEN_HEIGHT/8-40,  40, 50);
 
     }
     button1.tag=1;
+    
     
 
     
@@ -151,13 +152,13 @@
     
     
     if (iOS8) {
-        button2.frame=CGRectMake(10,2*SCREEN_HEIGHT/8,   40, 50);
+        button2.frame=CGRectMake(10,2*SCREEN_HEIGHT/8-40,   40, 50);
         
         
     }
     else
     {
-        button2.frame=CGRectMake(10,2*SCREEN_WIDTH/8,   40, 50);
+        button2.frame=CGRectMake(10,2*SCREEN_WIDTH/8-40,   40, 50);
         
         
     }
@@ -170,13 +171,13 @@
     
     
     if (iOS8) {
-        button3.frame=CGRectMake(10,3*SCREEN_HEIGHT/8,   40, 50);
+        button3.frame=CGRectMake(10,3*SCREEN_HEIGHT/8-40,   40, 50);
         
         
     }
     else
     {
-        button3.frame=CGRectMake(10,3*SCREEN_WIDTH/8,   40, 50);
+        button3.frame=CGRectMake(10,3*SCREEN_WIDTH/8-40,   40, 50);
         
         
     }
@@ -188,13 +189,13 @@
      button4.tag=4;
     
     if (iOS8) {
-        button4.frame=CGRectMake(10,4*SCREEN_HEIGHT/8,   40, 50);
+        button4.frame=CGRectMake(10,4*SCREEN_HEIGHT/8-40,   40, 50);
         
         
     }
     else
     {
-        button4.frame=CGRectMake(10,4*SCREEN_WIDTH/8,   40, 50);
+        button4.frame=CGRectMake(10,4*SCREEN_WIDTH/8-40,   40, 50);
         
         
     }
@@ -216,13 +217,13 @@
     
     
     if (iOS8) {
-        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_HEIGHT/8+40,  60, 20)];
+        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_HEIGHT/8+40-40,  60, 20)];
         [_tabView addSubview:lab1];
-        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_HEIGHT/8+40,  60, 20)];
+        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_HEIGHT/8+40-40,  60, 20)];
         [_tabView addSubview:lab2];
-        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_HEIGHT/8+40,  60, 20)];
+        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_HEIGHT/8+40-40,  60, 20)];
         [_tabView addSubview:lab3];
-        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_HEIGHT/8+40,  60, 20)];
+        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_HEIGHT/8+40-40,  60, 20)];
         [_tabView addSubview:lab4];
         lab1.text=@"首页";
         lab1.tag=10;
@@ -257,13 +258,13 @@
     }
     else
     {
-        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_WIDTH/8+40,  60, 20)];
+        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_WIDTH/8+40-40,  60, 20)];
         [_tabView addSubview:lab1];
-        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_WIDTH/8+40,  60, 20)];
+        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_WIDTH/8+40-40,  60, 20)];
         [_tabView addSubview:lab2];
-        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_WIDTH/8+40,  60, 20)];
+        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_WIDTH/8+40-40,  60, 20)];
         [_tabView addSubview:lab3];
-        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_WIDTH/8+40,  60, 20)];
+        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_WIDTH/8+40-40,  60, 20)];
         [_tabView addSubview:lab4];
         lab1.text=@"首页";
         lab1.tag=10;
@@ -377,7 +378,7 @@
 	}
 	
     /*
-     记录当前索引，采用属性直接赋值的方式
+     记录当前索引，采用属性直接赋值的方式F
      更改TabBar按钮状态为高亮状态
      添加视图
      */
