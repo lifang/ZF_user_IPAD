@@ -7,6 +7,7 @@
 //
 
 #import "ChangeEmialSuccessViewController.h"
+#import "BaseInformationViewController.h"
 
 @interface ChangeEmialSuccessViewController ()
 
@@ -85,7 +86,8 @@
 
 -(void)backClicked
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    BaseInformationViewController *baseVC = [[BaseInformationViewController alloc]init];
+    [self.navigationController pushViewController:baseVC animated:NO];
 }
 
 //自动更具文字算长度

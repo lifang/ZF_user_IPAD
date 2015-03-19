@@ -7,6 +7,7 @@
 //
 
 #import "ChangePhoneSuccessViewController.h"
+#import "BaseInformationViewController.h"
 
 @interface ChangePhoneSuccessViewController ()
 
@@ -55,7 +56,8 @@
 
 -(void)backClicked
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    BaseInformationViewController *baseVC = [[BaseInformationViewController alloc]init];
+    [self.navigationController pushViewController:baseVC animated:NO];
 }
 
 @end

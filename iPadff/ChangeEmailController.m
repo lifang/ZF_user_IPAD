@@ -8,6 +8,8 @@
 
 #import "ChangeEmailController.h"
 #import "ChangeEmialSuccessViewController.h"
+#import "RegularFormat.h"
+#import "NetworkInterface.h"
 
 @interface ChangeEmailController ()<UITextFieldDelegate>
 
@@ -52,7 +54,7 @@
     _newsEmailField.font = [UIFont systemFontOfSize:20];
     _newsEmailField.borderStyle = UITextBorderStyleLine;
     _newsEmailField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _newsEmailField.placeholder = @"1391@123.com";
+    _newsEmailField.placeholder = @"请输入新邮箱号";
     [_newsEmailField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _newsEmailField.delegate = self;
     _newsEmailField.leftViewMode = UITextFieldViewModeAlways;
@@ -94,11 +96,12 @@
                                                            constant:mainHeight]];
     
     _oldEmailField = [[UITextField alloc]init];
+    _oldEmailField.userInteractionEnabled = NO;
     _oldEmailField.translatesAutoresizingMaskIntoConstraints = NO;
     _oldEmailField.borderStyle = UITextBorderStyleNone;
     _oldEmailField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _oldEmailField.text = @"13932@qq.com";
     _oldEmailField.font = [UIFont systemFontOfSize:20];
+    _oldEmailField.text = _oldEmail;
     //    _newsPhoneField.placeholder = @"13919022222";
     //    [_oldPhoneField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _oldEmailField.delegate = self;
@@ -266,10 +269,68 @@
 
 -(void)submitClicked
 {
-    ChangeEmialSuccessViewController *changeEmailSuccessVC = [[ChangeEmialSuccessViewController alloc]init];
-    changeEmailSuccessVC.hidesBottomBarWhenPushed = YES;
-    changeEmailSuccessVC.email = @"daklsjdlkas@qq.com";
-    [self.navigationController pushViewController:changeEmailSuccessVC animated:YES];
+    if (!_newsEmailField.text || [_newsEmailField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"邮箱不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![RegularFormat isCorrectEmail:_newsEmailField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"邮箱格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    [self saveDate];
+    
+    }
+
+
+#pragma mark - Request
+-(void)saveDate
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:nil email:_newsEmailField.text cityID:nil finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [self.ChangeEmailSuccessDelegate ChangeEmailSuccessWithEmail:_newsEmailField.text];
+                    //点击了提交
+                    ChangeEmialSuccessViewController *changeEmailSuccessVC = [[ChangeEmialSuccessViewController alloc]init];
+                    changeEmailSuccessVC.hidesBottomBarWhenPushed = YES;
+                    changeEmailSuccessVC.email = _newsEmailField.text;
+                    [self.navigationController pushViewController:changeEmailSuccessVC animated:YES];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+    
 }
+
 
 @end
