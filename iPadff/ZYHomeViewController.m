@@ -132,8 +132,22 @@
     [rootview addSubview:_pollingView];
 }
 - (void)initNavigationView {
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
 
-    UIImageView *topViews = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 58)];
+    UIImageView *topViews = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, wide, 58)];
  
     topViews.image = kImageName(@"toptouming");
     [self.view addSubview:topViews];

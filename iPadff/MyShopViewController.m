@@ -32,9 +32,15 @@
 /********************************/
 @property (nonatomic, assign) NSArray *MerchantList;
 
+@property(strong,nonatomic) UIAlertView * alertView;
+
 @end
 
 @implementation MyShopViewController
+
+{
+    NSString *demerchant;
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -148,6 +154,33 @@
     
 }
 
+-(void) delete:(MerchantModel *)model
+{
+    // 使用一个UIAlertView来显示用户选中的列表项
+    _alertView = [[UIAlertView alloc]
+                  initWithTitle:@"提示"
+                  message:[NSString stringWithFormat:@"删除当前商户"]
+                  delegate:nil
+                  cancelButtonTitle:@"取消"
+                  otherButtonTitles:@"确定", nil];
+    _alertView.delegate = self;
+    [_alertView show];
+    demerchant=[[NSString alloc] initWithString:model.merchantID];
+    //[self deleteMerchant:model.merchantID];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (buttonIndex==1) {
+        
+       // [self deleteMerchant:model.merchantID];
+        [self deleteMerchant:demerchant];
+        
+    }
+}
+
 
 #pragma mark - Request
 
@@ -206,6 +239,42 @@
         }
     }];
 }
+
+
+- (void)deleteMerchant:(id )merchantId {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"删除中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface deleteMerchantWithToken:delegate.token merchantIDs:merchantId finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"删除商户成功";
+                   // [self.navigationController popViewControllerAnimated:YES];
+                   
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+
 
 
 #pragma mark - Refresh
@@ -277,20 +346,7 @@
     [self.navigationController pushViewController:createVC animated:YES];
 }
 
-/*
- #pragma mark - Action
- 
- - (void)multiDelete:(id)sender {
- self.isMultiDelete = !_isMultiDelete;
- }
- 
- 
- 
- - (void)setIsMultiDelete:(BOOL)isMultiDelete {
- _isMultiDelete = isMultiDelete;
- [_tableView setEditing:_isMultiDelete animated:YES];
- }
- */
+
 
 #pragma mark - Table view data source
 
@@ -355,27 +411,7 @@
     
 }
 
-/*
- 
- - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
- if (_isMultiDelete) {
- return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
- }
- else {
- return UITableViewCellEditingStyleDelete;
- }
- }
- */
-/*
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- NSLog(@"11111");
- }
- else if (editingStyle == 3) {
- NSLog(@"33333");
- }
- }
- */
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.isMultiDelete) {
@@ -389,19 +425,7 @@
         
     }
 }
-/*
- - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
- if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
- [tableView setSeparatorInset:UIEdgeInsetsZero];
- }
- if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
- [tableView setLayoutMargins:UIEdgeInsetsZero];
- }
- if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
- [cell setLayoutMargins:UIEdgeInsetsZero];
- }
- }
- */
+
 
 #pragma mark - UIScrollView
 

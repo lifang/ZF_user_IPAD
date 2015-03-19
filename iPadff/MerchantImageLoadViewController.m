@@ -11,7 +11,7 @@
 
 @interface MerchantImageLoadViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate>
 
-//@property (nonatomic, assign) BOOL alreadyHasImage;
+
 
 
 @end
@@ -82,6 +82,7 @@
 
 - (void)modifyLocation:(id)sender {
     //重写
+    
 }
 
 
@@ -89,7 +90,6 @@
 
 - (void)selectedKey:(NSString *)imageKey
            hasImage:(BOOL)hasImage {
-    // _alreadyHasImage = hasImage;
     _selectedImageKey = imageKey;
     UIActionSheet *sheet = nil;
     sheet = [[UIActionSheet alloc] initWithTitle:@""
@@ -100,6 +100,10 @@
     
     [sheet showInView:self.view];
 }
+
+ 
+
+
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSInteger sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -132,7 +136,7 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
                 popover.popoverContentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
-                [popover presentPopoverFromRect:CGRectMake(0, 0, 0, 0) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                [popover presentPopoverFromRect:CGRectMake(0, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 
                 //[self presentViewController:imagePickerController animated:YES completion:nil];
             }];
@@ -202,8 +206,6 @@
     UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
     
     _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    //_toolbar.barStyle = UIBarStyleBlackOpaque;
-    //[_toolbar sizeToFit];
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
                                                                    style:UIBarButtonItemStyleDone
                                                                   target:self
@@ -234,10 +236,9 @@
     
 }
 
-- (void)pickerScrollOut {
+- (void)pickerScrollOut
+{
     NSLog(@"SH");
-    
-    
     
 }
 

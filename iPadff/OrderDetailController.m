@@ -46,19 +46,35 @@
 #pragma mark - UI
 
 - (void)setHeaderAndFooterView {
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     //追踪记录
     if ([_orderDetail.recordList count] > 0) {
         CGFloat leftSpace = 20.f;
-        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, 20, kScreenWidth - leftSpace * 2 , 14)];
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, 10, wide - leftSpace * 2 , 24)];
         tipLabel.backgroundColor = [UIColor clearColor];
-        tipLabel.font = [UIFont systemFontOfSize:10.f];
+        tipLabel.font = [UIFont systemFontOfSize:15.f];
         tipLabel.text = @"追踪记录：";
         RecordView *recordView = [[RecordView alloc] initWithRecords:_orderDetail.recordList
-                                                               width:(kScreenWidth - leftSpace * 2)];
+                                                               width:(wide - leftSpace * 2)];
         CGFloat recordHeight = [recordView getHeight];
-        recordView.frame = CGRectMake(leftSpace, 34, kScreenWidth - leftSpace * 2, recordHeight);
+        recordView.frame = CGRectMake(leftSpace, 34, wide - leftSpace * 2, recordHeight);
         
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, recordHeight + 40)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, recordHeight + 40)];
         footerView.backgroundColor = [UIColor clearColor];
         [footerView addSubview:tipLabel];
         [footerView addSubview:recordView];
@@ -329,6 +345,21 @@ if(section==0)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     UITableViewCell *cell = nil;
     CGFloat originX = 20.f;
     switch (indexPath.section) {
@@ -343,17 +374,17 @@ if(section==0)
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
                     //状态
-                    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX , 10, kScreenWidth - originX , 20.f)];
+                    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX , 10, wide - originX , 20.f)];
                     statusLabel.backgroundColor = [UIColor clearColor];
                     statusLabel.font = [UIFont boldSystemFontOfSize:14.f];
                     statusLabel.text = [NSString stringWithFormat:@"订单状态：%@",[_orderDetail getStatusString]];
                     [cell.contentView addSubview:statusLabel];
                     //实付
-                    UILabel *payLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, kScreenWidth - originX * 2, 20.f)];
+                    UILabel *payLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
                     [self setLabel:payLabel withString:[NSString stringWithFormat:@"实付金额（含配送费）：￥%.2f",_orderDetail.orderTotalPrice]];
                     [cell.contentView addSubview:payLabel];
                     //配送费
-                    UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, kScreenWidth - originX * 2, 20.f)];
+                    UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2, 20.f)];
                     [self setLabel:deliveryLabel withString:[NSString stringWithFormat:@"配  送  费：￥%.2f",_orderDetail.orderDeliveryFee]];
                     [cell.contentView addSubview:deliveryLabel];
                     
@@ -435,11 +466,11 @@ if(section==0)
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
                     //收件人
-                    UILabel *receiverLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, kScreenWidth - originX * 2, 20.f)];
+                    UILabel *receiverLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2, 20.f)];
                     [self setLabel:receiverLabel withString:[NSString stringWithFormat:@"收  件  人：%@  %@",_orderDetail.orderReceiver,_orderDetail.orderReceiverPhone]];
                     [cell.contentView addSubview:receiverLabel];
                     //地址
-                    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, kScreenWidth - originX * 2, 20.f)];
+                    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
                     [self setLabel:addressLabel withString:[NSString stringWithFormat:@"收件地址：%@",_orderDetail.orderAddress]];
                     [cell.contentView addSubview:addressLabel];
                 }
@@ -461,21 +492,21 @@ if(section==0)
                     CGFloat btnWidth = 80.f;
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
                     //订单
-                    UILabel *orderLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, kScreenWidth - originX * 2 - btnWidth, 20)];
+                    UILabel *orderLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2 - btnWidth, 20)];
                     orderLabel.backgroundColor = [UIColor clearColor];
                     orderLabel.font = [UIFont systemFontOfSize:14.f];
 //                    orderLabel.textColor = kColor(116, 116, 116, 1);
                     orderLabel.text = [NSString stringWithFormat:@"订单编号：%@",_orderDetail.orderNumber];
                     [cell.contentView addSubview:orderLabel];
                     //支付方式
-                    UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, kScreenWidth - originX * 2 - btnWidth, 20.f)];
+                    UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2 - btnWidth, 20.f)];
                     typeLabel.backgroundColor = [UIColor clearColor];
                     typeLabel.font = [UIFont systemFontOfSize:14.f];
 //                    typeLabel.textColor = kColor(116, 116, 116, 1);
                     typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
                     [cell.contentView addSubview:typeLabel];
                     //订单日期
-                    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, kScreenWidth - originX * 2 - btnWidth, 20)];
+                    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2 - btnWidth, 20)];
                     dateLabel.backgroundColor = [UIColor clearColor];
                     dateLabel.font = [UIFont systemFontOfSize:14.f];
 //                    dateLabel.textColor = kColor(116, 116, 116, 1);
@@ -485,15 +516,15 @@ if(section==0)
                     //留言
                     NSString *comment = [NSString stringWithFormat:@"留       言：%@",_orderDetail.orderComment];
                     CGFloat height = [self heightForString:comment withWidth:kScreenWidth - originX * 2];
-                    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10, kScreenWidth - originX *2, height)];
+                    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10, wide - originX *2, height)];
                     commentLabel.numberOfLines = 0;
                     [self setLabel:commentLabel withString:comment];
                     [cell.contentView addSubview:commentLabel];
                     //发票
-                    UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10 + height, kScreenWidth - originX * 2, 20.f)];
+                    UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10 + height, wide - originX * 2, 20.f)];
                     [self setLabel:invoceTypeLabel withString:[NSString stringWithFormat:@"发票类型：%@",_orderDetail.orderInvoceType]];
                     [cell.contentView addSubview:invoceTypeLabel];
-                    UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 30 + height, kScreenWidth - originX * 2, 20.f)];
+                    UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 30 + height, wide - originX * 2, 20.f)];
                     [self setLabel:invoceTitleLabel withString:[NSString stringWithFormat:@"发票抬头：%@",_orderDetail.orderInvoceTitle]];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -644,6 +675,19 @@ if(section==0)
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = 0.f;
+    
+    CGFloat wide;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        
+    }
+
     switch (indexPath.section) {
         case 0: {
             switch (indexPath.row) {
@@ -655,7 +699,7 @@ if(section==0)
                     break;
                 case 2: {
                     NSString *comment = [NSString stringWithFormat:@"留言：%@",_orderDetail.orderComment];
-                    CGFloat commentHeight = [self heightForString:comment withWidth:kScreenWidth - 40];
+                    CGFloat commentHeight = [self heightForString:comment withWidth:wide - 40];
                     height = commentHeight + 60;
                 }
                     break;

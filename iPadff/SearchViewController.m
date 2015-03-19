@@ -50,7 +50,22 @@
 }
 
 - (void)initSearchBar {
-    _searchBar = [[ZFSearchBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    _searchBar = [[ZFSearchBar alloc] initWithFrame:CGRectMake(0, 0, wide, 30)];
     _searchBar.delegate = self;
     _searchBar.text = _keyword;
     self.navigationItem.titleView = _searchBar;
@@ -96,11 +111,26 @@
 
 - (void)setHeaderAndFooterView {
     if ([_historyItems count] > 0) {
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
+        CGFloat wide;
+        CGFloat height;
+        if(iOS7)
+        {
+            wide=SCREEN_HEIGHT;
+            height=SCREEN_WIDTH;
+            
+            
+        }
+        else
+        {  wide=SCREEN_WIDTH;
+            height=SCREEN_HEIGHT;
+            
+        }
+
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
         footerView.backgroundColor = [UIColor clearColor];
         UIButton *cleanButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        cleanButton.frame = CGRectMake((kScreenWidth - 120) / 2, 10, 120, 28);
-//        cleanButton.layer.cornerRadius = 4;
+        cleanButton.frame = CGRectMake((wide - 120) / 2, 10, 120, 28);
+        cleanButton.layer.cornerRadius = 4;
         cleanButton.layer.masksToBounds = YES;
         cleanButton.layer.borderWidth = 1.f;
         cleanButton.layer.borderColor = kColor(255, 102, 36, 1).CGColor;

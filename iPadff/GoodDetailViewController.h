@@ -11,7 +11,8 @@
 @interface GoodDetailViewController : CommonViewController
 
 {    UIView *view;
-
+    UIView *handleViewfrdef;
+    
 }
 @property (nonatomic, strong) NSString *goodID;
 @property (nonatomic, assign) NSInteger  secletA;
