@@ -1,18 +1,15 @@
 //
-//  EditMerchantViewController.m
+//  CreateMerchantViewController.m
 //  iPadff
 //
-//  Created by wufei on 15/3/13.
+//  Created by wufei on 15/3/17.
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import "EditMerchantViewController.h"
+#import "CreateMerchantViewController.h"
 #import "NetworkInterface.h"
-#import "AppDelegate.h"
 
-
-@interface EditMerchantViewController ()<UITextFieldDelegate,UIAlertViewDelegate>
-
+@interface CreateMerchantViewController ()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -45,12 +42,12 @@
 
 @end
 
-@implementation EditMerchantViewController
+@implementation CreateMerchantViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"修改商户信息";
+     self.title = @"创建商户";
     // self.navigationController.hidesBottomBarWhenPushed=YES;
      self.view.backgroundColor = [UIColor whiteColor];
     
@@ -62,7 +59,7 @@
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
     }];
-    
+
     UILabel *merchantLB=[[UILabel alloc ] init];
     merchantLB.font = FONT20;
     merchantLB.text=@"店铺名称";
@@ -75,7 +72,7 @@
         make.width.equalTo(@120);
         make.height.equalTo(@42);
     }];
-    
+
     
     _merchantTF = [[UITextField alloc] init];
     _merchantTF.delegate = self;
@@ -85,8 +82,7 @@
     _merchantTF.layer.cornerRadius = 3.0f;
     _merchantTF.font = FONT20;
     _merchantTF.placeholder = @"地域+经营商铺名+行业";
-    _merchantTF.textAlignment=NSTextAlignmentCenter;
-    _merchantTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
+     _merchantTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _merchantTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_merchantTF];
     [_merchantTF makeConstraints:^(MASConstraintMaker *make) {
@@ -96,7 +92,7 @@
         make.height.equalTo(@42);
     }];
     
-    
+
     UILabel *personLB=[[UILabel alloc ] init];
     personLB.font = FONT20;
     personLB.text=@"商户法人姓名";
@@ -118,7 +114,6 @@
     _personTF.layer.cornerRadius = 3.0f;
     _personTF.font = FONT20;
     _personTF.placeholder = @"请输入法人姓名";
-    _personTF.textAlignment=NSTextAlignmentCenter;
     _personTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _personTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_personTF];
@@ -128,8 +123,8 @@
         make.left.equalTo(personLB.right).offset(24);
         make.height.equalTo(@42);
     }];
-    
-    
+
+  
     
     //****
     UILabel *personIDLB=[[UILabel alloc ] init];
@@ -154,7 +149,6 @@
     _person_IDTF.layer.cornerRadius = 3.0f;
     _person_IDTF.font = FONT20;
     _person_IDTF.placeholder = @"请输入法人身份证号";
-    _person_IDTF.textAlignment=NSTextAlignmentCenter;
     _person_IDTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _person_IDTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_person_IDTF];
@@ -172,7 +166,7 @@
     licenceLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:licenceLB];
     [licenceLB makeConstraints:^(MASConstraintMaker *make) {
-        // make.right.equalTo(_licenceTF.left).offset(-24);
+       // make.right.equalTo(_licenceTF.left).offset(-24);
         make.left.equalTo(self.view.centerX).offset(-20);
         make.top.equalTo(_merchantTF.bottom).offset(48);
         make.width.equalTo(@180);
@@ -187,7 +181,6 @@
     _licenceTF.layer.cornerRadius = 3.0f;
     _licenceTF.font = FONT20;
     _licenceTF.placeholder = @"请输入营业执照号";
-    _licenceTF.textAlignment=NSTextAlignmentCenter;
     _licenceTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _licenceTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_licenceTF];
@@ -195,13 +188,13 @@
         make.right.equalTo(self.view.right).offset(-24);
         make.top.equalTo(_merchantTF.bottom).offset(48);
         make.left.equalTo(licenceLB.right).offset(24);
-        // make.width.equalTo(@278);
+       // make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
+  
     
-    
-    //******
+  //******
     
     UILabel *taxLB=[[UILabel alloc ] init];
     taxLB.font = FONT20;
@@ -225,7 +218,6 @@
     _taxTF.layer.cornerRadius = 3.0f;
     _taxTF.font = FONT20;
     _taxTF.placeholder = @"请输入税务证号";
-    _taxTF.textAlignment=NSTextAlignmentCenter;
     _taxTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _taxTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_taxTF];
@@ -233,7 +225,6 @@
         make.left.equalTo(taxLB.mas_right).offset(24);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
         make.right.equalTo(self.view.centerX).offset(-44);
-        // make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
@@ -244,7 +235,6 @@
     organzationLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:organzationLB];
     [organzationLB makeConstraints:^(MASConstraintMaker *make) {
-        // make.right.equalTo(_organzationTF.left).offset(-24);
         make.left.equalTo(self.view.centerX).offset(-20);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
         make.width.equalTo(@180);
@@ -260,21 +250,19 @@
     _organzationTF.layer.cornerRadius = 3.0f;
     _organzationTF.font = FONT20;
     _organzationTF.placeholder = @"请输入机构代码号";
-    _organzationTF.textAlignment=NSTextAlignmentCenter;
     _organzationTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _organzationTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_organzationTF];
     [_organzationTF makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.right).offset(-24);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
-        // make.width.equalTo(@278);
         make.left.equalTo(organzationLB.right).offset(24);
         make.height.equalTo(@42);
     }];
     
+
     
-    
-    //****
+  //****
     
     UILabel *locationLB=[[UILabel alloc ] init];
     locationLB.font = FONT20;
@@ -297,19 +285,17 @@
     _locationTF.layer.borderWidth = 1.0f;
     _locationTF.layer.cornerRadius = 3.0f;
     _locationTF.font = FONT20;
-    _locationTF.placeholder = @"请选择商户所在地";
-    _locationTF.textAlignment=NSTextAlignmentCenter;
+    _locationTF.placeholder = @"请选择";
     _locationTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _locationTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_locationTF];
     [_locationTF makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(locationLB.mas_right).offset(24);
         make.top.equalTo(_taxTF.bottom).offset(48);
-        // make.width.equalTo(@278);
         make.right.equalTo(self.view.centerX).offset(-44);
         make.height.equalTo(@42);
     }];
-    
+
     _locationBtn = [[UIButton alloc] init];
     _locationBtn.clipsToBounds = YES;
     _locationBtn.layer.cornerRadius = 3.0f;
@@ -320,9 +306,9 @@
         make.top.equalTo(_locationTF.top);
         make.height.equalTo(@42);
         make.right.equalTo(self.view.centerX).offset(-44);
-        // make.width.equalTo(@278);
-    }];
     
+    }];
+
     //***
     
     UILabel *bankLB=[[UILabel alloc ] init];
@@ -347,7 +333,6 @@
     _bankTF.layer.cornerRadius = 3.0f;
     _bankTF.font = FONT20;
     _bankTF.placeholder = @"请输入开户银行";
-    _bankTF.textAlignment=NSTextAlignmentCenter;
     _bankTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _bankTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_bankTF];
@@ -355,7 +340,6 @@
         make.left.equalTo(bankLB.mas_right).offset(24);
         make.top.equalTo(_locationTF.bottom).offset(48);
         make.right.equalTo(self.view.centerX).offset(-44);
-        // make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
@@ -366,14 +350,13 @@
     bank_IDLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:bank_IDLB];
     [bank_IDLB makeConstraints:^(MASConstraintMaker *make) {
-        //make.right.equalTo(_bank_IDTF.left).offset(-24);
         make.top.equalTo(_locationTF.bottom).offset(48);
         make.left.equalTo(self.view.centerX).offset(-20);
         make.width.equalTo(@180);
         make.height.equalTo(@42);
     }];
-    
-    
+
+
     _bank_IDTF = [[UITextField alloc] init];
     _bank_IDTF.delegate = self;
     _bank_IDTF.clipsToBounds = YES;
@@ -382,7 +365,6 @@
     _bank_IDTF.layer.cornerRadius = 3.0f;
     _bank_IDTF.font = FONT20;
     _bank_IDTF.placeholder = @"请输入银行许可证号";
-    _bank_IDTF.textAlignment=NSTextAlignmentCenter;
     _bank_IDTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _bank_IDTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_bank_IDTF];
@@ -393,7 +375,7 @@
         make.height.equalTo(@42);
     }];
     
-    
+ 
     //*****
     
     UILabel *frontImageLB=[[UILabel alloc ] init];
@@ -450,7 +432,7 @@
         make.height.equalTo(@80);
         
     }];
-    
+
     
     //////
     
@@ -509,9 +491,9 @@
         
     }];
     
-    
+
     //
-    
+
     UILabel *taxImageLB=[[UILabel alloc ] init];
     taxImageLB.font = FONT20;
     taxImageLB.text=@"税务照片";
@@ -597,7 +579,7 @@
     }];
     
     _saveBtn = [[UIButton alloc] init];
-    [_saveBtn setTitle:@"修改" forState:UIControlStateNormal];
+    [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
     _saveBtn.backgroundColor=[UIColor orangeColor];
     [ _saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _saveBtn.clipsToBounds = YES;
@@ -614,8 +596,8 @@
         make.width.equalTo(@117);
         make.height.equalTo(@40);
     }];
-    
-    
+
+
     _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [_saveBtn addSubview:_indicatorView];
     
@@ -627,18 +609,18 @@
     }];
     
     
-    
+
     _TAP = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchPressed:)];
     [_scrollView setUserInteractionEnabled:YES];
     [_scrollView addGestureRecognizer:_TAP];
-    
+
     
 }
 
 -(void)locationBtnPressed:(id)sender
 {
-    [self pickerScrollIn];
-    NSLog(@"11111222222");
+     [self pickerScrollIn];
+      NSLog(@"11111222222");
 }
 
 - (void)modifyLocation:(id)sender {
@@ -648,85 +630,68 @@
     NSString *cityName = [[self.cityArray objectAtIndex:index] objectForKey:@"name"];
     _locationTF.text = cityName;
     NSLog(@"cityname:%@",cityName);
-    
-}
 
+}
 
 
 -(void) touchPressed:(UITapGestureRecognizer *)t
 {
     //上传图片
-    NSString *key = nil;
-    BOOL hasImage = NO;
+      NSString *key = nil;
+      BOOL hasImage = NO;
     CGPoint point  = [t locationInView:self.view];
     if(CGRectContainsPoint(_frontImgv.frame, point))
     {
-        
-        key = key_frontImage;
-        hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
+         key = key_frontImage;
         [self selectedKey:key hasImage:hasImage];
-        
+       
     }
     else if(CGRectContainsPoint(_backImgv.frame, point))
     {
         key = key_backImage;
-        hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
-
         
     }
-    else if(CGRectContainsPoint(_bodyImgv.frame, point))
-    {
-        key = key_bodyImage;
-        hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
+     else if(CGRectContainsPoint(_bodyImgv.frame, point))
+     {
+         key = key_bodyImage;
+        [self selectedKey:key hasImage:hasImage];
+     }
+     else if(CGRectContainsPoint(_licenseImgv.frame, point))
+     {
+         key = key_licenseImage;
+        [self selectedKey:key hasImage:hasImage];
+     }
+     else if(CGRectContainsPoint(_taxImgv.frame, point))
+     {
+         key = key_taxImage;
+        [self selectedKey:key hasImage:hasImage];
+     }
+     else if(CGRectContainsPoint(_organzationImgv.frame, point))
+     {
+         key = key_organizationImage;
         [self selectedKey:key hasImage:hasImage];
 
-    }
-    else if(CGRectContainsPoint(_licenseImgv.frame, point))
-    {
-        key = key_licenseImage;
-        hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
+     }
+     else if(CGRectContainsPoint(_bankImgv.frame, point))
+     {
+         key = key_bankImage;
         [self selectedKey:key hasImage:hasImage];
 
-    }
-    else if(CGRectContainsPoint(_taxImgv.frame, point))
-    {
-        key = key_taxImage;
-        hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
-        [self selectedKey:key hasImage:hasImage];
-
-    }
-    else if(CGRectContainsPoint(_organzationImgv.frame, point))
-    {
-        key = key_organizationImage;
-        hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
-        [self selectedKey:key hasImage:hasImage];
-
-        
-    }
-    else if(CGRectContainsPoint(_bankImgv.frame, point))
-    {
-        key = key_bankImage;
-        hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
-        [self selectedKey:key hasImage:hasImage];
-
-        
-    }
+     }
    // hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
-   // [self selectedKey:key hasImage:hasImage];
-    
-}
+    //[self selectedKey:key hasImage:hasImage];
 
+}
 
 
 -(void)savePressed:(id)sender
 {
     
-    
+
     [_merchantTF becomeFirstResponder];
     [_merchantTF resignFirstResponder];
-    
-    /*
+    [self pickerScrollOut];
     if (!_merchantTF.text || [_merchantTF.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -855,39 +820,22 @@
         hud.labelText = @"请上传银行开户许可证照片";
         return;
     }
-    */
     
-    [self modifyUserInfo];
+    
+    [self requestForCreateMerchant];
     
 }
 
 
-- (MerchantDetailModel *)newMerchantInfo {
-           MerchantDetailModel *model = [[MerchantDetailModel alloc] init];
-            model.merchantID = _editmerchant.merchantID;
     
-            model.merchantName = _merchantTF.text;
-            model.merchantPersonName = _personTF.text;
-            model.merchantPersonID = _person_IDTF.text;
-            model.merchantBusinessID = _licenceTF.text;
-            model.merchantTaxID = _taxTF.text;
-            model.merchantOrganizationID = _organzationTF.text;
-            model.merchantCityID=_cityID;
-            model.merchantBank = _bankTF.text;
-            model.merchantBankID = _bank_IDTF.text;
-
-    return model;
-}
-
 
 #pragma mark - Request
 
-- (void)modifyUserInfo {
-    MerchantDetailModel *modifyModel = [self newMerchantInfo];
+- (void)requestForCreateMerchant {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface modifyMerchantWithToken:delegate.token merchantDetail:modifyModel finished:^(BOOL success, NSData *response) {
+    [NetworkInterface createMerchantWithToken:delegate.token userID:delegate.userID merchantName:_merchantTF.text personName:_personTF.text personID:_person_IDTF.text licenseID:_licenceTF.text taxID:_taxTF.text oraganID:_organzationTF.text cityID:_cityID bankName:_bankTF.text bankID:_bank_IDTF.text frontPath:[_imageDict objectForKey:key_frontImage] backPath:[_imageDict objectForKey:key_backImage] bodyPath:[_imageDict objectForKey:key_bodyImage] licensePath:[_imageDict objectForKey:key_licenseImage] taxPath:[_imageDict objectForKey:key_taxImage] orgPath:[_imageDict objectForKey:key_organizationImage] bankPath:[_imageDict objectForKey:key_bankImage] finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
@@ -900,10 +848,9 @@
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
-                    hud.labelText = @"修改商户成功";
-                  //  [self updateMerchant:modifyModel];
+                    hud.labelText = @"添加商户成功";
                     [self.navigationController popViewControllerAnimated:YES];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:EditMerchantInfoNotification object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshMerchantListNotification object:nil];
                 }
             }
             else {
@@ -917,41 +864,6 @@
     }];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    _merchantTF.text=_editmerchant.merchantName ;
-    _personTF.text=_editmerchant.merchantPersonName;
-    _person_IDTF.text=_editmerchant.merchantPersonID;
-    _licenceTF.text=_editmerchant.merchantBusinessID;
-    _taxTF.text=_editmerchant.merchantTaxID;
-    _organzationTF.text=_editmerchant.merchantOrganizationID;
-    _locationTF.text = [CityHandle getCityNameWithCityID:_editmerchant.merchantCityID];
-    _bankTF.text=_editmerchant.merchantBank;
-    _bank_IDTF.text=_editmerchant.merchantBankID;
-    
-    /*
-     [_frontImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_backImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_bodyImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_licenseImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_taxImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_organzationImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_bankImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-    */
-    
-    [_frontImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_backImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_bodyImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_licenseImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_taxImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_organzationImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_bankImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-
-
-}
-
-
-
 #pragma mark - UITextField
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -959,11 +871,11 @@
     return YES;
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 @end

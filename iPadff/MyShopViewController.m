@@ -13,7 +13,9 @@
 #import "AppDelegate.h"
 #import "RefreshView.h"
 #import "MerchantDetailViewController.h"
-#import "CreatMerchantViewController.h"
+#import "MerchantCell.h"
+#import "MerchantTitleCell.h"
+#import "CreateMerchantViewController.h"
 
 @interface MyShopViewController ()<UITableViewDataSource,UITableViewDelegate,RefreshDelegate>
 @property (nonatomic, strong) NSMutableArray *MerchantItems;
@@ -28,10 +30,17 @@
 @property (nonatomic, assign) CGFloat primaryOffsetY;
 @property (nonatomic, assign) int page;
 /********************************/
+@property (nonatomic, assign) NSArray *MerchantList;
+
+@property(strong,nonatomic) UIAlertView * alertView;
 
 @end
 
 @implementation MyShopViewController
+
+{
+    NSString *demerchant;
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -48,9 +57,9 @@
     [self initAndLayoutUI];
     [self firstLoadData];
     
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMerchantList:)
-     name:RefreshMerchantListNotification
-     object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMerchantList:)
+                                                 name:RefreshMerchantListNotification
+                                               object:nil];
     
     
 }
@@ -60,43 +69,70 @@
 {
     //创建头部View
     UIView *headerView = [[UIView alloc]init];
-    headerView.backgroundColor = kColor(255, 102, 36, 1);
-    headerView.frame = CGRectMake(160, 0, SCREEN_WIDTH-160.f, 80);
+    headerView.backgroundColor = [UIColor whiteColor];
+    headerView.frame = CGRectMake(160, 0, SCREEN_WIDTH-160.f, 60);
     if (iOS7) {
-        headerView.frame = CGRectMake(160, 0, SCREEN_HEIGHT - 160.f, 80);
+        headerView.frame = CGRectMake(160, 0, SCREEN_HEIGHT - 160.f, 60);
     }
     [self.view addSubview:headerView];
     
-    UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    deleteButton.frame = CGRectMake(SCREEN_WIDTH-280, 20, 40, 40);
-    [deleteButton setBackgroundImage:kImageName(@"merchant1.png") forState:UIControlStateNormal];
-    [deleteButton addTarget:self action:@selector(multiDelete:) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:deleteButton];
+    UILabel *titleLB = [[UILabel alloc] init];
+    [titleLB setBackgroundColor:[UIColor clearColor]];
+    [titleLB setFont:[UIFont systemFontOfSize:20]];
+    titleLB.textColor= [UIColor colorWithHexString:@"292929"];
+    titleLB.text=@"我的商户";
+    [headerView addSubview:titleLB];
+    [titleLB makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(headerView.centerY);
+        make.left.equalTo(headerView.left).offset(100);
+        make.width.equalTo(@120);
+        
+    }];
     
-    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addButton.frame = CGRectMake(SCREEN_WIDTH-340, 20, 40, 40);
-    [addButton setBackgroundImage:kImageName(@"merchant2.png") forState:UIControlStateNormal];
-    [addButton addTarget:self action:@selector(addMerchant:) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:addButton];
-   
+    
+    UIButton *addBtn = [[UIButton alloc] init];
+    addBtn.clipsToBounds = YES;
+    CALayer *readBtnLayer = [addBtn layer];
+    [readBtnLayer setMasksToBounds:YES];
+    [readBtnLayer setCornerRadius:2.0];
+    [readBtnLayer setBorderWidth:1.0];
+    [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+    addBtn.layer.cornerRadius = 3.0f;
+    [addBtn setTitle:@"创建商户资料" forState:UIControlStateNormal];
+    addBtn.backgroundColor=[UIColor clearColor];
+    [addBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [addBtn addTarget:self action:@selector(addMerchant:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:addBtn];
+    [addBtn makeConstraints:^(MASConstraintMaker *make) {
+        //make.top.equalTo(_backView.top).offset(5);
+        //make.left.equalTo(_backView.left).offset(5);
+        make.centerY.equalTo(headerView.centerY);
+        make.width.equalTo(@120);
+        make.right.equalTo(headerView.right).offset(-120);
+        make.height.equalTo(@50);
+    }];
+    
+    
 }
 
 #pragma mark - UI
 
 
 - (void)initAndLayoutUI {
-    //[self initNavigationBarView];
-    // [self initContentView];
+    
+    
     if(iOS7)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160, 80, SCREEN_HEIGHT-219, SCREEN_WIDTH)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60, SCREEN_HEIGHT-220-20*2, SCREEN_WIDTH)];
         
     }else
     {
-        // _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160, 80, SCREEN_WIDTH-160, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160, 80, SCREEN_WIDTH-219, SCREEN_HEIGHT)];
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT)];
         
     }
+    
+    
     
     //_tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.backgroundColor = [UIColor whiteColor];
@@ -105,7 +141,7 @@
     [self.view addSubview:_tableView];
     
     
-    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80,_tableView.frame.size.width, 80)];
+    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -60,_tableView.frame.size.width, 60)];
     _topRefreshView.direction = PullFromTop;
     _topRefreshView.delegate = self;
     [_tableView addSubview:_topRefreshView];
@@ -116,6 +152,33 @@
     _bottomRefreshView.hidden = YES;
     [_tableView addSubview:_bottomRefreshView];
     
+}
+
+-(void) delete:(MerchantModel *)model
+{
+    // 使用一个UIAlertView来显示用户选中的列表项
+    _alertView = [[UIAlertView alloc]
+                  initWithTitle:@"提示"
+                  message:[NSString stringWithFormat:@"删除当前商户"]
+                  delegate:nil
+                  cancelButtonTitle:@"取消"
+                  otherButtonTitles:@"确定", nil];
+    _alertView.delegate = self;
+    [_alertView show];
+    demerchant=[[NSString alloc] initWithString:model.merchantID];
+    //[self deleteMerchant:model.merchantID];
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (buttonIndex==1) {
+        
+       // [self deleteMerchant:model.merchantID];
+        [self deleteMerchant:demerchant];
+        
+    }
 }
 
 
@@ -178,6 +241,42 @@
 }
 
 
+- (void)deleteMerchant:(id )merchantId {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"删除中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface deleteMerchantWithToken:delegate.token merchantIDs:merchantId finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"删除商户成功";
+                   // [self.navigationController popViewControllerAnimated:YES];
+                   
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+
+
+
 #pragma mark - Refresh
 
 - (void)refreshViewReloadData {
@@ -229,115 +328,101 @@
         return;
     }
     //NSArray *MerchantList = [dict objectForKey:@"result"];
-    NSArray *MerchantList = [[dict objectForKey:@"result"] objectForKey:@"list"];
-    for (int i = 0; i < [MerchantList count]; i++) {
-        MerchantModel *model = [[MerchantModel alloc] initWithParseDictionary:[MerchantList objectAtIndex:i]];
+    // NSArray *MerchantList = [[dict objectForKey:@"result"] objectForKey:@"list"];
+    _MerchantList = [[dict objectForKey:@"result"] objectForKey:@"list"];
+    for (int i = 0; i < [_MerchantList count]; i++) {
+        MerchantModel *model = [[MerchantModel alloc] initWithParseDictionary:[_MerchantList objectAtIndex:i]];
         [_MerchantItems addObject:model];
     }
     NSLog(@"Items:%@",_MerchantItems);
     [_tableView reloadData];
 }
 
-#pragma mark - Action
 
-- (void)multiDelete:(id)sender {
-    self.isMultiDelete = !_isMultiDelete;
-}
 
 - (void)addMerchant:(id)sender {
-    CreatMerchantViewController *createVC = [[CreatMerchantViewController alloc] init];
+    CreateMerchantViewController *createVC = [[CreateMerchantViewController alloc] init];
+    createVC.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:createVC animated:YES];
 }
 
-- (void)setIsMultiDelete:(BOOL)isMultiDelete {
-    _isMultiDelete = isMultiDelete;
-    [_tableView setEditing:_isMultiDelete animated:YES];
-}
 
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return [_MerchantItems count];
+    if (section == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return [_MerchantItems count];
+    }
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     //标题Cell
-    static NSString *identifier = @"Merchant";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+    if (indexPath.section == 0)
+    {
+        
+        static NSString *identifier = @"Merchant";
+        MerchantTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[MerchantTitleCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        }
+        
+        return cell;
     }
-    MerchantModel *model = [_MerchantItems objectAtIndex:indexPath.row];
-    cell.textLabel.text = model.merchantName;
-    cell.detailTextLabel.text = model.merchantLegal;
-    cell.textLabel.textColor = kColor(108, 108, 108, 1);
-    cell.detailTextLabel.textColor = kColor(182, 182, 182, 1);
-    cell.textLabel.font = [UIFont systemFontOfSize:20.f];
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:20.f];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    return cell;
-    
+    else
+    {
+        //内容Cell
+        static NSString *identifier = @"Merchant";
+        MerchantModel *model = [_MerchantItems objectAtIndex:indexPath.row];
+        MerchantCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[MerchantCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+        }
+        [cell setMerchantModel:model andTarget:self];
+        
+        return cell;
+    }
 }
 
-/*
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    return 80;
-    
-}
-*/
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (_isMultiDelete) {
-        return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+    if (indexPath.section==0) {
+        
+        return 40;
+        
     }
-    else {
-        return UITableViewCellEditingStyleDelete;
+    else
+    {
+        return 80;
     }
+    
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"11111");
-    }
-    else if (editingStyle == 3) {
-        NSLog(@"33333");
-    }
-}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-     if (!self.isMultiDelete) {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MerchantModel *model = [_MerchantItems objectAtIndex:indexPath.row];
-    MerchantDetailViewController *detailVC = [[MerchantDetailViewController alloc] init];
-    detailVC.merchant = model;
-    detailVC.hidesBottomBarWhenPushed=YES;
-    [self.navigationController pushViewController:detailVC animated:YES];
-    
-     }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
+    if (!self.isMultiDelete) {
+        
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        MerchantModel *model = [_MerchantItems objectAtIndex:indexPath.row];
+        MerchantDetailViewController *detailVC = [[MerchantDetailViewController alloc] init];
+        detailVC.merchant = model;
+        detailVC.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:detailVC animated:YES];
+        
     }
 }
 
