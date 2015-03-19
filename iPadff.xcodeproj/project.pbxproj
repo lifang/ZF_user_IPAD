@@ -29,6 +29,7 @@
 		0D714C6A1AB2ED20007FF2C5 /* EditMerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */; };
 		0D714C6F1AB320BC007FF2C5 /* merchant1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */; };
 		0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C701AB320CA007FF2C5 /* merchant2@2x.png */; };
+		0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D91F66C1ABA7B74004EB428 /* BaseApi.m */; };
 		0EBBC5851AB13A8400E0ED16 /* typekill.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5841AB13A8400E0ED16 /* typekill.png */; };
 		0EBBC5871AB1573500E0ED16 /* yellowback.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5861AB1573500E0ED16 /* yellowback.png */; };
 		0EBBC58E1AB1660400E0ED16 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5891AB1660400E0ED16 /* OrderDetailController.m */; };
@@ -305,6 +306,8 @@
 		0D714C691AB2ED20007FF2C5 /* EditMerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditMerchantViewController.m; sourceTree = "<group>"; };
 		0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchant1@2x.png"; sourceTree = "<group>"; };
 		0D714C701AB320CA007FF2C5 /* merchant2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchant2@2x.png"; sourceTree = "<group>"; };
+		0D91F66B1ABA7B74004EB428 /* BaseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApi.h; sourceTree = "<group>"; };
+		0D91F66C1ABA7B74004EB428 /* BaseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseApi.m; sourceTree = "<group>"; };
 		0EBBC5841AB13A8400E0ED16 /* typekill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typekill.png; sourceTree = "<group>"; };
 		0EBBC5861AB1573500E0ED16 /* yellowback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowback.png; sourceTree = "<group>"; };
 		0EBBC5881AB1660400E0ED16 /* OrderDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
@@ -800,6 +803,15 @@
 			name = Merchant;
 			sourceTree = "<group>";
 		};
+		0D91F66A1ABA7B42004EB428 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0D91F66B1ABA7B74004EB428 /* BaseApi.h */,
+				0D91F66C1ABA7B74004EB428 /* BaseApi.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
 		0EC99CA01AAFE67500D20386 /* KxMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1138,6 +1150,7 @@
 		0ED6ACF71AA16EB000D3B025 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0D91F66A1ABA7B42004EB428 /* Base */,
 				0D38872A1AB96F98000DF1D6 /* HexColors */,
 				0D3887041AB96F8E000DF1D6 /* Masonry */,
 				0EC99CA01AAFE67500D20386 /* KxMenu */,
@@ -1856,6 +1869,7 @@
 				1AA8FF741AA4074D009D41B3 /* SDWebImageManager.m in Sources */,
 				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
+				0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */,
 				0D38873C1AB970D7000DF1D6 /* CreateMerchantViewController.m in Sources */,
 				0ECE7DCE1AA55E4500E250B6 /* SortView.m in Sources */,
 				1A5E104F1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m in Sources */,

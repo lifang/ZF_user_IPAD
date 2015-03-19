@@ -476,7 +476,8 @@
 
 //上拉加载
 - (void)pullUpToLoadData {
-    [self downloadDataWithPage:self.page isMore:YES];
+   // [self downloadDataWithPage:self.page isMore:YES];
+    NSLog(@"上拉加载");
 }
 
 #pragma mark - NSNotification
