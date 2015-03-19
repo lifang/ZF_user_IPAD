@@ -24,7 +24,7 @@
 
 #import "GoodsCollectionViewCell2.h"
 
-@interface GoodListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate,SortViewDelegate>
+@interface GoodListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate,SortViewDelegate,SearchDelegate>
 
 @property (nonatomic, strong) ZFSearchBar *searchBar;
 
@@ -88,6 +88,11 @@
 }
 
 #pragma mark - UI
+- (void)getSearchKeyword:(NSString *)keyword {
+    _keyword = keyword;
+    _searchBar.text = _keyword;
+    [self firstLoadData];
+}
 
 - (void)initAndLayoutUI {
     //导航栏
@@ -97,9 +102,24 @@
 }
 
 - (void)initNavigationBarView {
-   
     
-    _searchBar = [[ZFSearchBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    
+    _searchBar = [[ZFSearchBar alloc] initWithFrame:CGRectMake(0, 0, wide, 30)];
     _searchBar.delegate = self;
     
     self.navigationItem.titleView = _searchBar;
@@ -216,7 +236,7 @@
     
     
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
-//    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, -40);//设置其边
+   flowLayout.sectionInset = UIEdgeInsetsMake(20, 0, 0, 0);//设置其边
     
     
     
@@ -687,10 +707,13 @@
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     SearchViewController *searchC = [[SearchViewController alloc] init];
+    searchC.delegate = self;
+    searchC.keyword = _keyword;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchC];
     [NavigationBarAttr setNavigationBarStyle:nav];
     [self presentViewController:nav animated:NO completion:nil];
     return NO;
+
 }
 
 #pragma mark - SortViewDelegate

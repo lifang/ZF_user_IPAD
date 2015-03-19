@@ -29,10 +29,10 @@
     _scrollView.backgroundColor = [UIColor blackColor];
     [self addSubview:_scrollView];
     
-    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20)];
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height -20, self.bounds.size.width, 20)];
     _pageControl.userInteractionEnabled = NO;
-    _pageControl.pageIndicatorTintColor = [UIColor colorWithPatternImage:kImageName(@"doc_unselected.png")];
-    _pageControl.currentPageIndicatorTintColor = [UIColor colorWithPatternImage:kImageName(@"doc_selected.png")];
+   _pageControl.pageIndicatorTintColor = [UIColor grayColor];
+    _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
     [self addSubview:_pageControl];
 }
 

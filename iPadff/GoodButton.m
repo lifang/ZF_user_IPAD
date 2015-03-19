@@ -11,7 +11,7 @@
 @implementation GoodButton
 
 - (void)setButtonAttrWithTitle:(NSString *)title {
-    self.titleLabel.font = [UIFont systemFontOfSize:14.f];
+    self.titleLabel.font = [UIFont systemFontOfSize:17.f];
     [self setTitleColor:kColor(84, 83, 83, 1) forState:UIControlStateNormal];
     [self setTitle:title forState:UIControlStateNormal];
     self.layer.borderWidth = 1.0f;

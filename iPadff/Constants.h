@@ -32,6 +32,12 @@
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
+
+
+
+
+
+
 #define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]
 #define NavTitle_FONT(s) [UIFont fontWithName:@"[STHeitiSC](Medium)" size:s]
 

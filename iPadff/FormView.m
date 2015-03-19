@@ -25,10 +25,26 @@
 - (void)createFormWithTitle:(NSString *)formTitle
                      column:(NSArray *)titleArray
                     content:(NSArray *)itemArray {
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+
     CGFloat borderSpace = 20.f;
     NSInteger columnCount = [titleArray count];
     NSInteger itemCount = [itemArray count];
-    CGFloat itemWidth = (kScreenWidth - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
+    CGFloat itemWidth = (wide - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
     
     UIImageView *pointView = [[UIImageView alloc] init];
     pointView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -300,10 +316,26 @@
 
 - (void)createFormWithColumn:(NSArray *)titleArray
                     content:(NSArray *)itemArray {
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+
     CGFloat borderSpace = 20.f;
     NSInteger columnCount = [titleArray count];
     NSInteger itemCount = [itemArray count];
-    CGFloat itemWidth = (kScreenWidth - 550 - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
+    CGFloat itemWidth = (wide - 550 - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
     //竖线
     CGFloat lineHeight = menuHeight + itemCount * (contentHeight + kLineHeight) + kLineHeight * 2;
     

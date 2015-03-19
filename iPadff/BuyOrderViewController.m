@@ -726,9 +726,24 @@
 
 
 - (void)pickerScrollOut {
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
+        _toolbar.frame = CGRectMake(0, kScreenHeight, wide, 44);
+        _pickerView.frame = CGRectMake(0, kScreenHeight, wide, 216);
     }];
 }
 - (void)addAddress {
@@ -853,7 +868,7 @@
     }else
     {
         
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 140.f)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 140.f)];
         footerView.backgroundColor = [UIColor whiteColor];
         self.billBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.billBtn.frame = CGRectMake(20, 10, 28, 28);
@@ -869,7 +884,7 @@
         [self.billBtn addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:self.billBtn];
         
-        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, kScreenWidth - 40, 20)];
+        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, wide - 40, 20)];
         billLabel.backgroundColor = [UIColor clearColor];
         billLabel.font = [UIFont systemFontOfSize:16.f];
         billLabel.text = @"我要发票";
@@ -967,7 +982,7 @@
     }
     
     CGFloat billHeight = 44.f;
-    UIView *billView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, kScreenWidth, billHeight)];
+    UIView *billView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, wide, billHeight)];
     billView.backgroundColor = [UIColor whiteColor];
     //    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.5)];
     //    firstLine.backgroundColor = kColor(135, 135, 135, 1);
@@ -1167,7 +1182,7 @@
             [cell.contentView addSubview:priceLabel];
             priceLabel.textAlignment = NSTextAlignmentRight;
             
-            self.reviewField.frame = CGRectMake(10, 40, kScreenWidth - 20, 32);
+            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
             [cell.contentView addSubview:self.reviewField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
