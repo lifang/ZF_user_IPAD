@@ -39,8 +39,8 @@ static NSString *key_bankImage = @"key_bankImage";
 
 - (void)modifyLocation:(id)sender;
 
-- (void)pickerScrollIn;
-- (void)pickerScrollOut;
+- (void)pickerHide;
+- (void)pickerDisplay;
 
 
 @end

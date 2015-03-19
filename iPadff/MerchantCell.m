@@ -24,7 +24,7 @@
     
         _titleLB = [[UILabel alloc] init];
         [_titleLB setBackgroundColor:[UIColor clearColor]];
-        [_titleLB setFont:[UIFont systemFontOfSize:14]];
+        [_titleLB setFont:[UIFont systemFontOfSize:20]];
         _titleLB.textColor= [UIColor colorWithHexString:@"292929"];
         [_backView addSubview:_titleLB];
         [_titleLB makeConstraints:^(MASConstraintMaker *make) {

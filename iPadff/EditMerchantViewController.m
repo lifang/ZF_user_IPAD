@@ -637,12 +637,12 @@
 
 -(void)locationBtnPressed:(id)sender
 {
-    [self pickerScrollIn];
+    [self pickerDisplay];
     NSLog(@"11111222222");
 }
 
 - (void)modifyLocation:(id)sender {
-    [self pickerScrollOut];
+    [self pickerHide];
     NSInteger index = [self.pickerView selectedRowInComponent:1];
     _cityID = [NSString stringWithFormat:@"%@",[[self.cityArray objectAtIndex:index] objectForKey:@"id"]];
     NSString *cityName = [[self.cityArray objectAtIndex:index] objectForKey:@"name"];

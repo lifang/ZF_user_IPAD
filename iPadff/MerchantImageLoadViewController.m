@@ -12,7 +12,7 @@
 @interface MerchantImageLoadViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate>
 
 
-
+@property(nonatomic,strong) UIPopoverController *popViewController;
 
 @end
 
@@ -82,7 +82,7 @@
 
 - (void)modifyLocation:(id)sender {
     //重写
-    
+   
 }
 
 
@@ -136,7 +136,7 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
                 popover.popoverContentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
-                [popover presentPopoverFromRect:CGRectMake(0, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                [popover presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 
                 //[self presentViewController:imagePickerController animated:YES completion:nil];
             }];
@@ -144,7 +144,7 @@
         }
         else
         {
-            [popover presentPopoverFromRect:CGRectMake(0, 0, 0, 0) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            [popover presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }
     
@@ -198,9 +198,9 @@
 
 #pragma mark - UIPickerView
 
-- (void)pickerScrollIn {
+- (void)pickerDisplay {
     
-    NSLog(@"SrollIn");
+    NSLog(@"pickerDiplay");
     
     UIViewController *sortViewController = [[UIViewController alloc] init];
     UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
@@ -209,7 +209,7 @@
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
                                                                    style:UIBarButtonItemStyleDone
                                                                   target:self
-                                                                  action:@selector(pickerScrollOut)];
+                                                                  action:@selector(pickerHide)];
     UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
                                                                    style:UIBarButtonItemStyleDone
                                                                   target:self
@@ -228,20 +228,21 @@
     
     sortViewController.view = theView;
     
-    UIPopoverController *popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
-    [popViewController setPopoverContentSize:CGSizeMake(320, 276) animated:YES];
-    [popViewController presentPopoverFromRect:CGRectMake(100, 40, 320, 276) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    popViewController.delegate = self;
+    //UIPopoverController *popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 216) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(100, 40, 320, 276) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
     
     
 }
 
-- (void)pickerScrollOut
+- (void)pickerHide
 {
-    NSLog(@"SH");
+    
+    [_popViewController dismissPopoverAnimated:NO];
     
 }
-
 
 
 - (void)didReceiveMemoryWarning {
