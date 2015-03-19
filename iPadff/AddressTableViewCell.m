@@ -17,6 +17,7 @@
 @synthesize logoabel;
 @synthesize smalltView;
 @synthesize citylable;
+@synthesize linlable;
 
 @synthesize phonelable;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -68,7 +69,7 @@
         [self addSubview:namelabel];
         
         // Initialization code
-        citylable=[[UILabel alloc]initWithFrame:CGRectMake(170, 5, 100, 30)];
+        citylable=[[UILabel alloc]initWithFrame:CGRectMake(210, 5, 100, 30)];
         citylable.numberOfLines=0;
         
         citylable.backgroundColor=[UIColor clearColor];
@@ -104,7 +105,14 @@
         [self addSubview:phonelable];
        
         
+        linlable  = [[UILabel alloc] initWithFrame:CGRectMake(0, 39, wide, 1)];
         
+        
+        linlable.backgroundColor=[UIColor grayColor];
+        
+        
+        [self addSubview:linlable];
+
         
         
         

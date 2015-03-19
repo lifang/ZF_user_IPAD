@@ -34,9 +34,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+
+       [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
     [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
-    
+
     // Do any additional setup after loading the view.
 }
 
@@ -48,17 +49,20 @@
 #pragma mark - Request
 #pragma mark - Request
 - (IBAction)needBill:(id)sender {
-    self.billBtn.selected = !self.billBtn.selected;
-    [self btnSetSelected];
+    isneedpp = !isneedpp;
+    [self.tableView reloadData];
+    NSLog(@"%d",self.billBtn.selected);
+    
+
 }
-- (void)btnSetSelected {
-    if ( self.billBtn.selected) {
-        [ self.billBtn setBackgroundImage:kImageName(@"btn_selected.png") forState:UIControlStateNormal];
-    }
-    else {
-        [self.billBtn setBackgroundImage:kImageName(@"btn_unselected.png") forState:UIControlStateNormal];
-    }
-}
+//- (void)btnSetSelected {
+//    if ( self.billBtn.selected) {
+//        [ self.billBtn setBackgroundImage:kImageName(@"btn_selected.png") forState:UIControlStateNormal];
+//    }
+//    else {
+//        [self.billBtn setBackgroundImage:kImageName(@"btn_unselected.png") forState:UIControlStateNormal];
+//    }
+//}
 - (IBAction)billType:(id)sender {
     NSMutableArray *listArray = [NSMutableArray arrayWithObjects:
                                  [KxMenuItem menuItem:@"公司"
@@ -102,7 +106,7 @@
     }
     //是否需要发票
     int needInvoice = 0;
-    if (self.billBtn.isSelected) {
+    if (isneedpp) {
         needInvoice = 1;
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -305,12 +309,12 @@
         
         goodslable.text=@"商品";
         
-        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2, 0, 60, 20)];
+        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-20, 0, 100, 20)];
         [rootview addSubview:phonelable];
         phonelable.textAlignment = NSTextAlignmentCenter;
         
         phonelable.text=@"单价";
-        UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(900, 0, 80, 20)];
+        UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120, 0, 80, 20)];
         [rootview addSubview:numberlable];
         numberlable.textAlignment = NSTextAlignmentCenter;
         
@@ -348,7 +352,7 @@
 
     UIView*witeview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, wide/2, wide/2)];
     witeview.backgroundColor=[UIColor whiteColor];
-    witeview.center=CGPointMake(wide/2, height/2);
+    witeview.center=CGPointMake(wide/2, height/2-120);
     witeview.alpha=1;
 
     [bigsview addSubview:witeview];
@@ -379,7 +383,7 @@
     {
    
     
-        UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(20, i*50+60,100, 30)];
+        UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(20, i*50+60,100, 40)];
         [witeview addSubview:newaddress];
         newaddress.textAlignment = NSTextAlignmentCenter;
         
@@ -388,20 +392,32 @@
         if(i==3)
         {
             _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
-            _cityField.frame = CGRectMake(140, i*50+60,280, 30);
+            _cityField.frame = CGRectMake(140, i*50+60,280, 40);
             
 //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
             [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[_cityField  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
             _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            [_cityField setBackgroundImage:kImageName(@"city") forState:UIControlStateNormal];
+            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+
             
             [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
             [witeview addSubview:_cityField];
         }
         else
         {
-            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(140, i*50+60,280, 30)];
+            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(140, i*50+60,280, 40)];
             neworiginaltextfield.tag=i+1056;
             
             [witeview addSubview:neworiginaltextfield];
@@ -424,11 +440,11 @@
     }
 
      defaultbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    defaultbutton.frame = CGRectMake(  30, 300, 30, 30);
+    defaultbutton.frame = CGRectMake(  35, 320, 30, 30);
     [defaultbutton setImage:kImageName(@"select_normal") forState:UIControlStateNormal];
     [defaultbutton addTarget:self action:@selector(setDefaultAddress) forControlEvents:UIControlEventTouchUpInside];
     [witeview addSubview:defaultbutton];
-    UILabel*defaultlable=[[UILabel alloc]initWithFrame:CGRectMake(60, 300,100, 30)];
+    UILabel*defaultlable=[[UILabel alloc]initWithFrame:CGRectMake(60, 320,100, 30)];
     [witeview addSubview:defaultlable];
     defaultlable.textAlignment = NSTextAlignmentCenter;
    defaultlable .font = [UIFont systemFontOfSize:14.f];
@@ -436,8 +452,8 @@
     defaultlable.text=@"设为默认地址";
 
     UIButton*savebutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    savebutton.frame = CGRectMake(  40, 340, 100, 30);
-    savebutton.center=CGPointMake(wide/4, 380);
+    savebutton.frame = CGRectMake(  40, 400, 100, 30);
+    savebutton.center=CGPointMake(wide/4, 420);
 //    savebutton.layer.cornerRadius=10;
     
     [savebutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
@@ -621,14 +637,15 @@
     if (component == 0) {
         //省
         [_pickerView reloadComponent:1];
+
     }
     else {
         
         [_cityField setTitle:[[_cityArray objectAtIndex:row] objectForKey:@"name"] forState:UIControlStateNormal];
         _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:row] objectForKey:@"id"]];
+        
 
     }
-    NSLog(@"%@",_selectedCityID);
     
     
 }
@@ -671,6 +688,7 @@
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
                     [[NSNotificationCenter defaultCenter] postNotificationName:RefreshAddressListNotification object:nil];
+                    [self  getAddressLists];
                     
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                                     message:@"新增地址成功"
@@ -732,7 +750,7 @@ if(section==0)
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
     footerView.backgroundColor = [UIColor whiteColor];
     UIButton*addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addressmangerbutton.frame = CGRectMake(wide-120, 10, 80, 40);
+    addressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
 //    [addressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:addressmangerbutton];
 //    addressmangerbutton.layer.cornerRadius = 4.f;
@@ -742,7 +760,7 @@ if(section==0)
     addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     
     UIButton*newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    newaddressmangerbutton.frame = CGRectMake(wide-220, 10, 80, 40);
+    newaddressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
     [addressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:newaddressmangerbutton];
 //    newaddressmangerbutton.layer.cornerRadius = 4.f;
@@ -765,14 +783,21 @@ if(section==0)
     footerView.backgroundColor = [UIColor whiteColor];
     self.billBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.billBtn.frame = CGRectMake(20, 10, 28, 28);
-    [self.billBtn setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
-    [self.billBtn setBackgroundImage:kImageName(@"select_height") forState:UIControlStateHighlighted];
+
+    
+    if ( isneedpp) {
+        [ self.billBtn setBackgroundImage:kImageName(@"btn_selected.png") forState:UIControlStateNormal];
+    }
+    else {
+        [self.billBtn setBackgroundImage:kImageName(@"btn_unselected.png") forState:UIControlStateNormal];
+    }
+  
     [self.billBtn addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:self.billBtn];
     
     UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, kScreenWidth - 40, 20)];
     billLabel.backgroundColor = [UIColor clearColor];
-    billLabel.font = [UIFont systemFontOfSize:13.f];
+    billLabel.font = [UIFont systemFontOfSize:16.f];
     billLabel.text = @"我要发票";
     billLabel.userInteractionEnabled = YES;
     [footerView addSubview:billLabel];
@@ -795,6 +820,61 @@ if(section==0)
     
 
 
+}
+
+- (void)getAddressLists {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface getAddressListWithToken:delegate.token usedID:delegate.userID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    [addressarry removeAllObjects];
+
+                    [self parseAddressListDataWithDicts:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+#pragma mark - Data
+
+- (void)parseAddressListDataWithDicts:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+        return;
+    }
+    NSArray *addressList = [dict objectForKey:@"result"];
+    
+    for (int i = 0; i < [addressList count]; i++) {
+        NSDictionary *addressDict = [addressList objectAtIndex:i];
+        
+        
+        AddressModel *model = [[AddressModel alloc] initWithParseDictionary:addressDict];
+        [addressarry addObject:model];
+        
+    }
+    [self.tableView reloadData];
+    
 }
 - (UIView *)addBillView {
     CGFloat wide;
@@ -823,16 +903,16 @@ if(section==0)
 //    secondLine.backgroundColor = kColor(135, 135, 135, 1);
 //    [billView addSubview:secondLine];
 //
-    UILabel *typebillLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 30)];
+    UILabel *typebillLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 80, 40)];
     //    billLabel.font = [UIFont systemFontOfSize:13.f];
     typebillLabel.text = @"发票类型";
     [billView addSubview:typebillLabel];
     _typeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _typeBtn.frame = CGRectMake(100, 10, 100, 34);
+    _typeBtn.frame = CGRectMake(100, 20, 120, 44);
     _typeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     _typeBtn.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
 
-    _typeBtn.titleLabel.font = [UIFont systemFontOfSize:13.f];
+    _typeBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [_typeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_typeBtn setTitle:@"公司" forState:UIControlStateNormal];
     [_typeBtn setBackgroundImage:kImageName(@"typekill") forState:UIControlStateNormal];
@@ -842,19 +922,19 @@ if(section==0)
     [billView addSubview:_typeBtn];
     
     
-    UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 5, 80, 30)];
+    UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 20, 80, 44)];
     billLabel.backgroundColor = [UIColor clearColor];
-//    billLabel.font = [UIFont systemFontOfSize:13.f];
+   billLabel.font = [UIFont systemFontOfSize:16.f];
     billLabel.text = @"发票抬头";
     billLabel.userInteractionEnabled = YES;
     [billView addSubview:billLabel];
-    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 0, wide/2 - 120, billHeight)];
+    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 120, billHeight)];
     self.billField .delegate = self;
     self.billField .placeholder = @"     请输入发票抬头";
     
 //  self.billField.textInputMode= UIEdgeInsetsMake(0, 0, 0, 10);
 
-    self.billField .font = [UIFont systemFontOfSize:14.f];
+    self.billField .font = [UIFont systemFontOfSize:16.f];
     self.billField .clearButtonMode = UITextFieldViewModeWhileEditing;
     [billView addSubview:self.billField ];
     CALayer *layer=[self.billField  layer];
@@ -894,6 +974,7 @@ if(section==0)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     [self setContentsForControls];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     if(indexPath.section==0)
     {
@@ -907,10 +988,14 @@ if(section==0)
             cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
         }
         AddressModel *model =[addressarry objectAtIndex:indexPath.row];
+        
         cell.namelabel.text=model.addressReceiver;
         cell.addresslable.text=model.address;
         cell.phonelable.text=model.addressPhone;
         cell.postlable.text=model.zipCode;
+        cell.citylable.text=[CityHandle getCityNameWithCityID:model.cityID];
+
+        
         if(B>0)
         {if(indexPath.row==B-1)
         {
@@ -959,24 +1044,6 @@ if(section==0)
     
         if (indexPath.row == [_shoppingCartItem count]) {
             //最后一行
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-            int count = [self getSummaryCount];
-            CGFloat price = [self getSummaryPrice];
-            UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 130, 30)];
-            totalLabel.backgroundColor = [UIColor clearColor];
-//            totalLabel.font = [UIFont systemFontOfSize:11.f];
-            totalLabel.adjustsFontSizeToFitWidth = YES;
-            totalLabel.text = [NSString stringWithFormat:@"共计：%d件商品",count];
-            [cell.contentView addSubview:totalLabel];
-            
-            UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 20, 130, 30)];
-            deliveryLabel.backgroundColor = [UIColor clearColor];
-//            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
-            deliveryLabel.adjustsFontSizeToFitWidth = YES;
-            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"123"];
-            [cell.contentView addSubview:deliveryLabel];
-            
-            
             CGFloat wide;
             CGFloat height;
             if(iOS7)
@@ -992,15 +1059,44 @@ if(section==0)
                 
             }
 
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            int count = [self getSummaryCount];
+            CGFloat price = [self getSummaryPrice];
+            
+            
+            UILabel *totalLabels = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, wide-40, 30)];
+            totalLabels.backgroundColor = kColor(235, 233, 233, 1);
+            //            totalLabel.font = [UIFont systemFontOfSize:11.f];
+            [cell.contentView addSubview:totalLabels];
+            
+            UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 130, 30)];
+            totalLabel.backgroundColor = [UIColor clearColor];
+//            totalLabel.font = [UIFont systemFontOfSize:11.f];
+            totalLabel.adjustsFontSizeToFitWidth = YES;
+            totalLabel.text = [NSString stringWithFormat:@"共计：%d件商品",count];
+            [cell.contentView addSubview:totalLabel];
+            
+            UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(160, 20, 130, 30)];
+            deliveryLabel.backgroundColor = [UIColor clearColor];
+//            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
+            deliveryLabel.adjustsFontSizeToFitWidth = YES;
+            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"123"];
+            [cell.contentView addSubview:deliveryLabel];
+            
+            
+            
             UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-200, 20,180, 30)];
             priceLabel.backgroundColor = [UIColor clearColor];
 //            priceLabel.font = [UIFont boldSystemFontOfSize:12.f];
             priceLabel.adjustsFontSizeToFitWidth = YES;
             priceLabel.text = [NSString stringWithFormat:@"合计：￥%.2f",price];
             [cell.contentView addSubview:priceLabel];
-            
+            priceLabel.textAlignment = NSTextAlignmentRight;
+
             self.reviewField.frame = CGRectMake(10, 40, kScreenWidth - 20, 32);
             [cell.contentView addSubview:self.reviewField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
             return cell;
         }
         else {
@@ -1017,6 +1113,15 @@ if(section==0)
             cell.channelLabel.text = [NSString stringWithFormat:@"支付通道 %@",model.cartChannel];
             [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.cartImagePath]
                                 placeholderImage:kImageName(@"test1.png")];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+           
+            
+
+           
+
+           
+
             return cell;
         }
 

@@ -48,7 +48,8 @@
     NSArray *array = [NSArray arrayWithObjects:navController3,navController,navController4,navController2,nil];
     //释放
 
-    
+//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+
     //创建一个自定义的TabBar
     self.tabBarViewController = [[ZYCustomTabBarViewController alloc] init];
     //给TabBar的视图数组赋值

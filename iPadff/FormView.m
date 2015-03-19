@@ -527,9 +527,19 @@
     NSMutableArray *contentArray = [[NSMutableArray alloc] init];
     for (GoodRateModel *model in detailItems) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:model.rateName forKey:@"0"];
+        if (model.rateName) {
+            [dict setObject:model.rateName forKey:@"0"];
+        }
+        else {
+            [dict setObject:@"" forKey:@"0"];
+        }
         [dict setObject:[NSString stringWithFormat:@"%@%%",model.ratePercent] forKey:@"1"];
-        [dict setObject:model.rateDescription forKey:@"2"];
+        if (model.rateDescription) {
+            [dict setObject:model.rateDescription forKey:@"2"];
+        }
+        else {
+            [dict setObject:@"" forKey:@"2"];
+        }
         [contentArray addObject:dict];
     }
     [self createFormWithTitle:formTitle column:titleArray content:contentArray];

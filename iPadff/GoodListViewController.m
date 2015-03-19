@@ -104,6 +104,7 @@
     
     self.navigationItem.titleView = _searchBar;
     
+    self.view.backgroundColor=[UIColor whiteColor];
     
     
     UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -123,10 +124,10 @@
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                target:nil
                                                                                action:nil];
-    spaceItem.width = 30;
+    spaceItem.width = 52;
     UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
     UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:filterButton];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,shoppingItem,filterItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,shoppingItem,spaceItem,filterItem, spaceItem,nil];
 }
 
 - (void)setHeaderAndFooterView {
@@ -215,7 +216,7 @@
     
     
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
-    flowLayout.sectionInset = UIEdgeInsetsMake(10, 20, 30, 20);//设置其边
+//    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, -40);//设置其边
     
     
     
@@ -227,12 +228,12 @@
     
     [_tableView registerClass:[GoodsCollectionViewCell2 class] forCellWithReuseIdentifier:@"myCells"];
 
-    [flowLayout setItemSize:CGSizeMake(120, 170)];//设置cell的尺寸
+    [flowLayout setItemSize:CGSizeMake(220, 320)];//设置cell的尺寸
 
     
     
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableView.backgroundColor = kColor(244, 243, 243, 1);
+    _tableView.backgroundColor =[UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
 //    [self setHeaderAndFooterView];
@@ -253,13 +254,29 @@
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
-                                                          attribute:NSLayoutAttributeRight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeRight
-                                                         multiplier:1.0
-                                                           constant:0]];
+    if(changA==8)
+    {
+        
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                              attribute:NSLayoutAttributeRight
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.view
+                                                              attribute:NSLayoutAttributeRight
+                                                             multiplier:1.0
+                                                               constant:-20]];
+    }else
+    {
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                              attribute:NSLayoutAttributeRight
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.view
+                                                              attribute:NSLayoutAttributeRight
+                                                             multiplier:1.0
+                                                               constant:0]];
+    
+    }
+   
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
@@ -302,6 +319,8 @@
 }
 -(void)change8
 {
+   
+
     changA=9;
 
     [button1 setImage:[UIImage imageNamed:@"9kind_normal"] forState:UIControlStateNormal];
@@ -312,14 +331,14 @@
         
     {
     
-        [flowLayout setItemSize:CGSizeMake(SCREEN_HEIGHT, 120)];//设置cell的尺寸
+        [flowLayout setItemSize:CGSizeMake(SCREEN_HEIGHT, 150)];//设置cell的尺寸
 
     }
     else
         
     {
     
-        [flowLayout setItemSize:CGSizeMake(SCREEN_WIDTH, 120)];//设置cell的尺寸
+        [flowLayout setItemSize:CGSizeMake(SCREEN_WIDTH, 150)];//设置cell的尺寸
 
     }
 
@@ -330,7 +349,7 @@
 {
     changA=8;
     
-    [flowLayout setItemSize:CGSizeMake(120, 170)];//设置cell的尺寸
+    [flowLayout setItemSize:CGSizeMake(220, 320)];//设置cell的尺寸
 
     [button2 setImage:[UIImage imageNamed:@"8kind_normal"] forState:UIControlStateNormal];
 

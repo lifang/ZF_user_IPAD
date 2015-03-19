@@ -551,6 +551,8 @@
     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
     payWayC.orderID = _selectedModel.orderID;
     payWayC.totalPrice = _selectedModel.orderTotalPrice;
+    payWayC.hidesBottomBarWhenPushed =  YES ;
+
     [self.navigationController pushViewController:payWayC animated:YES];
 }
 

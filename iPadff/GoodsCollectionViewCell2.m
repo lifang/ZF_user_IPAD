@@ -24,7 +24,7 @@
 - (void)initAndLayoutUI {
     
     //图片框
-    _pictureView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 110, 110)];
+    _pictureView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 220, 220)];
     [self.contentView addSubview:_pictureView];
         //标题
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_pictureView.frame.origin.x, _pictureView.frame.origin.y+_pictureView.frame.size.height, _pictureView.frame.size.width, 20)];

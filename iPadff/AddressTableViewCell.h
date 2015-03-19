@@ -18,4 +18,6 @@
 @property (nonatomic, retain)UILabel *postlable;
 @property (nonatomic, retain)UIView *smalltView;
 @property (nonatomic, retain)UILabel *phonelable;
+@property (nonatomic, retain)UILabel *linlable;
+
 @end

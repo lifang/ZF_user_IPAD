@@ -664,8 +664,8 @@
 
         _lowField.font = [UIFont systemFontOfSize:14.f];
         _lowField.backgroundColor = [UIColor clearColor];
-        _lowField.textAlignment = NSTextAlignmentCenter;
-        _lowField.placeholder = @"0  ";
+        _lowField.textAlignment = NSTextAlignmentRight;
+//        _lowField.placeholder = @"0    ";
         _lowField.delegate = self;
         CALayer *layer=[_lowField layer];
         //是否设置边框以及是否可见
@@ -689,12 +689,12 @@
 
         _highField.font = [UIFont systemFontOfSize:14.f];
         _highField.backgroundColor = [UIColor clearColor];
-        _highField.placeholder = @"0 ";
+//        _highField.placeholder = @"0   ";
         _highField.delegate = self;
 
-        _lowField.text = [NSString stringWithFormat:@"%d    ",[[_filterDict objectForKey:s_minPrice] intValue]];
-        _highField.text = [NSString stringWithFormat:@"%d   ",[[_filterDict objectForKey:s_maxPrice] intValue]];
-        _highField.textAlignment = NSTextAlignmentCenter;
+        _lowField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_minPrice] intValue]];
+        _highField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_maxPrice] intValue]];
+        _highField.textAlignment = NSTextAlignmentRight;
 
         CALayer *layers=[_highField layer];
         //是否设置边框以及是否可见

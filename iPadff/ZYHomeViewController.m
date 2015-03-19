@@ -71,8 +71,6 @@
         rootview.backgroundColor=[UIColor whiteColor];
     }
     [self initNavigationView];
-    [self initPollingView];
-    [self initModuleView];
 }
 #pragma mark - Request
 
@@ -122,26 +120,27 @@
     
     if(iOS7)
     {
-        _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_HEIGHT, SCREEN_WIDTH*0.4)];
+        _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH*0.4+65)];
 
     }
     else
     {
-        _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 65, SCREEN_WIDTH, SCREEN_HEIGHT*0.4)];
+        _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT*0.4+65)];
 
     
     }
-    [self.view addSubview:_pollingView];
+    [rootview addSubview:_pollingView];
 }
 - (void)initNavigationView {
 
-//    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT/2-47, 20, 134, 38)];
+    UIImageView *topViews = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 58)];
  
-    
+    topViews.image = kImageName(@"toptouming");
+    [self.view addSubview:topViews];
 
     UIImageView *topView = [[UIImageView alloc] init ];
     topView.image = kImageName(@"home_logo.png");
-    [rootview addSubview:topView];
+    [self.view addSubview:topView];
     
     UIImageView *itemImageView = [[UIImageView alloc]init ];
     itemImageView.image = kImageName(@"home_right.png");
@@ -172,8 +171,8 @@
     }
     [self.view addSubview:rightBtn];
     
-    [rootview addSubview:itemImageView];
     [self initModuleView];
+    [self initPollingView];
 
 }
 

@@ -59,6 +59,7 @@
     [self addSubview:imageView];
     self.imageView = imageView;
     
+    NSLog(@"~~~~~~~~~®%d",_chooseType);
     [self layoutIfNeeded];
     
 }

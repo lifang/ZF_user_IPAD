@@ -25,7 +25,7 @@
 }
 
 - (void)initAndLayoutUI {
-    CGFloat leftSpace = 10.f;
+    CGFloat leftSpace = 50.f;
     CGFloat rightSpace = 10.f;
     CGFloat topSpace = 30.f;
     
@@ -38,6 +38,7 @@
     CGFloat attrViewHeight = 13.f;
     
     CGFloat priceWidth = 120.f;
+    
     
     
     
@@ -58,7 +59,7 @@
                                                                     toItem:self.contentView
                                                                  attribute:NSLayoutAttributeCenterY
                                                                 multiplier:1.0
-                                                                  constant:20.f]];
+                                                                  constant:10.f]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_pictureView
                                                                  attribute:NSLayoutAttributeWidth
                                                                  relatedBy:NSLayoutRelationEqual
@@ -150,7 +151,7 @@
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT/2, 60, 100, 30)];
         _salesVolumeLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_HEIGHT-160, 60, 100, 30)];
         
-        self.bigimages=[[UILabel alloc]initWithFrame:CGRectMake(_pictureView.frame.origin.x, 0, SCREEN_HEIGHT-_pictureView.frame.origin.x-40, 20)];
+        self.bigimages=[[UILabel alloc]initWithFrame:CGRectMake(_pictureView.frame.origin.x+50, 0, SCREEN_HEIGHT-_pictureView.frame.origin.x-90, 20)];
        
 
         self.pricelable=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_HEIGHT/2, -5, 80, 30)];
@@ -162,7 +163,7 @@
     
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2, 60, 100, 30)];
         _salesVolumeLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-160, 60, 100, 30)];
-  self.bigimages=[[UILabel alloc]initWithFrame:CGRectMake(_pictureView.frame.origin.x, 0, SCREEN_WIDTH-_pictureView.frame.origin.x-40, 20)];
+  self.bigimages=[[UILabel alloc]initWithFrame:CGRectMake(_pictureView.frame.origin.x+50, 0, SCREEN_WIDTH-_pictureView.frame.origin.x-90, 20)];
         
         self.pricelable=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2, -5, 80, 30)];
         
@@ -341,7 +342,7 @@
     self.salemorelable.text=@"历史销量";
     self.salemorelable.hidden=YES;
     
-    self.rootline=[[UILabel alloc]initWithFrame:CGRectMake(self.bigimages.frame.origin.x,149, self.bigimages.frame.size.width, 1)];
+    self.rootline=[[UILabel alloc]initWithFrame:CGRectMake(self.bigimages.frame.origin.x,165, self.bigimages.frame.size.width, 1)];
     self.rootline.backgroundColor=[UIColor grayColor];
     
     

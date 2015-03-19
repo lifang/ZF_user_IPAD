@@ -9,9 +9,10 @@
 #import "MerchantImageLoadViewController.h"
 
 
-@interface MerchantImageLoadViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+@interface MerchantImageLoadViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIPopoverControllerDelegate,UIPopoverPresentationControllerDelegate>
 
-@property (nonatomic, assign) BOOL alreadyHasImage;
+//@property (nonatomic, assign) BOOL alreadyHasImage;
+
 
 @end
 
@@ -25,27 +26,7 @@
 #pragma mark - UI
 
 - (void)initPickerView {
-    //pickerView
-    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 44)];
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(pickerScrollOut)];
-    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(modifyLocation:)];
-    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:nil
-                                                                               action:nil];
-    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
-    [self.view addSubview:_toolbar];
-    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 216)];
-    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
-    _pickerView.delegate = self;
-    _pickerView.dataSource = self;
     
-    [self.view addSubview:_pickerView];
 }
 
 #pragma mark - Request
@@ -103,65 +84,68 @@
     //重写
 }
 
-#pragma mark -
+
+#pragma mark
 
 - (void)selectedKey:(NSString *)imageKey
            hasImage:(BOOL)hasImage {
-    _alreadyHasImage = hasImage;
+    // _alreadyHasImage = hasImage;
     _selectedImageKey = imageKey;
     UIActionSheet *sheet = nil;
-    if (hasImage) {
-        sheet = [[UIActionSheet alloc] initWithTitle:@""
-                                            delegate:self
-                                   cancelButtonTitle:@"取消"
-                              destructiveButtonTitle:nil
-                                   otherButtonTitles:@"查看照片",@"相册上传",@"拍照上传",nil];
-    }
-    else {
-        sheet = [[UIActionSheet alloc] initWithTitle:@""
-                                            delegate:self
-                                   cancelButtonTitle:@"取消"
-                              destructiveButtonTitle:nil
-                                   otherButtonTitles:@"相册上传",@"拍照上传",nil];
-    }
+    sheet = [[UIActionSheet alloc] initWithTitle:@""
+                                        delegate:self
+                               cancelButtonTitle:nil
+                          destructiveButtonTitle:nil
+                               otherButtonTitles:@"相册上传",@"拍照上传",nil];
+    
     [sheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSInteger sourceType = UIImagePickerControllerSourceTypeCamera;
-    if (_alreadyHasImage) {
-        if (buttonIndex == 0) {
-            //查看大图
-            return;
-        }
-        else if (buttonIndex == 1) {
-            //相册
-            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        }
-        else if (buttonIndex == 2) {
-            //拍照
-            sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
+    
+    if (buttonIndex == 0) {
+        //相册
+        sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        NSLog(@"点击相册");
+        
     }
-    else {
-        if (buttonIndex == 0) {
-            //相册
-            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        }
-        else if (buttonIndex == 1) {
-            //拍照
-            sourceType = UIImagePickerControllerSourceTypeCamera;
-        }
+    else if (buttonIndex == 1) {
+        //拍照
+        sourceType = UIImagePickerControllerSourceTypeCamera;
+        NSLog(@"点击拍照");
+        
     }
-    if ([UIImagePickerController isSourceTypeAvailable:sourceType] &&
-        buttonIndex != actionSheet.cancelButtonIndex) {
+    
+    
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;
         imagePickerController.sourceType = sourceType;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+        popover.delegate = self;
+        // popover.popoverContentSize = CGSizeMake(500, 700);
+        
+        if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
+        {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                popover.popoverContentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+                [popover presentPopoverFromRect:CGRectMake(0, 0, 0, 0) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                
+                //[self presentViewController:imagePickerController animated:YES completion:nil];
+            }];
+            
+        }
+        else
+        {
+            [popover presentPopoverFromRect:CGRectMake(0, 0, 0, 0) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
     }
+    
 }
+
 
 #pragma mark - UIImagePickerDelegate
 
@@ -211,18 +195,52 @@
 #pragma mark - UIPickerView
 
 - (void)pickerScrollIn {
-    [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
-    }];
+    
+    NSLog(@"SrollIn");
+    
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
+    
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    //_toolbar.barStyle = UIBarStyleBlackOpaque;
+    //[_toolbar sizeToFit];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(pickerScrollOut)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(modifyLocation:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil
+                                                                               action:nil];
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [theView addSubview:_toolbar];
+    
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 60, 320, 216)];
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    _pickerView.showsSelectionIndicator = YES;
+    [theView addSubview:_pickerView];
+    
+    sortViewController.view = theView;
+    
+    UIPopoverController *popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [popViewController setPopoverContentSize:CGSizeMake(320, 276) animated:YES];
+    [popViewController presentPopoverFromRect:CGRectMake(100, 40, 320, 276) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    popViewController.delegate = self;
+    
+    
 }
 
 - (void)pickerScrollOut {
-    [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
-    }];
+    NSLog(@"SH");
+    
+    
+    
 }
+
 
 
 - (void)didReceiveMemoryWarning {

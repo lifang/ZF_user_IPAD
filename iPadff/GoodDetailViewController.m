@@ -13,14 +13,16 @@
 #import "GoodButton.h"
 #import "UIImageView+WebCache.h"
 #import "FormView.h"
-
+#import "BuyOrderViewController.h"
+#import "PollingView.h"
+#import "ImageScrollView.h"
 static CGFloat topImageHeight = 160.f;
 
 @interface GoodDetailViewController ()
 
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 
-@property (nonatomic, strong) UIScrollView *topScorllView;
+@property (nonatomic, strong) PollingView *topScorllView;
 
 @property (nonatomic, strong) GoodDetialModel *detailModel;
 
@@ -33,7 +35,13 @@ static CGFloat topImageHeight = 160.f;
 
 @property (nonatomic, strong) UIButton *shopcartButton;  //购物车按钮
 @property (nonatomic, strong) UIButton *buyGoodButton;   //立刻购买
+@property (nonatomic, strong) UIScrollView *imagesScrollView;
 
+@property (nonatomic, strong) UIView *markView;
+@property (nonatomic, strong) UIView *scrollPanel;
+@property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign) NSInteger totalPage;
+@property (nonatomic, strong) UILabel *pageLabel;
 @end
 
 @implementation GoodDetailViewController
@@ -92,19 +100,18 @@ static CGFloat topImageHeight = 160.f;
     if(iOS7)
     {
         
-        _topScorllView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT/2, SCREEN_HEIGHT/2)];
+        _topScorllView = [[PollingView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT/2, SCREEN_HEIGHT/2)];
         
         
     }
     else
     {
-        _topScorllView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth/2, kScreenWidth/2)];
+        _topScorllView = [[PollingView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth/2, kScreenWidth/2)];
         
         
     }
-    _topScorllView.showsHorizontalScrollIndicator = NO;
-    _topScorllView.showsVerticalScrollIndicator = NO;
-    _topScorllView.backgroundColor = [UIColor blackColor];
+ 
+//    _topScorllView.backgroundColor = [UIColor blackColor];
     [_mainScrollView addSubview:_topScorllView];
     
     _priceLabel = [[UILabel alloc] init];
@@ -119,9 +126,107 @@ static CGFloat topImageHeight = 160.f;
     [_rentButton setButtonAttrWithTitle:@"租赁"];
     [_rentButton addTarget:self action:@selector(rentGood:) forControlEvents:UIControlEventTouchUpInside];
     
-    
+    [self initImageScanView];
+
     
     [self initSubViews];
+}
+- (void)initImageScanView {
+    _scrollPanel = [[UIView alloc] initWithFrame:self.view.bounds];
+    _scrollPanel.backgroundColor = [UIColor clearColor];
+    _scrollPanel.alpha = 0;
+    [self.view addSubview:_scrollPanel];
+    CGRect rect = _scrollPanel.bounds;
+    rect.size.height += 64;
+    _markView = [[UIView alloc] initWithFrame:rect];
+    _markView.backgroundColor = [UIColor blackColor];
+    _markView.alpha = 0.0;
+    [_scrollPanel addSubview:_markView];
+    
+    _imagesScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [_scrollPanel addSubview:_imagesScrollView];
+    _imagesScrollView.pagingEnabled = YES;
+    _imagesScrollView.delegate = self;
+    
+    _pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, rect.origin.y + rect.size.height - 40, rect.size.width, 20)];
+    _pageLabel.backgroundColor = [UIColor clearColor];
+    _pageLabel.textColor = [UIColor whiteColor];
+    _pageLabel.font = [UIFont boldSystemFontOfSize:14];
+    _pageLabel.textAlignment = NSTextAlignmentCenter;
+    [_scrollPanel addSubview:_pageLabel];
+}
+#pragma mark - 图片点击
+
+- (IBAction)touchPicture:(UITapGestureRecognizer *)tap {
+    [self.view bringSubviewToFront:self.scrollPanel];
+    self.scrollPanel.alpha = 1.0;
+    
+    UIImageView *imageView = (UIImageView *)[tap view];
+    self.currentIndex = imageView.tag;
+    
+    CGRect convertRect = [[imageView superview] convertRect:imageView.frame toView:self.view];
+    CGPoint contentOffset = self.imagesScrollView.contentOffset;
+    contentOffset.x = (self.currentIndex - 1) * self.view.bounds.size.width;
+    self.imagesScrollView.contentOffset = contentOffset;
+    
+    [self addImageScrollViewForController:self];
+    
+    ImageScrollView *imagescroll = [[ImageScrollView alloc] initWithFrame:(CGRect){contentOffset,self.imagesScrollView.bounds.size}];
+    [imagescroll setContentWithFrame:convertRect];
+    [imagescroll setImage:imageView.image];
+    [self.imagesScrollView addSubview:imagescroll];
+    imagescroll.tapDelegate = self;
+    [self performSelector:@selector(setOriginFrame:) withObject:imagescroll afterDelay:0.1f];
+}
+
+#pragma mark - 大图
+
+- (void)addImageScrollViewForController:(UIViewController *)controller {
+    [self.imagesScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    for (int i = 1; i <= self.totalPage; i++) {
+        if (i == self.currentIndex) {
+            continue;
+        }
+        UIImageView *imageView = (UIImageView *)[_topScorllView viewWithTag:i];
+        CGRect convertRect = [[imageView superview] convertRect:imageView.frame toView:self.view];
+        ImageScrollView *imagescroll = [[ImageScrollView alloc] initWithFrame:(CGRect){(i - 1) * self.imagesScrollView.bounds.size.width,0,self.imagesScrollView.bounds.size}];
+        [imagescroll setContentWithFrame:convertRect];
+        [imagescroll setImage:imageView.image];
+        [self.imagesScrollView addSubview:imagescroll];
+        imagescroll.tapDelegate = (id<ImageScrollViewDelegate>)controller;
+        [imagescroll setAnimationRect];
+    }
+}
+
+- (void)setOriginFrame:(ImageScrollView *)sender {
+    self.pageLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.currentIndex,self.totalPage];
+    [UIView animateWithDuration:0.4 animations:^{
+        self.navigationController.navigationBarHidden = YES;
+        [sender setAnimationRect];
+        self.markView.alpha = 1.0;
+    }];
+}
+
+#pragma mark - ImageScrollViewDelegate
+
+- (void)tapImageViewWithObject:(ImageScrollView *)sender {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.navigationController.navigationBarHidden = NO;
+        self.markView.alpha = 0;
+        [sender rechangeInitRdct];
+    } completion:^(BOOL finished) {
+        self.scrollPanel.alpha = 0;
+    }];
+}
+
+#pragma mark - scroll delegate
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == _imagesScrollView) {
+        CGFloat pageWidth = scrollView.frame.size.width;
+        _currentIndex = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        _pageLabel.text = [NSString stringWithFormat:@"%ld/%ld",_currentIndex + 1,_totalPage];
+    }
 }
 
 - (void)initSubViews {
@@ -292,6 +397,7 @@ static CGFloat topImageHeight = 160.f;
     [_shopcartButton addTarget:self action:@selector(addShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
     [_mainScrollView addSubview:_shopcartButton];
     
+    
     //立即购买
     _buyGoodButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _buyGoodButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x+90, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, 80, 40);
@@ -399,7 +505,9 @@ static CGFloat topImageHeight = 160.f;
         
     }
     
-    UIView *handleViewfrdef= [self  handleViewWithOriginYs: viewbutton.frame.size.width];
+    UIView *handleViewfrdef= [self  handleViewWithOriginYs: viewbutton.frame.size.height+viewbutton.frame.origin.y];
+    
+    
     [_mainScrollView addSubview:handleViewfrdef];
     
     
@@ -442,13 +550,13 @@ static CGFloat topImageHeight = 160.f;
     
     if(iOS7)
     {
-        view.frame=CGRectMake(0, SCREEN_WIDTH+120, SCREEN_HEIGHT, SCREEN_WIDTH-originY1);
+        view.frame=CGRectMake(0, SCREEN_WIDTH-120, SCREEN_HEIGHT, SCREEN_WIDTH);
         
         
     }
     else
     {
-        view.frame=CGRectMake(0, SCREEN_HEIGHT+120, SCREEN_WIDTH, SCREEN_HEIGHT-originY1);
+        view.frame=CGRectMake(0, SCREEN_HEIGHT-120, SCREEN_WIDTH, SCREEN_HEIGHT);
         
         
     }
@@ -468,8 +576,8 @@ static CGFloat topImageHeight = 160.f;
     CGFloat vSpace = 12.f;  //label 垂直间距
     CGFloat hSpace = 10.f;
     CGFloat leftLabelWidth = 60.f;  //左侧标题label宽度
-    CGFloat btnHeight = 20.f;  //支付通道 和 购买方式 按钮高度
-    CGFloat btnWidth = (kScreenWidth - leftSpace - rightSpace - leftLabelWidth - firstSpace - 2 * hSpace) / 3;
+//    CGFloat btnHeight = 20.f;  //支付通道 和 购买方式 按钮高度
+//    CGFloat btnWidth = (kScreenWidth - leftSpace - rightSpace - leftLabelWidth - firstSpace - 2 * hSpace) / 3;
     CGFloat originY =10;
     
     //pos信息
@@ -562,7 +670,7 @@ static CGFloat topImageHeight = 160.f;
     
     originY += otherFormHeight + 10;
     
-    _mainScrollView.contentSize = CGSizeMake(kScreenWidth, originY+600);
+    _mainScrollView.contentSize = CGSizeMake(kScreenWidth, originY+660);
     //    [self setSeletedIndex:self.secletA];
     
     
@@ -673,6 +781,38 @@ static CGFloat topImageHeight = 160.f;
     NSDictionary *detailDict = [dict objectForKey:@"result"];
     _detailModel = [[GoodDetialModel alloc] initWithParseDictionary:detailDict];
     [self initAndLayoutUI];
+    [_topScorllView downloadImageWithURLs:_detailModel.goodImageList target:self action:@selector(touchPicture:)];
+    self.totalPage = [_detailModel.goodImageList count];
+    self.imagesScrollView.contentSize = CGSizeMake(self.totalPage * self.view.bounds.size.width, self.view.bounds.size.height);
+}
+//解析支付通道
+- (void)parseChannelDetailWithDictionary:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    NSDictionary *channelDict = [dict objectForKey:@"result"];
+    ChannelModel *newChannel = [[ChannelModel alloc] initWithParseDictionary:channelDict];
+    newChannel.isAlreadyLoad = YES;
+    NSInteger oldIndex = -1;
+    for (ChannelModel *model in _detailModel.channelItem) {
+        oldIndex++;
+        if ([model.channelID isEqualToString:newChannel.channelID]) {
+            break;
+        }
+    }
+    [_detailModel.channelItem replaceObjectAtIndex:oldIndex withObject:newChannel];
+    [self changeDefaultChannelWithChannel:newChannel];
+}
+
+//更换新的支付通道信息
+- (void)changeDefaultChannelWithChannel:(ChannelModel *)newChannel {
+    _detailModel.defaultChannel = newChannel;
+    for (UIView *viewff in _mainScrollView.subviews) {
+        if (![viewff isEqual:_topScorllView]) {
+            [viewff removeFromSuperview];
+        }
+    }
+    [self initSubViews];
 }
 
 #pragma mark - Action
@@ -692,14 +832,45 @@ static CGFloat topImageHeight = 160.f;
                 break;
             }
         }
-        _detailModel.defaultChannel = newModel;
-        for (UIView *view in _mainScrollView.subviews) {
-            [view removeFromSuperview];
+        if (newModel.isAlreadyLoad) {
+            [self changeDefaultChannelWithChannel:newModel];
         }
-        [self initSubViews];
+        else {
+            [self getChannelDetailWithChannelID:btn.ID];
+        }
     }
 }
-
+- (void)getChannelDetailWithChannelID:(NSString *)channelID {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    [NetworkInterface getChannelDetailWithChannleID:channelID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    [self parseChannelDetailWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
 - (IBAction)buyGood:(id)sender {
     NSLog(@"buy ");
     _buyButton.selected = YES;
@@ -742,6 +913,17 @@ static CGFloat topImageHeight = 160.f;
 
 //立即购买
 - (IBAction)buyNow:(id)sender {
+    if ([_buyGoodButton.titleLabel.text isEqualToString:@"立即购买"]) {
+        BuyOrderViewController *buyC = [[BuyOrderViewController alloc] init];
+        buyC.goodDetail = _detailModel;
+        buyC.hidesBottomBarWhenPushed =  YES ;
+
+        [self.navigationController pushViewController:buyC animated:YES];
+    }
+    else {
+        
+    }
+
     
 }
 
