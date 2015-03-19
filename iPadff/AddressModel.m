@@ -33,6 +33,12 @@
         if ([dict objectForKey:@"zipCode"]) {
             _zipCode = [NSString stringWithFormat:@"%@",[dict objectForKey:@"zipCode"]];
         }
+        if ([dict objectForKey:@"city_parent_name"]) {
+            _city_parent_name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city_parent_name"]];
+        }
+        if ([dict objectForKey:@"city_name"]) {
+            _city_name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"city_name"]];
+        }
     }
     return self;
 }

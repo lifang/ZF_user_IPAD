@@ -23,6 +23,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.reuseIdentifiers = reuseIdentifier;
         UIFont *mainFont = [UIFont systemFontOfSize:14];
         UIColor *mainColor = kColor(67, 67, 67, 1.0);
@@ -70,9 +71,13 @@
         _changeBtn.titleLabel.font = mainFont;
         [self addSubview:_changeBtn];
         
-        _lineView = [[UIView alloc]init];
-        _lineView.backgroundColor = kColor(239, 239, 239, 1.0);
-        [self addSubview:_lineView];
+//        _lineView = [[UIView alloc]init];
+//        _lineView.backgroundColor = kColor(239, 239, 239, 1.0);
+//        [self addSubview:_lineView];
+//        
+//        if ([_reuseIdentifiers isEqualToString:@"AddressCell2"]) {
+//            _lineView.frame = CGRectMake(0, 50, self.frame.size.width, 1);
+//        }
         
         if ([reuseIdentifier isEqualToString:@"AddressCell1"]) {
             self.backgroundColor = kColor(228, 228, 228, 1.0);
@@ -82,7 +87,6 @@
             _postcodeLabel.text = @"邮编";
             _telLabel.text = @"电话";
         }
-        
     }
     return self;
 }
@@ -90,17 +94,13 @@
 
 -(void)layoutSubviews
 {
+    [super layoutSubviews];
     CGFloat mainY = - 2.f;
     CGFloat mainHeight = 30.f;
     if ([_reuseIdentifiers isEqualToString:@"AddressCell2"]) {
         mainY = 10.f;
-        _lineView.frame = CGRectMake(0, CGRectGetMaxY(_consigneeLabel.frame), SCREEN_WIDTH - 160, 1);
-        if (iOS7) {
-            _lineView.frame = CGRectMake(0, CGRectGetMaxY(_consigneeLabel.frame), SCREEN_HEIGHT - 160, 1);
-        }
     }
     _consigneeLabel.frame = CGRectMake(20, mainY, 60, 30);
-    
     
     _areaLabel.frame = CGRectMake(CGRectGetMaxX(_consigneeLabel.frame) + 10, mainY, 140, mainHeight);
     

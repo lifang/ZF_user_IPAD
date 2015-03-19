@@ -9,8 +9,14 @@
 #import "BaseInformationViewController.h"
 #import "ChangePhoneController.h"
 #import "ChangeEmailController.h"
+#import "NetworkInterface.h"
+#import "AppDelegate.h"
+#import "UserModel.h"
+#import "CityHandle.h"
 
-@interface BaseInformationViewController ()<UITextFieldDelegate>
+@interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate>
+
+@property(nonatomic,strong)UIButton *exitBtn;
 
 @property(nonatomic,strong)UITextField *nameField;
 
@@ -22,6 +28,14 @@
 
 @property(nonatomic,strong)UITextField *emailField;
 
+@property (nonatomic, strong) UserModel *userInfo;
+
+@property (nonatomic, strong) UIToolbar *toolbar;
+
+@property (nonatomic, strong) UIPickerView *pickerView;
+
+@property (nonatomic, strong) NSArray *cityArray;  //pickerView 第二列
+
 @end
 
 @implementation BaseInformationViewController
@@ -32,8 +46,137 @@
     NSLog(@"当前是~~~~~~~~~~~~%d",self.Index);
     self.view.backgroundColor = kColor(251, 251, 251, 1.0);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self initAndLayoutUI];
+    [self getUserInfo];
+    [self initPickerView];
 }
+//选择城市
+- (void)initPickerView {
+    //pickerView
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 44)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(pickerScrollOut)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(modifyLocation:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 830.f;
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [self.view addSubview:_toolbar];
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 216)];
+    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    
+    [self.view addSubview:_pickerView];
+}
+
+- (IBAction)modifyLocation:(id)sender {
+    [self pickerScrollOut];
+    NSInteger index = [_pickerView selectedRowInComponent:1];
+    NSString *cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
+    NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
+    [self modifyLocationWithCityID:cityID cityName:cityName];
+}
+
+
+#pragma mark - Request
+
+//获得个人信息
+- (void)getUserInfo {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface getUserInfoWithToken:delegate.token userID:delegate.userID finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"%@",[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding]);
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    [self parseUserDataWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+//修改所在地
+- (void)modifyLocationWithCityID:(NSString *)cityID
+                        cityName:(NSString *)cityName {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:nil email:nil cityID:cityID finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                                    message:@"用户信息修改成功"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    _userInfo.cityID = cityID;
+                    _locatonField.text = [CityHandle getCityNameWithCityID:cityID];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+
+- (void)parseUserDataWithDictionary:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    NSDictionary *infoDict = [dict objectForKey:@"result"];
+    _userInfo = [[UserModel alloc] initWithParseDictionary:infoDict];
+    [self initAndLayoutUI];
+    _nameField.text = _userInfo.userName;
+    _phoneField.text = _userInfo.phoneNumber;
+    _emailField.text = _userInfo.email;
+    _locatonField.text = [CityHandle getCityNameWithCityID: _userInfo.cityID];
+    [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_userInfo.cityID] inComponent:0 animated:NO];
+    [_pickerView reloadAllComponents];
+    [_pickerView selectRow:[CityHandle getCityIndexWithCityID:_userInfo.cityID] inComponent:1 animated:NO];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -59,6 +202,7 @@
     [self setLabel:locationLabel withTopView:emailLabel middleSpace:12 labelTag:1];
     
     UILabel *particularLocationLabel = [[UILabel alloc]init];
+    particularLocationLabel.hidden = YES;
     particularLocationLabel.text = @"详细地址";
     [self setLabel:particularLocationLabel withTopView:locationLabel middleSpace:12 labelTag:1];
     
@@ -113,6 +257,7 @@
                                                            constant:btnHeight]];
     
     _phoneField = [[UITextField alloc]init];
+    _phoneField.userInteractionEnabled = NO;
     _phoneField.translatesAutoresizingMaskIntoConstraints = NO;
     _phoneField.borderStyle = UITextBorderStyleNone;
     _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -196,6 +341,7 @@
                                                            constant:btnHeight]];
     
     _emailField = [[UITextField alloc]init];
+    _emailField.userInteractionEnabled = NO;
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
     _emailField.borderStyle = UITextBorderStyleNone;
     _emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -279,6 +425,7 @@
                                                            constant:btnHeight]];
     
     _locatonField = [[UITextField alloc]init];
+    _locatonField.userInteractionEnabled = NO;
     _locatonField.translatesAutoresizingMaskIntoConstraints = NO;
     _locatonField.borderStyle = UITextBorderStyleLine;
     _locatonField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -359,6 +506,7 @@
                                                            constant:btnHeight]];
     
     _particularLocatonField = [[UITextField alloc]init];
+    _particularLocatonField.hidden = YES;
     _particularLocatonField.translatesAutoresizingMaskIntoConstraints = NO;
     _particularLocatonField.borderStyle = UITextBorderStyleLine;
     _particularLocatonField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -475,6 +623,7 @@
                                                            constant:1.0]];
     
     UIButton *exitBtn = [[UIButton alloc]init];
+    self.exitBtn = exitBtn;
     [exitBtn addTarget:self action:@selector(exitClicke) forControlEvents:UIControlEventTouchUpInside];
     exitBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [exitBtn setBackgroundColor:kColor(254, 79, 29, 1.0)];
@@ -561,32 +710,156 @@
 //选择城市
 -(void)locationClicked
 {
-    
+    [self pickerScrollIn];
 }
 
-//修改密码
+//修改手机
 -(void)changePassWord
 {
     ChangePhoneController *changePhoneVC = [[ChangePhoneController alloc]init];
+    changePhoneVC.ChangePhoneSuccessDelegate = self;
+    changePhoneVC.oldPhoneNum = _phoneField.text;
     changePhoneVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:changePhoneVC animated:YES];
+}
+
+-(void)ChangePhoneNumSuccessWithNewPhoneNum:(NSString *)newPhoneNum
+{
+    _phoneField.text = newPhoneNum;
 }
 //修改邮箱
 -(void)changeEmail
 {
     ChangeEmailController *changeEmailVC =[[ChangeEmailController alloc]init];
+    changeEmailVC.ChangeEmailSuccessDelegate = self;
+    changeEmailVC.oldEmail = _emailField.text;
     changeEmailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:changeEmailVC animated:YES];
+}
+
+-(void)ChangeEmailSuccessWithEmail:(NSString *)newEmail
+{
+    _emailField.text = newEmail;
 }
 //点击了保存
 -(void)saveClicked
 {
-    
+    if (!_nameField.text || [_nameField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"姓名不能为空";
+        return;
+    }
+    if (!_locatonField.text || [_locatonField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"所在地不能为空";
+        return;
+    }
+    [self saveDate];
+}
+
+-(void)saveDate
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:_nameField.text mobilePhone:_phoneField.text email:_emailField.text cityID:_userInfo.cityID finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                                    message:@"用户信息修改成功"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+
 }
 //点击了退出
 -(void)exitClicke
 {
     
+}
+
+#pragma mark - UIPickerView
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == 0) {
+        return [[CityHandle shareProvinceList] count];
+    }
+    else {
+        NSInteger provinceIndex = [pickerView selectedRowInComponent:0];
+        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:provinceIndex];
+        _cityArray = [provinceDict objectForKey:@"cities"];
+        return [_cityArray count];
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (component == 0) {
+        //省
+        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:row];
+        return [provinceDict objectForKey:@"name"];
+    }
+    else {
+        //市
+        return [[_cityArray objectAtIndex:row] objectForKey:@"name"];
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (component == 0) {
+        //省
+        [_pickerView reloadComponent:1];
+    }
+}
+
+
+#pragma mark - UIPickerView
+
+- (void)pickerScrollIn {
+    [UIView animateWithDuration:.3f animations:^{
+        _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
+        _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
+        _exitBtn.hidden = YES;
+    }];
+}
+
+- (void)pickerScrollOut {
+    [UIView animateWithDuration:.3f animations:^{
+        _exitBtn.hidden = NO;
+        _toolbar.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 44);
+        _pickerView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
+    }];
 }
 
 @end

@@ -174,6 +174,9 @@
 		1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E104B1AB801720082DA13 /* ChangeEmailController.m */; };
 		1A5E104F1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */; };
 		1A5E10521AB821BD0082DA13 /* ChangeEmialSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */; };
+		1A627DA71ABA5DD60024A644 /* FindPasswordSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A627DA61ABA5DD60024A644 /* FindPasswordSuccessController.m */; };
+		1A627DAA1ABA60420024A644 /* FindPasswordWithPhoneSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A627DA91ABA60420024A644 /* FindPasswordWithPhoneSuccessController.m */; };
+		1A627DAD1ABA6BAC0024A644 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A627DAC1ABA6BAC0024A644 /* UserModel.m */; };
 		1A6516461AA6E1CF008223BD /* DredgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6516451AA6E1CF008223BD /* DredgeViewController.m */; };
 		1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6516481AA6E6F0008223BD /* DredgeViewCell.m */; };
 		1A65164C1AA6F42E008223BD /* ApplicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A65164B1AA6F42E008223BD /* ApplicationViewController.m */; };
@@ -543,6 +546,12 @@
 		1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneSuccessViewController.m; sourceTree = "<group>"; };
 		1A5E10501AB821BD0082DA13 /* ChangeEmialSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmialSuccessViewController.h; sourceTree = "<group>"; };
 		1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmialSuccessViewController.m; sourceTree = "<group>"; };
+		1A627DA51ABA5DD60024A644 /* FindPasswordSuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPasswordSuccessController.h; sourceTree = "<group>"; };
+		1A627DA61ABA5DD60024A644 /* FindPasswordSuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPasswordSuccessController.m; sourceTree = "<group>"; };
+		1A627DA81ABA60420024A644 /* FindPasswordWithPhoneSuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPasswordWithPhoneSuccessController.h; sourceTree = "<group>"; };
+		1A627DA91ABA60420024A644 /* FindPasswordWithPhoneSuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPasswordWithPhoneSuccessController.m; sourceTree = "<group>"; };
+		1A627DAB1ABA6BAC0024A644 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		1A627DAC1ABA6BAC0024A644 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		1A6516441AA6E1CF008223BD /* DredgeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeViewController.h; sourceTree = "<group>"; };
 		1A6516451AA6E1CF008223BD /* DredgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DredgeViewController.m; sourceTree = "<group>"; };
 		1A6516471AA6E6F0008223BD /* DredgeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeViewCell.h; sourceTree = "<group>"; };
@@ -875,6 +884,8 @@
 				0EBBC5981AB1666C00E0ED16 /* OrderDetailModel.m */,
 				0EBBC5941AB1665100E0ED16 /* OrderModel.h */,
 				0EBBC5951AB1665100E0ED16 /* OrderModel.m */,
+				1A627DAB1ABA6BAC0024A644 /* UserModel.h */,
+				1A627DAC1ABA6BAC0024A644 /* UserModel.m */,
 				0EC99C9D1AAFE62900D20386 /* AddressModel.h */,
 				0EC99C9E1AAFE62900D20386 /* AddressModel.m */,
 				1ADD1EC91AB6A56E0014E528 /* ResourceModel.h */,
@@ -1505,6 +1516,10 @@
 				1A727B2C1AA5957100E1643D /* EmailSuccessViewController.m */,
 				1A6FC3211AA6A66900F4C6AC /* LocationViewController.h */,
 				1A6FC3221AA6A66900F4C6AC /* LocationViewController.m */,
+				1A627DA51ABA5DD60024A644 /* FindPasswordSuccessController.h */,
+				1A627DA61ABA5DD60024A644 /* FindPasswordSuccessController.m */,
+				1A627DA81ABA60420024A644 /* FindPasswordWithPhoneSuccessController.h */,
+				1A627DA91ABA60420024A644 /* FindPasswordWithPhoneSuccessController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1704,6 +1719,7 @@
 				1A4258701AB0189E00F470C9 /* AfterSellViewController.m in Sources */,
 				1A727B2A1AA5813A00E1643D /* PhoneSuccessViewController.m in Sources */,
 				1A8EE2BF1AAD78490014A7A5 /* TerminalAddViewController.m in Sources */,
+				1A627DAD1ABA6BAC0024A644 /* UserModel.m in Sources */,
 				0ED6AD0F1AA1912F00D3B025 /* LocationButton.m in Sources */,
 				0ECE7DD81AA55EF100E250B6 /* GoodListModel.m in Sources */,
 				0D3887211AB96F8E000DF1D6 /* MASConstraint.m in Sources */,
@@ -1713,6 +1729,7 @@
 				0ED5FD421AB956920057385C /* SearchViewController.m in Sources */,
 				0ECE7DAC1AA55A0100E250B6 /* TreeView.m in Sources */,
 				1AA8FF751AA4074D009D41B3 /* SDWebImagePrefetcher.m in Sources */,
+				1A627DA71ABA5DD60024A644 /* FindPasswordSuccessController.m in Sources */,
 				1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */,
 				1A6FC31F1AA6A61B00F4C6AC /* CityModel.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
@@ -1757,6 +1774,7 @@
 				0EC589CE1AB3DAFA00B690F5 /* GoodDetailViewController.m in Sources */,
 				1A81ACEC1AAE7CB8003CB96C /* TerminalChildController.m in Sources */,
 				0ECE7DCB1AA55E2B00E250B6 /* GoodsCell.m in Sources */,
+				1A627DAA1ABA60420024A644 /* FindPasswordWithPhoneSuccessController.m in Sources */,
 				0ED5FD481AB97C230057385C /* GoodDetaildetailViewController.m in Sources */,
 				0EBBC5901AB1660400E0ED16 /* OrderCommentController.m in Sources */,
 				1A81ACEF1AAE7EF3003CB96C /* OpeningModel.m in Sources */,
