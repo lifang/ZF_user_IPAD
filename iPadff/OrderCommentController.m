@@ -40,10 +40,26 @@
 #pragma mark - UI
 
 - (void)setHeaderAndFooterView {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 100)];
     footerView.backgroundColor = [UIColor clearColor];
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitBtn.frame = CGRectMake(80, 20, kScreenWidth - 160, 40);
+    submitBtn.frame = CGRectMake(80, 20, wide - 160, 40);
 //    submitBtn.layer.cornerRadius = 4;
     submitBtn.layer.masksToBounds = YES;
     submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
@@ -114,11 +130,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     switch (indexPath.section) {
         case 0: {
+            
             CGFloat starSize = 20.f;
             CGFloat middleSpace = 5.f;
-            CGFloat originX = kScreenWidth / 2 - 2.5 * (starSize + middleSpace);
+            CGFloat originX = wide / 2 - 2.5 * (starSize + middleSpace);
             for (int i = 0; i < 5; i++) {
                 UIButton *starBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 starBtn.frame = CGRectMake(originX, 12, starSize, starSize);
@@ -133,8 +166,8 @@
         }
             break;
         case 1: {
-            _textView.frame = CGRectMake(0, 0, kScreenWidth, 200);
-            _placeholderLabel.frame = CGRectMake(5, 7, kScreenWidth, 20.f);
+            _textView.frame = CGRectMake(0, 0, wide, 200);
+            _placeholderLabel.frame = CGRectMake(5, 7, wide, 20.f);
             [cell.contentView addSubview:_textView];
             [cell.contentView addSubview:_placeholderLabel];
         }

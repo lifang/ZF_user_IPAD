@@ -16,9 +16,11 @@
 #import "BuyOrderViewController.h"
 #import "PollingView.h"
 #import "ImageScrollView.h"
-static CGFloat topImageHeight = 160.f;
+#import "InterestView.h"
+#import "GoodDetaildetailViewController.h"
+//static CGFloat topImageHeight = 160.f;
 
-@interface GoodDetailViewController ()
+@interface GoodDetailViewController ()<UIScrollViewDelegate,ImageScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 
@@ -234,7 +236,21 @@ static CGFloat topImageHeight = 160.f;
     CGFloat leftSpace ;  //左侧间距
     CGFloat  originXs;
 
-    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     if(iOS7)
     {
         
@@ -254,14 +270,14 @@ static CGFloat topImageHeight = 160.f;
     CGFloat firstSpace = 5.f;
     CGFloat vSpace = 12.f;  //label 垂直间距
     CGFloat hSpace = 10.f;
-    CGFloat leftLabelWidth = 60.f;  //左侧标题label宽度
-    CGFloat btnHeight = 20.f;  //支付通道 和 购买方式 按钮高度
-    CGFloat btnWidth = (kScreenWidth - leftSpace - rightSpace - leftLabelWidth - firstSpace - 2 * hSpace) / 3;
+    CGFloat leftLabelWidth = 80.f;  //左侧标题label宽度
+    CGFloat btnHeight = 40.f;  //支付通道 和 购买方式 按钮高度
+    CGFloat btnWidth = (wide - leftSpace - rightSpace - leftLabelWidth - firstSpace - 2 * hSpace) / 3;
     CGFloat originY =vSpace;
     //商品名
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftSpace - rightSpace, labelHeight)];
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
+    titleLabel.font = [UIFont boldSystemFontOfSize:20.f];
     titleLabel.text = _detailModel.goodName;
     [_mainScrollView addSubview:titleLabel];
     
@@ -269,7 +285,7 @@ static CGFloat topImageHeight = 160.f;
     //商品简介
     UILabel *summaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftSpace- rightSpace, labelHeight)];
     summaryLabel.backgroundColor = [UIColor clearColor];
-    summaryLabel.font = [UIFont systemFontOfSize:13.f];
+    summaryLabel.font = [UIFont systemFontOfSize:17.f];
     summaryLabel.textColor = [UIColor lightGrayColor];
     summaryLabel.text = _detailModel.detailName;
     [_mainScrollView addSubview:summaryLabel];
@@ -277,15 +293,18 @@ static CGFloat topImageHeight = 160.f;
     originY += vSpace + labelHeight;
     //品牌
     UILabel *brandTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, labelHeight)];
-    [self setLabel:brandTitleLabel withTitle:@"品牌" font:[UIFont systemFontOfSize:13.f]];
-    UILabel *brandLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, 80, labelHeight)];
-    [self setLabel:brandLabel withTitle:_detailModel.goodBrand font:[UIFont boldSystemFontOfSize:13.f]];
+    [self setLabel:brandTitleLabel withTitle:@"品牌型号" font:[UIFont systemFontOfSize:17.f]];
+    UILabel *brandLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, 100, labelHeight)];
+    
+    NSString*stringlong=[NSString stringWithFormat:@"%@%@",_detailModel.goodBrand,_detailModel.goodModel];
+    
+    [self setLabel:brandLabel withTitle:stringlong font:[UIFont boldSystemFontOfSize:17.f]];
     
     //厂家信息
     CGFloat originX = leftSpace + leftLabelWidth + firstSpace + 80;
-    UILabel *factoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, originY, 90.f, labelHeight)];
+    UILabel *factoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(brandLabel.frame.size.width+brandLabel.frame.origin.x+40, originY, 90.f, labelHeight)];
     factoryLabel.backgroundColor = [UIColor clearColor];
-    factoryLabel.font = [UIFont systemFontOfSize:12.f];
+    factoryLabel.font = [UIFont systemFontOfSize:14.f];
     factoryLabel.text = @"查看厂家信息";
     [_mainScrollView addSubview:factoryLabel];
     
@@ -296,13 +315,13 @@ static CGFloat topImageHeight = 160.f;
     [factoryBtn addTarget:self action:@selector(scanFactoryInfo:) forControlEvents:UIControlEventTouchUpInside];
     [_mainScrollView addSubview:factoryBtn];
     
-    originY += vSpace + labelHeight;
-    //型号
-    UILabel *modelTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, labelHeight)];
-    [self setLabel:modelTitleLabel withTitle:@"型号" font:[UIFont systemFontOfSize:13.f]];
-    UILabel *modelLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, 80, labelHeight)];
-    [self setLabel:modelLabel withTitle:_detailModel.goodModel font:[UIFont boldSystemFontOfSize:13.f]];
-    
+//    originY += vSpace + labelHeight;
+//    //型号
+//    UILabel *modelTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, labelHeight)];
+//    [self setLabel:modelTitleLabel withTitle:@"" font:[UIFont systemFontOfSize:17.f]];
+//    UILabel *modelLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, 80, labelHeight)];
+//    [self setLabel:modelLabel withTitle: font:[UIFont boldSystemFontOfSize:17.f]];
+//    
     //已售
     //    UILabel *saleNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, originY, kScreenWidth - originX, labelHeight)];
     //    saleNumberLabel.backgroundColor = [UIColor clearColor];
@@ -313,9 +332,9 @@ static CGFloat topImageHeight = 160.f;
     originY += vSpace + labelHeight;
     //终端类型
     UILabel *terTypeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, labelHeight)];
-    [self setLabel:terTypeTitleLabel withTitle:@"终端类型" font:[UIFont systemFontOfSize:13.f]];
-    UILabel *terTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, kScreenWidth - leftSpace - rightSpace - leftLabelWidth, labelHeight)];
-    [self setLabel:terTypeLabel withTitle:_detailModel.goodCategory font:[UIFont boldSystemFontOfSize:13.f]];
+    [self setLabel:terTypeTitleLabel withTitle:@"终端类型" font:[UIFont systemFontOfSize:17.f]];
+    UILabel *terTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, wide - leftSpace - rightSpace - leftLabelWidth, labelHeight)];
+    [self setLabel:terTypeLabel withTitle:_detailModel.goodCategory font:[UIFont boldSystemFontOfSize:17.f]];
     
     //价格
     originY += vSpace + labelHeight;
@@ -325,7 +344,7 @@ static CGFloat topImageHeight = 160.f;
     //支付通道
     originY += labelHeight + 10.f;
     UILabel *channelTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, btnHeight)];
-    [self setLabel:channelTitleLabel withTitle:@"支付通道" font:[UIFont systemFontOfSize:13.f]];
+    [self setLabel:channelTitleLabel withTitle:@"支付通道" font:[UIFont systemFontOfSize:17.f]];
     originXs = leftSpace + leftLabelWidth + firstSpace;
     CGFloat channelOriginY = originY;
     for (int i = 0; i < [_detailModel.channelItem count]; i++) {
@@ -346,7 +365,9 @@ static CGFloat topImageHeight = 160.f;
         originXs += btnWidth + hSpace;
     }
     
-    
+    originY += labelHeight + 10.f;
+    UILabel *introducelable = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY+20, leftLabelWidth, btnHeight)];
+    [self setLabel:introducelable withTitle:@"通道介绍" font:[UIFont systemFontOfSize:17.f]];
     //厂家图片
     originY += vSpace + 1;
     UIImageView *factoryImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, labelHeight)];
@@ -354,13 +375,13 @@ static CGFloat topImageHeight = 160.f;
     [_mainScrollView addSubview:factoryImageView];
     
     //厂家网址
-    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth, originY+30, kScreenWidth - leftLabelWidth - leftSpace, labelHeight)];
+    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth, originY+20, wide - leftLabelWidth - leftSpace, labelHeight)];
     [self setLabel:websiteLabel withTitle:_detailModel.factoryWebsite font:[UIFont systemFontOfSize:13.f]];
     
     //厂家简介
     originY += vSpace + labelHeight+30;
     CGFloat summaryHeight = [self heightWithString:_detailModel.factorySummary
-                                             width:kScreenWidth - leftSpace - rightSpace
+                                             width:wide - leftSpace - rightSpace
                                           fontSize:13.f];
     UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftSpace - 40, summaryHeight)];
     [self setLabel:factorySummaryLabel withTitle:_detailModel.factorySummary font:[UIFont systemFontOfSize:13.f]];
@@ -371,7 +392,7 @@ static CGFloat topImageHeight = 160.f;
     
     //购买方式
     UILabel *buyTypeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, btnHeight)];
-    [self setLabel:buyTypeTitleLabel withTitle:@"购买方式" font:[UIFont systemFontOfSize:13.f]];
+    [self setLabel:buyTypeTitleLabel withTitle:@"购买方式" font:[UIFont systemFontOfSize:17.f]];
     _buyButton.frame = CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, btnWidth, btnHeight);
     [_mainScrollView addSubview:_buyButton];
     _rentButton.frame = CGRectMake(_buyButton.frame.origin.x + _buyButton.frame.size.width + hSpace, originY, btnWidth, btnHeight);
@@ -384,7 +405,7 @@ static CGFloat topImageHeight = 160.f;
     }
     
     _shopcartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, 80, 40);
+    _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, wide/4-80, 40);
     //    _shopcartButton.layer.cornerRadius = 4.f;
     _shopcartButton.layer.masksToBounds = YES;
     //    _shopcartButton.layer.borderWidth = 1.f;
@@ -400,7 +421,7 @@ static CGFloat topImageHeight = 160.f;
     
     //立即购买
     _buyGoodButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _buyGoodButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x+90, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, 80, 40);
+    _buyGoodButton.frame = CGRectMake(_shopcartButton.frame.origin.x+_shopcartButton.frame.size.width+20, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, wide/4-80, 40);
     //    _buyGoodButton.layer.cornerRadius = 4.f;
     _buyGoodButton.layer.masksToBounds = YES;
     [_buyGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
@@ -411,7 +432,8 @@ static CGFloat topImageHeight = 160.f;
     
     UIView *handleView = [self handleViewWithOriginY:_topScorllView.frame.origin.y+_topScorllView.frame.size.height+60];
     [_mainScrollView addSubview:handleView];
-
+    handleView.userInteractionEnabled=YES;
+    
     //按钮view
 //    originY += summaryHeight + 10;
 ////    UIView *handleView = [self handleViewWithOriginY:_topScorllView.frame.origin.y+_topScorllView.frame.size.height+60];
@@ -435,21 +457,52 @@ static CGFloat topImageHeight = 160.f;
 //    originY += handleView.frame.size.height+handleView.frame.origin.y;
     
 }
+- (CGFloat)heightWithString:(NSString *)content
+                      width:(CGFloat)width
+                   fontSize:(CGFloat)fontSize {
+    NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [UIFont systemFontOfSize:fontSize],NSFontAttributeName,
+                          nil];
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:attr
+                                        context:nil];
+    return rect.size.height > 20.f ? rect.size.height : 20.f;
+}
+
 - (UIView *)handleViewWithOriginY:(CGFloat)originY {
-    
-    UIView *viewbutton = [[UIView alloc] init];
-    
+    CGFloat wide;
+    CGFloat height;
     if(iOS7)
     {
-        viewbutton.frame=CGRectMake(0, originY, SCREEN_HEIGHT , 65 );
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+
+    UIView *viewbutton = [[UIView alloc] init];
+    UIView *lineview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 1)];
+
+    if(iOS7)
+    {
+        viewbutton.frame=CGRectMake(0, height-65-64, SCREEN_HEIGHT , 65 );
         
     }else
     {
-        viewbutton.frame=CGRectMake(0, originY, SCREEN_WIDTH , 65 );
+        viewbutton.frame=CGRectMake(0, height-65-64, SCREEN_WIDTH , 65 );
         
         
         
     }
+    [viewbutton addSubview:lineview];
+    lineview.backgroundColor = [UIColor grayColor];
     viewbutton.backgroundColor = [UIColor whiteColor];
     if (_detailModel.canRent)
     {
@@ -505,10 +558,12 @@ static CGFloat topImageHeight = 160.f;
         
     }
     
-    UIView *handleViewfrdef= [self  handleViewWithOriginYs: viewbutton.frame.size.height+viewbutton.frame.origin.y];
-    
-    
-    [_mainScrollView addSubview:handleViewfrdef];
+//     handleViewfrdef= [self  handleViewWithOriginYs: viewbutton.frame.size.height+viewbutton.frame.origin.y];
+//    handleViewfrdef.userInteractionEnabled=YES;
+//    _mainScrollView.userInteractionEnabled=YES;
+//
+//    
+//    [_mainScrollView addSubview:handleViewfrdef];
     
     
     //竖线
@@ -524,160 +579,28 @@ static CGFloat topImageHeight = 160.f;
 {
     NSLog(@"%d",sender.tag);
     
-    [self setSeletedIndex:sender.tag];
+    GoodDetaildetailViewController*goodedetal=[[GoodDetaildetailViewController alloc]init];
+    goodedetal.goodID = _detailModel.goodID;
+    goodedetal.secletA=sender.tag-1024;
+    goodedetal.hidesBottomBarWhenPushed =  YES ;
+
+    [self.navigationController pushViewController:goodedetal animated:YES];
     
-    
-}
-- (void)setSeletedIndex:(int)aIndex
-{
-    NSLog(@"%d",aIndex);
-    
-    UIButton *previousButton = (UIButton *)[self.view viewWithTag:self.secletA];
-    [previousButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.secletA = aIndex;
-    
-    //设置为正常状态下的图片
-    UIButton *currentButton = (UIButton *)[self.view viewWithTag:(aIndex )];
-    [currentButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
 }
 
 
 //POS信息
-- (UIView *)handleViewWithOriginYs:(CGFloat)originY1
-{    [self setSeletedIndex:self.secletA];
 
-    view = [[UIView alloc] init];
+- (IBAction)selectedRelativeGood:(UITapGestureRecognizer *)sender {
+
+    InterestView *viewhg= (InterestView *)[sender view];
     
-    if(iOS7)
-    {
-        view.frame=CGRectMake(0, SCREEN_WIDTH-120, SCREEN_HEIGHT, SCREEN_WIDTH);
-        
-        
-    }
-    else
-    {
-        view.frame=CGRectMake(0, SCREEN_HEIGHT-120, SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-        
-    }
-    view.backgroundColor = [UIColor whiteColor];
-    
-    CGFloat   leftSpace = 20;  //左侧间距
-    
-    
-    
-    
-    
-    
-    
-    CGFloat rightSpace = 25.f; //右侧间距
-    CGFloat labelHeight = 20.f; //label 高度
-    CGFloat firstSpace = 5.f;
-    CGFloat vSpace = 12.f;  //label 垂直间距
-    CGFloat hSpace = 10.f;
-    CGFloat leftLabelWidth = 60.f;  //左侧标题label宽度
-//    CGFloat btnHeight = 20.f;  //支付通道 和 购买方式 按钮高度
-//    CGFloat btnWidth = (kScreenWidth - leftSpace - rightSpace - leftLabelWidth - firstSpace - 2 * hSpace) / 3;
-    CGFloat originY =10;
-    
-    //pos信息
-    originY +=  10;
-    UILabel *posTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, kScreenWidth - leftSpace - rightSpace, labelHeight)];
-    
-    [self setLabels:posTitleLabel withTitle:@"POS信息" font:[UIFont systemFontOfSize:14.f]];
-    [view addSubview:posTitleLabel];
-    
-    //划线
-    originY += labelHeight + vSpace;
-    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(10, originY,view.frame.size.width-20, 1)];
-    secondLine.backgroundColor = kColor(255, 102, 36, 1);
-    [view addSubview:secondLine];
-    
-    //品牌型号
-    originY += vSpace + 1;
-    NSString *brandModel = [NSString stringWithFormat:@"%@%@",_detailModel.goodBrand,_detailModel.goodModel];
-    [self addLabelWithTitle:@"品牌型号" content:brandModel offsetY:originY];
-    
-    //外壳
-    originY += vSpace + labelHeight;
-    [self addLabelWithTitle:@"外壳类型" content:_detailModel.goodMaterial offsetY:originY];
-    //电池
-    originY += vSpace + labelHeight;
-    [self addLabelWithTitle:@"电池信息" content:_detailModel.goodBattery offsetY:originY];
-    //签购单
-    originY += vSpace +labelHeight;
-    [self addLabelWithTitle:@"签购单打印方式" content:_detailModel.goodSignWay offsetY:originY];
-    //加密卡
-    originY += vSpace + labelHeight;
-    [self addLabelWithTitle:@"加密卡方式" content:_detailModel.goodEncryptWay offsetY:originY];
-    
-    //支付通道信息
-    originY += labelHeight + 10;
-    UILabel *cTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, kScreenWidth - leftSpace - rightSpace, labelHeight)];
-    [self setLabels:cTitleLabel withTitle:@"支付通道信息" font:[UIFont systemFontOfSize:13.f]];
-    [view addSubview:cTitleLabel];
-    
-    //划线
-    originY += labelHeight + vSpace;
-    UIView *thirdLine = [[UIView alloc] initWithFrame:CGRectMake(10, originY, view.frame.size.width-10, 1)];
-    thirdLine.backgroundColor = kColor(255, 102, 36, 1);
-    [view addSubview:thirdLine];
-    
-    //支持区域
-    originY += vSpace + 1;
-    NSString *area = [_detailModel.defaultChannel.supportAreaItem componentsJoinedByString:@" "];
-    [self addLabelWithTitle:@"支持支付区域" content:area offsetY:originY];
-    //注销
-    originY += vSpace +labelHeight;
-    NSString *cancelString = nil;
-    if (_detailModel.defaultChannel.canCanceled) {
-        cancelString = @"支持";
-    }
-    else {
-        cancelString = @"不支持";
-    }
-    [self addLabelWithTitle:@"是否支持注销" content:cancelString offsetY:originY];
-    
-    //标准手续费
-    originY += labelHeight + 10;
-    CGFloat standFormHeight = [FormView heightWithRowCount:[_detailModel.defaultChannel.standRateItem count]
-                                                  hasTitle:YES];
-    FormView *standForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, kScreenWidth, standFormHeight)];
-    [standForm setGoodDetailDataWithFormTitle:@"刷卡交易标准手续费"
-                                      content:_detailModel.defaultChannel.standRateItem
-                                   titleArray:[NSArray arrayWithObjects:@"商户类",@"费率",@"说明",nil]];
-    [view addSubview:standForm];
-    
-    //资金服务费
-    originY += standFormHeight + 10;
-    CGFloat dateFormHeight = [FormView heightWithRowCount:[_detailModel.defaultChannel.dateRateItem count]
-                                                 hasTitle:YES];
-    FormView *dateForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, kScreenWidth, dateFormHeight)];
-    [dateForm setGoodDetailDataWithFormTitle:@"资金服务费"
-                                     content:_detailModel.defaultChannel.dateRateItem
-                                  titleArray:[NSArray arrayWithObjects:@"结算周",@"费率",@"说明", nil]];
-    [view addSubview:dateForm];
-    
-    //其它交易费率
-    originY += dateFormHeight + 10;
-    CGFloat otherFormHeight = [FormView heightWithRowCount:[_detailModel.defaultChannel.otherRateItem count]
-                                                  hasTitle:YES];
-    FormView *otherForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, kScreenWidth, otherFormHeight)];
-    [otherForm setGoodDetailDataWithFormTitle:@"其它交易费率"
-                                      content:_detailModel.defaultChannel.otherRateItem
-                                   titleArray:[NSArray arrayWithObjects:@"交易类",@"费率",@"说明", nil]];
-    [view addSubview:otherForm];
-    
-    originY += otherFormHeight + 10;
-    
-    _mainScrollView.contentSize = CGSizeMake(kScreenWidth, originY+660);
-    //    [self setSeletedIndex:self.secletA];
-    
-    
-    return view;
-    
+    GoodDetailViewController *detailC = [[GoodDetailViewController alloc] init];
+    detailC.goodID = viewhg.relativeGood.relativeID;
+    detailC.hidesBottomBarWhenPushed =  YES ;
+
+    [self.navigationController pushViewController:detailC animated:YES];
 }
-
 - (void)addLabelWithTitle:(NSString *)title
                   content:(NSString *)content
                   offsetY:(CGFloat)offsetY {
@@ -688,8 +611,22 @@ static CGFloat topImageHeight = 160.f;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, offsetY, titleLabelWidth, labelHeight)];
     [self setLabels :titleLabel withTitle:title font:[UIFont systemFontOfSize:14.f]];
     [view addSubview:titleLabel];
-    
-    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(middleLeftSpace, offsetY, kScreenWidth - middleLeftSpace, labelHeight)];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(middleLeftSpace, offsetY, wide - middleLeftSpace, labelHeight)];
     [self setLabels:contentLabel withTitle:content font:[UIFont systemFontOfSize:14.f]];
     
 }
@@ -707,35 +644,21 @@ static CGFloat topImageHeight = 160.f;
 }
 
 - (void)setPriceWithString:(NSString *)price {
-    NSString *priceString = [NSString stringWithFormat:@"价格￥%@",price];
+    NSString *priceString = [NSString stringWithFormat:@"价       格   ￥%@",price];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:priceString];
     NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [UIFont systemFontOfSize:13.f],NSFontAttributeName,
-                                [UIColor lightGrayColor],NSForegroundColorAttributeName,
+                                [UIFont systemFontOfSize:17.f],NSFontAttributeName,
+                                [UIColor blackColor],NSForegroundColorAttributeName,
                                 nil];
     NSDictionary *priceAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-                               [UIFont boldSystemFontOfSize:14.f],NSFontAttributeName,
+                               [UIFont boldSystemFontOfSize:17.f],NSFontAttributeName,
                                kColor(255, 102, 36, 1),NSForegroundColorAttributeName,
                                nil];
-    [attrString addAttributes:normalAttr range:NSMakeRange(0, 2)];
-    [attrString addAttributes:priceAttr range:NSMakeRange(2, [attrString length] - 2)];
+    [attrString addAttributes:normalAttr range:NSMakeRange(0, 9)];
+    [attrString addAttributes:priceAttr range:NSMakeRange(10, [attrString length] - 10)];
     _priceLabel.attributedText = attrString;
 }
 
-#pragma mark - 计算
-
-- (CGFloat)heightWithString:(NSString *)content
-                      width:(CGFloat)width
-                   fontSize:(CGFloat)fontSize {
-    NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [UIFont systemFontOfSize:fontSize],NSFontAttributeName,
-                          nil];
-    CGRect rect = [content boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:attr
-                                        context:nil];
-    return rect.size.height > 20.f ? rect.size.height : 20.f;
-}
 
 #pragma mark - Request
 
@@ -875,7 +798,8 @@ static CGFloat topImageHeight = 160.f;
     NSLog(@"buy ");
     _buyButton.selected = YES;
     _rentButton.selected = NO;
-    
+//    _shopcartButton.hidden=NO;
+
     _shopcartButton.enabled = YES;
     [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
 }
@@ -884,6 +808,7 @@ static CGFloat topImageHeight = 160.f;
     NSLog(@"rent");
     _buyButton.selected = NO;
     _rentButton.selected = YES;
+//    _shopcartButton.hidden=YES;
     
     _shopcartButton.enabled = NO;
     [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];

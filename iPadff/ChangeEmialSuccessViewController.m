@@ -88,7 +88,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
+//自动更具文字算长度
 - (CGSize)labelAutoCalculateRectWith:(NSString*)text FontSize:(CGFloat)fontSize MaxSize:(CGSize)maxSize
 {
     NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc]init];
