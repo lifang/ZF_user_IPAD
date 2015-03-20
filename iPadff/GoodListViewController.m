@@ -236,7 +236,7 @@
     
     
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
-   flowLayout.sectionInset = UIEdgeInsetsMake(20, 0, 0, 0);//设置其边
+   flowLayout.sectionInset = UIEdgeInsetsMake(15, 0, 0, 0);//设置其边
     
     
     
@@ -642,6 +642,7 @@
         cell.titleLabel.text = good.goodName;
         cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",good.goodPrice];
         
+        cell.priceLabel.textColor=[UIColor blackColor];
         
         cell.salesVolumeLabel.text = [NSString stringWithFormat:@"已售%@",good.goodSaleNumber];
         cell.brandLabel.text = [NSString stringWithFormat:@"品牌型号   %@%@",good.goodBrand,good.goodModel];

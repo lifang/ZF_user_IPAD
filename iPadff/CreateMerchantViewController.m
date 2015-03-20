@@ -306,6 +306,7 @@
     _locationBtn = [[UIButton alloc] init];
     _locationBtn.clipsToBounds = YES;
     _locationBtn.layer.cornerRadius = 3.0f;
+    [ _locationBtn setImage:[UIImage imageNamed:@"city.png"] forState:UIControlStateNormal];
     [_locationBtn addTarget:self action:@selector(locationBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_locationBtn];
     [_locationBtn makeConstraints:^(MASConstraintMaker *make) {

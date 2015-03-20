@@ -88,12 +88,6 @@
     self.title = @"消息详情";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIButton *leftBtn = [[UIButton alloc]init];
-    [leftBtn addTarget:self action:@selector(backHome) forControlEvents:UIControlEventTouchUpInside];
-    leftBtn.frame = CGRectMake(0, 0, 50, 50);
-    [leftBtn setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
-    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    self.navigationItem.leftBarButtonItem = leftBar;
     
     UIButton *rightBtn = [[UIButton alloc]init];
     [rightBtn addTarget:self action:@selector(rightClicked:) forControlEvents:UIControlEventTouchUpInside];

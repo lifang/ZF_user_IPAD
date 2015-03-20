@@ -9,7 +9,7 @@
 #import "FLViewController.h"
 //#import "favorableViewController.h"
 //标记一下方向
-
+#import "MineCommonController.h"
 typedef enum
 {
     ZYSlideDirectionRight = 0,
@@ -62,6 +62,8 @@ int     _seletedIndex;
  如果在.m里实现了一个 setSeletedIndex方法，那当用self.seletedIndex赋值
  的时候会不会调用setSeletedIndex这个方法？会调用
  */
+@property (strong, nonatomic) MineCommonController *mineviewcontroll;
+
 @property (nonatomic,retain) NSArray  *previousNavViewController;
 @property (nonatomic,retain) NSArray  *viewControllers;
 @property (nonatomic,assign)int    seletedIndex;

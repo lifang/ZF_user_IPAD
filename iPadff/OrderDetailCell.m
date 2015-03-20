@@ -73,7 +73,7 @@
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _nameLabel.backgroundColor = [UIColor clearColor];
-    _nameLabel.font = [UIFont boldSystemFontOfSize:14.f];
+    _nameLabel.font = [UIFont boldSystemFontOfSize:16.f];
     [self.contentView addSubview:_nameLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_nameLabel
                                                                  attribute:NSLayoutAttributeTop
@@ -127,21 +127,21 @@
 
     [self.contentView addSubview:_priceLabel];
     //数量
-//    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 80, 30)];
-//    
-//    _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
-//    _numberLabel.textAlignment = NSTextAlignmentCenter;
-//
-//    [self.contentView addSubview:_numberLabel];
+    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 80, 30)];
+    
+    _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    _numberLabel.textAlignment = NSTextAlignmentCenter;
+
+    [self.contentView addSubview:_numberLabel];
     //型号
     
     _brandLabel = [[UILabel alloc]initWithFrame:CGRectMake(110, 40, wide-140, 20)];
-    _brandLabel.font = [UIFont boldSystemFontOfSize:14.f];
+    _brandLabel.font = [UIFont boldSystemFontOfSize:16.f];
     
     [self.contentView addSubview:_brandLabel];
     //支付通道
     _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 60, wide-140, 20)];
-    _channelLabel.font = [UIFont systemFontOfSize:14.f];
+    _channelLabel.font = [UIFont systemFontOfSize:16.f];
 
     [self.contentView addSubview:_channelLabel];
     linlable  = [[UILabel alloc] initWithFrame:CGRectMake(0, 89, wide, 1)];
@@ -204,7 +204,7 @@
     self.numberLabel.text = [NSString stringWithFormat:@"X %d",[data.goodNumber intValue]];
     self.brandLabel.text = [NSString stringWithFormat:@"品牌型号 %@",data.goodBrand];
     self.channelLabel.text = [NSString stringWithFormat:@"支付通道 %@",data.goodChannel];
-    [self.pictureView sd_setImageWithURL:data.goodPicture placeholderImage:kImageName(@"test1.png")];
+    [self.pictureView sd_setImageWithURL:[NSURL URLWithString:data.goodPicture] placeholderImage:kImageName(@"test1.png")];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "MessageViewController.h"
 #import "ShoppingCartController.h"
 #import "BasicNagigationController.h"
+#import "MyMessageViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -31,21 +32,26 @@
     self.tabBarViewController.AG=78;
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewcontrollew) name:@"addressmanger" object:nil];
 
     ZYHomeViewController *viewController1 = [[ZYHomeViewController alloc] init];
     ShoppingCartController *viewController2 = [[ShoppingCartController alloc] init];
     MessageViewController *viewController3 = [[MessageViewController alloc] init];
     MyOrderViewController *viewController4 = [[MyOrderViewController alloc] init];
-    
+    MyMessageViewController *viewController5 = [[MyMessageViewController alloc] init];
+
     
     //创建一个导航，以第一个视图控制器为根视图
     BasicNagigationController *navController = [[BasicNagigationController alloc] initWithRootViewController:viewController2];
     BasicNagigationController *navController2 = [[BasicNagigationController alloc] initWithRootViewController:viewController4];
     BasicNagigationController *navController3 = [[BasicNagigationController alloc] initWithRootViewController:viewController1];
     BasicNagigationController *navController4 = [[BasicNagigationController alloc] initWithRootViewController:viewController3];
-    
+    BasicNagigationController *navController5 = [[BasicNagigationController alloc] initWithRootViewController:viewController5];
+
     //创建一个数组保存导航和另外四个视图控制器
     NSArray *array = [NSArray arrayWithObjects:navController3,navController,navController4,navController2,nil];
+     self.array5 = [NSArray arrayWithObjects:navController3,navController,navController4,navController5,nil];
+
     //释放
 
 //    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -68,6 +74,21 @@
 
     // Override point for customization after application launch.
     return YES;
+}
+-(void)viewcontrollew
+{
+
+
+    self.tabBarViewController.viewControllers = self.array5;
+
+    [self.tabBarViewController setSeletedIndex:3];
+
+    self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];
+    self.naviController.navigationBarHidden = YES;
+    MyMessageViewController *viewController5 = [[MyMessageViewController alloc] init];
+    [viewController5 SwitchViewClickedAtIndex:3];
+    
+    [self.window setRootViewController:self.naviController];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
