@@ -17,4 +17,6 @@
 
 @property(nonatomic,assign)int Index;
 
+@property(nonatomic,strong)NSString *IntegralNum;
+
 @end

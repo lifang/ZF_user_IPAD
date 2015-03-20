@@ -7,6 +7,7 @@
 //
 
 #import "RepairDetailController.h"
+#import "PayWayViewController.h"
 
 @interface RepairDetailController ()
 
@@ -355,7 +356,7 @@
             UIButton *cancelBtn = [self buttonWithTitle:@"取消申请" Andpositon:OperationBtnQuxiao Andaction:@selector(cancelApply:)];
             [self layoutButton:cancelBtn position:OperationBtnFirst];
             
-            UIButton *payBtn = [self buttonWithTitle:@"付款" Andpositon:OperationBtnSecond Andaction:@selector(payRepair:)];
+            UIButton *payBtn = [self buttonWithTitle:@"支付维修费" Andpositon:OperationBtnSecond Andaction:@selector(payRepair:)];
             [self layoutButton:payBtn position:OperationBtnSecond];
         }
             break;
@@ -444,7 +445,11 @@
 
 //支付
 - (IBAction)payRepair:(id)sender {
-
+    PayWayViewController *payVC = [[PayWayViewController alloc]init];
+    payVC.hidesBottomBarWhenPushed = YES;
+    payVC.orderID = self.csID;
+    payVC.totalPrice = _totalMoney;
+    [self.navigationController pushViewController:payVC animated:YES];
 }
 
 - (IBAction)send:(id)sender {

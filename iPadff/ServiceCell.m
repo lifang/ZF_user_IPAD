@@ -174,7 +174,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.ServieceBtnDelgete serviceBtnClick:button.tag WithSelectedID:_selectedID];
+    [self.ServieceBtnDelgete serviceBtnClick:button.tag WithSelectedID:_selectedID WithRepair_price:_repair_price];
 }
 
 @end

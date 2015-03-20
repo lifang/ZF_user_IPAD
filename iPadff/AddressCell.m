@@ -66,7 +66,7 @@
         
         _changeBtn = [[UIButton alloc]init];
         [_changeBtn addTarget:self action:@selector(changeClicked) forControlEvents:UIControlEventTouchUpInside];
-        [_changeBtn setTitle:@"修改" forState:UIControlStateNormal];
+        [_changeBtn setTitle:@"编辑" forState:UIControlStateNormal];
         [_changeBtn setTitleColor:kColor(251, 95, 18, 1.0) forState:UIControlStateNormal];
         _changeBtn.titleLabel.font = mainFont;
         [self addSubview:_changeBtn];
@@ -118,7 +118,7 @@
 
 -(void)changeClicked
 {
-    [self.AddressCellDelegate changeBtnClicked:_selectID];
+    [self.AddressCellDelegate changeBtnClicked:_selectID WithIndex:_indexP];
 }
 
 @end

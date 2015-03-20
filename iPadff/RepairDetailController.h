@@ -10,4 +10,6 @@
 
 @interface RepairDetailController : CSDetailViewController
 
+@property(nonatomic,assign)CGFloat totalMoney;
+
 @end

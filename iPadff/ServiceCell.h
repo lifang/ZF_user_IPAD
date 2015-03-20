@@ -20,7 +20,7 @@ typedef enum{
 //点击协议
 @protocol ServiceBtnClickDelegate <NSObject>
 @optional
--(void)serviceBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID;
+-(void)serviceBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID WithRepair_price:(NSString *)repair_price;
 @end
 
 @interface ServiceCell : UITableViewCell
@@ -34,6 +34,8 @@ typedef enum{
 @property(nonatomic,strong)UILabel *seviceStatus;
 
 @property(nonatomic,strong)NSString *selectedID;
+
+@property(nonatomic,strong)NSString *repair_price;
 
 @property(nonatomic,assign)ServieceBtnType ServieceBtntype;
 @property(nonatomic,weak)id<ServiceBtnClickDelegate> ServieceBtnDelgete;

@@ -17,6 +17,7 @@
         _applyNum = [NSString stringWithFormat:@"%@",[dict objectForKey:@"apply_num"]];
         _status = [NSString stringWithFormat:@"%@",[dict objectForKey:@"status"]];
         _createTime = [NSString stringWithFormat:@"%@",[dict objectForKey:@"create_time"]];
+        _repair_price = [NSString stringWithFormat:@"%@",[dict objectForKey:@"repair_price"]];
     }
     return self;
 }
