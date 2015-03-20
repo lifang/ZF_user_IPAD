@@ -142,6 +142,7 @@
     [self.view addSubview:password];
     
     _newsPassword = [[UITextField alloc]init];
+    _newsPassword.secureTextEntry = YES;
     _newsPassword.borderStyle = UITextBorderStyleLine;
     _newsPassword.clearButtonMode = UITextFieldViewModeWhileEditing;
     _newsPassword.frame = CGRectMake(CGRectGetMaxX(password.frame) , password.frame.origin.y, self.view.frame.size.width * 0.25, password.frame.size.height);
@@ -165,6 +166,7 @@
     [self.view addSubview:makeSurepassword];
     
     _makeSurePassword = [[UITextField alloc]init];
+    _makeSurePassword.secureTextEntry = YES;
     _makeSurePassword.borderStyle = UITextBorderStyleLine;
     _makeSurePassword.clearButtonMode = UITextFieldViewModeWhileEditing;
     _makeSurePassword.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , makeSurepassword.frame.origin.y, self.view.frame.size.width * 0.25, makeSurepassword.frame.size.height);

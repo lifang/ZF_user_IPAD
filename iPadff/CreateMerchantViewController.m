@@ -11,8 +11,8 @@
 
 @interface CreateMerchantViewController ()
 
-@property (nonatomic, strong) UIScrollView *scrollView;
 
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *merchantTF;
 @property (nonatomic, strong) UITextField *personTF;
 @property (nonatomic, strong) UITextField *person_IDTF;
@@ -72,7 +72,7 @@
         make.width.equalTo(@120);
         make.height.equalTo(@42);
     }];
-
+    
     
     _merchantTF = [[UITextField alloc] init];
     _merchantTF.delegate = self;
@@ -82,6 +82,7 @@
     _merchantTF.layer.cornerRadius = 3.0f;
     _merchantTF.font = FONT20;
     _merchantTF.placeholder = @"地域+经营商铺名+行业";
+    _merchantTF.textAlignment=NSTextAlignmentCenter;
      _merchantTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _merchantTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_merchantTF];
@@ -114,6 +115,7 @@
     _personTF.layer.cornerRadius = 3.0f;
     _personTF.font = FONT20;
     _personTF.placeholder = @"请输入法人姓名";
+    _personTF.textAlignment=NSTextAlignmentCenter;
     _personTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _personTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_personTF];
@@ -149,6 +151,7 @@
     _person_IDTF.layer.cornerRadius = 3.0f;
     _person_IDTF.font = FONT20;
     _person_IDTF.placeholder = @"请输入法人身份证号";
+    _person_IDTF.textAlignment=NSTextAlignmentCenter;
     _person_IDTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _person_IDTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_person_IDTF];
@@ -181,6 +184,7 @@
     _licenceTF.layer.cornerRadius = 3.0f;
     _licenceTF.font = FONT20;
     _licenceTF.placeholder = @"请输入营业执照号";
+    _licenceTF.textAlignment=NSTextAlignmentCenter;
     _licenceTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _licenceTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_licenceTF];
@@ -218,6 +222,7 @@
     _taxTF.layer.cornerRadius = 3.0f;
     _taxTF.font = FONT20;
     _taxTF.placeholder = @"请输入税务证号";
+    _taxTF.textAlignment=NSTextAlignmentCenter;
     _taxTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _taxTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_taxTF];
@@ -250,6 +255,7 @@
     _organzationTF.layer.cornerRadius = 3.0f;
     _organzationTF.font = FONT20;
     _organzationTF.placeholder = @"请输入机构代码号";
+    _organzationTF.textAlignment=NSTextAlignmentCenter;
     _organzationTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _organzationTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_organzationTF];
@@ -285,7 +291,8 @@
     _locationTF.layer.borderWidth = 1.0f;
     _locationTF.layer.cornerRadius = 3.0f;
     _locationTF.font = FONT20;
-    _locationTF.placeholder = @"请选择";
+    _locationTF.placeholder = @"请选择所在地";
+    _locationTF.textAlignment=NSTextAlignmentCenter;
     _locationTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _locationTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_locationTF];
@@ -299,6 +306,7 @@
     _locationBtn = [[UIButton alloc] init];
     _locationBtn.clipsToBounds = YES;
     _locationBtn.layer.cornerRadius = 3.0f;
+    [ _locationBtn setImage:[UIImage imageNamed:@"city.png"] forState:UIControlStateNormal];
     [_locationBtn addTarget:self action:@selector(locationBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_locationBtn];
     [_locationBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -333,6 +341,7 @@
     _bankTF.layer.cornerRadius = 3.0f;
     _bankTF.font = FONT20;
     _bankTF.placeholder = @"请输入开户银行";
+    _bankTF.textAlignment=NSTextAlignmentCenter;
     _bankTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _bankTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_bankTF];
@@ -365,6 +374,7 @@
     _bank_IDTF.layer.cornerRadius = 3.0f;
     _bank_IDTF.font = FONT20;
     _bank_IDTF.placeholder = @"请输入银行许可证号";
+    _bank_IDTF.textAlignment=NSTextAlignmentCenter;
     _bank_IDTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _bank_IDTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_bank_IDTF];
@@ -619,17 +629,18 @@
 
 -(void)locationBtnPressed:(id)sender
 {
-     [self pickerScrollIn];
-      NSLog(@"11111222222");
+     [self pickerDisplay];
+    
 }
 
 - (void)modifyLocation:(id)sender {
-    [self pickerScrollOut];
+    [self pickerHide];
     NSInteger index = [self.pickerView selectedRowInComponent:1];
     _cityID = [NSString stringWithFormat:@"%@",[[self.cityArray objectAtIndex:index] objectForKey:@"id"]];
     NSString *cityName = [[self.cityArray objectAtIndex:index] objectForKey:@"name"];
     _locationTF.text = cityName;
     NSLog(@"cityname:%@",cityName);
+   
 
 }
 
@@ -684,6 +695,13 @@
 
 }
 
+-(void)allBtnPressed:(id)sender
+{
+    [BaseApi EndEditing];
+    NSLog(@"nidaye");
+
+}
+
 
 -(void)savePressed:(id)sender
 {
@@ -691,7 +709,7 @@
 
     [_merchantTF becomeFirstResponder];
     [_merchantTF resignFirstResponder];
-    [self pickerScrollOut];
+    [self pickerHide];
     if (!_merchantTF.text || [_merchantTF.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];

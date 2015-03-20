@@ -212,7 +212,8 @@
                     }
                     if ([[object objectForKey:@"result"] count] > 0) {
                         //有数据
-                        self.page++;
+                        //self.page++;
+                        _page++;
                         [hud hide:YES];
                     }
                     else {
@@ -476,7 +477,9 @@
 
 //上拉加载
 - (void)pullUpToLoadData {
-    [self downloadDataWithPage:self.page isMore:YES];
+   // [self downloadDataWithPage:self.page isMore:YES];
+    [self downloadDataWithPage:_page isMore:NO];
+    NSLog(@"上拉加载");
 }
 
 #pragma mark - NSNotification

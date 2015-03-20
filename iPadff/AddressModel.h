@@ -24,6 +24,10 @@
 
 @property (nonatomic, strong) NSString *zipCode;
 
+@property(nonatomic,strong) NSString *city_parent_name;
+
+@property(nonatomic,strong)NSString *city_name;
+
 - (id)initWithParseDictionary:(NSDictionary *)dict;
 
 @end

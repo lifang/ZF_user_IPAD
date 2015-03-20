@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol ChangeEmailSuccessDelegate <NSObject>
+
+@optional
+-(void)ChangeEmailSuccessWithEmail:(NSString *)newEmail;
+
+@end
 
 @interface ChangeEmailController : UIViewController
 
+@property(nonatomic,strong)NSString *oldEmail;
+
+@property(nonatomic,weak)id ChangeEmailSuccessDelegate;
 @end

@@ -313,6 +313,7 @@
     _locationBtn = [[UIButton alloc] init];
     _locationBtn.clipsToBounds = YES;
     _locationBtn.layer.cornerRadius = 3.0f;
+    [ _locationBtn setImage:[UIImage imageNamed:@"city.png"] forState:UIControlStateNormal];
     [_locationBtn addTarget:self action:@selector(locationBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_locationBtn];
     [_locationBtn makeConstraints:^(MASConstraintMaker *make) {
@@ -637,12 +638,12 @@
 
 -(void)locationBtnPressed:(id)sender
 {
-    [self pickerScrollIn];
+    [self pickerDisplay];
     NSLog(@"11111222222");
 }
 
 - (void)modifyLocation:(id)sender {
-    [self pickerScrollOut];
+    [self pickerHide];
     NSInteger index = [self.pickerView selectedRowInComponent:1];
     _cityID = [NSString stringWithFormat:@"%@",[[self.cityArray objectAtIndex:index] objectForKey:@"id"]];
     NSString *cityName = [[self.cityArray objectAtIndex:index] objectForKey:@"name"];

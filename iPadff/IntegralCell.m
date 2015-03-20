@@ -75,6 +75,7 @@
 
 -(void)layoutSubviews
 {
+    [super layoutSubviews];
     CGFloat mainY = 2.f;
     CGFloat mainHeight = 30.f;
     
@@ -87,7 +88,6 @@
     _moneyLabel.frame = CGRectMake(CGRectGetMaxX(_tradeTimeLabel.frame), mainY, 130, mainHeight);
     _intergralLabel.frame = CGRectMake(CGRectGetMaxX(_moneyLabel.frame), mainY, 120, mainHeight);
     _intergralType.frame = CGRectMake(CGRectGetMaxX(_intergralLabel.frame), mainY, 120, mainHeight);
-    _lineView.frame = CGRectMake(0, CGRectGetMaxY(_orderNumLabel.frame) + 10,self.bounds.size.width, 1);
     
     
 }

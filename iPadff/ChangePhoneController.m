@@ -8,6 +8,8 @@
 
 #import "ChangePhoneController.h"
 #import "ChangePhoneSuccessViewController.h"
+#import "NetworkInterface.h"
+#import "RegularFormat.h"
 
 @interface ChangePhoneController ()<UITextFieldDelegate>
 
@@ -21,6 +23,8 @@
 
 @property(nonatomic,assign)BOOL isChecked;
 
+@property(nonatomic,strong)NSString *authCode;
+
 @end
 
 @implementation ChangePhoneController
@@ -29,6 +33,8 @@
     [super viewDidLoad];
     
     [self initAndLayoutUI];
+    
+    [self getAuthCodeClicked];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +66,7 @@
     _newsPhoneField.translatesAutoresizingMaskIntoConstraints = NO;
     _newsPhoneField.borderStyle = UITextBorderStyleLine;
     _newsPhoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _newsPhoneField.placeholder = @"13919022222";
+    _newsPhoneField.placeholder = @"请输入新手机号";
     [_newsPhoneField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _newsPhoneField.delegate = self;
     _newsPhoneField.leftViewMode = UITextFieldViewModeAlways;
@@ -102,10 +108,11 @@
                                                            constant:mainHeight]];
     
     _oldPhoneField = [[UITextField alloc]init];
+    _oldPhoneField.userInteractionEnabled = NO;
     _oldPhoneField.translatesAutoresizingMaskIntoConstraints = NO;
     _oldPhoneField.borderStyle = UITextBorderStyleNone;
     _oldPhoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _oldPhoneField.text = @"13932100225";
+    _oldPhoneField.text = _oldPhoneNum;
     _oldPhoneField.font = [UIFont systemFontOfSize:20];
 //    _newsPhoneField.placeholder = @"13919022222";
 //    [_oldPhoneField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
@@ -328,16 +335,6 @@
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:mainHeight]];
-
-    
-
-    
-
-
-
-    
-
-
 }
 
 - (void)setLabel:(UILabel *)label
@@ -396,8 +393,7 @@
 
 -(void)getAuthCodeClicked
 {
-    //点击了获取验证码！
-    [self resetStatus];
+    [self sendMobileValidate];
 }
 
 - (void)resetStatus {
@@ -407,7 +403,34 @@
 
 -(void)makeSureClieked
 {
-    //点击了检查
+    if (!_authCodeField.text || [_authCodeField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"验证码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![_authCodeField.text isEqualToString:_authCode]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"验证码错误!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        UIView *rightBigV = [[UIView alloc]init];
+        rightBigV.frame = CGRectMake(0, 0, 60, 40);
+        UIImageView *rightV = [[UIImageView alloc]init];
+        rightV.frame = CGRectMake(20, 8, 23, 23);
+        rightV.image = kImageName(@"check_wrong");
+        [rightBigV addSubview:rightV];
+        _authCodeField.rightView = rightBigV;
+        _isChecked = NO;
+        return;
+    }
+    
     UIView *rightBigV = [[UIView alloc]init];
     rightBigV.frame = CGRectMake(0, 0, 60, 40);
     UIImageView *rightV = [[UIImageView alloc]init];
@@ -415,15 +438,82 @@
     rightV.image = kImageName(@"check_right");
     [rightBigV addSubview:rightV];
     _authCodeField.rightView = rightBigV;
+    _isChecked = YES;
+
 }
 
 -(void)submitClicked
 {
-    //点击了提交
-    ChangePhoneSuccessViewController *changeSuccessVC = [[ChangePhoneSuccessViewController alloc]init];
-    changeSuccessVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:changeSuccessVC animated:YES];
+    if (!_newsPhoneField.text || [_newsPhoneField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"手机号不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![RegularFormat isMobileNumber:_newsPhoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"手机号格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (_isChecked == NO) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"请先验证验证码!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+        
+    }
+    [self saveDate];
+    
 }
+
+#pragma mark - Request
+-(void)saveDate
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:_newsPhoneField.text email:nil cityID:nil finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                [self.ChangePhoneSuccessDelegate ChangePhoneNumSuccessWithNewPhoneNum:_newsPhoneField.text];
+                //点击了提交
+                ChangePhoneSuccessViewController *changeSuccessVC = [[ChangePhoneSuccessViewController alloc]init];
+                changeSuccessVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:changeSuccessVC animated:YES];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+    
+}
+
 
 //倒计时
 - (void)countDownStart {
@@ -458,6 +548,42 @@
     });
     dispatch_resume(_timer);
 }
+
+#pragma mark - Request
+//发送手机验证码
+-(void)sendMobileValidate
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"正在发送...";
+    [NetworkInterface getFindValidateCodeWithMobileNumber:_oldPhoneField.text finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                if ([[object objectForKey:@"code"] intValue] == RequestSuccess) {
+                    [hud setHidden:YES];
+                    NSString *validate = [object objectForKey:@"result"];
+                    [self resetStatus];
+                    self.authCode = validate;
+                }
+                else {
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+            }
+            else {
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+    
+}
+
 
 
 @end

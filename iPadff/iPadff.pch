@@ -32,10 +32,10 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-
 #import "AppDelegate.h"
 #import "HexColor.h"
 #import "UIImageView+WebCache.h"
+#import "BaseApi.h"
 
 
 #define BackColor @"dedede"

@@ -7,6 +7,7 @@
 //
 
 #import "SafeViewController.h"
+#import "NetworkInterface.h"
 
 @interface SafeViewController ()<UITextFieldDelegate>
 
@@ -49,6 +50,7 @@
     [self setLabel:emailLabel withTopView:phoneLabel middleSpace:12 labelTag:1];
 
     _oldPasswordField = [[UITextField alloc]init];
+    _oldPasswordField.secureTextEntry = YES;
     _oldPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
     _oldPasswordField.borderStyle = UITextBorderStyleLine;
     _oldPasswordField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -95,6 +97,7 @@
                                                            constant:btnHeight]];
     
     _newsPasswordField = [[UITextField alloc]init];
+    _newsPasswordField.secureTextEntry = YES;
     _newsPasswordField.translatesAutoresizingMaskIntoConstraints = NO;
     _newsPasswordField.borderStyle = UITextBorderStyleLine;
     _newsPasswordField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -141,6 +144,7 @@
                                                            constant:btnHeight]];
 
     _makeSureField = [[UITextField alloc]init];
+    _makeSureField.secureTextEntry = YES;
     _makeSureField.translatesAutoresizingMaskIntoConstraints = NO;
     _makeSureField.borderStyle = UITextBorderStyleLine;
     _makeSureField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -277,9 +281,83 @@
 //点击了保存
 -(void)saveClicked
 {
-    
+    if (!_oldPasswordField.text || [_oldPasswordField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请输入原密码";
+        return;
+    }
+    if (!_newsPasswordField.text || [_newsPasswordField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请输入新密码";
+        return;
+    }
+    if (!_makeSureField.text || [_makeSureField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请再次输入新密码";
+        return;
+    }
+    if (![_makeSureField.text isEqualToString:_newsPasswordField.text]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"两次输入的密码不一致";
+        return;
+    }
+    [_makeSureField becomeFirstResponder];
+    [_makeSureField resignFirstResponder];
+    [self modifyPassword];
+
 }
 
+#pragma mark - Request
 
+- (void)modifyPassword {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface modifyUserPasswordWithToken:delegate.token userID:delegate.userID primaryPassword:_oldPasswordField.text newPassword:_newsPasswordField.text finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                                    message:@"用户信息修改成功"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    _oldPasswordField.text = nil;
+                    _newsPasswordField.text = nil;
+                    _makeSureField.text = nil;
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
 
 @end
