@@ -8,7 +8,12 @@
 
 #import "GoodDetaildetailViewController.h"
 
+#import "RefreshView.h"
 #import "NetworkInterface.h"
+#import "CommentCell.h"
+#import "RefreshView.h"
+#import "NetworkInterface.h"
+#import "CommentCell.h"
 #import "AppDelegate.h"
 #import "GoodDetialModel.h"
 #import "GoodButton.h"
@@ -16,9 +21,19 @@
 #import "FormView.h"
 #import "InterestView.h"
 #import "GoodDetailViewController.h"
-@interface GoodDetaildetailViewController ()
+@interface GoodDetaildetailViewController ()<UITableViewDataSource,UITableViewDelegate,RefreshDelegate>
 @property (nonatomic, strong) GoodDetialModel *detailModel;
+@property (nonatomic, strong) RefreshView *topRefreshView;
+@property (nonatomic, strong) RefreshView *bottomRefreshView;
+@property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, assign) BOOL reloading;
+@property (nonatomic, assign) CGFloat primaryOffsetY;
+@property (nonatomic, assign) int page;
+/**********************************/
+
+//评论
+@property (nonatomic, strong) NSMutableArray *reviewItem;
 @end
 
 @implementation GoodDetaildetailViewController
@@ -27,7 +42,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _reviewItem = [[NSMutableArray alloc] init];
+    [self initAndLayoutUIpp];
+
+    [self firstLoadData];
+
     self.title=@"商品详情";
     self.view.backgroundColor=[UIColor whiteColor];
     
@@ -164,25 +183,25 @@
     //品牌型号
     originY += vSpace + 1;
     NSString *brandModel = [NSString stringWithFormat:@"%@%@",_detailModel.goodBrand,_detailModel.goodModel];
-    [self addLabelWithTitle:@"品牌型号" content:brandModel offsetY:originY];
+    [self addLabelWithTitle:@"品   牌    型    号" content:brandModel offsetY:originY];
     
     //外壳
     originY += vSpace + labelHeight;
-    [self addLabelWithTitle:@"外壳类型" content:_detailModel.goodMaterial offsetY:originY];
+    [self addLabelWithTitle:@"外   壳    类    型" content:_detailModel.goodMaterial offsetY:originY];
     //电池
     originY += vSpace + labelHeight;
-    [self addLabelWithTitle:@"电池信息" content:_detailModel.goodBattery offsetY:originY];
+    [self addLabelWithTitle:@"电   池    信    息" content:_detailModel.goodBattery offsetY:originY];
     //签购单
     originY += vSpace +labelHeight;
     [self addLabelWithTitle:@"签购单打印方式" content:_detailModel.goodSignWay offsetY:originY];
     //加密卡
     originY += vSpace + labelHeight;
-    [self addLabelWithTitle:@"加密卡方式" content:_detailModel.goodEncryptWay offsetY:originY];
+    [self addLabelWithTitle:@"加  密  卡  方 式" content:_detailModel.goodEncryptWay offsetY:originY];
     
     //支付通道信息
     originY += labelHeight + 10;
     UILabel *cTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, labelHeight)];
-    [self setLabels:cTitleLabel withTitle:@"支付通道信息" font:[UIFont systemFontOfSize:13.f]];
+    [self setLabels:cTitleLabel withTitle:@"支 付 通 道 信息" font:[UIFont systemFontOfSize:16.f]];
     [_mainScrollView addSubview:cTitleLabel];
     
     //划线
@@ -207,7 +226,7 @@
     [self addLabelWithTitle:@"是否支持注销" content:cancelString offsetY:originY];
     
     //标准手续费
-    originY += labelHeight + 10;
+    originY += labelHeight + 20;
     CGFloat standFormHeight = [FormView heightWithRowCount:[_detailModel.defaultChannel.standRateItem count]
                                                   hasTitle:YES];
     FormView *standForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, wide, standFormHeight)];
@@ -239,7 +258,7 @@
     //申请开通条件
     originY += otherFormHeight + 10;
     UILabel *openTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, labelHeight)];
-    [self setLabels:openTitleLabel withTitle:@"申请开通条件" font:[UIFont systemFontOfSize:13.f]];
+    [self setLabels:openTitleLabel withTitle:@"申请开通条件" font:[UIFont systemFontOfSize:16.f]];
     
     //划线
     originY += labelHeight + vSpace;
@@ -251,16 +270,16 @@
     originY += vSpace + 1;
     CGFloat openHeight = [self heightWithString:_detailModel.defaultChannel.openRequirement
                                           width:wide - leftSpace - rightSpace
-                                       fontSize:13.f];
+                                       fontSize:16.f];
     openHeight = openHeight < labelHeight ? labelHeight : openHeight;
     UILabel *openLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, openHeight)];
     openLabel.numberOfLines = 0;
-    [self setLabels:openLabel withTitle:_detailModel.defaultChannel.openRequirement font:[UIFont systemFontOfSize:13.f]];
+    [self setLabels:openLabel withTitle:_detailModel.defaultChannel.openRequirement font:[UIFont systemFontOfSize:16.f]];
     
     //商品详细说明
     originY += openHeight + 20;
     UILabel *descriptionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, labelHeight)];
-    [self setLabels:descriptionTitleLabel withTitle:@"商品详细说明" font:[UIFont systemFontOfSize:13.f]];
+    [self setLabels:descriptionTitleLabel withTitle:@"商品详细说明" font:[UIFont systemFontOfSize:16.f]];
     
     //划线
     originY += labelHeight + vSpace;
@@ -272,7 +291,7 @@
     originY += vSpace + 1;
     CGFloat descriptionHeight = [self heightWithString:_detailModel.goodDescription
                                                  width:wide - leftSpace - rightSpace
-                                              fontSize:13.f];
+                                              fontSize:16.f];
     descriptionHeight = descriptionHeight < labelHeight ? labelHeight : descriptionHeight;
     UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, openHeight)];
     descriptionLabel.numberOfLines = 0;
@@ -284,7 +303,7 @@
     sixthLine.backgroundColor = kColor(200, 198, 199, 1);
     [_mainScrollView addSubview:sixthLine];
     UILabel *interestLabel = [[UILabel alloc] initWithFrame:CGRectMake((wide - 80) / 2, originY - 10, 80, labelHeight)];
-    [self setLabels:interestLabel withTitle:@"您感兴趣的" font:[UIFont systemFontOfSize:13.f]];
+    [self setLabels:interestLabel withTitle:@"您感兴趣的" font:[UIFont systemFontOfSize:14.f]];
     interestLabel.textAlignment = NSTextAlignmentCenter;
     interestLabel.backgroundColor = kColor(244, 243, 243, 1);
     
@@ -314,7 +333,7 @@
     
     _mainScrollView.userInteractionEnabled=YES;
     
-    _mainScrollView.contentSize = CGSizeMake(wide, originY+660);
+    _mainScrollView.contentSize = CGSizeMake(wide, originY+130);
     //    [self setSeletedIndex:self.secletA];
 }
 - (IBAction)selectedRelativeGood:(UITapGestureRecognizer *)sender {
@@ -325,6 +344,305 @@
     
     [self.navigationController pushViewController:detailC animated:YES];
 }
+#pragma mark - 评论
+#pragma mark - UI
+
+- (void)setHeaderAndFooterView {
+    
+}
+
+- (void)initAndLayoutUIpp {
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _tableView.backgroundColor = kColor(244, 243, 243, 1);
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self setHeaderAndFooterView];
+    [self.view addSubview:_tableView];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:64]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    
+    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, wide, 80)];
+    _topRefreshView.direction = PullFromTop;
+    _topRefreshView.delegate = self;
+    [_tableView addSubview:_topRefreshView];
+    
+    _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
+    _bottomRefreshView.direction = PullFromBottom;
+    _bottomRefreshView.delegate = self;
+    _bottomRefreshView.hidden = YES;
+    [_tableView addSubview:_bottomRefreshView];
+}
+
+#pragma mark - Request
+
+- (void)firstLoadData {
+    _page = 1;
+    [self downloadDataWithPage:_page isMore:NO];
+}
+
+- (void)downloadDataWithPage:(int)page isMore:(BOOL)isMore {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    [NetworkInterface getCommentListWithGoodID:_goodID page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    if (!isMore) {
+                        [_reviewItem removeAllObjects];
+                    }
+                    if ([[object objectForKey:@"result"] count] > 0) {
+                        //有数据
+                        self.page++;
+                        [hud hide:YES];
+                    }
+                    else {
+                        //无数据
+                        hud.labelText = @"没有更多数据了...";
+                    }
+                    [self parseCommentDataWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+        if (!isMore) {
+            [self refreshViewFinishedLoadingWithDirection:PullFromTop];
+        }
+        else {
+            [self refreshViewFinishedLoadingWithDirection:PullFromBottom];
+        }
+    }];
+}
+
+#pragma mark - Data
+
+- (void)parseCommentDataWithDictionary:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    NSArray *commentList = [[dict objectForKey:@"result"] objectForKey:@"list"];
+    for (int i = 0; i < [commentList count]; i++) {
+        NSDictionary *dict = [commentList objectAtIndex:i];
+        CommentModel *model = [[CommentModel alloc] initWithParseDictionary:dict];
+        [_reviewItem addObject:model];
+    }
+    [_tableView reloadData];
+}
+
+- (CGFloat)heightForComment:(NSString *)content {
+    NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [UIFont systemFontOfSize:14.f],NSFontAttributeName,
+                          nil];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(wide - 40, CGFLOAT_MAX)
+                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:attr
+                                        context:nil];
+    return rect.size.height + 1 > 20.f ? rect.size.height + 1 : 20.f;
+}
+
+#pragma mark - UITableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [_reviewItem count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *commentIdentifier = @"commentIdentifier";
+    CommentModel *model = [_reviewItem objectAtIndex:indexPath.section];
+    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:commentIdentifier];
+    if (cell == nil) {
+        cell = [[CommentCell alloc] initWithContent:model.content reuseIdentifier:commentIdentifier];
+    }
+    [cell setCommentData:model];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CommentModel *model = [_reviewItem objectAtIndex:indexPath.section];
+    CGFloat commentHeight = [self heightForComment:model.content];
+    return commentHeight + kNormalHeight;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.001f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.001f;
+}
+
+#pragma mark - Refresh
+
+- (void)refreshViewReloadData {
+    _reloading = YES;
+}
+
+- (void)refreshViewFinishedLoadingWithDirection:(PullDirection)direction {
+    _reloading = NO;
+    if (direction == PullFromTop) {
+        [_topRefreshView refreshViewDidFinishedLoading:_tableView];
+    }
+    else if (direction == PullFromBottom) {
+        _bottomRefreshView.frame = CGRectMake(0, _tableView.contentSize.height, _tableView.bounds.size.width, 60);
+        [_bottomRefreshView refreshViewDidFinishedLoading:_tableView];
+    }
+    [self updateFooterViewFrame];
+}
+
+- (BOOL)refreshViewIsLoading:(RefreshView *)view {
+    return _reloading;
+}
+
+- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
+    [self refreshViewReloadData];
+    //loading...
+    if (view == _topRefreshView) {
+        [self pullDownToLoadData];
+    }
+    else if (view == _bottomRefreshView) {
+        [self pullUpToLoadData];
+    }
+}
+
+- (void)updateFooterViewFrame {
+    _bottomRefreshView.frame = CGRectMake(0, _tableView.contentSize.height, _tableView.bounds.size.width, 60);
+    _bottomRefreshView.hidden = NO;
+    if (_tableView.contentSize.height < _tableView.frame.size.height) {
+        _bottomRefreshView.hidden = YES;
+    }
+}
+
+#pragma mark - UIScrollView
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _primaryOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == _tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidScroll:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidScroll:scrollView];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == _tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+            //上拉
+            if (_bottomRefreshView.hidden) {
+                return;
+            }
+            [_bottomRefreshView refreshViewDidEndDragging:scrollView];
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidEndDragging:scrollView];
+        }
+    }
+}
+
+#pragma mark - 上下拉刷新
+//下拉刷新
+- (void)pullDownToLoadData {
+    [self firstLoadData];
+}
+
+//上拉加载
+- (void)pullUpToLoadData {
+    [self downloadDataWithPage:self.page isMore:YES];
+}
+
 #pragma mark - 计算
 
 - (CGFloat)heightWithString:(NSString *)content
@@ -344,23 +662,41 @@
                   content:(NSString *)content
                   offsetY:(CGFloat)offsetY {
     CGFloat leftSpace = 20.f;
-    CGFloat titleLabelWidth = 100.f;
-    CGFloat labelHeight = 20.f;
+    CGFloat titleLabelWidth = 120.f;
+    CGFloat labelHeight = 30.f;
     CGFloat middleLeftSpace = leftSpace + titleLabelWidth + 5;
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, offsetY, titleLabelWidth, labelHeight)];
-    [self setLabels:titleLabel withTitle:title font:[UIFont systemFontOfSize:14.f]];
+    [self setLabels:titleLabel withTitle:title font:[UIFont systemFontOfSize:16.f]];
+    titleLabel.textColor=[UIColor blackColor];
     
     [_mainScrollView addSubview:titleLabel];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     
-    
-    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(middleLeftSpace, offsetY, kScreenWidth - middleLeftSpace, labelHeight)];
-    [self setLabels:contentLabel withTitle:content font:[UIFont systemFontOfSize:14.f]];
+    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(middleLeftSpace, offsetY, wide - middleLeftSpace, labelHeight)];    contentLabel.textColor=[UIColor grayColor];
+
+    [self setLabels:contentLabel withTitle:content font:[UIFont systemFontOfSize:16.f]];
     
 }
 - (void)setLabels:(UILabel *)label withTitle:(NSString *)title font:(UIFont *)font{
     label.backgroundColor = [UIColor clearColor];
     label.font = font;
     label.text = title;
+//    label.textColor=[UIColor grayColor];
+    
     [_mainScrollView addSubview:label];
 }
 - ( void)handleViewWithOriginY:(CGFloat)originY {
@@ -451,6 +787,8 @@
         
         
     }
+    [self setSeletedIndex:self.secletA];
+
     //竖线
     //    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth / 2, 10, 0.5f, 25)];
     //    firstLine.backgroundColor = kColor(201, 201, 201, 1);
@@ -472,11 +810,18 @@
     NSLog(@"%d",aIndex);
     if(aIndex==1024)
     {
+        _mainScrollView.hidden=NO;
+        _tableView.hidden=YES;
+
+     
         
     }
     else
     {
-        
+        _tableView.hidden=NO;
+
+        _mainScrollView.hidden=YES;
+  
     }
     
     UIButton *previousButton = (UIButton *)[self.view viewWithTag:self.secletA];

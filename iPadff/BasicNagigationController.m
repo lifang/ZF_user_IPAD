@@ -47,7 +47,7 @@
     
     if (viewController.navigationItem.leftBarButtonItem== nil && [self.viewControllers count] > 1) {
         
-        viewController.navigationItem.leftBarButtonItem =[self customLeftBackButton];
+        viewController.navigationItem.leftBarButtonItems =[self customLeftBackButton];
     }
 //        viewController.navigationItem.titleView = [self customTitle:viewController.navigationItem];
 }
@@ -62,7 +62,7 @@
 //    title.text = self.navigationItem.title;
 //    return  title;
 //}
--(UIBarButtonItem*)customLeftBackButton{
+-(NSArray*)customLeftBackButton{
     
     UIImage *image=[UIImage imageNamed:@"back_btn_white"];
     
@@ -75,8 +75,12 @@
     [btn addTarget:self action:@selector(popself) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
-    return backItem;
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,nil];
+    return self.navigationItem.rightBarButtonItems;
     
 }
 

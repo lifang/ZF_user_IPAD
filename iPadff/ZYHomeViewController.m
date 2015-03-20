@@ -196,10 +196,10 @@
 }
 - (void)initModuleView {
        NSArray *nameArray = [NSArray arrayWithObjects:
-                          @"买POS机",
-                          @"开通认证",
+                          @"选择POS机",
+                          @" 开通认证",
                           @"终端管理",
-                          @"交易流水",
+                          @" 交易流水",
                           @"我要贷款",
                           @"我要理财",
                           @"系统公告",
@@ -239,7 +239,7 @@
             {
                 
                 button.frame=CGRectMake((SCREEN_HEIGHT-60)/8*(2*i+1)-32,SCREEN_WIDTH/2+50,  64, 64);
-                lable.frame=CGRectMake((2*i+1)*(SCREEN_HEIGHT-60)/8-32,SCREEN_WIDTH/2+110,  80, 54);
+                lable.frame=CGRectMake((2*i+1)*(SCREEN_HEIGHT-60)/8-38,SCREEN_WIDTH/2+110,  90, 54);
                 
                 if (button.tag==1000) {
                     
@@ -272,7 +272,7 @@
                 
             {
                 button.frame=CGRectMake((SCREEN_WIDTH-60)/8*(2*i+1)-32,SCREEN_HEIGHT/2+50,  64, 64);
-                lable.frame=CGRectMake((2*i+1)*(SCREEN_WIDTH-60)/8-32,SCREEN_HEIGHT/2+110,  80, 54);
+                lable.frame=CGRectMake((2*i+1)*(SCREEN_WIDTH-60)/8-38,SCREEN_HEIGHT/2+110,  90, 54);
                 if (button.tag==1000) {
                     
                     UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(button.frame)* 1.6, button.frame.origin.y -10, 2, 2 * button.frame.size.height*2)];

@@ -16,5 +16,7 @@
 -(void)orderClick;
 
 -(void)setLeftViewWith:(ChooseViewType)choosetype;
+-(void)messageBtnClick;
+
 
 @end

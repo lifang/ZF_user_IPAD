@@ -55,8 +55,31 @@
     // Do any additional setup after loading the view.
     self.title = @"商品详情";
     self.view.backgroundColor = kColor(244, 243, 243, 1);
+    
+    
+    UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shoppingButton.frame = CGRectMake(0, 0, 30, 30);
+    [shoppingButton setImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
+    
+    //    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
+    [shoppingButton addTarget:self action:@selector(goShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    //设置间距
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+    UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem, shoppingItem,nil];
     [self downloadGoodDetail];
 }
+- (IBAction)goShoppingCart:(id)sender {
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del.tabBarViewController setSeletedIndex:1];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -370,12 +393,15 @@
     [self setLabel:introducelable withTitle:@"通道介绍" font:[UIFont systemFontOfSize:17.f]];
     //厂家图片
     originY += vSpace + 1;
-    UIImageView *factoryImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, labelHeight)];
-    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath]];
+    UIImageView *factoryImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10, originY+20, 60, labelHeight)];
+    
+    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath] placeholderImage:[UIImage imageNamed:@"test1" ]];
+    
+//    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath]];
     [_mainScrollView addSubview:factoryImageView];
     
     //厂家网址
-    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth, originY+20, wide - leftLabelWidth - leftSpace, labelHeight)];
+    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace, labelHeight)];
     [self setLabel:websiteLabel withTitle:_detailModel.factoryWebsite font:[UIFont systemFontOfSize:13.f]];
     
     //厂家简介
@@ -581,7 +607,7 @@
     
     GoodDetaildetailViewController*goodedetal=[[GoodDetaildetailViewController alloc]init];
     goodedetal.goodID = _detailModel.goodID;
-    goodedetal.secletA=sender.tag-1024;
+    goodedetal.secletA=sender.tag;
     goodedetal.hidesBottomBarWhenPushed =  YES ;
 
     [self.navigationController pushViewController:goodedetal animated:YES];

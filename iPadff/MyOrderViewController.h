@@ -17,4 +17,6 @@
     UIButton*rentbutton;
     
 }
+@property(nonatomic,assign)NSInteger noticeint;
+
 @end

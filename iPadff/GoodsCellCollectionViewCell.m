@@ -208,7 +208,7 @@
 //    _salesVolumeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _salesVolumeLabel.backgroundColor = [UIColor clearColor];
     _salesVolumeLabel.font = [UIFont systemFontOfSize:16.f];
-    _salesVolumeLabel.textColor = kColor(177, 176, 176, 1);
+   _salesVolumeLabel.textColor = [UIColor blackColor];
     [self.contentView addSubview:_salesVolumeLabel];
     
     [self addSubview:self.bigimages];

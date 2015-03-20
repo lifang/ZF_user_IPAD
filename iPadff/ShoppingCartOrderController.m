@@ -14,6 +14,7 @@
 #import "CityHandle.h"
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
+#import "AddressViewController.h"
 @interface ShoppingCartOrderController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIButton *typeBtn;
@@ -781,6 +782,8 @@ if(section==0)
     [footerView addSubview:newaddressmangerbutton];
 //    newaddressmangerbutton.layer.cornerRadius = 4.f;
     newaddressmangerbutton.layer.masksToBounds = YES;
+    [newaddressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+
     [newaddressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
     [newaddressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
     newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
@@ -827,6 +830,16 @@ if(section==0)
 
 
    
+}
+-(void)addressmangerbuttonclick
+{
+
+//    AddressViewController*address=[[AddressViewController alloc]init];
+//    [self.navigationController pushViewController:address animated:YES];
+//    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
+
+
 }
 -(void)newbuttonclick
 {

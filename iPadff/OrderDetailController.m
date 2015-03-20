@@ -211,7 +211,7 @@
 
 - (void)setLabel:(UILabel *)label withString:(NSString *)string {
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:14.f];
+    label.font = [UIFont systemFontOfSize:16.f];
     label.text = string;
 }
 
@@ -376,7 +376,7 @@ if(section==0)
                     //状态
                     UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX , 10, wide - originX , 20.f)];
                     statusLabel.backgroundColor = [UIColor clearColor];
-                    statusLabel.font = [UIFont boldSystemFontOfSize:14.f];
+                    statusLabel.font = [UIFont boldSystemFontOfSize:16.f];
                     statusLabel.text = [NSString stringWithFormat:@"订单状态：%@",[_orderDetail getStatusString]];
                     [cell.contentView addSubview:statusLabel];
                     //实付
@@ -494,21 +494,21 @@ if(section==0)
                     //订单
                     UILabel *orderLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2 - btnWidth, 20)];
                     orderLabel.backgroundColor = [UIColor clearColor];
-                    orderLabel.font = [UIFont systemFontOfSize:14.f];
+                    orderLabel.font = [UIFont systemFontOfSize:16.f];
 //                    orderLabel.textColor = kColor(116, 116, 116, 1);
                     orderLabel.text = [NSString stringWithFormat:@"订单编号：%@",_orderDetail.orderNumber];
                     [cell.contentView addSubview:orderLabel];
                     //支付方式
                     UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2 - btnWidth, 20.f)];
                     typeLabel.backgroundColor = [UIColor clearColor];
-                    typeLabel.font = [UIFont systemFontOfSize:14.f];
+                    typeLabel.font = [UIFont systemFontOfSize:16.f];
 //                    typeLabel.textColor = kColor(116, 116, 116, 1);
                     typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
                     [cell.contentView addSubview:typeLabel];
                     //订单日期
                     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2 - btnWidth, 20)];
                     dateLabel.backgroundColor = [UIColor clearColor];
-                    dateLabel.font = [UIFont systemFontOfSize:14.f];
+                    dateLabel.font = [UIFont systemFontOfSize:16.f];
 //                    dateLabel.textColor = kColor(116, 116, 116, 1);
                     dateLabel.text = [NSString stringWithFormat:@"订单日期：%@",_orderDetail.orderTime];
                     [cell.contentView addSubview:dateLabel];
@@ -576,7 +576,7 @@ if(section==0)
                 
                 goodslable.text=@"商品";
                 
-                UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-20, 0, 60, 20)];
+                UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2+20, 0, 60, 20)];
                 [rootview addSubview:phonelable];
 //                phonelable.textAlignment = NSTextAlignmentCenter;
                 
@@ -630,9 +630,9 @@ if(section==0)
 
                 UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2, 20)];
                 totalLabel.backgroundColor = [UIColor clearColor];
-                totalLabel.font = [UIFont systemFontOfSize:13.f];
+                totalLabel.font = [UIFont systemFontOfSize:16.f];
                 totalLabel.textAlignment = NSTextAlignmentRight;
-                totalLabel.text = [NSString stringWithFormat:@"共计%@件商品 实付金额：￥%.2f",_orderDetail.orderTotalNumber,_orderDetail.orderTotalPrice];
+                totalLabel.text = [NSString stringWithFormat:@"共计%@件商品  实付金额：￥%.2f",_orderDetail.orderTotalNumber,_orderDetail.orderTotalPrice];
                 [cell.contentView addSubview:totalLabel];
             }
             else {

@@ -82,7 +82,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont systemFontOfSize:13.f];
+    titleLabel.font = [UIFont systemFontOfSize:15.f];
     titleLabel.text = formTitle;
     [self addSubview:titleLabel];
     

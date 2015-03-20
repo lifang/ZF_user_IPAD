@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.navigationController.navigationBarHidden = YES;
 }
 
@@ -56,6 +57,7 @@
     
     self.chooseView = chooseView;
     [self.view addSubview:chooseView];
+    
 
 }
 

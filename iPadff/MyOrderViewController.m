@@ -50,17 +50,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setLeftViewWith:ChooseViewMyOrder];
+        [self setLeftViewWith:ChooseViewMyOrder];
+    
     // Do any additional setup after loading the view.
     self.title = @"我的订单";
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(okaddress) name:@"okaddress" object:nil];
+
     _orderItems = [[NSMutableArray alloc] init];
     
     [self initAndLayoutUI];
     self.currentType = OrderTypeAll;
     [self firstLoadData];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOrderList:) name:RefreshMyOrderListNotification object:nil];
+}
+
+-(void)okaddress
+{
+    
+//    [self setLeftViewWith:3];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
