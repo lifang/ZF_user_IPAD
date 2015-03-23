@@ -25,6 +25,9 @@
 - (void)createFormWithTitle:(NSString *)formTitle
                      column:(NSArray *)titleArray
                     content:(NSArray *)itemArray {
+    CGFloat borderSpace = 20.f;
+    NSInteger columnCount = [titleArray count];
+    NSInteger itemCount = [itemArray count];
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -39,11 +42,7 @@
         height=SCREEN_HEIGHT;
         
     }
-    
 
-    CGFloat borderSpace = 20.f;
-    NSInteger columnCount = [titleArray count];
-    NSInteger itemCount = [itemArray count];
     CGFloat itemWidth = (wide - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
     
     UIImageView *pointView = [[UIImageView alloc] init];
@@ -82,7 +81,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont systemFontOfSize:15.f];
+    titleLabel.font = [UIFont systemFontOfSize:13.f];
     titleLabel.text = formTitle;
     [self addSubview:titleLabel];
     
@@ -316,6 +315,9 @@
 
 - (void)createFormWithColumn:(NSArray *)titleArray
                     content:(NSArray *)itemArray {
+    CGFloat borderSpace = 20.f;
+    NSInteger columnCount = [titleArray count];
+    NSInteger itemCount = [itemArray count];
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -332,10 +334,7 @@
     }
     
 
-    CGFloat borderSpace = 20.f;
-    NSInteger columnCount = [titleArray count];
-    NSInteger itemCount = [itemArray count];
-    CGFloat itemWidth = (wide - 550 - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
+    CGFloat itemWidth = (wide - borderSpace * 2 - (columnCount + 1) * kLineHeight) / columnCount;
     //竖线
     CGFloat lineHeight = menuHeight + itemCount * (contentHeight + kLineHeight) + kLineHeight * 2;
     
@@ -344,7 +343,7 @@
         
         UIView *vLine = [[UIView alloc] init];
         vLine.translatesAutoresizingMaskIntoConstraints = NO;
-        vLine.backgroundColor = kColor(211, 211, 211, 1);
+        vLine.backgroundColor = kColor(255, 102, 36, 1);
         [self addSubview:vLine];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:vLine
                                                          attribute:NSLayoutAttributeTop
@@ -378,7 +377,7 @@
     //横线
     UIView *firstLine = [[UIView alloc] init];
     firstLine.translatesAutoresizingMaskIntoConstraints = NO;
-    firstLine.backgroundColor = kColor(211, 211, 211, 1);
+    firstLine.backgroundColor = kColor(255, 102, 36, 1);
     [self addSubview:firstLine];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
                                                      attribute:NSLayoutAttributeTop
@@ -417,7 +416,7 @@
         
         UIView *hLine = [[UIView alloc] init];
         hLine.translatesAutoresizingMaskIntoConstraints = NO;
-        hLine.backgroundColor = kColor(211, 211, 211, 1);
+        hLine.backgroundColor = kColor(255, 102, 36, 1);
         [self addSubview:hLine];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:hLine
                                                          attribute:NSLayoutAttributeTop
@@ -544,9 +543,19 @@
     NSMutableArray *contentArray = [[NSMutableArray alloc] init];
     for (RateModel *model in rateItems) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:model.rateName forKey:@"0"];
+        if (model.rateName) {
+            [dict setObject:model.rateName forKey:@"0"];
+        }
+        else {
+            [dict setObject:@"" forKey:@"0"];
+        }
         [dict setObject:[NSString stringWithFormat:@"%@%%",model.rateTerminal] forKey:@"1"];
-        [dict setObject:[model statusString] forKey:@"2"];
+        if ([model statusString]) {
+            [dict setObject:[model statusString] forKey:@"2"];
+        }
+        else {
+            [dict setObject:@"" forKey:@"2"];
+        }
         [contentArray addObject:dict];
     }
     NSArray *titleArray = [NSArray arrayWithObjects:@"交易类型",@"费率",@"开通状态", nil];
@@ -565,7 +574,7 @@
         else {
             [dict setObject:@"" forKey:@"0"];
         }
-        [dict setObject:[NSString stringWithFormat:@"%@%%",model.ratePercent] forKey:@"1"];
+        [dict setObject:[NSString stringWithFormat:@"%.3f%%",model.ratePercent] forKey:@"1"];
         if (model.rateDescription) {
             [dict setObject:model.rateDescription forKey:@"2"];
         }

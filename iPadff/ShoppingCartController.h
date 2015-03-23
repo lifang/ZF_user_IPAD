@@ -10,14 +10,13 @@
 
 @interface ShoppingCartController : CommonViewController
 {
-
+    
     BOOL isSelecteds;
-CGFloat summaryPrice;
+    CGFloat summaryPrice;
     NSInteger sumall;
     
-
+    
 }
-@property (nonatomic, strong) UIButton *selectedButton;
 @property (nonatomic, strong) UIButton *deleteButton;
 
 //全选文字 颜色根据是否选中变化

@@ -37,7 +37,7 @@
 #pragma mark - UI
 
 - (void)initAndLayoutUI {
-    CGFloat leftBorderSpace = 10.f; //左间距
+    CGFloat leftBorderSpace = 35.f; //左间距
     CGFloat topBorderSpace = 10.f;  //上间距
     CGFloat labelHeight = 20.f;     //标题高度
     CGFloat selectBtnSize = 18.f;   //选中按钮大小
@@ -90,7 +90,7 @@
                                                                     toItem:_selectedButton
                                                                  attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:5.f]];
+                                                                  constant:10.f]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_pictureView
                                                                  attribute:NSLayoutAttributeCenterY
                                                                  relatedBy:NSLayoutRelationEqual
@@ -167,15 +167,15 @@
         
     }
 
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 180, 30)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 180, 30)];
     _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.font = [UIFont systemFontOfSize:13.f];
+    _titleLabel.font = [UIFont systemFontOfSize:16.f];
     [self.contentView addSubview:_titleLabel];
    
     //竖线
     UIImageView *vLine = [[UIImageView alloc] init];
     vLine.translatesAutoresizingMaskIntoConstraints = NO;
-    vLine.image = kImageName(@"gray.png");
+//    vLine.image = kImageName(@"gray.png");
     [self.contentView addSubview:vLine];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:vLine
                                                                  attribute:NSLayoutAttributeRight
@@ -183,7 +183,7 @@
                                                                     toItem:_editButton
                                                                  attribute:NSLayoutAttributeLeft
                                                                 multiplier:1.0
-                                                                  constant:0]];
+                                                                  constant:20]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:vLine
                                                                  attribute:NSLayoutAttributeTop
                                                                  relatedBy:NSLayoutRelationEqual
@@ -242,7 +242,7 @@
     _channelLabel = [[UILabel alloc] init];
     _channelLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _channelLabel.backgroundColor = [UIColor clearColor];
-    _channelLabel.font = [UIFont systemFontOfSize:11.f];
+    _channelLabel.font = [UIFont systemFontOfSize:14.f];
     [self.contentView addSubview:_channelLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_channelLabel
                                                                  attribute:NSLayoutAttributeLeft
@@ -250,7 +250,7 @@
                                                                     toItem:_pictureView
                                                                  attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:leftBorderSpace]];
+                                                                  constant:10]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_channelLabel
                                                                  attribute:NSLayoutAttributeBottom
                                                                  relatedBy:NSLayoutRelationEqual
@@ -277,7 +277,7 @@
     _brandLabel = [[UILabel alloc] init];
     _brandLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _brandLabel.backgroundColor = [UIColor clearColor];
-    _brandLabel.font = [UIFont systemFontOfSize:11.f];
+    _brandLabel.font = [UIFont systemFontOfSize:14.f];
     [self.contentView addSubview:_brandLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_brandLabel
                                                                  attribute:NSLayoutAttributeLeft
@@ -285,7 +285,7 @@
                                                                     toItem:_pictureView
                                                                  attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:leftBorderSpace]];
+                                                                  constant:10]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_brandLabel
                                                                  attribute:NSLayoutAttributeBottom
                                                                  relatedBy:NSLayoutRelationEqual
@@ -421,14 +421,15 @@
 #pragma mark - Action
 
 - (IBAction)selectedOrder:(id)sender {
-    _selectedButton.selected = !_selectedButton.selected;
     _cartData.isSelected = !_cartData.isSelected;
+    _selectedButton.selected = _cartData.isSelected;
     if (_selectedButton.isSelected) {
         [_selectedButton setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];
     }
     else {
         [_selectedButton setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
     }
+    
 }
 
 - (IBAction)editOrder:(id)sender {

@@ -437,12 +437,12 @@ typedef enum {
     else if ([_identifier isEqualToString:sendingIdentifier]) {
         //已发货
         UIButton *reviewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [reviewBtn addTarget:self action:@selector(reviewOrder:) forControlEvents:UIControlEventTouchUpInside];
-        [reviewBtn setTitle:@"评价" forState:UIControlStateNormal];
+//        [reviewBtn addTarget:self action:@selector(reviewOrder:) forControlEvents:UIControlEventTouchUpInside];
+//        [reviewBtn setTitle:@"评价" forState:UIControlStateNormal];
         reviewBtn.layer.masksToBounds = YES;
 
 //        reviewBtn.layer.cornerRadius = 5;
-        [reviewBtn setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+//        [reviewBtn setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
 
         [headerView addSubview:reviewBtn];
         reviewBtn.frame=CGRectMake(wide-180, 50, 100, 30);

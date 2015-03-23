@@ -33,7 +33,7 @@
 - (void)initAndLayoutUI {
     CGFloat topSpace = 10.f;
     CGFloat leftSpace = 20.f;
-    CGFloat labelHeight = 14.f;
+    CGFloat labelHeight = 20.f;
     
     CGFloat imageSize = 70.f;
     

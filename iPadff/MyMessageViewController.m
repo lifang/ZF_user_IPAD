@@ -25,6 +25,7 @@
     NSLog(@"%d",ChooseViewMyMessage);
     self.view.backgroundColor = kColor(252, 251, 251, 1.0);
     [self setupHeaderView];
+
 }
 
 -(void)setupHeaderView

@@ -26,7 +26,12 @@
 @property (nonatomic, strong) RefreshView *topRefreshView;
 @property (nonatomic, strong) RefreshView *bottomRefreshView;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIScrollView *scrollViewrent;
+@property (nonatomic, strong) UIScrollView *scrollViewmaterial;
 
+@property (nonatomic, assign) CGFloat viewHeightmatel;
+@property (nonatomic, assign) CGFloat viewHeight;
 @property (nonatomic, assign) BOOL reloading;
 @property (nonatomic, assign) CGFloat primaryOffsetY;
 @property (nonatomic, assign) int page;
@@ -43,7 +48,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _reviewItem = [[NSMutableArray alloc] init];
+    [self downloadGoodDetail];
+
     [self initAndLayoutUIpp];
+    [self initAndLayoutUIfl];
+    [self initAndLayoutUIrent];
+    [self initAndLayoutUImaterial];
 
     [self firstLoadData];
 
@@ -53,10 +63,29 @@
     self.navigationController.navigationBarHidden = NO;
     
     
+    UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shoppingButton.frame = CGRectMake(0, 0, 30, 30);
+    [shoppingButton setImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
     
-    [self downloadGoodDetail];
+    //    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
+    [shoppingButton addTarget:self action:@selector(goShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    //设置间距
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+    UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem, shoppingItem,nil];
+    
     
     // Do any additional setup after loading the view.
+}
+- (IBAction)goShoppingCart:(id)sender {
+    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [del.tabBarViewController setSeletedIndex:1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -136,7 +165,7 @@
 - ( void)handleViewWithOriginYs:(CGFloat)originY1
 {
     
-    CGFloat   leftSpace = 20;  //左侧间距
+    CGFloat   leftSpace = 40;  //左侧间距
     
     
     CGFloat wide;
@@ -176,7 +205,7 @@
     
     //划线
     originY += labelHeight + vSpace;
-    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(10, originY,wide-20, 1)];
+    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(40, originY,wide-80, 1)];
     secondLine.backgroundColor = kColor(255, 102, 36, 1);
     [_mainScrollView addSubview:secondLine];
     
@@ -206,7 +235,7 @@
     
     //划线
     originY += labelHeight + vSpace;
-    UIView *thirdLine = [[UIView alloc] initWithFrame:CGRectMake(10, originY, wide-10, 1)];
+    UIView *thirdLine = [[UIView alloc] initWithFrame:CGRectMake(40, originY, wide-80, 1)];
     thirdLine.backgroundColor = kColor(255, 102, 36, 1);
     [_mainScrollView addSubview:thirdLine];
     
@@ -249,7 +278,7 @@
     originY += dateFormHeight + 10;
     CGFloat otherFormHeight = [FormView heightWithRowCount:[_detailModel.defaultChannel.otherRateItem count]
                                                   hasTitle:YES];
-    FormView *otherForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, wide, otherFormHeight)];
+    FormView *otherForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, wide-0, otherFormHeight)];
     [otherForm setGoodDetailDataWithFormTitle:@"其它交易费率"
                                       content:_detailModel.defaultChannel.otherRateItem
                                    titleArray:[NSArray arrayWithObjects:@"交易类",@"费率",@"说明", nil]];
@@ -262,7 +291,7 @@
     
     //划线
     originY += labelHeight + vSpace;
-    UIView *forthLine = [[UIView alloc] initWithFrame:CGRectMake(10, originY, wide - 20, 1)];
+    UIView *forthLine = [[UIView alloc] initWithFrame:CGRectMake(40, originY, wide - 80, 1)];
     forthLine.backgroundColor = kColor(255, 102, 36, 1);
     [_mainScrollView addSubview:forthLine];
     
@@ -283,7 +312,7 @@
     
     //划线
     originY += labelHeight + vSpace;
-    UIView *fifthLine = [[UIView alloc] initWithFrame:CGRectMake(10, originY, wide - 20, 1)];
+    UIView *fifthLine = [[UIView alloc] initWithFrame:CGRectMake(40, originY, wide - 80, 1)];
     fifthLine.backgroundColor = kColor(255, 102, 36, 1);
     [_mainScrollView addSubview:fifthLine];
     
@@ -299,7 +328,7 @@
     
     //感兴趣的
     originY += descriptionHeight + 20;
-    UIView *sixthLine = [[UIView alloc] initWithFrame:CGRectMake(0, originY, wide, 1)];
+    UIView *sixthLine = [[UIView alloc] initWithFrame:CGRectMake(40, originY, wide-80, 1)];
     sixthLine.backgroundColor = kColor(200, 198, 199, 1);
     [_mainScrollView addSubview:sixthLine];
     UILabel *interestLabel = [[UILabel alloc] initWithFrame:CGRectMake((wide - 80) / 2, originY - 10, 80, labelHeight)];
@@ -642,6 +671,664 @@
 - (void)pullUpToLoadData {
     [self downloadDataWithPage:self.page isMore:YES];
 }
+#pragma mark - 租赁说明
+
+
+- (void)initAndLayoutUIrent{
+    _scrollViewrent = [[UIScrollView alloc] init];
+    _scrollViewrent.translatesAutoresizingMaskIntoConstraints = NO;
+    _scrollViewrent.backgroundColor = kColor(244, 243, 243, 1);
+    
+    [self.view addSubview:_scrollViewrent];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewrent
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:64]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewrent
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewrent
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewrent
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self initSubViewrent];
+}
+
+- (void)initSubViewrent {
+    UIView *topView = nil;
+    NSString *minDate = [NSString stringWithFormat:@"%@个月",_goodDetail.minTime];
+    NSString *maxDate = [NSString stringWithFormat:@"%@个月",_goodDetail.maxTime];
+    topView = [self addRowsWithTitle:@"最短租赁时间" content:minDate topView:topView];
+    topView = [self addRowsWithTitle:@"最长租赁时间" content:maxDate topView:topView];
+    topView = [self addRowsWithTitle:@"每月租金" content:[NSString stringWithFormat:@"￥%.2f",_goodDetail.leasePrice] topView:topView];
+    topView = [self addRowsWithTitle:@"说明" content:_goodDetail.leaseDescription topView:topView];
+    topView = [self addRowsWithTitle:@"租赁协议" content:_goodDetail.leaseProtocol topView:topView];
+    
+    _scrollView.contentSize = CGSizeMake(kScreenWidth, _viewHeight);
+}
+
+- (UIView *)addRowsWithTitle:(NSString *)title
+                     content:(NSString *)content
+                     topView:(UIView *)topView {
+    CGFloat topSpace = 44.f;
+    CGFloat leftSpace = 40.f;
+    CGFloat titleLabelHeight = 30.f;
+    CGFloat middleSpace = 5.f;
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    titleLabel.text = title;
+    [_scrollViewrent addSubview:titleLabel];
+    if (!topView) {
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_scrollViewrent
+                                                              attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0
+                                                               constant:topSpace]];
+    }
+    else {
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:topView
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:topSpace]];
+    }
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:titleLabelHeight]];
+    //划线
+    UIView *firstLine = [[UIView alloc] init];
+    firstLine.translatesAutoresizingMaskIntoConstraints = NO;
+    firstLine.backgroundColor = kColor(255, 102, 36, 1);
+    [_scrollViewrent addSubview:firstLine];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:titleLabel
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:middleSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:40.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-40.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:kLineHeight]];
+    //内容
+    UIFont *font = [UIFont systemFontOfSize:16.f];
+    CGFloat contentHeight = [self heightForContent:content
+                                          withFont:font
+                                             width:kScreenWidth - 2 * leftSpace];
+    UILabel *contentLabel = [[UILabel alloc] init];
+    contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    contentLabel.backgroundColor = [UIColor clearColor];
+    contentLabel.font = font;
+    contentLabel.numberOfLines = 0;
+    contentLabel.text = content;
+    [_scrollViewrent addSubview:contentLabel];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:firstLine
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:middleSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:contentHeight]];
+    _viewHeight += topSpace + titleLabelHeight + middleSpace * 2 + kLineHeight + contentHeight;
+    return contentLabel;
+}
+
+#pragma mark - Data
+
+- (CGFloat)heightForContent:(NSString *)content
+                   withFont:(UIFont *)font
+                      width:(CGFloat)width {
+    NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:
+                          font,NSFontAttributeName,
+                          nil];
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:attr
+                                        context:nil];
+    return rect.size.height + 1 > 20.f ? rect.size.height + 1 : 20.f;
+}
+
+#pragma mark - 申请开通所需材料
+
+
+#pragma mark - UI
+
+- (void)initAndLayoutUImaterial {
+    _scrollViewmaterial = [[UIScrollView alloc] init];
+    _scrollViewmaterial.translatesAutoresizingMaskIntoConstraints = NO;
+    _scrollViewmaterial.backgroundColor = kColor(244, 243, 243, 1);
+    
+    [self.view addSubview:_scrollViewmaterial];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewmaterial
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:64]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewmaterial
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewmaterial
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewmaterial
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self initSubViewmaterial];
+}
+
+- (void)initSubViewmaterial {
+    UIView *topView = nil;
+    topView = [self addRowsWithTitlematel:@"对个人开通" content:_channelData.privateInfo topView:topView];
+    topView = [self addRowsWithTitlematel:@"对公开通" content:_channelData.publicInfo topView:topView];
+    
+    _scrollViewmaterial.contentSize = CGSizeMake(kScreenWidth, _viewHeightmatel);
+}
+
+- (UIView *)addRowsWithTitlematel:(NSString *)title
+                     content:(NSString *)content
+                     topView:(UIView *)topView {
+    CGFloat topSpace = 30.f;
+    CGFloat leftSpace = 40.f;
+    CGFloat titleLabelHeight = 30.f;
+    CGFloat middleSpace = 5.f;
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:16.f];
+    titleLabel.text = title;
+    [_scrollViewmaterial addSubview:titleLabel];
+    if (!topView) {
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_scrollViewmaterial
+                                                              attribute:NSLayoutAttributeTop
+                                                             multiplier:1.0
+                                                               constant:topSpace]];
+    }
+    else {
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:topView
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:topSpace]];
+    }
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:titleLabelHeight]];
+    //划线
+    UIView *firstLine = [[UIView alloc] init];
+    firstLine.translatesAutoresizingMaskIntoConstraints = NO;
+    firstLine.backgroundColor = kColor(255, 102, 36, 1);
+    [_scrollViewmaterial addSubview:firstLine];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:titleLabel
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:middleSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:40.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-40.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:kLineHeight]];
+    //内容
+    UIFont *font = [UIFont systemFontOfSize:16.f];
+    CGFloat contentHeight = [self heightForContent:content
+                                          withFont:font
+                                             width:kScreenWidth - 2 * leftSpace];
+    UILabel *contentLabel = [[UILabel alloc] init];
+    contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    contentLabel.backgroundColor = [UIColor clearColor];
+    contentLabel.font = font;
+    contentLabel.numberOfLines = 0;
+    contentLabel.text = content;
+    [_scrollViewmaterial addSubview:contentLabel];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:firstLine
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:middleSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:contentHeight]];
+    _viewHeightmatel += topSpace + titleLabelHeight + middleSpace * 2 + kLineHeight + contentHeight;
+    return contentLabel;
+}
+
+#pragma mark - Data
+
+
+
+
+
+
+
+
+
+#pragma mark - 交易费率
+- (void)initAndLayoutUIfl {
+    _scrollView = [[UIScrollView alloc] init];
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    _scrollView.backgroundColor = kColor(244, 243, 243, 1);
+    
+    [self.view addSubview:_scrollView];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:64]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollView
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self initSubView];
+    
+}
+
+- (void)initSubView {
+    CGFloat titleHeight = 36.f;
+    CGFloat contentHeight = 50.f;
+    
+    UILabel *dateTitleLabel = [[UILabel alloc] init];
+    dateTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    dateTitleLabel.backgroundColor = [UIColor clearColor];
+    dateTitleLabel.font = [UIFont systemFontOfSize:15.f];
+    dateTitleLabel.textAlignment = NSTextAlignmentCenter;
+    dateTitleLabel.text = @"结算时间";
+    [_scrollView addSubview:dateTitleLabel];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateTitleLabel
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_scrollView
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateTitleLabel
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateTitleLabel
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth
+                                                         multiplier:.5
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateTitleLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:titleHeight]];
+    UILabel *rateTitleLabel = [[UILabel alloc] init];
+    rateTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    rateTitleLabel.backgroundColor = [UIColor clearColor];
+    rateTitleLabel.font = [UIFont systemFontOfSize:15.f];
+    rateTitleLabel.textAlignment = NSTextAlignmentCenter;
+    rateTitleLabel.text = @"资金服务费（/天）";
+    [_scrollView addSubview:rateTitleLabel];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateTitleLabel
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_scrollView
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateTitleLabel
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateTitleLabel
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth
+                                                         multiplier:.5
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateTitleLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:titleHeight]];
+    UIView *topView = nil;
+    topView = [self addLineWithTopView:dateTitleLabel];
+    for (GoodRateModel *model in _tradeRateItem) {
+        topView = [self addRowsWithDate:model.rateName
+                                   rate:model.ratePercent
+                                topView:topView
+                                 height:contentHeight];
+    }
+    CGFloat totalHeight = titleHeight + [_tradeRateItem count] * (contentHeight + kLineHeight) + kLineHeight;
+    //竖线
+    UIView *vLine = [[UIView alloc] init];
+    vLine.translatesAutoresizingMaskIntoConstraints = NO;
+    vLine.backgroundColor = kColor(204, 202, 203, 1);
+    [_scrollView addSubview:vLine];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:vLine
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_scrollView
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:vLine
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:vLine
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:kLineHeight]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:vLine
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:totalHeight]];
+    _scrollView.contentSize = CGSizeMake(kScreenWidth, totalHeight);
+}
+
+- (UIView *)addRowsWithDate:(NSString *)date
+                       rate:(CGFloat)rate
+                    topView:(UIView *)topView
+                     height:(CGFloat)height {
+    UILabel *dateLabel = [[UILabel alloc] init];
+    dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    dateLabel.backgroundColor = [UIColor clearColor];
+    dateLabel.font = [UIFont systemFontOfSize:15.f];
+    dateLabel.textAlignment = NSTextAlignmentCenter;
+    dateLabel.text = date;
+    [_scrollView addSubview:dateLabel];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateLabel
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:topView
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateLabel
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateLabel
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth
+                                                         multiplier:.5
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:height]];
+    
+    UILabel *rateLabel = [[UILabel alloc] init];
+    rateLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    rateLabel.backgroundColor = [UIColor clearColor];
+    rateLabel.font = [UIFont systemFontOfSize:15.f];
+    rateLabel.textAlignment = NSTextAlignmentCenter;
+    rateLabel.text = [NSString stringWithFormat:@"%.3f%%",rate];
+    [_scrollView addSubview:rateLabel];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateLabel
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:topView
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateLabel
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateLabel
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth
+                                                         multiplier:.5
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:height]];
+    UIView *rowLine = [self addLineWithTopView:dateLabel];
+    return rowLine;
+}
+
+- (UIView *)addLineWithTopView:(UIView *)topView {
+    UIView *line = [[UIView alloc] init];
+    line.translatesAutoresizingMaskIntoConstraints = NO;
+    line.backgroundColor = kColor(204, 202, 203, 1);
+    [_scrollView addSubview:line];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:line
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:topView
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:line
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:line
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:line
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:kLineHeight]];
+    return line;
+}
 
 #pragma mark - 计算
 
@@ -661,7 +1348,7 @@
 - (void)addLabelWithTitle:(NSString *)title
                   content:(NSString *)content
                   offsetY:(CGFloat)offsetY {
-    CGFloat leftSpace = 20.f;
+    CGFloat leftSpace = 40.f;
     CGFloat titleLabelWidth = 120.f;
     CGFloat labelHeight = 30.f;
     CGFloat middleLeftSpace = leftSpace + titleLabelWidth + 5;
@@ -812,18 +1499,64 @@
     {
         _mainScrollView.hidden=NO;
         _tableView.hidden=YES;
+        _scrollViewrent.hidden=YES;
+        _scrollViewmaterial.hidden=YES;
 
-     
+        _scrollView.hidden=YES;
+
         
     }
-    else
-    {
-        _tableView.hidden=NO;
+    else if(aIndex==1025)
+        
+    {        _scrollView.hidden=YES;
+        
+        _scrollViewrent.hidden=YES;
+        _scrollViewmaterial.hidden=NO;
+        
+        _tableView.hidden=YES;
+        
+        _mainScrollView.hidden=YES;
+        
+    }
+
+    else if(aIndex==1028)
+
+    {        _scrollView.hidden=NO;
+
+        _scrollViewrent.hidden=YES;
+        _scrollViewmaterial.hidden=YES;
+
+        _tableView.hidden=YES;
 
         _mainScrollView.hidden=YES;
   
     }
-    
+    else if(aIndex==1026)
+        
+    {        _scrollView.hidden=YES;
+        _scrollViewrent.hidden=YES;
+
+        _scrollViewmaterial.hidden=YES;
+
+        _tableView.hidden=NO;
+        
+        _mainScrollView.hidden=YES;
+        
+    }
+    else if(aIndex==1027)
+        
+    {
+        _scrollView.hidden=YES;
+        _scrollViewrent.hidden=NO;
+        
+        _scrollViewmaterial.hidden=YES;
+
+        _tableView.hidden=YES;
+        
+        _mainScrollView.hidden=YES;
+        
+    }
+
     UIButton *previousButton = (UIButton *)[self.view viewWithTag:self.secletA];
     [previousButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     self.secletA = aIndex;

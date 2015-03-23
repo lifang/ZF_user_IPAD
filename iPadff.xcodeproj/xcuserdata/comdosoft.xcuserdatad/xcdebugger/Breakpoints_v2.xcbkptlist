@@ -17,6 +17,36 @@
             endingLineNumber = "31"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[BaseInformationViewController userInfo]"
+                  moduleName = "iPadff"
+                  urlString = "file:///Users/comdosoft/Desktop/iPadzf/ZF_user_IPAD/iPadff/BaseInformationViewController.m"
+                  timestampString = "448546864.62598"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[BaseInformationViewController setUserInfo:]"
+                  moduleName = "iPadff"
+                  urlString = "file:///Users/comdosoft/Desktop/iPadzf/ZF_user_IPAD/iPadff/BaseInformationViewController.m"
+                  timestampString = "448546864.626203"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

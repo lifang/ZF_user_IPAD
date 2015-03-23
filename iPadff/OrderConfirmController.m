@@ -20,9 +20,18 @@
 @end
 
 @implementation OrderConfirmController
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+   
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
     self.title = @"订单确认";
     self.view.backgroundColor = kColor(244, 243, 243, 1);

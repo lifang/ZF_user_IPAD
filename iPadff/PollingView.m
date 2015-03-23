@@ -29,10 +29,10 @@
     _scrollView.backgroundColor = [UIColor blackColor];
     [self addSubview:_scrollView];
     
-    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height -20, self.bounds.size.width, 20)];
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20)];
     _pageControl.userInteractionEnabled = NO;
-   _pageControl.pageIndicatorTintColor = [UIColor grayColor];
-    _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+    _pageControl.pageIndicatorTintColor = [UIColor colorWithPatternImage:kImageName(@"doc_unselected.png")];
+    _pageControl.currentPageIndicatorTintColor = [UIColor colorWithPatternImage:kImageName(@"doc_selected.png")];
     [self addSubview:_pageControl];
 }
 
@@ -48,6 +48,8 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
         imageView.tag = i + 1;
         imageView.userInteractionEnabled = YES;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.layer.masksToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:action];
         [imageView addGestureRecognizer:tap];
         //loading...

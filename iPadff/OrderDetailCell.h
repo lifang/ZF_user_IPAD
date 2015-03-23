@@ -10,7 +10,7 @@
 #import "OrderGoodModel.h"
 #import "UIImageView+WebCache.h"
 
-#define kOrderDetailCellHeight  90.f
+#define kOrderDetailCellHeight  100.f
 
 @interface OrderDetailCell : UITableViewCell
 

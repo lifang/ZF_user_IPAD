@@ -13,26 +13,73 @@
 #import "AppDelegate.h"
 #import "ShoppingCartModel.h"
 #import "ShoppingCartOrderController.h"
+#import "RefreshView.h"
 
-@interface ShoppingCartController ()<UITableViewDataSource,UITableViewDelegate,ShoppingCartDelegate,SelectedShopCartDelegate>
+@interface ShoppingCartController ()<UITableViewDataSource,UITableViewDelegate,ShoppingCartDelegate,SelectedShopCartDelegate,RefreshDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIButton *selectedButtonss;
 
 @property (nonatomic, strong) ShoppingCartFooterView *bottomView;
 
 @property (nonatomic, strong) NSMutableArray *dataItem;
 
+@property (nonatomic, strong) RefreshView *topRefreshView;
+
+@property (nonatomic, assign) BOOL reloading;
+
+@property (nonatomic, assign) CGFloat primaryOffsetY;
+
 @end
 
 @implementation ShoppingCartController
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    
+}
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.title = @"购  物  车      ";
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT-60;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH-60;
+        height=SCREEN_HEIGHT;
+        
+    }
+    UIView*vieu=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
+    [self.view addSubview:vieu];
+    
+    UILabel*la=[[UILabel alloc]initWithFrame:CGRectMake(40, 30, 80, 30)];
+    [vieu addSubview:la];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 79, wide, 1)];
+    line.backgroundColor = kColor(188, 187, 187, 1);
+    [vieu addSubview:line];
+    
+    la.text=@"购物车";
+
     [self initAndLayoutUI];
     _dataItem = [[NSMutableArray alloc] init];
     [self getShoppingList];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshCartList:)
+                                                 name:RefreshShoppingCartNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,27 +90,29 @@
 #pragma mark - UI
 
 
-
 - (void)initAndLayoutUI {
-  
     
     if(iOS7)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT-64, SCREEN_WIDTH-64) style:UITableViewStyleGrouped];
-
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_HEIGHT-64, SCREEN_WIDTH-64) style:UITableViewStyleGrouped];
+        
     }else
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-64, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
-
-    
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_WIDTH-64, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
+        
+        
     }
     
-//    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    //    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    }
+    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
+    _topRefreshView.direction = PullFromTop;
+    _topRefreshView.delegate = self;
+    [_tableView addSubview:_topRefreshView];
+}
 
 #pragma mark - Data
 
@@ -86,6 +135,7 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
+                    [_dataItem removeAllObjects];
                     [self parseDataWithDictionary:object];
                 }
             }
@@ -97,6 +147,7 @@
         else {
             hud.labelText = kNetworkFailed;
         }
+        [self refreshViewFinishedLoadingWithDirection:PullFromTop];
     }];
 }
 
@@ -115,9 +166,9 @@
 
 //计算总价
 - (void)getSummaryPrice {
-     summaryPrice = 0.f;
     sumall=0;
-    
+    summaryPrice = 0.f;
+
     for (ShoppingCartModel *model in _dataItem) {
         if (model.isSelected) {
             summaryPrice += (model.cartPrice + model.channelCost) * model.cartCount;
@@ -125,34 +176,58 @@
 
         }
     }
-    _bottomView.totalLabel.text = [NSString stringWithFormat:@"合计：￥%.2f",summaryPrice];
+    _totalLabel.text = [NSString stringWithFormat:@"合计：￥%.2f",summaryPrice];
     [_tableView reloadData];
+    
 }
 
 #pragma mark - Action
 
+- (IBAction)orderConfirm:(id)sender {
+    NSMutableArray *selectedOrder = [[NSMutableArray alloc] init];
+    for (ShoppingCartModel *model in _dataItem) {
+        if (model.isSelected) {
+            [selectedOrder addObject:model];
+        }
+    }
+    if ([selectedOrder count] <= 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请至少选择一件商品";
+        return;
+    }
+    ShoppingCartOrderController *orderC = [[ShoppingCartOrderController alloc] init];
+    orderC.shoppingCartItem = selectedOrder;
+    orderC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:orderC animated:YES];
+}
+
 #pragma mark - UITableView
 
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
- return [_dataItem count];}
+    return [_dataItem count];}
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ShoppingCartCell *cell = nil;
     ShoppingCartModel *cart = [_dataItem objectAtIndex:indexPath.row];
-//    if (!cart.isEditing) {
-//        cell = [tableView dequeueReusableCellWithIdentifier:shoppingCartIdentifier_normal];
-//        if (cell == nil) {
-//            cell = [[ShoppingCartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:shoppingCartIdentifier_normal];
-//        }
-//    }
-//    else {
-        cell = [tableView dequeueReusableCellWithIdentifier:shoppingCartIdentifier_edit];
-        if (cell == nil) {
-            cell = [[ShoppingCartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:shoppingCartIdentifier_edit];
-        }
-//    }
+    //    if (!cart.isEditing) {
+    //        cell = [tableView dequeueReusableCellWithIdentifier:shoppingCartIdentifier_normal];
+    //        if (cell == nil) {
+    //            cell = [[ShoppingCartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:shoppingCartIdentifier_normal];
+    //        }
+    //    }
+    //    else {
+    cell = [tableView dequeueReusableCellWithIdentifier:shoppingCartIdentifier_edit];
+    if (cell == nil) {
+        cell = [[ShoppingCartCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:shoppingCartIdentifier_edit];
+    }
+   
+    //    }
     cell.delegate = self;
     [cell setShoppingCartData:cart];
     return cell;
@@ -161,36 +236,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kShoppingCartCellHeight;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{ CGFloat wide;
-    CGFloat height;
-    if(iOS7)
-    {
-        wide=SCREEN_HEIGHT-60;
-        height=SCREEN_WIDTH;
-        
-        
-    }
-    else
-    {  wide=SCREEN_WIDTH-60;
-        height=SCREEN_HEIGHT;
-        
-    }
-    UIView*vieu=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    UILabel*la=[[UILabel alloc]initWithFrame:CGRectMake(60, 30, 80, 30)];
-    [vieu addSubview:la];
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 60, wide, 1)];
-    line.backgroundColor = kColor(188, 187, 187, 1);
-    [vieu addSubview:line];
 
-    la.text=@"购物车";
-    
-    return vieu;
-    
-}
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-
+    
     UIView*rootview = [[UIView alloc] init];
     
     CGFloat wide;
@@ -212,7 +261,7 @@
     samallview.backgroundColor = kColor(235, 233, 233, 1);
     
     [rootview addSubview:samallview];
-
+    
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 1)];
     line.backgroundColor = kColor(188, 187, 187, 1);
     [rootview addSubview:line];
@@ -220,29 +269,29 @@
     
     _finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _finishButton.frame=CGRectMake(wide-120, 70, 100, 40);
-//    _finishButton.layer.cornerRadius = 4;
+    //    _finishButton.layer.cornerRadius = 4;
     _finishButton.layer.masksToBounds = YES;
     _finishButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [_finishButton setTitle:@"结算" forState:UIControlStateNormal];
     [_finishButton addTarget:self action:@selector(orderConfirm:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     [_finishButton setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
     [rootview addSubview:_finishButton];
     //选中按钮
-    _selectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _selectedButton.frame=CGRectMake(20, 10, 30, 30);
+    _selectedButtonss = [UIButton buttonWithType:UIButtonTypeCustom];
+    _selectedButtonss.frame=CGRectMake(20, 10, 30, 30);
     
-    [_selectedButton addTarget:self action:@selector(selectedAll) forControlEvents:UIControlEventTouchUpInside];
-    [rootview addSubview:_selectedButton];
+    [_selectedButtonss addTarget:self action:@selector(selectedAllShoppingCart) forControlEvents:UIControlEventTouchUpInside];
+    [rootview addSubview:_selectedButtonss];
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _deleteButton.frame=CGRectMake(20, 50, 30, 30);
-
-//    _deleteButton.layer.cornerRadius = 4.f;
+    
+    //    _deleteButton.layer.cornerRadius = 4.f;
     _deleteButton.layer.masksToBounds = YES;
     [_deleteButton setImage:kImageName(@"delete.png") forState:UIControlStateNormal];
     [_deleteButton addTarget:self action:@selector(deleteOrder) forControlEvents:UIControlEventTouchUpInside];
     [rootview addSubview:_deleteButton];
-
+    
     //全选文字
     _selectedLabel = [[UILabel alloc]  initWithFrame:CGRectMake(60, 10, 30, 30)];
     
@@ -257,18 +306,18 @@
     deletelable.textColor = kColor(128, 126, 126, 1);
     deletelable.text = @"删除";
     [rootview addSubview:deletelable];
-
+    
     if (isSelecteds) {
         
-        [_selectedButton setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];
+        [_selectedButtonss setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];
         _selectedLabel.textColor = [UIColor blackColor];
     }
     else {
         
-        [_selectedButton setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
+        [_selectedButtonss setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
         _selectedLabel.textColor = kColor(128, 126, 126, 1);
     }
-
+    
     _selectedLabel.userInteractionEnabled = YES;
     [rootview addSubview:_selectedLabel];
     
@@ -276,7 +325,7 @@
     
     _numbertotalLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _numbertotalLabel.text = [NSString stringWithFormat:@"共计：￥%d件",sumall];
-
+    
     [rootview addSubview:_numbertotalLabel];
     
     
@@ -299,62 +348,97 @@
     [rootview addSubview:detailLabel];
     return rootview;
     
-
-}// custom view for footer. will be adjusted to default or specified footer height
-- (IBAction)orderConfirm:(id)sender {
-    NSMutableArray *selectedOrder = [[NSMutableArray alloc] init];
-    for (ShoppingCartModel *model in _dataItem) {
-        if (model.isSelected) {
-            [selectedOrder addObject:model];
-        }
-    }
-    if ([selectedOrder count] <= 0) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请至少选择一件商品";
-        return;
-    }
-    ShoppingCartOrderController *orderC = [[ShoppingCartOrderController alloc] init];
-    orderC.shoppingCartItem = selectedOrder;
-    orderC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:orderC animated:YES];
-}
-
-- (void)deleteOrder
- {
-     
-     
-     
-}
-
-- (void)selectedAll {
-    NSLog(@"%hhd", _selectedButton.selected);
     
-    isSelecteds = !isSelecteds;
-    
-        [self selectedAllShoppingCart:isSelecteds];
-
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
+    return 0.00001;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 120;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ShoppingCartCell *cell = (ShoppingCartCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
     [cell selectedOrder:nil];
-    //计算总价
     [self getSummaryPrice];
+
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+#pragma mark - Refresh
+
+- (void)refreshViewReloadData {
+    _reloading = YES;
+}
+
+- (void)refreshViewFinishedLoadingWithDirection:(PullDirection)direction {
+    _reloading = NO;
+    if (direction == PullFromTop) {
+        [_topRefreshView refreshViewDidFinishedLoading:_tableView];
+    }
+}
+
+- (BOOL)refreshViewIsLoading:(RefreshView *)view {
+    return _reloading;
+}
+
+- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
+    [self refreshViewReloadData];
+    //loading...
+    [self getShoppingList];
 }
 
 
+#pragma mark - UIScrollView
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _primaryOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == _tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidScroll:scrollView];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == _tableView) {
+        CGPoint newPoint = scrollView.contentOffset;
+        if (_primaryOffsetY < newPoint.y) {
+        }
+        else {
+            //下拉
+            [_topRefreshView refreshViewDidEndDragging:scrollView];
+        }
+    }
+}
+
 #pragma mark - ShoppingCartDelegate
+
+- (void)selectRowForCell {
+    //计算总价
+    [self getSummaryPrice];
+}
 
 - (void)editOrderForCell:(ShoppingCartCell *)cell {
     cell.cartData.isEditing = !cell.cartData.isEditing;
@@ -367,28 +451,57 @@
 }
 
 - (void)minusCountForCell:(ShoppingCartCell *)cell {
-    
-    [_tableView reloadData];
-
     [self updateShoppingCartWithCart:cell.cartData
                             newCount:[cell.numberField.text intValue]];
 }
 
 - (void)addCountForCell:(ShoppingCartCell *)cell {
-    
-
     [self updateShoppingCartWithCart:cell.cartData
                             newCount:[cell.numberField.text intValue]];
 }
 
 - (void)deleteOrderForCell:(ShoppingCartCell *)cell {
-    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface deleteShoppingCartWithToken:delegate.token cartID:cell.cartData.cartID finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"删除成功";
+                    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+                    [_dataItem removeObjectAtIndex:indexPath.section];
+                    [_tableView beginUpdates];
+                    [_tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [_tableView endUpdates];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
 }
 
 - (void)updateShoppingCartWithCart:(ShoppingCartModel *)cart
                           newCount:(int)count {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"更新中...";
+    hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     [NetworkInterface updateShoppingCartWithToken:delegate.token cartID:cart.cartID count:count finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
@@ -422,13 +535,21 @@
 
 #pragma mark - SelectedShopCartDelegate
 
-- (void)selectedAllShoppingCart:(BOOL)isSelected {
-    for (ShoppingCartModel *model in _dataItem)
-    {
-        model.isSelected = isSelected;
+- (void)selectedAllShoppingCart {
+    isSelecteds = !isSelecteds;
+
+    for (ShoppingCartModel *model in _dataItem) {
+        model.isSelected = isSelecteds;
+        NSLog(@"%d",isSelecteds);
+        
     }
-    [_tableView reloadData];
     [self getSummaryPrice];
+}
+
+#pragma mark - Notification 
+
+- (void)refreshCartList:(NSNotification *)notification {
+    [self getShoppingList];
 }
 
 @end

@@ -14,13 +14,16 @@
 #import "RecordView.h"
 #import "PayWayViewController.h"
 #import "OrderCommentController.h"
-
+#import "ReviewModel.h"
+#import "OrderCommentCell.h"
 @interface OrderDetailController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) OrderDetailModel *orderDetail;
+@property (nonatomic, strong) UITableView *tableViewPJ;
 
+@property (nonatomic, strong) UITextField *tempField;
 @property (nonatomic, strong) UIView *detailFooterView;
 
 @end
@@ -84,6 +87,21 @@
 }
 
 - (void)initAndLayoutUI {
+    
+    LLgoodList = [[NSMutableArray alloc] init];
+
+    
+    
+    for (OrderGoodModel *model in _orderDetail.goodList) {
+        ReviewModel *review = [[ReviewModel alloc] init];
+        review.goodID = model.goodID;
+        review.goodName = model.goodName;
+        review.goodBrand = model.goodBrand;
+        review.goodPicture = model.goodPicture;
+        review.goodChannel = model.goodChannel;
+        review.score = 50;
+        [LLgoodList addObject:review];
+    }
     CGFloat footerHeight = 0.f;
     int status = [_orderDetail.orderStatus intValue];
     if (status == OrderStatusUnPaid || status == OrderStatusSending) {
@@ -313,38 +331,8 @@
         }
     }
 }
-
-#pragma mark - UITableView
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-
-    return 2;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-if(section==0)
+-(void)createui
 {
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-
-}
-    NSInteger row = 0;
-    switch (section) {
-        case 0:
-            row = 3;
-            break;
-        case 1:
-            row = [_orderDetail.goodList count] + 2;
-            break;
-        default:
-            break;
-    }
-    return row;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -359,40 +347,343 @@ if(section==0)
         height=SCREEN_HEIGHT;
         
     }
+    
+    bigsview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wide, height)];
+    
+    [self.view addSubview:bigsview];
+    bigsview.image=[UIImage imageNamed:@"backimage"];
+    bigsview.userInteractionEnabled=YES;
+    
+    
+    UIView*witeview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, wide/2, wide/2)];
+    witeview.backgroundColor=[UIColor whiteColor];
+    witeview.center=CGPointMake(wide/2, height/2-120);
+    witeview.alpha=1;
+    
+    [bigsview addSubview:witeview];
+    
+    
+    
+    UIButton *okButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    okButton.frame = CGRectMake(  10, 10, 30, 30);
+    [okButton setImage:kImageName(@"xx.png") forState:UIControlStateNormal];
+    [okButton addTarget:self action:@selector(cancelclick) forControlEvents:UIControlEventTouchUpInside];
+    [witeview addSubview:okButton];
+    
+    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(0, 10,wide/2, 30)];
+    [witeview addSubview:newaddress];
+    newaddress.textAlignment = NSTextAlignmentCenter;
+    
+    newaddress.text=@"评价";
+    newaddress .font = [UIFont systemFontOfSize:20.f];
+    
+    UIView*lineview=[[UIView alloc]initWithFrame:CGRectMake(0, 50, wide/2, 1)];
+    lineview.backgroundColor=[UIColor grayColor];
+    
+    [witeview addSubview:lineview];
+    _tableViewPJ = [[UITableView alloc] initWithFrame:CGRectMake(0, 51, wide/2, wide/2) style:UITableViewStyleGrouped];
+    _tableViewPJ.backgroundColor = kColor(244, 243, 243, 1);
+    _tableViewPJ.delegate = self;
+    _tableViewPJ.dataSource = self;
+    [witeview addSubview:_tableViewPJ];
+    
+    _tempField = [[UITextField alloc] init];
+    _tempField.hidden = YES;
+    [witeview addSubview:_tempField];
+    UIView *hearderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide/2, 0.001)];
+    hearderView.backgroundColor = [UIColor clearColor];
+    _tableViewPJ.tableHeaderView = hearderView;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide/2, 100)];
+    footerView.backgroundColor = [UIColor clearColor];
+    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    submitBtn.frame = CGRectMake(80, 20, wide/2 - 160, 40);
+    submitBtn.layer.cornerRadius = 4;
+    submitBtn.layer.masksToBounds = YES;
+    submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBtn setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
+    [submitBtn addTarget:self action:@selector(submitComment:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:submitBtn];
+    _tableViewPJ.tableFooterView = footerView;
 
-    UITableViewCell *cell = nil;
-    CGFloat originX = 20.f;
-    switch (indexPath.section) {
-        case 0: {
-            switch (indexPath.row) {
-                case 0: {
-                    //80
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-                    UIImageView *statusView = [[UIImageView alloc] initWithFrame:CGRectMake(originX, 10, 18, 18)];
-                    statusView.image = kImageName(@"order.png");
-                    [cell.contentView addSubview:statusView];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-                    //状态
-                    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX , 10, wide - originX , 20.f)];
-                    statusLabel.backgroundColor = [UIColor clearColor];
-                    statusLabel.font = [UIFont boldSystemFontOfSize:16.f];
-                    statusLabel.text = [NSString stringWithFormat:@"订单状态：%@",[_orderDetail getStatusString]];
-                    [cell.contentView addSubview:statusLabel];
-                    //实付
-                    UILabel *payLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
-                    [self setLabel:payLabel withString:[NSString stringWithFormat:@"实付金额（含配送费）：￥%.2f",_orderDetail.orderTotalPrice]];
-                    [cell.contentView addSubview:payLabel];
-                    //配送费
-                    UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2, 20.f)];
-                    [self setLabel:deliveryLabel withString:[NSString stringWithFormat:@"配  送  费：￥%.2f",_orderDetail.orderDeliveryFee]];
-                    [cell.contentView addSubview:deliveryLabel];
-                    
-                    
-                    int status = [_orderDetail.orderStatus intValue];
-                    if (status == OrderStatusUnPaid) {
-                        CGFloat wide;
+}
+#pragma mark - UI
+
+
+
+
+#pragma mark - Request
+
+- (void)reviewForGoodsWithReviewList:(NSArray *)reviewList {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface reviewMultiOrderWithToken:delegate.token reviewList:reviewList finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"评论成功";
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+#pragma mark - Action
+
+- (IBAction)submitComment:(id)sender {
+    [_tempField becomeFirstResponder];
+    [_tempField resignFirstResponder];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    NSMutableArray *reviews = [[NSMutableArray alloc] init];
+    for (ReviewModel *model in LLgoodList) {
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:[NSNumber numberWithInt:[delegate.userID intValue]] forKey:@"customer_id"];
+        [dict setObject:[NSNumber numberWithInt:[model.goodID intValue]] forKey:@"good_id"];
+        [dict setObject:[NSNumber numberWithInt:model.score] forKey:@"score"];
+        if (model.review && ![model.review isEqualToString:@""]) {
+            [dict setObject:model.review forKey:@"content"];
+        }
+        else {
+            [dict setObject:@"默认好评" forKey:@"content"];
+        }
+        [reviews addObject:dict];
+    }
+    [self reviewForGoodsWithReviewList:reviews];
+}
+
+#pragma mark - UITableView
+
+
+
+
+
+-(void)cancelclick
+{
+    
+    
+    [bigsview removeFromSuperview];
+    
+    
+    
+    
+}
+#pragma mark - UITableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
+if(tableView==_tableViewPJ)
+{
+    return [LLgoodList count];
+
+
+}else
+{
+
+    return 2;
+
+}
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if(tableView==_tableViewPJ)
+    {
+    
+        return 1;
+        
+    }else
+    {
+    
+    
+        if(section==0)
+        {
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            
+            
+        }
+        NSInteger row = 0;
+        switch (section) {
+            case 0:
+                row = 3;
+                break;
+            case 1:
+                row = [_orderDetail.goodList count] + 2;
+                break;
+            default:
+                break;
+        }
+        return row;
+    
+    
+    }
+
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(tableView==_tableViewPJ)
+    {
+        OrderCommentCell *cell = [[OrderCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        ReviewModel *model = [LLgoodList objectAtIndex:indexPath.section];
+        [cell setContentsWithData:model];
+        return cell;
+    
+    }else
+    {
+    
+    
+    
+        CGFloat wide;
+        CGFloat height;
+        if(iOS7)
+        {
+            wide=SCREEN_HEIGHT;
+            height=SCREEN_WIDTH;
+            
+            
+        }
+        else
+        {  wide=SCREEN_WIDTH;
+            height=SCREEN_HEIGHT;
+            
+        }
+        
+        UITableViewCell *cell = nil;
+        CGFloat originX = 20.f;
+        switch (indexPath.section) {
+            case 0: {
+                switch (indexPath.row) {
+                    case 0: {
+                        //80
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+                        UIImageView *statusView = [[UIImageView alloc] initWithFrame:CGRectMake(originX, 10, 18, 18)];
+                        statusView.image = kImageName(@"order.png");
+                        [cell.contentView addSubview:statusView];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
                         
+                        //状态
+                        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX , 10, wide - originX , 20.f)];
+                        statusLabel.backgroundColor = [UIColor clearColor];
+                        statusLabel.font = [UIFont boldSystemFontOfSize:16.f];
+                        statusLabel.text = [NSString stringWithFormat:@"订单状态：%@",[_orderDetail getStatusString]];
+                        [cell.contentView addSubview:statusLabel];
+                        //实付
+                        UILabel *payLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
+                        [self setLabel:payLabel withString:[NSString stringWithFormat:@"实付金额（含配送费）：￥%.2f",_orderDetail.orderTotalPrice]];
+                        [cell.contentView addSubview:payLabel];
+                        //配送费
+                        UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2, 20.f)];
+                        [self setLabel:deliveryLabel withString:[NSString stringWithFormat:@"配  送  费：￥%.2f",_orderDetail.orderDeliveryFee]];
+                        [cell.contentView addSubview:deliveryLabel];
+                        
+                        
+                        int status = [_orderDetail.orderStatus intValue];
+                        if (status == OrderStatusUnPaid) {
+                            CGFloat wide;
+                            
+                            if(iOS7)
+                            {
+                                wide=SCREEN_HEIGHT;
+                                
+                                
+                            }
+                            else
+                            {  wide=SCREEN_WIDTH;
+                                
+                            }
+                            
+                            
+                            UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                            cancelButton.frame = CGRectMake(wide-120, 12, 100, 40);
+                            //        cancelButton.layer.cornerRadius = 4.f;
+                            cancelButton.layer.masksToBounds = YES;
+                            cancelButton.layer.borderWidth = 1.f;
+                            cancelButton.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
+                            [cancelButton setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
+                            [cancelButton setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
+                            [cancelButton setTitle:@"取消订单" forState:UIControlStateNormal];
+                            cancelButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+                            [cancelButton addTarget:self action:@selector(cancelOrder:) forControlEvents:UIControlEventTouchUpInside];
+                            [cell.contentView addSubview:cancelButton];
+                            
+                            UIButton *payButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                            payButton.frame = CGRectMake(wide-120-120, 12, 100, 40);
+                            //        payButton.layer.cornerRadius = 4.f;
+                            payButton.layer.masksToBounds = YES;
+                            [payButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+                            [payButton setTitle:@"付款" forState:UIControlStateNormal];
+                            payButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+                            [payButton addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
+                            [cell.contentView addSubview:payButton];
+                        }
+                        else if (status == OrderStatusSending) {
+                            CGFloat wide;
+                            
+                            if(iOS7)
+                            {
+                                wide=SCREEN_HEIGHT;
+                                
+                                
+                            }
+                            else
+                            {  wide=SCREEN_WIDTH;
+                                
+                            }
+                            
+                            UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                            commentButton.frame = CGRectMake(wide-120, 12, 100, 40);
+                            //        commentButton.layer.cornerRadius = 4.f;
+                            commentButton.layer.masksToBounds = YES;
+                            [commentButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+                            [commentButton setTitle:@"评价" forState:UIControlStateNormal];
+                            commentButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+                            [commentButton addTarget:self action:@selector(commentOrder:) forControlEvents:UIControlEventTouchUpInside];
+                            [cell.contentView addSubview:commentButton];
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                    }
+                        break;
+                    case 1: {
+                        //60
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        
+                        //收件人
+                        UILabel *receiverLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2, 20.f)];
+                        [self setLabel:receiverLabel withString:[NSString stringWithFormat:@"收  件  人：%@  %@",_orderDetail.orderReceiver,_orderDetail.orderReceiverPhone]];
+                        [cell.contentView addSubview:receiverLabel];
+                        //地址
+                        UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
+                        [self setLabel:addressLabel withString:[NSString stringWithFormat:@"收件地址：%@",_orderDetail.orderAddress]];
+                        [cell.contentView addSubview:addressLabel];
+                    }
+                        break;
+                    case 2: {
+                        CGFloat wide;
                         if(iOS7)
                         {
                             wide=SCREEN_HEIGHT;
@@ -403,345 +694,284 @@ if(section==0)
                         {  wide=SCREEN_WIDTH;
                             
                         }
-
                         
-                        UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                       cancelButton.frame = CGRectMake(wide-120, 12, 100, 40);
-                        //        cancelButton.layer.cornerRadius = 4.f;
-                        cancelButton.layer.masksToBounds = YES;
-                        cancelButton.layer.borderWidth = 1.f;
-                        cancelButton.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
-                        [cancelButton setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
-                        [cancelButton setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
-                        [cancelButton setTitle:@"取消订单" forState:UIControlStateNormal];
-                        cancelButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-                        [cancelButton addTarget:self action:@selector(cancelOrder:) forControlEvents:UIControlEventTouchUpInside];
-                        [cell.contentView addSubview:cancelButton];
                         
-                        UIButton *payButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                        payButton.frame = CGRectMake(wide-120-120, 12, 100, 40);
-                        //        payButton.layer.cornerRadius = 4.f;
-                        payButton.layer.masksToBounds = YES;
-                        [payButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-                        [payButton setTitle:@"付款" forState:UIControlStateNormal];
-                        payButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-                        [payButton addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
-                        [cell.contentView addSubview:payButton];
+                        CGFloat btnWidth = 80.f;
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+                        //订单
+                        UILabel *orderLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2 - btnWidth, 20)];
+                        orderLabel.backgroundColor = [UIColor clearColor];
+                        orderLabel.font = [UIFont systemFontOfSize:16.f];
+                        //                    orderLabel.textColor = kColor(116, 116, 116, 1);
+                        orderLabel.text = [NSString stringWithFormat:@"订单编号：%@",_orderDetail.orderNumber];
+                        [cell.contentView addSubview:orderLabel];
+                        //支付方式
+                        UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2 - btnWidth, 20.f)];
+                        typeLabel.backgroundColor = [UIColor clearColor];
+                        typeLabel.font = [UIFont systemFontOfSize:16.f];
+                        //                    typeLabel.textColor = kColor(116, 116, 116, 1);
+                        typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
+                        [cell.contentView addSubview:typeLabel];
+                        //订单日期
+                        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2 - btnWidth, 20)];
+                        dateLabel.backgroundColor = [UIColor clearColor];
+                        dateLabel.font = [UIFont systemFontOfSize:16.f];
+                        //                    dateLabel.textColor = kColor(116, 116, 116, 1);
+                        dateLabel.text = [NSString stringWithFormat:@"订单日期：%@",_orderDetail.orderTime];
+                        [cell.contentView addSubview:dateLabel];
+                        
+                        //留言
+                        NSString *comment = [NSString stringWithFormat:@"留       言：%@",_orderDetail.orderComment];
+                        CGFloat height = [self heightForString:comment withWidth:kScreenWidth - originX * 2];
+                        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10, wide - originX *2, height)];
+                        commentLabel.numberOfLines = 0;
+                        [self setLabel:commentLabel withString:comment];
+                        [cell.contentView addSubview:commentLabel];
+                        //发票
+                        UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10 + height, wide - originX * 2, 20.f)];
+                        [self setLabel:invoceTypeLabel withString:[NSString stringWithFormat:@"发票类型：%@",_orderDetail.orderInvoceType]];
+                        [cell.contentView addSubview:invoceTypeLabel];
+                        UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 30 + height, wide - originX * 2, 20.f)];
+                        [self setLabel:invoceTitleLabel withString:[NSString stringWithFormat:@"发票抬头：%@",_orderDetail.orderInvoceTitle]];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        
+                        [cell.contentView addSubview:invoceTitleLabel];
                     }
-                    else if (status == OrderStatusSending) {
-                        CGFloat wide;
-                        
-                        if(iOS7)
-                        {
-                            wide=SCREEN_HEIGHT;
-                            
-                            
-                        }
-                        else
-                        {  wide=SCREEN_WIDTH;
-                            
-                        }
-
-                        UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                        commentButton.frame = CGRectMake(wide-120, 12, 100, 40);
-                        //        commentButton.layer.cornerRadius = 4.f;
-                        commentButton.layer.masksToBounds = YES;
-                        [commentButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-                        [commentButton setTitle:@"评价" forState:UIControlStateNormal];
-                        commentButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-                        [commentButton addTarget:self action:@selector(commentOrder:) forControlEvents:UIControlEventTouchUpInside];
-                        [cell.contentView addSubview:commentButton];
-                    }
-
-                    
-                    
-                    
-                    
-                    
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                case 1: {
-                    //60
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                    //收件人
-                    UILabel *receiverLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2, 20.f)];
-                    [self setLabel:receiverLabel withString:[NSString stringWithFormat:@"收  件  人：%@  %@",_orderDetail.orderReceiver,_orderDetail.orderReceiverPhone]];
-                    [cell.contentView addSubview:receiverLabel];
-                    //地址
-                    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
-                    [self setLabel:addressLabel withString:[NSString stringWithFormat:@"收件地址：%@",_orderDetail.orderAddress]];
-                    [cell.contentView addSubview:addressLabel];
-                }
-                    break;
-                case 2: {
+            }
+                break;
+            case 1: {
+                if (indexPath.row == 0) {
+                    
+                    
                     CGFloat wide;
+                    CGFloat height;
                     if(iOS7)
                     {
                         wide=SCREEN_HEIGHT;
+                        height=SCREEN_WIDTH;
                         
                         
                     }
                     else
                     {  wide=SCREEN_WIDTH;
+                        height=SCREEN_HEIGHT;
+                        
+                    }
+                    //80
+                    CGFloat btnWidth = 80.f;
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+                    
+                    
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                    
+                    
+                    
+                    
+                    UIView*rootview  = [[UIView alloc] initWithFrame:CGRectMake(20, 10, wide-40, 20)];
+                    rootview.backgroundColor = kColor(235, 233, 233, 1);
+                    [cell.contentView addSubview: rootview];
+                    
+                    
+                    UILabel*goodslable=[[UILabel alloc]initWithFrame:CGRectMake(100, 0, 60, 20)];
+                    [rootview addSubview:goodslable];
+                    goodslable.textAlignment = NSTextAlignmentCenter;
+                    
+                    goodslable.text=@"商品";
+                    
+                    UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2+20, 0, 60, 20)];
+                    [rootview addSubview:phonelable];
+                    //                phonelable.textAlignment = NSTextAlignmentCenter;
+                    
+                    phonelable.text=@"单价";
+                    UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-130, 0, 80, 20)];
+                    [rootview addSubview:numberlable];
+                    //                numberlable.textAlignment = NSTextAlignmentCenter;
+                    
+                    numberlable.text=@"购买数量";
+                    
+                 
+                }
+                else if (indexPath.row == [_orderDetail.goodList count] + 1) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+                    CGFloat wide;
+                    CGFloat height;
+                    if(iOS7)
+                    {
+                        wide=SCREEN_HEIGHT;
+                        height=SCREEN_WIDTH;
+                        
+                        
+                    }
+                    else
+                    {  wide=SCREEN_WIDTH;
+                        height=SCREEN_HEIGHT;
+                        
+                    }
+                    //80
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                    UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2, 20)];
+                    totalLabel.backgroundColor = [UIColor clearColor];
+                    totalLabel.font = [UIFont systemFontOfSize:16.f];
+                    totalLabel.textAlignment = NSTextAlignmentRight;
+                    totalLabel.text = [NSString stringWithFormat:@"共计%@件商品  实付金额：￥%.2f",_orderDetail.orderTotalNumber,_orderDetail.orderTotalPrice];
+                    [cell.contentView addSubview:totalLabel];
+                }
+                else {
+                    static NSString *orderIdentifier = @"orderIdentifier";
+                    cell = [tableView dequeueReusableCellWithIdentifier:orderIdentifier];
+                    if (cell == nil) {
+                        cell = [[OrderDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:orderIdentifier];
+                    }
+                    OrderGoodModel *model = [_orderDetail.goodList objectAtIndex:indexPath.row - 1];
+                    [(OrderDetailCell *)cell setContentsWithData:model];
+                    CGFloat wide;
+                    CGFloat height;
+                    if(iOS7)
+                    {
+                        wide=SCREEN_HEIGHT;
+                        height=SCREEN_WIDTH;
+                        
+                        
+                    }
+                    else
+                    {  wide=SCREEN_WIDTH;
+                        height=SCREEN_HEIGHT;
                         
                     }
                     
-
-                    CGFloat btnWidth = 80.f;
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-                    //订单
-                    UILabel *orderLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2 - btnWidth, 20)];
-                    orderLabel.backgroundColor = [UIColor clearColor];
-                    orderLabel.font = [UIFont systemFontOfSize:16.f];
-//                    orderLabel.textColor = kColor(116, 116, 116, 1);
-                    orderLabel.text = [NSString stringWithFormat:@"订单编号：%@",_orderDetail.orderNumber];
-                    [cell.contentView addSubview:orderLabel];
-                    //支付方式
-                    UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2 - btnWidth, 20.f)];
-                    typeLabel.backgroundColor = [UIColor clearColor];
-                    typeLabel.font = [UIFont systemFontOfSize:16.f];
-//                    typeLabel.textColor = kColor(116, 116, 116, 1);
-                    typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
-                    [cell.contentView addSubview:typeLabel];
-                    //订单日期
-                    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2 - btnWidth, 20)];
-                    dateLabel.backgroundColor = [UIColor clearColor];
-                    dateLabel.font = [UIFont systemFontOfSize:16.f];
-//                    dateLabel.textColor = kColor(116, 116, 116, 1);
-                    dateLabel.text = [NSString stringWithFormat:@"订单日期：%@",_orderDetail.orderTime];
-                    [cell.contentView addSubview:dateLabel];
-
-                    //留言
-                    NSString *comment = [NSString stringWithFormat:@"留       言：%@",_orderDetail.orderComment];
-                    CGFloat height = [self heightForString:comment withWidth:kScreenWidth - originX * 2];
-                    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10, wide - originX *2, height)];
-                    commentLabel.numberOfLines = 0;
-                    [self setLabel:commentLabel withString:comment];
-                    [cell.contentView addSubview:commentLabel];
-                    //发票
-                    UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10 + height, wide - originX * 2, 20.f)];
-                    [self setLabel:invoceTypeLabel withString:[NSString stringWithFormat:@"发票类型：%@",_orderDetail.orderInvoceType]];
-                    [cell.contentView addSubview:invoceTypeLabel];
-                    UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 30 + height, wide - originX * 2, 20.f)];
-                    [self setLabel:invoceTitleLabel withString:[NSString stringWithFormat:@"发票抬头：%@",_orderDetail.orderInvoceTitle]];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                    [cell.contentView addSubview:invoceTitleLabel];
+                    
+                    UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, wide, 1)];
+                    totalLabel.backgroundColor = [UIColor grayColor];
+                    
+                    [cell.contentView addSubview:totalLabel];
                 }
-                    break;
-                default:
-                    break;
             }
+                break;
+            default:
+                break;
         }
-            break;
-        case 1: {
-            if (indexPath.row == 0) {
-                
-                
-                CGFloat wide;
-                CGFloat height;
-                if(iOS7)
-                {
-                    wide=SCREEN_HEIGHT;
-                    height=SCREEN_WIDTH;
-                    
-                    
-                }
-                else
-                {  wide=SCREEN_WIDTH;
-                    height=SCREEN_HEIGHT;
-                    
-                }
-//80
-                CGFloat btnWidth = 80.f;
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-                
-                
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                
-                
-                
-                
-                UIView*rootview  = [[UIView alloc] initWithFrame:CGRectMake(20, 10, wide-40, 20)];
-                rootview.backgroundColor = kColor(235, 233, 233, 1);
-                [cell.contentView addSubview: rootview];
-                
-                
-                UILabel*goodslable=[[UILabel alloc]initWithFrame:CGRectMake(100, 0, 60, 20)];
-                [rootview addSubview:goodslable];
-                goodslable.textAlignment = NSTextAlignmentCenter;
-                
-                goodslable.text=@"商品";
-                
-                UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2+20, 0, 60, 20)];
-                [rootview addSubview:phonelable];
-//                phonelable.textAlignment = NSTextAlignmentCenter;
-                
-                phonelable.text=@"单价";
-                UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-130, 0, 80, 20)];
-                [rootview addSubview:numberlable];
-//                numberlable.textAlignment = NSTextAlignmentCenter;
-                
-                numberlable.text=@"购买数量";
-
-//                //订单
-//                UILabel *orderLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, kScreenWidth - originX * 2 - btnWidth, 20)];
-//                orderLabel.backgroundColor = [UIColor clearColor];
-//                orderLabel.font = [UIFont systemFontOfSize:12.f];
-//                orderLabel.textColor = kColor(116, 116, 116, 1);
-//                orderLabel.text =  @"商品";
-//                [cell.contentView addSubview:orderLabel];
-//                //支付方式
-//                UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, kScreenWidth - originX * 2 - btnWidth, 20.f)];
-//                typeLabel.backgroundColor = [UIColor clearColor];
-//                typeLabel.font = [UIFont systemFontOfSize:12.f];
-//                typeLabel.textColor = kColor(116, 116, 116, 1);
-//                typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
-//                [cell.contentView addSubview:typeLabel];
-//                //订单日期
-//                UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, kScreenWidth - originX * 2 - btnWidth, 20)];
-//                dateLabel.backgroundColor = [UIColor clearColor];
-//                dateLabel.font = [UIFont systemFontOfSize:12.f];
-//                dateLabel.textColor = kColor(116, 116, 116, 1);
-//                dateLabel.text = [NSString stringWithFormat:@"订单日期：%@",_orderDetail.orderTime];
-//                [cell.contentView addSubview:dateLabel];
-            }
-            else if (indexPath.row == [_orderDetail.goodList count] + 1) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-                CGFloat wide;
-                CGFloat height;
-                if(iOS7)
-                {
-                    wide=SCREEN_HEIGHT;
-                    height=SCREEN_WIDTH;
-                    
-                    
-                }
-                else
-                {  wide=SCREEN_WIDTH;
-                    height=SCREEN_HEIGHT;
-                    
-                }
-                //80
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2, 20)];
-                totalLabel.backgroundColor = [UIColor clearColor];
-                totalLabel.font = [UIFont systemFontOfSize:16.f];
-                totalLabel.textAlignment = NSTextAlignmentRight;
-                totalLabel.text = [NSString stringWithFormat:@"共计%@件商品  实付金额：￥%.2f",_orderDetail.orderTotalNumber,_orderDetail.orderTotalPrice];
-                [cell.contentView addSubview:totalLabel];
-            }
-            else {
-                static NSString *orderIdentifier = @"orderIdentifier";
-                cell = [tableView dequeueReusableCellWithIdentifier:orderIdentifier];
-                if (cell == nil) {
-                    cell = [[OrderDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:orderIdentifier];
-                }
-                OrderGoodModel *model = [_orderDetail.goodList objectAtIndex:indexPath.row - 1];
-                [(OrderDetailCell *)cell setContentsWithData:model];
-                CGFloat wide;
-                CGFloat height;
-                if(iOS7)
-                {
-                    wide=SCREEN_HEIGHT;
-                    height=SCREEN_WIDTH;
-                    
-                    
-                }
-                else
-                {  wide=SCREEN_WIDTH;
-                    height=SCREEN_HEIGHT;
-                    
-                }
-
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, wide, 1)];
-                totalLabel.backgroundColor = [UIColor grayColor];
-                
-                [cell.contentView addSubview:totalLabel];
-            }
-        }
-            break;
-        default:
-            break;
-    }
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 0.f;
+        return cell;
     
-    CGFloat wide;
-    if(iOS7)
-    {
-        wide=SCREEN_HEIGHT;
-        
-        
     }
-    else
-    {  wide=SCREEN_WIDTH;
-        
-    }
-
-    switch (indexPath.section) {
-        case 0: {
-            switch (indexPath.row) {
-                case 0:
-                    height = 80.f;
-                    break;
-                case 1:
-                    height = 60.f;
-                    break;
-                case 2: {
-                    NSString *comment = [NSString stringWithFormat:@"留言：%@",_orderDetail.orderComment];
-                    CGFloat commentHeight = [self heightForString:comment withWidth:wide - 40];
-                    height = commentHeight + 60;
-                }
-                    break;
-                default:
-                    break;
-            }
-        }
-            break;
-        case 1: {
-            if (indexPath.row == 0) {
-                height = 40.f;
-            }
-            else if (indexPath.row == [_orderDetail.goodList count] + 1) {
-                height = 40.f;
-            }
-            else {
-                height = kOrderDetailCellHeight;
-            }
-        }
-            break;
-        default:
-            break;
-    }
-    return height;
+    
+  
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1.f;
-    }
-    else {
-        return 2.f;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.001f;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(tableView==_tableViewPJ)
+    {
+        return 230;
+        
+    }else
+    {
+    
+        CGFloat height = 0.f;
+        
+        CGFloat wide;
+        if(iOS7)
+        {
+            wide=SCREEN_HEIGHT;
+            
+            
+        }
+        else
+        {  wide=SCREEN_WIDTH;
+            
+        }
+        
+        switch (indexPath.section) {
+            case 0: {
+                switch (indexPath.row) {
+                    case 0:
+                        height = 80.f;
+                        break;
+                    case 1:
+                        height = 60.f;
+                        break;
+                    case 2: {
+                        NSString *comment = [NSString stringWithFormat:@"留言：%@",_orderDetail.orderComment];
+                        CGFloat commentHeight = [self heightForString:comment withWidth:wide - 40];
+                        height = commentHeight + 60;
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+                break;
+            case 1: {
+                if (indexPath.row == 0) {
+                    height = 40.f;
+                }
+                else if (indexPath.row == [_orderDetail.goodList count] + 1) {
+                    height = 40.f;
+                }
+                else {
+                    height = kOrderDetailCellHeight;
+                }
+            }
+                break;
+            default:
+                break;
+        }
+        return height;
+
+    
+    }
+    }
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if(tableView==_tableViewPJ)
+    {
+        return 0.001f;
+
+    
+    }else
+    {
+        if (section == 0) {
+            return 1.f;
+        }
+        else {
+            return 2.f;
+        }
+    
+    }
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    if(tableView==_tableViewPJ)
+    {
+        return 0.001f;
+
+        
+    }else
+    {
+        return 0.001f;
+  
+        
+    }
+}
+
+
 
 #pragma mark - Action
 
@@ -760,9 +990,8 @@ if(section==0)
 }
 
 - (IBAction)commentOrder:(id)sender {
-    OrderCommentController *commentC = [[OrderCommentController alloc] init];
-    commentC.orderID = _orderID;
-    [self.navigationController pushViewController:commentC animated:YES];
+    [self createui];
+    
 }
 
 @end

@@ -14,6 +14,8 @@
 #import "ShoppingCartController.h"
 #import "BasicNagigationController.h"
 #import "MyMessageViewController.h"
+#import "SwitchView.h"
+#import "AddressViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -75,6 +77,7 @@
     // Override point for customization after application launch.
     return YES;
 }
+
 -(void)viewcontrollew
 {
 
@@ -85,10 +88,12 @@
 
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];
     self.naviController.navigationBarHidden = YES;
-    MyMessageViewController *viewController5 = [[MyMessageViewController alloc] init];
-    [viewController5 SwitchViewClickedAtIndex:3];
     
     [self.window setRootViewController:self.naviController];
+
+    
+//    [viewController5 SwitchViewClickedAtIndex:3];
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
