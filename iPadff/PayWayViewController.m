@@ -22,6 +22,8 @@
     self.title = @"选择支付方式";
     self.view.backgroundColor=[UIColor whiteColor];
     
+    NSLog(@"!!!!!!!!!!%@~~~~~~~~~~~~~%f",_orderID,_totalPrice);
+    
    [self setHeaderAndFooterView];
 }
 

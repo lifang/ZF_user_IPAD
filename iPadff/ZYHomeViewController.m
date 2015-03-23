@@ -54,6 +54,7 @@
 
     self.cityName = @"上海市";
     LocationViewController *locationVC = [[LocationViewController alloc]init];
+    locationVC.hidesBottomBarWhenPushed = YES;
     self.locationVC = locationVC;
     UIView*vei=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH -60, SCREEN_HEIGHT )];
     [self.view addSubview:vei];

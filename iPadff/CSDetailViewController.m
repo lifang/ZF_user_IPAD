@@ -124,33 +124,34 @@
     CGFloat btnHeight = 40.f;
     [_scrollView addSubview:button];
     if (position == OperationBtnFirst) {
-        //上面的按钮
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:button
-                                                              attribute:NSLayoutAttributeTop
+                                                              attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual
-                                                                 toItem:_scrollView
-                                                              attribute:NSLayoutAttributeBottom
+                                                                 toItem:self.view
+                                                              attribute:NSLayoutAttributeRight
                                                              multiplier:1.0
-                                                               constant:topSpace]];
+                                                               constant:-180.f]];
+
     }
     else {
-        //下面的按钮
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:button
-                                                              attribute:NSLayoutAttributeTop
+                                                              attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual
-                                                                 toItem:_scrollView
-                                                              attribute:NSLayoutAttributeBottom
+                                                                 toItem:self.view
+                                                              attribute:NSLayoutAttributeRight
                                                              multiplier:1.0
-                                                               constant:topSpace + middleSpace + btnHeight]];
+                                                               constant:-60.f]];
     }
+    //上面的按钮
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:button
-                                                          attribute:NSLayoutAttributeRight
+                                                          attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeRight
+                                                             toItem:_scrollView
+                                                          attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
-                                                           constant:-60.f]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:button
+                                                           constant:topSpace]];
+
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:button
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil

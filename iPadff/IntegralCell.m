@@ -54,9 +54,6 @@
         _intergralType.font = mainFont;
         [self addSubview:_intergralType];
         
-        _lineView = [[UIView alloc]init];
-        _lineView.backgroundColor = kColor(239, 239, 239, 1.0);
-        [self addSubview:_lineView];
         
         if ([reuseIdentifier isEqualToString:@"IntegralCell1"]) {
             self.backgroundColor = kColor(228, 228, 228, 1.0);

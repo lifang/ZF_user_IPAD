@@ -25,6 +25,7 @@
 #import "ChangeDetailController.h"
 #import "UpdateDetailController.h"
 #import "RentDetailController.h"
+#import "PayWayViewController.h"
 
 @interface AfterSellViewController ()<UITableViewDataSource,UITableViewDelegate,ServiceBtnClickDelegate,CancelCellBtnClickDelegate,SalesReturnCellBtnClickDelegate,ChangeGoodCellBtnClickDelegate,UpdateCellBtnClickDelegate,RentBackCellBtnClickDelegate,RefreshDelegate,UIAlertViewDelegate,SubmitLogisticsClickWithDataDelegate>
 
@@ -75,6 +76,8 @@
 
 @property(nonatomic,strong)NSString *companyName;
 @property(nonatomic,strong)NSString *submitNum;
+
+@property(nonatomic,strong)NSString *repair_price;
 
 
 @end
@@ -693,6 +696,7 @@
                 serviceCell = [[ServiceCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
             }
             serviceCell.ServieceBtnDelgete = self;
+            serviceCell.repair_price = model.repair_price;
             serviceCell.seviceNum.text = model.applyNum;
             serviceCell.terminalLabel.text = model.terminalNum;
             serviceCell.seviceTime.text = model.createTime;
@@ -816,6 +820,7 @@
 {
     CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
     self.selectedId = model.csID;
+    self.repair_price = model.repair_price;
     switch (_csType) {
         case CSTypeRepair:
             [self pushRepairDetailWithcsID:_selectedId AndCsType:_csType];
@@ -850,6 +855,7 @@
 {
     RepairDetailController *repairVC = [[RepairDetailController alloc]init];
     repairVC.hidesBottomBarWhenPushed = YES;
+    repairVC.totalMoney = [_repair_price intValue];
     repairVC.csType = csType;
     repairVC.csID = csId;
     [self.navigationController pushViewController:repairVC animated:YES];
@@ -914,12 +920,13 @@
 //}
 
 #pragma mark - 维修页面Btn点击事件
--(void)serviceBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID
+-(void)serviceBtnClick:(int)btnTag WithSelectedID:(NSString *)selectedID WithRepair_price:(NSString *)repair_price
 {
     self.selectedId = selectedID;
     switch (btnTag) {
         case 111:
             NSLog(@"点击了支付维修费 id为%@",selectedID);
+            [self setPayWayWithPrice:repair_price];
             break;
         case 112:
             NSLog(@"点击了取消申请");
@@ -932,6 +939,15 @@
         default:
             break;
     }
+}
+
+-(void)setPayWayWithPrice:(NSString *)repair_price
+{
+    PayWayViewController *payVC = [[PayWayViewController alloc]init];
+    payVC.orderID = _selectedId;
+    payVC.totalPrice = [repair_price intValue];
+    payVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:payVC animated:YES];
 }
 
 #pragma mark - 注销页面Btn点击事件

@@ -11,6 +11,7 @@
 #import "NetworkInterface.h"
 #import "AddressModel.h"
 #import "CityHandle.h"
+#import "RegularFormat.h"
 
 @interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,AddressCellDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate>
 
@@ -39,6 +40,13 @@
 @property(nonatomic,strong)UITextField *postcodeField;
 @property(nonatomic,strong)UITextField *locationField;
 @property(nonatomic,strong)UITextField *particularLocationField;
+
+@property(nonatomic,assign)BOOL isDefault;
+
+@property(nonatomic,assign)BOOL isChange;
+
+@property(nonatomic,strong)NSString *selectedID;
+
 
 
 @end
@@ -139,6 +147,7 @@
             cell = [[AddressCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
         }
         cell.AddressCellDelegate = self;
+        cell.indexP = indexPath.row;
         cell.consigneeLabel.text = model.addressReceiver;
         cell.areaLabel.text = [NSString stringWithFormat:@"%@%@",model.city_parent_name,model.city_name];
         cell.particularAddressLabel.text = model.address;
@@ -178,9 +187,27 @@
 }
 
 #pragma mark - addressDelegate
--(void)changeBtnClicked:(NSString *)selectedID
+-(void)changeBtnClicked:(NSString *)selectedID WithIndex:(int)indexP
 {
+    _isChange = YES;
     //点击的id和修改地址事件
+    AddressModel *model = [_addressItems objectAtIndex:indexP];
+    [self createui];
+    [self initPickerView];
+    self.selectedID = model.addressID;
+    _nameField.text = model.addressReceiver;
+    _telField.text = model.addressPhone;
+    _postcodeField.text = model.zipCode;
+    _particularLocationField.text = model.address;
+    self.cityID = model.cityID;
+    [_cityField setTitle:model.city_name forState:UIControlStateNormal];
+    if ([model.isDefault isEqualToString:@"1"]) {
+        self.isDefault = NO;
+        [self setDefaultAddress];
+    }else {
+        self.isDefault = YES;
+        [self setDefaultAddress];
+    }
 }
 #pragma mark - Request
 
@@ -276,8 +303,11 @@
     [witeview addSubview:newaddress];
     newaddress.textAlignment = NSTextAlignmentCenter;
     
-    newaddress.text=@"新增加地址";
-    newaddress .font = [UIFont systemFontOfSize:20.f];
+    newaddress.text=@"新增地址";
+    if (_isChange) {
+        newaddress.text=@"编辑";
+    }
+    newaddress .font = [UIFont boldSystemFontOfSize:22.f];
     
     UIView*lineview=[[UIView alloc]initWithFrame:CGRectMake(0, 50, wide/2, 1)];
     lineview.backgroundColor=[UIColor grayColor];
@@ -288,7 +318,8 @@
     
     for(int i=0;i<5;i++)
     {
-        UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(20, i*50+60,100, 40)];
+        UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(20, i*50+80,100, 40)];
+        newaddress.font = [UIFont systemFontOfSize:20];
         [witeview addSubview:newaddress];
         newaddress.textAlignment = NSTextAlignmentCenter;
         
@@ -297,7 +328,7 @@
         if(i==3)
         {
             _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
-            _cityField.frame = CGRectMake(140, i*50+60,280, 40);
+            _cityField.frame = CGRectMake(140, i*50+80,280, 40);
             //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
             [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -305,15 +336,11 @@
             CALayer *layer=[_cityField  layer];
             //是否设置边框以及是否可见
             [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
+            [layer setBorderColor:[kColor(188, 188, 188, 1.0) CGColor]];
             [layer setBorderWidth:1];
             //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
             
             [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
@@ -321,7 +348,7 @@
         }
         else
         {
-            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(140, i*50+60,280, 40)];
+            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(140, i*50+80,280, 40)];
             neworiginaltextfield.leftViewMode = UITextFieldViewModeAlways;
             UIView *v = [[UIView alloc]init];
             v.frame = CGRectMake(0, 0, 10, 40);
@@ -341,30 +368,41 @@
             //
             [layer setBorderWidth:1];
             //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            [layer setBorderColor:[kColor(188, 188, 188, 1.0) CGColor]];
         }
     }
     _deaultBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-    _deaultBtn.frame = CGRectMake(  35, 320, 30, 30);
-    [_deaultBtn setImage:kImageName(@"select_normal") forState:UIControlStateNormal];
+    _deaultBtn.frame = CGRectMake(  35, 350, 30, 30);
+    [_deaultBtn setImage:kImageName(@"noSelected") forState:UIControlStateNormal];
     [_deaultBtn addTarget:self action:@selector(setDefaultAddress) forControlEvents:UIControlEventTouchUpInside];
     [witeview addSubview:_deaultBtn];
-    UILabel*defaultlable=[[UILabel alloc]initWithFrame:CGRectMake(60, 320,100, 30)];
+    UILabel*defaultlable=[[UILabel alloc]initWithFrame:CGRectMake(70, 350,100, 30)];
     [witeview addSubview:defaultlable];
     defaultlable.textAlignment = NSTextAlignmentCenter;
-    defaultlable .font = [UIFont systemFontOfSize:14.f];
-    
+    defaultlable .font = [UIFont systemFontOfSize:16.f];
     defaultlable.text=@"设为默认地址";
     
     UIButton*savebutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    savebutton.frame = CGRectMake(  40, 400, 100, 30);
+    savebutton.frame = CGRectMake(  40, 400, 120, 40);
     savebutton.center=CGPointMake(wide/4, 420);
     //    savebutton.layer.cornerRadius=10;
-    
     [savebutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
     [savebutton setTitle:@"保存" forState:UIControlStateNormal];
     [savebutton addTarget:self action:@selector(saveAddress) forControlEvents:UIControlEventTouchUpInside];
     [witeview addSubview:savebutton];
+    
+    if (_isChange) {
+        UIButton *deleteBtn = [[UIButton alloc]init];
+        deleteBtn.frame = CGRectMake( 360, 350, 120, 40);
+        [deleteBtn addTarget:self action:@selector(deleteAddresses) forControlEvents:UIControlEventTouchUpInside];
+        deleteBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+        [deleteBtn setBackgroundColor:[UIColor clearColor]];
+        [deleteBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+        [deleteBtn setTitle:@"删除地址" forState:UIControlStateNormal];
+        [witeview addSubview:deleteBtn];
+        
+    }
+    
     _nameField = [[UITextField alloc]init];
     _telField = [[UITextField alloc]init];
     _postcodeField = [[UITextField alloc]init];
@@ -410,6 +448,13 @@
     _pickerView.backgroundColor = kColor(244, 243, 243, 1);
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
+    if (_isChange) {
+        [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_cityID] inComponent:0 animated:NO];
+        [_pickerView reloadAllComponents];
+        [_pickerView selectRow:[CityHandle getCityIndexWithCityID:_cityID] inComponent:1 animated:NO];
+    }else{
+        
+    }
     
     [self.view addSubview:_pickerView];
 }
@@ -486,11 +531,219 @@
 
 - (void)modifyLocation:(id)sender {
     [self pickerScrollOut];
+    
     NSInteger index = [self.pickerView selectedRowInComponent:1];
-    self.cityID = [NSString stringWithFormat:@"%@",[[self.cityArray objectAtIndex:index] objectForKey:@"id"]];
+    self.selectedCityID = [NSString stringWithFormat:@"%@",[[self.cityArray objectAtIndex:index] objectForKey:@"id"]];
     NSString *cityName = [[self.cityArray objectAtIndex:index] objectForKey:@"name"];
     [_cityField setTitle:cityName forState:UIControlStateNormal];
     
+
+}
+
+- (void)setDefaultAddress {
+    self.isDefault = !_isDefault;
+    if (_isChange) {
+        self.isDefault = _isDefault;
+    }
+    if(_isDefault)
+    {
+        [_deaultBtn setImage:kImageName(@"selected") forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_deaultBtn setImage:[UIImage imageNamed:@"noSelected"] forState:UIControlStateNormal];
+        
+    }
+}
+
+-(void)saveAddress
+{
+    if (!_nameField.text || [_nameField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写收件人姓名";
+        return;
+    }
+    if (!_telField.text || [_telField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写收件人电话";
+        return;
+    }
+    if (!_postcodeField.text || [_postcodeField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写邮编";
+        return;
+    }
+    if (!_cityField.titleLabel.text || [_cityField.titleLabel.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请选择城市";
+        return;
+    }
+    if (!_particularLocationField.text || [_particularLocationField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写详细地址";
+        return;
+    }
+    if (!_nameField.text || [_nameField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"修改信息不能为空";
+        return;
+    }
+    if (!([RegularFormat isMobileNumber:_telField.text] || [RegularFormat isTelephoneNumber:_telField.text])) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的电话";
+        return;
+    }
+    if (_isChange) {
+        [self changeRequest];
+    }else{
+    [self saveAddressRequest];
+    }
+
+}
+
+-(void)changeRequest
+{
+    AddressType isDefault = AddressOther;
+    if (_isDefault) {
+        isDefault = AddressDefault;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface modifyAddressWithToken:delegate.token addressID:_selectedID cityID:_cityID receiverName:_nameField.text phoneNumber:_telField.text zipCode:_postcodeField.text address:_particularLocationField.text isDefault:isDefault finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    hud.labelText = @"地址修改成功";
+                    [_bigsview removeFromSuperview];
+                    [self getAddressList];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+        
+    }];
+
+}
+
+-(void)saveAddressRequest
+{
+    self.isChange = NO;
+    AddressType isDefault = AddressOther;
+    if (_isDefault) {
+        isDefault = AddressDefault;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface addAddressWithToken:delegate.token userID:delegate.userID cityID:_selectedCityID receiverName:_nameField.text phoneNumber:_telField.text zipCode:_postcodeField.text address:_particularLocationField.text isDefault:isDefault finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                                    message:@"新增地址成功"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    [_bigsview removeFromSuperview];
+                    [self getAddressList];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+        
+    }];
+   
+}
+
+-(void)deleteAddresses
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface deleteAddressWithToken:delegate.token addressIDs:[NSArray arrayWithObject:[NSNumber numberWithInt:[_selectedID intValue]]] finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"删除成功";
+                    [_bigsview removeFromSuperview];
+                    [self getAddressList];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+
 }
 
 

@@ -107,17 +107,7 @@
 {
     self.title = @"开通认证";
     self.view.backgroundColor = [UIColor whiteColor];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
-    
-    UIButton *leftBtn = [[UIButton alloc]init];
-    [leftBtn addTarget:self action:@selector(backHome) forControlEvents:UIControlEventTouchUpInside];
-    leftBtn.frame = CGRectMake(0, 0, 50, 50);
-    [leftBtn setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
-    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    self.navigationItem.leftBarButtonItem = leftBar;
-    
+
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);
     footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);

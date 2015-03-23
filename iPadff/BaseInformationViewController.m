@@ -168,6 +168,7 @@
     NSDictionary *infoDict = [dict objectForKey:@"result"];
     _userInfo = [[UserModel alloc] initWithParseDictionary:infoDict];
     [self initAndLayoutUI];
+    self.IntegralNum = _userInfo.userScore;
     _nameField.text = _userInfo.userName;
     _phoneField.text = _userInfo.phoneNumber;
     _emailField.text = _userInfo.email;

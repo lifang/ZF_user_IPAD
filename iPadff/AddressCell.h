@@ -12,7 +12,7 @@
 
 @optional
 
--(void)changeBtnClicked:(NSString *)selectedID;
+-(void)changeBtnClicked:(NSString *)selectedID WithIndex:(int)indexP;
 
 @end
 
@@ -33,6 +33,8 @@
 @property(nonatomic,strong)UIButton *changeBtn;
 
 @property(nonatomic,strong)NSString *selectID;
+
+@property(nonatomic,assign)int indexP;
 
 @property(nonatomic,weak)id AddressCellDelegate;
 
