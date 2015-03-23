@@ -7,12 +7,15 @@
 //
 
 #import "CommonViewController.h"
+#import "CityHandle.h"
 
 @protocol sendCity <NSObject>
 
 @optional
 
 -(void)sendCity:(NSString *)city WithCity_id:(NSString *)city_id;
+
+- (void)getSelectedLocation:(CityModel *)selectedCity;
 
 @end
 

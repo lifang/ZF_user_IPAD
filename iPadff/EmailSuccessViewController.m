@@ -24,6 +24,17 @@
 {
     self.title = @"注册";
     self.view.backgroundColor = [UIColor whiteColor];
+    UIBarButtonItem *zeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    zeroBar.width = 30.f;
+    
+    UIButton *leftBtn = [[UIButton alloc]init];
+    [leftBtn addTarget:self action:@selector(backHome) forControlEvents:UIControlEventTouchUpInside];
+    leftBtn.frame = CGRectMake(0, 0, 48, 48);
+    [leftBtn setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    NSArray *leftArr = [NSArray arrayWithObjects:zeroBar,leftBar, nil];
+    self.navigationItem.leftBarButtonItems = leftArr;
+
 }
 
 -(void)initUI

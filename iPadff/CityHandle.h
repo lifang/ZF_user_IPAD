@@ -15,6 +15,7 @@
 + (NSArray *)dataForSection;
 
 + (NSArray *)shareProvinceList;  //省份数组
++ (NSArray *)shareCityList;      //城市数组
 
 //根据城市id获取城市名
 + (NSString *)getCityNameWithCityID:(NSString *)cityID;
@@ -22,6 +23,5 @@
 //根据城市id获取省份的index
 + (NSInteger)getProvinceIndexWithCityID:(NSString *)cityID;
 + (NSInteger)getCityIndexWithCityID:(NSString *)cityID;
-
 
 @end

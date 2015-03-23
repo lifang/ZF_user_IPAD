@@ -33,7 +33,6 @@
 {
     _locationVC.delegate = self;
     self.navigationController.navigationBarHidden = YES;
-    _locationBtn.nameLabel.text = _cityName;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -51,8 +50,7 @@
     [super viewDidLoad];
     _pictureItem = [[NSMutableArray alloc] init];
     [self loadHomeImageList];
-
-    self.cityName = @"上海市";
+    
     LocationViewController *locationVC = [[LocationViewController alloc]init];
     locationVC.hidesBottomBarWhenPushed = YES;
     self.locationVC = locationVC;
@@ -393,6 +391,15 @@
             break;
     }
 }
+#pragma mark - 定位
 
+- (void)getSelectedLocation:(CityModel *)selectedCity {
+    if (selectedCity) {
+        _locationBtn.nameLabel.text = selectedCity.cityName;
+    }
+    else {
+        _locationBtn.nameLabel.text = @"无法定位";
+    }
+}
 
 @end

@@ -107,6 +107,7 @@
 {
     self.title = @"开通认证";
     self.view.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);

@@ -30,6 +30,8 @@
 //终端信息数据
 @property (nonatomic, strong) NSMutableArray *terminalItems;
 
+@property(nonatomic,strong)UIImageView *findPosView;
+
 @end
 
 @implementation TerminalViewController
@@ -41,6 +43,75 @@
     [self setupHeaderView];
     [self setRefreshView];
     [self firstLoadData];
+}
+
+-(void)initFindPosViewWithSelectedID:(NSString *)selectedID
+{
+    CGFloat width;
+    CGFloat height;
+    if(iOS7)
+    {
+        width = SCREEN_HEIGHT;
+        height = SCREEN_WIDTH;
+    }
+    else
+    {
+        width = SCREEN_WIDTH;
+        height = SCREEN_HEIGHT;
+    }
+    _findPosView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
+    [self.view addSubview:_findPosView];
+    _findPosView.image=[UIImage imageNamed:@"backimage"];
+    _findPosView.userInteractionEnabled=YES;
+    
+    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 440, 220)];
+    whiteView.center = CGPointMake(width / 2, (height - 100) / 2);
+    whiteView.backgroundColor = [UIColor whiteColor];
+    [_findPosView addSubview:whiteView];
+    
+    UIButton *leftXBtn = [[UIButton alloc]init];
+    [leftXBtn addTarget:self action:@selector(leftClicked) forControlEvents:UIControlEventTouchUpInside];
+    [leftXBtn setBackgroundImage:[UIImage imageNamed:@"X_black"] forState:UIControlStateNormal];
+    leftXBtn.frame = CGRectMake(15, 15, 25, 25);
+    [whiteView addSubview:leftXBtn];
+    
+    UILabel *FindPOSLable = [[UILabel alloc]init];
+    FindPOSLable.text = @"找回POS密码";
+    FindPOSLable.textColor = kColor(38, 38, 38, 1.0);
+    FindPOSLable.font = [UIFont systemFontOfSize:22];
+    FindPOSLable.frame = CGRectMake(150, 10, 200, 40);
+    [whiteView addSubview:FindPOSLable];
+    
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = kColor(128, 128, 128, 1.0);
+    line.frame = CGRectMake(0, CGRectGetMaxY(FindPOSLable.frame) + 10, whiteView.frame.size.width, 1);
+    [whiteView addSubview:line];
+    
+    UILabel *POSLable = [[UILabel alloc]init];
+    POSLable.text = @"POS机密码";
+    POSLable.textColor = kColor(56, 56, 56, 1.0);
+    POSLable.font = [UIFont systemFontOfSize:20];
+    POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 40, CGRectGetMaxY(line.frame) + 50, 120, 30);
+    [whiteView addSubview:POSLable];
+    
+    UILabel *passwordLabel = [[UILabel alloc]init];
+    passwordLabel.textColor = kColor(132, 132, 132, 1.0);
+    passwordLabel.font = [UIFont systemFontOfSize:20];
+    NSLog(@"点了第%@个ID",selectedID);
+    passwordLabel.text = @"asdasdas";
+    passwordLabel.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
+    [whiteView addSubview:passwordLabel];
+    
+}
+
+-(void)leftClicked
+{
+    [self removePOSView];
+}
+
+-(void)removePOSView
+{
+    [_findPosView removeFromSuperview];
 }
 
 
@@ -57,7 +128,7 @@
     UILabel *first = [[UILabel alloc]init];
     first.font = mainFont;
     first.text = @"终端号";
-    first.frame = CGRectMake(100, 0, 70, 25);
+    first.frame = CGRectMake(65, 0, 70, 25);
     [bottomView addSubview:first];
     bottomView.backgroundColor = kColor(226, 226, 226, 1.0);
     
@@ -96,7 +167,10 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
     
     UIBarButtonItem *zeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    zeroBar.width = 0;
+    zeroBar.width = 30.f;
+    
+    UIBarButtonItem *rightZeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    rightZeroBar.width = 40.f;
     
     UIButton *leftBtn = [[UIButton alloc]init];
     [leftBtn addTarget:self action:@selector(backHome) forControlEvents:UIControlEventTouchUpInside];
@@ -111,7 +185,8 @@
     rightBtn.frame = CGRectMake(0, 0, 24, 24);
     [rightBtn setImage:[UIImage imageNamed:@"+"] forState:UIControlStateNormal];
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    self.navigationItem.rightBarButtonItem = rightBar;
+    NSArray *rightArr = [NSArray arrayWithObjects:rightZeroBar,rightBar,nil];
+    self.navigationItem.rightBarButtonItems = rightArr;
     
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);
@@ -256,7 +331,7 @@
             cell = [[TerminalViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:IDs];
             cell.TerminalViewCellDelegate = self;
         }
-        
+        cell.selectedID = model.TM_ID;
         cell.terminalLabel.text = model.TM_serialNumber;
         cell.posLabel.text = model.TM_brandsName;
         cell.payRoad.text = model.TM_channelName;
@@ -286,10 +361,11 @@
 
 
 #pragma mark terminalCell的代理
--(void)terminalCellBtnClicked:(int)btnTag
+-(void)terminalCellBtnClicked:(int)btnTag WithSelectedID:(NSString *)selectedID
 {
     if (btnTag == 1000) {
-        NSLog(@"点击了找回POS密码");
+        NSLog(@"点击了找回POS密码 信息ID为%@",selectedID);
+        [self initFindPosViewWithSelectedID:selectedID];
     }
     if (btnTag == 1001) {
         NSLog(@"点击了视频认证(已开通)");

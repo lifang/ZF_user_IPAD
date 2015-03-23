@@ -65,12 +65,16 @@
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
     
+    UIBarButtonItem *zeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    zeroBar.width = 30.f;
+    
     UIButton *leftBtn = [[UIButton alloc]init];
     [leftBtn addTarget:self action:@selector(backHome) forControlEvents:UIControlEventTouchUpInside];
-    leftBtn.frame = CGRectMake(0, 0, 50, 50);
+    leftBtn.frame = CGRectMake(0, 0, 48, 48);
     [leftBtn setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
     UIBarButtonItem *leftBar = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    self.navigationItem.leftBarButtonItem = leftBar;
+    NSArray *leftArr = [NSArray arrayWithObjects:zeroBar,leftBar, nil];
+    self.navigationItem.leftBarButtonItems = leftArr;
     
     UILabel *phoneOrEmail = [[UILabel alloc]init];
     phoneOrEmail.font = [UIFont systemFontOfSize:20];
