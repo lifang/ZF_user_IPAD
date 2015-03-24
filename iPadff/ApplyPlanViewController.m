@@ -224,12 +224,19 @@
     UIView *line = [[UIView alloc]init];
     line.backgroundColor = kColor(145, 145, 145, 1.0);
     line.frame = CGRectMake(20, 0, SCREEN_WIDTH - 160, 1);
+    if (iOS7) {
+        line.frame = CGRectMake(20, 0, SCREEN_HEIGHT - 160, 1);
+        
+    }
     _tableView.tableHeaderView = line;
     
-    UIView *v = [[UIView alloc]init];
-    v.frame = CGRectMake(0, 0, 1, 1);
-    _tableView.tableFooterView = v;
-    
+    UIView *line2 = [[UIView alloc]init];
+    line2.backgroundColor = kColor(219, 217, 215, 1.0);
+    line2.frame = CGRectMake(0, 0, SCREEN_WIDTH - 160, 1);
+    if (iOS7) {
+        line2.frame = CGRectMake(0, 0, SCREEN_HEIGHT - 160, 1);
+    }
+    _tableView.tableFooterView = line2;
 }
 
 -(void)findClicked
@@ -337,7 +344,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ProgressModel *model = [_dataItem objectAtIndex:indexPath.row];
-    return kProgressPrimaryHeight + [model.openList count] * 20;
+    return kProgressPrimaryHeight + [model.openList count] * 30;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

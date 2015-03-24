@@ -18,6 +18,7 @@
 #import "ImageScrollView.h"
 #import "InterestView.h"
 #import "GoodDetaildetailViewController.h"
+#import "RentOrderViewController.h"
 //static CGFloat topImageHeight = 160.f;
 
 @interface GoodDetailViewController ()<UIScrollViewDelegate,ImageScrollViewDelegate>
@@ -399,9 +400,10 @@
     
 //    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath]];
     [_mainScrollView addSubview:factoryImageView];
+    NSLog(@"%@",_detailModel.factoryWebsite);
     
     //厂家网址
-    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace, labelHeight)];
+    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace-140, labelHeight)];
     [self setLabel:websiteLabel withTitle:_detailModel.factoryWebsite font:[UIFont systemFontOfSize:13.f]];
     
     //厂家简介
@@ -409,7 +411,7 @@
     CGFloat summaryHeight = [self heightWithString:_detailModel.factorySummary
                                              width:wide - leftSpace - rightSpace
                                           fontSize:13.f];
-    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftSpace - 40, summaryHeight)];
+    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+80, originY, leftSpace - 40, summaryHeight)];
     [self setLabel:factorySummaryLabel withTitle:_detailModel.factorySummary font:[UIFont systemFontOfSize:13.f]];
     
     
@@ -833,6 +835,8 @@
 
     _shopcartButton.enabled = YES;
     [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
+    [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.goodPrice + _detailModel.defaultChannel.openCost]];
+
 }
 
 - (IBAction)rentGood:(id)sender {
@@ -843,6 +847,8 @@
     
     _shopcartButton.enabled = NO;
     [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];
+    [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.deposit + _detailModel.defaultChannel.openCost]];
+
 }
 
 - (IBAction)scanFactoryInfo:(id)sender {
@@ -864,8 +870,50 @@
 
 //加入购物车
 - (IBAction)addShoppingCart:(id)sender {
-    
+        if (!_detailModel.goodID) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.customView = [[UIImageView alloc] init];
+            hud.mode = MBProgressHUDModeCustomView;
+            [hud hide:YES afterDelay:1.f];
+            hud.labelText = @"未获取到此商品信息";
+            return;
+        }
+        [self addGoodIntoShoppingCart];
+    }
+
+- (void)addGoodIntoShoppingCart {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface addShoppingCartWithToken:delegate.token userID:delegate.userID goodID:_detailModel.goodID channelID:_detailModel.defaultChannel.channelID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"添加到购物车成功";
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
 }
+
+
 
 //立即购买
 - (IBAction)buyNow:(id)sender {
@@ -877,6 +925,11 @@
         [self.navigationController pushViewController:buyC animated:YES];
     }
     else {
+        RentOrderViewController *rentC = [[RentOrderViewController alloc] init];
+        rentC.goodDetail = _detailModel;
+        rentC.hidesBottomBarWhenPushed =  YES ;
+
+        [self.navigationController pushViewController:rentC animated:YES];
         
     }
 

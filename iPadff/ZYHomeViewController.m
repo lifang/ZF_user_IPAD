@@ -17,6 +17,7 @@
 #import "DealRoadController.h"
 #import "NetworkInterface.h"
 #import "HomeImageModel.h"
+#import "SystemNoticeController.h"
 
 @interface ZYHomeViewController ()<sendCity>
 @property(nonatomic,strong)PollingView *pollingView;
@@ -33,7 +34,6 @@
 {
     _locationVC.delegate = self;
     self.navigationController.navigationBarHidden = YES;
-    _locationBtn.nameLabel.text = _cityName;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -51,8 +51,7 @@
     [super viewDidLoad];
     _pictureItem = [[NSMutableArray alloc] init];
     [self loadHomeImageList];
-
-    self.cityName = @"上海市";
+    
     LocationViewController *locationVC = [[LocationViewController alloc]init];
     locationVC.hidesBottomBarWhenPushed = YES;
     self.locationVC = locationVC;
@@ -383,6 +382,9 @@
             break;
         case 1006: {
             //系统公告
+            SystemNoticeController *systemVC = [[SystemNoticeController alloc]init];
+            systemVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:systemVC animated:YES];
         }
             break;
         case 1007: {
@@ -393,6 +395,15 @@
             break;
     }
 }
+#pragma mark - 定位
 
+- (void)getSelectedLocation:(CityModel *)selectedCity {
+    if (selectedCity) {
+        _locationBtn.nameLabel.text = selectedCity.cityName;
+    }
+    else {
+        _locationBtn.nameLabel.text = @"无法定位";
+    }
+}
 
 @end

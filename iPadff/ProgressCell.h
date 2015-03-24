@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ProgressModel.h"
 
-#define kProgressPrimaryHeight 40.f
+#define kProgressPrimaryHeight 60.f
 
 @interface ProgressCell : UITableViewCell
 

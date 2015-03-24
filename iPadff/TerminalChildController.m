@@ -722,7 +722,7 @@
     CGFloat rightSpce = 20.f;
     CGFloat labelHeight = 18.f;
     CGFloat vSpace = 4.f;
-    CGFloat titleWidth = 100.f;
+    CGFloat titleWidth = 120.f;
     
     //标题label
     UILabel *titleLabel = [[UILabel alloc] init];

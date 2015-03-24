@@ -46,6 +46,7 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 
 @property (nonatomic, strong) UILabel *numberLabel;
+@property (nonatomic, strong) UILabel *linelable;
 
 @property (nonatomic, strong) UILabel *brandLabel;
 

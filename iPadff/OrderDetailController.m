@@ -142,6 +142,7 @@
         [self footerViewAddSubview];
 
     }
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.backgroundColor = kColor(244, 243, 243, 1);
@@ -847,8 +848,8 @@ if(tableView==_tableViewPJ)
                     
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
-                    UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, wide, 1)];
-                    totalLabel.backgroundColor = [UIColor grayColor];
+                    UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 90, wide-40, 1)];
+                    totalLabel.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
                     
                     [cell.contentView addSubview:totalLabel];
                 }

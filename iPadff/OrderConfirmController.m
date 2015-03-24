@@ -218,7 +218,7 @@
 //    ensureButton.layer.cornerRadius = 4.f;
     ensureButton.layer.masksToBounds = YES;
     [ensureButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [ensureButton setTitle:@"确认" forState:UIControlStateNormal];
+    [ensureButton setTitle:@"结算" forState:UIControlStateNormal];
     ensureButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [ensureButton addTarget:self action:@selector(ensureOrder:) forControlEvents:UIControlEventTouchUpInside];
     [_detailFooterView addSubview:ensureButton];

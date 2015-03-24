@@ -1630,7 +1630,7 @@ static NSString *HTTP_GET  = @"GET";
     [paramDict setObject:username forKey:@"username"];
     NSString *encryptPassword = [EncryptHelper MD5_encryptWithString:password];
     [paramDict setObject:encryptPassword forKey:@"password"];
-    [paramDict setObject:validateCode forKey:@"Code"];
+    [paramDict setObject:validateCode forKey:@"code"];
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_findPassword_method];
     [[self class] requestWithURL:urlString

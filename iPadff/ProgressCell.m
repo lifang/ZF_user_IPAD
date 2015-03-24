@@ -30,13 +30,13 @@
 #pragma mark - UI
 
 - (void)initAndLayoutUI {
-    CGFloat topSpace = 10.f;
+    CGFloat topSpace = 18.f;
     CGFloat leftSpace = 100.f;
     CGFloat leftLabelWidth = 80.f;
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont systemFontOfSize:14.f];
+    titleLabel.font = [UIFont systemFontOfSize:18.f];
     titleLabel.text = @"终端号";
     [self.contentView addSubview:titleLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
@@ -70,7 +70,7 @@
     _terminalLabel = [[UILabel alloc] init];
     _terminalLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _terminalLabel.backgroundColor = [UIColor clearColor];
-    _terminalLabel.font = [UIFont systemFontOfSize:14.f];
+    _terminalLabel.font = [UIFont systemFontOfSize:18.f];
     [self.contentView addSubview:_terminalLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_terminalLabel
                                                                  attribute:NSLayoutAttributeTop
@@ -110,7 +110,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.font = [UIFont systemFontOfSize:14.f];
+    titleLabel.font = [UIFont systemFontOfSize:18.f];
     titleLabel.text = titleName;
     [self.contentView addSubview:titleLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
@@ -119,7 +119,7 @@
                                                                     toItem:topView
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:0.f]];
+                                                                  constant:10.f]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:titleLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -145,7 +145,7 @@
     UILabel *contentLabel = [[UILabel alloc] init];
     contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
     contentLabel.backgroundColor = [UIColor clearColor];
-    contentLabel.font = [UIFont systemFontOfSize:14.f];
+    contentLabel.font = [UIFont systemFontOfSize:18.f];
     contentLabel.text = [self titleForStatus:contents];
     [self.contentView addSubview:contentLabel];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
@@ -154,7 +154,7 @@
                                                                     toItem:topView
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:0.f]];
+                                                                  constant:10.f]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:contentLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
