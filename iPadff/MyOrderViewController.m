@@ -112,7 +112,7 @@
     
     _statusButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _statusButton.frame = CGRectMake(10, 20, 110, 30);
-    _statusButton.titleLabel.font = [UIFont systemFontOfSize:18.f];
+    _statusButton.titleLabel.font = [UIFont systemFontOfSize:23.f];
     [_statusButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_statusButton setTitle:@"我的订单" forState:UIControlStateNormal];
     [_statusButton setImage:kImageName(@"arrow.png") forState:UIControlStateNormal];

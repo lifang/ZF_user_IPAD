@@ -649,7 +649,17 @@ typedef enum {
     self.timeLabel.text = _cellData.orderTime;
     self.statusLabel.text = [_cellData getStatusString];
     self.nameLabel.text = _cellData.orderGood.goodName;
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_cellData.orderGood.goodPrice];
+    if(_cellData.order_type==1)
+    {
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_cellData.orderGood.goodPrice];
+
+    }
+    else
+    {
+    
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f(押金)",_cellData.orderGood.goodPrice];
+
+    }
     self.numberLabel.text = [NSString stringWithFormat:@"X %d",[_cellData.orderGood.goodNumber intValue]];
     self.brandLabel.text = [NSString stringWithFormat:@"品牌型号 %@",_cellData.orderGood.goodBrand];
     self.channelLabel.text = [NSString stringWithFormat:@"支付通道 %@",_cellData.orderGood.goodChannel];

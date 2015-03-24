@@ -28,6 +28,9 @@
         if ([dict objectForKey:@"order_totalPrice"]) {
             _orderTotalPrice = [[dict objectForKey:@"order_totalPrice"] floatValue] / 100;
         }
+        if ([dict objectForKey:@"order_type"]) {
+            _order_type = [[dict objectForKey:@"order_type"] floatValue];
+        }
         if ([dict objectForKey:@"order_psf"]) {
             _orderDeliverFee = [[dict objectForKey:@"order_psf"] floatValue] / 100;
         }

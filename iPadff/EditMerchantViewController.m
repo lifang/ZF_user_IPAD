@@ -27,14 +27,22 @@
 @property (nonatomic, strong) UITextField *bank_IDTF;
 @property(strong,nonatomic) UIButton * locationBtn;
 
-@property(strong,nonatomic) UIImageView * frontImgv;
-@property(strong,nonatomic) UIImageView * backImgv;
-@property(strong,nonatomic) UIImageView * bodyImgv;
-@property(strong,nonatomic) UIImageView * licenseImgv;
-@property(strong,nonatomic) UIImageView * taxImgv;
-@property(strong,nonatomic) UIImageView * organzationImgv;
-@property(strong,nonatomic) UIImageView * bankImgv;
+@property(strong,nonatomic) UIButton * frontBtn;
+@property(strong,nonatomic) UIButton * backBtn;
+@property(strong,nonatomic) UIButton * bodyBtn;
+@property(strong,nonatomic) UIButton * bankBtn;
+@property(strong,nonatomic) UIButton * taxBtn;
+@property(strong,nonatomic) UIButton * licenseBtn;
+@property(strong,nonatomic) UIButton * organzationBtn;
 @property(strong,nonatomic) UIButton * saveBtn;
+
+@property(strong,nonatomic) UIButton * frontIMGBtn;
+@property(strong,nonatomic) UIButton * backIMGBtn;
+@property(strong,nonatomic) UIButton * bodyIMGBtn;
+@property(strong,nonatomic) UIButton * licenseIMGBtn;
+@property(strong,nonatomic) UIButton * taxIMGBtn;
+@property(strong,nonatomic) UIButton * organzationIMGBtn;
+@property(strong,nonatomic) UIButton * bankIMGBtn;
 
 @property (nonatomic, strong) NSMutableDictionary *imageDict; //保存上传的图片地址
 @property (nonatomic, strong) NSString *cityID;
@@ -54,6 +62,8 @@
     // self.navigationController.hidesBottomBarWhenPushed=YES;
      self.view.backgroundColor = [UIColor whiteColor];
     
+    _imageDict=[[NSMutableDictionary alloc] init];
+    
     _scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:_scrollView];
     [_scrollView makeConstraints:^(MASConstraintMaker *make) {
@@ -70,7 +80,7 @@
     merchantLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:merchantLB];
     [merchantLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
+        make.left.equalTo(self.view.mas_left).offset(64);
         make.top.equalTo(_scrollView.top).offset(48);
         make.width.equalTo(@120);
         make.height.equalTo(@42);
@@ -123,7 +133,7 @@
     _personTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_personTF];
     [_personTF makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.right).offset(-24);
+        make.right.equalTo(self.view.right).offset(-64);
         make.top.equalTo(_scrollView.top).offset(48);
         make.left.equalTo(personLB.right).offset(24);
         make.height.equalTo(@42);
@@ -139,7 +149,7 @@
     personIDLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:personIDLB];
     [personIDLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
+        make.left.equalTo(self.view.mas_left).offset(64);
         make.top.equalTo(_merchantTF.bottom).offset(48);
         make.width.equalTo(@120);
         make.height.equalTo(@42);
@@ -192,7 +202,7 @@
     _licenceTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_licenceTF];
     [_licenceTF makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.right).offset(-24);
+        make.right.equalTo(self.view.right).offset(-64);
         make.top.equalTo(_merchantTF.bottom).offset(48);
         make.left.equalTo(licenceLB.right).offset(24);
         // make.width.equalTo(@278);
@@ -210,7 +220,7 @@
     taxLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:taxLB];
     [taxLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
+        make.left.equalTo(self.view.mas_left).offset(64);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
         make.width.equalTo(@120);
         make.height.equalTo(@42);
@@ -233,7 +243,6 @@
         make.left.equalTo(taxLB.mas_right).offset(24);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
         make.right.equalTo(self.view.centerX).offset(-44);
-        // make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
@@ -244,7 +253,6 @@
     organzationLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:organzationLB];
     [organzationLB makeConstraints:^(MASConstraintMaker *make) {
-        // make.right.equalTo(_organzationTF.left).offset(-24);
         make.left.equalTo(self.view.centerX).offset(-20);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
         make.width.equalTo(@180);
@@ -265,9 +273,8 @@
     _organzationTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_organzationTF];
     [_organzationTF makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.right).offset(-24);
+        make.right.equalTo(self.view.right).offset(-64);
         make.top.equalTo(_person_IDTF.bottom).offset(48);
-        // make.width.equalTo(@278);
         make.left.equalTo(organzationLB.right).offset(24);
         make.height.equalTo(@42);
     }];
@@ -283,7 +290,7 @@
     locationLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:locationLB];
     [locationLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
+        make.left.equalTo(self.view.mas_left).offset(64);
         make.top.equalTo(_taxTF.bottom).offset(48);
         make.width.equalTo(@120);
         make.height.equalTo(@42);
@@ -292,12 +299,13 @@
     
     _locationTF = [[UITextField alloc] init];
     _locationTF.delegate = self;
+    _locationTF.userInteractionEnabled = NO;
     _locationTF.clipsToBounds = YES;
     _locationTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _locationTF.layer.borderWidth = 1.0f;
     _locationTF.layer.cornerRadius = 3.0f;
     _locationTF.font = FONT20;
-    _locationTF.placeholder = @"请选择商户所在地";
+    _locationTF.placeholder = @"请选择所在地";
     _locationTF.textAlignment=NSTextAlignmentCenter;
     _locationTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _locationTF.backgroundColor = [UIColor whiteColor];
@@ -305,23 +313,34 @@
     [_locationTF makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(locationLB.mas_right).offset(24);
         make.top.equalTo(_taxTF.bottom).offset(48);
-        // make.width.equalTo(@278);
         make.right.equalTo(self.view.centerX).offset(-44);
         make.height.equalTo(@42);
     }];
     
     _locationBtn = [[UIButton alloc] init];
-    _locationBtn.clipsToBounds = YES;
-    _locationBtn.layer.cornerRadius = 3.0f;
-    [ _locationBtn setImage:[UIImage imageNamed:@"city.png"] forState:UIControlStateNormal];
+    // _locationBtn.clipsToBounds = YES;
+    // _locationBtn.layer.cornerRadius = 3.0f;
+    //[ _locationBtn setImage:[UIImage imageNamed:@"city.png"] forState:UIControlStateNormal];
+    [_locationBtn setBackgroundImage:[UIImage imageNamed:@"arrow_line"] forState:UIControlStateNormal];
     [_locationBtn addTarget:self action:@selector(locationBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:_locationBtn];
     [_locationBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_locationTF.left);
+        //make.left.equalTo(_locationTF.left);
         make.top.equalTo(_locationTF.top);
         make.height.equalTo(@42);
         make.right.equalTo(self.view.centerX).offset(-44);
-        // make.width.equalTo(@278);
+        make.width.equalTo(@(280/6.0));
+        
+    }];
+    
+    UILabel *line1=[[UILabel alloc ] init];
+    [line1 setBackgroundColor:[UIColor colorWithHexString:LineColor]];
+    [_scrollView  addSubview:line1];
+    [line1 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_locationTF.bottom).offset(48);
+        make.left.equalTo(locationLB.left);
+        make.right.equalTo(_organzationTF.right);
+        make.height.equalTo(@1);
     }];
     
     //***
@@ -333,8 +352,8 @@
     bankLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:bankLB];
     [bankLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
-        make.top.equalTo(_locationTF.bottom).offset(48);
+        make.left.equalTo(self.view.mas_left).offset(64);
+        make.top.equalTo(line1.bottom).offset(48);
         make.width.equalTo(@120);
         make.height.equalTo(@42);
     }];
@@ -354,9 +373,8 @@
     [_scrollView addSubview:_bankTF];
     [_bankTF makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bankLB.mas_right).offset(24);
-        make.top.equalTo(_locationTF.bottom).offset(48);
+        make.top.equalTo(line1.bottom).offset(48);
         make.right.equalTo(self.view.centerX).offset(-44);
-        // make.width.equalTo(@278);
         make.height.equalTo(@42);
     }];
     
@@ -367,8 +385,7 @@
     bank_IDLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:bank_IDLB];
     [bank_IDLB makeConstraints:^(MASConstraintMaker *make) {
-        //make.right.equalTo(_bank_IDTF.left).offset(-24);
-        make.top.equalTo(_locationTF.bottom).offset(48);
+        make.top.equalTo(line1.bottom).offset(48);
         make.left.equalTo(self.view.centerX).offset(-20);
         make.width.equalTo(@180);
         make.height.equalTo(@42);
@@ -388,11 +405,23 @@
     _bank_IDTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_bank_IDTF];
     [_bank_IDTF makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.right).offset(-24);
-        make.top.equalTo(_locationTF.bottom).offset(48);
+        make.right.equalTo(self.view.right).offset(-64);
+        make.top.equalTo(line1.bottom).offset(48);
         make.left.equalTo(bank_IDLB.right).offset(24);
         make.height.equalTo(@42);
     }];
+    
+    
+    UILabel *line2=[[UILabel alloc ] init];
+    [line2 setBackgroundColor:[UIColor colorWithHexString:LineColor]];
+    [_scrollView  addSubview:line2];
+    [line2 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_bankTF.bottom).offset(48);
+        make.left.equalTo(bankLB.left);
+        make.right.equalTo(_bank_IDTF.right);
+        make.height.equalTo(@1);
+    }];
+    
     
     
     //*****
@@ -401,56 +430,110 @@
     frontImageLB.font = FONT20;
     frontImageLB.text=@"商户法人身份证照正面";
     frontImageLB.textColor = [UIColor colorWithHexString:@"292929"];
-    frontImageLB.textAlignment=NSTextAlignmentCenter;
+    frontImageLB.textAlignment=NSTextAlignmentLeft;
     [_scrollView addSubview:frontImageLB];
     [frontImageLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
-        make.top.equalTo(_bankTF.bottom).offset(48);
+        make.left.equalTo(self.view.mas_left).offset(64);
+        make.top.equalTo(line2.bottom).offset(48);
         make.width.equalTo(@200);
         make.height.equalTo(@42);
     }];
     
-    _frontImgv=[[UIImageView alloc] init];
-    _frontImgv.layer.masksToBounds = YES;
-    _frontImgv.layer.cornerRadius = 3.0f;
-    _frontImgv.layer.borderWidth = 1.0f;
-    _frontImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_scrollView addSubview:_frontImgv];
-    [_frontImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bankTF.bottom).offset(48);
+    
+    _frontBtn=[[UIButton alloc] init];
+    _frontBtn.clipsToBounds = YES;
+    _frontBtn.layer.cornerRadius = 3.0f;
+    [_frontBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+    _frontBtn.backgroundColor=[UIColor orangeColor];
+    [_frontBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_frontBtn addTarget:self action:@selector(BtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_frontBtn];
+    [_frontBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(frontImageLB.right).offset(24);
-        make.width.equalTo(@80);
-        make.height.equalTo(@80);
+        make.top.equalTo(frontImageLB.top);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(117));
         
     }];
+    
+    /*
+    _frontImgv=[[UIImageView alloc] init];
+    //_frontImgv.layer.masksToBounds = YES;
+   // _frontImgv.layer.cornerRadius = 3.0f;
+   // _frontImgv.layer.borderWidth = 1.0f;
+  //  _frontImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
+    [_frontImgv setImage:[UIImage imageNamed:@"hasimage"]];
+    [_scrollView addSubview:_frontImgv];
+    [_frontImgv setHidden:YES];
+    [_frontImgv makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(frontImageLB.top);
+        make.left.equalTo(frontImageLB.right).offset(24);
+        make.width.equalTo(@42);
+        make.height.equalTo(@42);
+        
+    }];
+*/
+     _frontIMGBtn=[[UIButton alloc] init];
+    [_frontIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_frontIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_frontIMGBtn setHidden:YES];
+    [_scrollView addSubview:_frontIMGBtn];
+    [_frontIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(frontImageLB.top);
+        make.left.equalTo(frontImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+    
     
     
     UILabel *backImageLB=[[UILabel alloc ] init];
     backImageLB.font = FONT20;
     backImageLB.text=@"商户法人身份证照背面";
     backImageLB.textColor = [UIColor colorWithHexString:@"292929"];
-    backImageLB.textAlignment=NSTextAlignmentCenter;
+    backImageLB.textAlignment=NSTextAlignmentLeft;
     [_scrollView addSubview:backImageLB];
     [backImageLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.centerX).offset(-20);
-        make.top.equalTo(_bankTF.bottom).offset(48);
+        make.left.equalTo(self.view.mas_left).offset(64);
+        make.top.equalTo(frontImageLB.bottom).offset(48);
         make.width.equalTo(@200);
         make.height.equalTo(@42);
     }];
     
-    _backImgv=[[UIImageView alloc] init];
-    _backImgv.layer.masksToBounds = YES;
-    _backImgv.layer.cornerRadius = 3.0f;
-    _backImgv.layer.borderWidth = 1.0f;
-    _backImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_scrollView addSubview:_backImgv];
-    [_backImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bankTF.bottom).offset(48);
+    
+    _backBtn=[[UIButton alloc] init];
+    _backBtn.clipsToBounds = YES;
+    _backBtn.layer.cornerRadius = 3.0f;
+    [_backBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+    _backBtn.backgroundColor=[UIColor orangeColor];
+    [_backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_backBtn addTarget:self action:@selector(BtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_backBtn];
+    [_backBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(backImageLB.right).offset(24);
-        make.width.equalTo(@80);
-        make.height.equalTo(@80);
+        make.top.equalTo(backImageLB.top);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(117));
         
     }];
+    
+
+    
+    _backIMGBtn=[[UIButton alloc] init];
+    [_backIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_backIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_backIMGBtn setHidden:YES];
+    [_scrollView addSubview:_backIMGBtn];
+    [_backIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(backImageLB.top);
+        make.left.equalTo(backImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+    
+
     
     
     //////
@@ -459,143 +542,250 @@
     bodyImageLB.font = FONT20;
     bodyImageLB.text=@"商户法人上半身照片";
     bodyImageLB.textColor = [UIColor colorWithHexString:@"292929"];
-    bodyImageLB.textAlignment=NSTextAlignmentCenter;
+    bodyImageLB.textAlignment=NSTextAlignmentLeft;
     [_scrollView addSubview:bodyImageLB];
     [bodyImageLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
-        make.top.equalTo(_frontImgv.bottom).offset(48);
+        make.left.equalTo(self.view.mas_left).offset(64);
+        make.top.equalTo(backImageLB.bottom).offset(48);
         make.width.equalTo(@200);
         make.height.equalTo(@42);
     }];
     
-    _bodyImgv=[[UIImageView alloc] init];
-    _bodyImgv.layer.masksToBounds = YES;
-    _bodyImgv.layer.cornerRadius = 3.0f;
-    _bodyImgv.layer.borderWidth = 1.0f;
-    _bodyImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_scrollView addSubview:_bodyImgv];
-    [_bodyImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_frontImgv.bottom).offset(48);
+    
+    
+    _bodyBtn=[[UIButton alloc] init];
+    _bodyBtn.clipsToBounds = YES;
+    _bodyBtn.layer.cornerRadius = 3.0f;
+    [_bodyBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+    _bodyBtn.backgroundColor=[UIColor orangeColor];
+    [_bodyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_bodyBtn addTarget:self action:@selector(BtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_bodyBtn];
+    [_bodyBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bodyImageLB.right).offset(24);
-        make.width.equalTo(@80);
-        make.height.equalTo(@80);
-        
-    }];
-    
-    
-    UILabel *licenseImageLB=[[UILabel alloc ] init];
-    licenseImageLB.font = FONT20;
-    licenseImageLB.text=@"营业执照";
-    licenseImageLB.textColor = [UIColor colorWithHexString:@"292929"];
-    licenseImageLB.textAlignment=NSTextAlignmentCenter;
-    [_scrollView addSubview:licenseImageLB];
-    [licenseImageLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.centerX).offset(-20);
-        make.top.equalTo(_frontImgv.bottom).offset(48);
-        make.width.equalTo(@200);
+        make.top.equalTo(bodyImageLB.top);
         make.height.equalTo(@42);
-    }];
-    
-    _licenseImgv=[[UIImageView alloc] init];
-    _licenseImgv.layer.masksToBounds = YES;
-    _licenseImgv.layer.cornerRadius = 3.0f;
-    _licenseImgv.layer.borderWidth = 1.0f;
-    _licenseImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_scrollView addSubview:_licenseImgv];
-    [_licenseImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_frontImgv.bottom).offset(48);
-        make.left.equalTo(licenseImageLB.right).offset(24);
-        make.width.equalTo(@80);
-        make.height.equalTo(@80);
+        make.width.equalTo(@(117));
         
     }];
     
-    
-    //
-    
-    UILabel *taxImageLB=[[UILabel alloc ] init];
-    taxImageLB.font = FONT20;
-    taxImageLB.text=@"税务照片";
-    taxImageLB.textColor = [UIColor colorWithHexString:@"292929"];
-    taxImageLB.textAlignment=NSTextAlignmentCenter;
-    [_scrollView addSubview:taxImageLB];
-    [taxImageLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
-        make.top.equalTo(_bodyImgv.bottom).offset(48);
-        make.width.equalTo(@200);
+    _bodyIMGBtn=[[UIButton alloc] init];
+    [_bodyIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_bodyIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_bodyIMGBtn setHidden:YES];
+    [_scrollView addSubview:_bodyIMGBtn];
+    [_bodyIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bodyImageLB.top);
+        make.left.equalTo(bodyImageLB.right).offset(24);
         make.height.equalTo(@42);
-    }];
-    
-    _taxImgv=[[UIImageView alloc] init];
-    _taxImgv.layer.masksToBounds = YES;
-    _taxImgv.layer.cornerRadius = 3.0f;
-    _taxImgv.layer.borderWidth = 1.0f;
-    _taxImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_scrollView addSubview:_taxImgv];
-    [_taxImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bodyImgv.bottom).offset(48);
-        make.left.equalTo(taxImageLB.right).offset(24);
-        make.width.equalTo(@80);
-        make.height.equalTo(@80);
+        make.width.equalTo(@(42));
         
     }];
+
     
-    UILabel *organzationImageLB=[[UILabel alloc ] init];
-    organzationImageLB.font = FONT20;
-    organzationImageLB.text=@"组织机构代码证照片";
-    organzationImageLB.textColor = [UIColor colorWithHexString:@"292929"];
-    organzationImageLB.textAlignment=NSTextAlignmentCenter;
-    [_scrollView addSubview:organzationImageLB];
-    [organzationImageLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.centerX).offset(-20);
-        make.top.equalTo(_bodyImgv.bottom).offset(48);
-        make.width.equalTo(@200);
-        make.height.equalTo(@42);
-    }];
-    
-    _organzationImgv=[[UIImageView alloc] init];
-    _organzationImgv.layer.masksToBounds = YES;
-    _organzationImgv.layer.cornerRadius = 3.0f;
-    _organzationImgv.layer.borderWidth = 1.0f;
-    _organzationImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_scrollView addSubview:_organzationImgv];
-    [_organzationImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bodyImgv.bottom).offset(48);
-        make.left.equalTo(organzationImageLB.right).offset(24);
-        make.width.equalTo(@80);
-        make.height.equalTo(@80);
-        
-    }];
-    
-    
-    //
+    ///银行开户许可证照片
     
     UILabel *bankImageLB=[[UILabel alloc ] init];
     bankImageLB.font = FONT20;
     bankImageLB.text=@"银行开户许可证照片";
     bankImageLB.textColor = [UIColor colorWithHexString:@"292929"];
-    bankImageLB.textAlignment=NSTextAlignmentCenter;
+    bankImageLB.textAlignment=NSTextAlignmentLeft;
     [_scrollView addSubview:bankImageLB];
     [bankImageLB makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(24);
-        make.top.equalTo(_taxImgv.bottom).offset(48);
+        make.left.equalTo(self.view.mas_left).offset(64);
+        make.top.equalTo(bodyImageLB.bottom).offset(48);
         make.width.equalTo(@200);
         make.height.equalTo(@42);
     }];
     
-    _bankImgv=[[UIImageView alloc] init];
-    _bankImgv.layer.masksToBounds = YES;
-    _bankImgv.layer.cornerRadius = 3.0f;
-    _bankImgv.layer.borderWidth = 1.0f;
-    _bankImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_scrollView addSubview:_bankImgv];
-    [_bankImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_taxImgv.bottom).offset(48);
+    _bankBtn=[[UIButton alloc] init];
+    _bankBtn.clipsToBounds = YES;
+    _bankBtn.layer.cornerRadius = 3.0f;
+    [_bankBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+    _bankBtn.backgroundColor=[UIColor orangeColor];
+    [_bankBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_bankBtn addTarget:self action:@selector(BtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_bankBtn];
+    [_bankBtn makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bankImageLB.right).offset(24);
-        make.width.equalTo(@80);
-        make.height.equalTo(@80);
+        make.top.equalTo(bankImageLB.top);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(117));
         
     }];
+    
+    _bankIMGBtn=[[UIButton alloc] init];
+    [_bankIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_bankIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_bankIMGBtn setHidden:YES];
+    [_scrollView addSubview:_bankIMGBtn];
+    [_bankIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bankImageLB.top);
+        make.left.equalTo(bankImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
+    
+    
+    //营业执照
+    UILabel *licenseImageLB=[[UILabel alloc ] init];
+    licenseImageLB.font = FONT20;
+    licenseImageLB.text=@"营业执照照片";
+    licenseImageLB.textColor = [UIColor colorWithHexString:@"292929"];
+    licenseImageLB.textAlignment=NSTextAlignmentLeft;
+    [_scrollView addSubview:licenseImageLB];
+    [licenseImageLB makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.right).offset(-205);
+        make.top.equalTo(line2.bottom).offset(48);
+        make.width.equalTo(@200);
+        make.height.equalTo(@42);
+    }];
+    
+    
+    _licenseBtn=[[UIButton alloc] init];
+    _licenseBtn.clipsToBounds = YES;
+    _licenseBtn.layer.cornerRadius = 3.0f;
+    [_licenseBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+    _licenseBtn.backgroundColor=[UIColor orangeColor];
+    [_licenseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_licenseBtn addTarget:self action:@selector(BtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_licenseBtn];
+    [_licenseBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.right).offset(-64);
+        make.top.equalTo(line2.bottom).offset(48);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(117));
+        
+    }];
+    
+    
+    _licenseIMGBtn=[[UIButton alloc] init];
+    [_licenseIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_licenseIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_licenseIMGBtn setHidden:YES];
+    [_scrollView addSubview:_licenseIMGBtn];
+    [_licenseIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(licenseImageLB.top);
+        make.left.equalTo(licenseImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
+    
+    
+    
+    //
+    UILabel *taxImageLB=[[UILabel alloc ] init];
+    taxImageLB.font = FONT20;
+    taxImageLB.text=@"税务登记证照片";
+    taxImageLB.textColor = [UIColor colorWithHexString:@"292929"];
+    taxImageLB.textAlignment=NSTextAlignmentLeft;
+    [_scrollView addSubview:taxImageLB];
+    [taxImageLB makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.right).offset(-205);
+        make.top.equalTo(licenseImageLB.bottom).offset(48);
+        make.width.equalTo(@200);
+        make.height.equalTo(@42);
+    }];
+    
+    
+    _taxBtn=[[UIButton alloc] init];
+    _taxBtn.clipsToBounds = YES;
+    _taxBtn.layer.cornerRadius = 3.0f;
+    [_taxBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+    _taxBtn.backgroundColor=[UIColor orangeColor];
+    [_taxBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_taxBtn addTarget:self action:@selector(BtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_taxBtn];
+    [_taxBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.right).offset(-64);
+        make.top.equalTo(taxImageLB.top);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(117));
+        
+    }];
+    
+    _taxIMGBtn=[[UIButton alloc] init];
+    [_taxIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_taxIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_taxIMGBtn setHidden:YES];
+    [_scrollView addSubview:_taxIMGBtn];
+    [_taxIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(taxImageLB.top);
+        make.left.equalTo(taxImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
+    
+    //
+    
+    UILabel *organzationImageLB=[[UILabel alloc ] init];
+    organzationImageLB.font = FONT20;
+    organzationImageLB.text=@"组织机构代码证照片";
+    organzationImageLB.textColor = [UIColor colorWithHexString:@"292929"];
+    organzationImageLB.textAlignment=NSTextAlignmentLeft;
+    [_scrollView addSubview:organzationImageLB];
+    [organzationImageLB makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.right).offset(-205);
+        make.top.equalTo(taxImageLB.bottom).offset(48);
+        make.width.equalTo(@200);
+        make.height.equalTo(@42);
+    }];
+    
+    
+    
+    
+    _organzationBtn=[[UIButton alloc] init];
+    _organzationBtn.clipsToBounds = YES;
+    _organzationBtn.layer.cornerRadius = 3.0f;
+    [_organzationBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+    _organzationBtn.backgroundColor=[UIColor orangeColor];
+    [_organzationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_organzationBtn addTarget:self action:@selector(BtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_organzationBtn];
+    [_organzationBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view.right).offset(-64);
+        make.top.equalTo(organzationImageLB.top);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(117));
+        
+    }];
+    
+    
+    _organzationIMGBtn=[[UIButton alloc] init];
+    [_organzationIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_organzationIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_organzationIMGBtn setHidden:YES];
+    [_scrollView addSubview:_organzationIMGBtn];
+    [_organzationIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(organzationImageLB.top);
+        make.left.equalTo(organzationImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
+    
+    
+    //
+    UILabel *line3=[[UILabel alloc ] init];
+    [line3 setBackgroundColor:[UIColor colorWithHexString:LineColor]];
+    [_scrollView  addSubview:line3];
+    [line3 makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bankImageLB.bottom).offset(48);
+        make.left.equalTo(line2.left);
+        make.right.equalTo(line2.right);
+        make.height.equalTo(@1);
+    }];
+    
+    
+    //
+    
     
     _saveBtn = [[UIButton alloc] init];
     [_saveBtn setTitle:@"修改" forState:UIControlStateNormal];
@@ -610,7 +800,7 @@
     [_saveBtn addTarget:self action:@selector(savePressed:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView  addSubview:_saveBtn];
     [_saveBtn makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bankImgv.bottom).offset(48);
+        make.top.equalTo(line3.bottom).offset(48);
         make.centerX.equalTo(self.view.centerX);
         make.width.equalTo(@117);
         make.height.equalTo(@40);
@@ -627,8 +817,7 @@
         make.left.equalTo(_saveBtn.left).offset(_saveBtn.frame.size.width/2 -80);
     }];
     
-    
-    
+
     _TAP = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchPressed:)];
     [_scrollView setUserInteractionEnabled:YES];
     [_scrollView addGestureRecognizer:_TAP];
@@ -652,72 +841,164 @@
     
 }
 
-
-
--(void) touchPressed:(UITapGestureRecognizer *)t
+-(void)BtnPressed:(id)sender
 {
+
     //上传图片
     NSString *key = nil;
     BOOL hasImage = NO;
-    CGPoint point  = [t locationInView:self.view];
-    if(CGRectContainsPoint(_frontImgv.frame, point))
+    
+    if(_frontBtn==sender)
     {
-        
         key = key_frontImage;
         hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
         
     }
-    else if(CGRectContainsPoint(_backImgv.frame, point))
+    else if(_backBtn==sender)
     {
         key = key_backImage;
         hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
-
         
     }
-    else if(CGRectContainsPoint(_bodyImgv.frame, point))
+    else if(_bodyBtn==sender)
     {
         key = key_bodyImage;
         hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
-
     }
-    else if(CGRectContainsPoint(_licenseImgv.frame, point))
+    else if(_licenseBtn==sender)
     {
         key = key_licenseImage;
         hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
-
     }
-    else if(CGRectContainsPoint(_taxImgv.frame, point))
+    else if(_taxBtn==sender)
     {
         key = key_taxImage;
         hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
-
     }
-    else if(CGRectContainsPoint(_organzationImgv.frame, point))
+    else if(_organzationBtn==sender)
     {
         key = key_organizationImage;
         hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
-
         
     }
-    else if(CGRectContainsPoint(_bankImgv.frame, point))
+    else if(_bankBtn==sender)
     {
         key = key_bankImage;
         hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
         [self selectedKey:key hasImage:hasImage];
-
-        
     }
-   // hasImage = ([_imageDict objectForKey:key] && ![[_imageDict objectForKey:key] isEqualToString:@""]);
-   // [self selectedKey:key hasImage:hasImage];
-    
+
 }
 
+-(void)BtnImagePressed:(id)sender
+{
+    NSString *key = nil;
+    BOOL hasImage = YES;
+    if(sender==_frontIMGBtn)
+    {
+        key = key_frontImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_backIMGBtn)
+    {
+        key = key_backImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_bodyIMGBtn)
+    {
+        key = key_bodyImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_licenseIMGBtn)
+    {
+        key = key_licenseImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_taxIMGBtn)
+    {
+        key = key_taxImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_bankIMGBtn)
+    {
+        key = key_bankImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_organzationIMGBtn)
+    {
+        key = key_organizationImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+
+
+
+}
+
+
+-(void) touchPressed:(UITapGestureRecognizer *)t
+{
+    [BaseApi EndEditing];
+}
+
+-(void)refreshImage
+{
+     NSLog(@"jjjjjj");
+    
+    if ([_imageDict objectForKey:key_frontImage]&& ![[_imageDict objectForKey:key_frontImage] isEqualToString:@""])
+    {
+        [_frontIMGBtn setHidden:NO];
+        [_frontBtn setHidden:YES];
+    }
+    if ([_imageDict objectForKey:key_backImage]&& ![[_imageDict objectForKey:key_backImage] isEqualToString:@""]) {
+        [_backIMGBtn setHidden:NO];
+        [_backBtn setHidden:YES];
+    }
+    if ([_imageDict objectForKey:key_bodyImage]&& ![[_imageDict objectForKey:key_bodyImage] isEqualToString:@""]) {
+        [_bodyIMGBtn setHidden:NO];
+        [_bodyBtn setHidden:YES];
+    }
+    if ([_imageDict objectForKey:key_licenseImage]&& ![[_imageDict objectForKey:key_licenseImage] isEqualToString:@""]) {
+        [_licenseIMGBtn setHidden:NO];
+        [_licenseBtn setHidden:YES];
+    }
+    if ([_imageDict objectForKey:key_taxImage]&& ![[_imageDict objectForKey:key_licenseImage] isEqualToString:@""]) {
+        [_taxIMGBtn setHidden:NO];
+        [_taxBtn setHidden:YES];
+    }
+    if ([_imageDict objectForKey:key_bankImage]&& ![[_imageDict objectForKey:key_bankImage] isEqualToString:@""]) {
+        [_bankIMGBtn setHidden:NO];
+        [_bankBtn setHidden:YES];
+    }
+    if ([_imageDict objectForKey:key_organizationImage]&& ![[_imageDict objectForKey:key_organizationImage] isEqualToString:@""]) {
+        [_organzationIMGBtn setHidden:NO];
+        [_organzationBtn setHidden:YES];
+    }
+}
+
+
+
+- (void)saveWithURLString:(NSString *)urlString {
+    if (urlString && ![urlString isEqualToString:@""]) {
+        [_imageDict setObject:urlString forKey:self.selectedImageKey];
+        NSLog(@"key:%@",self.selectedImageKey);
+        NSLog(@"imageDict:%@",_imageDict);
+    }
+    
+    [self refreshImage];
+}
 
 
 -(void)savePressed:(id)sender
@@ -876,6 +1157,13 @@
             model.merchantCityID=_cityID;
             model.merchantBank = _bankTF.text;
             model.merchantBankID = _bank_IDTF.text;
+            model.frontPath =[_imageDict objectForKey:key_frontImage];//身份证正面照
+            model.backPath=[_imageDict objectForKey:key_backImage];;  //反面照
+            model.bodyPath=[_imageDict objectForKey:key_bodyImage];   //上半身照
+            model.licensePath=[_imageDict objectForKey:key_licenseImage];  //营业执照
+            model.taxPath=[_imageDict objectForKey:key_taxImage];     //税务证照
+            model.organizationPath=[_imageDict objectForKey:key_organizationImage];  //组织机构代码照
+            model.bankPath=[_imageDict objectForKey:key_bankImage];
 
     return model;
 }
@@ -929,25 +1217,42 @@
     _locationTF.text = [CityHandle getCityNameWithCityID:_editmerchant.merchantCityID];
     _bankTF.text=_editmerchant.merchantBank;
     _bank_IDTF.text=_editmerchant.merchantBankID;
+    if (_editmerchant.frontPath) {
+        //[_frontImgv setHidden:NO];
+        [_frontIMGBtn setHidden:NO];
+        [_frontBtn setHidden:YES];
+    }
+    if (_editmerchant.backPath) {
+        [_backIMGBtn setHidden:NO];
+        [_backBtn setHidden:YES];
+    }
+    if (_editmerchant.bodyPath) {
+        [_bodyIMGBtn setHidden:NO];
+        [_bodyBtn setHidden:YES];
+    }
+    if (_editmerchant.licensePath) {
+        [_licenseIMGBtn setHidden:NO];
+        [_licenseBtn setHidden:YES];
+    }
+    if (_editmerchant.taxPath) {
+        [_taxIMGBtn setHidden:NO];
+        [_taxBtn setHidden:YES];
+    }
+    if (_editmerchant.bankPath) {
+        [_bankIMGBtn setHidden:NO];
+        [_bankBtn setHidden:YES];
+    }
+    if (_editmerchant.organizationPath) {
+        [_organzationIMGBtn setHidden:NO];
+        [_organzationBtn setHidden:YES];
+    }
+    
     
     /*
-     [_frontImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_backImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_bodyImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_licenseImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_taxImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_organzationImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-     [_bankImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
-    */
-    
+    [_frontImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
     [_frontImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_backImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_bodyImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_licenseImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_taxImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_organzationImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
-    [_bankImgv sd_setImageWithURL:[NSURL URLWithString:@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg"]];
 
+    */
 
 }
 

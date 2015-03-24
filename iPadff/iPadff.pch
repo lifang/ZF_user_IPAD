@@ -59,6 +59,7 @@
 #define FONT18 [UIFont systemFontOfSize:18]
 #define FONT19 [UIFont systemFontOfSize:19]
 #define FONT20 [UIFont systemFontOfSize:20]
+#define FONT21 [UIFont systemFontOfSize:21]
 #define FONT22 [UIFont systemFontOfSize:22]
 #define FONT24 [UIFont systemFontOfSize:24]
 #define FONT15B [UIFont boldSystemFontOfSize:15]

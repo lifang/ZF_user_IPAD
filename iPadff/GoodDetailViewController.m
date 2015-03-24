@@ -400,9 +400,10 @@
     
 //    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath]];
     [_mainScrollView addSubview:factoryImageView];
+    NSLog(@"%@",_detailModel.factoryWebsite);
     
     //厂家网址
-    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace, labelHeight)];
+    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace-140, labelHeight)];
     [self setLabel:websiteLabel withTitle:_detailModel.factoryWebsite font:[UIFont systemFontOfSize:13.f]];
     
     //厂家简介
@@ -410,7 +411,7 @@
     CGFloat summaryHeight = [self heightWithString:_detailModel.factorySummary
                                              width:wide - leftSpace - rightSpace
                                           fontSize:13.f];
-    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftSpace - 40, summaryHeight)];
+    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+80, originY, leftSpace - 40, summaryHeight)];
     [self setLabel:factorySummaryLabel withTitle:_detailModel.factorySummary font:[UIFont systemFontOfSize:13.f]];
     
     
