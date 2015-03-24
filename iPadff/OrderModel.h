@@ -37,6 +37,7 @@ static NSString *otherIdentifier = @"otherIdentifier";
 @property (nonatomic, strong) NSString *orderTotalNum;
 
 @property (nonatomic, assign) CGFloat orderTotalPrice;
+@property (nonatomic, assign) CGFloat order_type;
 
 @property (nonatomic, assign) CGFloat orderDeliverFee;  //配送费
 
