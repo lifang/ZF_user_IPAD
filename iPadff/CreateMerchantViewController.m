@@ -104,6 +104,20 @@
         make.height.equalTo(@42);
     }];
     
+    UILabel *label=[[UILabel alloc] init];
+    label.font = FONT12;
+    label.text=@"例：上海好乐迪KTV";
+    label.textColor = [UIColor colorWithHexString:@"6c6c6c"];
+    label.textAlignment=NSTextAlignmentLeft;
+    [_scrollView addSubview:label];
+    [label makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(merchantLB.right).offset(40);
+        make.top.equalTo(merchantLB.bottom).offset(5);
+        make.width.equalTo(@180);
+        make.height.equalTo(@28);
+    }];
+
+    
 
     UILabel *personLB=[[UILabel alloc ] init];
     personLB.font = FONT20;
