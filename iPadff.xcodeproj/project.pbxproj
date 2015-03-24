@@ -230,6 +230,9 @@
 		1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB7D1AA96CA10056E921 /* TradeModel.m */; };
 		1A94EB811AA98B4A0056E921 /* TerminalChoseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB801AA98B4A0056E921 /* TerminalChoseCell.m */; };
 		1A94EB841AA98E430056E921 /* TerminalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB831AA98E430056E921 /* TerminalModel.m */; };
+		1A94FA161AC10BAD006D8FF7 /* SystemNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA151AC10BAD006D8FF7 /* SystemNoticeController.m */; };
+		1A94FA191AC11050006D8FF7 /* SystemNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA181AC11050006D8FF7 /* SystemNoticeCell.m */; };
+		1A94FA1C1AC11212006D8FF7 /* SystemNoticeChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA1B1AC11212006D8FF7 /* SystemNoticeChildController.m */; };
 		1A9A1B831AAFD22C00A9AA04 /* MerchantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A1B821AAFD22C00A9AA04 /* MerchantModel.m */; };
 		1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A1BF81AAFEAE100A9AA04 /* ChooseView.m */; };
 		1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF521AA4074D009D41B3 /* NSData+ImageContentType.m */; };
@@ -666,6 +669,12 @@
 		1A94EB801AA98B4A0056E921 /* TerminalChoseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalChoseCell.m; sourceTree = "<group>"; };
 		1A94EB821AA98E430056E921 /* TerminalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalModel.h; sourceTree = "<group>"; };
 		1A94EB831AA98E430056E921 /* TerminalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalModel.m; sourceTree = "<group>"; };
+		1A94FA141AC10BAD006D8FF7 /* SystemNoticeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemNoticeController.h; sourceTree = "<group>"; };
+		1A94FA151AC10BAD006D8FF7 /* SystemNoticeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemNoticeController.m; sourceTree = "<group>"; };
+		1A94FA171AC11050006D8FF7 /* SystemNoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemNoticeCell.h; sourceTree = "<group>"; };
+		1A94FA181AC11050006D8FF7 /* SystemNoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemNoticeCell.m; sourceTree = "<group>"; };
+		1A94FA1A1AC11212006D8FF7 /* SystemNoticeChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemNoticeChildController.h; sourceTree = "<group>"; };
+		1A94FA1B1AC11212006D8FF7 /* SystemNoticeChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemNoticeChildController.m; sourceTree = "<group>"; };
 		1A9A1B811AAFD22C00A9AA04 /* MerchantModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantModel.h; sourceTree = "<group>"; };
 		1A9A1B821AAFD22C00A9AA04 /* MerchantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantModel.m; sourceTree = "<group>"; };
 		1A9A1BF71AAFEAE100A9AA04 /* ChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseView.h; sourceTree = "<group>"; };
@@ -1192,6 +1201,7 @@
 		0ED6ACF31AA16D6A00D3B025 /* Homepages */ = {
 			isa = PBXGroup;
 			children = (
+				1A94FA131AC10B58006D8FF7 /* SystemNotice */,
 				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
 				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
 				1A76D8611AA81DDD00E9851C /* DealRoad */,
@@ -1332,6 +1342,8 @@
 				1A9A1BF81AAFEAE100A9AA04 /* ChooseView.m */,
 				1A8E7C751AB17EBC00C021CE /* SwitchView.h */,
 				1A8E7C761AB17EBC00C021CE /* SwitchView.m */,
+				1A94FA171AC11050006D8FF7 /* SystemNoticeCell.h */,
+				1A94FA181AC11050006D8FF7 /* SystemNoticeCell.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -1526,6 +1538,17 @@
 				1A94EB801AA98B4A0056E921 /* TerminalChoseCell.m */,
 			);
 			name = DealRoadCells;
+			sourceTree = "<group>";
+		};
+		1A94FA131AC10B58006D8FF7 /* SystemNotice */ = {
+			isa = PBXGroup;
+			children = (
+				1A94FA141AC10BAD006D8FF7 /* SystemNoticeController.h */,
+				1A94FA151AC10BAD006D8FF7 /* SystemNoticeController.m */,
+				1A94FA1A1AC11212006D8FF7 /* SystemNoticeChildController.h */,
+				1A94FA1B1AC11212006D8FF7 /* SystemNoticeChildController.m */,
+			);
+			name = SystemNotice;
 			sourceTree = "<group>";
 		};
 		1AA8FF501AA4074D009D41B3 /* SDWebImage */ = {
@@ -1772,6 +1795,7 @@
 				0D714C641AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m in Sources */,
 				1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */,
 				1ADD1EDD1AB6C9360014E528 /* RentDetailController.m in Sources */,
+				1A94FA1C1AC11212006D8FF7 /* SystemNoticeChildController.m in Sources */,
 				1ADD1ECE1AB6A6D70014E528 /* RepairDetailController.m in Sources */,
 				0ECA6D351ABBFC3A005316B1 /* ReviewModel.m in Sources */,
 				1AA8FF771AA4074D009D41B3 /* UIImage+GIF.m in Sources */,
@@ -1782,6 +1806,7 @@
 				0ED8EBE41AA6D7E000CE9F61 /* MJRefreshHeaderView.m in Sources */,
 				1ADA041D1AB2C8120074A58B /* SafeViewController.m in Sources */,
 				1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */,
+				1A94FA191AC11050006D8FF7 /* SystemNoticeCell.m in Sources */,
 				1A6D98661ABFAFC5005740A6 /* MessageModel.m in Sources */,
 				0EBBC5961AB1665100E0ED16 /* OrderModel.m in Sources */,
 				0ED5FD3F1AB913460057385C /* InterestView.m in Sources */,
@@ -1816,6 +1841,7 @@
 				1A8EE2C51AAD99DE0014A7A5 /* DealRoadDetailController.m in Sources */,
 				0EC99C9C1AAFE61200D20386 /* OrderGoodModel.m in Sources */,
 				1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */,
+				1A94FA161AC10BAD006D8FF7 /* SystemNoticeController.m in Sources */,
 				1A94EB781AA956620056E921 /* TelephonechargeCell.m in Sources */,
 				0EBBC5991AB1666C00E0ED16 /* OrderDetailModel.m in Sources */,
 				1A727B651AA5A91000E1643D /* MessageViewController.m in Sources */,
