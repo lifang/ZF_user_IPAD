@@ -233,6 +233,9 @@
 		1A94FA161AC10BAD006D8FF7 /* SystemNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA151AC10BAD006D8FF7 /* SystemNoticeController.m */; };
 		1A94FA191AC11050006D8FF7 /* SystemNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA181AC11050006D8FF7 /* SystemNoticeCell.m */; };
 		1A94FA1C1AC11212006D8FF7 /* SystemNoticeChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA1B1AC11212006D8FF7 /* SystemNoticeChildController.m */; };
+		1A94FA201AC1327D006D8FF7 /* ContactusUsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA1F1AC1327D006D8FF7 /* ContactusUsController.m */; };
+		1A94FA241AC14A5C006D8FF7 /* HHZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA221AC14A5C006D8FF7 /* HHZTextView.m */; };
+		1A94FA281AC15D18006D8FF7 /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA271AC15D18006D8FF7 /* AccountModel.m */; };
 		1A9A1B831AAFD22C00A9AA04 /* MerchantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A1B821AAFD22C00A9AA04 /* MerchantModel.m */; };
 		1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A1BF81AAFEAE100A9AA04 /* ChooseView.m */; };
 		1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF521AA4074D009D41B3 /* NSData+ImageContentType.m */; };
@@ -675,6 +678,12 @@
 		1A94FA181AC11050006D8FF7 /* SystemNoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemNoticeCell.m; sourceTree = "<group>"; };
 		1A94FA1A1AC11212006D8FF7 /* SystemNoticeChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemNoticeChildController.h; sourceTree = "<group>"; };
 		1A94FA1B1AC11212006D8FF7 /* SystemNoticeChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemNoticeChildController.m; sourceTree = "<group>"; };
+		1A94FA1E1AC1327D006D8FF7 /* ContactusUsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactusUsController.h; sourceTree = "<group>"; };
+		1A94FA1F1AC1327D006D8FF7 /* ContactusUsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactusUsController.m; sourceTree = "<group>"; };
+		1A94FA211AC14A5C006D8FF7 /* HHZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZTextView.h; sourceTree = "<group>"; };
+		1A94FA221AC14A5C006D8FF7 /* HHZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZTextView.m; sourceTree = "<group>"; };
+		1A94FA261AC15D18006D8FF7 /* AccountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountModel.h; sourceTree = "<group>"; };
+		1A94FA271AC15D18006D8FF7 /* AccountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountModel.m; sourceTree = "<group>"; };
 		1A9A1B811AAFD22C00A9AA04 /* MerchantModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantModel.h; sourceTree = "<group>"; };
 		1A9A1B821AAFD22C00A9AA04 /* MerchantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantModel.m; sourceTree = "<group>"; };
 		1A9A1BF71AAFEAE100A9AA04 /* ChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseView.h; sourceTree = "<group>"; };
@@ -976,6 +985,8 @@
 				0ECE7DA41AA5589400E250B6 /* TreeDataHandle.m */,
 				0ECE7DA61AA558CC00E250B6 /* TreeNodeModel.h */,
 				0ECE7DA71AA558CC00E250B6 /* TreeNodeModel.m */,
+				1A94FA261AC15D18006D8FF7 /* AccountModel.h */,
+				1A94FA271AC15D18006D8FF7 /* AccountModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1201,6 +1212,7 @@
 		0ED6ACF31AA16D6A00D3B025 /* Homepages */ = {
 			isa = PBXGroup;
 			children = (
+				1A94FA1D1AC13246006D8FF7 /* Contactus */,
 				1A94FA131AC10B58006D8FF7 /* SystemNotice */,
 				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
 				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
@@ -1303,6 +1315,8 @@
 		0ED6AD0C1AA1911F00D3B025 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				1A94FA211AC14A5C006D8FF7 /* HHZTextView.h */,
+				1A94FA221AC14A5C006D8FF7 /* HHZTextView.m */,
 				0ECB49341ABFBB330064A9FD /* FormView.h */,
 				0ECB49351ABFBB330064A9FD /* FormView.m */,
 				0ECA6D391ABC29E8005316B1 /* PollingView.h */,
@@ -1549,6 +1563,15 @@
 				1A94FA1B1AC11212006D8FF7 /* SystemNoticeChildController.m */,
 			);
 			name = SystemNotice;
+			sourceTree = "<group>";
+		};
+		1A94FA1D1AC13246006D8FF7 /* Contactus */ = {
+			isa = PBXGroup;
+			children = (
+				1A94FA1E1AC1327D006D8FF7 /* ContactusUsController.h */,
+				1A94FA1F1AC1327D006D8FF7 /* ContactusUsController.m */,
+			);
+			name = Contactus;
 			sourceTree = "<group>";
 		};
 		1AA8FF501AA4074D009D41B3 /* SDWebImage */ = {
@@ -1844,6 +1867,7 @@
 				1A94FA161AC10BAD006D8FF7 /* SystemNoticeController.m in Sources */,
 				1A94EB781AA956620056E921 /* TelephonechargeCell.m in Sources */,
 				0EBBC5991AB1666C00E0ED16 /* OrderDetailModel.m in Sources */,
+				1A94FA281AC15D18006D8FF7 /* AccountModel.m in Sources */,
 				1A727B651AA5A91000E1643D /* MessageViewController.m in Sources */,
 				1ADA04261AB2CEAE0074A58B /* IntegralViewController.m in Sources */,
 				1A3944011AA44D5D0035DE4F /* UIImage+Extention.m in Sources */,
@@ -1861,6 +1885,8 @@
 				1A8E7C6C1AB1698800C021CE /* ChangeGoodCell.m in Sources */,
 				0EC99C951AAFE59300D20386 /* OrderConfirmController.m in Sources */,
 				1ADA04141AB28B600074A58B /* CustomerServiceModel.m in Sources */,
+				1A94FA201AC1327D006D8FF7 /* ContactusUsController.m in Sources */,
+				1A94FA241AC14A5C006D8FF7 /* HHZTextView.m in Sources */,
 				0ED065D61A9EE81D005DF849 /* MBProgressHUD.m in Sources */,
 				1A76D85D1AA7EE0700E9851C /* TerminalViewController.m in Sources */,
 				1ADA04231AB2CE6C0074A58B /* AddressViewController.m in Sources */,

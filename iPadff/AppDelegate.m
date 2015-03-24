@@ -16,6 +16,7 @@
 #import "MyMessageViewController.h"
 #import "SwitchView.h"
 #import "AddressViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -41,7 +42,6 @@
     MessageViewController *viewController3 = [[MessageViewController alloc] init];
     MyOrderViewController *viewController4 = [[MyOrderViewController alloc] init];
     MyMessageViewController *viewController5 = [[MyMessageViewController alloc] init];
-
     
     //创建一个导航，以第一个视图控制器为根视图
     BasicNagigationController *navController = [[BasicNagigationController alloc] initWithRootViewController:viewController2];
@@ -73,7 +73,6 @@
     _cityID = @"1";
     _userID = @"80";
     _token = @"123";
-
     // Override point for customization after application launch.
     return YES;
 }

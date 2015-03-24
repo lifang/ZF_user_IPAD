@@ -133,6 +133,7 @@
         [hud hide:YES afterDelay:0.3f];
         if (success) {
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"~~~~~%@",[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding]);
             if ([object isKindOfClass:[NSDictionary class]]) {
                 [hud hide:YES];
                 int errorCode = [[object objectForKey:@"code"] intValue];
