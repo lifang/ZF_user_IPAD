@@ -40,8 +40,7 @@
     [super viewDidLoad];
     _applyList = [[NSMutableArray alloc]init];
     [self setupNavBar];
-    [self setupHeaderView];
-    [self setupRefreshView];
+    [self setupHeaderAndFooterView];
     [self firstLoadData];
 }
 
@@ -59,7 +58,7 @@
     [self.tableView addSubview:_bottomRefreshView];
 }
 
--(void)setupHeaderView
+-(void)setupHeaderAndFooterView
 {
     UIView *headerView = [[UIView alloc]init];
     headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 60);
@@ -102,13 +101,6 @@
     self.headerView = headerView;
     self.tableView.tableHeaderView = headerView;
     
-}
--(void)setupNavBar
-{
-    self.title = @"开通认证";
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);
     footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
@@ -116,6 +108,16 @@
         footerView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 1);
     }
     self.tableView.tableFooterView = footerView;
+    
+    [self setupRefreshView];
+}
+-(void)setupNavBar
+{
+    self.title = @"终端管理";
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
 }
 
 -(void)backHome
@@ -165,6 +167,7 @@
                         hud.labelText = @"没有更多数据了...";
                     }
                     [self parseApplyDataWithDictionary:object];
+                    
                 }
             }
             else {

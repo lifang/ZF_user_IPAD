@@ -24,8 +24,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         //设置标题的字体
-        self.textLabel.font = [UIFont boldSystemFontOfSize:18];
+        self.textLabel.font = [UIFont systemFontOfSize:18];
         self.textLabel.textColor = [UIColor blackColor];
         self.detailTextLabel.font = [UIFont systemFontOfSize:14];
         self.detailTextLabel.textColor = [UIColor blackColor];
@@ -35,6 +36,7 @@
         [_leftBtn setBackgroundImage:[UIImage imageNamed:@"noSelected"] forState:UIControlStateNormal];
         [self addSubview:_leftBtn];
         self.timeLabel = [[UILabel alloc]init];
+        self.timeLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _timeLabel.textColor = kColor(70, 70, 70, 1.0);
         _timeLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:_timeLabel];
@@ -69,7 +71,35 @@
     }
     self.leftBtn.frame = CGRectMake(30, 15, 30, 30);
     self.textLabel.frame = CGRectMake(CGRectGetMaxX(_leftBtn.frame) + 20, 10, 400, 40);
-    self.timeLabel.frame = CGRectMake(self.frame.size.width - 200, 10, 200, 40);
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:10]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                            toItem:self.textLabel
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:300]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:0.0
+                                                           constant:200]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:40]];
 }
 
 @end

@@ -7,11 +7,14 @@
 //
 
 #import "MessageChildViewController.h"
+#import "NetworkInterface.h"
 
 @interface MessageChildViewController ()
 
 
 @property(nonatomic,strong)UIScrollView *contentView;
+
+@property (nonatomic, strong) MessageModel *detail;
 
 @end
 
@@ -20,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
-    [self initUI];
+    [self getMessageDetail];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,14 +39,15 @@
     contentView.backgroundColor = [UIColor whiteColor];
     //创建标题Label
     UILabel *topLabel = [[UILabel alloc]init];
+    topLabel.textAlignment = NSTextAlignmentLeft;
     topLabel.textColor = [UIColor blackColor];
     topLabel.backgroundColor = [UIColor clearColor];
     topLabel.font = [UIFont systemFontOfSize:20];
-    NSString *topLabelStr = @"市总工会启动2015年工会保障工作重点研讨研讨研讨研讨研讨研讨研讨研讨研讨研讨研讨";
+    NSString *topLabelStr = _detail.messageTitle;
     topLabel.text = topLabelStr;
     CGSize topLabelSize = {0,0};
-    topLabelSize = [topLabelStr sizeWithFont:[UIFont systemFontOfSize:20] constrainedToSize:CGSizeMake(200.0, 5000)];
-    topLabel.numberOfLines = 0;
+    topLabelSize = [topLabelStr sizeWithFont:[UIFont systemFontOfSize:20] constrainedToSize:CGSizeMake(200.0, 50)];
+    topLabel.numberOfLines = 2;
     topLabel.frame = CGRectMake(180, 40, SCREEN_WIDTH * 0.6, topLabelSize.height);
     if (iOS7) {
         topLabel.frame = CGRectMake(180, 40, SCREEN_HEIGHT * 0.6, topLabelSize.height);
@@ -51,11 +55,11 @@
     [contentView addSubview:topLabel];
     //创建时间Label
     UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeStr = @"2014-10-12 10:08";
+    NSString *timeStr = _detail.messageTime;
     timeLabel.text = timeStr;
     timeLabel.font = [UIFont systemFontOfSize:14];
     timeLabel.textColor = kColor(107, 107, 107, 1.0);
-    timeLabel.frame = CGRectMake(topLabel.frame.origin.x, CGRectGetMaxY(topLabel.frame) - 10, 140, 20);
+    timeLabel.frame = CGRectMake(topLabel.frame.origin.x, CGRectGetMaxY(topLabel.frame) + 10, 140, 20);
     [contentView addSubview:timeLabel];
     //创建分隔线
     UIView *lineView = [[UIView alloc]init];
@@ -66,7 +70,7 @@
     UILabel *textLabel = [[UILabel alloc]init];
     textLabel.textColor = kColor(81, 81, 81, 1.0);
     textLabel.font = [UIFont systemFontOfSize:18];
-    NSString *contentStr = @"在小组座谈会中，一群相互之间完全陌生的人集中到一起，而且要畅所欲言，是有相当的难度的。首要的就是要建立大家之间的信任感，特别是要建立主持人与参会人员之间的信任感。\n这就要求主持人一定是个有热情的人，是一个让大家一见就感到信赖和亲切的人，是一个有着高度亲和力的人.有亲和力的主持人通过这种友好表示,使得在座的人员合作在一起，有一种合作的意识和趋向意识，和共同作用的力量。\n有亲和力是促成合作的起因，只有具有了合作意向，才会使大家结合在一起共同合作,才能更好的达成会议目标.座谈会要让每个与会者都能真实的表达自己的意思.特别是遇到一些可能触及到个人价值观或判断能力的话题，小组成员往往有顾虑，或者看别人的眼色随波逐流随声附和。\n最好的办法莫过于让大家进入一种忘我的境界,全心全意的投入到讨论当中，这时候的人们更多的是感性的人们，而不是一个说话要斟酌再三的“理性”的人。对于主持人来说，就要很快进入会议主持状态，让小组成员放开思想包袱，在无论对错没有水平高低的担忧下充分讨论。附和。\n最好的办法莫过于让大家进入一种忘我的境界,全心全意的投入到讨论当中，这时候的人们更多的是感性的人们，而不是一个说话要斟酌再三的“理性”的人。对于主持人来说，就要很快进入会议主持状态，让小组成员放开思想包袱，在无论对错没有水平高低的担忧下充分讨论。";
+    NSString *contentStr = _detail.messageContent;
     textLabel.text = contentStr;
     CGSize textLabelSize = {0,0};
     textLabelSize = [contentStr sizeWithFont:[UIFont systemFontOfSize:18] constrainedToSize:CGSizeMake(topLabel.frame.size.width, 5000)];
@@ -74,12 +78,11 @@
     textLabel.frame = CGRectMake(topLabel.frame.origin.x, CGRectGetMaxY(lineView.frame) + 10 , topLabel.frame.size.width, textLabelSize.height);
     [contentView addSubview:textLabel];
     [self.view addSubview:contentView];
-    contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(textLabel.frame) + 70);
+    contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(textLabel.frame) + 30);
     if (iOS7) {
-        contentView.contentSize = CGSizeMake(SCREEN_HEIGHT, CGRectGetMaxY(textLabel.frame) + 70);
+        contentView.contentSize = CGSizeMake(SCREEN_HEIGHT, CGRectGetMaxY(textLabel.frame) + 30);
     }
     self.contentView = contentView;
-
 
 }
 
@@ -102,12 +105,109 @@
 
 -(void)rightClicked:(id)sender
 {
-    NSLog(@"点击了垃圾桶！");
+    [self deleteMessage:nil];
 }
+
+#pragma mark - Action
+
+- (IBAction)deleteMessage:(id)sender {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface messageDeleteSingleWithToken:delegate.token userID:delegate.userID messageID:_message.messageID finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"消息删除成功";
+                    //更新列表
+                    [self updateMessageListWithDelete];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
 
 -(void)backHome
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark - Request
+
+- (void)getMessageDetail {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface getMyMessageDetailWithToken:delegate.token userID:delegate.userID messageID:_message.messageID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    [self parseMessageDetailDataWithDictionary:object];
+                    //列表变成已读
+                    [self updateMessageListWithRead];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+#pragma mark - Data
+
+- (void)parseMessageDetailDataWithDictionary:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    NSDictionary *infoDict = [dict objectForKey:@"result"];
+    _detail = [[MessageModel alloc] initWithParseDictionary:infoDict];
+    [self initUI];
+}
+
+- (void)updateMessageListWithRead {
+    _message.messageRead = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshMessageListNotification object:nil];
+}
+
+
+- (void)updateMessageListWithDelete {
+    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:_message,@"message", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshMessageListNotification object:nil userInfo:info];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 @end

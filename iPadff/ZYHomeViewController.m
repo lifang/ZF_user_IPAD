@@ -17,6 +17,7 @@
 #import "DealRoadController.h"
 #import "NetworkInterface.h"
 #import "HomeImageModel.h"
+#import "SystemNoticeController.h"
 
 @interface ZYHomeViewController ()<sendCity>
 @property(nonatomic,strong)PollingView *pollingView;
@@ -381,6 +382,9 @@
             break;
         case 1006: {
             //系统公告
+            SystemNoticeController *systemVC = [[SystemNoticeController alloc]init];
+            systemVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:systemVC animated:YES];
         }
             break;
         case 1007: {

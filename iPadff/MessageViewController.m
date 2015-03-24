@@ -36,6 +36,8 @@
 @property (nonatomic, strong) NSMutableArray *selectedItem; //多选的行
 
 @property (nonatomic, strong) UIView *bottomView;
+
+@property(nonatomic,strong)MessageModel *messageModel;
 @end
 
 @implementation MessageViewController
@@ -73,6 +75,7 @@
 
 -(void)setupNavBar
 {
+    self.title = @"我的消息";
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
@@ -169,7 +172,7 @@
                 else if ([errorCode intValue] == RequestSuccess) {
                     hud.labelText = @"标注成功";
                     [_selectedItem removeAllObjects];
-                    [self konggeClicked:nil];
+                    [self konggeClicked:_selectedItem];
                     [self firstLoadData];
                 }
             }
@@ -276,6 +279,11 @@
     if (self.isSelected == YES) {
         [_konggeBtn setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
         _isAll = YES;
+        if ([sender isKindOfClass:[NSArray class]]) {
+            _isAll = NO;
+            [_konggeBtn setBackgroundImage:[UIImage imageNamed:@"noSelected1"] forState:UIControlStateNormal];
+            _isSelected = NO;
+        }
         [self.tableView reloadData];
     }
     else{
@@ -337,12 +345,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];
-//    DynamicChildViewController *dynamicVC = [[DynamicChildViewController alloc]init];
-//    dynamicVC.page =  status.ids;
-//    [self.navigationController pushViewController:dynamicVC animated:YES];
-//    SLog(@"点击了第%ld行",indexPath.row);
+    MessageModel *model = [_messageItems objectAtIndex:indexPath.row];
     MessageChildViewController *messageChildV = [[MessageChildViewController alloc]init];
+    messageChildV.message = model;
     messageChildV.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageChildV animated:YES];
 }
@@ -438,7 +443,6 @@
             }
         }
     }
-    NSLog(@"~~~~有%d个数据",_messageItems.count);
     [self setFooterView];
     [self.tableView reloadData];
 }
@@ -547,10 +551,7 @@
     if (message) {
         [_messageItems removeObject:message];
     }
-    [self.tableView reloadData];
+    [self firstLoadData];
 }
-
-
-
 
 @end
