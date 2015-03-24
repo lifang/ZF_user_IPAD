@@ -93,8 +93,11 @@
     [rightBtn addTarget:self action:@selector(rightClicked:) forControlEvents:UIControlEventTouchUpInside];
     rightBtn.frame = CGRectMake(0, 0, 50, 50);
     [rightBtn setImage:[UIImage imageNamed:@"laji"] forState:UIControlStateNormal];
+    UIBarButtonItem *kongBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    kongBar.width = 30.f;
     UIBarButtonItem *rightBar = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    self.navigationItem.rightBarButtonItem = rightBar;
+    NSArray *rightArr = [NSArray arrayWithObjects:kongBar,rightBar, nil];
+    self.navigationItem.rightBarButtonItems = rightArr;
 }
 
 -(void)rightClicked:(id)sender

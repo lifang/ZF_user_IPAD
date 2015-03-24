@@ -11,7 +11,7 @@
 @protocol terminalCellSendBtnClicked <NSObject>
 
 @optional
--(void)terminalCellBtnClicked:(int) btnTag;
+-(void)terminalCellBtnClicked:(int) btnTag WithSelectedID:(NSString *)selectedID;
 
 @end
 
@@ -27,6 +27,8 @@
 @property(nonatomic,strong)UILabel *dredgeStatus;
 
 @property(nonatomic,strong)NSString *cellStates;
+
+@property(nonatomic,strong)NSString *selectedID;
 
 @property(nonatomic,weak)id<terminalCellSendBtnClicked> TerminalViewCellDelegate;
 

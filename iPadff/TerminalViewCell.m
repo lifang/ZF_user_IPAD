@@ -16,7 +16,7 @@
     if (self) {
         UIFont *mainFont = [UIFont systemFontOfSize:14];
         
-        CGFloat mainBtnW = 110.f;
+        CGFloat mainBtnW = 100.f;
         CGFloat mainBtnH = 40.f;
         CGFloat mainBtnX = (SCREEN_WIDTH - 130.f);
         if (iOS7) {
@@ -47,7 +47,7 @@
         if ([reuseIdentifier isEqualToString:@"cell-1"]) {
             for (int i = 0; i < 2; i++) {
                 UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:17];
+                button.titleLabel.font = [UIFont systemFontOfSize:15];
                 [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                 CALayer *readBtnLayer = [button layer];
                 [readBtnLayer setMasksToBounds:YES];
@@ -57,7 +57,7 @@
                 button.backgroundColor = [UIColor clearColor];
                 button.tag = i + 1000;
                 [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
                 [self addSubview:button];
                 if (i == 0) {
                     [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
@@ -70,7 +70,7 @@
         if ([reuseIdentifier isEqualToString:@"cell-3"]) {
             for (int i = 0; i < 3; i++) {
                 UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:17];
+                button.titleLabel.font = [UIFont systemFontOfSize:15];
                 [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                 CALayer *readBtnLayer = [button layer];
                 [readBtnLayer setMasksToBounds:YES];
@@ -80,7 +80,7 @@
                 button.backgroundColor = [UIColor clearColor];
                 button.tag = i + 2000;
                 [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
                 [self addSubview:button];
                 if (i == 0) {
                     [button setTitle:@"视频认证" forState:UIControlStateNormal];
@@ -96,7 +96,7 @@
         if ([reuseIdentifier isEqualToString:@"cell-2"]) {
             for (int i = 0; i < 4; i++) {
                 UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:17];
+                button.titleLabel.font = [UIFont systemFontOfSize:15];
                 [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                 CALayer *readBtnLayer = [button layer];
                 [readBtnLayer setMasksToBounds:YES];
@@ -106,7 +106,7 @@
                 button.backgroundColor = [UIColor clearColor];
                 button.tag = i + 3000;
                 [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
                 [self addSubview:button];
                 if (i == 0) {
                     [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
@@ -125,7 +125,7 @@
         if ([reuseIdentifier isEqualToString:@"cell-5"]) {
             for (int i = 0; i < 2; i++) {
                 UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:17];
+                button.titleLabel.font = [UIFont systemFontOfSize:15];
                 [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
                 CALayer *readBtnLayer = [button layer];
                 [readBtnLayer setMasksToBounds:YES];
@@ -135,7 +135,7 @@
                 button.backgroundColor = [UIColor clearColor];
                 button.tag = i + 4000;
                 [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
                 [self addSubview:button];
                 if (i == 0) {
                     [button setTitle:@"更新资料" forState:UIControlStateNormal];
@@ -146,24 +146,24 @@
             }
         }
         if ([reuseIdentifier isEqualToString:@"cell-4"]) {
-            for (int i = 0; i < 1; i++) {
-                UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:17];
-                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-                CALayer *readBtnLayer = [button layer];
-                [readBtnLayer setMasksToBounds:YES];
-                [readBtnLayer setCornerRadius:2.0];
-                [readBtnLayer setBorderWidth:1.0];
-                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-                button.backgroundColor = [UIColor clearColor];
-                button.tag = i + 5000;
-                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
-                [self addSubview:button];
-                if (i == 0) {
-                    [button setTitle:@"租凭退换" forState:UIControlStateNormal];
-                }
-            }
+//            for (int i = 0; i < 1; i++) {
+//                UIButton *button = [[UIButton alloc]init];
+//                button.titleLabel.font = [UIFont systemFontOfSize:17];
+//                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+//                CALayer *readBtnLayer = [button layer];
+//                [readBtnLayer setMasksToBounds:YES];
+//                [readBtnLayer setCornerRadius:2.0];
+//                [readBtnLayer setBorderWidth:1.0];
+//                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+//                button.backgroundColor = [UIColor clearColor];
+//                button.tag = i + 5000;
+//                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+//                [self addSubview:button];
+//                if (i == 0) {
+//                    [button setTitle:@"租凭退换" forState:UIControlStateNormal];
+//                }
+//            }
         }
     }
     return self;
@@ -173,7 +173,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.TerminalViewCellDelegate terminalCellBtnClicked:button.tag];
+    [self.TerminalViewCellDelegate terminalCellBtnClicked:button.tag WithSelectedID:_selectedID];
 }
 
 
@@ -186,7 +186,7 @@
     CGFloat mainheight = 24.f;
     CGFloat mainY = 30.f;
     
-    _terminalLabel.frame = CGRectMake(30, mainY, mainWidth, mainheight);
+    _terminalLabel.frame = CGRectMake(0, mainY, mainWidth, mainheight);
     
     _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 20, mainY, mainWidth * 0.5, mainheight);
     

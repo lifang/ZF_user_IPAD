@@ -8,8 +8,6 @@
 
 #import "CityHandle.h"
 
-
-
 static NSArray *s_cityList = nil;
 static NSArray *s_provinceList = nil;
 
@@ -34,7 +32,6 @@ static NSArray *s_provinceList = nil;
     });
     return s_cityList;
 }
-
 
 //省
 + (NSArray *)getProvinceList {
@@ -113,7 +110,6 @@ static NSArray *s_provinceList = nil;
     return index;
 }
 
-
 //城市排序
 + (NSArray *)sortCityList {
     NSArray *cityList = [[self class] shareCityList];
@@ -191,6 +187,5 @@ static NSArray *s_provinceList = nil;
     [resultArray addObject:otherArray];
     return resultArray;
 }
-
 
 @end
