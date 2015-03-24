@@ -112,6 +112,44 @@
         make.height.equalTo(@50);
     }];
     
+    UIView *titleView = [[UIView alloc]init];
+    titleView.backgroundColor=[UIColor colorWithHexString:@"f2f1f1"];
+    titleView.frame = CGRectMake(160+26, 60, SCREEN_WIDTH-160.f-52-60, 28);
+    if (iOS7) {
+        titleView.frame = CGRectMake(160+26, 60, SCREEN_HEIGHT - 160.f-52-60, 28);
+    }
+    [self.view addSubview:titleView];
+
+    UILabel *titleLB2 = [[UILabel alloc] init];
+    [titleLB2 setBackgroundColor:[UIColor clearColor]];
+    [titleLB2 setFont:[UIFont systemFontOfSize:15]];
+    titleLB2.textColor= [UIColor colorWithHexString:@"292929"];
+    titleLB2.text=@"商户名";
+    [titleView addSubview:titleLB2];
+    [titleLB2 makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(titleView.centerY);
+        make.left.equalTo(titleView.left).offset(120);
+        make.width.equalTo(@120);
+        
+    }];
+    
+    UILabel *actionLB = [[UILabel alloc] init];
+    [actionLB setBackgroundColor:[UIColor clearColor]];
+    [actionLB setFont:[UIFont systemFontOfSize:15]];
+    actionLB.textColor= [UIColor colorWithHexString:@"292929"];
+    actionLB.text=@"操作";
+    actionLB.textAlignment=NSTextAlignmentCenter;
+    [titleView addSubview:actionLB];
+    [actionLB makeConstraints:^(MASConstraintMaker *make) {
+        // make.top.equalTo(_backView.top).offset(5);
+        //make.left.equalTo(_backView.left).offset(30);
+        make.centerY.equalTo(titleView.centerY);
+        make.right.equalTo(titleView.right).offset(-120);
+        make.width.equalTo(@120);
+        // make.height.equalTo(@40);
+    }];
+
+
     
 }
 
@@ -123,12 +161,12 @@
     
     if(iOS7)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60, SCREEN_HEIGHT-220-20*2, SCREEN_WIDTH)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_HEIGHT-220-20*2, SCREEN_WIDTH)];
         
     }else
     {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT)];
         
     }
     
@@ -353,11 +391,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+  //  return 2;
+      return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    /*
     if (section == 0)
     {
         return 1;
@@ -366,10 +406,14 @@
     {
         return [_MerchantItems count];
     }
+     */
+    return [_MerchantItems count];
+
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    /*
     //标题Cell
     if (indexPath.section == 0)
     {
@@ -395,11 +439,24 @@
         
         return cell;
     }
+     */
+    //内容Cell
+    static NSString *identifier = @"Merchant";
+    MerchantModel *model = [_MerchantItems objectAtIndex:indexPath.row];
+    MerchantCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[MerchantCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+    }
+    [cell setMerchantModel:model andTarget:self];
+    
+    return cell;
+
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     if (indexPath.section==0) {
         
         return 40;
@@ -409,7 +466,8 @@
     {
         return 80;
     }
-    
+    */
+    return 80;
 }
 
 
