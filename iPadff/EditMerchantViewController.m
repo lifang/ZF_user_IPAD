@@ -36,15 +36,6 @@
 @property(strong,nonatomic) UIButton * organzationBtn;
 @property(strong,nonatomic) UIButton * saveBtn;
 
-@property(strong,nonatomic) UIImageView * frontImgv;
-@property(strong,nonatomic) UIImageView * backImgv;
-@property(strong,nonatomic) UIImageView * bodyImgv;
-@property(strong,nonatomic) UIImageView * licenseImgv;
-@property(strong,nonatomic) UIImageView * taxImgv;
-@property(strong,nonatomic) UIImageView * organzationImgv;
-@property(strong,nonatomic) UIImageView * bankImgv;
-
-
 @property(strong,nonatomic) UIButton * frontIMGBtn;
 @property(strong,nonatomic) UIButton * backIMGBtn;
 @property(strong,nonatomic) UIButton * bodyIMGBtn;

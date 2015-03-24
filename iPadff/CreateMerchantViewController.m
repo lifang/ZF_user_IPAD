@@ -32,13 +32,13 @@
 @property(strong,nonatomic) UIButton * organzationBtn;
 
 
-@property(strong,nonatomic) UIImageView * frontImgv;
-@property(strong,nonatomic) UIImageView * backImgv;
-@property(strong,nonatomic) UIImageView * bodyImgv;
-@property(strong,nonatomic) UIImageView * licenseImgv;
-@property(strong,nonatomic) UIImageView * taxImgv;
-@property(strong,nonatomic) UIImageView * organzationImgv;
-@property(strong,nonatomic) UIImageView * bankImgv;
+@property(strong,nonatomic) UIButton * frontIMGBtn;
+@property(strong,nonatomic) UIButton * backIMGBtn;
+@property(strong,nonatomic) UIButton * bodyIMGBtn;
+@property(strong,nonatomic) UIButton * licenseIMGBtn;
+@property(strong,nonatomic) UIButton * taxIMGBtn;
+@property(strong,nonatomic) UIButton * organzationIMGBtn;
+@property(strong,nonatomic) UIButton * bankIMGBtn;
 
 @property(strong,nonatomic) UIButton * saveBtn;
 
@@ -454,7 +454,7 @@
         
     }];
     
-    
+    /*
     _frontImgv=[[UIImageView alloc] init];
     [_frontImgv setImage:[UIImage imageNamed:@"hasimage"]];
     [_scrollView addSubview:_frontImgv];
@@ -466,6 +466,21 @@
         make.height.equalTo(@42);
         
     }];
+     */
+    
+    _frontIMGBtn=[[UIButton alloc] init];
+    [_frontIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_frontIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_frontIMGBtn setHidden:YES];
+    [_scrollView addSubview:_frontIMGBtn];
+    [_frontIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(frontImageLB.top);
+        make.left.equalTo(frontImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
     
     
     
@@ -499,18 +514,21 @@
         
     }];
     
-    _backImgv=[[UIImageView alloc] init];
-    [_backImgv setImage:[UIImage imageNamed:@"hasimage"]];
-    [_scrollView addSubview:_backImgv];
-    [_backImgv setHidden:YES];
-    [_backImgv makeConstraints:^(MASConstraintMaker *make) {
+  
+    _backIMGBtn=[[UIButton alloc] init];
+    [_backIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_backIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_backIMGBtn setHidden:YES];
+    [_scrollView addSubview:_backIMGBtn];
+    [_backIMGBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(backImageLB.top);
         make.left.equalTo(backImageLB.right).offset(24);
-        make.width.equalTo(@42);
         make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
-  
+    
+
     
     //////
     
@@ -546,17 +564,20 @@
     }];
     
     
-    _bodyImgv=[[UIImageView alloc] init];
-    [_bodyImgv setImage:[UIImage imageNamed:@"hasimage"]];
-    [_scrollView addSubview:_bodyImgv];
-    [_bodyImgv setHidden:YES];
-    [_bodyImgv makeConstraints:^(MASConstraintMaker *make) {
+    
+    _bodyIMGBtn=[[UIButton alloc] init];
+    [_bodyIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_bodyIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_bodyIMGBtn setHidden:YES];
+    [_scrollView addSubview:_bodyIMGBtn];
+    [_bodyIMGBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bodyImageLB.top);
         make.left.equalTo(bodyImageLB.right).offset(24);
-        make.width.equalTo(@42);
         make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
+
     
     ///银行开户许可证照片
 
@@ -589,17 +610,20 @@
         
     }];
     
-    _bankImgv=[[UIImageView alloc] init];
-    [_bankImgv setImage:[UIImage imageNamed:@"hasimage"]];
-    [_scrollView addSubview:_bankImgv];
-    [_bankImgv setHidden:YES];
-    [_bankImgv makeConstraints:^(MASConstraintMaker *make) {
+    
+    _bankIMGBtn=[[UIButton alloc] init];
+    [_bankIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_bankIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_bankIMGBtn setHidden:YES];
+    [_scrollView addSubview:_bankIMGBtn];
+    [_bankIMGBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(bankImageLB.top);
         make.left.equalTo(bankImageLB.right).offset(24);
-        make.width.equalTo(@42);
         make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
+
     
 
     
@@ -635,17 +659,19 @@
     }];
     
     
-    _licenseImgv=[[UIImageView alloc] init];
-    [_licenseImgv setImage:[UIImage imageNamed:@"hasimage"]];
-    [_scrollView addSubview:_licenseImgv];
-    [_licenseImgv setHidden:YES];
-    [_licenseImgv makeConstraints:^(MASConstraintMaker *make) {
+    _licenseIMGBtn=[[UIButton alloc] init];
+    [_licenseIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_licenseIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_licenseIMGBtn setHidden:YES];
+    [_scrollView addSubview:_licenseIMGBtn];
+    [_licenseIMGBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(licenseImageLB.top);
         make.left.equalTo(licenseImageLB.right).offset(24);
-        make.width.equalTo(@42);
         make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
+
 
     
 
@@ -680,15 +706,17 @@
         
     }];
     
-    _taxImgv=[[UIImageView alloc] init];
-    [_taxImgv setImage:[UIImage imageNamed:@"hasimage"]];
-    [_scrollView addSubview:_taxImgv];
-    [_taxImgv setHidden:YES];
-    [_taxImgv makeConstraints:^(MASConstraintMaker *make) {
+    
+    _taxIMGBtn=[[UIButton alloc] init];
+    [_taxIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_taxIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_taxIMGBtn setHidden:YES];
+    [_scrollView addSubview:_taxIMGBtn];
+    [_taxIMGBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(taxImageLB.top);
         make.left.equalTo(taxImageLB.right).offset(24);
-        make.width.equalTo(@42);
         make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
 
@@ -726,17 +754,21 @@
         
     }];
     
-    _organzationImgv=[[UIImageView alloc] init];
-    [_organzationImgv setImage:[UIImage imageNamed:@"hasimage"]];
-    [_scrollView addSubview:_organzationImgv];
-    [_organzationImgv setHidden:YES];
-    [_organzationImgv makeConstraints:^(MASConstraintMaker *make) {
+
+    
+    _organzationIMGBtn=[[UIButton alloc] init];
+    [_organzationIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_organzationIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_organzationIMGBtn setHidden:YES];
+    [_scrollView addSubview:_organzationIMGBtn];
+    [_organzationIMGBtn makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(organzationImageLB.top);
         make.left.equalTo(organzationImageLB.right).offset(24);
-        make.width.equalTo(@42);
         make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
+
 
     
     //
@@ -865,37 +897,87 @@
  
 }
 
+-(void)BtnImagePressed:(id)sender
+{
+    
+    NSString *key = nil;
+    BOOL hasImage = YES;
+    if(sender==_frontIMGBtn)
+    {
+        key = key_frontImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_backIMGBtn)
+    {
+        key = key_backImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_bodyIMGBtn)
+    {
+        key = key_bodyImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_licenseIMGBtn)
+    {
+        key = key_licenseImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_taxIMGBtn)
+    {
+        key = key_taxImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_bankIMGBtn)
+    {
+        key = key_bankImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+    else if(sender==_organzationIMGBtn)
+    {
+        key = key_organizationImage;
+        [self selectedKey:key hasImage:hasImage];
+        
+    }
+
+}
+
 -(void)refreshImage
 {
     NSLog(@"nidaye");
     
     if ([_imageDict objectForKey:key_frontImage]&& ![[_imageDict objectForKey:key_frontImage] isEqualToString:@""])
     {
-        [_frontImgv setHidden:NO];
+        [_frontIMGBtn setHidden:NO];
         [_frontBtn setHidden:YES];
     }
     if ([_imageDict objectForKey:key_backImage]&& ![[_imageDict objectForKey:key_backImage] isEqualToString:@""]) {
-        [_backImgv setHidden:NO];
+        [_backIMGBtn setHidden:NO];
         [_backBtn setHidden:YES];
     }
     if ([_imageDict objectForKey:key_bodyImage]&& ![[_imageDict objectForKey:key_bodyImage] isEqualToString:@""]) {
-        [_bodyImgv setHidden:NO];
+        [_bodyIMGBtn setHidden:NO];
         [_bodyBtn setHidden:YES];
     }
     if ([_imageDict objectForKey:key_licenseImage]&& ![[_imageDict objectForKey:key_licenseImage] isEqualToString:@""]) {
-        [_licenseImgv setHidden:NO];
+        [_licenseIMGBtn setHidden:NO];
         [_licenseBtn setHidden:YES];
     }
     if ([_imageDict objectForKey:key_taxImage]&& ![[_imageDict objectForKey:key_licenseImage] isEqualToString:@""]) {
-        [_taxImgv setHidden:NO];
+        [_taxIMGBtn setHidden:NO];
         [_taxBtn setHidden:YES];
     }
     if ([_imageDict objectForKey:key_bankImage]&& ![[_imageDict objectForKey:key_bankImage] isEqualToString:@""]) {
-        [_bankImgv setHidden:NO];
+        [_bankIMGBtn setHidden:NO];
         [_bankBtn setHidden:YES];
     }
     if ([_imageDict objectForKey:key_organizationImage]&& ![[_imageDict objectForKey:key_organizationImage] isEqualToString:@""]) {
-        [_organzationImgv setHidden:NO];
+        [_organzationIMGBtn setHidden:NO];
         [_organzationBtn setHidden:YES];
     }
 }
@@ -905,53 +987,8 @@
 
 -(void)touchPressed:(UITapGestureRecognizer *)t
 {
-    /*
-    //上传图片
-      NSString *key = nil;
-      BOOL hasImage = NO;
-    CGPoint point  = [t locationInView:self.view];
-    if(CGRectContainsPoint(_frontBtn.frame, point))
-    {
-         key = key_frontImage;
-        [self selectedKey:key hasImage:hasImage];
-        NSLog(@"NMNMNMNMM");
-       
-    }
-    else if(CGRectContainsPoint(_backBtn.frame, point))
-    {
-        key = key_backImage;
-        [self selectedKey:key hasImage:hasImage];
-        
-    }
-     else if(CGRectContainsPoint(_bodyBtn.frame, point))
-     {
-         key = key_bodyImage;
-        [self selectedKey:key hasImage:hasImage];
-     }
-     else if(CGRectContainsPoint(_bankBtn.frame, point))
-     {
-         key = key_licenseImage;
-        [self selectedKey:key hasImage:hasImage];
-     }
-     else if(CGRectContainsPoint(_licenseBtn.frame, point))
-     {
-         key = key_taxImage;
-        [self selectedKey:key hasImage:hasImage];
-     }
-     else if(CGRectContainsPoint(_taxBtn.frame, point))
-     {
-         key = key_organizationImage;
-        [self selectedKey:key hasImage:hasImage];
-
-     }
-     else if(CGRectContainsPoint(_organzationBtn.frame, point))
-     {
-         key = key_bankImage;
-        [self selectedKey:key hasImage:hasImage];
-
-     }
-*/
-
+    [BaseApi EndEditing];
+    
 }
  
 
