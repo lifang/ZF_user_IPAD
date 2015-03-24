@@ -144,10 +144,10 @@
     _channelLabel.font = [UIFont systemFontOfSize:16.f];
 
     [self.contentView addSubview:_channelLabel];
-    linlable  = [[UILabel alloc] initWithFrame:CGRectMake(0, 89, wide, 1)];
+    linlable  = [[UILabel alloc] initWithFrame:CGRectMake(20, 89, wide-40, 1)];
     
     
-    linlable.backgroundColor=[UIColor grayColor];
+    linlable.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
     
     
     [self addSubview:linlable];

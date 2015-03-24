@@ -39,8 +39,8 @@
 - (void)initAndLayoutUI {
     CGFloat leftBorderSpace = 35.f; //左间距
     CGFloat topBorderSpace = 10.f;  //上间距
-    CGFloat labelHeight = 20.f;     //标题高度
-    CGFloat selectBtnSize = 18.f;   //选中按钮大小
+    CGFloat labelHeight = 30.f;     //标题高度
+    CGFloat selectBtnSize = 24.f;   //选中按钮大小
     CGFloat pictureSize = 80.f;     //图片大小
     CGFloat editHeight = 24.f;      //编辑按钮高度
     CGFloat deleteSize = 40.f;      //删除按钮大小
@@ -48,8 +48,8 @@
     //选中按钮
     _selectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _selectedButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [_selectedButton setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
-    [_selectedButton setBackgroundImage:kImageName(@"select_height") forState:UIControlStateHighlighted];
+    [_selectedButton setImage :kImageName(@"select_normal") forState:UIControlStateNormal];
+    [_selectedButton setImage:kImageName(@"select_height") forState:UIControlStateHighlighted];
     [_selectedButton addTarget:self action:@selector(selectedOrder:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_selectedButton];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_selectedButton
@@ -167,7 +167,7 @@
         
     }
 
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 180, 30)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(155, 10, 180, 30)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont systemFontOfSize:16.f];
     [self.contentView addSubview:_titleLabel];
@@ -257,7 +257,7 @@
                                                                     toItem:self.contentView
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:-topBorderSpace]];
+                                                                  constant:-topBorderSpace-5]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_channelLabel
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual
@@ -340,7 +340,10 @@
 //    _countLabel.font = [UIFont systemFontOfSize:12.f];
     _countLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:_countLabel];
-    
+    _linelable = [[UILabel alloc] initWithFrame:CGRectMake(30, 107, wide-75, 1)];
+    _linelable.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
+    [self.contentView addSubview:_linelable];
+
     
 }
 
@@ -362,7 +365,7 @@
         
     }
 
-    _numberField = [[UITextField alloc] initWithFrame:CGRectMake(wide-150, 39, 100, 30)];
+    _numberField = [[UITextField alloc] initWithFrame:CGRectMake(wide-150-80, 39, 100, 30)];
     _numberField.delegate = self;
     _numberField.layer.borderWidth = 1;
     _numberField.layer.borderColor = kColor(193, 192, 192, 1).CGColor;
@@ -389,7 +392,15 @@
     [_addButton addTarget:self action:@selector(countAdd:) forControlEvents:UIControlEventTouchUpInside];
     _numberField.rightView = _addButton;
     [self.contentView addSubview:_numberField];
+    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _deleteButton.frame=CGRectMake(wide-120, 39, 100, 30);
+    [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    [_deleteButton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
+    _deleteButton.titleLabel.font = [UIFont systemFontOfSize: 14.0];
     
+
+    [_deleteButton addTarget:self action:@selector(deletealert) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:_deleteButton];
     
     //    [self.contentView addSubview:_deleteButton];
     
@@ -399,7 +410,42 @@
 
 
 #pragma mark - Data
+-(void)deletealert
+{UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您确定删除吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+               [alert show];
 
+
+
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //回调方法把alert本身传过来是为了区分多个alertView时，哪个alert进行的回调
+   
+        switch (buttonIndex)
+        { case 0:
+                
+                
+                
+                break;
+                
+            case 1:
+                [self deleteOrder];
+                
+                break;
+                
+            default:
+                break;
+                
+                
+        }
+  
+}
+
+- (IBAction)deleteOrder {
+    if (_delegate && [_delegate respondsToSelector:@selector(deleteOrderForCell:)]) {
+        [_delegate deleteOrderForCell:self];
+    }
+}
 - (void)setShoppingCartData:(ShoppingCartModel *)cart {
     _cartData = cart;
     [self.pictureView sd_setImageWithURL:[NSURL URLWithString:cart.cartImagePath]
@@ -410,10 +456,10 @@
     self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",(cart.cartPrice + cart.channelCost) * cart.cartCount];
     self.countLabel.text = [NSString stringWithFormat:@"X %d",cart.cartCount];
     if (cart.isSelected) {
-        [_selectedButton setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];
+        [_selectedButton setImage :kImageName(@"select_height") forState:UIControlStateNormal];
     }
     else {
-        [_selectedButton setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
+        [_selectedButton setImage:kImageName(@"select_normal") forState:UIControlStateNormal];
     }
         _numberField.text = [NSString stringWithFormat:@"%d",cart.cartCount];
 }
@@ -422,13 +468,6 @@
 
 - (IBAction)selectedOrder:(id)sender {
     _cartData.isSelected = !_cartData.isSelected;
-    _selectedButton.selected = _cartData.isSelected;
-    if (_selectedButton.isSelected) {
-        [_selectedButton setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];
-    }
-    else {
-        [_selectedButton setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
-    }
     
 }
 
@@ -473,11 +512,7 @@
     }
 }
 
-- (IBAction)deleteOrder:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(deleteOrderForCell:)]) {
-        [_delegate deleteOrderForCell:self];
-    }
-}
+
 
 #pragma mark - UITextField
 

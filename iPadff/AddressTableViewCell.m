@@ -105,10 +105,10 @@
         [self addSubview:phonelable];
        
         
-        linlable  = [[UILabel alloc] initWithFrame:CGRectMake(0, 39, wide, 1)];
+        linlable  = [[UILabel alloc] initWithFrame:CGRectMake(20, 39, wide-40, 1)];
         
         
-        linlable.backgroundColor=[UIColor grayColor];
+        linlable.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
         
         
         [self addSubview:linlable];

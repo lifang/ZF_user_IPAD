@@ -68,7 +68,6 @@
 		0EC99CB91AB0660000D20386 /* MerchantDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC99CB81AB0660000D20386 /* MerchantDetailModel.m */; };
 		0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D1F1ABBC8CC005316B1 /* GoodDetialModel.m */; };
 		0ECA6D2F1ABBDF37005316B1 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D2E1ABBDF37005316B1 /* ChannelModel.m */; };
-		0ECA6D321ABBEF26005316B1 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D311ABBEF26005316B1 /* FormView.m */; };
 		0ECA6D351ABBFC3A005316B1 /* ReviewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D341ABBFC3A005316B1 /* ReviewModel.m */; };
 		0ECA6D381ABBFCFA005316B1 /* OrderCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D371ABBFCFA005316B1 /* OrderCommentCell.m */; };
 		0ECA6D3B1ABC29E8005316B1 /* PollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D3A1ABC29E8005316B1 /* PollingView.m */; };
@@ -81,6 +80,8 @@
 		0ECB492A1ABFA3590064A9FD /* NetworkInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49251ABFA3590064A9FD /* NetworkInterface.m */; };
 		0ECB492B1ABFA3590064A9FD /* NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49271ABFA3590064A9FD /* NetworkRequest.m */; };
 		0ECB492C1ABFA3590064A9FD /* EncryptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49291ABFA3590064A9FD /* EncryptHelper.m */; };
+		0ECB49361ABFBB330064A9FD /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49351ABFBB330064A9FD /* FormView.m */; };
+		0ECB49391ABFC1FB0064A9FD /* RentOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49381ABFC1FB0064A9FD /* RentOrderViewController.m */; };
 		0ECCB2D71AAECBF100E0591E /* numberback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D61AAECBF100E0591E /* numberback@2x.png */; };
 		0ECCB2D91AAECC6A00E0591E /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D81AAECC6A00E0591E /* gray@2x.png */; };
 		0ECCB2DB1AAF188500E0591E /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2DA1AAF188500E0591E /* delete@2x.png */; };
@@ -384,8 +385,6 @@
 		0ECA6D1F1ABBC8CC005316B1 /* GoodDetialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodDetialModel.m; sourceTree = "<group>"; };
 		0ECA6D2D1ABBDF37005316B1 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
 		0ECA6D2E1ABBDF37005316B1 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
-		0ECA6D301ABBEF26005316B1 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
-		0ECA6D311ABBEF26005316B1 /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
 		0ECA6D331ABBFC3A005316B1 /* ReviewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewModel.h; sourceTree = "<group>"; };
 		0ECA6D341ABBFC3A005316B1 /* ReviewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewModel.m; sourceTree = "<group>"; };
 		0ECA6D361ABBFCFA005316B1 /* OrderCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCommentCell.h; sourceTree = "<group>"; };
@@ -409,6 +408,10 @@
 		0ECB49271ABFA3590064A9FD /* NetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkRequest.m; sourceTree = "<group>"; };
 		0ECB49281ABFA3590064A9FD /* EncryptHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptHelper.h; sourceTree = "<group>"; };
 		0ECB49291ABFA3590064A9FD /* EncryptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptHelper.m; sourceTree = "<group>"; };
+		0ECB49341ABFBB330064A9FD /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
+		0ECB49351ABFBB330064A9FD /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
+		0ECB49371ABFC1FB0064A9FD /* RentOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentOrderViewController.h; sourceTree = "<group>"; };
+		0ECB49381ABFC1FB0064A9FD /* RentOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentOrderViewController.m; sourceTree = "<group>"; };
 		0ECCB2D61AAECBF100E0591E /* numberback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numberback@2x.png"; sourceTree = "<group>"; };
 		0ECCB2D81AAECC6A00E0591E /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		0ECCB2DA1AAF188500E0591E /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
@@ -995,6 +998,8 @@
 				0ED5FD471AB97C230057385C /* GoodDetaildetailViewController.m */,
 				0ECA837F1AB81886003B005B /* BuyOrderViewController.h */,
 				0ECA83801AB81886003B005B /* BuyOrderViewController.m */,
+				0ECB49371ABFC1FB0064A9FD /* RentOrderViewController.h */,
+				0ECB49381ABFC1FB0064A9FD /* RentOrderViewController.m */,
 			);
 			name = POS;
 			sourceTree = "<group>";
@@ -1283,10 +1288,10 @@
 		0ED6AD0C1AA1911F00D3B025 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				0ECB49341ABFBB330064A9FD /* FormView.h */,
+				0ECB49351ABFBB330064A9FD /* FormView.m */,
 				0ECA6D391ABC29E8005316B1 /* PollingView.h */,
 				0ECA6D3A1ABC29E8005316B1 /* PollingView.m */,
-				0ECA6D301ABBEF26005316B1 /* FormView.h */,
-				0ECA6D311ABBEF26005316B1 /* FormView.m */,
 				0ED5FD3D1AB913460057385C /* InterestView.h */,
 				0ED5FD3E1AB913460057385C /* InterestView.m */,
 				0D3887331AB96FE7000DF1D6 /* MerchantCell */,
@@ -1812,6 +1817,7 @@
 				1A3944011AA44D5D0035DE4F /* UIImage+Extention.m in Sources */,
 				0EC99CB91AB0660000D20386 /* MerchantDetailModel.m in Sources */,
 				1ADD1ECB1AB6A56E0014E528 /* ResourceModel.m in Sources */,
+				0ECB49361ABFBB330064A9FD /* FormView.m in Sources */,
 				0EC905EC1AA93AB40053B694 /* FilterViewController.m in Sources */,
 				0ECE7DD41AA55EBC00E250B6 /* CircleView.m in Sources */,
 				0ED8EB9E1AA6A6CB00CE9F61 /* AfterSaleView.m in Sources */,
@@ -1851,7 +1857,6 @@
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,
 				1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */,
 				0ECA6D2F1ABBDF37005316B1 /* ChannelModel.m in Sources */,
-				0ECA6D321ABBEF26005316B1 /* FormView.m in Sources */,
 				0D3887221AB96F8E000DF1D6 /* MASConstraintMaker.m in Sources */,
 				0ECE7DC31AA55D7A00E250B6 /* NavigationBarAttr.m in Sources */,
 				0ECE7DB41AA55A2B00E250B6 /* TreeNodeCollection.m in Sources */,
@@ -1866,6 +1871,7 @@
 				1ADD1EC51AB6A5180014E528 /* CSDetailViewController.m in Sources */,
 				0ED8EBD01AA6CE3700CE9F61 /* GoodsCellCollectionViewCell.m in Sources */,
 				0EC99C961AAFE59300D20386 /* ShoppingCartOrderController.m in Sources */,
+				0ECB49391ABFC1FB0064A9FD /* RentOrderViewController.m in Sources */,
 				1A94EB6C1AA943530056E921 /* TransferCell.m in Sources */,
 				1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */,
 				0ED8EBE51AA6D7E000CE9F61 /* UIScrollView+MJExtension.m in Sources */,

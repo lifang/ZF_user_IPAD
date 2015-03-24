@@ -139,13 +139,39 @@
 - (void)createOrderForBuy {
     //是否需要发票
     int needInvoice = 0;
-    if (self.billBtn.isSelected) {
+    if (isneedpp) {
         needInvoice = 1;
     }
+    NSString*addressID;
+    if(B==0)
+    {
+        for (int i = 0; i < [addressarry count]; i++) {
+            AddressModel *model =[addressarry objectAtIndex:i];
+            
+            if ([model.isDefault intValue] == AddressDefault) {
+                addressID=model.addressID;
+                
+                break;
+            }
+        }
+        
+        
+        
+        
+        
+    }else
+    {
+        AddressModel *model =[addressarry objectAtIndex:B];
+        
+        addressID=model.addressID;
+        
+        
+    }
+
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface createOrderFromGoodBuyWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:self.defaultAddress.addressID comment:self.reviewField.text needInvoice:needInvoice invoiceType:self.billType invoiceInfo:self.billField.text finished:^(BOOL success, NSData *response) {
+    [NetworkInterface createOrderFromGoodBuyWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:@"" needInvoice:needInvoice invoiceType:self.billType invoiceInfo:self.billField.text finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -167,6 +193,19 @@
 
                     [self.navigationController pushViewController:payWayC animated:YES];
                 }
+                else if ([errorCode intValue] == -2)
+                {
+                    
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                    hud.customView = [[UIImageView alloc] init];
+                    hud.mode = MBProgressHUDModeCustomView;
+                    [hud hide:YES afterDelay:1.f];
+                    hud.labelText = [object objectForKey:@"message"];
+                    
+                    
+                    
+                }
+
             }
             else {
                 //返回错误数据

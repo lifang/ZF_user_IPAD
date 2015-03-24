@@ -7,7 +7,7 @@
 //
 
 #import "CommonViewController.h"
-
+#import "ShoppingCartModel.h"
 @interface ShoppingCartController : CommonViewController
 {
     
@@ -17,13 +17,14 @@
     
     
 }
-@property (nonatomic, strong) UIButton *deleteButton;
+//@property (nonatomic, strong) UIButton *deleteButton;
 
 //全选文字 颜色根据是否选中变化
 @property (nonatomic, strong) UILabel *selectedLabel;
 @property (nonatomic, strong) UILabel *numbertotalLabel;
 
 @property (nonatomic, strong) UILabel *totalLabel;
+@property (nonatomic, strong) ShoppingCartModel *cartData;
 
 @property (nonatomic, strong) UIButton *finishButton;
 @end

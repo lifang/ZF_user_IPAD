@@ -102,7 +102,7 @@
     headerViews.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:headerViews];
     
-    UIView *headerViewsg = [[UIView alloc] initWithFrame:CGRectMake(0, 70, wide, 1)];
+    UIView *headerViewsg = [[UIView alloc] initWithFrame:CGRectMake(20, 70, wide-100, 1)];
     headerViewsg.backgroundColor = [UIColor grayColor];
     [headerViews addSubview:headerViewsg];
 
@@ -197,12 +197,13 @@
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0]];
-    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, headerView.bounds.size.width, 80)];
+    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, headerView.bounds.size.width-40, 80)];
     _topRefreshView.direction = PullFromTop;
     _topRefreshView.delegate = self;
     [_tableView addSubview:_topRefreshView];
-    
-    _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, headerView.bounds.size.width, 60)];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    _bottomRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, 0, headerView.bounds.size.width-40, 60)];
     _bottomRefreshView.direction = PullFromBottom;
     _bottomRefreshView.delegate = self;
     _bottomRefreshView.hidden = YES;
@@ -410,6 +411,24 @@
     }
     cell.delegate = self;
     [cell setContentsWithData:model];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    UILabel *totalLabels = [[UILabel alloc] initWithFrame:CGRectMake(20, 141, wide-260, 1)];
+    totalLabels.backgroundColor =[UIColor grayColor];
+    [cell.contentView addSubview:totalLabels];
     return cell;
 }
 

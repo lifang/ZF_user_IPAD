@@ -78,7 +78,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeLeft
                                                                 multiplier:1.0
-                                                                  constant:leftSpace]];
+                                                                  constant:leftSpace+10]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_orderNoLabel
                                                                  attribute:NSLayoutAttributeWidth
                                                                  relatedBy:NSLayoutRelationEqual
@@ -243,7 +243,7 @@ typedef enum {
     [self layoutGoodLabel:_brandLabel WithTopView:_numberLabel topSpace:0.f alignment:NSTextAlignmentLeft];
     //支付通道
     _channelLabel = [[UILabel alloc] init];
-    [self layoutGoodLabel:_channelLabel WithTopView:_brandLabel topSpace:0.f alignment:NSTextAlignmentLeft];
+    [self layoutGoodLabel:_channelLabel WithTopView:_brandLabel topSpace:3.0f alignment:NSTextAlignmentLeft];
     
     //划线
     UIImageView *secondLine = [[UIImageView alloc] init];
@@ -297,7 +297,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeLeft
                                                                 multiplier:1.0
-                                                                  constant:leftSpace]];
+                                                                  constant:leftSpace+10]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_totalCountLabel
                                                                  attribute:NSLayoutAttributeWidth
                                                                  relatedBy:NSLayoutRelationEqual
@@ -656,7 +656,7 @@ typedef enum {
     self.totalCountLabel.text = [NSString stringWithFormat:@"共计：%@件",_cellData.orderTotalNum];
     self.deliveryFeeLabel.text = [NSString stringWithFormat:@"配送费：￥%.2f",_cellData.orderDeliverFee];
     self.payLabel.text = [NSString stringWithFormat:@"实付：￥%.2f",_cellData.orderTotalPrice];
-    [self.pictureView sd_setImageWithURL:_cellData.orderGood.goodPicture placeholderImage:kImageName(@"test1.png")];
+    [self.pictureView sd_setImageWithURL:[NSURL URLWithString:_cellData.orderGood.goodPicture ]placeholderImage:kImageName(@"test1.png")];
 }
 
 

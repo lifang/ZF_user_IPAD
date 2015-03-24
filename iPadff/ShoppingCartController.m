@@ -65,14 +65,15 @@
     UIView*vieu=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 80)];
     [self.view addSubview:vieu];
     
-    UILabel*la=[[UILabel alloc]initWithFrame:CGRectMake(40, 30, 80, 30)];
+    UILabel*la=[[UILabel alloc]initWithFrame:CGRectMake(30, 30, 80, 30)];
     [vieu addSubview:la];
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 79, wide, 1)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(30, 79, wide-76, 1)];
     line.backgroundColor = kColor(188, 187, 187, 1);
     [vieu addSubview:line];
     
     la.text=@"购物车";
-
+    la.font=[UIFont systemFontOfSize:20];
+    
     [self initAndLayoutUI];
     _dataItem = [[NSMutableArray alloc] init];
     [self getShoppingList];
@@ -95,20 +96,23 @@
     if(iOS7)
     {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_HEIGHT-64, SCREEN_WIDTH-64) style:UITableViewStyleGrouped];
+        _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, SCREEN_HEIGHT-50, 80)];
+
         
     }else
     {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_WIDTH-64, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
         
-        
+        _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, SCREEN_WIDTH-50, 80)];
+
     }
-    
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     //    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
-    _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
     _topRefreshView.direction = PullFromTop;
     _topRefreshView.delegate = self;
     [_tableView addSubview:_topRefreshView];
@@ -256,15 +260,12 @@
         height=SCREEN_HEIGHT;
         
     }
-    UIView*samallview=[[UIView alloc]initWithFrame:CGRectMake(0, 5, wide, 40)];
+    UIView*samallview=[[UIView alloc]initWithFrame:CGRectMake(30, 10, wide-76, 40)];
     
     samallview.backgroundColor = kColor(235, 233, 233, 1);
     
     [rootview addSubview:samallview];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 1)];
-    line.backgroundColor = kColor(188, 187, 187, 1);
-    [rootview addSubview:line];
     
     
     _finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -279,49 +280,35 @@
     [rootview addSubview:_finishButton];
     //选中按钮
     _selectedButtonss = [UIButton buttonWithType:UIButtonTypeCustom];
-    _selectedButtonss.frame=CGRectMake(20, 10, 30, 30);
+    _selectedButtonss.frame=CGRectMake(35, 15, 30, 30);
     
     [_selectedButtonss addTarget:self action:@selector(selectedAllShoppingCart) forControlEvents:UIControlEventTouchUpInside];
     [rootview addSubview:_selectedButtonss];
-    _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _deleteButton.frame=CGRectMake(20, 50, 30, 30);
-    
-    //    _deleteButton.layer.cornerRadius = 4.f;
-    _deleteButton.layer.masksToBounds = YES;
-    [_deleteButton setImage:kImageName(@"delete.png") forState:UIControlStateNormal];
-    [_deleteButton addTarget:self action:@selector(deleteOrder) forControlEvents:UIControlEventTouchUpInside];
-    [rootview addSubview:_deleteButton];
     
     //全选文字
-    _selectedLabel = [[UILabel alloc]  initWithFrame:CGRectMake(60, 10, 30, 30)];
+    _selectedLabel = [[UILabel alloc]  initWithFrame:CGRectMake(80, 15, 30, 30)];
     
     _selectedLabel.backgroundColor = [UIColor clearColor];
     _selectedLabel.font = [UIFont systemFontOfSize:15.f];
     _selectedLabel.textColor = kColor(128, 126, 126, 1);
     _selectedLabel.text = @"全选";
-    UILabel*deletelable = [[UILabel alloc]  initWithFrame:CGRectMake(60, 50, 30, 30)];
-    
-    deletelable.backgroundColor = [UIColor clearColor];
-    deletelable.font = [UIFont systemFontOfSize:15.f];
-    deletelable.textColor = kColor(128, 126, 126, 1);
-    deletelable.text = @"删除";
-    [rootview addSubview:deletelable];
+  
     
     if (isSelecteds) {
         
-        [_selectedButtonss setBackgroundImage:kImageName(@"select_height") forState:UIControlStateNormal];
+        [_selectedButtonss setImage:kImageName(@"select_height") forState:UIControlStateNormal];
         _selectedLabel.textColor = [UIColor blackColor];
     }
     else {
         
-        [_selectedButtonss setBackgroundImage:kImageName(@"select_normal") forState:UIControlStateNormal];
+        [_selectedButtonss setImage:kImageName(@"select_normal") forState:UIControlStateNormal];
         _selectedLabel.textColor = kColor(128, 126, 126, 1);
     }
     
     _selectedLabel.userInteractionEnabled = YES;
     [rootview addSubview:_selectedLabel];
     
-    _numbertotalLabel = [[UILabel alloc]  initWithFrame:CGRectMake(wide-140, 10, 120, 30)];
+    _numbertotalLabel = [[UILabel alloc]  initWithFrame:CGRectMake(wide-140, 15, 120, 30)];
     
     _numbertotalLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _numbertotalLabel.text = [NSString stringWithFormat:@"共计：￥%d件",sumall];
@@ -360,9 +347,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ShoppingCartCell *cell = (ShoppingCartCell *)[tableView cellForRowAtIndexPath:indexPath];
-    
     [cell selectedOrder:nil];
+    if (_cartData.isSelected) {
+        [cell.selectedButton setImage:kImageName(@"select_height") forState:UIControlStateNormal];
+    }
+    else {
+        [cell.selectedButton setImage:kImageName(@"select_normal") forState:UIControlStateNormal];
+    }
+
     [self getSummaryPrice];
+    
 
 }
 
@@ -479,12 +473,13 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     hud.labelText = @"删除成功";
-                    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
-                    [_dataItem removeObjectAtIndex:indexPath.section];
-                    [_tableView beginUpdates];
-                    [_tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]
-                              withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [_tableView endUpdates];
+//                    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
+//                    [_dataItem removeObjectAtIndex:indexPath.section];
+//                    [_tableView beginUpdates];
+//                    [_tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]
+//                              withRowAnimation:UITableViewRowAnimationAutomatic];
+//                    [_tableView endUpdates];
+                    [self getShoppingList];
                 }
             }
             else {

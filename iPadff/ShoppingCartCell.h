@@ -37,6 +37,7 @@ static NSString *shoppingCartIdentifier_normal = @"shoppingCartIdentifierNormal"
 @property (nonatomic, strong) UIImageView *pictureView;
 
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *linelable;
 
 @property (nonatomic, strong) UIButton *editButton;
 
