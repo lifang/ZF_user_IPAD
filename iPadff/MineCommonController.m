@@ -12,12 +12,15 @@
 #import "MyOrderViewController.h"
 #import "AfterSellViewController.h"
 #import "ApplyPlanViewController.h"
+#import "LoginViewController.h"
 
 @interface MineCommonController ()
 
 @end
 
 @implementation MineCommonController
+
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -93,7 +96,4 @@
     ApplyPlanViewController *applyPlanVC = [[ApplyPlanViewController alloc]init];
     [self.navigationController pushViewController:applyPlanVC animated:NO];
 }
-
-
-
 @end

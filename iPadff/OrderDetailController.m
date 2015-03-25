@@ -483,10 +483,6 @@
     
     
     [bigsview removeFromSuperview];
-    
-    
-    
-    
 }
 #pragma mark - UITableView
 

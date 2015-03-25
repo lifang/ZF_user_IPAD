@@ -441,13 +441,6 @@
                     [alert show];
                 }
                 else if (errorCode == RequestSuccess) {
-                    NSLog(@"success = %@",[object objectForKey:@"message"]);
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                                    message:@"修改成功"
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"确定"
-                                                          otherButtonTitles:nil];
-                    [alert show];
                     FindPasswordWithPhoneSuccessController *findSuccessVC = [[FindPasswordWithPhoneSuccessController alloc]init];
                     [self.navigationController pushViewController:findSuccessVC animated:YES];
                 }

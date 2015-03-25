@@ -248,6 +248,7 @@
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
                     hud.labelText = @"取消申请成功";
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshCSListNotification object:nil];
                     [self downloadCSDetail];
                 }
             }
@@ -283,6 +284,7 @@
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
                     hud.labelText = @"提交成功";
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshCSListNotification object:nil];
                     [self downloadCSDetail];
                 }
             }
@@ -341,6 +343,7 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     hud.labelText = @"提交物流信息成功";
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshCSListNotification object:nil];
                     [hud hide:YES];
                     [_records removeAllObjects];
                     [_resources removeAllObjects];

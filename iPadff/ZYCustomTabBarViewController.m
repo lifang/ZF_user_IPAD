@@ -22,15 +22,9 @@
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.height
 #endif
-@interface ZYCustomTabBarViewController (private)
-{
-    
-    
-}
-
+@interface ZYCustomTabBarViewController()
+@property(nonatomic,strong)UIImageView *backView;
 - (void)test;
-
-
 @end
 
 
@@ -42,6 +36,7 @@
 @synthesize previousNavViewController = _previousNavViewController;
 - (void)test
 {
+    
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -319,21 +314,7 @@
     
     [_tabView addSubview:button5];
     [button5 setImage:[UIImage imageNamed:@"set"] forState:UIControlStateNormal];
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    [button5 addTarget:self action:@selector(setclick) forControlEvents:UIControlEventTouchUpInside];
-
-    
-
+    [button5 addTarget:self action:@selector(setclick) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setSeletedIndex:(int)aIndex
@@ -446,16 +427,6 @@ if(iOS7)
     
     //用self.赋值默认会调set方法
     [self setSeletedIndex:index];
-    
-    if (index==2) {
-        LoginViewController *loginC = [[LoginViewController alloc]init];
-        loginC.view.frame = CGRectMake(0, 0, 320, 320);
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
-        nav.navigationBarHidden = YES;
-        nav.modalPresentationStyle = UIModalPresentationCustom;
-        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [self presentViewController:nav animated:YES completion:nil];
-    }
     
 //	self.seletedIndex = index;
     NSLog(@"mmmmmmm%d",index);
@@ -607,6 +578,94 @@ if(iOS7)
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+}
+
+#pragma mark - setting Clicked
+-(void)setclick
+{
+    [self initBackView];
+}
+
+-(void)initBackView
+{
+    CGFloat width;
+    CGFloat height;
+    if(iOS7)
+    {
+        width = kScreenHeight;
+        height = kScreenWidth;
+    }
+    else
+    {
+        width = kScreenWidth;
+        height = kScreenHeight;
+    }
+    _backView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
+    [self.view addSubview:_backView];
+    _backView.image=[UIImage imageNamed:@"backimage"];
+    _backView.userInteractionEnabled=YES;
+    [self.view addSubview:_backView];
+    
+    UIView *whiteView = [[UIView alloc]init];
+    whiteView.backgroundColor = [UIColor whiteColor];
+    whiteView.frame = CGRectMake(width / 2 - 180, 180, width / 2.4, height / 2.5);
+    [_backView addSubview:whiteView];
+    
+    UIButton *cancelBtn = [[UIButton alloc]init];
+    [cancelBtn setBackgroundImage:kImageName(@"xx.png") forState:UIControlStateNormal];
+    cancelBtn.frame = CGRectMake(15, 15, 22, 22);
+    [cancelBtn addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
+    [whiteView addSubview:cancelBtn];
+    
+    UILabel *setLabel = [[UILabel alloc]init];
+    setLabel.text = @"设置";
+    setLabel.textColor = kColor(52, 53, 54, 1.0);
+    setLabel.font = [UIFont boldSystemFontOfSize:22];
+    setLabel.frame = CGRectMake(whiteView.frame.size.width / 2 - 20, 5, 60, 40);
+    [whiteView addSubview:setLabel];
+    
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = kColor(143, 142, 142, 1.0);
+    line.frame = CGRectMake(0, CGRectGetMaxY(setLabel.frame) + 10, whiteView.frame.size.width, 1);
+    [whiteView addSubview:line];
+    
+    UIButton *getNews = [[UIButton alloc]init];
+    [getNews setTitle:@"接收新通知" forState:UIControlStateNormal];
+    [getNews setTitleColor:kColor(57, 57, 57, 1.0) forState:UIControlStateNormal];
+    getNews.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
+    getNews.frame = CGRectMake(50, CGRectGetMaxY(line.frame) + 20, 200, 40);
+    [whiteView addSubview:getNews];
+    
+    UIView *line2 = [[UIView alloc]init];
+    line2.backgroundColor = kColor(228, 226, 225, 1.0);
+    line2.frame = CGRectMake(0, CGRectGetMaxY(getNews.frame) + 20, whiteView.frame.size.width, 1);
+    [whiteView addSubview:line2];
+    
+    UIButton *examineBtn = [[UIButton alloc]init];
+    [examineBtn setTitle:@"检测版本更新" forState:UIControlStateNormal];
+    [examineBtn setTitleColor:kColor(57, 57, 57, 1.0) forState:UIControlStateNormal];
+    examineBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
+    examineBtn.frame = CGRectMake(50, CGRectGetMaxY(line2.frame) + 20, 200, 40);
+    [whiteView addSubview:examineBtn];
+
+    UIView *line3 = [[UIView alloc]init];
+    line3.backgroundColor = kColor(228, 226, 225, 1.0);
+    line3.frame = CGRectMake(0, CGRectGetMaxY(examineBtn.frame) + 20, whiteView.frame.size.width, 1);
+    [whiteView addSubview:line3];
+    
+    UIButton *clearMemory = [[UIButton alloc]init];
+    [clearMemory setTitle:@"清除缓存" forState:UIControlStateNormal];
+    [clearMemory setTitleColor:kColor(57, 57, 57, 1.0) forState:UIControlStateNormal];
+    clearMemory.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
+    clearMemory.frame = CGRectMake(50, CGRectGetMaxY(line3.frame) + 20, 200, 40);
+    [whiteView addSubview:clearMemory];
+    
+    
+}
+
+-(void)cancelClicked
+{
+    [_backView removeFromSuperview];
 }
 
 

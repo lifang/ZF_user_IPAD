@@ -40,7 +40,7 @@
     //创建标题Label
     UILabel *topLabel = [[UILabel alloc]init];
     topLabel.textAlignment = NSTextAlignmentLeft;
-    topLabel.textColor = [UIColor blackColor];
+    topLabel.textColor = kColor(56, 56, 56, 1.0);
     topLabel.backgroundColor = [UIColor clearColor];
     topLabel.font = [UIFont systemFontOfSize:20];
     NSString *topLabelStr = _detail.messageTitle;

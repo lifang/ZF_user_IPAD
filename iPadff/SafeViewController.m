@@ -24,6 +24,7 @@
     NSLog(@"当前是~~~~~~~~~~~~%d",self.Index);
     [self.swithView setSelectedBtnAtIndex:2];
     [self initUI];
+    self.swithView.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {

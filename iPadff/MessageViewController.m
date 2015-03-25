@@ -13,8 +13,10 @@
 #import "RefreshView.h"
 #import "MessageModel.h"
 #import "NetworkInterface.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
-@interface MessageViewController ()<RefreshDelegate,MessageCellClickedDelegate>
+@interface MessageViewController ()<RefreshDelegate,MessageCellClickedDelegate,LoginSuccessDelegate>
 
 @property(nonatomic,assign)BOOL isSelected;
 
@@ -58,16 +60,50 @@
                                                  name:RefreshMessageListNotification
                                                object:nil];
     
+}
+
+#pragma mark - LoginSuccess
+-(void)LoginSuccess
+{
+    [self setRefreshView];
     [self firstLoadData];
 }
 
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self LoginSuccess];
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
     [self.navigationController.navigationBar setBackgroundImage:[kImageName(@"DarkGray")
                                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(1, 0, 43, 0)]
                                                   forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
     [self.navigationController.navigationBar setBackgroundImage:[kImageName(@"orange")
                                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(21, 1, 21, 1)]
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -75,7 +111,6 @@
 
 -(void)setupNavBar
 {
-    self.title = @"我的消息";
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
@@ -84,13 +119,24 @@
     
     UIView *navbarView = [[UIView alloc]init];
     navbarView.userInteractionEnabled = YES;
+    
+    UIView *konggeV = [[UIView alloc]init];
+    konggeV.backgroundColor = [UIColor clearColor];
+    konggeV.userInteractionEnabled = YES;
+    konggeV.frame = CGRectMake(0, 0, 40, 40);
+    
     UIButton *konggeBtn = [[UIButton alloc]init];
     [konggeBtn setBackgroundImage:[UIImage imageNamed:@"noSelected1"] forState:UIControlStateNormal];
     [konggeBtn addTarget:self action:@selector(konggeClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.konggeBtn = konggeBtn;
     self.isSelected = YES;
-    konggeBtn.frame = CGRectMake(100, -10, 30, 30);
+    konggeBtn.frame = CGRectMake(5, 5, 25, 25);
+    [konggeV addSubview:konggeBtn];
     
+    UIView *readV = [[UIView alloc]init];
+    readV.backgroundColor = [UIColor clearColor];
+    readV.userInteractionEnabled = YES;
+    readV.frame = CGRectMake(0, 0, 120, 50);
     
     UIButton *readBtn = [[UIButton alloc]init];
     [readBtn addTarget:self action:@selector(haveReadClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -101,7 +147,13 @@
     [readBtnLayer setBorderColor:[[UIColor whiteColor] CGColor]];
     readBtn.backgroundColor = [UIColor clearColor];
     [readBtn setTitle:@"标记为已读" forState:UIControlStateNormal];
-    readBtn.frame = CGRectMake(70, -24, 120, 40);
+    readBtn.frame = CGRectMake(- 5, 0, 120, 40);
+    [readV addSubview:readBtn];
+    
+    UIView *deleteV = [[UIView alloc]init];
+    deleteV.backgroundColor = [UIColor clearColor];
+    deleteV.userInteractionEnabled = YES;
+    deleteV.frame = CGRectMake(0, 0, 120, 50);
     
     UIButton *deleteBtn = [[UIButton alloc]init];
     [deleteBtn addTarget:self action:@selector(deleteClieked) forControlEvents:UIControlEventTouchUpInside];
@@ -111,21 +163,25 @@
     [deleteBtnLayer setBorderWidth:1.0];
     [deleteBtnLayer setBorderColor:[[UIColor whiteColor] CGColor]];
     [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-    deleteBtn.frame = CGRectMake(CGRectGetMaxX(readBtn.frame) + 10, -24, 120, 40);
+    deleteBtn.frame = CGRectMake(- 5, 0, 120, 40);
+    [deleteV addSubview:deleteBtn];
     
     UIBarButtonItem *withBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     withBar.width = 10;
-    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc]initWithCustomView:konggeBtn];
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc]initWithCustomView:konggeV];
     UIBarButtonItem *withBar1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     withBar1.width = 20;
-    UIBarButtonItem *zhongjianBar = [[UIBarButtonItem alloc]initWithCustomView:readBtn];
+    UIBarButtonItem *zhongjianBar = [[UIBarButtonItem alloc]initWithCustomView:readV];
     UIBarButtonItem *withBar2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
     withBar2.width = 15;
-    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc]initWithCustomView:deleteBtn];
+    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc]initWithCustomView:deleteV];
     NSArray *arr = [NSArray arrayWithObjects:withBar,leftBar,withBar1,zhongjianBar,withBar2,rightBar, nil];
     
     self.navigationItem.leftBarButtonItems = arr;
-    
+}
+
+-(void)setRefreshView
+{
     _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
     _topRefreshView.direction = PullFromTop;
     _topRefreshView.delegate = self;
