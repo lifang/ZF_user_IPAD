@@ -36,7 +36,7 @@
 
 @end
 
-@interface ApplyDetailController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+@interface ApplyDetailController ()<UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
@@ -85,6 +85,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor whiteColor];
+    
     // Do any additional setup after loading the view.
     self.title = @"开通申请";
     _applyType = OpenApplyPublic;
@@ -92,7 +94,6 @@
     _tempField = [[UITextField alloc] init];
     _tempField.hidden = YES;
     [self.view addSubview:_tempField];
-    [self initAndLayoutUI];
     [self beginApply];
 }
 
@@ -103,6 +104,7 @@
 
 #pragma mark - UI
 -(void)initUIScrollView
+
 {
     _scrollView = [[UIScrollView alloc]init];
     
@@ -137,21 +139,18 @@
     //    _brandLabel.textColor = kColor(142, 141, 141, 1);
     _brandLabel.font = [UIFont systemFontOfSize:18.f];
     [_scrollView addSubview:_brandLabel];
-    _brandLabel.text=@"选择已有商户";
     
     _modelLabel = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, topSpace + labelHeight+20, wide/2 - borderSpace, labelHeight)];
     _modelLabel.backgroundColor = [UIColor clearColor];
     //    _modelLabel.textColor = kColor(142, 141, 141, 1);
     _modelLabel.font = [UIFont systemFontOfSize:18.f];
     [_scrollView addSubview:_modelLabel];
-    _modelLabel.text=@"选择已有商户";
     
     _terminalLabel = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, topSpace + labelHeight * 2+20, wide/2 - borderSpace, labelHeight)];
     _terminalLabel.backgroundColor = [UIColor clearColor];
     //    _terminalLabel.textColor = kColor(142, 141, 141, 1);
     _terminalLabel.font = [UIFont systemFontOfSize:18.f];
     [_scrollView addSubview:_terminalLabel];
-    _terminalLabel.text=@"选择已有商户";
     
     UILabel*accountnamelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2,topSpace + labelHeight * 2,140, 40)];
     [_scrollView addSubview:accountnamelable];
@@ -261,9 +260,143 @@
         
     }
     
+    NSLog(@"%d",_applyData.materialList.count);
+    
+    
     UILabel*twoline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18,  4*70+topSpace + labelHeight *5+10, wide - 138, 1)];
     twoline.backgroundColor = [UIColor grayColor];
     [_scrollView addSubview:twoline];
+    NSInteger imageint;
+    imageint=0;
+    
+    for(int i=0;i<_applyData.materialList.count;i++)
+    {
+        
+        NSInteger row;
+        row=i%2;
+        NSInteger height;
+        
+        height=i/2;
+        MaterialModel *model = [_applyData.materialList objectAtIndex:i];
+        if (model.materialType == MaterialList) {
+            
+            NSInteger lastheight;
+            lastheight=_applyData.materialList.count-2;
+            if(lastheight%3==0)
+            {
+                lastheight=_applyData.materialList.count/3;
+                
+            }
+            else
+            {
+            
+                lastheight=_applyData.materialList.count/3+1;
+
+            }
+            //选项 银行
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40, 700+lastheight*70,140, 40)];
+            [_scrollView addSubview:newaddress];
+            newaddress.textAlignment = NSTextAlignmentCenter;
+            newaddress.font=[UIFont systemFontOfSize:18];
+            
+            newaddress.text=model.materialName;
+            
+            
+            UIButton* _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
+            _cityField.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
+            
+            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
+            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[_cityField  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            
+            
+            [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:_cityField];
+
+            
+                   }
+        else if (model.materialType == MaterialText) {
+            NSInteger lastheight;
+            lastheight=_applyData.materialList.count-2;
+            if(lastheight%3==0)
+            {
+                lastheight=_applyData.materialList.count/3;
+                
+            }
+            else
+            {
+                
+                lastheight=_applyData.materialList.count/3+1;
+                
+            }
+
+            //文字
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(wide/2, 700+lastheight*70,140, 40)];
+            [_scrollView addSubview:newaddress];
+            newaddress.textAlignment = NSTextAlignmentCenter;
+            newaddress.font=[UIFont systemFontOfSize:18];
+            
+            newaddress.text=model.materialName;
+            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2+140,700+lastheight*70,280, 40)];
+            neworiginaltextfield.tag=i+1056;
+            
+            [_scrollView addSubview:neworiginaltextfield];
+            //        neworiginaltextfield.delegate=self;
+            
+            CALayer *layer=[neworiginaltextfield layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+                  }
+        else if (model.materialType == MaterialImage) {
+            NSInteger row;
+            row=imageint%3;
+            NSInteger heightlk;
+            
+            heightlk=imageint/3;
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide-80)/3*row, 700+heightlk*70,(wide-80)/3-100, 40)];
+            [_scrollView addSubview:newaddress];
+            newaddress.textAlignment = NSTextAlignmentLeft;
+            newaddress.font=[UIFont systemFontOfSize:18];
+            
+            newaddress.text=model.materialName;
+            UIButton*imagebutton= [UIButton buttonWithType:UIButtonTypeCustom];
+            imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-100, 700+heightlk*70,100, 40);
+            imagebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+            [imagebutton setTitle:@"上传图片" forState:UIControlStateNormal];
+            [imagebutton addTarget:self action:@selector(orderConfirm:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [imagebutton setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
+            [_scrollView addSubview:imagebutton];
+
+            imageint++;
+
+        }
+        
+
+    
+    
+    
+    }
     
     _scrollView.contentSize=CGSizeMake(wide, 1600);
     
@@ -477,8 +610,11 @@
         return;
     }
     NSDictionary *applyDict = [dict objectForKey:@"result"];
+    
     ApplyOpenModel *model = [[ApplyOpenModel alloc] initWithParseDictionary:applyDict];
     _applyData = model;
+    [self initAndLayoutUI];
+
     _brandLabel.text = [NSString stringWithFormat:@"POS品牌   %@",_applyData.brandName];
     _modelLabel.text = [NSString stringWithFormat:@"POS型号   %@",_applyData.modelNumber];
     _terminalLabel.text = [NSString stringWithFormat:@"终  端  号   %@",_applyData.terminalNumber];
