@@ -91,8 +91,8 @@
     
     _merchantTV = [[UITextView alloc] init];
     _merchantTV.delegate = self;
-   // _merchantTV.clipsToBounds = YES;
-   // _merchantTV.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
+    //_merchantTV.clipsToBounds = YES;
+    //_merchantTV.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     //_merchantTV.layer.borderWidth = 1.0f;
     //_merchantTV.layer.cornerRadius = 3.0f;
     _merchantTV.font = FONT21;
@@ -605,12 +605,12 @@
     [_editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     _editBtn.backgroundColor=[UIColor orangeColor];
     [ _editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _editBtn.clipsToBounds = YES;
-    CALayer *readBtnLayer = [_editBtn layer];
-    [readBtnLayer setMasksToBounds:YES];
-    [readBtnLayer setCornerRadius:2.0];
-    [readBtnLayer setBorderWidth:1.0];
-    [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+    //_editBtn.clipsToBounds = YES;
+   // CALayer *readBtnLayer = [_editBtn layer];
+   // [readBtnLayer setMasksToBounds:YES];
+   // [readBtnLayer setCornerRadius:2.0];
+   // [readBtnLayer setBorderWidth:1.0];
+   // [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
     [_editBtn addTarget:self action:@selector(editPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView  addSubview:_editBtn];
     [_editBtn makeConstraints:^(MASConstraintMaker *make) {

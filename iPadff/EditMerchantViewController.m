@@ -441,8 +441,8 @@
     
     
     _frontBtn=[[UIButton alloc] init];
-    _frontBtn.clipsToBounds = YES;
-    _frontBtn.layer.cornerRadius = 3.0f;
+   // _frontBtn.clipsToBounds = YES;
+   // _frontBtn.layer.cornerRadius = 3.0f;
     [_frontBtn setTitle:@"上传图片" forState:UIControlStateNormal];
     _frontBtn.backgroundColor=[UIColor orangeColor];
     [_frontBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -503,8 +503,8 @@
     
     
     _backBtn=[[UIButton alloc] init];
-    _backBtn.clipsToBounds = YES;
-    _backBtn.layer.cornerRadius = 3.0f;
+    //_backBtn.clipsToBounds = YES;
+    //_backBtn.layer.cornerRadius = 3.0f;
     [_backBtn setTitle:@"上传图片" forState:UIControlStateNormal];
     _backBtn.backgroundColor=[UIColor orangeColor];
     [_backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -554,8 +554,8 @@
     
     
     _bodyBtn=[[UIButton alloc] init];
-    _bodyBtn.clipsToBounds = YES;
-    _bodyBtn.layer.cornerRadius = 3.0f;
+    //_bodyBtn.clipsToBounds = YES;
+    //_bodyBtn.layer.cornerRadius = 3.0f;
     [_bodyBtn setTitle:@"上传图片" forState:UIControlStateNormal];
     _bodyBtn.backgroundColor=[UIColor orangeColor];
     [_bodyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -599,8 +599,8 @@
     }];
     
     _bankBtn=[[UIButton alloc] init];
-    _bankBtn.clipsToBounds = YES;
-    _bankBtn.layer.cornerRadius = 3.0f;
+    //_bankBtn.clipsToBounds = YES;
+    //_bankBtn.layer.cornerRadius = 3.0f;
     [_bankBtn setTitle:@"上传图片" forState:UIControlStateNormal];
     _bankBtn.backgroundColor=[UIColor orangeColor];
     [_bankBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -645,8 +645,8 @@
     
     
     _licenseBtn=[[UIButton alloc] init];
-    _licenseBtn.clipsToBounds = YES;
-    _licenseBtn.layer.cornerRadius = 3.0f;
+    //_licenseBtn.clipsToBounds = YES;
+    //_licenseBtn.layer.cornerRadius = 3.0f;
     [_licenseBtn setTitle:@"上传图片" forState:UIControlStateNormal];
     _licenseBtn.backgroundColor=[UIColor orangeColor];
     [_licenseBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -693,8 +693,8 @@
     
     
     _taxBtn=[[UIButton alloc] init];
-    _taxBtn.clipsToBounds = YES;
-    _taxBtn.layer.cornerRadius = 3.0f;
+    //_taxBtn.clipsToBounds = YES;
+    //_taxBtn.layer.cornerRadius = 3.0f;
     [_taxBtn setTitle:@"上传图片" forState:UIControlStateNormal];
     _taxBtn.backgroundColor=[UIColor orangeColor];
     [_taxBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -741,8 +741,8 @@
     
     
     _organzationBtn=[[UIButton alloc] init];
-    _organzationBtn.clipsToBounds = YES;
-    _organzationBtn.layer.cornerRadius = 3.0f;
+    //_organzationBtn.clipsToBounds = YES;
+    //_organzationBtn.layer.cornerRadius = 3.0f;
     [_organzationBtn setTitle:@"上传图片" forState:UIControlStateNormal];
     _organzationBtn.backgroundColor=[UIColor orangeColor];
     [_organzationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -791,12 +791,12 @@
     [_saveBtn setTitle:@"修改" forState:UIControlStateNormal];
     _saveBtn.backgroundColor=[UIColor orangeColor];
     [ _saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _saveBtn.clipsToBounds = YES;
-    CALayer *readBtnLayer = [_saveBtn layer];
-    [readBtnLayer setMasksToBounds:YES];
-    [readBtnLayer setCornerRadius:2.0];
-    [readBtnLayer setBorderWidth:1.0];
-    [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+    //_saveBtn.clipsToBounds = YES;
+   // CALayer *readBtnLayer = [_saveBtn layer];
+    //[readBtnLayer setMasksToBounds:YES];
+    //[readBtnLayer setCornerRadius:2.0];
+    //[readBtnLayer setBorderWidth:1.0];
+    //[readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
     [_saveBtn addTarget:self action:@selector(savePressed:) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView  addSubview:_saveBtn];
     [_saveBtn makeConstraints:^(MASConstraintMaker *make) {
