@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "NetworkInterface.h"
 #import "TerminalManagerModel.h"
-
+#import "ApplyDetailController.h"
 @interface DredgeViewController ()<RefreshDelegate>
 
 @property(nonatomic,strong)UIView *headerView;
@@ -340,8 +340,23 @@
     //用来标识数据的id
     cell.applicationBtn.tag = [model.TM_ID intValue];
     cell.vedioConfirmBtn.tag = [model.TM_ID intValue];
+    if(  [model.TM_status  isEqualToString:@"2"])
+    {
+        [cell.applicationBtn setTitle:@"重新申请开通" forState:UIControlStateNormal];
+
+        cell.applicationBtn.titleLabel.font=[UIFont systemFontOfSize:16];
+        [cell.applicationBtn addTarget:self action:@selector(applicationClicks:) forControlEvents:UIControlEventTouchUpInside];
+
+        
+    }
+    else
+    {
+        [cell.applicationBtn setTitle:@"申请开通" forState:UIControlStateNormal];
+        [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
+
     
-    [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
     [cell.vedioConfirmBtn addTarget:self action:@selector(vedioConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -353,13 +368,22 @@
 
 -(void)applicationClick:(UIButton *)button
 {
-    NSLog(@"%d",button.tag);
-    ApplicationViewController *applicationVC = [[ApplicationViewController alloc]init];
-    applicationVC.hidesBottomBarWhenPushed = YES;
-    applicationVC.personID = button.tag;
-    [self.navigationController pushViewController:applicationVC animated:YES];
-}
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
+    detailC.openStatus = OpenStatusNew;
+    detailC.hidesBottomBarWhenPushed = YES;
 
+    [self.navigationController pushViewController:detailC animated:YES];
+}
+-(void)applicationClicks:(UIButton *)button
+{
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
+    detailC.openStatus = OpenStatusReopen;
+    detailC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:detailC animated:YES];
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];

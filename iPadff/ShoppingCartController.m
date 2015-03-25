@@ -269,7 +269,7 @@
     
     
     _finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _finishButton.frame=CGRectMake(wide-120, 70, 100, 40);
+    _finishButton.frame=CGRectMake(wide-146, 70, 100, 40);
     //    _finishButton.layer.cornerRadius = 4;
     _finishButton.layer.masksToBounds = YES;
     _finishButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
@@ -308,7 +308,7 @@
     _selectedLabel.userInteractionEnabled = YES;
     [rootview addSubview:_selectedLabel];
     
-    _numbertotalLabel = [[UILabel alloc]  initWithFrame:CGRectMake(wide-140, 15, 120, 30)];
+    _numbertotalLabel = [[UILabel alloc]  initWithFrame:CGRectMake(wide-150, 15, 120, 30)];
     
     _numbertotalLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _numbertotalLabel.text = [NSString stringWithFormat:@"共计：￥%d件",sumall];
@@ -317,7 +317,7 @@
     
     
     
-    _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-280, 70, 160, 25)];
+    _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-310, 70, 160, 25)];
     
     _totalLabel.backgroundColor = [UIColor clearColor];
     
@@ -327,7 +327,7 @@
     _totalLabel.text =[NSString stringWithFormat:@"合计：￥%.2f",summaryPrice];
     [rootview addSubview:_totalLabel];
     //文字
-    UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-240, 95, 100, 15)];
+    UILabel *detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-270, 95, 100, 15)];
     detailLabel.backgroundColor = [UIColor clearColor];
     detailLabel.font = [UIFont systemFontOfSize:12.f];
     detailLabel.textAlignment = NSTextAlignmentRight;
