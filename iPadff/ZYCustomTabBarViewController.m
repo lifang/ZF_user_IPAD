@@ -448,13 +448,7 @@ if(iOS7)
     [self setSeletedIndex:index];
     
     if (index==2) {
-        LoginViewController *loginC = [[LoginViewController alloc]init];
-        loginC.view.frame = CGRectMake(0, 0, 320, 320);
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
-        nav.navigationBarHidden = YES;
-        nav.modalPresentationStyle = UIModalPresentationCustom;
-        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [self presentViewController:nav animated:YES completion:nil];
+        
     }
     
 //	self.seletedIndex = index;

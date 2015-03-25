@@ -69,8 +69,8 @@
         self.textLabel.textColor = [UIColor blackColor];
         self.timeLabel.textColor = kColor(70, 70, 70, 1.0);;
     }
-    self.leftBtn.frame = CGRectMake(30, 15, 30, 30);
-    self.textLabel.frame = CGRectMake(CGRectGetMaxX(_leftBtn.frame) + 20, 10, 400, 40);
+    self.leftBtn.frame = CGRectMake(30, 20, 25, 25);
+    self.textLabel.frame = CGRectMake(CGRectGetMaxX(_leftBtn.frame) + 20, 15, 400, 40);
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
                                                           attribute:NSLayoutAttributeTop

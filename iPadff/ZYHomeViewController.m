@@ -18,6 +18,7 @@
 #import "NetworkInterface.h"
 #import "HomeImageModel.h"
 #import "SystemNoticeController.h"
+#import "ContactusUsController.h"
 
 @interface ZYHomeViewController ()<sendCity>
 @property(nonatomic,strong)PollingView *pollingView;
@@ -389,6 +390,9 @@
             break;
         case 1007: {
             //联系我们
+            ContactusUsController *contactVC = [[ContactusUsController alloc]init];
+            contactVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:contactVC animated:YES];
         }
             break;
         default:
