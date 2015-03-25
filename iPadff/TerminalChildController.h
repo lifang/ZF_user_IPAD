@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TerminalManagerModel.h"
+#import "ScanImageViewController.h"
 
-@interface TerminalChildController : UIViewController
+@interface TerminalChildController : ScanImageViewController
 
 @property(nonatomic,strong)NSString *dealStatus;
 

@@ -8,7 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AccountModel : NSObject
+@interface AccountModel : NSObject<NSCopying,NSCoding>
 
+@property(nonatomic,strong)NSString *username;
+
+@property(nonatomic,strong)NSString *password;
+
+@property(nonatomic,strong)NSString *token;
+
+@property(nonatomic,strong)NSString *userID;
 
 @end

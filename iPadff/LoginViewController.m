@@ -10,6 +10,7 @@
 #import "FindPasswordViewController.h"
 #import "RegisterViewController.h"
 #import "NetworkInterface.h"
+#import "AccountTool.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong)UITextField *userField;
@@ -58,6 +59,10 @@
     _userField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _userField.frame = CGRectMake(CGRectGetMaxX(userImage.frame) + 10, userImage.frame.origin.y, loginView.frame.size.width * 0.65, userImage.frame.size.height);
     _userField.placeholder = @"请输入手机号/邮箱";
+    AccountModel *account = [AccountTool userModel];
+    if (account.username) {
+        _userField.text = account.username;
+    }
     [_userField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _userField.delegate = self;
     _userField.leftViewMode = UITextFieldViewModeAlways;
@@ -146,8 +151,7 @@
                     [alert show];
                 }
                 else if (errorCode == RequestSuccess) {
-                    NSLog(@"%@",object);
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [self parseLoginDataWithDictionary:object];
                 }
             }
             else {
@@ -156,16 +160,40 @@
         }
         else {
             hud.labelText = kNetworkFailed;
-            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
     
 }
 
+-(void)parseLoginDataWithDictionary:(NSDictionary *)dict
+{
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"]isKindOfClass:[NSDictionary class]
+       ]) {
+        return;
+    }
+    NSDictionary *infoDict = [dict objectForKey:@"result"];
+    NSString *token = @"123";
+    NSString *userID = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"id"]];
+    NSString *username = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"username"]];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    delegate.token = token;
+    delegate.userID = userID;
+    AccountModel *account = [[AccountModel alloc]init];
+    account.username = username;
+    account.token = token;
+    account.password = _passwordField.text;
+    account.userID = userID;
+    account.token = token;
+    [AccountTool save:account];
+    if (_LoginSuccessDelegate && [_LoginSuccessDelegate respondsToSelector:@selector(LoginSuccess)]) {
+        [self.LoginSuccessDelegate LoginSuccess];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 -(void)exitClick
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-
 }
 
 -(void)findClick:(UIButton *)sender

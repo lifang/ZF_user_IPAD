@@ -117,9 +117,7 @@
 }
 -(void)tapPicture
 {
-
-
-
+    
 }
 -(void)initPollingView
 {
@@ -128,13 +126,10 @@
     if(iOS7)
     {
         _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH*0.4+65)];
-
     }
     else
     {
         _pollingView = [[PollingView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT*0.4+65)];
-
-    
     }
     [rootview addSubview:_pollingView];
 }
@@ -145,15 +140,12 @@
     {
         wide=SCREEN_HEIGHT;
         height=SCREEN_WIDTH;
-        
-        
     }
     else
-    {  wide=SCREEN_WIDTH;
+    {
+        wide=SCREEN_WIDTH;
         height=SCREEN_HEIGHT;
-        
     }
-
     UIImageView *topViews = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, wide, 58)];
  
     topViews.image = kImageName(@"toptouming");
@@ -212,14 +204,8 @@
                           @"系统公告",
                           @"联系我们",
                           nil];
-    
-    
-    
-    
     for(NSInteger i=0;i<8;i++)
     {
-    
-    
         UIButton*button=[UIButton buttonWithType:UIButtonTypeCustom];
     
         button.tag=i+1000;
@@ -269,10 +255,6 @@
                     line1.backgroundColor = kColor(242, 242, 242, 1.0);
                     [self.view addSubview:line1];
                 }
-
-                
-
-               
             }
         
             else

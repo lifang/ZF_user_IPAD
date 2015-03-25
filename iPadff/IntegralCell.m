@@ -20,6 +20,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.reuseIdentifiers = reuseIdentifier;
         UIFont *mainFont = [UIFont systemFontOfSize:14];
         UIColor *mainColor = kColor(67, 67, 67, 1.0);

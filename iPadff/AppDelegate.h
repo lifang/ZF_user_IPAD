@@ -22,6 +22,6 @@
 + (AppDelegate *)shareAppDelegate;
 
 //登录后返回
-
+-(void)clearLoginInfo;
 @end
 

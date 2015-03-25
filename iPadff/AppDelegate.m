@@ -16,6 +16,7 @@
 #import "MyMessageViewController.h"
 #import "SwitchView.h"
 #import "AddressViewController.h"
+#import "AccountTool.h"
 
 @interface AppDelegate ()
 
@@ -71,8 +72,13 @@
     self.naviController.navigationBarHidden = YES;
         [self.window setRootViewController:self.naviController];
     _cityID = @"1";
-    _userID = @"80";
-    _token = @"123";
+    AccountModel *account = [AccountTool userModel];
+    if (account.password) {
+        _userID = account.userID;
+        _token = account.token;
+    }
+//    _userID = @"80";
+//    _token = @"123";
     // Override point for customization after application launch.
     return YES;
 }
@@ -115,6 +121,16 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)clearLoginInfo
+{
+    _userID = nil;
+    _token = nil;
+    AccountModel *account = [AccountTool userModel];
+    account.userID = nil;
+    account.password = nil;
+    [AccountTool save:account];
 }
 
 @end

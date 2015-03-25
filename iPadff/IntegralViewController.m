@@ -52,6 +52,14 @@
         _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        
+        UIView *v = [[UIView alloc]init];
+        v.backgroundColor = kColor(199, 197, 204, 1.0);
+        v.frame = CGRectMake(0, 0, SCREEN_WIDTH - 160, 0.7);
+        if (iOS7) {
+            v.frame = CGRectMake(0, 0, SCREEN_HEIGHT - 160, 0.7);
+        }
+        _tableView.tableFooterView = v;
     }
     return _tableView;
 }
@@ -64,6 +72,7 @@
     _scoreItems = [[NSMutableArray alloc]init];
     [self initAndLaoutUI];
     [self getAllScore];
+    self.swithView.hidden = NO;
     //加载数据
     [self firstLoadData];
     
@@ -326,7 +335,7 @@
     [submit setBackgroundColor:kColor(254, 79, 29, 1.0)];
     [submit setTitle:@"提交" forState:UIControlStateNormal];
     [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    submit.frame = CGRectMake(_telField.frame.origin.x + 30, CGRectGetMaxY(_moneyField.frame) + 80, 120, 40);
+    submit.frame = CGRectMake(_telField.frame.origin.x + 50, CGRectGetMaxY(_moneyField.frame) + 80, 120, 40);
     [backView addSubview:submit];
 
 }
@@ -428,6 +437,9 @@
 
 -(void)cancelclick
 {
+    _nameField.text = nil;
+    _telField.text = nil;
+    _moneyField.text = nil;
     [_darkbackgroundImageView removeFromSuperview];
 }
 
@@ -707,5 +719,27 @@
     [self downloadDataWithPage:self.page isMore:YES];
 }
 
+//处理键盘
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == _moneyField || textField == _telField) {
+        CGRect frame = CGRectMake(textField.frame.origin.x, textField.frame.origin.y + 330, textField.frame.size.width, textField.frame.size.height);
+        NSLog(@"%@",NSStringFromCGRect(frame));
+        int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
+        NSTimeInterval animationDuration = 0.30f;
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        
+        if (offset > 0) {
+            self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+            [UIView commitAnimations];
+        }
+    }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+}
 
 @end

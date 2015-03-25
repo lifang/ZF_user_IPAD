@@ -274,6 +274,8 @@
 		1ADD1EDA1AB6C92E0014E528 /* UpdateDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADD1ED91AB6C92E0014E528 /* UpdateDetailController.m */; };
 		1ADD1EDD1AB6C9360014E528 /* RentDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADD1EDC1AB6C9360014E528 /* RentDetailController.m */; };
 		1ADD1EE11AB6F0CE0014E528 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADD1EE01AB6F0CE0014E528 /* AddressCell.m */; };
+		1ADFE4291AC2537600AA5F3F /* AccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADFE4281AC2537600AA5F3F /* AccountTool.m */; };
+		1ADFE42C1AC2A00300AA5F3F /* ScanImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADFE42B1AC2A00300AA5F3F /* ScanImageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -763,6 +765,10 @@
 		1ADD1EDC1AB6C9360014E528 /* RentDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentDetailController.m; sourceTree = "<group>"; };
 		1ADD1EDF1AB6F0CE0014E528 /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
 		1ADD1EE01AB6F0CE0014E528 /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
+		1ADFE4271AC2537600AA5F3F /* AccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountTool.h; sourceTree = "<group>"; };
+		1ADFE4281AC2537600AA5F3F /* AccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTool.m; sourceTree = "<group>"; };
+		1ADFE42A1AC2A00300AA5F3F /* ScanImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanImageViewController.h; sourceTree = "<group>"; };
+		1ADFE42B1AC2A00300AA5F3F /* ScanImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanImageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -997,6 +1003,8 @@
 				0ECE7DA71AA558CC00E250B6 /* TreeNodeModel.m */,
 				1A94FA261AC15D18006D8FF7 /* AccountModel.h */,
 				1A94FA271AC15D18006D8FF7 /* AccountModel.m */,
+				1ADFE4271AC2537600AA5F3F /* AccountTool.h */,
+				1ADFE4281AC2537600AA5F3F /* AccountTool.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1167,6 +1175,8 @@
 			children = (
 				0ECE7D871AA556F200E250B6 /* CommonViewController.h */,
 				0ECE7D881AA556F200E250B6 /* CommonViewController.m */,
+				1ADFE42A1AC2A00300AA5F3F /* ScanImageViewController.h */,
+				1ADFE42B1AC2A00300AA5F3F /* ScanImageViewController.m */,
 				1AA8FF831AA41D45009D41B3 /* Login */,
 				0ED6ACF31AA16D6A00D3B025 /* Homepages */,
 				0ED6ACEF1AA16D5000D3B025 /* Shopping */,
@@ -1223,7 +1233,6 @@
 			isa = PBXGroup;
 			children = (
 				1A94FA1D1AC13246006D8FF7 /* Contactus */,
-				1A94FA131AC10B58006D8FF7 /* SystemNotice */,
 				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
 				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
 				1A94FA131AC10B58006D8FF7 /* SystemNotice */,
@@ -1826,6 +1835,7 @@
 				0D3887361AB97020000DF1D6 /* MerchantTitleCell.m in Sources */,
 				1A6D986C1ABFEE9D005740A6 /* CityHandle.m in Sources */,
 				1ADD1ED11AB6C0D90014E528 /* CancelDetailController.m in Sources */,
+				1ADFE42C1AC2A00300AA5F3F /* ScanImageViewController.m in Sources */,
 				0D714C6A1AB2ED20007FF2C5 /* EditMerchantViewController.m in Sources */,
 				0ECA83811AB81886003B005B /* BuyOrderViewController.m in Sources */,
 				0D3887301AB96F98000DF1D6 /* HexColor.m in Sources */,
@@ -1924,6 +1934,7 @@
 				0ECA6D3B1ABC29E8005316B1 /* PollingView.m in Sources */,
 				1A81ACF21AAE7F2D003CB96C /* RecordView.m in Sources */,
 				0EC99CA31AAFE68D00D20386 /* KxMenu.m in Sources */,
+				1ADFE4291AC2537600AA5F3F /* AccountTool.m in Sources */,
 				0ECE7DB51AA55A2B00E250B6 /* TreeNodeInfo.m in Sources */,
 				1A9A1B831AAFD22C00A9AA04 /* MerchantModel.m in Sources */,
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,

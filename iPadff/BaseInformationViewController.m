@@ -13,8 +13,10 @@
 #import "AppDelegate.h"
 #import "UserModel.h"
 #import "CityHandle.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
-@interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate>
+@interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate>
 
 @property(nonatomic,strong)UIButton *exitBtn;
 
@@ -39,14 +41,44 @@
 @end
 
 @implementation BaseInformationViewController
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self getUserInfo];
+        self.swithView.hidden = NO;
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
 
+-(void)LoginSuccess
+{
+    [self getUserInfo];
+    self.swithView.hidden = NO;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.swithView setSelectedBtnAtIndex:1];
     NSLog(@"当前是~~~~~~~~~~~~%d",self.Index);
     self.view.backgroundColor = kColor(251, 251, 251, 1.0);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self getUserInfo];
     [self initPickerView];
 }
 //选择城市
@@ -97,7 +129,7 @@
         [hud hide:YES afterDelay:0.5f];
         if (success) {
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"%@",[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding]);
+            NSLog(@"!!!!!!!!!!!!!!!!!!%@",[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding]);
             if ([object isKindOfClass:[NSDictionary class]]) {
                 NSString *errorCode = [object objectForKey:@"code"];
                 if ([errorCode intValue] == RequestFail) {
@@ -172,6 +204,12 @@
     _nameField.text = _userInfo.userName;
     _phoneField.text = _userInfo.phoneNumber;
     _emailField.text = _userInfo.email;
+    if (_userInfo.email == nil) {
+        _emailField.placeholder = @"请添加邮箱";
+    }
+    if (_userInfo.phoneNumber == nil) {
+        _phoneField.placeholder = @"请添加手机";
+    }
     _locatonField.text = [CityHandle getCityNameWithCityID: _userInfo.cityID];
     [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_userInfo.cityID] inComponent:0 animated:NO];
     [_pickerView reloadAllComponents];
@@ -215,7 +253,8 @@
     _nameField.translatesAutoresizingMaskIntoConstraints = NO;
     _nameField.borderStyle = UITextBorderStyleLine;
     _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _nameField.placeholder = @"王小小";
+    _nameField.textColor = kColor(111, 111, 111, 1.0);
+    _nameField.placeholder = @"请输入昵称";
     [_nameField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     [_nameField setValue:kColor(111, 111, 111, 1.0) forKeyPath:@"_placeholderLabel.color"];
     _nameField.delegate = self;
@@ -260,6 +299,7 @@
     _phoneField = [[UITextField alloc]init];
     _phoneField.userInteractionEnabled = NO;
     _phoneField.translatesAutoresizingMaskIntoConstraints = NO;
+    _phoneField.textColor = kColor(111, 111, 111, 1.0);
     _phoneField.borderStyle = UITextBorderStyleNone;
     _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _phoneField.placeholder = @"123456789876";
@@ -343,6 +383,7 @@
     
     _emailField = [[UITextField alloc]init];
     _emailField.userInteractionEnabled = NO;
+    _emailField.textColor = kColor(111, 111, 111, 1.0);
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
     _emailField.borderStyle = UITextBorderStyleNone;
     _emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -426,11 +467,12 @@
                                                            constant:btnHeight]];
     
     _locatonField = [[UITextField alloc]init];
+    _locatonField.textColor = kColor(111, 111, 111, 1.0);
     _locatonField.userInteractionEnabled = NO;
     _locatonField.translatesAutoresizingMaskIntoConstraints = NO;
     _locatonField.borderStyle = UITextBorderStyleLine;
     _locatonField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _locatonField.placeholder = @"上海市";
+    _locatonField.placeholder = @"请输入城市";
     [_locatonField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     [_locatonField setValue:kColor(111, 111, 111, 1.0) forKeyPath:@"_placeholderLabel.color"];
     _locatonField.delegate = self;
@@ -804,7 +846,9 @@
 //点击了退出
 -(void)exitClicke
 {
-    
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [delegate clearLoginInfo];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - UIPickerView
@@ -862,5 +906,6 @@
         _pickerView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
     }];
 }
+
 
 @end

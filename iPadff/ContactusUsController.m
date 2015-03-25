@@ -497,19 +497,38 @@
     
 }
 
-#pragma mark - UitextView Delegate
+
+#pragma mark - Action
+-(IBAction)submitClicked:(id)sender
+{
+    NSLog(@"点击了提交！");
+}
+
+
+//处理键盘
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     NSRange range;
     range.location = 10;
     range.length = 0;
     textView.selectedRange = range;
+    
+    CGRect frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y + 330, textView.frame.size.width, textView.frame.size.height);
+    NSLog(@"%@",NSStringFromCGRect(frame));
+    int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    if (offset > 0) {
+        self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+        [UIView commitAnimations];
+    }
 }
 
-#pragma mark - Action
--(IBAction)submitClicked:(id)sender
+-(void)textViewDidEndEditing:(UITextView *)textView
 {
-    NSLog(@"点击了提交！");
+    self.view.frame =CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 @end
