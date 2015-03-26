@@ -42,6 +42,9 @@
 		0EC589CE1AB3DAFA00B690F5 /* GoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC589CD1AB3DAFA00B690F5 /* GoodDetailViewController.m */; };
 		0EC688C51AB1237800F4058B /* backimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC688C41AB1237800F4058B /* backimage.png */; };
 		0EC688C71AB1238E00F4058B /* xx.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC688C61AB1238E00F4058B /* xx.png */; };
+		0EC7B9E01AC3935000080E2A /* NetworkInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DB1AC3935000080E2A /* NetworkInterface.m */; };
+		0EC7B9E11AC3935000080E2A /* NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DD1AC3935000080E2A /* NetworkRequest.m */; };
+		0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DF1AC3935000080E2A /* EncryptHelper.m */; };
 		0EC8D60A1AAE7E43003661C5 /* ShoppingCartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */; };
 		0EC8D60D1AAE7FA4003661C5 /* ShoppingCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60C1AAE7FA4003661C5 /* ShoppingCartModel.m */; };
 		0EC8D6101AAE800A003661C5 /* ShoppingCartFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60F1AAE800A003661C5 /* ShoppingCartFooterView.m */; };
@@ -76,9 +79,6 @@
 		0ECA838B1AB82D7D003B005B /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA838A1AB82D7D003B005B /* ImageScrollView.m */; };
 		0ECABF4C1AAD30D900413489 /* GoodButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECABF4B1AAD30D900413489 /* GoodButton.m */; };
 		0ECABF551AAD31A400413489 /* RateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECABF541AAD31A400413489 /* RateModel.m */; };
-		0ECB492A1ABFA3590064A9FD /* NetworkInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49251ABFA3590064A9FD /* NetworkInterface.m */; };
-		0ECB492B1ABFA3590064A9FD /* NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49271ABFA3590064A9FD /* NetworkRequest.m */; };
-		0ECB492C1ABFA3590064A9FD /* EncryptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49291ABFA3590064A9FD /* EncryptHelper.m */; };
 		0ECB49361ABFBB330064A9FD /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49351ABFBB330064A9FD /* FormView.m */; };
 		0ECB49391ABFC1FB0064A9FD /* RentOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB49381ABFC1FB0064A9FD /* RentOrderViewController.m */; };
 		0ECCB2D71AAECBF100E0591E /* numberback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D61AAECBF100E0591E /* numberback@2x.png */; };
@@ -353,6 +353,12 @@
 		0EC589CD1AB3DAFA00B690F5 /* GoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodDetailViewController.m; sourceTree = "<group>"; };
 		0EC688C41AB1237800F4058B /* backimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backimage.png; sourceTree = "<group>"; };
 		0EC688C61AB1238E00F4058B /* xx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xx.png; sourceTree = "<group>"; };
+		0EC7B9DA1AC3935000080E2A /* NetworkInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkInterface.h; sourceTree = "<group>"; };
+		0EC7B9DB1AC3935000080E2A /* NetworkInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkInterface.m; sourceTree = "<group>"; };
+		0EC7B9DC1AC3935000080E2A /* NetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRequest.h; sourceTree = "<group>"; };
+		0EC7B9DD1AC3935000080E2A /* NetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkRequest.m; sourceTree = "<group>"; };
+		0EC7B9DE1AC3935000080E2A /* EncryptHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptHelper.h; sourceTree = "<group>"; };
+		0EC7B9DF1AC3935000080E2A /* EncryptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptHelper.m; sourceTree = "<group>"; };
 		0EC8D6081AAE7E43003661C5 /* ShoppingCartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartCell.h; sourceTree = "<group>"; };
 		0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartCell.m; sourceTree = "<group>"; };
 		0EC8D60B1AAE7FA4003661C5 /* ShoppingCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartModel.h; sourceTree = "<group>"; };
@@ -411,12 +417,6 @@
 		0ECABF4B1AAD30D900413489 /* GoodButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodButton.m; sourceTree = "<group>"; };
 		0ECABF531AAD31A400413489 /* RateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateModel.h; sourceTree = "<group>"; };
 		0ECABF541AAD31A400413489 /* RateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateModel.m; sourceTree = "<group>"; };
-		0ECB49241ABFA3590064A9FD /* NetworkInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkInterface.h; sourceTree = "<group>"; };
-		0ECB49251ABFA3590064A9FD /* NetworkInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkInterface.m; sourceTree = "<group>"; };
-		0ECB49261ABFA3590064A9FD /* NetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRequest.h; sourceTree = "<group>"; };
-		0ECB49271ABFA3590064A9FD /* NetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkRequest.m; sourceTree = "<group>"; };
-		0ECB49281ABFA3590064A9FD /* EncryptHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptHelper.h; sourceTree = "<group>"; };
-		0ECB49291ABFA3590064A9FD /* EncryptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptHelper.m; sourceTree = "<group>"; };
 		0ECB49341ABFBB330064A9FD /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
 		0ECB49351ABFBB330064A9FD /* FormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormView.m; sourceTree = "<group>"; };
 		0ECB49371ABFC1FB0064A9FD /* RentOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentOrderViewController.h; sourceTree = "<group>"; };
@@ -1425,12 +1425,12 @@
 		1A53649D1AA5516A006ECC33 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				0ECB49241ABFA3590064A9FD /* NetworkInterface.h */,
-				0ECB49251ABFA3590064A9FD /* NetworkInterface.m */,
-				0ECB49261ABFA3590064A9FD /* NetworkRequest.h */,
-				0ECB49271ABFA3590064A9FD /* NetworkRequest.m */,
-				0ECB49281ABFA3590064A9FD /* EncryptHelper.h */,
-				0ECB49291ABFA3590064A9FD /* EncryptHelper.m */,
+				0EC7B9DA1AC3935000080E2A /* NetworkInterface.h */,
+				0EC7B9DB1AC3935000080E2A /* NetworkInterface.m */,
+				0EC7B9DC1AC3935000080E2A /* NetworkRequest.h */,
+				0EC7B9DD1AC3935000080E2A /* NetworkRequest.m */,
+				0EC7B9DE1AC3935000080E2A /* EncryptHelper.h */,
+				0EC7B9DF1AC3935000080E2A /* EncryptHelper.m */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -1859,7 +1859,6 @@
 				0EBBC5961AB1665100E0ED16 /* OrderModel.m in Sources */,
 				0ED5FD3F1AB913460057385C /* InterestView.m in Sources */,
 				1ADA04201AB2CB700074A58B /* BaseInformationViewController.m in Sources */,
-				0ECB492C1ABFA3590064A9FD /* EncryptHelper.m in Sources */,
 				1A4258701AB0189E00F470C9 /* AfterSellViewController.m in Sources */,
 				1A727B2A1AA5813A00E1643D /* PhoneSuccessViewController.m in Sources */,
 				1A8EE2BF1AAD78490014A7A5 /* TerminalAddViewController.m in Sources */,
@@ -1923,6 +1922,7 @@
 				1A81ACEC1AAE7CB8003CB96C /* TerminalChildController.m in Sources */,
 				0ECE7DCB1AA55E2B00E250B6 /* GoodsCell.m in Sources */,
 				1A627DAA1ABA60420024A644 /* FindPasswordWithPhoneSuccessController.m in Sources */,
+				0EC7B9E01AC3935000080E2A /* NetworkInterface.m in Sources */,
 				0ED5FD481AB97C230057385C /* GoodDetaildetailViewController.m in Sources */,
 				0EBBC5901AB1660400E0ED16 /* OrderCommentController.m in Sources */,
 				1A81ACEF1AAE7EF3003CB96C /* OpeningModel.m in Sources */,
@@ -1965,7 +1965,6 @@
 				1A4258731AB018E100F470C9 /* ApplyPlanViewController.m in Sources */,
 				1AA8FF731AA4074D009D41B3 /* SDWebImageDownloaderOperation.m in Sources */,
 				1A123ACC1ABC1D5300F642B4 /* ProgressCell.m in Sources */,
-				0ECB492B1ABFA3590064A9FD /* NetworkRequest.m in Sources */,
 				0ED8EB921AA69B9300CE9F61 /* RegularFormat.m in Sources */,
 				1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */,
 				1A8E7C601AB12D7B00C021CE /* AfterTitleCell.m in Sources */,
@@ -2002,7 +2001,6 @@
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				0ECA6D411ABC32B3005316B1 /* ShoppingCartController.m in Sources */,
 				1ADD1EBC1AB685B60014E528 /* SubmitLogisticsController.m in Sources */,
-				0ECB492A1ABFA3590064A9FD /* NetworkInterface.m in Sources */,
 				1A4258611AB008F900F470C9 /* MineCommonController.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
 				0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */,
@@ -2024,6 +2022,8 @@
 				0ED8EBE31AA6D7E000CE9F61 /* MJRefreshFooterView.m in Sources */,
 				1A5E10491AB8015C0082DA13 /* ChangePhoneController.m in Sources */,
 				1AA8FF741AA4074D009D41B3 /* SDWebImageManager.m in Sources */,
+				0EC7B9E11AC3935000080E2A /* NetworkRequest.m in Sources */,
+				0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */,
 				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
 				0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */,
