@@ -660,7 +660,6 @@ if(iOS7)
     clearMemory.frame = CGRectMake(50, CGRectGetMaxY(line3.frame) + 20, 200, 40);
     [whiteView addSubview:clearMemory];
     
-    
 }
 
 -(void)cancelClicked
