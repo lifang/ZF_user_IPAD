@@ -64,14 +64,22 @@
     
     _imageDict=[[NSMutableDictionary alloc] init];
     
+        
+
     _scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:_scrollView];
+     if (iOS8) {
     [_scrollView makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
         make.bottom.equalTo(self.view.mas_bottom);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
     }];
+    }else
+    {
+        _scrollView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+
+    }
     
     UILabel *merchantLB=[[UILabel alloc ] init];
     merchantLB.font = FONT20;
@@ -811,7 +819,10 @@
     [_saveBtn addSubview:_indicatorView];
     
     [_scrollView layoutSubviews];
+    if (iOS8) {
+        
     [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, _saveBtn.frame.size.height + _saveBtn.frame.origin.y + 50)];
+    }
     [_indicatorView makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_saveBtn.centerY);
         make.left.equalTo(_saveBtn.left).offset(_saveBtn.frame.size.width/2 -80);
@@ -1264,6 +1275,15 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (iOS7) {
+        
+        [_scrollView setContentSize:CGSizeMake(self.view.frame.size.height, _saveBtn.frame.size.height + _saveBtn.frame.origin.y + 100)];
+    }
+}
+
 
 
 
