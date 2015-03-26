@@ -71,11 +71,11 @@
     UIView *headerView = [[UIView alloc]init];
     headerView.backgroundColor = [UIColor whiteColor];
     headerView.frame = CGRectMake(160, 0, SCREEN_WIDTH-160.f, 80);
-    /*
+    
     if (iOS7) {
-        headerView.frame = CGRectMake(160, 0, SCREEN_HEIGHT - 160.f, 60);
+        headerView.frame = CGRectMake(160, 0, SCREEN_HEIGHT - 160.f, 80);
     }
-     */
+     
     [self.view addSubview:headerView];
     
     UILabel *titleLB = [[UILabel alloc] init];
@@ -119,11 +119,11 @@
     UIView *titleView = [[UIView alloc]init];
     titleView.backgroundColor=[UIColor colorWithHexString:@"f2f1f1"];
     titleView.frame = CGRectMake(160+26, 80, SCREEN_WIDTH-160.f-52-60, 28);
-    /*
+    
     if (iOS7) {
-        titleView.frame = CGRectMake(160+26, 60, SCREEN_HEIGHT - 160.f-52-60, 28);
+        titleView.frame = CGRectMake(160+26, 80, SCREEN_HEIGHT - 160.f-52-60, 28);
     }
-     */
+    
     [self.view addSubview:titleView];
 
     UILabel *titleLB2 = [[UILabel alloc] init];
@@ -164,19 +164,19 @@
 
 - (void)initAndLayoutUI {
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 80+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT-108)];
-    /*
+    //_tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 80+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT-108)];
+    
     if(iOS7)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_HEIGHT-220-20*2, SCREEN_WIDTH-88)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 80+28, SCREEN_HEIGHT-220-20*2, SCREEN_WIDTH-88)];
         
     }else
     {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT-88)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 80+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT-88)];
         
     }
-    */
+    
     
     
     //_tableView.translatesAutoresizingMaskIntoConstraints = NO;

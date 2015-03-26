@@ -2163,6 +2163,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -2177,6 +2178,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

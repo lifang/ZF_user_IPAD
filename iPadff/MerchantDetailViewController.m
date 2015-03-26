@@ -68,13 +68,22 @@
     
     _scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:_scrollView];
+    if (iOS8) {
+
     [_scrollView makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
         make.bottom.equalTo(self.view.mas_bottom);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
     }];
+    }
+    else
+    {
+  
+        _scrollView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
     
+    
+    }
     UILabel *merchantLB=[[UILabel alloc ] init];
     merchantLB.font = FONT20;
     merchantLB.text=@"店铺名称";
@@ -625,7 +634,11 @@
     [_editBtn addSubview:_indicatorView];
     
     [_scrollView layoutSubviews];
+    if (iOS8) {
+
     [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, _editBtn.frame.size.height + _editBtn.frame.origin.y + 50)];
+    }
+   
     [_indicatorView makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_editBtn.centerY);
         make.left.equalTo(_editBtn.left).offset(_editBtn.frame.size.width/2 -80);
@@ -758,6 +771,15 @@
     [self downloadDetail];
     
 }
+
+- (void)viewDidAppear:(BOOL)animated
+ {
+     if (iOS7) {
+    
+     [_scrollView setContentSize:CGSizeMake(self.view.frame.size.height, _editBtn.frame.size.height + _editBtn.frame.origin.y + 100)];
+     }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
