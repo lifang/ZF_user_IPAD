@@ -421,7 +421,6 @@
         [rentbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     
-    
     self.currentType = but.tag;
     [self firstLoadData];
 }
@@ -484,7 +483,8 @@
 
     
     
-    
+    detailC.ordertype = model.order_type;
+
     
     
     detailC.orderID = model.orderID;

@@ -36,7 +36,7 @@
 
 @end
 
-@interface ApplyDetailController ()<UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+@interface ApplyDetailController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
@@ -53,7 +53,7 @@
 @property (nonatomic, strong) UILabel *channelLabel;
 @property(nonatomic,strong)UIButton *publickBtn;
 @property(nonatomic,strong)UIButton *privateBtn;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIView *scrollView;
 
 @property(nonatomic,assign)BOOL isChecked;
 @property(nonatomic,assign)CGFloat publicX;
@@ -70,6 +70,7 @@
 @property (nonatomic, strong) UIToolbar *toolbar;
 
 @property (nonatomic, strong) NSArray *cityArray;  //pickerView 第二列
+@property(nonatomic,strong)UITableView *terminalTableView;
 
 @property (nonatomic, strong) NSString *merchantID;
 @property (nonatomic, strong) NSString *bankID;  //银行代码
@@ -96,6 +97,44 @@
     [self.view addSubview:_tempField];
     [self beginApply];
 }
+//选择终端tableView懒加载
+-(UITableView *)terminalTableView
+{
+    if (!_terminalTableView) {
+        _terminalTableView = [[UITableView alloc]init];
+        _terminalTableView.tag = 1111;
+        _terminalTableView.delegate = self;
+        _terminalTableView.dataSource = self;
+    }
+    return _terminalTableView;
+}
+//创建选择终端tableView
+-(void)setupTerminalTableView
+{
+    if(sexint==102)
+    {
+        self.terminalTableView.frame = CGRectMake(_cityField.frame.origin.x, _cityField.frame.origin.y+_cityField.frame.size.height, 280, 80);
+
+    }
+    else
+    {
+        self.terminalTableView.frame = CGRectMake(accountnamebutton.frame.origin.x, 90, 280, 220);
+
+    
+    }
+    [_scrollView addSubview:_terminalTableView];
+    if (_applyData.merchantList.count != 0) {
+        [_terminalTableView reloadData];
+    }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //终端选择跳转
+    if (tableView==_terminalTableView) {
+        
+        [_terminalTableView removeFromSuperview];
+    }
+    }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -106,13 +145,30 @@
 -(void)initUIScrollView
 
 {
-    _scrollView = [[UIScrollView alloc]init];
+ 
+
+    _scrollView = [[UIView alloc]init];
     
-    _scrollView.frame = CGRectMake(0, 80, SCREEN_WIDTH, 1000);
-    if (iOS7) {
-        _scrollView.frame = CGRectMake(0, 80, SCREEN_HEIGHT, 1000);
+    if (iOS7)
+    
+    {    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_HEIGHT, 1000) style:UITableViewStyleGrouped];
+
+        _scrollView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 1000);
     }
-    [self.view addSubview:_scrollView];
+    else
+    {    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_WIDTH, 1000) style:UITableViewStyleGrouped];
+
+        _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1000);
+
+    
+    }
+    _tableView.tableHeaderView = _scrollView;
+    
+    _tableView.backgroundColor=[UIColor whiteColor];
+    
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
     NSArray*namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
     
     CGFloat borderSpace = 40.f;
@@ -159,7 +215,7 @@
     
     accountnamelable.text=@"选择已有商户";
     
-    UIButton* accountnamebutton= [UIButton buttonWithType:UIButtonTypeCustom];
+    accountnamebutton= [UIButton buttonWithType:UIButtonTypeCustom];
     accountnamebutton.frame = CGRectMake(150+wide/2,  topSpace + labelHeight * 2,280, 40);
     
     //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
@@ -180,7 +236,7 @@
     accountnamebutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
     
     
-    [accountnamebutton addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
+    [accountnamebutton addTarget:self action:@selector(accountnamebuttonclick) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:accountnamebutton];
     
     
@@ -212,9 +268,33 @@
         
         if(i==2)
         {
-            UIButton* _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
-            _cityField.frame = CGRectMake(190,  height*70+topSpace + labelHeight * 7,280, 40);
+             _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
+            _cityField.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
+            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[_cityField  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
             
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            
+            
+            [_cityField addTarget:self action:@selector(sexclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:_cityField];
+        }
+        else if(i==3)
+        {
+            UIButton* _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
+            _cityField.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
             //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
             [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -236,6 +316,32 @@
             [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:_cityField];
         }
+        else if(i==13)
+        {
+            UIButton* _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
+            _cityField.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
+            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[_cityField  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            
+            
+            [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:_cityField];
+        }
+
         else
         {
             UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40)];
@@ -254,6 +360,17 @@
             [layer setBorderWidth:1];
             //设置边框线的颜色
             [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            if(i==1)
+            {
+                
+                UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(200+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7+45,280, 20)];
+                [_scrollView addSubview:newaddress];
+                newaddress.textAlignment = NSTextAlignmentLeft;
+                newaddress.font=[UIFont systemFontOfSize:12];
+                
+                newaddress.text=@"例：上海好乐迪KTV";
+            }
+
             
         }
         
@@ -266,6 +383,9 @@
     UILabel*twoline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18,  4*70+topSpace + labelHeight *5+10, wide - 138, 1)];
     twoline.backgroundColor = [UIColor grayColor];
     [_scrollView addSubview:twoline];
+    UILabel*threeline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18,  670, wide - 138, 1)];
+    threeline.backgroundColor = [UIColor grayColor];
+    [_scrollView addSubview:threeline];
     NSInteger imageint;
     imageint=0;
     
@@ -350,7 +470,7 @@
             newaddress.font=[UIFont systemFontOfSize:18];
             
             newaddress.text=model.materialName;
-            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2+140,700+lastheight*70,280, 40)];
+            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2+150,700+lastheight*70,280, 40)];
             neworiginaltextfield.tag=i+1056;
             
             [_scrollView addSubview:neworiginaltextfield];
@@ -373,14 +493,14 @@
             NSInteger heightlk;
             
             heightlk=imageint/3;
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide-80)/3*row, 700+heightlk*70,(wide-80)/3-100, 40)];
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide-80)/3*row, 700+heightlk*70,(wide-80)/3-142, 40)];
             [_scrollView addSubview:newaddress];
             newaddress.textAlignment = NSTextAlignmentLeft;
             newaddress.font=[UIFont systemFontOfSize:18];
             
             newaddress.text=model.materialName;
             UIButton*imagebutton= [UIButton buttonWithType:UIButtonTypeCustom];
-            imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-100, 700+heightlk*70,100, 40);
+            imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-142, 700+heightlk*70,100, 40);
             imagebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
             [imagebutton setTitle:@"上传图片" forState:UIControlStateNormal];
             [imagebutton addTarget:self action:@selector(orderConfirm:) forControlEvents:UIControlEventTouchUpInside];
@@ -397,12 +517,53 @@
     
     
     }
+    NSInteger lastheightY;
+    lastheightY=_applyData.materialList.count-2;
+    if(lastheightY%3==0)
+    {
+        lastheightY=_applyData.materialList.count/3;
+        
+    }
+    else
+    {
+        
+        lastheightY=_applyData.materialList.count/3+1;
+        
+    }
+
+    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    submitBtn.frame = CGRectMake(80, 700+lastheightY*70+80, 160, 40);
+    submitBtn.center=CGPointMake(wide/2, 700+lastheightY*70+150);
     
-    _scrollView.contentSize=CGSizeMake(wide, 1600);
+    submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBtn setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
+    [submitBtn addTarget:self action:@selector(submitApply:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:submitBtn];
+
+    
+}
+-(void)sexclick
+{
+    sexint=102;
+    
+    
+    [self setupTerminalTableView];
+    
+    
     
 }
 
+-(void)accountnamebuttonclick
+{
+    sexint=103;
 
+
+    [self setupTerminalTableView];
+
+
+
+}
 
 -(void)setupHeaderView
 {
@@ -438,18 +599,8 @@
     privateBtn.frame = CGRectMake(CGRectGetMaxX(publicBtn.frame), 44, 120, 36);
     self.privateX = CGRectGetMaxX(publicBtn.frame);
     [headerView addSubview:privateBtn];
-    
-    [self.view addSubview:headerView];
-}
-#pragma mark - Request
-
-
--(void)publicClicked
-{
-    if (_isChecked == YES) {
-        
-    }else{
-        
+    if(_applyType==OpenApplyPublic)
+    {
         [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
@@ -457,22 +608,42 @@
         [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
         _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
         _privateBtn.frame = CGRectMake(_privateX + 10, _privateY, 120, 36);
+    }else
+    {
+        [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+        _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+        _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
         
-        _isChecked = YES;
+        [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
+        _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+        _publickBtn.frame = CGRectMake(_publicX + 10, _privateY, 120, 36);
+        
     }
+    
+
+    [self.view addSubview:headerView];
+}
+#pragma mark - Request
+
+
+-(void)publicClicked
+{
+    _applyType = OpenApplyPublic;
+
+   
+    
+ 
+    [self beginApply];
 }
 
 -(void)privateClicked
-{
+{        _applyType = OpenApplyPrivate;
+
     _isChecked = NO;
     
-    [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
-    _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-    _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
-    
-    [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
-    _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-    _publickBtn.frame = CGRectMake(_publicX + 10, _privateY, 120, 36);
+   
+    [self beginApply];
+
 }
 
 -(void)setupNavBar
@@ -804,15 +975,98 @@
 }
 
 #pragma mark - UITableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSInteger section = 1;
+   
+    return section;
+}
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+  
+    if(sexint==102)
+    {
+        
+        
+        return 2;
+
+    }
+
+    else if (sexint==103)
+     {
+        return _applyData.merchantList.count;
+
+    }
+
+    else
+    {
+    
+        return 0;
+
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *cellIdentifier =@"cellIdentifier";
+    
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+    }
+    if(tableView==_terminalTableView)
+    {
+        NSLog(@"%@",_applyData.merchantList);
+        NSArray*arry=[NSArray arrayWithObjects:@"男", @"女",nil];
+        if(sexint==102)
+        {
+            
+            
+            cell.textLabel.text =[arry objectAtIndex:indexPath.row];
+            
+            cell.backgroundColor = kColor(214, 214, 214, 1.0);
+        
+        }else
+        {
+            MerchantModel *model = [_applyData.merchantList objectAtIndex:indexPath.row];
+            cell.textLabel.text = model.merchantName;
+            cell.backgroundColor = kColor(214, 214, 214, 1.0);
+        }
+        
+      
+
+
+    }
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if(tableView==_terminalTableView)
+    {
+        return 0;
+
+    }
+    else
+    {
+    
+        return 1700.0f;
+
+    }
+}
 
 #pragma mark - UIPickerView
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    if (_selectedKey == key_location) {
+    if (_selectedKey == key_location)
+    {
         return 2;
     }
-    else if (_selectedKey == key_sex) {
+    else if (_selectedKey == key_sex)
+    {
         return 1;
     }
     return 0;
