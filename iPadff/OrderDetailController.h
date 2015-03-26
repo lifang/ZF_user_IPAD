@@ -18,5 +18,6 @@ static NSString *RefreshMyOrderListNotification = @"RefreshMyOrderListNotificati
 }
 
 @property (nonatomic, strong) NSString *orderID;
+@property (nonatomic, assign) NSInteger  ordertype;
 
 @end

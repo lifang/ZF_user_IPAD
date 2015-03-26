@@ -71,6 +71,7 @@
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];
     self.naviController.navigationBarHidden = YES;
         [self.window setRootViewController:self.naviController];
+    _haveExit = NO;
     _cityID = @"1";
     AccountModel *account = [AccountTool userModel];
     if (account.password) {
@@ -95,8 +96,12 @@
     self.naviController.navigationBarHidden = YES;
     
     [self.window setRootViewController:self.naviController];
-
+    AddressViewController*add=[[AddressViewController alloc]init];
+    add.hidesBottomBarWhenPushed=YES;
     
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
+
 //    [viewController5 SwitchViewClickedAtIndex:3];
 
 }

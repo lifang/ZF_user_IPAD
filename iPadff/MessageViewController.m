@@ -51,6 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _messageItems = [[NSMutableArray alloc] init];
     _selectedItem = [[NSMutableArray alloc] init];
     self.isAll = NO;
@@ -67,16 +68,30 @@
 {
     [self setRefreshView];
     [self firstLoadData];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
 -(void)ShowLoginVC
 {
     AccountModel *account = [AccountTool userModel];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     NSLog(@"%@",account);
     if (account.password) {
         [self LoginSuccess];
     }
-    else
+    if (delegate.haveExit) {
+        NSLog(@"已退出！");
+        [self LoginSuccess];
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+    else if (account.password == nil)
     {
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;

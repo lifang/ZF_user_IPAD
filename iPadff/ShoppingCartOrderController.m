@@ -876,7 +876,9 @@ if(section==0)
 
 //    AddressViewController*address=[[AddressViewController alloc]init];
 //    [self.navigationController pushViewController:address animated:YES];
-//    
+//
+
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
 
 

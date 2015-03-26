@@ -14,9 +14,11 @@
 #import "TerminalAddViewController.h"
 #import "TerminalManagerModel.h"
 #import "TerminalChildController.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
 
-@interface TerminalViewController ()<terminalCellSendBtnClicked,RefreshDelegate,addTerminal>
+@interface TerminalViewController ()<terminalCellSendBtnClicked,RefreshDelegate,addTerminal,LoginSuccessDelegate>
 
 /***************上下拉刷新**********/
 @property (nonatomic, strong) RefreshView *topRefreshView;
@@ -32,20 +34,58 @@
 
 @property(nonatomic,strong)UIImageView *findPosView;
 
+@property(nonatomic,assign)BOOL isPush;
+
 @end
 
 @implementation TerminalViewController
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self setupNavBar];
+        [self firstLoadData];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)LoginSuccess
+{
+    [self setupNavBar];
+    [self firstLoadData];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_isPush) {
+        [self ShowLoginVC];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _isPush = YES;
     _terminalItems = [[NSMutableArray alloc]init];
-    [self setupNavBar];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupHeaderView];
     [self setRefreshView];
-    [self firstLoadData];
 }
 
--(void)initFindPosViewWithSelectedID:(NSString *)selectedID
+-(void)initFindPosViewWithSelectedID:(NSString *)selectedID WithIndexNum:(int)indexP
 {
     CGFloat width;
     CGFloat height;
@@ -59,8 +99,12 @@
         width = SCREEN_WIDTH;
         height = SCREEN_HEIGHT;
     }
-    _findPosView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
-    [self.view addSubview:_findPosView];
+    NSLog(@"~~~~~~~~~~~~第%d行",indexP);
+    _findPosView = [[UIImageView alloc]init];
+    
+    _findPosView.frame = CGRectMake(0, 0, width, height);
+    
+    [self.view.window addSubview:_findPosView];
     _findPosView.image=[UIImage imageNamed:@"backimage"];
     _findPosView.userInteractionEnabled=YES;
     
@@ -97,7 +141,6 @@
     UILabel *passwordLabel = [[UILabel alloc]init];
     passwordLabel.textColor = kColor(132, 132, 132, 1.0);
     passwordLabel.font = [UIFont systemFontOfSize:20];
-    NSLog(@"点了第%@个ID",selectedID);
     passwordLabel.text = @"asdasdas";
     passwordLabel.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
     [whiteView addSubview:passwordLabel];
@@ -335,6 +378,7 @@
         cell.terminalLabel.text = model.TM_serialNumber;
         cell.posLabel.text = model.TM_brandsName;
         cell.payRoad.text = model.TM_channelName;
+        cell.indexNum = indexPath.row;
         if ([model.TM_status isEqualToString:@"1"]) {
             cell.dredgeStatus.text = @"已开通";
             cell.cellStates = @"已开通";
@@ -361,11 +405,11 @@
 
 
 #pragma mark terminalCell的代理
--(void)terminalCellBtnClicked:(int)btnTag WithSelectedID:(NSString *)selectedID
+-(void)terminalCellBtnClicked:(int)btnTag WithSelectedID:(NSString *)selectedID Withindex:(int)indexNum
 {
     if (btnTag == 1000) {
         NSLog(@"点击了找回POS密码 信息ID为%@",selectedID);
-        [self initFindPosViewWithSelectedID:selectedID];
+        [self initFindPosViewWithSelectedID:selectedID WithIndexNum:indexNum];
     }
     if (btnTag == 1001) {
         NSLog(@"点击了视频认证(已开通)");
@@ -405,6 +449,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.isPush = NO;
     TerminalChildController *terminalChildV = [[TerminalChildController alloc]init];
     terminalChildV.hidesBottomBarWhenPushed = YES;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];

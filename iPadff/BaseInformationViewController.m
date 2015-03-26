@@ -848,6 +848,7 @@
 {
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     [delegate clearLoginInfo];
+    delegate.haveExit = YES;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

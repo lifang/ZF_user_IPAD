@@ -24,6 +24,7 @@
 #endif
 @interface ZYCustomTabBarViewController()
 @property(nonatomic,strong)UIImageView *backView;
+@property(nonatomic,strong)UISwitch *noticeSwitch;
 - (void)test;
 @end
 
@@ -660,6 +661,27 @@ if(iOS7)
     clearMemory.frame = CGRectMake(50, CGRectGetMaxY(line3.frame) + 20, 200, 40);
     [whiteView addSubview:clearMemory];
     
+    _noticeSwitch = [[UISwitch alloc]init];
+    _noticeSwitch.backgroundColor = [UIColor clearColor];
+    _noticeSwitch.onTintColor = [UIColor orangeColor];
+    _noticeSwitch.frame = CGRectMake(CGRectGetMaxX(getNews.frame) + 50, CGRectGetMaxY(line.frame) + 24, 85, 50);
+    [_noticeSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+    [whiteView addSubview:_noticeSwitch];
+    
+    UILabel *versionsLabel = [[UILabel alloc]init];
+    versionsLabel.textColor = kColor(156, 155, 154, 1.0);
+    versionsLabel.font = [UIFont systemFontOfSize:20];
+    versionsLabel.text = @"V1.0.1";
+    versionsLabel.frame = CGRectMake(CGRectGetMaxX(getNews.frame) + 50, CGRectGetMaxY(line2.frame) + 15, 85, 50);
+    [whiteView addSubview:versionsLabel];
+    
+    UILabel *memoryLabel = [[UILabel alloc]init];
+    memoryLabel.textColor = kColor(156, 155, 154, 1.0);
+    memoryLabel.font = [UIFont systemFontOfSize:20];
+    memoryLabel.text = @"200M";
+    memoryLabel.frame = CGRectMake(CGRectGetMaxX(getNews.frame) + 50, CGRectGetMaxY(line3.frame) + 15, 85, 50);
+    [whiteView addSubview:memoryLabel];
+    
 }
 
 -(void)cancelClicked
@@ -667,5 +689,13 @@ if(iOS7)
     [_backView removeFromSuperview];
 }
 
-
+-(void)switchAction:(id)sender
+{
+    UISwitch *switchV = sender;
+    if (switchV.isOn) {
+        NSLog(@"开!");
+    }else{
+        NSLog(@"关!");
+    }
+}
 @end

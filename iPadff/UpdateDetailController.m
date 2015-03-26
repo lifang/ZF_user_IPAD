@@ -429,7 +429,7 @@
         case CSStatusFirst: {
             //待处理
             UIButton *cancelBtn = [self buttonWithTitle:@"取消申请" Andpositon:OperationBtnQuxiao Andaction:@selector(cancelApply:)];
-            [self layoutButton:cancelBtn position:OperationBtnFirst];
+            [self layoutButton:cancelBtn position:OperationBtnSecond];
         }
             break;
         case CSStatusSecond:

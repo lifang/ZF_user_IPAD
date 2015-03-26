@@ -37,12 +37,6 @@
         _tradeTimeLabel.font = mainFont;
         [self addSubview:_tradeTimeLabel];
         
-        _moneyLabel = [[UILabel alloc]init];
-        _moneyLabel.textAlignment = NSTextAlignmentCenter;
-        _moneyLabel.textColor = mainColor;
-        _moneyLabel.font = mainFont;
-        [self addSubview:_moneyLabel];
-        
         _intergralLabel = [[UILabel alloc]init];
         _intergralLabel.textAlignment = NSTextAlignmentCenter;
         _intergralLabel.textColor = mainColor;
@@ -60,8 +54,7 @@
             self.backgroundColor = kColor(228, 228, 228, 1.0);
             _orderNumLabel.text = @"订单单号";
             _tradeTimeLabel.text = @"交易时间";
-            _moneyLabel.text = @"实付金额";
-            _intergralLabel.text = @"获得积分";
+            _intergralLabel.text = @"获得/使用积分";
             _intergralType.text = @"积分类型";
             _lineView.hidden = YES;
         }
@@ -82,10 +75,9 @@
     }
     
     _orderNumLabel.frame = CGRectMake(20, mainY, 160, mainHeight);
-    _tradeTimeLabel.frame = CGRectMake(CGRectGetMaxX(_orderNumLabel.frame), mainY, 200, mainHeight);
-    _moneyLabel.frame = CGRectMake(CGRectGetMaxX(_tradeTimeLabel.frame), mainY, 130, mainHeight);
-    _intergralLabel.frame = CGRectMake(CGRectGetMaxX(_moneyLabel.frame), mainY, 120, mainHeight);
-    _intergralType.frame = CGRectMake(CGRectGetMaxX(_intergralLabel.frame), mainY, 120, mainHeight);
+    _tradeTimeLabel.frame = CGRectMake(CGRectGetMaxX(_orderNumLabel.frame) + 50, mainY, 200, mainHeight);
+    _intergralLabel.frame = CGRectMake(CGRectGetMaxX(_tradeTimeLabel.frame) + 50, mainY, 120, mainHeight);
+    _intergralType.frame = CGRectMake(CGRectGetMaxX(_intergralLabel.frame) + 50, mainY, 120, mainHeight);
     
     
 }
