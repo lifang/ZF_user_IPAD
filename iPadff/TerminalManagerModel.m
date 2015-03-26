@@ -15,7 +15,7 @@
         _TM_ID = [NSString stringWithFormat:@"%@",[dict objectForKey:@"id"]];
         _TM_status = [NSString stringWithFormat:@"%@",[dict objectForKey:@"status"]];
         _TM_serialNumber = [NSString stringWithFormat:@"%@",[dict objectForKey:@"serial_num"]];
-        _TM_brandsName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"brandsName"]];
+        _TM_brandsName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"brandName"]];
         _TM_channelName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"channelName"]];
     }
     return self;

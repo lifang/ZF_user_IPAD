@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "ApplyOpenModel.h"
 #import "CityHandle.h"
+#import "ChannelSelectedController.h"
 
 #define kTextViewTag   111
 
@@ -36,10 +37,11 @@
 
 @end
 
-@interface ApplyDetailController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+@interface ApplyDetailController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,ChannelSelectedDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
+@property(nonatomic,strong)NSString *startTime;
 
 @property (nonatomic, assign) OpenApplyType applyType;  //对公 对私
 
@@ -87,7 +89,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
-    
+     keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankID",@"key_bankAccount",@"key_taxID",@"key_organID",@"key_channel", nil];
     // Do any additional setup after loading the view.
     self.title = @"开通申请";
     _applyType = OpenApplyPublic;
@@ -129,11 +131,45 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(sexint==102)
+    {
+        
+        [_infoDict setObject:[NSString stringWithFormat:@"%d",indexPath.row] forKey:key_sex];
+        NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:key_sex]];
+
+        if([accountname isEqualToString:@"0"])
+        {
+            [_cityField setTitle:@"女" forState:UIControlStateNormal];
+            
+            
+        }else
+        {
+            
+            [_cityField setTitle:@"男" forState:UIControlStateNormal];
+            
+            
+        }
+       
+        
+    }
+    else
+    {
+        MerchantModel *model = [_applyData.merchantList objectAtIndex:indexPath.row];
+        
+        [_infoDict setObject:model.merchantName forKey:key_selected];
+        
+        
+        [self beginApply];
+
+    }
+    
+
     //终端选择跳转
     if (tableView==_terminalTableView) {
         
         [_terminalTableView removeFromSuperview];
     }
+    
     }
 
 - (void)didReceiveMemoryWarning {
@@ -218,7 +254,9 @@
     accountnamebutton= [UIButton buttonWithType:UIButtonTypeCustom];
     accountnamebutton.frame = CGRectMake(150+wide/2,  topSpace + labelHeight * 2,280, 40);
     
-    //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
+    NSString*accountname=[_infoDict objectForKey:key_selected];
+
+          [accountnamebutton setTitle:accountname forState:UIControlStateNormal];
     [accountnamebutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     accountnamebutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [accountnamebutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
@@ -232,7 +270,7 @@
     [layer setBorderWidth:1];
     //设置边框线的颜色
     [layer setBorderColor:[[UIColor grayColor] CGColor]];
-    accountnamebutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+    accountnamebutton.contentEdgeInsets = UIEdgeInsetsMake(0,5, 0,0);
     accountnamebutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
     
     
@@ -244,7 +282,7 @@
     UILabel*firestline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, topSpace + labelHeight * 4+30, wide - 138, 1)];
     firestline.backgroundColor = [UIColor grayColor];
     [_scrollView addSubview:firestline];
-    
+
     
     for(int i=0;i<namesarry.count;i++)
     {
@@ -270,7 +308,21 @@
         {
              _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
             _cityField.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+            
+if([accountname isEqualToString:@"0"])
+{
+    [_cityField setTitle:@"女" forState:UIControlStateNormal];
+
+
+}else
+{
+
+    [_cityField setTitle:@"男" forState:UIControlStateNormal];
+
+
+}
+    
             [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
@@ -293,13 +345,15 @@
         }
         else if(i==3)
         {
-            UIButton* _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
-            _cityField.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
-            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[_cityField  layer];
+           birthdaybutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            birthdaybutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+
+              [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
+            [birthdaybutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            birthdaybutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [birthdaybutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[birthdaybutton  layer];
             //是否设置边框以及是否可见
             [layer setMasksToBounds:YES];
             //设置边框圆角的弧度
@@ -309,22 +363,53 @@
             [layer setBorderWidth:1];
             //设置边框线的颜色
             [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            birthdaybutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            birthdaybutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
             
-            [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:_cityField];
+            [birthdaybutton addTarget:self action:@selector(birthdaybuttonclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:birthdaybutton];
         }
+        else if(i==7)
+        {
+            locationbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            locationbutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+            
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+
+            [locationbutton setTitle:accountname forState:UIControlStateNormal];
+            [locationbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            locationbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [locationbutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[locationbutton  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            locationbutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            locationbutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            
+            
+            [locationbutton addTarget:self action:@selector(locationbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:locationbutton];
+        }
+
         else if(i==13)
         {
-            UIButton* _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
-            _cityField.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
-            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[_cityField  layer];
+            UIButton* zhifubutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+
+            [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+            [zhifubutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            zhifubutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [zhifubutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[zhifubutton  layer];
             //是否设置边框以及是否可见
             [layer setMasksToBounds:YES];
             //设置边框圆角的弧度
@@ -334,18 +419,22 @@
             [layer setBorderWidth:1];
             //设置边框线的颜色
             [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            zhifubutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            zhifubutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
             
-            [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:_cityField];
+            [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:zhifubutton];
         }
 
         else
         {
             UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40)];
+            neworiginaltextfield.delegate=self;
+            
             neworiginaltextfield.tag=i+1056;
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+            neworiginaltextfield.text=[NSString stringWithFormat:@"%@",accountname];
             
             [_scrollView addSubview:neworiginaltextfield];
             //        neworiginaltextfield.delegate=self;
@@ -377,7 +466,6 @@
         
     }
     
-    NSLog(@"%d",_applyData.materialList.count);
     
     
     UILabel*twoline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18,  4*70+topSpace + labelHeight *5+10, wide - 138, 1)];
@@ -422,14 +510,14 @@
             newaddress.text=model.materialName;
             
             
-            UIButton* _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
-            _cityField.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
+            UIButton* blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            blankbutton.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
             
             //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
-            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[_cityField  layer];
+            [blankbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            blankbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [blankbutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[blankbutton  layer];
             //是否设置边框以及是否可见
             [layer setMasksToBounds:YES];
             //设置边框圆角的弧度
@@ -439,12 +527,12 @@
             [layer setBorderWidth:1];
             //设置边框线的颜色
             [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            blankbutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            blankbutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
             
-            [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:_cityField];
+            [blankbutton addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:blankbutton];
 
             
                    }
@@ -543,6 +631,44 @@
 
     
 }
+#pragma mark - 点击事件
+
+-(void)zhifuclick
+{
+
+    //选择支付通道
+    ChannelSelectedController *channelC = [[ChannelSelectedController alloc] init];
+    channelC.delegate = self;
+    channelC.hidesBottomBarWhenPushed = YES;
+
+    [self.navigationController pushViewController:channelC animated:YES];
+
+
+
+}
+//选择所在地
+
+-(void)locationbuttonclick
+{
+
+    _selectedKey = key_location;
+    
+    [self pickerScrollIn];
+
+
+}
+//选择生日
+
+-(void)birthdaybuttonclick
+{
+
+
+    [self setupStartDate ];
+    
+
+}
+//性别
+
 -(void)sexclick
 {
     sexint=102;
@@ -688,11 +814,7 @@
     _pickerView.dataSource = self;
     [self.view addSubview:_pickerView];
     
-    _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 216)];
-    _datePicker.backgroundColor = kColor(244, 243, 243, 1);
-    [_datePicker addTarget:self action:@selector(timeChanged:) forControlEvents:UIControlEventValueChanged];
-    _datePicker.datePickerMode = UIDatePickerModeDate;
-    [self.view addSubview:self.datePicker];
+   
 }
 
 - (void)setTextFieldAttr:(InputTextField *)textField {
@@ -784,14 +906,14 @@
     
     ApplyOpenModel *model = [[ApplyOpenModel alloc] initWithParseDictionary:applyDict];
     _applyData = model;
+    [self setPrimaryData];
+
     [self initAndLayoutUI];
 
     _brandLabel.text = [NSString stringWithFormat:@"POS品牌   %@",_applyData.brandName];
     _modelLabel.text = [NSString stringWithFormat:@"POS型号   %@",_applyData.modelNumber];
     _terminalLabel.text = [NSString stringWithFormat:@"终  端  号   %@",_applyData.terminalNumber];
     _channelLabel.text = [NSString stringWithFormat:@"支付通道   %@",_applyData.channelName];
-    [self setPrimaryData];
-    [_tableView reloadData];
 }
 
 //保存获取的内容
@@ -837,6 +959,8 @@
     }
     [_infoDict setObject:[NSNumber numberWithInt:_applyData.sex] forKey:key_sex];
     _merchantID = _applyData.merchantID;
+    [_tableView reloadData];
+
 }
 
 //根据对公对私材料的id找到是否已经提交过材料
@@ -1020,7 +1144,7 @@
     if(tableView==_terminalTableView)
     {
         NSLog(@"%@",_applyData.merchantList);
-        NSArray*arry=[NSArray arrayWithObjects:@"男", @"女",nil];
+        NSArray*arry=[NSArray arrayWithObjects:@"女", @"男",nil];
         if(sexint==102)
         {
             
@@ -1057,6 +1181,72 @@
 
     }
 }
+//创建开始日期选择器
+-(void)setupStartDate
+{
+   datePicker = [[UIDatePicker alloc]init];
+    datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    datePicker.frame = CGRectMake( birthdaybutton.frame.origin.x , birthdaybutton.frame.origin.y+birthdaybutton.frame.size.height, birthdaybutton.frame.size.width , 160);
+    
+    
+    
+    
+    [datePicker addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
+  makeSureBtn = [[UIButton alloc]init];
+    makeSureBtn.tag = 1112;
+    [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
+    [makeSureBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
+    [makeSureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
+    makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
+    [_scrollView addSubview:makeSureBtn];
+    [_scrollView addSubview:datePicker];
+}
+-(void)makeSureClick:(UIButton *)button
+{
+        [makeSureBtn removeFromSuperview];
+        [datePicker removeFromSuperview];
+        [self startPick];
+    
+    [_infoDict setObject: self.startTime forKey:key_birth];
+    NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:key_birth]];
+    
+ 
+        [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
+        
+  
+
+
+}
+
+-(void)startPick
+{
+    self.startTime = [self stringFromDate:datePicker.date];
+    
+    NSLog(@"%@",self.startTime);
+    
+}
+
+//将日期转化成字符串yyyy-MM-dd格式
+- (NSString *)stringFromDate:(NSDate *)date {
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"yyyy-MM-dd"];
+    NSString *dateString = [format stringFromDate:date];
+    if ([dateString length] >= 10) {
+        return [dateString substringToIndex:10];
+    }
+    return dateString;
+}
+
+//将yyyy-MM-dd格式字符串转化成日期
+- (NSDate *)dateFromString:(NSString *)string {
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"yyyy-MM-dd"];
+    return [format dateFromString:string];
+}
+
 
 #pragma mark - UIPickerView
 
@@ -1131,6 +1321,22 @@
 #pragma mark - UIPickerView
 
 - (void)pickerScrollIn {
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     if ([_selectedKey isEqualToString:key_location]) {
         [_pickerView reloadAllComponents];
         NSString *cityID = [_infoDict objectForKey:key_location];
@@ -1138,17 +1344,17 @@
         [_pickerView reloadAllComponents];
         [_pickerView selectRow:[CityHandle getCityIndexWithCityID:cityID] inComponent:1 animated:NO];
         [UIView animateWithDuration:.3f animations:^{
-            _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
-            _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
-            _datePicker.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
+            _toolbar.frame = CGRectMake(0, height - 260, wide, 44);
+            _pickerView.frame = CGRectMake(0, height - 216, wide, 216);
+            _datePicker.frame = CGRectMake(0, height, wide, 216);
         }];
     }
     else if ([_selectedKey isEqualToString:key_sex]) {
         [_pickerView reloadAllComponents];
         [UIView animateWithDuration:.3f animations:^{
-            _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
-            _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
-            _datePicker.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
+            _toolbar.frame = CGRectMake(0, height - 260, wide, 44);
+            _pickerView.frame = CGRectMake(0, height - 216, wide, 216);
+            _datePicker.frame = CGRectMake(0, height, wide, 216);
         }];
     }
     else if ([_selectedKey isEqualToString:key_birth]) {
@@ -1163,9 +1369,9 @@
             [self timeChanged:nil];
         }
         [UIView animateWithDuration:.3f animations:^{
-            _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
-            _datePicker.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
-            _pickerView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
+            _toolbar.frame = CGRectMake(0, height - 260, wide, 44);
+            _datePicker.frame = CGRectMake(0, height - 216, wide, 216);
+            _pickerView.frame = CGRectMake(0, height, wide, 216);
         }];
     }
 }
@@ -1412,10 +1618,22 @@
     [self pickerScrollOut];
 }
 
-- (void)textFieldDidEndEditing:(InputTextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField.text && ![textField.text isEqualToString:@""]) {
-        [_infoDict setObject:textField.text forKey:textField.key];
+        
+        
+        [_infoDict setObject:textField.text forKey:[keynamesarry objectAtIndex:textField.tag-1056]];
     }
+    
+}
+#pragma mark - ChannelSelectedDelegate
+
+- (void)getChannelList:(ChannelListModel *)model billModel:(BillingModel *)billModel {
+    NSString *channelInfo = [NSString stringWithFormat:@"%@ %@",model.channelName,billModel.billName];
+    [_infoDict setObject:channelInfo forKey:key_channel];
+    _channelID = model.channelID;
+    _billID = billModel.billID;
+    [_tableView reloadData];
 }
 
 @end

@@ -45,6 +45,8 @@
 		0EC7B9E01AC3935000080E2A /* NetworkInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DB1AC3935000080E2A /* NetworkInterface.m */; };
 		0EC7B9E11AC3935000080E2A /* NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DD1AC3935000080E2A /* NetworkRequest.m */; };
 		0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DF1AC3935000080E2A /* EncryptHelper.m */; };
+		0EC7B9E51AC3B45900080E2A /* ChannelSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9E41AC3B45900080E2A /* ChannelSelectedController.m */; };
+		0EC7B9E81AC3B48200080E2A /* ChannelListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */; };
 		0EC8D60A1AAE7E43003661C5 /* ShoppingCartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */; };
 		0EC8D60D1AAE7FA4003661C5 /* ShoppingCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60C1AAE7FA4003661C5 /* ShoppingCartModel.m */; };
 		0EC8D6101AAE800A003661C5 /* ShoppingCartFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60F1AAE800A003661C5 /* ShoppingCartFooterView.m */; };
@@ -359,6 +361,10 @@
 		0EC7B9DD1AC3935000080E2A /* NetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkRequest.m; sourceTree = "<group>"; };
 		0EC7B9DE1AC3935000080E2A /* EncryptHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptHelper.h; sourceTree = "<group>"; };
 		0EC7B9DF1AC3935000080E2A /* EncryptHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptHelper.m; sourceTree = "<group>"; };
+		0EC7B9E31AC3B45900080E2A /* ChannelSelectedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelSelectedController.h; sourceTree = "<group>"; };
+		0EC7B9E41AC3B45900080E2A /* ChannelSelectedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelSelectedController.m; sourceTree = "<group>"; };
+		0EC7B9E61AC3B48200080E2A /* ChannelListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelListModel.h; sourceTree = "<group>"; };
+		0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelListModel.m; sourceTree = "<group>"; };
 		0EC8D6081AAE7E43003661C5 /* ShoppingCartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartCell.h; sourceTree = "<group>"; };
 		0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartCell.m; sourceTree = "<group>"; };
 		0EC8D60B1AAE7FA4003661C5 /* ShoppingCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartModel.h; sourceTree = "<group>"; };
@@ -941,6 +947,8 @@
 		0ECE7DA21AA5587A00E250B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0EC7B9E61AC3B48200080E2A /* ChannelListModel.h */,
+				0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */,
 				0ECD61571AC175B00014BDE8 /* MerchantDetailModel.h */,
 				0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */,
 				0ECD61511AC159070014BDE8 /* ApplyOpenModel.h */,
@@ -1444,6 +1452,8 @@
 				0ECD61551AC173BA0014BDE8 /* ApplyDetailController.m */,
 				1A65164A1AA6F42E008223BD /* ApplicationViewController.h */,
 				1A65164B1AA6F42E008223BD /* ApplicationViewController.m */,
+				0EC7B9E31AC3B45900080E2A /* ChannelSelectedController.h */,
+				0EC7B9E41AC3B45900080E2A /* ChannelSelectedController.m */,
 			);
 			name = DredgeV;
 			sourceTree = "<group>";
@@ -1716,6 +1726,7 @@
 				TargetAttributes = {
 					0ED065A41A9EE397005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 63FVWL9TD6;
 					};
 					0ED065BD1A9EE398005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1841,6 +1852,7 @@
 				0D3887301AB96F98000DF1D6 /* HexColor.m in Sources */,
 				1ADD1EC81AB6A5610014E528 /* CustomerServiceHandle.m in Sources */,
 				0D714C641AB2ECFC007FF2C5 /* MerchantImageLoadViewController.m in Sources */,
+				0EC7B9E81AC3B48200080E2A /* ChannelListModel.m in Sources */,
 				1A6516491AA6E6F0008223BD /* DredgeViewCell.m in Sources */,
 				1ADD1EDD1AB6C9360014E528 /* RentDetailController.m in Sources */,
 				1A94FA1C1AC11212006D8FF7 /* SystemNoticeChildController.m in Sources */,
@@ -1930,6 +1942,7 @@
 				0ED8EBE61AA6D7E000CE9F61 /* UIScrollView+MJRefresh.m in Sources */,
 				1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */,
 				1A8E7C721AB16AB700C021CE /* RentBackCell.m in Sources */,
+				0EC7B9E51AC3B45900080E2A /* ChannelSelectedController.m in Sources */,
 				0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */,
 				0ECA6D3B1ABC29E8005316B1 /* PollingView.m in Sources */,
 				1A81ACF21AAE7F2D003CB96C /* RecordView.m in Sources */,
@@ -2153,6 +2166,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -2167,6 +2182,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
