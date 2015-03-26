@@ -20,6 +20,8 @@
 #import "RefreshView.h"
 #import "TradeModel.h"
 #import "DealRoadDetailController.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
 typedef enum {
     TimeStart = 0,
@@ -28,7 +30,7 @@ typedef enum {
 
 static NSString *s_defaultTerminalNum = @"请选择终端号";
 
-@interface DealRoadController ()<UITextFieldDelegate,RefreshDelegate>
+@interface DealRoadController ()<UITextFieldDelegate,RefreshDelegate,LoginSuccessDelegate>
 
 /** 顶部五个Button */
 @property(nonatomic,strong)UIButton *publickBtn;
@@ -85,7 +87,41 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 @end
 
 @implementation DealRoadController
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self LoginSuccess];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
 
+-(void)LoginSuccess
+{
+    //创建头部View
+    [self setupHeaderView];
+    //获取所有的终端号数据
+    [self getAllTerminalList];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
+}
 //选择终端tableView懒加载
 -(UITableView *)terminalTableView
 {
@@ -101,16 +137,13 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //初始化数据
     self.buttonIndex = 1;
-    _terminalItems = [NSMutableArray array];
-    _tradeRecords = [NSMutableArray array];
     //创建导航栏
     [self setupNavBar];
-    //创建头部View
-    [self setupHeaderView];
-    //获取所有的终端号数据
-    [self getAllTerminalList];
+    _terminalItems = [NSMutableArray array];
+    _tradeRecords = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,6 +181,9 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 {
     self.title = @"交易流水";
     self.view.backgroundColor = [UIColor whiteColor];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
     
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);
@@ -716,7 +752,8 @@ else
             cell.payLabel.text = model.payFromAccount;
             cell.getLabel.text = model.payIntoAccount;
             cell.terminalLabel.text = model.terminalNumber;
-            cell.dealMoney.text = model.amount;
+            int money = [model.amount intValue];
+            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -729,7 +766,8 @@ else
             cell.payLabel.text = model.payFromAccount;
             cell.payToLabel.text = model.payIntoAccount;
             cell.terminalLabel.text = model.terminalNumber;
-            cell.dealMoney.text = model.amount;
+            int money = [model.amount intValue];
+            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -741,7 +779,8 @@ else
             cell.usernameLabel.text = model.accountName;
             cell.useraccountLabel.text = model.accountNumber;
             cell.terminalLabel.text = model.terminalNumber;
-            cell.dealMoney.text = model.amount;
+            int money = [model.amount intValue];
+            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -752,7 +791,8 @@ else
             cell.timeLabel.text = model.tradeTime;
             cell.phoneNumLabel.text = model.phoneNumber;
             cell.terminalLabel.text = model.terminalNumber;
-            cell.dealMoney.text = model.amount;
+            int money = [model.amount intValue];
+            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -765,7 +805,8 @@ else
             cell.settleLabel.text = model.payedTime;
             cell.poundageLabel.text = model.poundage;
             cell.terminalLabel.text = model.terminalNumber;
-            cell.dealMoney.text = model.amount;
+            int money = [model.amount intValue];
+            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;

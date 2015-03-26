@@ -41,7 +41,7 @@
     [loginView addSubview:exitImage];
     UILabel *loginLabel = [[UILabel alloc]initWithFrame:CGRectMake(loginView.frame.size.width * 0.5 - 20, 10, 50, 40)];
     loginLabel.font = [UIFont boldSystemFontOfSize:22];
-    loginLabel.text = @"登陆";
+    loginLabel.text = @"登录";
     [loginView addSubview:loginLabel];
     UIView *line = [[UIView alloc]init];
     line.frame = CGRectMake(0, CGRectGetMaxY(loginLabel.frame)+ 10, loginView.frame.size.width, 1);
@@ -96,7 +96,7 @@
     UIButton *loginBtn = [[UIButton alloc]init];
     [loginBtn addTarget:self action:@selector(loginClick:) forControlEvents:UIControlEventTouchUpInside];
     [loginBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
-    [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.titleLabel.tintColor = [UIColor whiteColor];
     loginBtn.frame = CGRectMake(_userField.frame.origin.x, CGRectGetMaxY(_passwordField.frame) + 30, _userField.frame.size.width, userImage.frame.size.height);
     [loginView addSubview:loginBtn];

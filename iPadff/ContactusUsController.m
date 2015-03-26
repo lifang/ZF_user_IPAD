@@ -9,8 +9,11 @@
 #import "ContactusUsController.h"
 #import "NetworkInterface.h"
 #import "HHZTextView.h"
+#import "RegularFormat.h"
+#import "AccountTool.h"
+#import "LoginViewController.h"
 
-@interface ContactusUsController ()<UITextFieldDelegate,UITextViewDelegate>
+@interface ContactusUsController ()<UITextFieldDelegate,UITextViewDelegate,LoginSuccessDelegate>
 
 @property(nonatomic,strong)UITextField *nameField;
 
@@ -218,7 +221,7 @@
     
     UIImageView *tinyImage = [[UIImageView alloc]init];
     tinyImage.translatesAutoresizingMaskIntoConstraints = NO;
-    tinyImage.backgroundColor = [UIColor cyanColor];
+    tinyImage.image = kImageName(@"erweima");
     [self.view addSubview:tinyImage];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tinyImage
                                                           attribute:NSLayoutAttributeTop
@@ -226,7 +229,7 @@
                                                              toItem:tinyMessageLabel
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
-                                                           constant:20.f]];
+                                                           constant:10.f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tinyImage
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
@@ -497,12 +500,104 @@
     
 }
 
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self submitQuestion];
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)LoginSuccess
+{
+    [self submitQuestion];
+}
+
 
 #pragma mark - Action
 -(IBAction)submitClicked:(id)sender
 {
-    NSLog(@"点击了提交！");
+    if (!_nameField.text || [_nameField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写姓名";
+        return;
+    }
+    if (!_telField.text || [_telField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写联系方式";
+        return;
+    }
+    if (!([RegularFormat isMobileNumber:_telField.text] || [RegularFormat isTelephoneNumber:_telField.text])) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的联系方式";
+        return;
+    }
+    if (!_contentTextView.text || [_contentTextView.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请输入内容";
+        return;
+    }
+
+    [self ShowLoginVC];
 }
+
+#pragma mark - Request
+-(void)submitQuestion
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    [NetworkInterface sendBuyIntentionWithName:_nameField.text phoneNumber:_telField.text content:_contentTextView.text finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    hud.labelText = @"提交成功";
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
 
 
 //处理键盘
@@ -513,7 +608,7 @@
     range.length = 0;
     textView.selectedRange = range;
     
-    CGRect frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y + 330, textView.frame.size.width, textView.frame.size.height);
+    CGRect frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y + 350, textView.frame.size.width, textView.frame.size.height);
     NSLog(@"%@",NSStringFromCGRect(frame));
     int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
     NSTimeInterval animationDuration = 0.30f;
@@ -528,7 +623,7 @@
 
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
-    self.view.frame =CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height);
+    self.view.frame =CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 @end

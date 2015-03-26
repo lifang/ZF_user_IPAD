@@ -100,13 +100,13 @@
     if ([_reuseIdentifiers isEqualToString:@"AddressCell2"]) {
         mainY = 10.f;
     }
-    _consigneeLabel.frame = CGRectMake(20, mainY, 60, 30);
+    _consigneeLabel.frame = CGRectMake(20, mainY, 120, 30);
     
-    _areaLabel.frame = CGRectMake(CGRectGetMaxX(_consigneeLabel.frame) + 10, mainY, 140, mainHeight);
+    _areaLabel.frame = CGRectMake(CGRectGetMaxX(_consigneeLabel.frame) + 10, mainY, 100, mainHeight);
     
     _particularAddressLabel.frame = CGRectMake(CGRectGetMaxX(_areaLabel.frame), mainY, 200, mainHeight);
     
-    _postcodeLabel.frame = CGRectMake(CGRectGetMaxX(_particularAddressLabel.frame), mainY, 100, mainHeight);
+    _postcodeLabel.frame = CGRectMake(CGRectGetMaxX(_particularAddressLabel.frame) - 30, mainY, 100, mainHeight);
     
     _telLabel.frame = CGRectMake(CGRectGetMaxX(_postcodeLabel.frame), mainY, 140, mainHeight);
     

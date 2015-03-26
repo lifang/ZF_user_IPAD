@@ -258,6 +258,8 @@
 		1AA8FF7A1AA4074D009D41B3 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF6B1AA4074D009D41B3 /* UIImageView+WebCache.m */; };
 		1AA8FF7B1AA4074D009D41B3 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF6D1AA4074D009D41B3 /* UIView+WebCacheOperation.m */; };
 		1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF851AA41D67009D41B3 /* LoginViewController.m */; };
+		1AC6A2CD1AC3A83500685FC9 /* CustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CB1AC3A83500685FC9 /* CustomSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1AC6A2CE1AC3A83500685FC9 /* CustomSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */; };
 		1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */; };
 		1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F94A1AA5CB3E00C99F5C /* MessageChildViewController.m */; };
 		1ADA04141AB28B600074A58B /* CustomerServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA04131AB28B600074A58B /* CustomerServiceModel.m */; };
@@ -735,6 +737,9 @@
 		1AA8FF6D1AA4074D009D41B3 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		1AA8FF841AA41D67009D41B3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1AA8FF851AA41D67009D41B3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1AC6A2CA1AC3A83500685FC9 /* CustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSwitch.h; sourceTree = "<group>"; };
+		1AC6A2CB1AC3A83500685FC9 /* CustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSwitch.m; sourceTree = "<group>"; };
+		1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSwitch.xib; sourceTree = "<group>"; };
 		1AC7F9461AA5BEB400C99F5C /* MessageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewCell.h; sourceTree = "<group>"; };
 		1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewCell.m; sourceTree = "<group>"; };
 		1AC7F9491AA5CB3E00C99F5C /* MessageChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageChildViewController.h; sourceTree = "<group>"; };
@@ -1344,6 +1349,9 @@
 		0ED6AD0C1AA1911F00D3B025 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				1AC6A2CA1AC3A83500685FC9 /* CustomSwitch.h */,
+				1AC6A2CB1AC3A83500685FC9 /* CustomSwitch.m */,
+				1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */,
 				1A94FA211AC14A5C006D8FF7 /* HHZTextView.h */,
 				1A94FA221AC14A5C006D8FF7 /* HHZTextView.m */,
 				0ECB49341ABFBB330064A9FD /* FormView.h */,
@@ -1771,6 +1779,7 @@
 				0ED6AD021AA16EEA00D3B025 /* shopping_nomal.png in Resources */,
 				0ED6AD321AA19BC800D3B025 /* home7.png in Resources */,
 				0ED6AD2F1AA19BC800D3B025 /* home4.png in Resources */,
+				1AC6A2CE1AC3A83500685FC9 /* CustomSwitch.xib in Resources */,
 				0EE52A051AB6B9F700E5DE9C /* toptouming.png in Resources */,
 				0EC91B401ABA905700947B4F /* pagL.png in Resources */,
 				0EC99A371AB2AA5A00F5F204 /* city.png in Resources */,
@@ -2012,6 +2021,7 @@
 				1A8E7C661AB1632400C021CE /* CancelCell.m in Sources */,
 				1ADD1EDA1AB6C92E0014E528 /* UpdateDetailController.m in Sources */,
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
+				1AC6A2CD1AC3A83500685FC9 /* CustomSwitch.m in Sources */,
 				0ECA6D411ABC32B3005316B1 /* ShoppingCartController.m in Sources */,
 				1ADD1EBC1AB685B60014E528 /* SubmitLogisticsController.m in Sources */,
 				1A4258611AB008F900F470C9 /* MineCommonController.m in Sources */,

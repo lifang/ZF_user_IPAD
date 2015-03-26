@@ -247,13 +247,13 @@
     [okButton addTarget:self action:@selector(cancelclick) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:okButton];
     
-    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(0, 10,width/2, 30)];
+    UILabel *newaddress=[[UILabel alloc]initWithFrame:CGRectMake(0, 10,width/2, 30)];
     [backView addSubview:newaddress];
     newaddress.textAlignment = NSTextAlignmentCenter;
     newaddress.text=@"积分兑换";
     newaddress .font = [UIFont boldSystemFontOfSize:22.f];
     
-    UIView*lineview=[[UIView alloc]initWithFrame:CGRectMake(0, 50, width/2, 1)];
+    UIView *lineview=[[UIView alloc]initWithFrame:CGRectMake(0, 50, width/2, 1)];
     lineview.backgroundColor=[UIColor grayColor];
     [backView addSubview:lineview];
     
@@ -468,8 +468,6 @@
         ScoreModel *model = [_scoreItems objectAtIndex:indexPath.row];
         cell.orderNumLabel.text = model.orderNumber;
         cell.tradeTimeLabel.text = model.payedTime;
-        NSString *money = [NSString stringWithFormat:@"￥%@",model.actualPrice];
-        cell.moneyLabel.text = money;
         NSString *tipString = [model tipsString];
         cell.intergralLabel.text = [NSString stringWithFormat:@"%@%@",tipString,model.score];
         cell.intergralType.text = [self intergaralTypeWithNum:model.scoreType];
@@ -543,7 +541,9 @@
                     [hud hide:YES];
                     NSDictionary *dict = [object objectForKey:@"result"];
                     _totalScore = [NSString stringWithFormat:@"%@",[dict objectForKey:@"quantityTotal"]];
-                    _totalMoney = [NSString stringWithFormat:@"%@",[dict objectForKey:@"moneyTotal"]];
+                    int money = [[dict objectForKey:@"moneyTotal"] intValue];
+                    NSString *totalM = [NSString stringWithFormat:@"%d",money/100];
+                    _totalMoney = totalM;
                     _totalLabel.text = [NSString stringWithFormat:@"总积分：%@",_totalScore];
                 }
             }

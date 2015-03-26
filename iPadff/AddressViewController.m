@@ -586,6 +586,15 @@
         hud.labelText = @"请填写邮编";
         return;
     }
+    if (![RegularFormat isZipCode:_postcodeField.text]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的邮编";
+        return;
+    }
+
     if (!_cityField.titleLabel.text || [_cityField.titleLabel.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];

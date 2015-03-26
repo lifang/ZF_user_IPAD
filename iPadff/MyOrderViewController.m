@@ -49,13 +49,26 @@
 
 -(void)ShowLoginVC
 {
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     AccountModel *account = [AccountTool userModel];
     NSLog(@"%@",account);
     if (account.password) {
         [self initAndLayoutUI];
         [self firstLoadData];
     }
-    else
+    if (delegate.haveExit) {
+        NSLog(@"已退出！");
+        [self firstLoadData];
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+    else if(account.password == nil)
     {
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;
