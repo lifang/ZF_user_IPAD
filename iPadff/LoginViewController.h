@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol LoginSuccessDelegate <NSObject>
+
+@optional
+-(void)LoginSuccess;
+
+@end
+
 @interface LoginViewController : UIViewController
+
+@property(nonatomic,weak)id LoginSuccessDelegate;
+
 
 @end

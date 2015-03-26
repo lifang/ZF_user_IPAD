@@ -37,13 +37,13 @@
 
     
         _deleteBtn = [[UIButton alloc] init];
-        _deleteBtn.clipsToBounds = YES;
+       // _deleteBtn.clipsToBounds = YES;
         CALayer *readBtnLayer = [_deleteBtn layer];
         [readBtnLayer setMasksToBounds:YES];
-        [readBtnLayer setCornerRadius:2.0];
+        //[readBtnLayer setCornerRadius:2.0];
         [readBtnLayer setBorderWidth:1.0];
         [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-        _deleteBtn.layer.cornerRadius = 3.0f;
+        //_deleteBtn.layer.cornerRadius = 3.0f;
         [_deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
         _deleteBtn.backgroundColor=[UIColor clearColor];
         [ _deleteBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];

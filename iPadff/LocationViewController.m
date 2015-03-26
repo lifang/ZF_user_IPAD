@@ -38,10 +38,12 @@
     CGRect rect = self.bounds;
     rect.origin.y -= 20;
     rect.size.height += 20;
-    
+    rect.size.width = kScreenWidth;
+    if (iOS7) {
+        rect.size.width = kScreenHeight;
+    }
     UIImageView *backView = [[UIImageView alloc] initWithFrame:rect];
-    backView.image = [[UIImage imageNamed:@"orange.png"]
-                      resizableImageWithCapInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    backView.image = kImageName(@"orange.png");
     [self insertSubview:backView atIndex:1];
     //设置光标
     [self setCursor];

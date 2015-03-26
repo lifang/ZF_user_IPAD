@@ -68,6 +68,7 @@
     [self.view addSubview:self.addressTableView];
     _addressTableView.frame = CGRectMake(160, 140, SCREEN_WIDTH - 160, SCREEN_HEIGHT - 140);
     NSLog(@"%@",NSStringFromCGRect(_addressTableView.frame));
+    self.swithView.hidden = NO;
 //    if (iOS7) {
 //        _addressTableView.frame = CGRectMake(160, 140, SCREEN_HEIGHT - 160,SCREEN_WIDTH - 140);
 //    }
@@ -417,6 +418,11 @@
 
 -(void)cancelclick
 {
+    _nameField.text = nil;
+    _telField.text = nil;
+    _postcodeField.text = nil;
+    _locationField.text = nil;
+    _particularLocationField.text = nil;
     [_bigsview removeFromSuperview];
 }
 
@@ -514,8 +520,6 @@
     {
         wide=SCREEN_HEIGHT;
         height=SCREEN_WIDTH;
-        
-        
     }
     else
     {  wide=SCREEN_WIDTH;
@@ -746,5 +750,27 @@
 
 }
 
+//处理键盘
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == _particularLocationField) {
+        CGRect frame = CGRectMake(textField.frame.origin.x, textField.frame.origin.y + 330, textField.frame.size.width, textField.frame.size.height);
+        NSLog(@"%@",NSStringFromCGRect(frame));
+        int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
+        NSTimeInterval animationDuration = 0.30f;
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        if (offset > 0) {
+            self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+            [UIView commitAnimations];
+        }
+    }
+    
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+}
 
 @end

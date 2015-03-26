@@ -15,7 +15,10 @@
 #import "OrderDetailController.h"
 #import "PayWayViewController.h"
 #import "OrderCommentController.h"
-@interface MyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,RefreshDelegate,OrderCellDelegate,UIAlertViewDelegate>
+#import "LoginViewController.h"
+#import "AccountTool.h"
+
+@interface MyOrderViewController ()<UITableViewDelegate,UITableViewDataSource,RefreshDelegate,OrderCellDelegate,UIAlertViewDelegate,LoginSuccessDelegate>
 
 @property (nonatomic, assign) OrderType currentType;
 
@@ -44,6 +47,39 @@
 
 @implementation MyOrderViewController
 
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self initAndLayoutUI];
+        [self firstLoadData];
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)LoginSuccess
+{
+    [self initAndLayoutUI];
+    [self firstLoadData];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -59,9 +95,7 @@
 
     _orderItems = [[NSMutableArray alloc] init];
     
-    [self initAndLayoutUI];
     self.currentType = OrderTypeAll;
-    [self firstLoadData];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshOrderList:) name:RefreshMyOrderListNotification object:nil];
 }

@@ -26,8 +26,10 @@
 #import "UpdateDetailController.h"
 #import "RentDetailController.h"
 #import "PayWayViewController.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
-@interface AfterSellViewController ()<UITableViewDataSource,UITableViewDelegate,ServiceBtnClickDelegate,CancelCellBtnClickDelegate,SalesReturnCellBtnClickDelegate,ChangeGoodCellBtnClickDelegate,UpdateCellBtnClickDelegate,RentBackCellBtnClickDelegate,RefreshDelegate,UIAlertViewDelegate,SubmitLogisticsClickWithDataDelegate>
+@interface AfterSellViewController ()<UITableViewDataSource,UITableViewDelegate,ServiceBtnClickDelegate,CancelCellBtnClickDelegate,SalesReturnCellBtnClickDelegate,ChangeGoodCellBtnClickDelegate,UpdateCellBtnClickDelegate,RentBackCellBtnClickDelegate,RefreshDelegate,UIAlertViewDelegate,SubmitLogisticsClickWithDataDelegate,LoginSuccessDelegate>
 
 @property(nonatomic,strong)UIButton *serviceBtn;
 
@@ -84,6 +86,41 @@
 
 @implementation AfterSellViewController
 
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self setupHeaderView];
+        [self firstLoadData];
+        [self.view addSubview:self.tableView];
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)LoginSuccess
+{
+    [self setupHeaderView];
+    [self firstLoadData];
+    [self.view addSubview:self.tableView];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
+}
+
 -(UITableView *)tableView
 {
     if (!_tableView) {
@@ -116,9 +153,6 @@
     NSArray *arr = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",nil];
     [_dateArray addObjectsFromArray:arr];
     [self setLeftViewWith:ChooseViewAfterSell];
-    [self setupHeaderView];
-    [self.view addSubview:self.tableView];
-    [self firstLoadData];
 }
 
 - (void)didReceiveMemoryWarning {

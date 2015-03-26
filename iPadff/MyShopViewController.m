@@ -70,10 +70,12 @@
     //创建头部View
     UIView *headerView = [[UIView alloc]init];
     headerView.backgroundColor = [UIColor whiteColor];
-    headerView.frame = CGRectMake(160, 0, SCREEN_WIDTH-160.f, 60);
+    headerView.frame = CGRectMake(160, 0, SCREEN_WIDTH-160.f, 80);
+    /*
     if (iOS7) {
         headerView.frame = CGRectMake(160, 0, SCREEN_HEIGHT - 160.f, 60);
     }
+     */
     [self.view addSubview:headerView];
     
     UILabel *titleLB = [[UILabel alloc] init];
@@ -84,7 +86,8 @@
     [headerView addSubview:titleLB];
     [titleLB makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(headerView.centerY);
-        make.left.equalTo(headerView.left).offset(100);
+       // make.left.equalTo(headerView.left).offset(100);
+        make.left.equalTo(headerView.left).offset(26);
         make.width.equalTo(@120);
         
     }];
@@ -94,10 +97,10 @@
     addBtn.clipsToBounds = YES;
     CALayer *readBtnLayer = [addBtn layer];
     [readBtnLayer setMasksToBounds:YES];
-    [readBtnLayer setCornerRadius:2.0];
+   // [readBtnLayer setCornerRadius:2.0];
     [readBtnLayer setBorderWidth:1.0];
     [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-    addBtn.layer.cornerRadius = 3.0f;
+   // addBtn.layer.cornerRadius = 3.0f;
     [addBtn setTitle:@"创建商户资料" forState:UIControlStateNormal];
     addBtn.backgroundColor=[UIColor clearColor];
     [addBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
@@ -108,16 +111,19 @@
         //make.left.equalTo(_backView.left).offset(5);
         make.centerY.equalTo(headerView.centerY);
         make.width.equalTo(@120);
-        make.right.equalTo(headerView.right).offset(-120);
-        make.height.equalTo(@50);
+       //make.right.equalTo(headerView.right).offset(-120);
+        make.right.equalTo(headerView.right).offset(-86);
+        make.height.equalTo(@40);
     }];
     
     UIView *titleView = [[UIView alloc]init];
     titleView.backgroundColor=[UIColor colorWithHexString:@"f2f1f1"];
-    titleView.frame = CGRectMake(160+26, 60, SCREEN_WIDTH-160.f-52-60, 28);
+    titleView.frame = CGRectMake(160+26, 80, SCREEN_WIDTH-160.f-52-60, 28);
+    /*
     if (iOS7) {
         titleView.frame = CGRectMake(160+26, 60, SCREEN_HEIGHT - 160.f-52-60, 28);
     }
+     */
     [self.view addSubview:titleView];
 
     UILabel *titleLB2 = [[UILabel alloc] init];
@@ -158,18 +164,19 @@
 
 - (void)initAndLayoutUI {
     
-    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 80+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT-108)];
+    /*
     if(iOS7)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_HEIGHT-220-20*2, SCREEN_WIDTH)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_HEIGHT-220-20*2, SCREEN_WIDTH-88)];
         
     }else
     {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(160+20, 60+28, SCREEN_WIDTH-220-20*2, SCREEN_HEIGHT-88)];
         
     }
-    
+    */
     
     
     //_tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -197,7 +204,7 @@
     // 使用一个UIAlertView来显示用户选中的列表项
     _alertView = [[UIAlertView alloc]
                   initWithTitle:@"提示"
-                  message:[NSString stringWithFormat:@"删除当前商户"]
+                  message:[NSString stringWithFormat:@"删除当前商户:%@",model.merchantName]
                   delegate:nil
                   cancelButtonTitle:@"取消"
                   otherButtonTitles:@"确定", nil];
@@ -213,7 +220,7 @@
     
     if (buttonIndex==1) {
         
-       // [self deleteMerchant:model.merchantID];
+        //[self deleteMerchant:model.merchantID];
         [self deleteMerchant:demerchant];
         
     }
@@ -245,9 +252,12 @@
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
+                    
                     if (!isMore) {
                         [_MerchantItems removeAllObjects];
+                        
                     }
+                    
                     if ([[object objectForKey:@"result"] count] > 0) {
                         //有数据
                         //self.page++;
@@ -284,7 +294,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"删除中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface deleteMerchantWithToken:delegate.token merchantIDs:merchantId finished:^(BOOL success, NSData *response) {
+    [NetworkInterface deleteMerchantWithToken:delegate.token merchantIDs:[NSArray arrayWithObject:[NSNumber numberWithInt:[merchantId intValue]]] finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
@@ -298,7 +308,8 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     hud.labelText = @"删除商户成功";
-                   // [self.navigationController popViewControllerAnimated:YES];
+                   // [_tableView reloadData];
+                     [self pullDownToLoadData];
                    
                 }
             }
@@ -535,8 +546,8 @@
 
 //上拉加载
 - (void)pullUpToLoadData {
-   // [self downloadDataWithPage:self.page isMore:YES];
-    [self downloadDataWithPage:_page isMore:NO];
+    [self downloadDataWithPage:self.page isMore:YES];
+   // [self downloadDataWithPage:_page isMore:NO];
     NSLog(@"上拉加载");
 }
 

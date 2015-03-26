@@ -14,8 +14,9 @@
 #import "MessageModel.h"
 #import "NetworkInterface.h"
 #import "LoginViewController.h"
+#import "AccountTool.h"
 
-@interface MessageViewController ()<RefreshDelegate,MessageCellClickedDelegate>
+@interface MessageViewController ()<RefreshDelegate,MessageCellClickedDelegate,LoginSuccessDelegate>
 
 @property(nonatomic,assign)BOOL isSelected;
 
@@ -59,28 +60,50 @@
                                                  name:RefreshMessageListNotification
                                                object:nil];
     
+}
+
+#pragma mark - LoginSuccess
+-(void)LoginSuccess
+{
+    [self setRefreshView];
     [self firstLoadData];
 }
 
 -(void)ShowLoginVC
 {
-    LoginViewController *loginC = [[LoginViewController alloc]init];
-    loginC.view.frame = CGRectMake(0, 0, 320, 320);
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
-    nav.navigationBarHidden = YES;
-    nav.modalPresentationStyle = UIModalPresentationCustom;
-    nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentViewController:nav animated:YES completion:nil];
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self LoginSuccess];
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self ShowLoginVC];
+    [super viewWillAppear:YES];
     [self.navigationController.navigationBar setBackgroundImage:[kImageName(@"DarkGray")
                                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(1, 0, 43, 0)]
                                                   forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
     [self.navigationController.navigationBar setBackgroundImage:[kImageName(@"orange")
                                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(21, 1, 21, 1)]
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -155,7 +178,10 @@
     NSArray *arr = [NSArray arrayWithObjects:withBar,leftBar,withBar1,zhongjianBar,withBar2,rightBar, nil];
     
     self.navigationItem.leftBarButtonItems = arr;
-    
+}
+
+-(void)setRefreshView
+{
     _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width, 80)];
     _topRefreshView.direction = PullFromTop;
     _topRefreshView.delegate = self;
