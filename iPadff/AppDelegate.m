@@ -89,8 +89,12 @@
     self.naviController.navigationBarHidden = YES;
     
     [self.window setRootViewController:self.naviController];
-
+    AddressViewController*add=[[AddressViewController alloc]init];
+    add.hidesBottomBarWhenPushed=YES;
     
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
+
 //    [viewController5 SwitchViewClickedAtIndex:3];
 
 }

@@ -36,7 +36,19 @@
     [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
 
     // Do any additional setup after loading the view.
-    self.title = @"订单详情";
+    
+    if(self.ordertype==1)
+    {
+        
+        self.title = @"订单详情";
+
+    }else
+    {
+        self.title = @"租赁订单详情";
+
+        
+    }
+
     self.view.backgroundColor = kColor(244, 243, 243, 1);
     [self downloadDetail];
 }
@@ -728,12 +740,26 @@ if(tableView==_tableViewPJ)
                         commentLabel.numberOfLines = 0;
                         [self setLabel:commentLabel withString:comment];
                         [cell.contentView addSubview:commentLabel];
+                   
                         //发票
                         UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10 + height, wide - originX * 2, 20.f)];
-                        [self setLabel:invoceTypeLabel withString:[NSString stringWithFormat:@"发票类型：%@",_orderDetail.orderInvoceType]];
                         [cell.contentView addSubview:invoceTypeLabel];
                         UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 30 + height, wide - originX * 2, 20.f)];
-                        [self setLabel:invoceTitleLabel withString:[NSString stringWithFormat:@"发票抬头：%@",_orderDetail.orderInvoceTitle]];
+                        
+                        if([self isBlankString:_orderDetail.orderInvoceType])
+                        {
+                            
+                            
+                            
+                        }
+                        else
+                        {
+                            [self setLabel:invoceTypeLabel withString:[NSString stringWithFormat:@"发票类型：%@",_orderDetail.orderInvoceType]];
+
+                            [self setLabel:invoceTitleLabel withString:[NSString stringWithFormat:@"发票抬头：%@",_orderDetail.orderInvoceTitle]];
+
+                            
+                        }
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
                         
                         [cell.contentView addSubview:invoceTitleLabel];
@@ -782,19 +808,28 @@ if(tableView==_tableViewPJ)
                     [rootview addSubview:goodslable];
                     goodslable.textAlignment = NSTextAlignmentCenter;
                     
-                    goodslable.text=@"商品";
                     
                     UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2+20, 0, 60, 20)];
                     [rootview addSubview:phonelable];
                     //                phonelable.textAlignment = NSTextAlignmentCenter;
-                    
-                    phonelable.text=@"单价";
                     UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-130, 0, 80, 20)];
                     [rootview addSubview:numberlable];
                     //                numberlable.textAlignment = NSTextAlignmentCenter;
                     
-                    numberlable.text=@"购买数量";
-                    
+                    if(self.ordertype==1)
+                    {
+                        numberlable.text=@"购买数量";
+
+                        phonelable.text=@"单价";
+
+                    }else
+                    {
+                        phonelable.text=@"押金";
+                        numberlable.text=@"租赁数量";
+
+                        
+                    }
+
                  
                 }
                 else if (indexPath.row == [_orderDetail.goodList count] + 1) {
@@ -865,7 +900,18 @@ if(tableView==_tableViewPJ)
   
 }
 
-
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

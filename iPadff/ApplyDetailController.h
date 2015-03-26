@@ -30,6 +30,11 @@ typedef enum {
 }OpenStatus;
 
 @interface ApplyDetailController : CommonViewController
+{ UIButton* accountnamebutton;
+    NSInteger sexint;
+    UIButton* _cityField ;
+    
+}
 
 @property (nonatomic, strong) NSString *terminalID;
 @property (nonatomic, assign) OpenStatus openStatus;
