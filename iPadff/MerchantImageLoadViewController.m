@@ -163,24 +163,30 @@
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;
         imagePickerController.sourceType = sourceType;
+        
         UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
         popover.delegate = self;
-        // popover.popoverContentSize = CGSizeMake(500, 700);
-        
+        self.popViewController = popover;//对局部UIPopoverController对象popover我们赋给了一个全局的UIPopoverController对象popoverController
+       // popover.popoverContentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+       
         if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
         {
+   
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
-                popover.popoverContentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
-                [popover presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                [self.popViewController presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 
             }];
             
         }
         else
         {
-            [popover presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+          
+          [self.popViewController presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+         // [self presentViewController:imagePickerController animated:nil completion:nil];
+            NSLog(@"GOGO");
         }
+    
     }
     
 }
@@ -189,9 +195,22 @@
 #pragma mark - UIImagePickerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    //[picker dismissViewControllerAnimated:YES completion:nil];
+    [self.popViewController dismissPopoverAnimated:NO];
     UIImage *editImage = [info objectForKey:UIImagePickerControllerEditedImage];
     [self uploadPictureWithImage:editImage];
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+
+      //[picker dismissViewControllerAnimated:YES completion:nil];
+    [self.popViewController dismissPopoverAnimated:NO];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self.popViewController dismissPopoverAnimated:NO];
 }
 
 #pragma mark - UIPickerView

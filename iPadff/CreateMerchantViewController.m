@@ -62,14 +62,22 @@
     
     _imageDict = [[NSMutableDictionary alloc] init];
     
+    
     _scrollView = [[UIScrollView alloc] init];
     [self.view addSubview:_scrollView];
+    if (iOS8) {
     [_scrollView makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top);
         make.bottom.equalTo(self.view.mas_bottom);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
     }];
+    }
+    else{
+        _scrollView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+
+    
+    }
 
     UILabel *merchantLB=[[UILabel alloc ] init];
     merchantLB.font = FONT20;
@@ -824,7 +832,11 @@
     [_saveBtn addSubview:_indicatorView];
     
     [_scrollView layoutSubviews];
+    if (iOS8) {
+        
     [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, _saveBtn.frame.size.height + _saveBtn.frame.origin.y + 50)];
+    }
+    
     [_indicatorView makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_saveBtn.centerY);
         make.left.equalTo(_saveBtn.left).offset(_saveBtn.frame.size.width/2 -80);
@@ -969,6 +981,7 @@
     {
         [_frontIMGBtn setHidden:NO];
         [_frontBtn setHidden:YES];
+        
     }
     if ([_imageDict objectForKey:key_backImage]&& ![[_imageDict objectForKey:key_backImage] isEqualToString:@""]) {
         [_backIMGBtn setHidden:NO];
@@ -1016,7 +1029,7 @@
     [_merchantTF becomeFirstResponder];
     [_merchantTF resignFirstResponder];
     [self pickerHide];
-    /*
+    
     if (!_merchantTF.text || [_merchantTF.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -1145,7 +1158,7 @@
         hud.labelText = @"请上传银行开户许可证照片";
         return;
     }
-    */
+    
 
     [self requestForCreateMerchant];
     
@@ -1207,6 +1220,18 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (iOS7) {
+        
+        [_scrollView setContentSize:CGSizeMake(self.view.frame.size.height, _saveBtn.frame.size.height + _saveBtn.frame.origin.y + 100)];
+       
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
