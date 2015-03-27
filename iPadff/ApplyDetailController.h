@@ -38,6 +38,8 @@ typedef enum {
     UIButton *makeSureBtn;
     UIButton* locationbutton;
     NSArray*keynamesarry;
+    NSInteger pickint;
+    
     
 }
 

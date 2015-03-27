@@ -37,7 +37,8 @@
 
 @end
 
-@interface ApplyDetailController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,ChannelSelectedDelegate>
+@interface ApplyDetailController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverPresentationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIPopoverControllerDelegate,ChannelSelectedDelegate>
+@property(nonatomic,strong) UIPopoverController *popViewController;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
@@ -591,7 +592,9 @@ if([accountname isEqualToString:@"0"])
             imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-142, 700+heightlk*70,100, 40);
             imagebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
             [imagebutton setTitle:@"上传图片" forState:UIControlStateNormal];
-            [imagebutton addTarget:self action:@selector(orderConfirm:) forControlEvents:UIControlEventTouchUpInside];
+            [imagebutton addTarget:self action:@selector(imageclick:) forControlEvents:UIControlEventTouchUpInside];
+            imagebutton.tag=[model.materialID integerValue];
+            ;
             
             [imagebutton setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
             [_scrollView addSubview:imagebutton];
@@ -633,6 +636,16 @@ if([accountname isEqualToString:@"0"])
 }
 #pragma mark - 点击事件
 
+//上传图片
+-(void)imageclick:(UIButton*)send
+
+{
+
+    _selectedKey =[NSString stringWithFormat:@"%d", send.tag];
+   
+    [self showImageOption];
+
+}
 -(void)zhifuclick
 {
 
@@ -1052,7 +1065,16 @@ if([accountname isEqualToString:@"0"])
     }
     [sheet showInView:self.view];
 }
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    
+    //[picker dismissViewControllerAnimated:YES completion:nil];
+    [self.popViewController dismissPopoverAnimated:NO];
+}
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self.popViewController dismissPopoverAnimated:NO];
+}
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSInteger sourceType = UIImagePickerControllerSourceTypeCamera;
     NSString *value = [_infoDict objectForKey:_selectedKey];
@@ -1080,20 +1102,44 @@ if([accountname isEqualToString:@"0"])
             sourceType = UIImagePickerControllerSourceTypeCamera;
         }
     }
-    if ([UIImagePickerController isSourceTypeAvailable:sourceType] &&
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType]&&
         buttonIndex != actionSheet.cancelButtonIndex) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;
         imagePickerController.sourceType = sourceType;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+        popover.delegate = self;
+        self.popViewController = popover;//对局部UIPopoverController对象popover我们赋给了一个全局的UIPopoverController对象popoverController
+        // popover.popoverContentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0)
+        {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                [self.popViewController presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                
+            }];
+            
+        }
+        else
+        {
+            
+            [self.popViewController presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            // [self presentViewController:imagePickerController animated:nil completion:nil];
+            NSLog(@"GOGO");
+        }
+        
     }
 }
 
 #pragma mark - UIImagePickerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    //[picker dismissViewControllerAnimated:YES completion:nil];
+    [self.popViewController dismissPopoverAnimated:NO];
     UIImage *editImage = [info objectForKey:UIImagePickerControllerEditedImage];
     [self uploadPictureWithImage:editImage];
 }
@@ -1398,9 +1444,12 @@ if([accountname isEqualToString:@"0"])
 }
 
 - (IBAction)modifyLocation:(id)sender {
+    _selectedKey = key_location;
     [self pickerScrollOut];
     if ([_selectedKey isEqualToString:key_location]) {
-        NSInteger index = [_pickerView selectedRowInComponent:1];
+        
+        
+        NSInteger index = [self.pickerView selectedRowInComponent:1];
         NSString *cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
         [_infoDict setObject:cityID forKey:key_location];
     }
@@ -1411,7 +1460,11 @@ if([accountname isEqualToString:@"0"])
         NSInteger index = [_pickerView selectedRowInComponent:0];
         [_infoDict setObject:[NSNumber numberWithInteger:index] forKey:key_sex];
     }
-    [_tableView reloadData];
+    [locationbutton setTitle:[CityHandle getCityNameWithCityID:[_infoDict objectForKey:key_location]] forState:UIControlStateNormal];
+    
+    
+
+//    [_tableView reloadData];
 }
 
 //datePicker滚动时调用方法
