@@ -35,7 +35,6 @@
     _pageControl.currentPageIndicatorTintColor = [UIColor colorWithPatternImage:kImageName(@"doc_selected.png")];
     [self addSubview:_pageControl];
 }
-
 - (void)downloadImageWithURLs:(NSArray *)urlArray
                        target:(id)target
                        action:(SEL)action {

@@ -31,6 +31,13 @@
 		0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C701AB320CA007FF2C5 /* merchant2@2x.png */; };
 		0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D91F66C1ABA7B74004EB428 /* BaseApi.m */; };
 		0DF80EEB1AC009A000B1053E /* hasimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DF80EEA1AC009A000B1053E /* hasimage.png */; };
+		0E5FAE961AC4EF8600BEBE5F /* ApplyDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE951AC4EF8600BEBE5F /* ApplyDetailController.m */; };
+		0E5FAE981AC4F26A00BEBE5F /* upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */; };
+		0E5FAE9B1AC4F81E00BEBE5F /* BankSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE9A1AC4F81E00BEBE5F /* BankSelectedController.m */; };
+		0E5FAE9E1AC4F83B00BEBE5F /* BankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE9D1AC4F83B00BEBE5F /* BankModel.m */; };
+		0E5FAEA11AC53F1300BEBE5F /* FactoryDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAEA01AC53F1300BEBE5F /* FactoryDetailController.m */; };
+		0E5FAEA31AC5416900BEBE5F /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5FAEA21AC5416900BEBE5F /* info@2x.png */; };
+		0E5FAEA61AC5463A00BEBE5F /* ChannelWebsiteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAEA51AC5463A00BEBE5F /* ChannelWebsiteController.m */; };
 		0EBBC5851AB13A8400E0ED16 /* typekill.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5841AB13A8400E0ED16 /* typekill.png */; };
 		0EBBC5871AB1573500E0ED16 /* yellowback.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EBBC5861AB1573500E0ED16 /* yellowback.png */; };
 		0EBBC58E1AB1660400E0ED16 /* OrderDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5891AB1660400E0ED16 /* OrderDetailController.m */; };
@@ -87,7 +94,6 @@
 		0ECCB2D91AAECC6A00E0591E /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D81AAECC6A00E0591E /* gray@2x.png */; };
 		0ECCB2DB1AAF188500E0591E /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2DA1AAF188500E0591E /* delete@2x.png */; };
 		0ECD61531AC159070014BDE8 /* ApplyOpenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD61521AC159070014BDE8 /* ApplyOpenModel.m */; };
-		0ECD61561AC173BA0014BDE8 /* ApplyDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD61551AC173BA0014BDE8 /* ApplyDetailController.m */; };
 		0ECD61591AC175B00014BDE8 /* MerchantDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */; };
 		0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */; };
 		0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */; };
@@ -339,6 +345,18 @@
 		0D91F66B1ABA7B74004EB428 /* BaseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApi.h; sourceTree = "<group>"; };
 		0D91F66C1ABA7B74004EB428 /* BaseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseApi.m; sourceTree = "<group>"; };
 		0DF80EEA1AC009A000B1053E /* hasimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hasimage.png; sourceTree = "<group>"; };
+		0E5FAE941AC4EF8600BEBE5F /* ApplyDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyDetailController.h; sourceTree = "<group>"; };
+		0E5FAE951AC4EF8600BEBE5F /* ApplyDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyDetailController.m; sourceTree = "<group>"; };
+		0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload@2x.png"; sourceTree = "<group>"; };
+		0E5FAE991AC4F81E00BEBE5F /* BankSelectedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankSelectedController.h; sourceTree = "<group>"; };
+		0E5FAE9A1AC4F81E00BEBE5F /* BankSelectedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankSelectedController.m; sourceTree = "<group>"; };
+		0E5FAE9C1AC4F83B00BEBE5F /* BankModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankModel.h; sourceTree = "<group>"; };
+		0E5FAE9D1AC4F83B00BEBE5F /* BankModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankModel.m; sourceTree = "<group>"; };
+		0E5FAE9F1AC53F1300BEBE5F /* FactoryDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryDetailController.h; sourceTree = "<group>"; };
+		0E5FAEA01AC53F1300BEBE5F /* FactoryDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FactoryDetailController.m; sourceTree = "<group>"; };
+		0E5FAEA21AC5416900BEBE5F /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		0E5FAEA41AC5463A00BEBE5F /* ChannelWebsiteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelWebsiteController.h; sourceTree = "<group>"; };
+		0E5FAEA51AC5463A00BEBE5F /* ChannelWebsiteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelWebsiteController.m; sourceTree = "<group>"; };
 		0EBBC5841AB13A8400E0ED16 /* typekill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typekill.png; sourceTree = "<group>"; };
 		0EBBC5861AB1573500E0ED16 /* yellowback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowback.png; sourceTree = "<group>"; };
 		0EBBC5881AB1660400E0ED16 /* OrderDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailController.h; sourceTree = "<group>"; };
@@ -434,8 +452,6 @@
 		0ECCB2DA1AAF188500E0591E /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		0ECD61511AC159070014BDE8 /* ApplyOpenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyOpenModel.h; sourceTree = "<group>"; };
 		0ECD61521AC159070014BDE8 /* ApplyOpenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyOpenModel.m; sourceTree = "<group>"; };
-		0ECD61541AC173BA0014BDE8 /* ApplyDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyDetailController.h; sourceTree = "<group>"; };
-		0ECD61551AC173BA0014BDE8 /* ApplyDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyDetailController.m; sourceTree = "<group>"; };
 		0ECD61571AC175B00014BDE8 /* MerchantDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantDetailModel.h; sourceTree = "<group>"; };
 		0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantDetailModel.m; sourceTree = "<group>"; };
 		0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomTabBarViewController.h; sourceTree = "<group>"; };
@@ -952,6 +968,8 @@
 		0ECE7DA21AA5587A00E250B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E5FAE9C1AC4F83B00BEBE5F /* BankModel.h */,
+				0E5FAE9D1AC4F83B00BEBE5F /* BankModel.m */,
 				0EC7B9E61AC3B48200080E2A /* ChannelListModel.h */,
 				0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */,
 				0ECD61571AC175B00014BDE8 /* MerchantDetailModel.h */,
@@ -1052,10 +1070,14 @@
 				0EC589CD1AB3DAFA00B690F5 /* GoodDetailViewController.m */,
 				0ED5FD461AB97C230057385C /* GoodDetaildetailViewController.h */,
 				0ED5FD471AB97C230057385C /* GoodDetaildetailViewController.m */,
+				0E5FAE9F1AC53F1300BEBE5F /* FactoryDetailController.h */,
+				0E5FAEA01AC53F1300BEBE5F /* FactoryDetailController.m */,
 				0ECA837F1AB81886003B005B /* BuyOrderViewController.h */,
 				0ECA83801AB81886003B005B /* BuyOrderViewController.m */,
 				0ECB49371ABFC1FB0064A9FD /* RentOrderViewController.h */,
 				0ECB49381ABFC1FB0064A9FD /* RentOrderViewController.m */,
+				0E5FAEA41AC5463A00BEBE5F /* ChannelWebsiteController.h */,
+				0E5FAEA51AC5463A00BEBE5F /* ChannelWebsiteController.m */,
 			);
 			name = POS;
 			sourceTree = "<group>";
@@ -1281,6 +1303,8 @@
 		0ED6ACF81AA16ECB00D3B025 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0E5FAEA21AC5416900BEBE5F /* info@2x.png */,
+				0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */,
 				0EC91B3B1ABA6FC600947B4F /* star_gray.png */,
 				0EC91B391ABA6FB000947B4F /* star_light.png */,
 				0EC91B371ABA628500947B4F /* star_gray@2x.png */,
@@ -1456,12 +1480,14 @@
 			children = (
 				1A6516441AA6E1CF008223BD /* DredgeViewController.h */,
 				1A6516451AA6E1CF008223BD /* DredgeViewController.m */,
-				0ECD61541AC173BA0014BDE8 /* ApplyDetailController.h */,
-				0ECD61551AC173BA0014BDE8 /* ApplyDetailController.m */,
+				0E5FAE941AC4EF8600BEBE5F /* ApplyDetailController.h */,
+				0E5FAE951AC4EF8600BEBE5F /* ApplyDetailController.m */,
 				1A65164A1AA6F42E008223BD /* ApplicationViewController.h */,
 				1A65164B1AA6F42E008223BD /* ApplicationViewController.m */,
 				0EC7B9E31AC3B45900080E2A /* ChannelSelectedController.h */,
 				0EC7B9E41AC3B45900080E2A /* ChannelSelectedController.m */,
+				0E5FAE991AC4F81E00BEBE5F /* BankSelectedController.h */,
+				0E5FAE9A1AC4F81E00BEBE5F /* BankSelectedController.m */,
 			);
 			name = DredgeV;
 			sourceTree = "<group>";
@@ -1782,6 +1808,7 @@
 				1AC6A2CE1AC3A83500685FC9 /* CustomSwitch.xib in Resources */,
 				0EE52A051AB6B9F700E5DE9C /* toptouming.png in Resources */,
 				0EC91B401ABA905700947B4F /* pagL.png in Resources */,
+				0E5FAEA31AC5416900BEBE5F /* info@2x.png in Resources */,
 				0EC99A371AB2AA5A00F5F204 /* city.png in Resources */,
 				0ED6AD2C1AA19BC800D3B025 /* home1.png in Resources */,
 				0ED8EB981AA69E9700CE9F61 /* good_right1..png in Resources */,
@@ -1819,6 +1846,7 @@
 				0ED6AD131AA193D800D3B025 /* home_right.png in Resources */,
 				0ED6AD061AA16EEA00D3B025 /* shoppomg_hight.png in Resources */,
 				0ECE7DE81AA57A4E00E250B6 /* filterbackground@2x.png in Resources */,
+				0E5FAE981AC4F26A00BEBE5F /* upload@2x.png in Resources */,
 				0ECE7DEE1AA57B3500E250B6 /* orange@2x.png in Resources */,
 				0EC91B3A1ABA6FB000947B4F /* star_light.png in Resources */,
 				0ECE7DDE1AA5764300E250B6 /* good_search@2x.png in Resources */,
@@ -1893,6 +1921,7 @@
 				0ECA6D381ABBFCFA005316B1 /* OrderCommentCell.m in Sources */,
 				0ED5FD421AB956920057385C /* SearchViewController.m in Sources */,
 				0ECE7DAC1AA55A0100E250B6 /* TreeView.m in Sources */,
+				0E5FAE9E1AC4F83B00BEBE5F /* BankModel.m in Sources */,
 				1AA8FF751AA4074D009D41B3 /* SDWebImagePrefetcher.m in Sources */,
 				1A627DA71ABA5DD60024A644 /* FindPasswordSuccessController.m in Sources */,
 				1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */,
@@ -1960,6 +1989,7 @@
 				0ECE7DB51AA55A2B00E250B6 /* TreeNodeInfo.m in Sources */,
 				1A9A1B831AAFD22C00A9AA04 /* MerchantModel.m in Sources */,
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,
+				0E5FAEA61AC5463A00BEBE5F /* ChannelWebsiteController.m in Sources */,
 				1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */,
 				0ECA6D2F1ABBDF37005316B1 /* ChannelModel.m in Sources */,
 				0D3887221AB96F8E000DF1D6 /* MASConstraintMaker.m in Sources */,
@@ -2012,7 +2042,6 @@
 				0ECE7DA81AA558CC00E250B6 /* TreeNodeModel.m in Sources */,
 				0D3887231AB96F8E000DF1D6 /* MASLayoutConstraint.m in Sources */,
 				1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */,
-				0ECD61561AC173BA0014BDE8 /* ApplyDetailController.m in Sources */,
 				1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */,
 				0EBBC58F1AB1660400E0ED16 /* PayWayViewController.m in Sources */,
 				0ECABF4C1AAD30D900413489 /* GoodButton.m in Sources */,
@@ -2025,10 +2054,12 @@
 				0ECA6D411ABC32B3005316B1 /* ShoppingCartController.m in Sources */,
 				1ADD1EBC1AB685B60014E528 /* SubmitLogisticsController.m in Sources */,
 				1A4258611AB008F900F470C9 /* MineCommonController.m in Sources */,
+				0E5FAEA11AC53F1300BEBE5F /* FactoryDetailController.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
 				0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */,
 				0ECE7DA11AA5584F00E250B6 /* SearchHistoryHelper.m in Sources */,
 				0ECE7D951AA5579800E250B6 /* GoodListViewController.m in Sources */,
+				0E5FAE9B1AC4F81E00BEBE5F /* BankSelectedController.m in Sources */,
 				0D3887281AB96F8E000DF1D6 /* View+MASAdditions.m in Sources */,
 				1AA8FF791AA4074D009D41B3 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0ECE7D9C1AA557C700E250B6 /* ZFSearchBar.m in Sources */,
@@ -2054,6 +2085,7 @@
 				0ECE7DCE1AA55E4500E250B6 /* SortView.m in Sources */,
 				1A5E104F1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m in Sources */,
 				0EC91B341ABA601800947B4F /* CommentModel.m in Sources */,
+				0E5FAE961AC4EF8600BEBE5F /* ApplyDetailController.m in Sources */,
 				1AA8FF6F1AA4074D009D41B3 /* SDImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2176,14 +2208,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2192,14 +2224,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

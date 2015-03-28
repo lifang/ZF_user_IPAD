@@ -19,6 +19,8 @@
 #import "InterestView.h"
 #import "GoodDetaildetailViewController.h"
 #import "RentOrderViewController.h"
+#import "FactoryDetailController.h"
+
 //static CGFloat topImageHeight = 160.f;
 
 @interface GoodDetailViewController ()<UIScrollViewDelegate,ImageScrollViewDelegate>
@@ -333,9 +335,11 @@
     [_mainScrollView addSubview:factoryLabel];
     
     //厂家按钮
-    UIButton *factoryBtn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    factoryBtn.frame = CGRectMake(factoryLabel.frame.origin.x + factoryLabel.frame.size.width + vSpace, originY, labelHeight, labelHeight);
-    factoryBtn.enabled = NO;
+    UIButton *factoryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [factoryBtn setImage :kImageName(@"info.png") forState:UIControlStateNormal];
+
+    factoryBtn.frame = CGRectMake(factoryLabel.frame.origin.x + factoryLabel.frame.size.width + vSpace, originY, 20, 20);
+//    factoryBtn.enabled = NO;
     [factoryBtn addTarget:self action:@selector(scanFactoryInfo:) forControlEvents:UIControlEventTouchUpInside];
     [_mainScrollView addSubview:factoryBtn];
     
@@ -536,7 +540,7 @@
     {
         NSString*str=[NSString stringWithFormat:@"评论(%d)",[_detailModel.goodComment intValue]];
         
-        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"租赁说明",@"交易费率", nil];
+        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"租赁说明",@"  交易费率", nil];
         
         
         for (int i = 0; i < 5; i++ ) {
@@ -577,7 +581,7 @@
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [viewbutton addSubview:rentButton];
             UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewbutton.frame.size.width / 4*(i+1), 20, 1, 30)];
-            line.backgroundColor = [UIColor grayColor];
+            line.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
             [viewbutton addSubview:line];
         }
         
@@ -603,6 +607,14 @@
     //    [view addSubview:secondLine];
     return viewbutton;
 }
+- (IBAction)scanFactoryInfo:(id)sender {
+    FactoryDetailController *factoryC = [[FactoryDetailController alloc] init];
+    factoryC.hidesBottomBarWhenPushed = YES;
+
+    factoryC.goodDetail = _detailModel;
+    [self.navigationController pushViewController:factoryC animated:YES];
+}
+
 -(void)scanRent:(UIButton*)sender
 {
     NSLog(@"%d",sender.tag);
@@ -835,7 +847,12 @@
 
     _shopcartButton.enabled = YES;
     [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
-    [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.goodPrice + _detailModel.defaultChannel.openCost]];
+    if (_buyButton.isSelected) {
+        [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.goodPrice + _detailModel.defaultChannel.openCost]];
+    }
+    else {
+        [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.deposit + _detailModel.defaultChannel.openCost]];
+    }
 
 }
 
@@ -847,13 +864,15 @@
     
     _shopcartButton.enabled = NO;
     [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];
-    [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.deposit + _detailModel.defaultChannel.openCost]];
-
+    if (_buyButton.isSelected) {
+        [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.goodPrice + _detailModel.defaultChannel.openCost]];
+    }
+    else {
+        [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.deposit + _detailModel.defaultChannel.openCost]];
+    }
 }
 
-- (IBAction)scanFactoryInfo:(id)sender {
-    
-}
+
 
 - (IBAction)scanComment:(id)sender {
     

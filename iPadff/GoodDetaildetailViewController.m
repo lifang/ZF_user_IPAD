@@ -924,7 +924,7 @@
     CGFloat topSpace = 30.f;
     CGFloat leftSpace = 40.f;
     CGFloat titleLabelHeight = 30.f;
-    CGFloat middleSpace = 5.f;
+    CGFloat middleSpace = 10.f;
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.backgroundColor = [UIColor clearColor];
@@ -1113,7 +1113,7 @@
                                                              toItem:_scrollView
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:0]];
+                                                           constant:80]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:dateTitleLabel
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
@@ -1148,7 +1148,7 @@
                                                              toItem:_scrollView
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:0]];
+                                                           constant:80]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateTitleLabel
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
@@ -1190,7 +1190,7 @@
                                                              toItem:_scrollView
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:0]];
+                                                           constant:80]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:vLine
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
@@ -1212,6 +1212,40 @@
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:0.0
                                                            constant:totalHeight]];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    UIView *xLine = [[UIView alloc] initWithFrame:CGRectMake(80, 80, wide-160, 1)];
+    
+    
+    xLine.backgroundColor = kColor(204, 202, 203, 1);
+
+   [_scrollView addSubview:xLine];
+    UIView *yLine = [[UIView alloc] initWithFrame:CGRectMake(80, 80,1, totalHeight)];
+    
+    
+    yLine.backgroundColor = kColor(204, 202, 203, 1);
+    
+    [_scrollView addSubview:yLine];
+    
+    UIView *yLine2 = [[UIView alloc] initWithFrame:CGRectMake(wide-80, 80,1, totalHeight)];
+    
+    
+    yLine2.backgroundColor = kColor(204, 202, 203, 1);
+    
+    [_scrollView addSubview:yLine2];
     _scrollView.contentSize = CGSizeMake(kScreenWidth, totalHeight);
 }
 
@@ -1312,14 +1346,14 @@
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
-                                                           constant:0]];
+                                                           constant:80]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:line
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
-                                                           constant:0]];
+                                                           constant:-80]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:line
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -1563,7 +1597,7 @@
     
     //设置为正常状态下的图片
     UIButton *currentButton = (UIButton *)[self.view viewWithTag:(aIndex )];
-    [currentButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [currentButton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
 }
 /*
 

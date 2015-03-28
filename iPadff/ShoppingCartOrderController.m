@@ -35,6 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor whiteColor];
 
        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
     [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
@@ -437,7 +438,7 @@
             
 //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
             [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
             CALayer *layer=[_cityField  layer];
             //是否设置边框以及是否可见
@@ -449,8 +450,9 @@
             [layer setBorderWidth:1];
             //设置边框线的颜色
             [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            _cityField.titleEdgeInsets = UIEdgeInsetsMake(0,0, 0, 50);
+            
+            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,230,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
 
             
             [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
@@ -463,6 +465,7 @@
             
             [witeview addSubview:neworiginaltextfield];
             //        neworiginaltextfield.delegate=self;
+            neworiginaltextfield.textAlignment=NSTextAlignmentCenter;
             
             CALayer *layer=[neworiginaltextfield layer];
             //是否设置边框以及是否可见
@@ -598,14 +601,13 @@
 }
 - (IBAction)modifyLocation:(id)sender {
     [self pickerScrollOut];
-//    NSInteger index = [self.pickerView selectedRowInComponent:1];
-//    _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
-//
-//    [_cityField setTitle:[[_cityArray objectAtIndex:index] objectForKey:@"name"] forState:UIControlStateNormal];
-//    
-//    NSLog(@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"name"]);
+    NSInteger index = [_pickerView selectedRowInComponent:1];
+     cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
+    NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
+    [_cityField setTitle:cityName forState:UIControlStateNormal];
     
 }
+
 - (void)initPickerView {
     //pickerView
     CGFloat wide;
@@ -678,18 +680,9 @@
     if (component == 0) {
         //省
         [_pickerView reloadComponent:1];
-
     }
-    else {
-        
-        [_cityField setTitle:[[_cityArray objectAtIndex:row] objectForKey:@"name"] forState:UIControlStateNormal];
-        _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:row] objectForKey:@"id"]];
-        
-
-    }
-    
-    
 }
+
 
 
 - (void)pickerScrollOut {
@@ -730,7 +723,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface addAddressWithToken:delegate.token userID:delegate.userID cityID:_selectedCityID receiverName:_nameField.text phoneNumber:_phoneField.text zipCode:_zipField.text address:_detailField.text isDefault:isDefault finished:^(BOOL success, NSData *response) {
+    [NetworkInterface addAddressWithToken:delegate.token userID:delegate.userID cityID:cityID receiverName:_nameField.text phoneNumber:_phoneField.text zipCode:_zipField.text address:_detailField.text isDefault:isDefault finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
