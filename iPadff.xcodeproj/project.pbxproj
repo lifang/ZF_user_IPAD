@@ -31,6 +31,11 @@
 		0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C701AB320CA007FF2C5 /* merchant2@2x.png */; };
 		0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D91F66C1ABA7B74004EB428 /* BaseApi.m */; };
 		0DF80EEB1AC009A000B1053E /* hasimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DF80EEA1AC009A000B1053E /* hasimage.png */; };
+		0E0002221AC6422700003E60 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0002211AC6422700003E60 /* ChannelModel.m */; };
+		0E0002251AC644CF00003E60 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0002241AC644CF00003E60 /* SMPageControl.m */; };
+		0E0002281AC6483A00003E60 /* PollingViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0002271AC6483A00003E60 /* PollingViews.m */; };
+		0E00022B1AC6690F00003E60 /* ApplyOpenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E00022A1AC6690F00003E60 /* ApplyOpenModel.m */; };
+		0E00022D1AC66E2800003E60 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E00022C1AC66E2800003E60 /* CoreLocation.framework */; };
 		0E5FAE961AC4EF8600BEBE5F /* ApplyDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE951AC4EF8600BEBE5F /* ApplyDetailController.m */; };
 		0E5FAE981AC4F26A00BEBE5F /* upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */; };
 		0E5FAE9B1AC4F81E00BEBE5F /* BankSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE9A1AC4F81E00BEBE5F /* BankSelectedController.m */; };
@@ -78,7 +83,6 @@
 		0EC99CA31AAFE68D00D20386 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC99CA21AAFE68D00D20386 /* KxMenu.m */; };
 		0EC99CB61AB0327600D20386 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC99CB51AB0327600D20386 /* AddressTableViewCell.m */; };
 		0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D1F1ABBC8CC005316B1 /* GoodDetialModel.m */; };
-		0ECA6D2F1ABBDF37005316B1 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D2E1ABBDF37005316B1 /* ChannelModel.m */; };
 		0ECA6D351ABBFC3A005316B1 /* ReviewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D341ABBFC3A005316B1 /* ReviewModel.m */; };
 		0ECA6D381ABBFCFA005316B1 /* OrderCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D371ABBFCFA005316B1 /* OrderCommentCell.m */; };
 		0ECA6D3B1ABC29E8005316B1 /* PollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6D3A1ABC29E8005316B1 /* PollingView.m */; };
@@ -93,7 +97,6 @@
 		0ECCB2D71AAECBF100E0591E /* numberback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D61AAECBF100E0591E /* numberback@2x.png */; };
 		0ECCB2D91AAECC6A00E0591E /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D81AAECC6A00E0591E /* gray@2x.png */; };
 		0ECCB2DB1AAF188500E0591E /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2DA1AAF188500E0591E /* delete@2x.png */; };
-		0ECD61531AC159070014BDE8 /* ApplyOpenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD61521AC159070014BDE8 /* ApplyOpenModel.m */; };
 		0ECD61591AC175B00014BDE8 /* MerchantDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */; };
 		0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */; };
 		0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */; };
@@ -345,6 +348,15 @@
 		0D91F66B1ABA7B74004EB428 /* BaseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApi.h; sourceTree = "<group>"; };
 		0D91F66C1ABA7B74004EB428 /* BaseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseApi.m; sourceTree = "<group>"; };
 		0DF80EEA1AC009A000B1053E /* hasimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hasimage.png; sourceTree = "<group>"; };
+		0E0002201AC6422700003E60 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
+		0E0002211AC6422700003E60 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
+		0E0002231AC644CF00003E60 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
+		0E0002241AC644CF00003E60 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
+		0E0002261AC6483A00003E60 /* PollingViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollingViews.h; sourceTree = "<group>"; };
+		0E0002271AC6483A00003E60 /* PollingViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollingViews.m; sourceTree = "<group>"; };
+		0E0002291AC6690F00003E60 /* ApplyOpenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyOpenModel.h; sourceTree = "<group>"; };
+		0E00022A1AC6690F00003E60 /* ApplyOpenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyOpenModel.m; sourceTree = "<group>"; };
+		0E00022C1AC66E2800003E60 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0E5FAE941AC4EF8600BEBE5F /* ApplyDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyDetailController.h; sourceTree = "<group>"; };
 		0E5FAE951AC4EF8600BEBE5F /* ApplyDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyDetailController.m; sourceTree = "<group>"; };
 		0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload@2x.png"; sourceTree = "<group>"; };
@@ -424,8 +436,6 @@
 		0EC99CB51AB0327600D20386 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		0ECA6D1E1ABBC8CC005316B1 /* GoodDetialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetialModel.h; sourceTree = "<group>"; };
 		0ECA6D1F1ABBC8CC005316B1 /* GoodDetialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodDetialModel.m; sourceTree = "<group>"; };
-		0ECA6D2D1ABBDF37005316B1 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
-		0ECA6D2E1ABBDF37005316B1 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
 		0ECA6D331ABBFC3A005316B1 /* ReviewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewModel.h; sourceTree = "<group>"; };
 		0ECA6D341ABBFC3A005316B1 /* ReviewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewModel.m; sourceTree = "<group>"; };
 		0ECA6D361ABBFCFA005316B1 /* OrderCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCommentCell.h; sourceTree = "<group>"; };
@@ -450,8 +460,6 @@
 		0ECCB2D61AAECBF100E0591E /* numberback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numberback@2x.png"; sourceTree = "<group>"; };
 		0ECCB2D81AAECC6A00E0591E /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		0ECCB2DA1AAF188500E0591E /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
-		0ECD61511AC159070014BDE8 /* ApplyOpenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyOpenModel.h; sourceTree = "<group>"; };
-		0ECD61521AC159070014BDE8 /* ApplyOpenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyOpenModel.m; sourceTree = "<group>"; };
 		0ECD61571AC175B00014BDE8 /* MerchantDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantDetailModel.h; sourceTree = "<group>"; };
 		0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantDetailModel.m; sourceTree = "<group>"; };
 		0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomTabBarViewController.h; sourceTree = "<group>"; };
@@ -803,6 +811,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E00022D1AC66E2800003E60 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,20 +977,20 @@
 		0ECE7DA21AA5587A00E250B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E0002291AC6690F00003E60 /* ApplyOpenModel.h */,
+				0E00022A1AC6690F00003E60 /* ApplyOpenModel.m */,
+				0E0002201AC6422700003E60 /* ChannelModel.h */,
+				0E0002211AC6422700003E60 /* ChannelModel.m */,
 				0E5FAE9C1AC4F83B00BEBE5F /* BankModel.h */,
 				0E5FAE9D1AC4F83B00BEBE5F /* BankModel.m */,
 				0EC7B9E61AC3B48200080E2A /* ChannelListModel.h */,
 				0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */,
 				0ECD61571AC175B00014BDE8 /* MerchantDetailModel.h */,
 				0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */,
-				0ECD61511AC159070014BDE8 /* ApplyOpenModel.h */,
-				0ECD61521AC159070014BDE8 /* ApplyOpenModel.m */,
 				1A6D98641ABFAFC5005740A6 /* MessageModel.h */,
 				1A6D98651ABFAFC5005740A6 /* MessageModel.m */,
 				0ECA6D331ABBFC3A005316B1 /* ReviewModel.h */,
 				0ECA6D341ABBFC3A005316B1 /* ReviewModel.m */,
-				0ECA6D2D1ABBDF37005316B1 /* ChannelModel.h */,
-				0ECA6D2E1ABBDF37005316B1 /* ChannelModel.m */,
 				0ECA6D1E1ABBC8CC005316B1 /* GoodDetialModel.h */,
 				0ECA6D1F1ABBC8CC005316B1 /* GoodDetialModel.m */,
 				1A123AC41ABBE63300F642B4 /* ScoreModel.h */,
@@ -1137,6 +1146,7 @@
 		0ED0659C1A9EE397005DF849 = {
 			isa = PBXGroup;
 			children = (
+				0E00022C1AC66E2800003E60 /* CoreLocation.framework */,
 				0ED065A71A9EE397005DF849 /* iPadff */,
 				0ED065A61A9EE397005DF849 /* Products */,
 			);
@@ -1282,6 +1292,8 @@
 		0ED6ACF71AA16EB000D3B025 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0E0002231AC644CF00003E60 /* SMPageControl.h */,
+				0E0002241AC644CF00003E60 /* SMPageControl.m */,
 				0D91F66A1ABA7B42004EB428 /* Base */,
 				0D38872A1AB96F98000DF1D6 /* HexColors */,
 				0D3887041AB96F8E000DF1D6 /* Masonry */,
@@ -1380,6 +1392,8 @@
 				1A94FA221AC14A5C006D8FF7 /* HHZTextView.m */,
 				0ECB49341ABFBB330064A9FD /* FormView.h */,
 				0ECB49351ABFBB330064A9FD /* FormView.m */,
+				0E0002261AC6483A00003E60 /* PollingViews.h */,
+				0E0002271AC6483A00003E60 /* PollingViews.m */,
 				0ECA6D391ABC29E8005316B1 /* PollingView.h */,
 				0ECA6D3A1ABC29E8005316B1 /* PollingView.m */,
 				0ED5FD3D1AB913460057385C /* InterestView.h */,
@@ -1991,7 +2005,6 @@
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,
 				0E5FAEA61AC5463A00BEBE5F /* ChannelWebsiteController.m in Sources */,
 				1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */,
-				0ECA6D2F1ABBDF37005316B1 /* ChannelModel.m in Sources */,
 				0D3887221AB96F8E000DF1D6 /* MASConstraintMaker.m in Sources */,
 				0ECE7DC31AA55D7A00E250B6 /* NavigationBarAttr.m in Sources */,
 				0ECE7DB41AA55A2B00E250B6 /* TreeNodeCollection.m in Sources */,
@@ -2024,7 +2037,6 @@
 				1A8EE2CA1AADABA80014A7A5 /* TerminalManagerModel.m in Sources */,
 				0EC8D6101AAE800A003661C5 /* ShoppingCartFooterView.m in Sources */,
 				0EBBC58E1AB1660400E0ED16 /* OrderDetailController.m in Sources */,
-				0ECD61531AC159070014BDE8 /* ApplyOpenModel.m in Sources */,
 				1ADD1ED71AB6C91F0014E528 /* ChangeDetailController.m in Sources */,
 				1A94EB811AA98B4A0056E921 /* TerminalChoseCell.m in Sources */,
 				1AA8FF701AA4074D009D41B3 /* SDWebImageCompat.m in Sources */,
@@ -2049,7 +2061,9 @@
 				0EC8D60D1AAE7FA4003661C5 /* ShoppingCartModel.m in Sources */,
 				1A8E7C661AB1632400C021CE /* CancelCell.m in Sources */,
 				1ADD1EDA1AB6C92E0014E528 /* UpdateDetailController.m in Sources */,
+				0E0002281AC6483A00003E60 /* PollingViews.m in Sources */,
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
+				0E0002221AC6422700003E60 /* ChannelModel.m in Sources */,
 				1AC6A2CD1AC3A83500685FC9 /* CustomSwitch.m in Sources */,
 				0ECA6D411ABC32B3005316B1 /* ShoppingCartController.m in Sources */,
 				1ADD1EBC1AB685B60014E528 /* SubmitLogisticsController.m in Sources */,
@@ -2072,6 +2086,7 @@
 				1AA8FF711AA4074D009D41B3 /* SDWebImageDecoder.m in Sources */,
 				1A3944041AA464C80035DE4F /* RegisterViewController.m in Sources */,
 				1A6516461AA6E1CF008223BD /* DredgeViewController.m in Sources */,
+				0E00022B1AC6690F00003E60 /* ApplyOpenModel.m in Sources */,
 				0ED8EBE11AA6D7E000CE9F61 /* MJRefreshBaseView.m in Sources */,
 				0ED8EBE31AA6D7E000CE9F61 /* MJRefreshFooterView.m in Sources */,
 				1A5E10491AB8015C0082DA13 /* ChangePhoneController.m in Sources */,
@@ -2080,6 +2095,7 @@
 				0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */,
 				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
+				0E0002251AC644CF00003E60 /* SMPageControl.m in Sources */,
 				0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */,
 				0D38873C1AB970D7000DF1D6 /* CreateMerchantViewController.m in Sources */,
 				0ECE7DCE1AA55E4500E250B6 /* SortView.m in Sources */,

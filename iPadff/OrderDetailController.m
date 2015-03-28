@@ -162,6 +162,8 @@
     _tableView.dataSource = self;
     [self setHeaderAndFooterView];
     [self.view addSubview:_tableView];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     if (kDeviceVersion >= 7.0) {
         _tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     }
@@ -559,7 +561,8 @@ if(tableView==_tableViewPJ)
     }else
     {
     
-    
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     
         CGFloat wide;
         CGFloat height;
@@ -577,7 +580,7 @@ if(tableView==_tableViewPJ)
         }
         
         UITableViewCell *cell = nil;
-        CGFloat originX = 20.f;
+        CGFloat originX = 50.f;
         switch (indexPath.section) {
             case 0: {
                 switch (indexPath.row) {
@@ -622,7 +625,7 @@ if(tableView==_tableViewPJ)
                             
                             
                             UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                            cancelButton.frame = CGRectMake(wide-120, 12, 100, 40);
+                            cancelButton.frame = CGRectMake(wide-150, 12, 100, 40);
                             //        cancelButton.layer.cornerRadius = 4.f;
                             cancelButton.layer.masksToBounds = YES;
                             cancelButton.layer.borderWidth = 1.f;
@@ -635,7 +638,7 @@ if(tableView==_tableViewPJ)
                             [cell.contentView addSubview:cancelButton];
                             
                             UIButton *payButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                            payButton.frame = CGRectMake(wide-120-120, 12, 100, 40);
+                            payButton.frame = CGRectMake(wide-150-120, 12, 100, 40);
                             //        payButton.layer.cornerRadius = 4.f;
                             payButton.layer.masksToBounds = YES;
                             [payButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
@@ -659,7 +662,7 @@ if(tableView==_tableViewPJ)
                             }
                             
                             UIButton *commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                            commentButton.frame = CGRectMake(wide-120, 12, 100, 40);
+                            commentButton.frame = CGRectMake(wide-150, 12, 100, 40);
                             //        commentButton.layer.cornerRadius = 4.f;
                             commentButton.layer.masksToBounds = YES;
                             [commentButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
@@ -795,7 +798,7 @@ if(tableView==_tableViewPJ)
                     
                     
                     
-                    UIView*rootview  = [[UIView alloc] initWithFrame:CGRectMake(20, 10, wide-40, 20)];
+                    UIView*rootview  = [[UIView alloc] initWithFrame:CGRectMake(50, 10, wide-100, 20)];
                     rootview.backgroundColor = kColor(235, 233, 233, 1);
                     [cell.contentView addSubview: rootview];
                     
@@ -803,12 +806,13 @@ if(tableView==_tableViewPJ)
                     UILabel*goodslable=[[UILabel alloc]initWithFrame:CGRectMake(100, 0, 60, 20)];
                     [rootview addSubview:goodslable];
                     goodslable.textAlignment = NSTextAlignmentCenter;
+                    goodslable.text=@"商品";
+
                     
-                    
-                    UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2+20, 0, 60, 20)];
+                    UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-15, 0, 60, 20)];
                     [rootview addSubview:phonelable];
                     //                phonelable.textAlignment = NSTextAlignmentCenter;
-                    UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-130, 0, 80, 20)];
+                    UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-180, 0, 80, 20)];
                     [rootview addSubview:numberlable];
                     //                numberlable.textAlignment = NSTextAlignmentCenter;
                     
@@ -844,7 +848,8 @@ if(tableView==_tableViewPJ)
                         height=SCREEN_HEIGHT;
                         
                     }
-                    //80
+                    
+                                        //80
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                     UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 10, wide - originX * 2, 20)];
@@ -853,6 +858,25 @@ if(tableView==_tableViewPJ)
                     totalLabel.textAlignment = NSTextAlignmentRight;
                     totalLabel.text = [NSString stringWithFormat:@"共计%@件商品  实付金额：￥%.2f",_orderDetail.orderTotalNumber,_orderDetail.orderTotalPrice];
                     [cell.contentView addSubview:totalLabel];
+                    
+                    
+                    int status = [_orderDetail.orderStatus intValue];
+                    if (status == OrderStatusPaid || status == OrderStatusSending || status == OrderStatusReview) {
+                        UIButton *terminalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                        terminalBtn.frame = CGRectMake(50, 5, 100, 30);
+                        terminalBtn.layer.masksToBounds = YES;
+                        terminalBtn.layer.borderWidth = 1.f;
+                        terminalBtn.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
+                        [terminalBtn setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
+                        [terminalBtn setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
+                        terminalBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
+                        [terminalBtn setTitle:@"查看终端号" forState:UIControlStateNormal];
+                        [terminalBtn addTarget:self action:@selector(scanTerminalNumber:) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        [cell.contentView addSubview:terminalBtn];
+
+                    }
+
                 }
                 else {
                     static NSString *orderIdentifier = @"orderIdentifier";
@@ -879,10 +903,10 @@ if(tableView==_tableViewPJ)
                     
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
-                    UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 90, wide-40, 1)];
-                    totalLabel.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
-                    
-                    [cell.contentView addSubview:totalLabel];
+//                    UILabel *totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 90, wide-40, 1)];
+//                    totalLabel.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
+//                    
+//                    [cell.contentView addSubview:totalLabel];
                 }
             }
                 break;
@@ -894,6 +918,9 @@ if(tableView==_tableViewPJ)
     }
     
   
+}
+- (IBAction)scanTerminalNumber:(id)sender {
+    
 }
 
 - (BOOL) isBlankString:(NSString *)string {

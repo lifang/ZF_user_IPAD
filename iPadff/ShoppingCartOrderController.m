@@ -296,12 +296,12 @@
         self.addressLabel.font = [UIFont systemFontOfSize:14.f];
         [self.addressView addSubview:self.addressLabel];
         self.addressLabel.text=@"详细地址";
-        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120-120, 0, 60, 20)];
+        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120-140, 0, 60, 20)];
         [self.addressView addSubview:postlable];
         postlable.textAlignment = NSTextAlignmentCenter;
 
           postlable.text=@"邮编";
-        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120, 0, 60, 20)];
+        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide-140, 0, 60, 20)];
         [self.addressView addSubview:phonelable];
         phonelable.textAlignment = NSTextAlignmentCenter;
         
@@ -356,7 +356,7 @@
         phonelable.textAlignment = NSTextAlignmentCenter;
         
         phonelable.text=@"单价";
-        UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120, 0, 80, 20)];
+        UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-140, 0, 80, 20)];
         [rootview addSubview:numberlable];
         numberlable.textAlignment = NSTextAlignmentCenter;
         
@@ -1149,7 +1149,7 @@ if(section==0)
             
             
             
-            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-200, 20,180, 30)];
+            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide-220, 20,180, 30)];
             priceLabel.backgroundColor = [UIColor clearColor];
 //            priceLabel.font = [UIFont boldSystemFontOfSize:12.f];
             priceLabel.adjustsFontSizeToFitWidth = YES;

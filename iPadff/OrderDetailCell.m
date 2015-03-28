@@ -32,7 +32,7 @@
 
 - (void)initAndLayoutUI {
     CGFloat topSpace = 10.f;
-    CGFloat leftSpace = 20.f;
+    CGFloat leftSpace = 50.f;
     CGFloat labelHeight = 20.f;
     
     CGFloat imageSize = 70.f;
@@ -88,7 +88,7 @@
                                                                     toItem:_pictureView
                                                                  attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:leftSpace]];
+                                                                  constant:leftSpace-30]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_nameLabel
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual
@@ -127,7 +127,7 @@
 
     [self.contentView addSubview:_priceLabel];
     //数量
-    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 80, 30)];
+    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-120, 30, 80, 30)];
     
     _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _numberLabel.textAlignment = NSTextAlignmentCenter;
@@ -135,16 +135,16 @@
     [self.contentView addSubview:_numberLabel];
     //型号
     
-    _brandLabel = [[UILabel alloc]initWithFrame:CGRectMake(110, 40, wide-140, 20)];
+    _brandLabel = [[UILabel alloc]initWithFrame:CGRectMake(140, 40, wide-140, 20)];
     _brandLabel.font = [UIFont boldSystemFontOfSize:16.f];
     
     [self.contentView addSubview:_brandLabel];
     //支付通道
-    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 60, wide-140, 20)];
+    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(140, 60, wide-140, 20)];
     _channelLabel.font = [UIFont systemFontOfSize:16.f];
 
     [self.contentView addSubview:_channelLabel];
-    linlable  = [[UILabel alloc] initWithFrame:CGRectMake(20, 89, wide-40, 1)];
+    linlable  = [[UILabel alloc] initWithFrame:CGRectMake(50, 89, wide-100, 1)];
     
     
     linlable.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];

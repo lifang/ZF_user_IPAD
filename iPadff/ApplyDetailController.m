@@ -209,17 +209,11 @@
 
     NSInteger lastheightY;
     lastheightY=_applyData.materialList.count-2;
-    if(lastheightY%3==0)
-    {
+  
         lastheightY=_applyData.materialList.count/3;
         
-    }
-    else
-    {
-        
-        lastheightY=_applyData.materialList.count/3+1;
-        
-    }
+
+ 
     
     
     _scrollView = [[UIView alloc]init];
@@ -414,7 +408,9 @@
             locationbutton = [UIButton buttonWithType:UIButtonTypeCustom];
             locationbutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
             
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+            NSString*strId=[_infoDict objectForKey:[keynamesarry objectAtIndex:i]];
+            
+            NSString*accountname= [CityHandle getCityNameWithCityID:strId];
             
             [locationbutton setTitle:accountname forState:UIControlStateNormal];
             [locationbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -671,468 +667,6 @@
 
 }
 #pragma mark - UI
--(void)initUIScrollView
-
-{
-    NSInteger lastheightY;
-    lastheightY=_applyData.materialList.count-2;
-    if(lastheightY%3==0)
-    {
-        lastheightY=_applyData.materialList.count/3;
-        
-    }
-    else
-    {
-        
-        lastheightY=_applyData.materialList.count/3+1;
-        
-    }
-
-    
-    _scrollView = [[UIView alloc]init];
-    
-    if (iOS7)
-        
-    {
-        
-        _scrollView.frame = CGRectMake(0, 0, SCREEN_HEIGHT,
-                                       700+lastheightY*70);
-    }
-    else
-    {
-        
-        _scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH,
-                                       500+lastheightY*70);
-        
-        
-    }
-    
-   
-    NSArray*namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
-    
-    CGFloat borderSpace = 40.f;
-    CGFloat topSpace = 10.f;
-    CGFloat labelHeight = 20.f;
-    CGFloat wide;
-    CGFloat height;
-    if(iOS7)
-    {
-        wide=SCREEN_HEIGHT;
-        height=SCREEN_WIDTH;
-        
-        
-    }
-    else
-    {  wide=SCREEN_WIDTH;
-        height=SCREEN_HEIGHT;
-        
-    }
-    
-    
-    _brandLabel = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, topSpace+20, wide/2 - borderSpace , labelHeight)];
-    _brandLabel.backgroundColor = [UIColor clearColor];
-    //    _brandLabel.textColor = kColor(142, 141, 141, 1);
-    _brandLabel.font = [UIFont systemFontOfSize:18.f];
-    [_scrollView addSubview:_brandLabel];
-    
-    _modelLabel = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, topSpace + labelHeight+20, wide/2 - borderSpace, labelHeight)];
-    _modelLabel.backgroundColor = [UIColor clearColor];
-    //    _modelLabel.textColor = kColor(142, 141, 141, 1);
-    _modelLabel.font = [UIFont systemFontOfSize:18.f];
-    [_scrollView addSubview:_modelLabel];
-    
-    _terminalLabel = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, topSpace + labelHeight * 2+20, wide/2 - borderSpace, labelHeight)];
-    _terminalLabel.backgroundColor = [UIColor clearColor];
-    //    _terminalLabel.textColor = kColor(142, 141, 141, 1);
-    _terminalLabel.font = [UIFont systemFontOfSize:18.f];
-    [_scrollView addSubview:_terminalLabel];
-    
-    UILabel*accountnamelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2,topSpace + labelHeight * 2,140, 40)];
-    [_scrollView addSubview:accountnamelable];
-    accountnamelable.textAlignment = NSTextAlignmentCenter;
-    accountnamelable.font=[UIFont systemFontOfSize:19];
-    
-    accountnamelable.text=@"选择已有商户";
-    
-    accountnamebutton= [UIButton buttonWithType:UIButtonTypeCustom];
-    accountnamebutton.frame = CGRectMake(150+wide/2,  topSpace + labelHeight * 2,280, 40);
-    
-    NSString*accountname=[_infoDict objectForKey:key_selected];
-    
-    [accountnamebutton setTitle:accountname forState:UIControlStateNormal];
-    [accountnamebutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    accountnamebutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [accountnamebutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-    CALayer *layer=[accountnamebutton  layer];
-    //是否设置边框以及是否可见
-    [layer setMasksToBounds:YES];
-    //设置边框圆角的弧度
-    
-    //设置边框线的宽
-    //
-    [layer setBorderWidth:1];
-    //设置边框线的颜色
-    [layer setBorderColor:[[UIColor grayColor] CGColor]];
-    accountnamebutton.contentEdgeInsets = UIEdgeInsetsMake(0,5, 0,0);
-    accountnamebutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-    
-    
-    [accountnamebutton addTarget:self action:@selector(accountnamebuttonclick) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView addSubview:accountnamebutton];
-    
-    
-    
-    UILabel*firestline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, topSpace + labelHeight * 4+30, wide - 138, 1)];
-    firestline.backgroundColor = [UIColor grayColor];
-    [_scrollView addSubview:firestline];
-    
-    
-    for(int i=0;i<namesarry.count;i++)
-    {
-        NSInteger row;
-        row=i%2;
-        NSInteger height;
-        
-        height=i/2;
-        if(i>7)
-        {
-            topSpace=40;
-            
-            
-        }
-        UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide/2-40)*row, height*70+topSpace + labelHeight * 7,140, 40)];
-        [_scrollView addSubview:newaddress];
-        newaddress.textAlignment = NSTextAlignmentCenter;
-        newaddress.font=[UIFont systemFontOfSize:18];
-        
-        newaddress.text=[namesarry objectAtIndex:i];
-        
-        if(i==2)
-        {
-            _cityField = [UIButton buttonWithType:UIButtonTypeCustom];
-            _cityField.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            
-            if([accountname isEqualToString:@"0"])
-            {
-                [_cityField setTitle:@"女" forState:UIControlStateNormal];
-                
-                
-            }else
-            {
-                
-                [_cityField setTitle:@"男" forState:UIControlStateNormal];
-                
-                
-            }
-            
-            [_cityField setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            _cityField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [_cityField setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[_cityField  layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            _cityField.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-            
-            
-            [_cityField addTarget:self action:@selector(sexclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:_cityField];
-        }
-        else if(i==3)
-        {
-            birthdaybutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            birthdaybutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            
-            [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
-            [birthdaybutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            birthdaybutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [birthdaybutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[birthdaybutton  layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            birthdaybutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            birthdaybutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-            
-            
-            [birthdaybutton addTarget:self action:@selector(birthdaybuttonclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:birthdaybutton];
-        }
-        else if(i==7)
-        {
-            locationbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            locationbutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            
-            [locationbutton setTitle:accountname forState:UIControlStateNormal];
-            [locationbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            locationbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [locationbutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[locationbutton  layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            locationbutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            locationbutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-            
-            
-            [locationbutton addTarget:self action:@selector(locationbuttonclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:locationbutton];
-        }
-        
-        else if(i==13)
-        {
-            zhifubutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            
-            [zhifubutton setTitle:accountname forState:UIControlStateNormal];
-            [zhifubutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            zhifubutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [zhifubutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[zhifubutton  layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            zhifubutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            zhifubutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-            
-            
-            [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:zhifubutton];
-        }
-        
-        else
-        {
-            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40)];
-            neworiginaltextfield.delegate=self;
-            
-            neworiginaltextfield.tag=i+1056;
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            neworiginaltextfield.text=[NSString stringWithFormat:@"%@",accountname];
-            
-            [_scrollView addSubview:neworiginaltextfield];
-            //        neworiginaltextfield.delegate=self;
-            
-            CALayer *layer=[neworiginaltextfield layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            if(i==1)
-            {
-                
-                UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(200+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7+45,280, 20)];
-                [_scrollView addSubview:newaddress];
-                newaddress.textAlignment = NSTextAlignmentLeft;
-                newaddress.font=[UIFont systemFontOfSize:12];
-                
-                newaddress.text=@"例：上海好乐迪KTV";
-            }
-            
-            
-        }
-        
-        
-    }
-    
-    
-    
-    UILabel*twoline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18,  4*70+topSpace + labelHeight *5+10, wide - 138, 1)];
-    twoline.backgroundColor = [UIColor grayColor];
-    [_scrollView addSubview:twoline];
-    UILabel*threeline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18,  670, wide - 138, 1)];
-    threeline.backgroundColor = [UIColor grayColor];
-    [_scrollView addSubview:threeline];
-    NSInteger imageint;
-    imageint=0;
-    
-    for(int i=0;i<_applyData.materialList.count;i++)
-    {
-        
-        NSInteger row;
-        row=i%2;
-        NSInteger height;
-        
-        height=i/2;
-        MaterialModel *model = [_applyData.materialList objectAtIndex:i];
-        if (model.materialType == MaterialList) {
-            
-            NSInteger lastheight;
-            lastheight=_applyData.materialList.count-2;
-            if(lastheight%3==0)
-            {
-                lastheight=_applyData.materialList.count/3;
-                
-            }
-            else
-            {
-                
-                lastheight=_applyData.materialList.count/3+1;
-                
-            }
-            //选项 银行
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40, 700+lastheight*70,140, 40)];
-            [_scrollView addSubview:newaddress];
-            newaddress.textAlignment = NSTextAlignmentCenter;
-            newaddress.font=[UIFont systemFontOfSize:18];
-            
-            newaddress.text=model.materialName;
-            
-            
-             blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            blankbutton.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
-            
-            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
-            [blankbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            blankbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [blankbutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[blankbutton  layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            blankbutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            blankbutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-            
-            
-            [blankbutton addTarget:self action:@selector(blankclick) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:blankbutton];
-            
-            
-        }
-        else if (model.materialType == MaterialText) {
-            NSInteger lastheight;
-            lastheight=_applyData.materialList.count-2;
-            if(lastheight%3==0)
-            {
-                lastheight=_applyData.materialList.count/3;
-                
-            }
-            else
-            {
-                
-                lastheight=_applyData.materialList.count/3+1;
-                
-            }
-            
-            //文字
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(wide/2, 700+lastheight*70,140, 40)];
-            [_scrollView addSubview:newaddress];
-            newaddress.textAlignment = NSTextAlignmentCenter;
-            newaddress.font=[UIFont systemFontOfSize:18];
-            
-            newaddress.text=model.materialName;
-            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2+150,700+lastheight*70,280, 40)];
-            neworiginaltextfield.tag=i+1056;
-            
-            [_scrollView addSubview:neworiginaltextfield];
-            //        neworiginaltextfield.delegate=self;
-            
-            CALayer *layer=[neworiginaltextfield layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-        }
-        else if (model.materialType == MaterialImage) {
-            NSInteger row;
-            row=imageint%3;
-            NSInteger heightlk;
-            
-            heightlk=imageint/3;
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide-80)/3*row, 700+heightlk*70,(wide-80)/3-142, 40)];
-            [_scrollView addSubview:newaddress];
-            newaddress.textAlignment = NSTextAlignmentLeft;
-            newaddress.font=[UIFont systemFontOfSize:18];
-            
-            newaddress.text=model.materialName;
-            UIButton*imagebutton= [UIButton buttonWithType:UIButtonTypeCustom];
-            imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-142, 700+heightlk*70,100, 40);
-            imagebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-            [imagebutton addTarget:self action:@selector(imageclick:) forControlEvents:UIControlEventTouchUpInside];
-            imagebutton.tag=[model.materialID integerValue];
-            [self getApplyValueForKey:model.materialID];
-            if ([_infoDict objectForKey:model.materialID] && ![[_infoDict objectForKey:model.materialID] isEqualToString:@""])
-            {            [imagebutton setImage:[UIImage imageNamed:@"upload.png"] forState:UIControlStateNormal];
-
-            }
-            else {
-                [imagebutton setTitle:@"上传图片" forState:UIControlStateNormal];
-
-                [imagebutton setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
-
-            }
-
-            
-            [_scrollView addSubview:imagebutton];
-            
-            imageint++;
-            
-        }
-        
-        
-        
-        
-        
-    }
-    
-    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitBtn.frame = CGRectMake(80, 700+lastheightY*70+80, 160, 40);
-    submitBtn.center=CGPointMake(wide/2, 700+lastheightY*70+150);
-    
-    submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
-    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
-    [submitBtn setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
-    [submitBtn addTarget:self action:@selector(submitApply:) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView addSubview:submitBtn];
-    _scrollView.userInteractionEnabled=YES;
-    
-    
-}
 #pragma mark - 点击事件
 
 //上传图片
@@ -1357,7 +891,11 @@
 - (void)beginApply {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
+    
+    
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    NSLog(@"%@%@",delegate.token,delegate.userID);
+
     [NetworkInterface beginToApplyWithToken:delegate.token userID:delegate.userID applyStatus:_applyType terminalID:_terminalID finished:^(BOOL success, NSData *response) {
         NSLog(@"!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
@@ -1475,36 +1013,47 @@
     if (_applyData.organID) {
         [_infoDict setObject:_applyData.organID forKey:key_organID];
     }
-    if (_applyData.channelID) {
-        [_infoDict setObject:_applyData.channelID forKey:key_channel];
+    if (_applyData.channelOpenName && _applyData.billingName) {
+        [_infoDict setObject:[NSString stringWithFormat:@"%@ %@",_applyData.channelOpenName,_applyData.billingName] forKey:key_channel];
     }
+    _channelID = _applyData.channelID;
+    _billID = _applyData.billingID;
+    
     [_infoDict setObject:[NSNumber numberWithInt:_applyData.sex] forKey:key_sex];
     _merchantID = _applyData.merchantID;
-    [_tableView reloadData];
+    
+    /*之前上传过对公对私资料 保存*/
+    for (ApplyInfoModel *model in _applyData.applyList) {
+        if (model.value && ![model.value isEqualToString:@""]) {
+            [_infoDict setObject:model.value forKey:model.targetID];
+        }
+    }
+    [self.tableView reloadData];
     
 }
+
 
 //根据对公对私材料的id找到是否已经提交过材料
 - (NSString *)getApplyValueForKey:(NSString *)key {
     NSLog(@"!!%@,key = %@",[_infoDict objectForKey:key],key);
-    if ([_infoDict objectForKey:key] && ![[_infoDict objectForKey:@""] isEqualToString:@""]) {
-        //若修改过值 返回保存的值
+    if ([_infoDict objectForKey:key] && ![[_infoDict objectForKey:key] isEqualToString:@""]) {
+        //setPrimaryData方法中已经保存此值， 若修改则返回修改的值
         return [_infoDict objectForKey:key];
     }
-    else {
-        //是否之前提交过
-        if ([_applyData.applyList count] <= 0) {
-            return nil;
-        }
-        for (ApplyInfoModel *model in _applyData.applyList) {
-            if ([model.targetID isEqualToString:key]) {
-                if (model.value && ![model.value isEqualToString:@""]) {
-                    [_infoDict setObject:model.value forKey:key];
-                }
-                return model.value;
-            }
-        }
-    }
+    //    else {
+    //        //是否之前提交过
+    //        if ([_applyData.applyList count] <= 0) {
+    //            return nil;
+    //        }
+    //        for (ApplyInfoModel *model in _applyData.applyList) {
+    //            if ([model.targetID isEqualToString:key]) {
+    //                if (model.value && ![model.value isEqualToString:@""]) {
+    //                    [_infoDict setObject:model.value forKey:key];
+    //                }
+    //                return model.value;
+    //            }
+    //        }
+    //    }
     return nil;
 }
 
