@@ -87,6 +87,10 @@
    
 }
 
+- (void)scanBigImage {
+    //重写
+}
+
 
 #pragma mark
 
@@ -124,6 +128,7 @@
     if (_alreadyHasImage) {
         if (buttonIndex == 0) {
             //查看大图
+            [self scanBigImage];
             return;
         }
         else if (buttonIndex == 1) {

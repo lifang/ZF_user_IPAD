@@ -15,6 +15,7 @@
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
 #import "AddressViewController.h"
+
 @interface ShoppingCartOrderController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIButton *typeBtn;
@@ -867,15 +868,15 @@ if(section==0)
 -(void)addressmangerbuttonclick
 {
 
-//    AddressViewController*address=[[AddressViewController alloc]init];
-//    [self.navigationController pushViewController:address animated:YES];
-//
+    //AddressViewController*address=[[AddressViewController alloc]init];
+ //   [self.navigationController pushViewController:address animated:YES];
 
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
-
+  
 
 }
+
+
 -(void)newbuttonclick
 {
 

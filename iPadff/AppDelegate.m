@@ -78,9 +78,8 @@
         _userID = account.userID;
         _token = account.token;
     }
-   _userID = @"80";
-    _token = @"123";
-    // Override point for customization after application launch.
+//   _userID = @"80";
+//    _token = @"123";
     return YES;
 }
 
