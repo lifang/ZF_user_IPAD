@@ -56,7 +56,8 @@
 
 - (void)showDetailImageWithURL:(NSString *)urlString
                      imageRect:(CGRect)rect {
-    urlString = @"http://pic42.nipic.com/20140608/18347945_020920394000_2.jpg";
+    //urlString = @"http://pic42.nipic.com/20140608/18347945_020920394000_2.jpg";
+    urlString=@"http://g.hiphotos.baidu.com/image/w%3D2048/sign=b7641b0f6509c93d07f209f7ab05f9dc/d50735fae6cd7b89e0226b820d2442a7d9330e60.jpg";
     [self.view bringSubviewToFront:self.scrollPanel];
     self.scrollPanel.alpha = 1.0;
     

@@ -42,6 +42,15 @@
 @property(strong,nonatomic) UIButton * editBtn;
 @property(strong,nonatomic) UIActivityIndicatorView *indicatorView;
 
+
+@property(strong,nonatomic) UIButton * frontIMGBtn;
+@property(strong,nonatomic) UIButton * backIMGBtn;
+@property(strong,nonatomic) UIButton * bodyIMGBtn;
+@property(strong,nonatomic) UIButton * licenseIMGBtn;
+@property(strong,nonatomic) UIButton * taxIMGBtn;
+@property(strong,nonatomic) UIButton * organzationIMGBtn;
+@property(strong,nonatomic) UIButton * bankIMGBtn;
+
 @end
 
 @implementation MerchantDetailViewController
@@ -401,7 +410,7 @@
     }];
     
     
-    
+    /*
     _frontImgv=[[UIImageView alloc] init];
     //_frontImgv.layer.masksToBounds = YES;
     // _frontImgv.layer.cornerRadius = 3.0f;
@@ -417,6 +426,21 @@
         make.height.equalTo(@42);
         
     }];
+     */
+    
+    _frontIMGBtn=[[UIButton alloc] init];
+    [_frontIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_frontIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_frontIMGBtn setHidden:YES];
+    [_scrollView addSubview:_frontIMGBtn];
+    [_frontIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(frontImageLB.top);
+        make.left.equalTo(frontImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
     
     
     
@@ -435,7 +459,7 @@
     }];
     
     
-    
+    /*
     _backImgv=[[UIImageView alloc] init];
     [_backImgv setImage:[UIImage imageNamed:@"hasimage"]];
     [_scrollView addSubview:_backImgv];
@@ -447,7 +471,22 @@
         make.height.equalTo(@42);
         
     }];
+     */
     
+    
+    _backIMGBtn=[[UIButton alloc] init];
+    [_backIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_backIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_backIMGBtn setHidden:YES];
+    [_scrollView addSubview:_backIMGBtn];
+    [_backIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(backImageLB.top);
+        make.left.equalTo(backImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
     
     
     //////
@@ -466,7 +505,7 @@
     }];
     
     
-    
+    /*
     _bodyImgv=[[UIImageView alloc] init];
     [_bodyImgv setImage:[UIImage imageNamed:@"hasimage"]];
     [_scrollView addSubview:_bodyImgv];
@@ -478,6 +517,22 @@
         make.height.equalTo(@42);
         
     }];
+     */
+    
+    
+    _bodyIMGBtn=[[UIButton alloc] init];
+    [_bodyIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_bodyIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_bodyIMGBtn setHidden:YES];
+    [_scrollView addSubview:_bodyIMGBtn];
+    [_bodyIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bodyImageLB.top);
+        make.left.equalTo(bodyImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
     
     ///银行开户许可证照片
     
@@ -494,7 +549,7 @@
         make.height.equalTo(@42);
     }];
     
-    
+    /*
     _bankImgv=[[UIImageView alloc] init];
     [_bankImgv setImage:[UIImage imageNamed:@"hasimage"]];
     [_scrollView addSubview:_bankImgv];
@@ -506,6 +561,22 @@
         make.height.equalTo(@42);
         
     }];
+     */
+    
+    
+    _bankIMGBtn=[[UIButton alloc] init];
+    [_bankIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_bankIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_bankIMGBtn setHidden:YES];
+    [_scrollView addSubview:_bankIMGBtn];
+    [_bankIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(bankImageLB.top);
+        make.left.equalTo(bankImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
     
     
     //营业执照
@@ -522,7 +593,7 @@
         make.height.equalTo(@42);
     }];
     
-    
+    /*
     _licenseImgv=[[UIImageView alloc] init];
     [_licenseImgv setImage:[UIImage imageNamed:@"hasimage"]];
     [_scrollView addSubview:_licenseImgv];
@@ -532,6 +603,21 @@
         make.left.equalTo(licenseImageLB.right).offset(24);
         make.width.equalTo(@42);
         make.height.equalTo(@42);
+        
+    }];
+     */
+    
+    
+    _licenseIMGBtn=[[UIButton alloc] init];
+    [_licenseIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_licenseIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_licenseIMGBtn setHidden:YES];
+    [_scrollView addSubview:_licenseIMGBtn];
+    [_licenseIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(licenseImageLB.top);
+        make.left.equalTo(licenseImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
     
@@ -551,7 +637,7 @@
         make.height.equalTo(@42);
     }];
     
-    
+    /*
     _taxImgv=[[UIImageView alloc] init];
     [_taxImgv setImage:[UIImage imageNamed:@"hasimage"]];
     [_scrollView addSubview:_taxImgv];
@@ -563,6 +649,21 @@
         make.height.equalTo(@42);
         
     }];
+     */
+    
+    _taxIMGBtn=[[UIButton alloc] init];
+    [_taxIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_taxIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_taxIMGBtn setHidden:YES];
+    [_scrollView addSubview:_taxIMGBtn];
+    [_taxIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(taxImageLB.top);
+        make.left.equalTo(taxImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
+        
+    }];
+
     
     //
     
@@ -581,7 +682,7 @@
     
     
 
-    
+    /*
     _organzationImgv=[[UIImageView alloc] init];
     [_organzationImgv setImage:[UIImage imageNamed:@"hasimage"]];
     [_scrollView addSubview:_organzationImgv];
@@ -591,6 +692,20 @@
         make.left.equalTo(organzationImageLB.right).offset(24);
         make.width.equalTo(@42);
         make.height.equalTo(@42);
+        
+    }];
+     */
+    
+    _organzationIMGBtn=[[UIButton alloc] init];
+    [_organzationIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
+    [_organzationIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_organzationIMGBtn setHidden:YES];
+    [_scrollView addSubview:_organzationIMGBtn];
+    [_organzationIMGBtn makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(organzationImageLB.top);
+        make.left.equalTo(organzationImageLB.right).offset(24);
+        make.height.equalTo(@42);
+        make.width.equalTo(@(42));
         
     }];
     
@@ -735,25 +850,25 @@
     _bankTV.text = _merchantDetail.merchantBank;
     _bank_IDTV.text= _merchantDetail.merchantBankID;
     if (_merchantDetail.frontPath) {
-        [_frontImgv setHidden:NO];
+        [_frontIMGBtn setHidden:NO];
     }
     if (_merchantDetail.backPath) {
-        [_backImgv setHidden:NO];
+        [_backIMGBtn setHidden:NO];
     }
     if (_merchantDetail.bodyPath) {
-        [_bodyImgv setHidden:NO];
+        [_bodyIMGBtn setHidden:NO];
     }
     if (_merchantDetail.licensePath) {
-        [_licenseImgv setHidden:NO];
+        [_licenseIMGBtn setHidden:NO];
     }
     if (_merchantDetail.taxPath) {
-        [_taxImgv setHidden:NO];
+        [_taxIMGBtn setHidden:NO];
     }
     if (_merchantDetail.bankPath) {
-        [_bankImgv setHidden:NO];
+        [_bankIMGBtn setHidden:NO];
     }
     if (_merchantDetail.organizationPath) {
-        [_organzationImgv setHidden:NO];
+        [_organzationIMGBtn setHidden:NO];
     }
 
    
@@ -764,6 +879,56 @@
     */
     
 }
+
+-(void)BtnImagePressed:(id)sender
+{
+    //[self scanBigImage];
+    NSString *urlString = nil;
+   
+    if(sender==_frontIMGBtn)
+    {
+        urlString = _merchantDetail.frontPath;
+        
+    }
+    else if(sender==_backIMGBtn)
+    {
+        urlString = _merchantDetail.bankPath;
+        
+    }
+    else if(sender==_bodyIMGBtn)
+    {
+       
+        urlString = _merchantDetail.bodyPath;
+        
+    }
+    else if(sender==_licenseIMGBtn)
+    {
+         urlString = _merchantDetail.licensePath;
+    }
+    else if(sender==_taxIMGBtn)
+    {
+      
+        urlString = _merchantDetail.taxPath;
+
+    }
+    else if(sender==_bankIMGBtn)
+    {
+         urlString = _merchantDetail.organizationPath;
+        
+    }
+    else if(sender==_organzationIMGBtn)
+    {
+       
+         urlString = _merchantDetail.bankPath;
+    }
+    [self showDetailImageWithURL:urlString imageRect:self.imageRect];
+
+}
+
+
+
+
+
 
 
 -(void) viewWillAppear:(BOOL)animated
