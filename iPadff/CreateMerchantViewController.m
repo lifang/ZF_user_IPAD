@@ -1177,6 +1177,11 @@
     [self refreshImage];
 }
 
+- (void)scanBigImage {
+    NSString *urlString = [_imageDict objectForKey:self.selectedImageKey];
+    [self showDetailImageWithURL:urlString imageRect:self.imageRect];
+    
+}
     
 
 #pragma mark - Request
