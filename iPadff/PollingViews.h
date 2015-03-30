@@ -1,17 +1,15 @@
 //
-//  PollingView.h
-//  ZFUB
+//  PollingViews.h
+//  iPadff
 //
-//  Created by 徐宝桥 on 15/1/23.
-//  Copyright (c) 2015年 ___MyCompanyName___. All rights reserved.
+//  Created by comdosoft on 15/3/28.
+//  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
-
-/***********图片轮询视图***********/
 
 #import <UIKit/UIKit.h>
 #import "SMPageControl.h"
-@interface PollingView : UIView<UIScrollViewDelegate>
 
+@interface PollingViews : UIView<UIScrollViewDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) SMPageControl *pageControl;
@@ -20,6 +18,6 @@
 
 - (void)downloadImageWithURLs:(NSArray *)urlArray
                        target:(id)target
-                     action:(SEL)action;
+                       action:(SEL)action;
 
 @end

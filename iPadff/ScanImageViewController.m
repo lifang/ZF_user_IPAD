@@ -35,7 +35,21 @@
 
 //查看大图
 - (void)initImageScanView {
-    _scrollPanel = [[UIView alloc] initWithFrame:self.view.bounds];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    _scrollPanel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, height)];
     _scrollPanel.backgroundColor = [UIColor clearColor];
     _scrollPanel.alpha = 0;
     [self.view addSubview:_scrollPanel];
@@ -46,7 +60,7 @@
     _markView.alpha = 0.0;
     [_scrollPanel addSubview:_markView];
     
-    _imagesScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    _imagesScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, wide, height)];
     [_scrollPanel addSubview:_imagesScrollView];
     _imagesScrollView.pagingEnabled = YES;
 }
@@ -69,8 +83,24 @@
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:nil options:SDWebImageProgressiveDownload progress:nil completed:^(UIImage *image,NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 //        CGRect convertRect = [[imageView superview] convertRect:imageView.frame toView:self.view];
         CGPoint contentOffset = self.imagesScrollView.contentOffset;
+        CGFloat wide;
+        CGFloat height;
+        if(iOS7)
+        {
+            wide=SCREEN_HEIGHT;
+            height=SCREEN_WIDTH;
+            
+            
+        }
+        else
+        {  wide=SCREEN_WIDTH;
+            height=SCREEN_HEIGHT;
+            
+        }
         
-        ImageScrollView *imagescroll = [[ImageScrollView alloc] initWithFrame:(CGRect){contentOffset,self.imagesScrollView.bounds.size}];
+        
+
+        ImageScrollView *imagescroll = [[ImageScrollView alloc] initWithFrame:CGRectMake(0, 0, wide, height)];
         [imagescroll setContentWithFrame:rect];
         [imagescroll setImage:imageView.image];
         [self.imagesScrollView addSubview:imagescroll];

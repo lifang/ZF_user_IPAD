@@ -395,6 +395,8 @@
 }
 -(void)applicationClicks:(UIButton *)button
 {
+    NSLog(@"%ld",(long)button.tag);
+
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
     detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
     detailC.openStatus = OpenStatusReopen;

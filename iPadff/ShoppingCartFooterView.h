@@ -10,7 +10,7 @@
 
 @protocol SelectedShopCartDelegate <NSObject>
 
-
+@optional
 - (void)selectedAllShoppingCart:(BOOL)isSelected;
 
 @end

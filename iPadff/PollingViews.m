@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 ___MyCompanyName___. All rights reserved.
 //
 
-#import "PollingView.h"
+#import "PollingViews.h"
 #import "UIImageView+WebCache.h"
 
-@implementation PollingView
+@implementation PollingViews
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -29,7 +29,7 @@
     _scrollView.backgroundColor = [UIColor blackColor];
     [self addSubview:_scrollView];
     
-    _pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20)];
+    _pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height +25, self.bounds.size.width, 20)];
     _pageControl.userInteractionEnabled = NO;
     [_pageControl setPageIndicatorImage:[UIImage imageNamed:@"pagL"]];
     [_pageControl setCurrentPageIndicatorImage:[UIImage imageNamed:@"pagH"]];
@@ -67,7 +67,7 @@
     if (scrollView == _scrollView) {
         _pageControl.currentPage = scrollView.contentOffset.x / scrollView.frame.size.width;
         [_pageControl setCurrentImage:[UIImage imageNamed:@"pagH"] forPage:_pageControl.currentPage];
-
+        
     }
 }
 

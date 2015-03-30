@@ -19,6 +19,7 @@
 #import "HomeImageModel.h"
 #import "SystemNoticeController.h"
 #import "ContactusUsController.h"
+#import "ChannelWebsiteController.h"
 
 @interface ZYHomeViewController ()<sendCity>
 @property(nonatomic,strong)PollingView *pollingView;
@@ -112,13 +113,22 @@
     for (HomeImageModel *model in _pictureItem) {
         [urlList addObject:model.pictureURL];
     }
-[_pollingView downloadImageWithURLs:urlList target:self action:@selector(tapPicture)];
+    [_pollingView downloadImageWithURLs:urlList target:self action:@selector(tapPicture:)];
     
 }
--(void)tapPicture
-{
-    
+- (void)tapPicture:(UITapGestureRecognizer *)tap {
+    UIImageView *imageView = (UIImageView *)[tap view];
+    NSInteger index = imageView.tag - 1;
+    ChannelWebsiteController *websiteC = [[ChannelWebsiteController alloc] init];
+    if (index >= 0 && index < [_pictureItem count]) {
+        HomeImageModel *imageModel = [_pictureItem objectAtIndex:index];
+        websiteC.title = @"详情";
+        websiteC.urlString = imageModel.websiteURL;
+        websiteC.hidesBottomBarWhenPushed =  YES ;
+        [self.navigationController pushViewController:websiteC animated:YES];
+    }
 }
+
 -(void)initPollingView
 {
     //图片比例 40:17

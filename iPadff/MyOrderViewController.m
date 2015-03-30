@@ -472,7 +472,7 @@
         
     }
 
-    UILabel *totalLabels = [[UILabel alloc] initWithFrame:CGRectMake(20, 141, wide-260, 1)];
+    UILabel *totalLabels = [[UILabel alloc] initWithFrame:CGRectMake(20, 180, wide-260, 1)];
     totalLabels.backgroundColor =[UIColor grayColor];
     [cell.contentView addSubview:totalLabels];
     return cell;
