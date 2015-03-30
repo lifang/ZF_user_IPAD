@@ -1771,4 +1771,20 @@ static NSString *HTTP_GET  = @"GET";
                         finished:finish];
 }
 
++ (void)sendEmailChangeWithName:(NSString *)name email:(NSString *)email finished:(requestDidFinished)finish
+{
+    //参数
+    NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
+    [paramDict setObject:name forKey:@"userName"];
+    [paramDict setObject:email forKey:@"email"];
+    //url
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_changeEmail_method];
+    [[self class] requestWithURL:urlString
+                          params:paramDict
+                      httpMethod:HTTP_POST
+                        finished:finish];
+}
+
+
+
 @end

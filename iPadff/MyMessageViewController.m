@@ -42,6 +42,9 @@
 {
     NSArray *nameArr = [NSArray arrayWithObjects:@"基础信息",@"安全",@"地址管理",@"积分", nil];
     SwitchView *swithView = [[SwitchView alloc]initWithFrame:CGRectMake(160.f, 0, SCREEN_WIDTH - 160.f, 80) With:nameArr];
+    if (iOS7) {
+        swithView.frame = CGRectMake(160.f, 0, SCREEN_HEIGHT - 160.f, 80);
+    }
     self.swithView = swithView;
     _swithView.hidden = YES;
     _swithView.SwitchViewClickedDelegate = self;

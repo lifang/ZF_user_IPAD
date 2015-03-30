@@ -41,7 +41,13 @@
 
 @implementation RegisterViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+}
+
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     [self initUI];
 }
@@ -55,6 +61,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
     
+    
     UIBarButtonItem *zeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     zeroBar.width = 30.f;
     
@@ -66,6 +73,9 @@
     NSArray *leftArr = [NSArray arrayWithObjects:zeroBar,leftBar, nil];
     self.navigationItem.leftBarButtonItems = leftArr;
     
+    CGFloat mainBtnWidth = 100.f;
+    CGFloat mainFieldWidth = 240.f;
+    
     UILabel *phoneOrEmail = [[UILabel alloc]init];
     phoneOrEmail.font = [UIFont systemFontOfSize:20];
     phoneOrEmail.text = @"手机号/邮箱";
@@ -76,7 +86,7 @@
     _phoneField = [[UITextField alloc]init];
     _phoneField.borderStyle = UITextBorderStyleLine;
     _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _phoneField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , phoneOrEmail.frame.origin.y, self.view.frame.size.width * 0.25, phoneOrEmail.frame.size.height);
+    _phoneField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , phoneOrEmail.frame.origin.y, mainFieldWidth, phoneOrEmail.frame.size.height);
     _phoneField.placeholder = @"请输入手机号/邮箱";
     [_phoneField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _phoneField.delegate = self;
@@ -90,7 +100,7 @@
     [readBtnLayer setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_phoneField];
     
-    UIButton *authGetBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _phoneField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
+    UIButton *authGetBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _phoneField.frame.origin.y, mainBtnWidth, _phoneField.frame.size.height)];
     _sendButton = authGetBtn;
     [authGetBtn addTarget:self action:@selector(authClick:) forControlEvents:UIControlEventTouchUpInside];
     [authGetBtn setBackgroundColor:mainColor];
@@ -107,7 +117,7 @@
     _authField = [[UITextField alloc]init];
     _authField.borderStyle = UITextBorderStyleLine;
     _authField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _authField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , authCode.frame.origin.y, self.view.frame.size.width * 0.25, phoneOrEmail.frame.size.height);
+    _authField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , authCode.frame.origin.y, mainFieldWidth, phoneOrEmail.frame.size.height);
     _authField.placeholder = @"请输入验证码";
     [_authField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _authField.delegate = self;
@@ -122,7 +132,7 @@
     [readBtnLayer2 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_authField];
     
-    UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
+    UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, mainBtnWidth, _phoneField.frame.size.height)];
     _makeSureBtn = makeSureBtn;
     [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
     [makeSureBtn setBackgroundColor:mainColor];
@@ -139,7 +149,7 @@
     _newsPassword.secureTextEntry = YES;
     _newsPassword.borderStyle = UITextBorderStyleLine;
     _newsPassword.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _newsPassword.frame = CGRectMake(CGRectGetMaxX(password.frame) , password.frame.origin.y, self.view.frame.size.width * 0.25, password.frame.size.height);
+    _newsPassword.frame = CGRectMake(CGRectGetMaxX(password.frame) , password.frame.origin.y, mainFieldWidth, password.frame.size.height);
     _newsPassword.placeholder = @"请输入新密码";
     [_newsPassword setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _newsPassword.delegate = self;
@@ -163,7 +173,7 @@
     _makeSurePassword.secureTextEntry = YES;
     _makeSurePassword.borderStyle = UITextBorderStyleLine;
     _makeSurePassword.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _makeSurePassword.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , makeSurepassword.frame.origin.y, self.view.frame.size.width * 0.25, makeSurepassword.frame.size.height);
+    _makeSurePassword.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , makeSurepassword.frame.origin.y, mainFieldWidth, makeSurepassword.frame.size.height);
     _makeSurePassword.placeholder = @"请确认新密码";
     [_makeSurePassword setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _makeSurePassword.delegate = self;
@@ -187,7 +197,7 @@
     _locationField.userInteractionEnabled = NO;
     _locationField.borderStyle = UITextBorderStyleLine;
     _locationField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _locationField.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , location.frame.origin.y, self.view.frame.size.width * 0.25, makeSurepassword.frame.size.height);
+    _locationField.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , location.frame.origin.y, mainFieldWidth, makeSurepassword.frame.size.height);
     _locationField.placeholder = @"请选择城市";
     [_locationField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _locationField.delegate = self;
@@ -208,7 +218,10 @@
     [self.view addSubview:_locationField];
     
     UIView *line = [[UIView alloc]init];
-    line.frame = CGRectMake(40, CGRectGetMaxY(_locationField.frame) + 50, self.view.frame.size.width * 0.9, 1);
+    line.frame = CGRectMake(40, CGRectGetMaxY(_locationField.frame) + 50, SCREEN_WIDTH - 80, 1);
+    if (iOS7) {
+        line.frame = CGRectMake(40, CGRectGetMaxY(_locationField.frame) + 50, SCREEN_HEIGHT - 80, 1);
+    }
     line.backgroundColor = kColor(225, 224, 224, 1.0);
     [self.view addSubview:line];
     
@@ -219,6 +232,8 @@
     [presentBtn setBackgroundColor:mainColor];
     presentBtn.frame = CGRectMake(CGRectGetMaxX(password.frame) + 20, CGRectGetMaxY(line.frame) + 40, 240, 40);
     [self.view addSubview:presentBtn];
+    
+    [self initPickerView];
 }
 
 -(void)setIsChecked:(BOOL)isChecked
@@ -537,14 +552,14 @@
     if (textField == _phoneField) {
     if ([string isEqualToString:@""]) {
         //删除
-        if ([textField.text length] > 0 && [[textField.text substringToIndex:[textField.text length] - 1] containsString:@"@"]) {
+        if ([textField.text length] > 0 && [@"@" rangeOfString:[textField.text substringToIndex:[textField.text length] - 1]].length!=0) {
             self.isMobile = NO;
         }
         else {
             self.isMobile = YES;
         }
     }
-    else if ([textField.text containsString:@"@"] || [string containsString:@"@"]) {
+    else if ([@"@" rangeOfString:textField.text].length != 0 || [@"@" rangeOfString:string].length != 0) {
         self.isMobile = NO;
     }
     else {
@@ -617,8 +632,7 @@
 
 -(void)locationCity
 {
-        [self initPickerView];
-        [self pickerScrollIn];
+    [self pickerScrollIn];
 }
     
 //选择城市
@@ -695,9 +709,20 @@
 }
 
 - (void)pickerScrollIn {
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH - 40;
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT - 40;
+    }
     [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
+        _toolbar.frame = CGRectMake(0, height - 260, wide, 44);
+        _pickerView.frame = CGRectMake(0, height - 216, wide, 216);
     }];
 }
 
@@ -708,17 +733,17 @@
     if(iOS7)
     {
         wide=SCREEN_HEIGHT;
-        height=SCREEN_WIDTH;
+        height=SCREEN_WIDTH - 40;
     }
     else
     {  wide=SCREEN_WIDTH;
-        height=SCREEN_HEIGHT;
+        height=SCREEN_HEIGHT - 40;
         
     }
     
     [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight, wide, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight, wide, 216);
+        _toolbar.frame = CGRectMake(0, height, wide, 44);
+        _pickerView.frame = CGRectMake(0, height, wide, 216);
     }];
 }
 

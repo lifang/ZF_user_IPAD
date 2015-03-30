@@ -20,14 +20,17 @@
 #import "SystemNoticeController.h"
 #import "ContactusUsController.h"
 #import "ChannelWebsiteController.h"
+#import "AppDelegate.h"
 
-@interface ZYHomeViewController ()<sendCity>
+@interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
 @property(nonatomic,strong)LocationViewController *locationVC;
 @property(nonatomic,strong)NSString *cityName;
 @property(nonatomic,strong)NSString *cityId;
 @property(nonatomic,strong)LocationButton *locationBtn;
 @property (nonatomic, strong) NSMutableArray *pictureItem;
+
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -72,6 +75,7 @@
         NSLog(@"%f",SCREEN_WIDTH);
         rootview.backgroundColor=[UIColor whiteColor];
     }
+    [self getUserLocation];
     [self initNavigationView];
 }
 #pragma mark - Request
@@ -393,12 +397,55 @@
 }
 #pragma mark - 定位
 
+- (void)getUserLocation {
+    if ([CLLocationManager locationServicesEnabled]) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; //控制定位精度,越高耗电量越大。
+        _locationManager.distanceFilter = 100; //控制定位服务更新频率。单位是“米”
+        [_locationManager startUpdatingLocation];
+        //在ios 8.0下要授权
+        if (kDeviceVersion >= 8.0)
+            [_locationManager requestWhenInUseAuthorization];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *currentLocation = [locations lastObject];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error) {
+            if ([placemarks count] > 0) {
+                CLPlacemark *placemark = [placemarks lastObject];
+                NSString *cityName = placemark.locality;
+                [self getCurrentCityInfoWithCityName:cityName];
+            }
+        }
+    }];
+}
+
+- (void)getCurrentCityInfoWithCityName:(NSString *)cityName {
+    CityModel *currentCity = nil;
+    for (CityModel *model in [CityHandle shareCityList]) {
+        if ([cityName rangeOfString:model.cityName].length != 0) {
+            currentCity = model;
+            break;
+        }
+    }
+    if (currentCity) {
+        _locationBtn.nameLabel.text = currentCity.cityName;
+    }
+    else {
+        _locationBtn.nameLabel.text = @"定位失败";
+    }
+}
+
 - (void)getSelectedLocation:(CityModel *)selectedCity {
     if (selectedCity) {
         _locationBtn.nameLabel.text = selectedCity.cityName;
     }
     else {
-        _locationBtn.nameLabel.text = @"无法定位";
+        _locationBtn.nameLabel.text = @"定位失败";
     }
 }
 

@@ -163,7 +163,7 @@
     [readBtnLayer setBorderColor:[[UIColor whiteColor] CGColor]];
     readBtn.backgroundColor = [UIColor clearColor];
     [readBtn setTitle:@"标记为已读" forState:UIControlStateNormal];
-    readBtn.frame = CGRectMake(- 5, 0, 120, 40);
+    readBtn.frame = CGRectMake(- 5, 3, 120, 37);
     [readV addSubview:readBtn];
     
     UIView *deleteV = [[UIView alloc]init];
@@ -179,7 +179,7 @@
     [deleteBtnLayer setBorderWidth:1.0];
     [deleteBtnLayer setBorderColor:[[UIColor whiteColor] CGColor]];
     [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-    deleteBtn.frame = CGRectMake(- 5, 0, 120, 40);
+    deleteBtn.frame = CGRectMake(- 5, 3, 120, 37);
     [deleteV addSubview:deleteBtn];
     
     UIBarButtonItem *withBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
