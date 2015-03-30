@@ -11,9 +11,9 @@
 #import "NetworkInterface.h"
 #import "PhoneSuccessViewController.h"
 #import "EmailSuccessViewController.h"
-#import "LocationViewController.h"
+#import "CityHandle.h"
 
-@interface RegisterViewController ()<UITextFieldDelegate,UIAlertViewDelegate,sendCity>
+@interface RegisterViewController ()<UITextFieldDelegate,UIAlertViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property(nonatomic,strong)UITextField *phoneField;
 @property(nonatomic,strong)UITextField *authField;
@@ -26,34 +26,24 @@
 @property(nonatomic,strong)UIButton *sendButton;
 @property(nonatomic,strong)UILabel *authLabel;
 @property(nonatomic,strong)UIButton *makeSureBtn;
-@property(nonatomic,strong)LocationViewController *locationVC;
 @property(nonatomic,strong)NSString *cityName;
 @property(nonatomic,strong)NSString *cityId;
+
+@property (nonatomic, strong) UIToolbar *toolbar;
+
+@property (nonatomic, strong) UIPickerView *pickerView;
+
+@property(nonatomic,strong)NSMutableArray *cityArray;
+
+@property(nonatomic,strong)NSString *selectedCityID;
+@property(nonatomic,assign)BOOL isChange;
 @end
 
 @implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    LocationViewController *locationVC = [[LocationViewController alloc]init];
-    locationVC.delegate = self;
-    self.locationVC = locationVC;
     [self initUI];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    _locationField.text = _cityName;
-}
-
-
--(void)sendCity:(NSString *)city WithCity_id:(NSString *)city_id
-{
-    self.cityName = city;
-    self.cityId = city_id;
-    _locationField.placeholder = nil;
-    _locationField.text = nil;
 }
 
 -(void)initUI
@@ -231,12 +221,6 @@
     [self.view addSubview:presentBtn];
 }
 
--(void)locationCity
-{
-    [self.navigationController pushViewController:_locationVC animated:YES];
-    
-}
-
 -(void)setIsChecked:(BOOL)isChecked
 {
     _isChecked = isChecked;
@@ -344,7 +328,7 @@
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在提交...";
-    [NetworkInterface registerWithActivation:_authField.text username:_phoneField.text userPassword:_newsPassword.text cityID:@"1" isEmailRegister:NO finished:^(BOOL success, NSData *response) {
+    [NetworkInterface registerWithActivation:_authField.text username:_phoneField.text userPassword:_newsPassword.text cityID:_selectedCityID isEmailRegister:NO finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -387,7 +371,7 @@
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在提交...";
-    [NetworkInterface registerWithActivation:nil username:_phoneField.text userPassword:_newsPassword.text cityID:@"1" isEmailRegister:YES finished:^(BOOL success, NSData *response) {
+    [NetworkInterface registerWithActivation:nil username:_phoneField.text userPassword:_newsPassword.text cityID:_selectedCityID isEmailRegister:YES finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -629,6 +613,123 @@
         }
     });
     dispatch_resume(_timer);
+}
+
+-(void)locationCity
+{
+        [self initPickerView];
+        [self pickerScrollIn];
+}
+    
+//选择城市
+- (void)initPickerView {
+    //pickerView
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 44)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(pickerScrollOut)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(modifyLocation:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 830.f;
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [self.view addSubview:_toolbar];
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 216)];
+    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    if (_isChange) {
+        [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_cityId] inComponent:0 animated:NO];
+        [_pickerView reloadAllComponents];
+        [_pickerView selectRow:[CityHandle getCityIndexWithCityID:_cityId] inComponent:1 animated:NO];
+    }else{
+        
+    }
+    
+    [self.view addSubview:_pickerView];
+}
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == 0) {
+        return [[CityHandle shareProvinceList] count];
+    }
+    else {
+        NSInteger provinceIndex = [pickerView selectedRowInComponent:0];
+        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:provinceIndex];
+        _cityArray = [provinceDict objectForKey:@"cities"];
+        return [_cityArray count];
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (component == 0) {
+        //省
+        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:row];
+        return [provinceDict objectForKey:@"name"];
+    }
+    else {
+        //市
+        return [[_cityArray objectAtIndex:row] objectForKey:@"name"];
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (component == 0) {
+        //省
+        [_pickerView reloadComponent:1];
+        
+    }
+    else {
+        
+        _locationField.text =[[_cityArray objectAtIndex:row] objectForKey:@"name"];
+         _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:row] objectForKey:@"id"]];
+    }
+}
+
+- (void)pickerScrollIn {
+    [UIView animateWithDuration:.3f animations:^{
+        _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
+        _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
+    }];
+}
+
+- (void)pickerScrollOut {
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+    [UIView animateWithDuration:.3f animations:^{
+        _toolbar.frame = CGRectMake(0, kScreenHeight, wide, 44);
+        _pickerView.frame = CGRectMake(0, kScreenHeight, wide, 216);
+    }];
+}
+
+- (void)modifyLocation:(id)sender {
+    [self pickerScrollOut];
+    
+    NSInteger index = [self.pickerView selectedRowInComponent:1];
+    self.selectedCityID = [NSString stringWithFormat:@"%@",[[self.cityArray objectAtIndex:index] objectForKey:@"id"]];
+    NSString *cityName = [[self.cityArray objectAtIndex:index] objectForKey:@"name"];
+    _locationField.text = cityName;
+    
 }
 
 

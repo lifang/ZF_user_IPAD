@@ -33,6 +33,11 @@ typedef enum {
 { UIButton* accountnamebutton;
     NSInteger sexint;
     UIButton* _cityField ;
+    UIButton* birthdaybutton;
+    UIDatePicker *datePicker;
+    UIButton *makeSureBtn;
+    UIButton* locationbutton;
+    NSArray*keynamesarry;
     
 }
 

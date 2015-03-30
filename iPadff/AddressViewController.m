@@ -423,6 +423,7 @@
     _postcodeField.text = nil;
     _locationField.text = nil;
     _particularLocationField.text = nil;
+    [self pickerScrollOut];
     [_bigsview removeFromSuperview];
 }
 
@@ -524,7 +525,6 @@
     else
     {  wide=SCREEN_WIDTH;
         height=SCREEN_HEIGHT;
-        
     }
     
     [UIView animateWithDuration:.3f animations:^{

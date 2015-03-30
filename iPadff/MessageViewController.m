@@ -51,6 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
+    self.tableView.backgroundColor = kColor(241, 240, 240, 1.0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _messageItems = [[NSMutableArray alloc] init];
     _selectedItem = [[NSMutableArray alloc] init];
@@ -381,11 +382,7 @@
 
 -(void)setFooterView
 {
-    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 80, (SCREEN_HEIGHT - 65 * [_messageItems count] - 60))];
-    if (iOS7) {
-        v.frame = CGRectMake(0, 0, SCREEN_HEIGHT - 80,(SCREEN_WIDTH - 65 * [_messageItems count] - 60));
-    }
-    v.backgroundColor = kColor(240, 240, 240, 1.0);
+    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 1)];
     self.tableView.tableFooterView = v;
 }
 

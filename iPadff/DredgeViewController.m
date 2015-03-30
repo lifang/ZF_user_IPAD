@@ -152,9 +152,12 @@
 }
 
 - (void)downloadDataWithPage:(int)page isMore:(BOOL)isMore {
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    NSLog(@"%@-%@-%d-%d",delegate.token,delegate.userID,page,kPageSize);
+    
     [NetworkInterface getApplyListWithToken:delegate.token userID:delegate.userID page:page rows:kPageSize finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -196,7 +199,7 @@
         if (!isMore) {
             [self refreshViewFinishedLoadingWithDirection:PullFromTop];
         }
-        else {
+        else { 
             [self refreshViewFinishedLoadingWithDirection:PullFromBottom];
         }
     }];

@@ -99,7 +99,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        [self setLeftViewWith:ChooseViewMyOrder];
+    [self setLeftViewWith:ChooseViewMyOrder];
     
     // Do any additional setup after loading the view.
     self.title = @"我的订单";

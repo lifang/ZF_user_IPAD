@@ -14,6 +14,7 @@
 #import "ShoppingCartModel.h"
 #import "ShoppingCartOrderController.h"
 #import "RefreshView.h"
+#import "AccountTool.h"
 
 @interface ShoppingCartController ()<UITableViewDataSource,UITableViewDelegate,ShoppingCartDelegate,SelectedShopCartDelegate,RefreshDelegate>
 
@@ -48,6 +49,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    AccountModel *model = [AccountTool userModel];
+    NSLog(@"%@",model);
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -124,6 +127,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    NSLog(@"~~~~~~~~~~~%@%@",delegate.token,delegate.userID);
     [NetworkInterface getShoppingCartWithToken:delegate.token userID:delegate.userID finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
