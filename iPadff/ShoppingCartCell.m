@@ -365,33 +365,56 @@
         
     }
 
-    _numberField = [[UITextField alloc] initWithFrame:CGRectMake(wide-150-80, 39, 100, 30)];
+    _numberField = [[UITextField alloc] initWithFrame:CGRectMake(wide-150-110, 39, 130, 40)];
     _numberField.delegate = self;
     _numberField.layer.borderWidth = 1;
     _numberField.layer.borderColor = kColor(193, 192, 192, 1).CGColor;
     _numberField.borderStyle = UITextBorderStyleNone;
-    _numberField.font = [UIFont systemFontOfSize:12.f];
+    _numberField.font = [UIFont systemFontOfSize:16.f];
     _numberField.textAlignment = NSTextAlignmentCenter;
     _numberField.leftViewMode = UITextFieldViewModeAlways;
     _numberField.rightViewMode = UITextFieldViewModeAlways;
     
     _minusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _minusButton.backgroundColor = [UIColor redColor];
-    _minusButton.frame = CGRectMake(0, 0, 30, 30);
-    [_minusButton setBackgroundImage:kImageName(@"numberback.png") forState:UIControlStateNormal];
+//    _minusButton.backgroundColor = [UIColor redColor];
+    _minusButton.frame = CGRectMake(0, 0, 40, 40);
+//    [_minusButton setBackgroundImage:kImageName(@"numberback.png") forState:UIControlStateNormal];
     [_minusButton setTitle:@"-" forState:UIControlStateNormal];
     [_minusButton addTarget:self action:@selector(countMinus:) forControlEvents:UIControlEventTouchUpInside];
     [_minusButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _numberField.leftView = _minusButton;
+    CALayer *layer=[_minusButton  layer];
+    //是否设置边框以及是否可见
+    [layer setMasksToBounds:YES];
+    //设置边框圆角的弧度
     
+    //设置边框线的宽
+    //
+    [layer setBorderWidth:1];
+    //设置边框线的颜色
+    [layer setBorderColor:[kColor(193, 192, 192, 1) CGColor]];
     _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _addButton.frame = CGRectMake(0, 0, 30, 30);
-    [_addButton setBackgroundImage:kImageName(@"numberback.png") forState:UIControlStateNormal];
+    _addButton.frame = CGRectMake(0, 0, 40, 40);
+//    [_addButton setBackgroundImage:kImageName(@"numberback.png") forState:UIControlStateNormal];
     [_addButton setTitle:@"+" forState:UIControlStateNormal];
     [_addButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_addButton addTarget:self action:@selector(countAdd:) forControlEvents:UIControlEventTouchUpInside];
     _numberField.rightView = _addButton;
     [self.contentView addSubview:_numberField];
+    
+    CALayer *layers=[_addButton  layer];
+    //是否设置边框以及是否可见
+    [layers setMasksToBounds:YES];
+    //设置边框圆角的弧度
+    
+    //设置边框线的宽
+    //
+    [layers setBorderWidth:1];
+    //设置边框线的颜色
+    [layers setBorderColor:[kColor(193, 192, 192, 1) CGColor]];
+    
+    
+    
     _deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _deleteButton.frame=CGRectMake(wide-120, 39, 100, 30);
     [_deleteButton setTitle:@"删除" forState:UIControlStateNormal];
