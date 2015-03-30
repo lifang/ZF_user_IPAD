@@ -137,14 +137,14 @@
                                                                     toItem:nil
                                                                  attribute:NSLayoutAttributeNotAnAttribute
                                                                 multiplier:0.0
-                                                                  constant:attrViewWidth]];
+                                                                  constant:50]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_attrView
                                                                  attribute:NSLayoutAttributeHeight
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:nil
                                                                  attribute:NSLayoutAttributeNotAnAttribute
                                                                 multiplier:0.0
-                                                                  constant:attrViewHeight]];
+                                                                  constant:17]];
     //价格
     if(iOS7)
     {
