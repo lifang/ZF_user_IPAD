@@ -173,7 +173,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.TerminalViewCellDelegate terminalCellBtnClicked:button.tag WithSelectedID:_selectedID];
+    [self.TerminalViewCellDelegate terminalCellBtnClicked:button.tag WithSelectedID:_selectedID Withindex:_indexNum];
 }
 
 

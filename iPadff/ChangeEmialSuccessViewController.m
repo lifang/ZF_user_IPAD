@@ -79,9 +79,6 @@
     [backBtn setTitle:@"返回" forState:UIControlStateNormal];
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:backBtn];
-    
-    
-
 }
 
 -(void)backClicked

@@ -16,8 +16,9 @@
 @property (nonatomic, strong) NSString *cityID;
 @property(nonatomic,strong)NSString *userID;
 @property(nonatomic,strong)NSString *token;
-@property(nonatomic,strong)NSArray *array5
-;
+@property(nonatomic,strong)NSArray *array5;
+
+@property(nonatomic,assign)BOOL haveExit;
 
 + (AppDelegate *)shareAppDelegate;
 

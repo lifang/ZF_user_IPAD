@@ -495,7 +495,7 @@
     }
     self.scrollView.contentSize = CGSizeMake(kScreenWidth, 420 + resourceHeight + recordHeight);
     terminalTitleLabel.text = @"终端信息";
-    repairLabel.text = @"维修信息";
+    repairLabel.text = @"退货信息";
     statusLabel.text = [CustomerServiceHandle getStatusStringWithCSType:self.csType status:self.status];
     applyTimeLabel.text = [NSString stringWithFormat:@"申请时间：%@",_applyTime];
     terminalNumberLabel.text = [NSString stringWithFormat:@"终 端  号  %@",_terminalNum];
@@ -518,13 +518,13 @@
         case CSStatusFirst: {
             //待处理
             UIButton *cancelBtn = [self buttonWithTitle:@"取消申请" Andpositon:OperationBtnQuxiao Andaction:@selector(cancelApply:)];
-            [self layoutButton:cancelBtn position:OperationBtnFirst];
+            [self layoutButton:cancelBtn position:OperationBtnSecond];
         }
             break;
         case CSStatusSecond: {
             //退货中
             UIButton *sendBtn = [self buttonWithTitle:@"提交物流信息"  Andpositon:OperationBtnFirst Andaction:@selector(send:)];
-            [self layoutButton:sendBtn position:OperationBtnFirst];
+            [self layoutButton:sendBtn position:OperationBtnSecond];
         }
             break;
         case CSStatusThird:

@@ -28,7 +28,7 @@
             tips = @"+";
             break;
         case ScoreExpend:
-            tips = @"-";
+            tips = @"";
             break;
         default:
             break;

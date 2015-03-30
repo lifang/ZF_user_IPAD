@@ -211,6 +211,7 @@
 
 - (void)getCurrentCityInfoWithCityName:(NSString *)cityName {
     for (CityModel *model in [CityHandle shareCityList]) {
+        NSLog(@"%@",model.cityName);
         if ([cityName containsString:model.cityName]) {
             _currentCity = model;
             break;
@@ -272,7 +273,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == _tableView) {
-        return [[CityHandle tableViewIndex] count] + 1;
+        return [[CityHandle shareIndexList] count] + 1;
     }
     else {
         return 1;
@@ -285,7 +286,7 @@
             return 1;
         }
         else {
-            return [[[CityHandle dataForSection] objectAtIndex:section - 1] count];
+            return [[[CityHandle shareSectionCityList] objectAtIndex:section - 1] count];
         }
     }
     else {
@@ -321,7 +322,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
-            CityModel *city = [[[CityHandle dataForSection] objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row];
+            CityModel *city = [[[CityHandle shareSectionCityList] objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row];
             cell.textLabel.text = city.cityName;
         }
         return cell;
@@ -343,7 +344,7 @@
         if (section == 0) {
             return nil;
         }
-        return [[CityHandle tableViewIndex] objectAtIndex:section - 1];
+        return [[CityHandle shareIndexList] objectAtIndex:section - 1];
     }
     return nil;
 }
@@ -354,7 +355,7 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     if (tableView == _tableView) {
-        return [CityHandle tableViewIndex];
+        return [CityHandle shareIndexList];
     }
     return nil;
 }
@@ -363,7 +364,7 @@
     CityModel *selectedCity = nil;
     if (tableView == _tableView) {
         if (indexPath.section != 0) {
-            selectedCity = [[[CityHandle dataForSection] objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row];
+            selectedCity = [[[CityHandle shareSectionCityList] objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row];
         }
         else {
             selectedCity = _currentCity;
@@ -375,10 +376,6 @@
     }
     if (_delegate && [_delegate respondsToSelector:@selector(getSelectedLocation:)]) {
         [_delegate getSelectedLocation:selectedCity];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    if (_delegate && [_delegate respondsToSelector:@selector(sendCity:WithCity_id:)]) {
-        [_delegate sendCity:selectedCity.cityName WithCity_id:selectedCity.cityID];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

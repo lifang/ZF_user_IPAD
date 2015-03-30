@@ -363,7 +363,7 @@
         case CSStatusSecond: {
             //待发回
             UIButton *sendBtn = [self buttonWithTitle:@"提交物流信息" Andpositon:OperationBtnFirst Andaction:@selector(send:)];
-            [self layoutButton:sendBtn position:OperationBtnFirst];
+            [self layoutButton:sendBtn position:OperationBtnSecond];
         }
             break;
         case CSStatusThird:

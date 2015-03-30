@@ -1,13 +1,12 @@
 //
 //  ApplyDetailController.h
-//  ZFUB
+//  iPadff
 //
-//  Created by 徐宝桥 on 15/3/9.
-//  Copyright (c) 2015年 ___MyCompanyName___. All rights reserved.
+//  Created by comdosoft on 15/3/27.
+//  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import "CommonViewController.h"
-
+#import "ScanImageViewController.h"
 static NSString *key_selected = @"key_selected";
 static NSString *key_name = @"key_name";
 static NSString *key_merchantName = @"key_merchantName";
@@ -29,14 +28,22 @@ typedef enum {
     OpenStatusReopen,   //重新开通
 }OpenStatus;
 
-@interface ApplyDetailController : CommonViewController
+@interface ApplyDetailController : ScanImageViewController
 { UIButton* accountnamebutton;
     NSInteger sexint;
     UIButton* _cityField ;
+    UIButton* birthdaybutton;
+    UIDatePicker *datePicker;
+    UIButton *makeSureBtn;
+    UIButton* locationbutton;
+    NSArray*keynamesarry;
+    NSInteger pickint;
+    UIButton* blankbutton ;
+    UIButton* zhifubutton;
+    
     
 }
 
 @property (nonatomic, strong) NSString *terminalID;
 @property (nonatomic, assign) OpenStatus openStatus;
-
 @end

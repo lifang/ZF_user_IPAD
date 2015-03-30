@@ -11,7 +11,7 @@
 @protocol terminalCellSendBtnClicked <NSObject>
 
 @optional
--(void)terminalCellBtnClicked:(int) btnTag WithSelectedID:(NSString *)selectedID;
+-(void)terminalCellBtnClicked:(int) btnTag WithSelectedID:(NSString *)selectedID Withindex:(int)indexNum;
 
 @end
 
@@ -29,6 +29,8 @@
 @property(nonatomic,strong)NSString *cellStates;
 
 @property(nonatomic,strong)NSString *selectedID;
+
+@property(nonatomic,assign)int indexNum;
 
 @property(nonatomic,weak)id<terminalCellSendBtnClicked> TerminalViewCellDelegate;
 

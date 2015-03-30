@@ -14,8 +14,6 @@
 
 @property(nonatomic,strong)UILabel *tradeTimeLabel;
 
-@property(nonatomic,strong)UILabel *moneyLabel;
-
 @property(nonatomic,strong)UILabel *intergralLabel;
 
 @property(nonatomic,strong)UILabel *intergralType;

@@ -85,7 +85,7 @@
         addresslable=[[UILabel alloc]initWithFrame:CGRectMake(400, 5, 300, 30)];
         [self addSubview:addresslable];
         
-        postlable  = [[UILabel alloc] initWithFrame:CGRectMake(wide-120-100, 5, 60, 30)];
+        postlable  = [[UILabel alloc] initWithFrame:CGRectMake(wide-140-100, 5, 60, 30)];
         
         
         postlable.backgroundColor=[UIColor clearColor];
@@ -94,7 +94,7 @@
         //        label.textAlignment = NSTextAlignmentCenter;
         
         [self addSubview:postlable];
-        phonelable  = [[UILabel alloc] initWithFrame:CGRectMake(wide-120, 5, 100, 30)];
+        phonelable  = [[UILabel alloc] initWithFrame:CGRectMake(wide-140, 5, 100, 30)];
         
         
         phonelable.font=[UIFont systemFontOfSize:14];

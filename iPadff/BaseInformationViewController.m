@@ -15,6 +15,7 @@
 #import "CityHandle.h"
 #import "LoginViewController.h"
 #import "AccountTool.h"
+#import "RegularFormat.h"
 
 @interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate>
 
@@ -37,6 +38,13 @@
 @property (nonatomic, strong) UIPickerView *pickerView;
 
 @property (nonatomic, strong) NSArray *cityArray;  //pickerView 第二列
+
+@property(nonatomic,strong)UIButton *changeEmailBtn;
+
+@property(nonatomic,strong)UIButton *changePhoneBtn;
+
+@property(nonatomic,strong)UIButton *makeSureEmailBtn;
+
 
 @end
 
@@ -205,15 +213,86 @@
     _phoneField.text = _userInfo.phoneNumber;
     _emailField.text = _userInfo.email;
     if (_userInfo.email == nil) {
+        CALayer *readBtnLayer2 = [_emailField layer];
+        [readBtnLayer2 setMasksToBounds:YES];
+        [readBtnLayer2 setCornerRadius:2.0];
+        [readBtnLayer2 setBorderWidth:1.0];
+        [readBtnLayer2 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
         _emailField.placeholder = @"请添加邮箱";
+        _changeEmailBtn.hidden = YES;
+        _emailField.userInteractionEnabled = YES;
+        
+        UIButton *makeSureEmailBtn = [[UIButton alloc]init];
+        makeSureEmailBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        [makeSureEmailBtn setTitle:@"去验证" forState:UIControlStateNormal];
+        [makeSureEmailBtn setTitleColor:kColor(251, 93, 46, 1.0) forState:UIControlStateNormal];
+        [makeSureEmailBtn addTarget:self action:@selector(makeSureClicked) forControlEvents:UIControlEventTouchUpInside];
+        self.makeSureEmailBtn = makeSureEmailBtn;
+        [self.view addSubview:makeSureEmailBtn];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_phoneField
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:20.f]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
+                                                              attribute:NSLayoutAttributeLeft
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.view
+                                                              attribute:NSLayoutAttributeLeft
+                                                             multiplier:1.0
+                                                               constant:590.f]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
+                                                              attribute:NSLayoutAttributeWidth
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:nil
+                                                              attribute:NSLayoutAttributeNotAnAttribute
+                                                             multiplier:1.0
+                                                               constant:100.f]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
+                                                              attribute:NSLayoutAttributeHeight
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:nil
+                                                              attribute:NSLayoutAttributeNotAnAttribute
+                                                             multiplier:1.0
+                                                               constant:40.f]];
     }
     if (_userInfo.phoneNumber == nil) {
         _phoneField.placeholder = @"请添加手机";
+        _phoneField.userInteractionEnabled = YES;
+        CALayer *readBtnLayer1 = [_phoneField layer];
+        [readBtnLayer1 setMasksToBounds:YES];
+        [readBtnLayer1 setCornerRadius:2.0];
+        [readBtnLayer1 setBorderWidth:1.0];
+        [readBtnLayer1 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
+        _changePhoneBtn.hidden = YES;
     }
     _locatonField.text = [CityHandle getCityNameWithCityID: _userInfo.cityID];
     [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_userInfo.cityID] inComponent:0 animated:NO];
     [_pickerView reloadAllComponents];
     [_pickerView selectRow:[CityHandle getCityIndexWithCityID:_userInfo.cityID] inComponent:1 animated:NO];
+}
+
+//点击了去验证邮箱
+-(void)makeSureClicked
+{
+    if (!_emailField.text || [_emailField.text isEqualToString:@""]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"邮箱不能为空";
+        return;
+    }
+    if (![RegularFormat isCorrectEmail:_emailField.text]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"邮箱格式不正确";
+        return;
+    }
 }
 
 
@@ -309,11 +388,6 @@
     _phoneField.leftViewMode = UITextFieldViewModeAlways;
     UIView *placeholderV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _phoneField.leftView = placeholderV1;
-    CALayer *readBtnLayer1 = [_phoneField layer];
-    [readBtnLayer1 setMasksToBounds:YES];
-    [readBtnLayer1 setCornerRadius:2.0];
-    [readBtnLayer1 setBorderWidth:1.0];
-    [readBtnLayer1 setBorderColor:[[UIColor clearColor] CGColor]];
     [self.view addSubview:_phoneField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_phoneField
                                                           attribute:NSLayoutAttributeTop
@@ -335,7 +409,7 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:btnWidth - 40.f]];
+                                                           constant:btnWidth]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_phoneField
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -351,6 +425,7 @@
     [changePasswordBtn setTitleColor:kColor(251, 93, 46, 1.0) forState:UIControlStateNormal];
     changePasswordBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [changePasswordBtn addTarget:self action:@selector(changePassWord) forControlEvents:UIControlEventTouchUpInside];
+    self.changePhoneBtn = changePasswordBtn;
     [self.view addSubview:changePasswordBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:changePasswordBtn
                                                           attribute:NSLayoutAttributeTop
@@ -394,11 +469,6 @@
     _emailField.leftViewMode = UITextFieldViewModeAlways;
     UIView *placeholderV2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
     _emailField.leftView = placeholderV2;
-    CALayer *readBtnLayer2 = [_emailField layer];
-    [readBtnLayer2 setMasksToBounds:YES];
-    [readBtnLayer2 setCornerRadius:2.0];
-    [readBtnLayer2 setBorderWidth:1.0];
-    [readBtnLayer2 setBorderColor:[[UIColor clearColor] CGColor]];
     [self.view addSubview:_emailField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailField
                                                           attribute:NSLayoutAttributeTop
@@ -420,7 +490,7 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:btnWidth - 40.f]];
+                                                           constant:btnWidth]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailField
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -436,6 +506,7 @@
     [changeEmailBtn setTitleColor:kColor(251, 93, 46, 1.0) forState:UIControlStateNormal];
     changeEmailBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [changeEmailBtn addTarget:self action:@selector(changeEmail) forControlEvents:UIControlEventTouchUpInside];
+    self.changeEmailBtn = changeEmailBtn;
     [self.view addSubview:changeEmailBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:changeEmailBtn
                                                           attribute:NSLayoutAttributeTop
@@ -811,7 +882,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:_nameField.text mobilePhone:_phoneField.text email:_emailField.text cityID:_userInfo.cityID finished:^(BOOL success, NSData *response) {
+    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:_nameField.text mobilePhone:nil email:nil cityID:_userInfo.cityID finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
@@ -848,6 +919,7 @@
 {
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     [delegate clearLoginInfo];
+    delegate.haveExit = YES;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -892,6 +964,7 @@
 #pragma mark - UIPickerView
 
 - (void)pickerScrollIn {
+    _exitBtn.hidden = YES;
     [UIView animateWithDuration:.3f animations:^{
         _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
         _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
@@ -900,6 +973,7 @@
 }
 
 - (void)pickerScrollOut {
+    _exitBtn.hidden = NO;
     [UIView animateWithDuration:.3f animations:^{
         _exitBtn.hidden = NO;
         _toolbar.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 44);

@@ -49,13 +49,26 @@
 
 -(void)ShowLoginVC
 {
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     AccountModel *account = [AccountTool userModel];
     NSLog(@"%@",account);
     if (account.password) {
         [self initAndLayoutUI];
         [self firstLoadData];
     }
-    else
+    if (delegate.haveExit) {
+        NSLog(@"已退出！");
+        [self firstLoadData];
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+    else if(account.password == nil)
     {
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;
@@ -86,7 +99,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        [self setLeftViewWith:ChooseViewMyOrder];
+    [self setLeftViewWith:ChooseViewMyOrder];
     
     // Do any additional setup after loading the view.
     self.title = @"我的订单";
@@ -459,7 +472,7 @@
         
     }
 
-    UILabel *totalLabels = [[UILabel alloc] initWithFrame:CGRectMake(20, 141, wide-260, 1)];
+    UILabel *totalLabels = [[UILabel alloc] initWithFrame:CGRectMake(20, 180, wide-260, 1)];
     totalLabels.backgroundColor =[UIColor grayColor];
     [cell.contentView addSubview:totalLabels];
     return cell;

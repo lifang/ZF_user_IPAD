@@ -433,7 +433,8 @@
     }
     
     statusLabel.text = [self statusForIndexString:_tradeStatus];
-    moneyLabel.text = [NSString stringWithFormat:@"交易金额：%@",_tradeAmount];
+    int money = [_tradeAmount intValue];
+    moneyLabel.text = [NSString stringWithFormat:@"交易金额：%d",money / 100];
     poundageLabel.text = [NSString stringWithFormat:@"手续费：￥%@",_tradePoundage];
     tradeTimeLabel.text = [NSString stringWithFormat:@"交易时间：%@",_tradeTime];
     merchantTitleLabel.text = @"商户信息";
@@ -467,7 +468,7 @@
     }
     channelLabel.text = [NSString stringWithFormat:@"支 付 通 道   %@",_channelName];
     profitLabel.text = [NSString stringWithFormat:@"分 润 金 额   %@",_profitPrice];
-    tradeMoneyLabel.text = [NSString stringWithFormat:@"交 易 金 额   %@",_tradeAmount];
+    tradeMoneyLabel.text = [NSString stringWithFormat:@"交 易 金 额   %d",money / 100];
     timeLabel.text = [NSString stringWithFormat:@"交 易 时 间   %@",_tradeTime];
     tradeStatusLabel.text = [NSString stringWithFormat:@"交 易 状 态   %@",[self statusForIndexString:_tradeStatus]];
     batchLabel.text = [NSString stringWithFormat:@"交易批次号   %@",_batchNumber];
@@ -506,7 +507,7 @@
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeLeft
                                                              multiplier:1.0
-                                                               constant:leftSpace2]];
+                                                               constant:leftSpace2 + 5]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                               attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual

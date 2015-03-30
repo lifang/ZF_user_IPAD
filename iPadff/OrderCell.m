@@ -40,7 +40,7 @@ typedef enum {
 #pragma mark - UI
 
 - (void)initAndLayoutUI {
-    CGFloat topSpace = 5.f;
+    CGFloat topSpace = 15.f;
     CGFloat leftSpace = 10.f;
     CGFloat labelHeight = 18.f;
 
@@ -228,10 +228,10 @@ typedef enum {
                                                                     toItem:nil
                                                                  attribute:NSLayoutAttributeNotAnAttribute
                                                                 multiplier:0.0
-                                                                  constant:imageSize]];
+                                                                  constant:imageSize+10]];
     //商品名
     _nameLabel = [[UILabel alloc] init];
-    [self layoutGoodLabel:_nameLabel WithTopView:_orderNoLabel topSpace:5.f alignment:NSTextAlignmentLeft];
+    [self layoutGoodLabel:_nameLabel WithTopView:_orderNoLabel topSpace:15.f alignment:NSTextAlignmentLeft];
     //价格
     _priceLabel = [[UILabel alloc] init];
     [self layoutGoodLabel:_priceLabel WithTopView:_nameLabel topSpace:0.f alignment:NSTextAlignmentRight];
@@ -421,7 +421,7 @@ typedef enum {
         [cancelBtn setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
         [cancelBtn setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
         [headerView addSubview:cancelBtn];
-        cancelBtn.frame=CGRectMake(wide-180, 70, 100, 30);
+        cancelBtn.frame=CGRectMake(wide-180, 100, 100, 30);
         
         UIButton *payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [payBtn addTarget:self action:@selector(payOrder:) forControlEvents:UIControlEventTouchUpInside];
@@ -432,7 +432,7 @@ typedef enum {
         [payBtn setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         
         [headerView addSubview:payBtn];
-        payBtn.frame=CGRectMake(wide-180, 30, 100, 30);
+        payBtn.frame=CGRectMake(wide-180, 50, 100, 30);
     }
     else if ([_identifier isEqualToString:sendingIdentifier]) {
         //已发货
@@ -471,10 +471,10 @@ typedef enum {
     }
 
     CGFloat leftSpace = 10.f;
-    CGFloat labelHeight = 14.f;
+    CGFloat labelHeight = 16.f;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:13.f];
+    label.font = [UIFont systemFontOfSize:16.f];
     label.textAlignment = alignment;
     [headerView addSubview:label];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:label
@@ -661,8 +661,8 @@ typedef enum {
 
     }
     self.numberLabel.text = [NSString stringWithFormat:@"X %d",[_cellData.orderGood.goodNumber intValue]];
-    self.brandLabel.text = [NSString stringWithFormat:@"品牌型号 %@",_cellData.orderGood.goodBrand];
-    self.channelLabel.text = [NSString stringWithFormat:@"支付通道 %@",_cellData.orderGood.goodChannel];
+    self.brandLabel.text = [NSString stringWithFormat:@"品牌型号  %@",_cellData.orderGood.goodBrand];
+    self.channelLabel.text = [NSString stringWithFormat:@"支付通道  %@",_cellData.orderGood.goodChannel];
     self.totalCountLabel.text = [NSString stringWithFormat:@"共计：%@件",_cellData.orderTotalNum];
     self.deliveryFeeLabel.text = [NSString stringWithFormat:@"配送费：￥%.2f",_cellData.orderDeliverFee];
     self.payLabel.text = [NSString stringWithFormat:@"实付：￥%.2f",_cellData.orderTotalPrice];

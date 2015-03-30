@@ -71,15 +71,15 @@
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];
     self.naviController.navigationBarHidden = YES;
         [self.window setRootViewController:self.naviController];
+    _haveExit = NO;
     _cityID = @"1";
     AccountModel *account = [AccountTool userModel];
     if (account.password) {
         _userID = account.userID;
         _token = account.token;
     }
-//    _userID = @"80";
+//   _userID = @"80";
 //    _token = @"123";
-    // Override point for customization after application launch.
     return YES;
 }
 

@@ -14,6 +14,7 @@
 #import "ShoppingCartModel.h"
 #import "ShoppingCartOrderController.h"
 #import "RefreshView.h"
+#import "AccountTool.h"
 
 @interface ShoppingCartController ()<UITableViewDataSource,UITableViewDelegate,ShoppingCartDelegate,SelectedShopCartDelegate,RefreshDelegate>
 
@@ -48,6 +49,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    AccountModel *model = [AccountTool userModel];
+    NSLog(@"%@",model);
     CGFloat wide;
     CGFloat height;
     if(iOS7)

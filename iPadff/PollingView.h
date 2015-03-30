@@ -9,12 +9,12 @@
 /***********图片轮询视图***********/
 
 #import <UIKit/UIKit.h>
-
+#import "SMPageControl.h"
 @interface PollingView : UIView<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 
-@property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) SMPageControl *pageControl;
 
 @property (nonatomic, assign) NSInteger totalPage;
 

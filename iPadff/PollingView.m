@@ -29,13 +29,13 @@
     _scrollView.backgroundColor = [UIColor blackColor];
     [self addSubview:_scrollView];
     
-    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20)];
+    _pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20)];
     _pageControl.userInteractionEnabled = NO;
-    _pageControl.pageIndicatorTintColor = [UIColor colorWithPatternImage:kImageName(@"doc_unselected.png")];
-    _pageControl.currentPageIndicatorTintColor = [UIColor colorWithPatternImage:kImageName(@"doc_selected.png")];
+    [_pageControl setPageIndicatorImage:[UIImage imageNamed:@"pagL"]];
+    [_pageControl setCurrentPageIndicatorImage:[UIImage imageNamed:@"pagH"]];
+
     [self addSubview:_pageControl];
 }
-
 - (void)downloadImageWithURLs:(NSArray *)urlArray
                        target:(id)target
                        action:(SEL)action {
@@ -66,6 +66,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == _scrollView) {
         _pageControl.currentPage = scrollView.contentOffset.x / scrollView.frame.size.width;
+        [_pageControl setCurrentImage:[UIImage imageNamed:@"pagH"] forPage:_pageControl.currentPage];
+
     }
 }
 

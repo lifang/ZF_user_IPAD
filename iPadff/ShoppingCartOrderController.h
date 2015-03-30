@@ -19,6 +19,7 @@ static NSString *RefreshAddressListNotification = @"RefreshAddressListNotificati
     UIButton*_cityField;
     NSInteger B;
     BOOL isneedpp;
+    NSString *cityID;
     
     UIImageView*bigsview;
 }

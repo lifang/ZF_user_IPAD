@@ -81,6 +81,7 @@
 
 @property(nonatomic,strong)NSString *repair_price;
 
+@property(nonatomic,assign)BOOL isPush;
 
 @end
 
@@ -118,7 +119,9 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self ShowLoginVC];
+    if (_isPush) {
+        [self ShowLoginVC];
+    }
 }
 
 -(UITableView *)tableView
@@ -144,6 +147,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _isPush = YES;
     self.isFirst = YES;
     self.view.backgroundColor = kColor(251, 251, 251, 1.0);
     self.buttonIndex = 1;
@@ -852,6 +856,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.isPush = NO;
     CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
     self.selectedId = model.csID;
     self.repair_price = model.repair_price;
