@@ -266,6 +266,8 @@
     }
    
     //    }
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     cell.delegate = self;
     [cell setShoppingCartData:cart];
     return cell;
