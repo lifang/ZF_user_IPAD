@@ -40,6 +40,7 @@
     _dataItem = [[NSMutableArray alloc]init];
     [self setLeftViewWith:ChooseViewApplyplan];
     [self initAndLayoutUI];
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -11,6 +11,8 @@
 #import "BaseInformationViewController.h"
 #import "AddressViewController.h"
 #import "IntegralViewController.h"
+#import "AppDelegate.h"
+#import "ShoppingCartController.h"
 
 @interface MyMessageViewController ()<SwitchViewClicked>
 
@@ -19,6 +21,14 @@
 
 @implementation MyMessageViewController
 
+//重构
+- (id)init
+{
+    MyMessageViewController * myMessage =[super init];
+    [[NSNotificationCenter defaultCenter] addObserver:myMessage selector:@selector(addressqqq) name:@"addressmanger" object:nil];
+    return myMessage;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setLeftViewWith:ChooseViewMyMessage];
@@ -26,16 +36,23 @@
     self.view.backgroundColor = kColor(252, 251, 251, 1.0);
     [self setupHeaderView];
 
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressqqq) name:@"addressmanger" object:nil];
 
+    //
 }
+
+
+
+
 -(void)addressqqq
 {
 
    
     
-
+    [self SwitchViewClickedAtIndex:3];
 
 }
+
 
 -(void)setupHeaderView
 {
@@ -94,7 +111,5 @@
             break;
     }
 }
-
-
 
 @end

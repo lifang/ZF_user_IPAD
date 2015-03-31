@@ -869,10 +869,10 @@ if(section==0)
 {
 
     //AddressViewController*address=[[AddressViewController alloc]init];
- //   [self.navigationController pushViewController:address animated:YES];
+   // [self.navigationController pushViewController:address animated:YES];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
-  
+ // [[NSNotificationCenter defaultCenter] postNotificationName:@"selected12345" object:self userInfo:nil];
 
 }
 

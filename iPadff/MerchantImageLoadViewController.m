@@ -161,7 +161,7 @@
     }
 */
     
-    
+
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]&&
         buttonIndex != actionSheet.cancelButtonIndex) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -193,7 +193,7 @@
         }
     
     }
-    
+
 }
 
 
