@@ -17,7 +17,7 @@
 #import "SwitchView.h"
 #import "AddressViewController.h"
 #import "AccountTool.h"
-
+#import "SwitchView.h"
 @interface AppDelegate ()
 
 @end
@@ -85,7 +85,9 @@
 
 -(void)viewcontrollew
 {
-
+//    SwitchView*switchv=[[SwitchView alloc]init];
+//    [switchv setSelectedBtnAtIndex:3];
+    
 
     self.tabBarViewController.viewControllers = self.array5;
 
@@ -95,11 +97,13 @@
     self.naviController.navigationBarHidden = YES;
     
     [self.window setRootViewController:self.naviController];
-    AddressViewController*add=[[AddressViewController alloc]init];
-    add.hidesBottomBarWhenPushed=YES;
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmangers" object:self userInfo:nil];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
+//    AddressViewController*add=[[AddressViewController alloc]init];
+//    add.hidesBottomBarWhenPushed=YES;
+//    
+
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
 
 //    [viewController5 SwitchViewClickedAtIndex:3];
 

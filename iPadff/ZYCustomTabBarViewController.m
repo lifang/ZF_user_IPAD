@@ -13,6 +13,7 @@
 #import "MessageViewController.h"
 #import "LoginViewController.h"
 #import "MBProgressHUD.h"
+#import "ShoppingCartOrderController.h"
 //#import "UIDevice+IdentifierAddition.h"
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #ifdef iOS8
@@ -425,7 +426,7 @@ if(iOS7)
     //获得索引
 	UIButton *btn = (UIButton *)sender;
 	int index = btn.tag - 1.0;
-    
+   
     //用self.赋值默认会调set方法
     [self setSeletedIndex:index];
     

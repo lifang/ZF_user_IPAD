@@ -25,14 +25,13 @@
     NSLog(@"%d",ChooseViewMyMessage);
     self.view.backgroundColor = kColor(252, 251, 251, 1.0);
     [self setupHeaderView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressqqq) name:@"addressmanger" object:nil];
 
 
 }
 -(void)addressqqq
 {
 
-    [self     SwitchViewClickedAtIndex:3];
+   
     
 
 
