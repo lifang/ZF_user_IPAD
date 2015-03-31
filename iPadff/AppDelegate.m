@@ -17,6 +17,7 @@
 #import "SwitchView.h"
 #import "AddressViewController.h"
 #import "AccountTool.h"
+#import "MyMessageViewController.h"
 
 @interface AppDelegate ()
 
@@ -95,13 +96,11 @@
     self.naviController.navigationBarHidden = YES;
     
     [self.window setRootViewController:self.naviController];
-    AddressViewController*add=[[AddressViewController alloc]init];
-    add.hidesBottomBarWhenPushed=YES;
+   // AddressViewController*add=[[AddressViewController alloc]init];
+   // add.hidesBottomBarWhenPushed=YES;
     
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
-
-//    [viewController5 SwitchViewClickedAtIndex:3];
+   // [[NSNotificationCenter defaultCenter] postNotificationName:@"address" object:nil];
+   // [viewController5 SwitchViewClickedAtIndex:3];
 
 }
 
@@ -135,6 +134,12 @@
     account.userID = nil;
     account.password = nil;
     [AccountTool save:account];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addressmanger" object:nil];
+
 }
 
 @end

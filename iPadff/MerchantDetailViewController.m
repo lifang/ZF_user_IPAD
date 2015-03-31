@@ -95,7 +95,7 @@
     }
     UILabel *merchantLB=[[UILabel alloc ] init];
     merchantLB.font = FONT20;
-    merchantLB.text=@"店铺名称";
+    merchantLB.text=@"店  铺  名  称";
     merchantLB.textColor = [UIColor colorWithHexString:@"292929"];
     merchantLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:merchantLB];
@@ -128,7 +128,7 @@
     
     UILabel *personLB=[[UILabel alloc ] init];
     personLB.font = FONT20;
-    personLB.text=@"商户法人姓名";
+    personLB.text=@"商 户 法 人 姓 名";
     personLB.textColor = [UIColor colorWithHexString:@"292929"];
     personLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:personLB];
@@ -191,7 +191,7 @@
     
     UILabel *licenceLB=[[UILabel alloc ] init];
     licenceLB.font = FONT20;
-    licenceLB.text=@"营业执照登记号";
+    licenceLB.text=@"营业 执照登记 号";
     licenceLB.textColor = [UIColor colorWithHexString:@"292929"];
     licenceLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:licenceLB];
@@ -223,7 +223,7 @@
     
     UILabel *taxLB=[[UILabel alloc ] init];
     taxLB.font = FONT20;
-    taxLB.text=@"税务证号";
+    taxLB.text=@"税  务  证  号";
     taxLB.textColor = [UIColor colorWithHexString:@"292929"];
     taxLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:taxLB];
@@ -254,7 +254,7 @@
     
     UILabel *organzationLB=[[UILabel alloc ] init];
     organzationLB.font = FONT20;
-    organzationLB.text=@"组织机构代码证书";
+    organzationLB.text=@"组织机构代码证号";
     organzationLB.textColor = [UIColor colorWithHexString:@"292929"];
     organzationLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:organzationLB];
@@ -285,7 +285,7 @@
     
     UILabel *locationLB=[[UILabel alloc ] init];
     locationLB.font = FONT20;
-    locationLB.text=@"商户所在地";
+    locationLB.text=@"商 户 所在 地";
     locationLB.textColor = [UIColor colorWithHexString:@"292929"];
     locationLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:locationLB];
@@ -327,7 +327,7 @@
     
     UILabel *bankLB=[[UILabel alloc ] init];
     bankLB.font = FONT20;
-    bankLB.text=@"开户银行";
+    bankLB.text=@"开  户  银  行";
     bankLB.textColor = [UIColor colorWithHexString:@"292929"];
     bankLB.textAlignment=NSTextAlignmentCenter;
     [_scrollView addSubview:bankLB];
