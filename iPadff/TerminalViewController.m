@@ -16,6 +16,7 @@
 #import "TerminalChildController.h"
 #import "LoginViewController.h"
 #import "AccountTool.h"
+#import "ApplyDetailController.h"
 
 
 @interface TerminalViewController ()<terminalCellSendBtnClicked,RefreshDelegate,addTerminal,LoginSuccessDelegate>
@@ -85,67 +86,6 @@
     [self setRefreshView];
 }
 
--(void)initFindPosViewWithSelectedID:(NSString *)selectedID WithIndexNum:(int)indexP
-{
-    CGFloat width;
-    CGFloat height;
-    if(iOS7)
-    {
-        width = SCREEN_HEIGHT;
-        height = SCREEN_WIDTH;
-    }
-    else
-    {
-        width = SCREEN_WIDTH;
-        height = SCREEN_HEIGHT;
-    }
-    NSLog(@"~~~~~~~~~~~~第%d行",indexP);
-    _findPosView = [[UIImageView alloc]init];
-    
-    _findPosView.frame = CGRectMake(0, 0, width, height);
-    
-    [self.view.window addSubview:_findPosView];
-    _findPosView.image=[UIImage imageNamed:@"backimage"];
-    _findPosView.userInteractionEnabled=YES;
-    
-    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 440, 220)];
-    whiteView.center = CGPointMake(width / 2, (height - 100) / 2);
-    whiteView.backgroundColor = [UIColor whiteColor];
-    [_findPosView addSubview:whiteView];
-    
-    UIButton *leftXBtn = [[UIButton alloc]init];
-    [leftXBtn addTarget:self action:@selector(leftClicked) forControlEvents:UIControlEventTouchUpInside];
-    [leftXBtn setBackgroundImage:[UIImage imageNamed:@"X_black"] forState:UIControlStateNormal];
-    leftXBtn.frame = CGRectMake(15, 15, 25, 25);
-    [whiteView addSubview:leftXBtn];
-    
-    UILabel *FindPOSLable = [[UILabel alloc]init];
-    FindPOSLable.text = @"找回POS密码";
-    FindPOSLable.textColor = kColor(38, 38, 38, 1.0);
-    FindPOSLable.font = [UIFont systemFontOfSize:22];
-    FindPOSLable.frame = CGRectMake(150, 10, 200, 40);
-    [whiteView addSubview:FindPOSLable];
-    
-    UIView *line = [[UIView alloc]init];
-    line.backgroundColor = kColor(128, 128, 128, 1.0);
-    line.frame = CGRectMake(0, CGRectGetMaxY(FindPOSLable.frame) + 10, whiteView.frame.size.width, 1);
-    [whiteView addSubview:line];
-    
-    UILabel *POSLable = [[UILabel alloc]init];
-    POSLable.text = @"POS机密码";
-    POSLable.textColor = kColor(56, 56, 56, 1.0);
-    POSLable.font = [UIFont systemFontOfSize:20];
-    POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 40, CGRectGetMaxY(line.frame) + 50, 120, 30);
-    [whiteView addSubview:POSLable];
-    
-    UILabel *passwordLabel = [[UILabel alloc]init];
-    passwordLabel.textColor = kColor(132, 132, 132, 1.0);
-    passwordLabel.font = [UIFont systemFontOfSize:20];
-    passwordLabel.text = @"asdasdas";
-    passwordLabel.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
-    [whiteView addSubview:passwordLabel];
-    
-}
 
 -(void)leftClicked
 {
@@ -419,6 +359,7 @@
     }
     if (btnTag == 2001) {
         NSLog(@"点击了申请开通");
+        [self pushApplyVCWithSelectedID:selectedID];
     }
     if (btnTag == 2002) {
         NSLog(@"点击了同步(未开通)");
@@ -431,6 +372,7 @@
     }
     if (btnTag == 3002) {
         NSLog(@"点击了重新申请开通");
+        [self pushApplyNewVCWithSelectedID:selectedID];
     }
     if (btnTag == 3003) {
         NSLog(@"点击了同步（部分开通）");
@@ -446,16 +388,114 @@
     }
     
 }
+//找回PS密码
+-(void)initFindPosViewWithSelectedID:(NSString *)selectedID WithIndexNum:(int)indexP
+{
+    CGFloat width;
+    CGFloat height;
+    if(iOS7)
+    {
+        width = SCREEN_HEIGHT;
+        height = SCREEN_WIDTH;
+    }
+    else
+    {
+        width = SCREEN_WIDTH;
+        height = SCREEN_HEIGHT;
+    }
+    NSLog(@"~~~~~~~~~~~~第%d行",indexP);
+    _findPosView = [[UIImageView alloc]init];
+    
+    _findPosView.frame = CGRectMake(0, 0, width, height);
+    
+    [self.view.window addSubview:_findPosView];
+    _findPosView.image=[UIImage imageNamed:@"backimage"];
+    _findPosView.userInteractionEnabled=YES;
+    
+    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 440, 220)];
+    whiteView.center = CGPointMake(width / 2, (height - 100) / 2);
+    whiteView.backgroundColor = [UIColor whiteColor];
+    [_findPosView addSubview:whiteView];
+    
+    UIButton *leftXBtn = [[UIButton alloc]init];
+    [leftXBtn addTarget:self action:@selector(leftClicked) forControlEvents:UIControlEventTouchUpInside];
+    [leftXBtn setBackgroundImage:[UIImage imageNamed:@"X_black"] forState:UIControlStateNormal];
+    leftXBtn.frame = CGRectMake(15, 15, 25, 25);
+    [whiteView addSubview:leftXBtn];
+    
+    UILabel *FindPOSLable = [[UILabel alloc]init];
+    FindPOSLable.text = @"找回POS密码";
+    FindPOSLable.textColor = kColor(38, 38, 38, 1.0);
+    FindPOSLable.font = [UIFont systemFontOfSize:22];
+    FindPOSLable.frame = CGRectMake(150, 10, 200, 40);
+    [whiteView addSubview:FindPOSLable];
+    
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = kColor(128, 128, 128, 1.0);
+    line.frame = CGRectMake(0, CGRectGetMaxY(FindPOSLable.frame) + 10, whiteView.frame.size.width, 1);
+    [whiteView addSubview:line];
+    
+    UILabel *POSLable = [[UILabel alloc]init];
+    POSLable.text = @"POS机密码";
+    POSLable.textColor = kColor(56, 56, 56, 1.0);
+    POSLable.font = [UIFont systemFontOfSize:20];
+    POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 40, CGRectGetMaxY(line.frame) + 50, 120, 30);
+    [whiteView addSubview:POSLable];
+    
+    UILabel *passwordLabel = [[UILabel alloc]init];
+    passwordLabel.textColor = kColor(132, 132, 132, 1.0);
+    passwordLabel.font = [UIFont systemFontOfSize:20];
+    passwordLabel.text = @"asdasdas";
+    passwordLabel.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
+    [whiteView addSubview:passwordLabel];
+    
+}
+
+
+//重新申请开通
+-(void)pushApplyNewVCWithSelectedID:(NSString *)selectedID
+{
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.terminalID = selectedID;
+    detailC.openStatus = OpenStatusReopen;
+    detailC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:detailC animated:YES];
+}
+
+
+//新开通
+-(void)pushApplyVCWithSelectedID:(NSString *)selectedID
+{
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.terminalID = selectedID;
+    detailC.openStatus = OpenStatusNew;
+    detailC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:detailC animated:YES];
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.isPush = NO;
-    TerminalChildController *terminalChildV = [[TerminalChildController alloc]init];
-    terminalChildV.hidesBottomBarWhenPushed = YES;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];
-    terminalChildV.dealStatus = model.TM_status;
-    terminalChildV.tm_ID = model.TM_ID;
-    [self.navigationController pushViewController:terminalChildV animated:YES];
+    
+    if ([model.TM_status intValue] == TerminalStatusOpened && !model.appID) {
+        //自助开通无法查看详情
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"自助开通终端无详情信息";
+        return;
+    }
+    else{
+        TerminalChildController *terminalChildV = [[TerminalChildController alloc]init];
+        terminalChildV.hidesBottomBarWhenPushed = YES;
+        terminalChildV.dealStatus = model.TM_status;
+        terminalChildV.tm_ID = model.TM_ID;
+        [self.navigationController pushViewController:terminalChildV animated:YES];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

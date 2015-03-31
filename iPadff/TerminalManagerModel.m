@@ -17,6 +17,9 @@
         _TM_serialNumber = [NSString stringWithFormat:@"%@",[dict objectForKey:@"serial_num"]];
         _TM_brandsName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"brandName"]];
         _TM_channelName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"channelName"]];
+        if ([dict objectForKey:@"appid"]) {
+            _appID = [NSString stringWithFormat:@"%@",[dict objectForKey:@"appid"]];
+        }
     }
     return self;
 }

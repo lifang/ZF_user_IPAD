@@ -17,7 +17,7 @@
 #import "AccountTool.h"
 #import "RegularFormat.h"
 
-@interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate>
+@interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate,UIAlertViewDelegate>
 
 @property(nonatomic,strong)UIButton *exitBtn;
 
@@ -955,10 +955,19 @@
 //点击了退出
 -(void)exitClicke
 {
-    AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [delegate clearLoginInfo];
-    delegate.haveExit = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:nil message:@"您确定要退出吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alertV show];
+}
+
+#pragma mark - uialertView Delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        [delegate clearLoginInfo];
+        delegate.haveExit = YES;
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - UIPickerView

@@ -13,6 +13,7 @@
 #import "OpeningModel.h"
 #import "FormView.h"
 #import "RecordView.h"
+#import "ApplyDetailController.h"
 
 @interface TerminalChildController ()
 
@@ -1021,6 +1022,7 @@
             break;
         case 4446:
             NSLog(@"点击了重新申请通（部分开通）");
+            [self pushApplyVCWithSelectedID:_tm_ID];
             break;
         case 4447:
             NSLog(@"点击了同步（部分开通）");
@@ -1030,6 +1032,7 @@
             break;
         case 5556:
             NSLog(@"点击了申请开通（未开通）");
+            [self pushApplyNewVCWithSelectedID:_tm_ID];
             break;
         case 5557:
             NSLog(@"点击了同步（未开通）");
@@ -1047,6 +1050,28 @@
         default:
             break;
     }
+}
+//重新申请开通
+-(void)pushApplyNewVCWithSelectedID:(NSString *)selectedID
+{
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.terminalID = selectedID;
+    detailC.openStatus = OpenStatusReopen;
+    detailC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:detailC animated:YES];
+}
+
+
+//新开通
+-(void)pushApplyVCWithSelectedID:(NSString *)selectedID
+{
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.terminalID = selectedID;
+    detailC.openStatus = OpenStatusNew;
+    detailC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:detailC animated:YES];
 }
 
 #pragma mark - Action
