@@ -734,16 +734,16 @@ if(tableView==_tableViewPJ)
                         
                         //留言
                         NSString *comment = [NSString stringWithFormat:@"留       言：%@",_orderDetail.orderComment];
-                        CGFloat height = [self heightForString:comment withWidth:kScreenWidth - originX * 2];
-                        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10, wide - originX *2, height)];
+                        CGFloat height = [self heightForString:comment withWidth:wide - originX * 2];
+                        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 10, wide - originX *2, height)];
                         commentLabel.numberOfLines = 0;
                         [self setLabel:commentLabel withString:comment];
                         [cell.contentView addSubview:commentLabel];
                    
                         //发票
-                        UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 10 + height, wide - originX * 2, 20.f)];
+                        UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 10 + height, wide - originX * 2, 20.f)];
                         [cell.contentView addSubview:invoceTypeLabel];
-                        UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-100, 30 + height, wide - originX * 2, 20.f)];
+                        UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 30 + height, wide - originX * 2, 20.f)];
                         
                         if([self isBlankString:_orderDetail.orderInvoceType])
                         {

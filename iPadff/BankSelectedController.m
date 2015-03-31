@@ -28,6 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"选择银行";
+    
+    self.view.backgroundColor=[UIColor whiteColor];
+    
     if (!_bankItems) {
         _bankItems = [[NSMutableArray alloc] init];
         [self getBankList];
@@ -60,7 +63,7 @@
     }
 
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 84)];
-    headerView.backgroundColor = [UIColor clearColor];
+//    headerView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = headerView;
     
     CGFloat backHeight = 44.f;
@@ -86,7 +89,7 @@
     
     _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _searchBtn.frame = CGRectMake(wide - 40, 10, 24, 24);
-    [_searchBtn setBackgroundImage:kImageName(@"search.png") forState:UIControlStateNormal];
+    [_searchBtn setBackgroundImage:kImageName(@"good_search") forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(searchBank:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:_searchBtn];
 }
@@ -94,7 +97,7 @@
 - (void)initAndLayoutUI {
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableView.backgroundColor = kColor(244, 243, 243, 1);
+   _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self setHeaderAndFooterView];
@@ -223,6 +226,8 @@
     else {
         cell.imageView.hidden = YES;
     }
+    cell.backgroundColor=[UIColor whiteColor];
+    
     return cell;
 }
 
@@ -264,9 +269,9 @@
             }
 
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, height, 30)];
-            view.backgroundColor = [UIColor clearColor];
+//            view.backgroundColor = [UIColor clearColor];
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, height - 20, 20)];
-            label.backgroundColor = [UIColor clearColor];
+//            label.backgroundColor = [UIColor clearColor];
             label.font = [UIFont systemFontOfSize:14.f];
             label.text = @"搜索结果";
             [view addSubview:label];
