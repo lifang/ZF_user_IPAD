@@ -14,6 +14,7 @@
 #import "ApplyPlanViewController.h"
 #import "LoginViewController.h"
 
+
 @interface MineCommonController ()
 
 @end
@@ -39,6 +40,8 @@
     [super viewDidLoad];
 
     self.navigationController.navigationBarHidden = YES;
+   
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,4 +99,5 @@
     ApplyPlanViewController *applyPlanVC = [[ApplyPlanViewController alloc]init];
     [self.navigationController pushViewController:applyPlanVC animated:NO];
 }
+
 @end

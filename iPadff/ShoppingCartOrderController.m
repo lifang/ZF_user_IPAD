@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
-
+ 
        [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
     [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
 
@@ -869,10 +869,10 @@ if(section==0)
 {
 
     //AddressViewController*address=[[AddressViewController alloc]init];
- //   [self.navigationController pushViewController:address animated:YES];
+   // [self.navigationController pushViewController:address animated:YES];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
-  
+ // [[NSNotificationCenter defaultCenter] postNotificationName:@"selected12345" object:self userInfo:nil];
 
 }
 

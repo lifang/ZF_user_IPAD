@@ -129,7 +129,7 @@
     
     UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shoppingButton.frame = CGRectMake(0, 0, 30, 30);
-    [shoppingButton setImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
+    [shoppingButton setBackgroundImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
     
 //    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
     [shoppingButton addTarget:self action:@selector(goShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
