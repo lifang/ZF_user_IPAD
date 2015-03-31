@@ -33,6 +33,8 @@
 
 @property(nonatomic,assign)BOOL isChecked;
 
+@property(nonatomic,strong)UIImageView *imageV;
+
 @end
 
 @implementation FindPasswordViewController

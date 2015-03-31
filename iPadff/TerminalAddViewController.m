@@ -104,10 +104,8 @@
     v.frame = CGRectMake(0, 0, 10, 40);
     _acceptField.leftView = v;
     _acceptField.frame = CGRectMake(CGRectGetMaxX(firstLabel.frame) + 20, firstLabel.frame.origin.y, 240, 40);
-    _acceptField.borderStyle = UITextBorderStyleLine;
     CALayer *readBtnLayer = [_acceptField layer];
     [readBtnLayer setMasksToBounds:YES];
-    [readBtnLayer setCornerRadius:2.0];
     [readBtnLayer setBorderWidth:1.0];
     [readBtnLayer setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     
@@ -124,10 +122,8 @@
     v1.frame = CGRectMake(0, 0, 10, 40);
     _terminalField.leftView = v1;
     _terminalField.frame = CGRectMake(CGRectGetMaxX(firstLabel.frame) + 20, secondLabel.frame.origin.y, 240, 40);
-    _terminalField.borderStyle = UITextBorderStyleLine;
     CALayer *readBtnLayer1 = [_terminalField layer];
     [readBtnLayer1 setMasksToBounds:YES];
-    [readBtnLayer1 setCornerRadius:2.0];
     [readBtnLayer1 setBorderWidth:1.0];
     [readBtnLayer1 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [terminalAddView addSubview:_terminalField];
@@ -138,10 +134,8 @@
     v2.frame = CGRectMake(0, 0, 10, 40);
     _goodsField.leftView = v2;
     _goodsField.frame = CGRectMake(CGRectGetMaxX(firstLabel.frame) + 20, thirdLabel.frame.origin.y, 240, 40);
-    _goodsField.borderStyle = UITextBorderStyleLine;
     CALayer *readBtnLayer2 = [_goodsField layer];
     [readBtnLayer2 setMasksToBounds:YES];
-    [readBtnLayer2 setCornerRadius:2.0];
     [readBtnLayer2 setBorderWidth:1.0];
     [readBtnLayer2 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [terminalAddView addSubview:_goodsField];

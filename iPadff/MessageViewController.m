@@ -81,8 +81,6 @@
         [self LoginSuccess];
     }
     if (delegate.haveExit) {
-        NSLog(@"已退出！");
-        [self LoginSuccess];
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;
         loginC.view.frame = CGRectMake(0, 0, 320, 320);
