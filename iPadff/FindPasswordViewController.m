@@ -62,6 +62,9 @@
     NSArray *leftArr = [NSArray arrayWithObjects:zeroBar,leftBar, nil];
     self.navigationItem.leftBarButtonItems = leftArr;
     
+    CGFloat mainBtnWidth = 100.f;
+    CGFloat mainFieldWidth = 240.f;
+    
     UILabel *phoneOrEmail = [[UILabel alloc]init];
     phoneOrEmail.font = [UIFont systemFontOfSize:20];
     phoneOrEmail.text = @"手机号/邮箱";
@@ -71,7 +74,7 @@
     _phoneField = [[UITextField alloc]init];
     _phoneField.borderStyle = UITextBorderStyleLine;
     _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _phoneField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , phoneOrEmail.frame.origin.y, self.view.frame.size.width * 0.25, phoneOrEmail.frame.size.height);
+    _phoneField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , phoneOrEmail.frame.origin.y, mainFieldWidth, phoneOrEmail.frame.size.height);
     _phoneField.placeholder = @"请输入手机号/邮箱";
     [_phoneField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _phoneField.delegate = self;
@@ -85,7 +88,7 @@
     [readBtnLayer setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_phoneField];
     
-    UIButton *authGetBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _phoneField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
+    UIButton *authGetBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _phoneField.frame.origin.y, mainBtnWidth, _phoneField.frame.size.height)];
     _sendButton = authGetBtn;
     [authGetBtn addTarget:self action:@selector(authClick:) forControlEvents:UIControlEventTouchUpInside];
     [authGetBtn setBackgroundColor:mainColor];
@@ -102,7 +105,7 @@
     _authField = [[UITextField alloc]init];
     _authField.borderStyle = UITextBorderStyleLine;
     _authField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _authField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , authCode.frame.origin.y, self.view.frame.size.width * 0.25, phoneOrEmail.frame.size.height);
+    _authField.frame = CGRectMake(CGRectGetMaxX(phoneOrEmail.frame) , authCode.frame.origin.y,mainFieldWidth, phoneOrEmail.frame.size.height);
     _authField.placeholder = @"请输入验证码";
     [_authField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _authField.delegate = self;
@@ -117,7 +120,7 @@
     [readBtnLayer1 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
     [self.view addSubview:_authField];
     
-    UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, _phoneField.frame.size.width * 0.43, _phoneField.frame.size.height)];
+    UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, mainBtnWidth, _phoneField.frame.size.height)];
     _makeSureBtn = makeSureBtn;
     [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
     [makeSureBtn setBackgroundColor:mainColor];
@@ -135,7 +138,7 @@
     _newsPassword.secureTextEntry = YES;
     _newsPassword.borderStyle = UITextBorderStyleLine;
     _newsPassword.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _newsPassword.frame = CGRectMake(CGRectGetMaxX(password.frame) , password.frame.origin.y, self.view.frame.size.width * 0.25, password.frame.size.height);
+    _newsPassword.frame = CGRectMake(CGRectGetMaxX(password.frame) , password.frame.origin.y, mainFieldWidth, password.frame.size.height);
     _newsPassword.placeholder = @"请输入新密码";
     [_newsPassword setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _newsPassword.delegate = self;
@@ -160,7 +163,7 @@
     _makeSurePassword.secureTextEntry = YES;
     _makeSurePassword.borderStyle = UITextBorderStyleLine;
     _makeSurePassword.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _makeSurePassword.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , makeSurepassword.frame.origin.y, self.view.frame.size.width * 0.25, makeSurepassword.frame.size.height);
+    _makeSurePassword.frame = CGRectMake(CGRectGetMaxX(makeSurepassword.frame) , makeSurepassword.frame.origin.y, mainFieldWidth, makeSurepassword.frame.size.height);
     _makeSurePassword.placeholder = @"请确认新密码";
     [_makeSurePassword setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _makeSurePassword.delegate = self;
@@ -176,7 +179,11 @@
     
     UIView *line = [[UIView alloc]init];
     _line = line;
-    line.frame = CGRectMake(40, CGRectGetMaxY(_makeSurePassword.frame) + 50, self.view.frame.size.width * 0.9, 1);
+    line.frame = CGRectMake(40, CGRectGetMaxY(_makeSurePassword.frame) + 50, SCREEN_WIDTH - 50, 1);
+    if (iOS7) {
+        line.frame = CGRectMake(40, CGRectGetMaxY(_makeSurePassword.frame) + 50, SCREEN_HEIGHT - 50, 1);
+        
+    }
     line.backgroundColor = kColor(225, 224, 224, 1.0);
     [self.view addSubview:line];
     

@@ -101,7 +101,7 @@
     [super layoutSubviews];
     
     CGFloat mainY = self.frame.size.height / 2 - 5;
-    CGFloat mainH = 10.f;
+    CGFloat mainH = 15.f;
     
     _RentBackNum.frame = CGRectMake(30, mainY, 160, mainH);
     

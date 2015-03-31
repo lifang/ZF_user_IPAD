@@ -57,6 +57,9 @@
 {
     if (!_addressTableView) {
         _addressTableView = [[UITableView alloc]initWithFrame:CGRectMake(160, 140, SCREEN_WIDTH - 160, SCREEN_HEIGHT - 140)];
+        if (iOS7) {
+            _addressTableView.frame = CGRectMake(160, 140, SCREEN_HEIGHT - 160, SCREEN_WIDTH - 140);
+        }
  }
     return _addressTableView;
 }
@@ -66,19 +69,13 @@
     [self.swithView setSelectedBtnAtIndex:3];
     NSLog(@"当前是~~~~~~~~~~~~%d",self.Index);
     [self.view addSubview:self.addressTableView];
-    _addressTableView.frame = CGRectMake(160, 140, SCREEN_WIDTH - 160, SCREEN_HEIGHT - 140);
-    NSLog(@"%@",NSStringFromCGRect(_addressTableView.frame));
     self.swithView.hidden = NO;
-//    if (iOS7) {
-//        _addressTableView.frame = CGRectMake(160, 140, SCREEN_HEIGHT - 160,SCREEN_WIDTH - 140);
-//    }
-
-//    _addressTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _addressTableView.delegate = self;
     _addressTableView.dataSource = self;
     _addressItems = [[NSMutableArray alloc]init];
     [self setupFooterView];
     [self getAddressList];
+    [self initPickerView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -414,6 +411,8 @@
     _postcodeField=(UITextField*)[self.view viewWithTag:1058];
     _locationField=(UITextField*)[self.view viewWithTag:1059];
     _particularLocationField=(UITextField*)[self.view viewWithTag:1060];
+    
+    [self initPickerView];
 }
 
 -(void)cancelclick
@@ -429,7 +428,6 @@
 
 -(void)cityclick
 {
-    [self initPickerView];
     [self pickerScrollIn];
 }
 
@@ -450,7 +448,7 @@
                                                                                action:nil];
     spaceItem.width = 830.f;
     [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
-    [self.view addSubview:_toolbar];
+    [_bigsview addSubview:_toolbar];
     _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, 216)];
     _pickerView.backgroundColor = kColor(244, 243, 243, 1);
     _pickerView.delegate = self;
@@ -463,7 +461,7 @@
         
     }
     
-    [self.view addSubview:_pickerView];
+    [_bigsview addSubview:_pickerView];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -507,9 +505,21 @@
 }
 
 - (void)pickerScrollIn {
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+    }
     [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
+        _toolbar.frame = CGRectMake(0, height - 260, wide, 44);
+        _pickerView.frame = CGRectMake(0, height - 216, wide, 216);
     }];
 }
 
@@ -528,8 +538,8 @@
     }
     
     [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight, wide, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight, wide, 216);
+        _toolbar.frame = CGRectMake(0, height, wide, 44);
+        _pickerView.frame = CGRectMake(0, height, wide, 216);
     }];
 }
 

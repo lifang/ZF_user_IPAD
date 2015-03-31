@@ -416,6 +416,9 @@ static NSString *s_findPassword_method = @"user/updatePassword";
 //购买意向
 static NSString *s_intention_method = @"paychannel/intention/add";
 
+//修改邮箱验证码
+static NSString *s_changeEmail_method = @"index/updateEmail";
+
 @interface NetworkInterface : NSObject
 
 /*!
@@ -1363,6 +1366,16 @@ static NSString *s_intention_method = @"paychannel/intention/add";
 + (void)sendBuyIntentionWithName:(NSString *)name
                      phoneNumber:(NSString *)phoneNumber
                          content:(NSString *)content
+                        finished:(requestDidFinished)finish;
+
+/*!
+ @abstract 修改邮箱验证码
+ @param name  姓名
+ @param email  邮箱
+ @result finish  请求回调结果
+ */
++ (void)sendEmailChangeWithName:(NSString *)name
+                           email:(NSString *)email
                         finished:(requestDidFinished)finish;
 
 
