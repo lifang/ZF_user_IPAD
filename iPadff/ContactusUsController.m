@@ -561,6 +561,14 @@
         hud.labelText = @"请输入内容";
         return;
     }
+    if ([_contentTextView.text length] > 200) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"输入内容超过限制";
+        return;
+    }
 
     [self ShowLoginVC];
 }

@@ -478,12 +478,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.isPush = NO;
-    TerminalChildController *terminalChildV = [[TerminalChildController alloc]init];
-    terminalChildV.hidesBottomBarWhenPushed = YES;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];
-    terminalChildV.dealStatus = model.TM_status;
-    terminalChildV.tm_ID = model.TM_ID;
-    [self.navigationController pushViewController:terminalChildV animated:YES];
+    
+    if ([model.TM_status intValue] == TerminalStatusOpened && !model.appID) {
+        //自助开通无法查看详情
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"自助开通终端无详情信息";
+        return;
+    }
+    else{
+        TerminalChildController *terminalChildV = [[TerminalChildController alloc]init];
+        terminalChildV.hidesBottomBarWhenPushed = YES;
+        terminalChildV.dealStatus = model.TM_status;
+        terminalChildV.tm_ID = model.TM_ID;
+        [self.navigationController pushViewController:terminalChildV animated:YES];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

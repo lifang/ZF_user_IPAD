@@ -420,7 +420,8 @@
     
     NSString *start = [self transformDateStringWithStrting:_startTime];
     NSString *end = [self transformDateStringWithStrting:_endTime];
-    _priceLabel.text = [NSString stringWithFormat:@"￥%@",amountTotal];
+    int totalPrice = [amountTotal intValue];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%d",totalPrice/100];
     _countLabel.text = [NSString stringWithFormat:@"交易笔数：%@",tradeTotal];
     _timeLabel.text = [NSString stringWithFormat:@"%@-%@",start,end];
     _terminalLabel.text = [NSString stringWithFormat:@"终  端  号      %@",terminalNum];

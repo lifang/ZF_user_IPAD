@@ -434,7 +434,7 @@
     
     statusLabel.text = [self statusForIndexString:_tradeStatus];
     int money = [_tradeAmount intValue];
-    moneyLabel.text = [NSString stringWithFormat:@"交易金额：%d",money / 100];
+    moneyLabel.text = [NSString stringWithFormat:@"交易金额：￥%d",money / 100];
     poundageLabel.text = [NSString stringWithFormat:@"手续费：￥%@",_tradePoundage];
     tradeTimeLabel.text = [NSString stringWithFormat:@"交易时间：%@",_tradeTime];
     merchantTitleLabel.text = @"商户信息";
@@ -450,7 +450,7 @@
             break;
         case TradeTypeConsume:
             payFromLabel.text = [NSString stringWithFormat:@"结 算 时 间   %@",_payedTime];
-            payToLabel.text = [NSString stringWithFormat:@"手   续   费   %@",_tradePoundage];
+            payToLabel.text = [NSString stringWithFormat:@"手   续   费   ￥%@",_tradePoundage];
             break;
         case TradeTypeRepayment:
             payFromLabel.text = [NSString stringWithFormat:@"付 款 账 号   %@",_payFromAccount];
@@ -468,7 +468,7 @@
     }
     channelLabel.text = [NSString stringWithFormat:@"支 付 通 道   %@",_channelName];
     profitLabel.text = [NSString stringWithFormat:@"分 润 金 额   %@",_profitPrice];
-    tradeMoneyLabel.text = [NSString stringWithFormat:@"交 易 金 额   %d",money / 100];
+    tradeMoneyLabel.text = [NSString stringWithFormat:@"交 易 金 额   ￥%d",money / 100];
     timeLabel.text = [NSString stringWithFormat:@"交 易 时 间   %@",_tradeTime];
     tradeStatusLabel.text = [NSString stringWithFormat:@"交 易 状 态   %@",[self statusForIndexString:_tradeStatus]];
     batchLabel.text = [NSString stringWithFormat:@"交易批次号   %@",_batchNumber];

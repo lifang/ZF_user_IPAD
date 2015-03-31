@@ -83,6 +83,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 @property (nonatomic, assign) TimeType timeType;
 //交易状态
 @property(nonatomic,strong)NSString *DealState;
+//是否push过
+@property(nonatomic,assign)BOOL isPush;
 
 @end
 
@@ -110,10 +112,12 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 
 -(void)LoginSuccess
 {
-    //创建头部View
-    [self setupHeaderView];
-    //获取所有的终端号数据
-    [self getAllTerminalList];
+    if (!_isPush) {
+        //创建头部View
+        [self setupHeaderView];
+        //获取所有的终端号数据
+        [self getAllTerminalList];
+    }
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
@@ -142,6 +146,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     self.buttonIndex = 1;
     //创建导航栏
     [self setupNavBar];
+    self.isPush = NO;
     _terminalItems = [NSMutableArray array];
     _tradeRecords = [NSMutableArray array];
 }
@@ -857,6 +862,7 @@ else
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    _isPush = YES;
     //终端选择跳转
     if (tableView.tag == 1111) {
         TerminalModel *model = [_terminalItems objectAtIndex:indexPath.row];
