@@ -14,9 +14,10 @@
 #import "ShoppingCartModel.h"
 #import "ShoppingCartOrderController.h"
 #import "RefreshView.h"
+#import "LoginViewController.h"
 #import "AccountTool.h"
 
-@interface ShoppingCartController ()<UITableViewDataSource,UITableViewDelegate,ShoppingCartDelegate,SelectedShopCartDelegate,RefreshDelegate>
+@interface ShoppingCartController ()<UITableViewDataSource,UITableViewDelegate,ShoppingCartDelegate,SelectedShopCartDelegate,RefreshDelegate,LoginSuccessDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *selectedButtonss;
@@ -34,10 +35,44 @@
 @end
 
 @implementation ShoppingCartController
+
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self initAndLayoutUI];
+        [self getShoppingList];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)LoginSuccess
+{
+    [self initAndLayoutUI];
+    [self getShoppingList];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
-    
-    
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     
@@ -48,9 +83,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    AccountModel *model = [AccountTool userModel];
-    NSLog(@"%@",model);
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -77,9 +109,8 @@
     la.text=@"购物车";
     la.font=[UIFont systemFontOfSize:20];
     
-    [self initAndLayoutUI];
     _dataItem = [[NSMutableArray alloc] init];
-    [self getShoppingList];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(refreshCartList:)
                                                  name:RefreshShoppingCartNotification

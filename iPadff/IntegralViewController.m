@@ -71,9 +71,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _scoreItems = [[NSMutableArray alloc]init];
     [self initAndLaoutUI];
-    [self getAllScore];
     self.swithView.hidden = NO;
     //加载数据
+    [self getAllScore];
     [self firstLoadData];
     
 }
@@ -178,13 +178,6 @@
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
                                                            constant:0.f]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:SCREEN_HEIGHT - 210.f]];
     if (iOS7) {
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
                                                               attribute:NSLayoutAttributeHeight
@@ -193,7 +186,16 @@
                                                               attribute:NSLayoutAttributeNotAnAttribute
                                                              multiplier:1.0
                                                                constant:SCREEN_WIDTH - 210.f]];
+    }else{
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:SCREEN_HEIGHT - 210.f]];
     }
+ 
     
     _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, self.view.bounds.size.width - 160, 80)];
     _topRefreshView.direction = PullFromTop;
@@ -337,7 +339,6 @@
     [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     submit.frame = CGRectMake(_telField.frame.origin.x + 50, CGRectGetMaxY(_moneyField.frame) + 80, 120, 40);
     [backView addSubview:submit];
-
 }
 
 #pragma mark - 提交积分兑换
@@ -531,6 +532,7 @@
         [hud hide:YES afterDelay:0.5f];
         if (success) {
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"$&*(&(*&(*&(*&(*&&(*=%@",[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding]);
             if ([object isKindOfClass:[NSDictionary class]]) {
                 NSString *errorCode = [object objectForKey:@"code"];
                 if ([errorCode intValue] == RequestFail) {

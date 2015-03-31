@@ -17,13 +17,18 @@
 
 @property(nonatomic,strong)UITextField *oldEmailField;
 
+@property(nonatomic,strong)UITextField *authCodeField;
+
+@property(nonatomic,strong)UIButton *makeSureBtn;
+
+@property(nonatomic,assign)BOOL isChecked;
+
 @end
 
 @implementation ChangeEmailController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self initAndLayoutUI];
 }
 
@@ -47,6 +52,10 @@
     UILabel *oldEmail = [[UILabel alloc]init];
     oldEmail.text = @"原 邮 箱 号";
     [self setLabel:oldEmail withTopView:newEmail middleSpace:30 labelTag:2];
+    
+    UILabel *authCode = [[UILabel alloc]init];
+    authCode.text = @"验   证   码";
+    [self setLabel:authCode withTopView:oldEmail middleSpace:60 labelTag:3];
     
     
     _newsEmailField = [[UITextField alloc]init];
@@ -137,6 +146,89 @@
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:mainHeight]];
+    _authCodeField = [[UITextField alloc]init];
+    _authCodeField.translatesAutoresizingMaskIntoConstraints = NO;
+    _authCodeField.borderStyle = UITextBorderStyleLine;
+    _authCodeField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _authCodeField.placeholder = @"请输入验证码";
+    [_authCodeField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
+    _authCodeField.delegate = self;
+    _authCodeField.leftViewMode = UITextFieldViewModeAlways;
+    UIView *placeholderV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 10)];
+    _authCodeField.leftView = placeholderV1;
+    _authCodeField.rightViewMode = UITextFieldViewModeAlways;
+    CALayer *readBtnLayer1 = [_authCodeField layer];
+    [readBtnLayer1 setMasksToBounds:YES];
+    [readBtnLayer1 setCornerRadius:2.0];
+    [readBtnLayer1 setBorderWidth:1.0];
+    [readBtnLayer1 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
+    [self.view addSubview:_authCodeField];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_authCodeField
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_oldEmailField
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:20.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_authCodeField
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:oldEmail
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:120.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_authCodeField
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:mainWidth]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_authCodeField
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:mainHeight]];
+
+    
+    _makeSureBtn = [[UIButton alloc]init];
+    _makeSureBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    [_makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_makeSureBtn setBackgroundColor:kColor(231, 88, 8, 1.0)];
+    [_makeSureBtn setTitle:@"检查" forState:UIControlStateNormal];
+    [self.view addSubview:_makeSureBtn];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureBtn
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_oldEmailField
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:20.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureBtn
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_authCodeField
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:20.f]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureBtn
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:mainWidth * 0.4]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureBtn
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:mainHeight]];
+
+
     
     UIView *lineV = [[UIView alloc]init];
     lineV.translatesAutoresizingMaskIntoConstraints = NO;
@@ -145,7 +237,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:lineV
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:_oldEmailField
+                                                             toItem:_makeSureBtn
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:30.f]];
@@ -267,6 +359,47 @@
     
 }
 
+-(void)makeSureClick:(UIButton *)sender
+{
+    NSLog(@"点击了检查！");
+    if (!_authCodeField.text || [_authCodeField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"验证码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![_authCodeField.text isEqualToString:_authCode]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"验证码错误!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        UIView *rightBigV = [[UIView alloc]init];
+        rightBigV.frame = CGRectMake(0, 0, 60, 40);
+        UIImageView *rightV = [[UIImageView alloc]init];
+        rightV.frame = CGRectMake(20, 8, 23, 23);
+        rightV.image = kImageName(@"check_wrong");
+        [rightBigV addSubview:rightV];
+        _authCodeField.rightView = rightBigV;
+        _isChecked = NO;
+        return;
+    }
+    
+    UIView *rightBigV = [[UIView alloc]init];
+    rightBigV.frame = CGRectMake(0, 0, 60, 40);
+    UIImageView *rightV = [[UIImageView alloc]init];
+    rightV.frame = CGRectMake(20, 8, 23, 23);
+    rightV.image = kImageName(@"check_right");
+    [rightBigV addSubview:rightV];
+    _authCodeField.rightView = rightBigV;
+    _isChecked = YES;
+}
+
 -(void)submitClicked
 {
     if (!_newsEmailField.text || [_newsEmailField.text isEqualToString:@""]) {
@@ -281,6 +414,16 @@
     if (![RegularFormat isCorrectEmail:_newsEmailField.text]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                         message:@"邮箱格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    if (!_isChecked) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"请先验证您的验证码!"
                                                        delegate:nil
                                               cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];

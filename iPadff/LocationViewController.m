@@ -212,8 +212,9 @@
 - (void)getCurrentCityInfoWithCityName:(NSString *)cityName {
     for (CityModel *model in [CityHandle shareCityList]) {
         NSLog(@"%@",model.cityName);
-        if ([cityName containsString:model.cityName]) {
+        if ([cityName rangeOfString:model.cityName].length != 0) {
             _currentCity = model;
+            [self.delegate getSelectedLocation:model];
             break;
         }
     }

@@ -16,8 +16,10 @@
 #import "MerchantCell.h"
 #import "MerchantTitleCell.h"
 #import "CreateMerchantViewController.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
-@interface MyShopViewController ()<UITableViewDataSource,UITableViewDelegate,RefreshDelegate>
+@interface MyShopViewController ()<UITableViewDataSource,UITableViewDelegate,RefreshDelegate,LoginSuccessDelegate>
 @property (nonatomic, strong) NSMutableArray *MerchantItems;
 @property(nonatomic,strong) UITableView *tableView;
 
@@ -46,6 +48,42 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self setupHeaderView];
+        [self firstLoadData];
+        [self initAndLayoutUI];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+-(void)LoginSuccess
+{
+    [self setupHeaderView];
+    [self firstLoadData];
+    [self initAndLayoutUI];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self ShowLoginVC];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -53,9 +91,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setLeftViewWith:ChooseViewMyShop];
     _MerchantItems = [[NSMutableArray alloc] init];
-    [self setupHeaderView];
-    [self initAndLayoutUI];
-    [self firstLoadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMerchantList:)
                                                  name:RefreshMerchantListNotification

@@ -376,12 +376,11 @@
                                                            constant:btnHeight]];
     
     _phoneField = [[UITextField alloc]init];
-    _phoneField.userInteractionEnabled = NO;
+    _phoneField.userInteractionEnabled = YES;
     _phoneField.translatesAutoresizingMaskIntoConstraints = NO;
     _phoneField.textColor = kColor(111, 111, 111, 1.0);
     _phoneField.borderStyle = UITextBorderStyleNone;
     _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _phoneField.placeholder = @"123456789876";
     [_phoneField setValue:[UIFont systemFontOfSize:18] forKeyPath:@"_placeholderLabel.font"];
     [_phoneField setValue:kColor(111, 111, 111, 1.0) forKeyPath:@"_placeholderLabel.color"];
     _phoneField.delegate = self;
@@ -844,11 +843,50 @@
 //修改邮箱
 -(void)changeEmail
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    [NetworkInterface sendEmailChangeWithName:_nameField.text email:_emailField.text finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [self changeAlready:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+-(void)changeAlready:(NSDictionary *)dict
+{
+    if (![dict objectForKey:@"result"]) {
+        return;
+    }
     ChangeEmailController *changeEmailVC =[[ChangeEmailController alloc]init];
+    changeEmailVC.authCode = [dict objectForKey:@"result"];
+    NSLog(@"$$$$$$%@",[dict objectForKey:@"result"]);
     changeEmailVC.ChangeEmailSuccessDelegate = self;
     changeEmailVC.oldEmail = _emailField.text;
     changeEmailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:changeEmailVC animated:YES];
+
 }
 
 -(void)ChangeEmailSuccessWithEmail:(NSString *)newEmail
@@ -964,20 +1002,41 @@
 #pragma mark - UIPickerView
 
 - (void)pickerScrollIn {
-    _exitBtn.hidden = YES;
+    self.exitBtn.hidden = YES;
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+    }
     [UIView animateWithDuration:.3f animations:^{
-        _toolbar.frame = CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216);
-        _exitBtn.hidden = YES;
+        _toolbar.frame = CGRectMake(0, height - 260, wide, 44);
+        _pickerView.frame = CGRectMake(0, height - 216, wide, 216);
     }];
 }
 
 - (void)pickerScrollOut {
-    _exitBtn.hidden = NO;
+    self.exitBtn.hidden = NO;
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+    }
+    
     [UIView animateWithDuration:.3f animations:^{
-        _exitBtn.hidden = NO;
-        _toolbar.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 44);
-        _pickerView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, 216);
+        _toolbar.frame = CGRectMake(0, height, wide, 44);
+        _pickerView.frame = CGRectMake(0, height, wide, 216);
     }];
 }
 

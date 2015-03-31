@@ -79,8 +79,9 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
 //    imageView.hidden = YES;
-//    [self.view addSubview:imageView];
+    imageView.contentMode=UIViewContentModeScaleAspectFit;
 
+//    [self.view addSubview:imageView];
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:nil options:SDWebImageProgressiveDownload progress:nil completed:^(UIImage *image,NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 //        CGRect convertRect = [[imageView superview] convertRect:imageView.frame toView:self.view];
         CGPoint contentOffset = self.imagesScrollView.contentOffset;
@@ -103,6 +104,7 @@
 
         ImageScrollView *imagescroll = [[ImageScrollView alloc] initWithFrame:CGRectMake(0, 0, wide, height)];
         [imagescroll setContentWithFrame:rect];
+        
         [imagescroll setImage:imageView.image];
         [self.imagesScrollView addSubview:imagescroll];
         imagescroll.tapDelegate = self;
