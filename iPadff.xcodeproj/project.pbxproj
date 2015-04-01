@@ -1778,6 +1778,7 @@
 					};
 					0ED065BD1A9EE398005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 63FVWL9TD6;
 						TestTargetID = 0ED065A41A9EE397005DF849;
 					};
 				};
@@ -2231,7 +2232,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2247,7 +2248,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

@@ -1233,6 +1233,83 @@ if(section==0)
     }
     
 }
+#pragma mark - UITextField
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    [self  closeKeyboard];
+    
+    
+    [self.billField resignFirstResponder];
+    
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField              // called when 'return' key pressed. return NO to ignore.
+{
+    [self  closeKeyboard];
+    
+    
+    [self.billField resignFirstResponder];
+    
+    return YES;
+}
+-(void)closeKeyboard
+{
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    if(iOS7)
+    {
+        
+        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
+        
+    }
+    
+    else
+        
+    {
+        
+        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
+        
+        
+        
+    }
+    
+    
+    [UIView commitAnimations];
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+
+{
+    
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    
+    if(iOS7)
+    {
+        
+        self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
+        
+    }
+    
+    else
+        
+    {
+        
+        self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
+        
+        
+        
+    }
+    
+    
+    
+    [UIView commitAnimations];
+    
+    
+}
+
 
 
 @end

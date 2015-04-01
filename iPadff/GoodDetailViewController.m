@@ -20,10 +20,12 @@
 #import "GoodDetaildetailViewController.h"
 #import "RentOrderViewController.h"
 #import "FactoryDetailController.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
 //static CGFloat topImageHeight = 160.f;
 
-@interface GoodDetailViewController ()<UIScrollViewDelegate,ImageScrollViewDelegate>
+@interface GoodDetailViewController ()<UIScrollViewDelegate,ImageScrollViewDelegate,LoginSuccessDelegate>
 
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 
@@ -47,6 +49,7 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) NSInteger totalPage;
 @property (nonatomic, strong) UILabel *pageLabel;
+@property(nonatomic,assign)BOOL isLogin;
 @end
 
 @implementation GoodDetailViewController
@@ -54,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.secletA=1024;
-
+    self.isLogin = NO;
     // Do any additional setup after loading the view.
     self.title = @"商品详情";
     self.view.backgroundColor = kColor(244, 243, 243, 1);
@@ -62,7 +65,7 @@
     
     UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shoppingButton.frame = CGRectMake(0, 0, 30, 30);
-    [shoppingButton setImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
+    [shoppingButton setBackgroundImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
     
     //    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
     [shoppingButton addTarget:self action:@selector(goShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
@@ -336,7 +339,7 @@
     
     //厂家按钮
     UIButton *factoryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [factoryBtn setImage :kImageName(@"info.png") forState:UIControlStateNormal];
+    [factoryBtn setBackgroundImage :kImageName(@"info.png") forState:UIControlStateNormal];
 
     factoryBtn.frame = CGRectMake(factoryLabel.frame.origin.x + factoryLabel.frame.size.width + vSpace, originY, 20, 20);
 //    factoryBtn.enabled = NO;
@@ -842,6 +845,7 @@
     }];
 }
 - (IBAction)buyGood:(id)sender {
+    [self ShowLoginVC];
     NSLog(@"buy ");
     _buyButton.selected = YES;
     _rentButton.selected = NO;
@@ -858,8 +862,47 @@
 
 }
 
+#pragma mark - LoginSuccess
+-(void)LoginSuccess
+{
+    NSLog(@"登录成功！");
+    _isLogin = YES;
+}
+
+-(void)ShowLoginVC
+{
+    AccountModel *account = [AccountTool userModel];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    NSLog(@"%@",account);
+    if (account.password) {
+        [self LoginSuccess];
+    }
+    if (delegate.haveExit) {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+    else if (account.password == nil)
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
 - (IBAction)rentGood:(id)sender {
     NSLog(@"rent");
+    [self ShowLoginVC];
     _buyButton.selected = NO;
     _rentButton.selected = YES;
 //    _shopcartButton.hidden=YES;
@@ -891,6 +934,7 @@
 
 //加入购物车
 - (IBAction)addShoppingCart:(id)sender {
+    [self ShowLoginVC];
         if (!_detailModel.goodID) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             hud.customView = [[UIImageView alloc] init];
@@ -938,23 +982,24 @@
 
 //立即购买
 - (IBAction)buyNow:(id)sender {
-    if ([_buyGoodButton.titleLabel.text isEqualToString:@"立即购买"]) {
-        BuyOrderViewController *buyC = [[BuyOrderViewController alloc] init];
-        buyC.goodDetail = _detailModel;
-        buyC.hidesBottomBarWhenPushed =  YES ;
-
-        [self.navigationController pushViewController:buyC animated:YES];
+    [self ShowLoginVC];
+    if (_isLogin) {
+        if ([_buyGoodButton.titleLabel.text isEqualToString:@"立即购买"]) {
+            BuyOrderViewController *buyC = [[BuyOrderViewController alloc] init];
+            buyC.goodDetail = _detailModel;
+            buyC.hidesBottomBarWhenPushed =  YES ;
+            
+            [self.navigationController pushViewController:buyC animated:YES];
+        }
+        else {
+            RentOrderViewController *rentC = [[RentOrderViewController alloc] init];
+            rentC.goodDetail = _detailModel;
+            rentC.hidesBottomBarWhenPushed =  YES ;
+            
+            [self.navigationController pushViewController:rentC animated:YES];
+            
+        }
     }
-    else {
-        RentOrderViewController *rentC = [[RentOrderViewController alloc] init];
-        rentC.goodDetail = _detailModel;
-        rentC.hidesBottomBarWhenPushed =  YES ;
-
-        [self.navigationController pushViewController:rentC animated:YES];
-        
-    }
-
-    
 }
 
 @end

@@ -21,14 +21,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (kDeviceVersion >= 7.0) {
-        //支持7.0以上版本的方法
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.extendedLayoutIncludesOpaqueBars = NO;
-        self.modalPresentationCapturesStatusBarAppearance = NO;
-    }
     self.view.backgroundColor = kColor(144, 144, 144, 0.7);
+  
     [self setLoginView];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;//隐藏为YES，显示为NO
 }
 
 -(void)setLoginView
