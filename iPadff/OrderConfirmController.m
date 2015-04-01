@@ -10,6 +10,7 @@
 #import "KxMenu.h"
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
+//#import "ZYCustomTabBarViewController.h"
 
 @interface OrderConfirmController ()<UITextFieldDelegate>
 
@@ -26,6 +27,8 @@
    
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    ZYCustomTabBarViewController *tarbar=[[ZYCustomTabBarViewController alloc] init];
+    tarbar.tabBarController.tabBar.hidden=YES;
 
 }
 
@@ -101,13 +104,17 @@
 
 
 - (void)initAndLauoutUI {
+    
+    
+    
     CGFloat footerHeight = 60.f;
     _detailFooterView = [[UIView alloc] init];
     _detailFooterView.translatesAutoresizingMaskIntoConstraints = NO;
     _detailFooterView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_detailFooterView];
+    
    
-
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_detailFooterView
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
@@ -143,6 +150,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
@@ -171,6 +179,7 @@
                                                           attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
                                                            constant:0]];
+    
     [self  footerViewAddSubview];
     
     
@@ -183,13 +192,13 @@
     CGFloat height;
     if(iOS7)
     {
-        wide=SCREEN_HEIGHT;
+        wide=SCREEN_HEIGHT-64;
         height=SCREEN_WIDTH;
         
         
     }
     else
-    {  wide=SCREEN_WIDTH;
+    {  wide=SCREEN_WIDTH-64;
         height=SCREEN_HEIGHT;
         
     }
@@ -263,5 +272,6 @@
     [textField resignFirstResponder];
     return YES;
 }
+
 
 @end
