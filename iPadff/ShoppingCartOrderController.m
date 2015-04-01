@@ -13,8 +13,8 @@
 #import "RegularFormat.h"
 #import "CityHandle.h"
 #import "NetworkInterface.h"
-#import "AppDelegate.h"
-#import "AddressViewController.h"
+
+
 
 @interface ShoppingCartOrderController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
@@ -37,8 +37,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
- 
-       [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
     [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
 
     // Do any additional setup after loading the view.
@@ -148,7 +148,7 @@
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
         if (success) {
-            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+           // NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
             if ([object isKindOfClass:[NSDictionary class]]) {
                 NSString *errorCode = [object objectForKey:@"code"];
@@ -251,13 +251,13 @@
         CGFloat height;
         if(iOS7)
         {
-            wide=SCREEN_HEIGHT;
+            wide=SCREEN_HEIGHT-64;
             height=SCREEN_WIDTH;
             
             
         }
         else
-        {  wide=SCREEN_WIDTH;
+        {  wide=SCREEN_WIDTH-64;
             height=SCREEN_HEIGHT;
             
         }
@@ -320,13 +320,13 @@
         CGFloat height;
         if(iOS7)
         {
-            wide=SCREEN_HEIGHT;
+            wide=SCREEN_HEIGHT-64;
             height=SCREEN_WIDTH;
             
             
         }
         else
-        {  wide=SCREEN_WIDTH;
+        {  wide=SCREEN_WIDTH-64;
             height=SCREEN_HEIGHT;
             
         }
@@ -375,13 +375,16 @@
     CGFloat height;
     if(iOS7)
     {
-        wide=SCREEN_HEIGHT;
+      //  wide=SCREEN_HEIGHT;
+      //  height=SCREEN_WIDTH;
+        wide=SCREEN_HEIGHT-64;
         height=SCREEN_WIDTH;
-        
         
     }
     else
-    {  wide=SCREEN_WIDTH;
+    { // wide=SCREEN_WIDTH;
+        //height=SCREEN_HEIGHT;
+        wide=SCREEN_WIDTH-64;
         height=SCREEN_HEIGHT;
         
     }
@@ -615,13 +618,13 @@
     CGFloat height;
     if(iOS7)
     {
-        wide=SCREEN_HEIGHT;
+        wide=SCREEN_HEIGHT-64;
         height=SCREEN_WIDTH;
         
         
     }
     else
-    {  wide=SCREEN_WIDTH;
+    {  wide=SCREEN_WIDTH-64;
         height=SCREEN_HEIGHT;
         
     }
@@ -692,13 +695,13 @@
     CGFloat height;
     if(iOS7)
     {
-        wide=SCREEN_HEIGHT;
+        wide=SCREEN_HEIGHT-64;
         height=SCREEN_WIDTH;
         
         
     }
     else
-    {  wide=SCREEN_WIDTH;
+    {  wide=SCREEN_WIDTH-64;
         height=SCREEN_HEIGHT;
         
     }
@@ -784,13 +787,13 @@
     CGFloat height;
     if(iOS7)
     {
-        wide=SCREEN_HEIGHT;
+        wide=SCREEN_HEIGHT-64;
         height=SCREEN_WIDTH;
         
         
     }
     else
-    {  wide=SCREEN_WIDTH;
+    {  wide=SCREEN_WIDTH-64;
         height=SCREEN_HEIGHT;
         
     }
@@ -870,10 +873,8 @@ if(section==0)
 
     //AddressViewController*address=[[AddressViewController alloc]init];
    // [self.navigationController pushViewController:address animated:YES];
-
     [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
- // [[NSNotificationCenter defaultCenter] postNotificationName:@"selected12345" object:self userInfo:nil];
-
+ 
 }
 
 
@@ -946,13 +947,13 @@ if(section==0)
     CGFloat height;
     if(iOS7)
     {
-        wide=SCREEN_HEIGHT;
+        wide=SCREEN_HEIGHT-64;
         height=SCREEN_WIDTH;
         
         
     }
     else
-    {  wide=SCREEN_WIDTH;
+    {  wide=SCREEN_WIDTH-64;
         height=SCREEN_HEIGHT;
         
     }
@@ -1113,13 +1114,13 @@ if(section==0)
             CGFloat height;
             if(iOS7)
             {
-                wide=SCREEN_HEIGHT;
+                wide=SCREEN_HEIGHT-64;
                 height=SCREEN_WIDTH;
                 
                 
             }
             else
-            {  wide=SCREEN_WIDTH;
+            {  wide=SCREEN_WIDTH-64;
                 height=SCREEN_HEIGHT;
                 
             }
