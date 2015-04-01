@@ -498,7 +498,8 @@
                     if (!isMore) {
                         [_dataItem removeAllObjects];
                     }
-                    if ([[object objectForKey:@"result"] count] > 0) {
+                    if ([[[object objectForKey:@"result"] objectForKey:@"list"] count] > 0)
+                    {
                         //有数据
                         self.page++;
                         [hud hide:YES];
