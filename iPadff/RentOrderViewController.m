@@ -292,6 +292,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    
+    
     BOOL isNumber = [RegularFormat isNumber:_numberField.text];
     if (isNumber && [_numberField.text intValue] > 0) {
         int currentCount = [_numberField.text intValue];
@@ -305,6 +307,7 @@
     }
     return YES;
 }
+
 
 #pragma mark - UITableView
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -81,6 +81,9 @@
         [self LoginSuccess];
     }
     if (delegate.haveExit) {
+        NSLog(@"已退出！");
+        
+        [self LoginSuccess];
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;
         loginC.view.frame = CGRectMake(0, 0, 320, 320);
@@ -463,7 +466,8 @@
                     if (!isMore) {
                         [_messageItems removeAllObjects];
                     }
-                    if ([[object objectForKey:@"result"] count] > 0) {
+                    id content = [[object objectForKey:@"result"] objectForKey:@"content"];
+                    if ([content isKindOfClass:[NSArray class]] && [content count] > 0) {
                         //有数据
                         self.page++;
                         [hud hide:YES];

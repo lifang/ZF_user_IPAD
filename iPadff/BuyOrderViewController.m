@@ -278,9 +278,31 @@
 }
 
 #pragma mark - UITextField
-
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    if(textField==self.billField )
+    {
+        [self  closeKeyboard];
+        
+        
+    }
+    
+    [self.billField resignFirstResponder];
+    
+}
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    
+    if(textField==self.billField )
+    {
+        [self  closeKeyboard];
+
+    
+    }
+    
+    
+    [self.billField resignFirstResponder];
     BOOL isNumber = [RegularFormat isNumber:_numberField.text];
     if (isNumber && [_numberField.text intValue] > 0) {
         int currentCount = [_numberField.text intValue];
@@ -294,6 +316,73 @@
     }
     return YES;
 }
+
+
+-(void)closeKeyboard
+{
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    if(iOS7)
+    {
+        
+        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
+        
+    }
+    
+    else
+        
+    {
+        
+        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
+        
+        
+        
+    }
+    
+    
+    [UIView commitAnimations];
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+
+{
+    
+    
+    
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    if(textField==self.billField )
+    {
+        if(iOS7)
+        {
+            
+            self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
+            
+        }
+        
+        else
+            
+        {
+            
+            self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
+            
+            
+            
+        }
+  
+        
+    }
+
+    
+    
+    
+    [UIView commitAnimations];
+    
+    
+}
+
 
 #pragma mark - UITableView
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -137,7 +137,8 @@
                     if (!isMore) {
                         [_systemMessageItem removeAllObjects];
                     }
-                    if ([[object objectForKey:@"result"] count] > 0) {
+                    id content = [[object objectForKey:@"result"] objectForKey:@"content"];
+                    if ([content isKindOfClass:[NSArray class]] && [content count] > 0) {
                         //有数据
                         self.page++;
                         [hud hide:YES];
