@@ -135,7 +135,9 @@
         if (iOS7) {
             _tableView.frame = CGRectMake(160, 80, SCREEN_HEIGHT - 160, SCREEN_WIDTH - 100);
         }
-        
+        UIView *v = [[UIView alloc]init];
+        v.frame = CGRectMake(0, 0, 1, 1);
+        _tableView.tableFooterView = v;
         [self setupRefreshView];
     }
     return _tableView;
@@ -841,7 +843,7 @@
         return 60;
     }else{
         CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
-        if ([model.status isEqualToString:@"1"]) {
+        if ([model.status isEqualToString:@"1"] && _buttonIndex==2) {
             if (_isFirst) {
                 return 120;
             }else{

@@ -80,13 +80,10 @@
     if (account.password) {
         [self LoginSuccess];
     }
-    if (delegate.haveExit) {
-        NSLog(@"已退出！");
-        
+    if (delegate.haveExit == YES) {
         [self LoginSuccess];
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;
-        loginC.view.frame = CGRectMake(0, 0, 320, 320);
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
         nav.navigationBarHidden = YES;
         nav.modalPresentationStyle = UIModalPresentationCustom;
@@ -97,7 +94,6 @@
     {
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;
-        loginC.view.frame = CGRectMake(0, 0, 320, 320);
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
         nav.navigationBarHidden = YES;
         nav.modalPresentationStyle = UIModalPresentationCustom;
@@ -109,6 +105,8 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSLog(@"~~~~~~~我的消息Frame %@",NSStringFromCGRect(self.view.frame));
+    NSLog(@"~~~~~~~我的消息导航栏%@",NSStringFromCGRect(self.navigationController.navigationBar.frame));
     [self ShowLoginVC];
 }
 
@@ -122,7 +120,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
     [self.navigationController.navigationBar setBackgroundImage:[kImageName(@"orange")
-                                                                 resizableImageWithCapInsets:UIEdgeInsetsMake(21, 1, 21, 1)]
+                                                                 resizableImageWithCapInsets:UIEdgeInsetsMake(1, 0, 43, 0)]
                                                   forBarMetrics:UIBarMetricsDefault];
 }
 

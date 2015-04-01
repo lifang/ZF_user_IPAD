@@ -19,16 +19,17 @@
 
 @implementation LoginViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    delegate.haveExit = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColor(144, 144, 144, 0.7);
-  
     [self setLoginView];
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;//隐藏为YES，显示为NO
 }
 
 -(void)setLoginView
