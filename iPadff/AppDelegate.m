@@ -54,6 +54,7 @@
 
     //创建一个数组保存导航和另外四个视图控制器
     NSArray *array = [NSArray arrayWithObjects:navController3,navController,navController4,navController2,nil];
+   
      self.array5 = [NSArray arrayWithObjects:navController3,navController,navController4,navController5,nil];
 
     //释放
@@ -89,7 +90,6 @@
 
 
     self.tabBarViewController.viewControllers = self.array5;
-
     [self.tabBarViewController setSeletedIndex:3];
 
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];

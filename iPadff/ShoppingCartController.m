@@ -238,7 +238,7 @@
     }
     ShoppingCartOrderController *orderC = [[ShoppingCartOrderController alloc] init];
     orderC.shoppingCartItem = selectedOrder;
-    orderC.hidesBottomBarWhenPushed = YES;
+   // orderC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:orderC animated:YES];
 }
 

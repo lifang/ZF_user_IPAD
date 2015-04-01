@@ -22,7 +22,6 @@
 @implementation MineCommonController
 
 
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:NO];

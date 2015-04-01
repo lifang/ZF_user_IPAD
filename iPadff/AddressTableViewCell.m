@@ -28,13 +28,13 @@
         CGFloat height;
         if(iOS7)
         {
-            wide=SCREEN_HEIGHT;
+            wide=SCREEN_HEIGHT-64;
             height=SCREEN_WIDTH;
             
             
         }
         else
-        {  wide=SCREEN_WIDTH;
+        {  wide=SCREEN_WIDTH-64;
             height=SCREEN_HEIGHT;
             
         }
