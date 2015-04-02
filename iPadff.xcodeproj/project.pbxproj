@@ -38,7 +38,6 @@
 		0E00022D1AC66E2800003E60 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E00022C1AC66E2800003E60 /* CoreLocation.framework */; };
 		0E5FAE961AC4EF8600BEBE5F /* ApplyDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE951AC4EF8600BEBE5F /* ApplyDetailController.m */; };
 		0E5FAE981AC4F26A00BEBE5F /* upload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */; };
-		0E5FAE9B1AC4F81E00BEBE5F /* BankSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE9A1AC4F81E00BEBE5F /* BankSelectedController.m */; };
 		0E5FAE9E1AC4F83B00BEBE5F /* BankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAE9D1AC4F83B00BEBE5F /* BankModel.m */; };
 		0E5FAEA11AC53F1300BEBE5F /* FactoryDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FAEA01AC53F1300BEBE5F /* FactoryDetailController.m */; };
 		0E5FAEA31AC5416900BEBE5F /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5FAEA21AC5416900BEBE5F /* info@2x.png */; };
@@ -98,7 +97,6 @@
 		0ECCB2D71AAECBF100E0591E /* numberback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D61AAECBF100E0591E /* numberback@2x.png */; };
 		0ECCB2D91AAECC6A00E0591E /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2D81AAECC6A00E0591E /* gray@2x.png */; };
 		0ECCB2DB1AAF188500E0591E /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECCB2DA1AAF188500E0591E /* delete@2x.png */; };
-		0ECD61591AC175B00014BDE8 /* MerchantDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */; };
 		0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */; };
 		0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */; };
 		0ECE7D891AA556F200E250B6 /* CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE7D881AA556F200E250B6 /* CommonViewController.m */; };
@@ -142,6 +140,9 @@
 		0ED5FD3F1AB913460057385C /* InterestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD3E1AB913460057385C /* InterestView.m */; };
 		0ED5FD421AB956920057385C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD411AB956920057385C /* SearchViewController.m */; };
 		0ED5FD481AB97C230057385C /* GoodDetaildetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD471AB97C230057385C /* GoodDetaildetailViewController.m */; };
+		0ED604281ACCD290009A0220 /* MerchantDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED604271ACCD290009A0220 /* MerchantDetailModel.m */; };
+		0ED6042E1ACCE125009A0220 /* BankSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6042D1ACCE125009A0220 /* BankSelectedController.m */; };
+		0ED604301ACCEBF9009A0220 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6042F1ACCEBF9009A0220 /* search@2x.png */; };
 		0ED6AD011AA16EEA00D3B025 /* 平板UI套件-用户版_89.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACF91AA16EEA00D3B025 /* 平板UI套件-用户版_89.png */; };
 		0ED6AD021AA16EEA00D3B025 /* shopping_nomal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACFA1AA16EEA00D3B025 /* shopping_nomal.png */; };
 		0ED6AD031AA16EEA00D3B025 /* Myinages_nomal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED6ACFB1AA16EEA00D3B025 /* Myinages_nomal.png */; };
@@ -363,8 +364,6 @@
 		0E5FAE941AC4EF8600BEBE5F /* ApplyDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyDetailController.h; sourceTree = "<group>"; };
 		0E5FAE951AC4EF8600BEBE5F /* ApplyDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyDetailController.m; sourceTree = "<group>"; };
 		0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload@2x.png"; sourceTree = "<group>"; };
-		0E5FAE991AC4F81E00BEBE5F /* BankSelectedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankSelectedController.h; sourceTree = "<group>"; };
-		0E5FAE9A1AC4F81E00BEBE5F /* BankSelectedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankSelectedController.m; sourceTree = "<group>"; };
 		0E5FAE9C1AC4F83B00BEBE5F /* BankModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankModel.h; sourceTree = "<group>"; };
 		0E5FAE9D1AC4F83B00BEBE5F /* BankModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankModel.m; sourceTree = "<group>"; };
 		0E5FAE9F1AC53F1300BEBE5F /* FactoryDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FactoryDetailController.h; sourceTree = "<group>"; };
@@ -465,8 +464,6 @@
 		0ECCB2D61AAECBF100E0591E /* numberback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "numberback@2x.png"; sourceTree = "<group>"; };
 		0ECCB2D81AAECC6A00E0591E /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		0ECCB2DA1AAF188500E0591E /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
-		0ECD61571AC175B00014BDE8 /* MerchantDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantDetailModel.h; sourceTree = "<group>"; };
-		0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantDetailModel.m; sourceTree = "<group>"; };
 		0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomTabBarViewController.h; sourceTree = "<group>"; };
 		0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomTabBarViewController.m; sourceTree = "<group>"; };
 		0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYHomeViewController.h; sourceTree = "<group>"; };
@@ -543,6 +540,11 @@
 		0ED5FD411AB956920057385C /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		0ED5FD461AB97C230057385C /* GoodDetaildetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetaildetailViewController.h; sourceTree = "<group>"; };
 		0ED5FD471AB97C230057385C /* GoodDetaildetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodDetaildetailViewController.m; sourceTree = "<group>"; };
+		0ED604261ACCD290009A0220 /* MerchantDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantDetailModel.h; sourceTree = "<group>"; };
+		0ED604271ACCD290009A0220 /* MerchantDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantDetailModel.m; sourceTree = "<group>"; };
+		0ED6042C1ACCE125009A0220 /* BankSelectedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankSelectedController.h; sourceTree = "<group>"; };
+		0ED6042D1ACCE125009A0220 /* BankSelectedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BankSelectedController.m; sourceTree = "<group>"; };
+		0ED6042F1ACCEBF9009A0220 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		0ED6ACF91AA16EEA00D3B025 /* 平板UI套件-用户版_89.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "平板UI套件-用户版_89.png"; sourceTree = "<group>"; };
 		0ED6ACFA1AA16EEA00D3B025 /* shopping_nomal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping_nomal.png; sourceTree = "<group>"; };
 		0ED6ACFB1AA16EEA00D3B025 /* Myinages_nomal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Myinages_nomal.png; sourceTree = "<group>"; };
@@ -985,6 +987,8 @@
 		0ECE7DA21AA5587A00E250B6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0ED604261ACCD290009A0220 /* MerchantDetailModel.h */,
+				0ED604271ACCD290009A0220 /* MerchantDetailModel.m */,
 				0E0002291AC6690F00003E60 /* ApplyOpenModel.h */,
 				0E00022A1AC6690F00003E60 /* ApplyOpenModel.m */,
 				0E0002201AC6422700003E60 /* ChannelModel.h */,
@@ -993,8 +997,6 @@
 				0E5FAE9D1AC4F83B00BEBE5F /* BankModel.m */,
 				0EC7B9E61AC3B48200080E2A /* ChannelListModel.h */,
 				0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */,
-				0ECD61571AC175B00014BDE8 /* MerchantDetailModel.h */,
-				0ECD61581AC175B00014BDE8 /* MerchantDetailModel.m */,
 				1A6D98641ABFAFC5005740A6 /* MessageModel.h */,
 				1A6D98651ABFAFC5005740A6 /* MessageModel.m */,
 				0ECA6D331ABBFC3A005316B1 /* ReviewModel.h */,
@@ -1328,6 +1330,7 @@
 		0ED6ACF81AA16ECB00D3B025 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0ED6042F1ACCEBF9009A0220 /* search@2x.png */,
 				0E5FAEA21AC5416900BEBE5F /* info@2x.png */,
 				0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */,
 				0EC91B3B1ABA6FC600947B4F /* star_gray.png */,
@@ -1513,8 +1516,8 @@
 				1A65164B1AA6F42E008223BD /* ApplicationViewController.m */,
 				0EC7B9E31AC3B45900080E2A /* ChannelSelectedController.h */,
 				0EC7B9E41AC3B45900080E2A /* ChannelSelectedController.m */,
-				0E5FAE991AC4F81E00BEBE5F /* BankSelectedController.h */,
-				0E5FAE9A1AC4F81E00BEBE5F /* BankSelectedController.m */,
+				0ED6042C1ACCE125009A0220 /* BankSelectedController.h */,
+				0ED6042D1ACCE125009A0220 /* BankSelectedController.m */,
 			);
 			name = DredgeV;
 			sourceTree = "<group>";
@@ -1868,6 +1871,7 @@
 				0EC91B3F1ABA905700947B4F /* pagH.png in Resources */,
 				0ED6AD311AA19BC800D3B025 /* home6.png in Resources */,
 				0ECE7DE01AA5793F00E250B6 /* btn_selected@2x.png in Resources */,
+				0ED604301ACCEBF9009A0220 /* search@2x.png in Resources */,
 				0D714C6F1AB320BC007FF2C5 /* merchant1@2x.png in Resources */,
 				0ED8EBF11AA6E2BC00CE9F61 /* 8kind_normal.png in Resources */,
 				0ED6AD331AA19BC800D3B025 /* home8.png in Resources */,
@@ -1953,6 +1957,7 @@
 				1AA8FF751AA4074D009D41B3 /* SDWebImagePrefetcher.m in Sources */,
 				1A627DA71ABA5DD60024A644 /* FindPasswordSuccessController.m in Sources */,
 				1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */,
+				0ED6042E1ACCE125009A0220 /* BankSelectedController.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
 				0D3887201AB96F8E000DF1D6 /* MASCompositeConstraint.m in Sources */,
 				1A8E7C771AB17EBC00C021CE /* SwitchView.m in Sources */,
@@ -2039,7 +2044,6 @@
 				1A94EB6C1AA943530056E921 /* TransferCell.m in Sources */,
 				1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */,
 				0ED8EBE51AA6D7E000CE9F61 /* UIScrollView+MJExtension.m in Sources */,
-				0ECD61591AC175B00014BDE8 /* MerchantDetailModel.m in Sources */,
 				1AA8FF761AA4074D009D41B3 /* UIButton+WebCache.m in Sources */,
 				0D3887261AB96F8E000DF1D6 /* NSArray+MASAdditions.m in Sources */,
 				0EC99CB61AB0327600D20386 /* AddressTableViewCell.m in Sources */,
@@ -2076,6 +2080,7 @@
 				1A94EB721AA952600056E921 /* RepaymentCell.m in Sources */,
 				0EC8D60D1AAE7FA4003661C5 /* ShoppingCartModel.m in Sources */,
 				1A8E7C661AB1632400C021CE /* CancelCell.m in Sources */,
+				0ED604281ACCD290009A0220 /* MerchantDetailModel.m in Sources */,
 				1ADD1EDA1AB6C92E0014E528 /* UpdateDetailController.m in Sources */,
 				0E0002281AC6483A00003E60 /* PollingViews.m in Sources */,
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
@@ -2090,7 +2095,6 @@
 				0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */,
 				0ECE7DA11AA5584F00E250B6 /* SearchHistoryHelper.m in Sources */,
 				0ECE7D951AA5579800E250B6 /* GoodListViewController.m in Sources */,
-				0E5FAE9B1AC4F81E00BEBE5F /* BankSelectedController.m in Sources */,
 				0D3887281AB96F8E000DF1D6 /* View+MASAdditions.m in Sources */,
 				1AA8FF791AA4074D009D41B3 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0ECE7D9C1AA557C700E250B6 /* ZFSearchBar.m in Sources */,

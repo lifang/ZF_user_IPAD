@@ -125,6 +125,8 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     [self beginApply];
+    [self getBankList];
+
 }
 //选择终端tableView懒加载
 -(UITableView *)terminalTableView
@@ -147,7 +149,19 @@
     }
     else
     {
-        self.terminalTableView.frame = CGRectMake(accountnamebutton.frame.origin.x, 90, 280, 220);
+        
+        NSInteger numberrow;
+        numberrow=_applyData.merchantList.count;
+        if(numberrow>5)
+        {
+            self.terminalTableView.frame = CGRectMake(accountnamebutton.frame.origin.x, 90, 280, 5*45);
+
+        }else
+        {
+            self.terminalTableView.frame = CGRectMake(accountnamebutton.frame.origin.x, 90, 280, numberrow*45);
+
+        
+        }
         
         
     }
@@ -537,7 +551,7 @@
                 
             }
             //选项 银行
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40, 700+lastheight*70,140, 40)];
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40, 710+lastheight*70,140, 40)];
             [_scrollView addSubview:newaddress];
             newaddress.textAlignment = NSTextAlignmentCenter;
             newaddress.font=[UIFont systemFontOfSize:18];
@@ -546,7 +560,7 @@
             
             
             blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            blankbutton.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
+            blankbutton.frame = CGRectMake(wide/2-40-280,710+lastheight*70 ,280, 40);
             NSString *bankCode = [self getApplyValueForKey:model.materialID];
             [blankbutton setTitle:[self getBankNameWithBankCode:bankCode] forState:UIControlStateNormal];
             
@@ -568,51 +582,152 @@
             blankbutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
             blankbutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
-            
-            [blankbutton addTarget:self action:@selector(blankclick) forControlEvents:UIControlEventTouchUpInside];
+            blankbutton.tag=[model.materialID integerValue];
+     
+            [blankbutton addTarget:self action:@selector(blankclick:) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:blankbutton];
             
             
         }
-        else if (model.materialType == MaterialText) {
-            NSInteger lastheight;
-            lastheight=_applyData.materialList.count-2;
-            if(lastheight%3==0)
+        else if (model.materialType == MaterialText)
+        {
+
+            NSMutableArray*typeArry=[[NSMutableArray alloc]initWithCapacity:0];
+            NSMutableArray*MaterialTexttypeArry=[[NSMutableArray alloc]initWithCapacity:0];
+
+            for(int i=0;i<_applyData.materialList.count;i++)
+
+            
             {
-                lastheight=_applyData.materialList.count/3;
+                MaterialModel *model = [_applyData.materialList objectAtIndex:i];
+
+                [typeArry addObject:[NSString stringWithFormat:@"%u",model.materialType] ];
                 
+             if(model.materialType==MaterialText)
+             {
+             
+                 [MaterialTexttypeArry addObject:model ];
+
+             
+             }
+            
+            }
+           
+            if ([typeArry containsObject: @"3"])
+                 
+                
+            
+            
+            {
+                 
+                 
+                NSInteger lastheight;
+                lastheight=_applyData.materialList.count-2;
+                if(lastheight%3==0)
+                {
+                    lastheight=_applyData.materialList.count/3;
+                    
+                }
+                else
+                {
+                    
+                    lastheight=_applyData.materialList.count/3+1;
+                    
+                }
+                for(int i=1;i<MaterialTexttypeArry.count+1;i++)
+                    
+                {
+                    NSInteger LR=i%2;
+                    MaterialModel *model = [MaterialTexttypeArry objectAtIndex:i-1];
+
+                    //文字
+                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(wide/2*LR, 700+lastheight*70+i/2*50+10,140, 40)];
+                    [_scrollView addSubview:newaddress];
+                    newaddress.textAlignment = NSTextAlignmentCenter;
+                    newaddress.font=[UIFont systemFontOfSize:18];
+                    
+                    newaddress.text=model.materialName;
+                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+150,700+lastheight*70+i/2*50+10,280, 40)];
+                    neworiginaltextfield.tag=i+1056;
+                    
+                    [_scrollView addSubview:neworiginaltextfield];
+                    //        neworiginaltextfield.delegate=self;
+                    
+                    CALayer *layer=[neworiginaltextfield layer];
+                    //是否设置边框以及是否可见
+                    [layer setMasksToBounds:YES];
+                    //设置边框圆角的弧度
+                    
+                    //设置边框线的宽
+                    //
+                    [layer setBorderWidth:1];
+                    //设置边框线的颜色
+                    [layer setBorderColor:[[UIColor grayColor] CGColor]];
+                    
+                    
+                }
+
+                
+            
             }
             else
             {
-                
-                lastheight=_applyData.materialList.count/3+1;
-                
+            
+                NSInteger lastheight;
+                lastheight=_applyData.materialList.count-2;
+                if(lastheight%3==0)
+                {
+                    lastheight=_applyData.materialList.count/3;
+                    
+                }
+                else
+                {
+                    
+                    lastheight=_applyData.materialList.count/3+1;
+                    
+                }
+                for(int i=0;i<MaterialTexttypeArry.count;i++)
+                    
+                {
+                    
+                    
+                    NSInteger LR=i%2;
+                    MaterialModel *model = [MaterialTexttypeArry objectAtIndex:i];
+
+                    //文字
+                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+wide/2*LR, 700+lastheight*70+i/2*50+10,140, 40)];
+                    [_scrollView addSubview:newaddress];
+                    newaddress.textAlignment = NSTextAlignmentCenter;
+                    newaddress.font=[UIFont systemFontOfSize:18];
+                    
+                    newaddress.text=model.materialName;
+                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+190,700+lastheight*70+i/2*50+10,280, 40)];
+                    neworiginaltextfield.tag=i+1056;
+                    
+                    [_scrollView addSubview:neworiginaltextfield];
+                    //        neworiginaltextfield.delegate=self;
+                    
+                    CALayer *layer=[neworiginaltextfield layer];
+                    //是否设置边框以及是否可见
+                    [layer setMasksToBounds:YES];
+                    //设置边框圆角的弧度
+                    
+                    //设置边框线的宽
+                    //
+                    [layer setBorderWidth:1];
+                    //设置边框线的颜色
+                    [layer setBorderColor:[[UIColor grayColor] CGColor]];
+                    
+                    
+                }
+
+            
+            
             }
+
             
-            //文字
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(wide/2, 700+lastheight*70,140, 40)];
-            [_scrollView addSubview:newaddress];
-            newaddress.textAlignment = NSTextAlignmentCenter;
-            newaddress.font=[UIFont systemFontOfSize:18];
             
-            newaddress.text=model.materialName;
-            UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2+150,700+lastheight*70,280, 40)];
-            neworiginaltextfield.tag=i+1056;
-            
-            [_scrollView addSubview:neworiginaltextfield];
-            //        neworiginaltextfield.delegate=self;
-            
-            CALayer *layer=[neworiginaltextfield layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-        }
+                  }
         else if (model.materialType == MaterialImage) {
             NSInteger row;
             row=imageint%3;
@@ -697,12 +812,13 @@
     
     
 }
--(void)blankclick
+-(void)blankclick:(UIButton*)send
 {
     BankSelectedController *bankC = [[BankSelectedController alloc] init];
     bankC.delegate = self;
     bankC.bankItems = self.bankItems;
     bankC.hidesBottomBarWhenPushed = YES;
+    _selectedKey =[NSString stringWithFormat:@"%ld",(long)send.tag] ;
 
     [self.navigationController pushViewController:bankC animated:YES];
 
@@ -869,6 +985,31 @@
 }
 
 #pragma mark - Request
+//银行信息
+- (void)getBankList {
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface selectedBankWithToken:delegate.token finished:^(BOOL success, NSData *response) {
+        NSLog(@"!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [self parseBankListWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+            }
+        }
+        else {
+        }
+    }];
+}
+
 - (NSString *)getBankNameWithBankCode:(NSString *)bankCode {
     for (BankModel *model in _bankItems) {
         if ([model.bankCode isEqualToString:bankCode]) {
@@ -977,7 +1118,6 @@
     
     
 }
-
 //保存获取的内容
 - (void)setPrimaryData {
     if (_applyData.personName) {

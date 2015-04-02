@@ -155,6 +155,8 @@
 #pragma mark - Data
 
 - (void)getShoppingList {
+    isSelecteds=NO;
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
