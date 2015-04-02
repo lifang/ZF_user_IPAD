@@ -199,6 +199,8 @@
         ShoppingCartModel *cart = [[ShoppingCartModel alloc] initWithParseDictionary:dict];
         [_dataItem addObject:cart];
     }
+    [self getSummaryPrice];
+
     [_tableView reloadData];
 }
 

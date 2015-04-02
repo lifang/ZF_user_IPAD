@@ -547,6 +547,9 @@
             
             blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
             blankbutton.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
+            NSString *bankCode = [self getApplyValueForKey:model.materialID];
+            [blankbutton setTitle:[self getBankNameWithBankCode:bankCode] forState:UIControlStateNormal];
+            
             
             //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
             [blankbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -1029,8 +1032,10 @@
         }
     }
     [self.tableView reloadData];
-    
+
 }
+
+
 
 
 //根据对公对私材料的id找到是否已经提交过材料
@@ -1056,6 +1061,7 @@
     //    }
     return nil;
 }
+
 
 - (void)parseImageUploadInfo:(NSDictionary *)dict {
     if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSString class]]) {

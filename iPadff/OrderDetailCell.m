@@ -127,7 +127,7 @@
 
     [self.contentView addSubview:_priceLabel];
     //数量
-    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-120, 30, 80, 30)];
+    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-70, 30, 80, 30)];
     
     _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _numberLabel.textAlignment = NSTextAlignmentCenter;
@@ -144,7 +144,7 @@
     _channelLabel.font = [UIFont systemFontOfSize:16.f];
 
     [self.contentView addSubview:_channelLabel];
-    linlable  = [[UILabel alloc] initWithFrame:CGRectMake(50, 89, wide-100, 1)];
+    linlable  = [[UILabel alloc] initWithFrame:CGRectMake(50, 89, wide-100+64, 1)];
     
     
     linlable.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
@@ -200,6 +200,8 @@
 
 - (void)setContentsWithData:(OrderGoodModel *)data {
     self.nameLabel.text = data.goodName;
+    NSLog(@"%f",data.goodPrice);
+
     self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",data.goodPrice];
     self.numberLabel.text = [NSString stringWithFormat:@"X %d",[data.goodNumber intValue]];
     self.brandLabel.text = [NSString stringWithFormat:@"品牌型号 %@",data.goodBrand];

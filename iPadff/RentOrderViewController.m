@@ -14,6 +14,7 @@
 #import "CityHandle.h"
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
+#import "RentDescriptionController.h"
 @interface RentOrderViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
 
@@ -241,7 +242,11 @@
 
 
 #pragma mark - Action
-
+- (IBAction)scanProtocol:(id)sender {
+    RentDescriptionController *descC = [[RentDescriptionController alloc] init];
+    descC.goodDetail = _goodDetail;
+    [self.navigationController pushViewController:descC animated:YES];
+}
 - (IBAction)ensureOrder:(id)sender {
     if (!isneedpp) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -381,12 +386,12 @@
         self.addressLabel.font = [UIFont systemFontOfSize:14.f];
         [self.addressView addSubview:self.addressLabel];
         self.addressLabel.text=@"详细地址";
-        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120-120, 0, 60, 20)];
+        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120-140, 0, 60, 20)];
         [self.addressView addSubview:postlable];
         postlable.textAlignment = NSTextAlignmentCenter;
         
         postlable.text=@"邮编";
-        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120, 0, 60, 20)];
+        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide-140, 0, 60, 20)];
         [self.addressView addSubview:phonelable];
         phonelable.textAlignment = NSTextAlignmentCenter;
         
@@ -682,16 +687,7 @@
     [self addAddress];
     
 }
-- (IBAction)modifyLocation:(id)sender {
-    [self pickerScrollOut];
-    //    NSInteger index = [self.pickerView selectedRowInComponent:1];
-    //    _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
-    //
-    //    [_cityField setTitle:[[_cityArray objectAtIndex:index] objectForKey:@"name"] forState:UIControlStateNormal];
-    //
-    //    NSLog(@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"name"]);
-    
-}
+
 - (void)initPickerView {
     //pickerView
     CGFloat wide;
@@ -747,7 +743,14 @@
         return [_cityArray count];
     }
 }
+- (IBAction)modifyLocation:(id)sender {
+    [self pickerScrollOut];
+    NSInteger index = [_pickerView selectedRowInComponent:1];
+    NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
+    [_cityField setTitle:cityName forState:UIControlStateNormal];
+    _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
 
+}
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == 0) {
         //省
@@ -764,18 +767,9 @@
     if (component == 0) {
         //省
         [_pickerView reloadComponent:1];
-        
     }
-    else {
-        
-        [_cityField setTitle:[[_cityArray objectAtIndex:row] objectForKey:@"name"] forState:UIControlStateNormal];
-        _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:row] objectForKey:@"id"]];
-        
-        
-    }
-    
-    
 }
+
 
 
 - (void)pickerScrollOut {
@@ -950,6 +944,8 @@
         billLabel.attributedText = attrString;
 
         billLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scanProtocol:)];
+        [billLabel addGestureRecognizer:tap];
         [footerView addSubview:billLabel];
         
 //        UIView *billView = [self addBillView];
