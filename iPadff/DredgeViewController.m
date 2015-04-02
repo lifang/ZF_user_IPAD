@@ -391,14 +391,14 @@
     cell.dredgeStatus.text = [self getStatusString];
     
     //用来标识数据的id
-    cell.applicationBtn.tag = [model.TM_ID intValue];
+    cell.applicationBtn.tag = indexPath.row;
     cell.vedioConfirmBtn.tag = [model.TM_ID intValue];
     if(  [model.TM_status  isEqualToString:@"2"])
     {
         [cell.applicationBtn setTitle:@"重新申请开通" forState:UIControlStateNormal];
 
         cell.applicationBtn.titleLabel.font=[UIFont systemFontOfSize:16];
-        [cell.applicationBtn addTarget:self action:@selector(applicationClicks:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
 
         
     }
@@ -421,24 +421,36 @@
 
 -(void)applicationClick:(UIButton *)button
 {
-    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
-    detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
-    detailC.openStatus = OpenStatusNew;
-    detailC.hidesBottomBarWhenPushed = YES;
-
-    [self.navigationController pushViewController:detailC animated:YES];
-}
--(void)applicationClicks:(UIButton *)button
-{
-    NSLog(@"%ld",(long)button.tag);
+    TerminalManagerModel *model = [_applyList objectAtIndex:button.tag];
 
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
     detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
-    detailC.openStatus = OpenStatusReopen;
     detailC.hidesBottomBarWhenPushed = YES;
-    
+    if(  [model.TM_status  isEqualToString:@"2"])
+    {
+        detailC.openStatus = OpenStatusReopen;
+        
+        
+    }else
+    {
+        detailC.openStatus = OpenStatusNew;
+        
+    }
+    detailC.terminalID = model.TM_ID;
+
     [self.navigationController pushViewController:detailC animated:YES];
 }
+//-(void)applicationClicks:(UIButton *)button
+//{
+//    NSLog(@"%ld",(long)button.tag);
+//
+//    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+//    detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
+//    detailC.openStatus = OpenStatusReopen;
+//    detailC.hidesBottomBarWhenPushed = YES;
+//    
+//    [self.navigationController pushViewController:detailC animated:YES];
+//}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];
