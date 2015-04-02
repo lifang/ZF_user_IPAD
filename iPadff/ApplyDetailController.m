@@ -551,7 +551,7 @@
                 
             }
             //选项 银行
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40, 700+lastheight*70,140, 40)];
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40, 710+lastheight*70,140, 40)];
             [_scrollView addSubview:newaddress];
             newaddress.textAlignment = NSTextAlignmentCenter;
             newaddress.font=[UIFont systemFontOfSize:18];
@@ -560,7 +560,7 @@
             
             
             blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            blankbutton.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
+            blankbutton.frame = CGRectMake(wide/2-40-280,710+lastheight*70 ,280, 40);
             NSString *bankCode = [self getApplyValueForKey:model.materialID];
             [blankbutton setTitle:[self getBankNameWithBankCode:bankCode] forState:UIControlStateNormal];
             
