@@ -22,7 +22,7 @@
 #import "FactoryDetailController.h"
 #import "LoginViewController.h"
 #import "AccountTool.h"
-
+#import "ChannelWebsiteController.h"
 //static CGFloat topImageHeight = 160.f;
 
 @interface GoodDetailViewController ()<UIScrollViewDelegate,ImageScrollViewDelegate,LoginSuccessDelegate>
@@ -371,8 +371,13 @@
     originY += vSpace + labelHeight;
     _priceLabel.frame = CGRectMake(leftSpace, originY, leftSpace- rightSpace, labelHeight);
     
-    
-    [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.goodPrice + _detailModel.defaultChannel.openCost]];
+    if (_buyButton.isSelected) {
+        [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.goodPrice + _detailModel.defaultChannel.openCost]];
+    }
+    else {
+        [self setPriceWithString:[NSString stringWithFormat:@"%.2f",_detailModel.deposit + _detailModel.defaultChannel.openCost]];
+    }
+
     [_mainScrollView addSubview:_priceLabel];
     //支付通道
     originY += labelHeight + 10.f;
@@ -414,7 +419,9 @@
     //厂家网址
     UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace-140, labelHeight)];
     [self setLabel:websiteLabel withTitle:_detailModel.defaultChannel.channelFactoryURL font:[UIFont systemFontOfSize:13.f]];
-
+    websiteLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *websiteTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpForWebsite:)];
+    [websiteLabel addGestureRecognizer:websiteTap];
     //厂家简介
     originY += vSpace + labelHeight+30;
     CGFloat summaryHeight = [self heightWithString:_detailModel.factorySummary
@@ -429,13 +436,14 @@
     
     //购买方式
     UILabel *buyTypeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, btnHeight)];
-    [self setLabel:buyTypeTitleLabel withTitle:@"购买方式" font:[UIFont systemFontOfSize:17.f]];
     _buyButton.frame = CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, btnWidth, btnHeight);
-    [_mainScrollView addSubview:_buyButton];
     _rentButton.frame = CGRectMake(_buyButton.frame.origin.x + _buyButton.frame.size.width + hSpace, originY, btnWidth, btnHeight);
     [_mainScrollView addSubview:_rentButton];
     if (_detailModel.canRent) {
         _rentButton.hidden = NO;
+        [self setLabel:buyTypeTitleLabel withTitle:@"购买方式" font:[UIFont systemFontOfSize:17.f]];
+        [_mainScrollView addSubview:_buyButton];
+
     }
     else {
         _rentButton.hidden = YES;
@@ -493,6 +501,14 @@
 //    
 //    originY += handleView.frame.size.height+handleView.frame.origin.y;
     
+}
+- (IBAction)jumpForWebsite:(id)sender {
+    ChannelWebsiteController *websiteC = [[ChannelWebsiteController alloc] init];
+    websiteC.hidesBottomBarWhenPushed=YES;
+    
+    websiteC.title = @"支付通道";
+    websiteC.urlString = _detailModel.defaultChannel.channelFactoryURL;
+    [self.navigationController pushViewController:websiteC animated:YES];
 }
 - (CGFloat)heightWithString:(NSString *)content
                       width:(CGFloat)width

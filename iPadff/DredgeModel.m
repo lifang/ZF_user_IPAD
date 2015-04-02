@@ -1,24 +1,23 @@
 //
-//  TerminalManagerModel.m
-//  ZFUB
+//  DredgeModel.m
+//  iPadff
 //
-//  Created by 徐宝桥 on 15/2/27.
-//  Copyright (c) 2015年 ___MyCompanyName___. All rights reserved.
+//  Created by 黄含章 on 15/4/2.
+//  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import "TerminalManagerModel.h"
+#import "DredgeModel.h"
 
-@implementation TerminalManagerModel
-
+@implementation DredgeModel
 - (id)initWithParseDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
         _TM_ID = [NSString stringWithFormat:@"%@",[dict objectForKey:@"id"]];
         _TM_status = [NSString stringWithFormat:@"%@",[dict objectForKey:@"status"]];
         _TM_serialNumber = [NSString stringWithFormat:@"%@",[dict objectForKey:@"serial_num"]];
-        if ([dict objectForKey:@"brandsName"]) {
-            _TM_brandsName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"brandsName"]];
+        if ([dict objectForKey:@"brandName"]) {
+            _TM_brandsName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"brandName"]];
         }else{
-             _TM_brandsName = @"";
+            _TM_brandsName = @"";
         }
         _TM_channelName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"channelName"]];
         if ([dict objectForKey:@"model_number"]) {
@@ -37,19 +36,19 @@
     NSString *statusString = nil;
     int index = [self.TM_status intValue];
     switch (index) {
-        case TerminalStatusOpened:
+        case SerminalStatusOpened:
             statusString = @"已开通";
             break;
-        case TerminalStatusPartOpened:
+        case SerminalStatusPartOpened:
             statusString = @"部分开通";
             break;
-        case TerminalStatusUnOpened:
+        case SerminalStatusUnOpened:
             statusString = @"未开通";
             break;
-        case TerminalStatusCanceled:
+        case SerminalStatusCanceled:
             statusString = @"已注销";
             break;
-        case TerminalStatusStopped:
+        case SerminalStatusStopped:
             statusString = @"已停用";
             break;
         default:
@@ -57,5 +56,4 @@
     }
     return statusString;
 }
-
 @end

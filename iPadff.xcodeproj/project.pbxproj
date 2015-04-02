@@ -59,6 +59,7 @@
 		0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DF1AC3935000080E2A /* EncryptHelper.m */; };
 		0EC7B9E51AC3B45900080E2A /* ChannelSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9E41AC3B45900080E2A /* ChannelSelectedController.m */; };
 		0EC7B9E81AC3B48200080E2A /* ChannelListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */; };
+		0EC860551ACC053700F6F7D5 /* RentDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC860541ACC053700F6F7D5 /* RentDescriptionController.m */; };
 		0EC8D60A1AAE7E43003661C5 /* ShoppingCartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */; };
 		0EC8D60D1AAE7FA4003661C5 /* ShoppingCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60C1AAE7FA4003661C5 /* ShoppingCartModel.m */; };
 		0EC8D6101AAE800A003661C5 /* ShoppingCartFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8D60F1AAE800A003661C5 /* ShoppingCartFooterView.m */; };
@@ -290,6 +291,7 @@
 		1ADD1EE11AB6F0CE0014E528 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADD1EE01AB6F0CE0014E528 /* AddressCell.m */; };
 		1ADFE4291AC2537600AA5F3F /* AccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADFE4281AC2537600AA5F3F /* AccountTool.m */; };
 		1ADFE42C1AC2A00300AA5F3F /* ScanImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADFE42B1AC2A00300AA5F3F /* ScanImageViewController.m */; };
+		1AF15B751ACD0C0A00D5C171 /* DredgeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF15B741ACD0C0A00D5C171 /* DredgeModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,6 +400,8 @@
 		0EC7B9E41AC3B45900080E2A /* ChannelSelectedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelSelectedController.m; sourceTree = "<group>"; };
 		0EC7B9E61AC3B48200080E2A /* ChannelListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelListModel.h; sourceTree = "<group>"; };
 		0EC7B9E71AC3B48200080E2A /* ChannelListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelListModel.m; sourceTree = "<group>"; };
+		0EC860531ACC053700F6F7D5 /* RentDescriptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentDescriptionController.h; sourceTree = "<group>"; };
+		0EC860541ACC053700F6F7D5 /* RentDescriptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentDescriptionController.m; sourceTree = "<group>"; };
 		0EC8D6081AAE7E43003661C5 /* ShoppingCartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartCell.h; sourceTree = "<group>"; };
 		0EC8D6091AAE7E43003661C5 /* ShoppingCartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartCell.m; sourceTree = "<group>"; };
 		0EC8D60B1AAE7FA4003661C5 /* ShoppingCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartModel.h; sourceTree = "<group>"; };
@@ -806,6 +810,8 @@
 		1ADFE4281AC2537600AA5F3F /* AccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTool.m; sourceTree = "<group>"; };
 		1ADFE42A1AC2A00300AA5F3F /* ScanImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanImageViewController.h; sourceTree = "<group>"; };
 		1ADFE42B1AC2A00300AA5F3F /* ScanImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanImageViewController.m; sourceTree = "<group>"; };
+		1AF15B731ACD0C0A00D5C171 /* DredgeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeModel.h; sourceTree = "<group>"; };
+		1AF15B741ACD0C0A00D5C171 /* DredgeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DredgeModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1047,6 +1053,8 @@
 				1A94FA271AC15D18006D8FF7 /* AccountModel.m */,
 				1ADFE4271AC2537600AA5F3F /* AccountTool.h */,
 				1ADFE4281AC2537600AA5F3F /* AccountTool.m */,
+				1AF15B731ACD0C0A00D5C171 /* DredgeModel.h */,
+				1AF15B741ACD0C0A00D5C171 /* DredgeModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1087,6 +1095,8 @@
 				0ECA83801AB81886003B005B /* BuyOrderViewController.m */,
 				0ECB49371ABFC1FB0064A9FD /* RentOrderViewController.h */,
 				0ECB49381ABFC1FB0064A9FD /* RentOrderViewController.m */,
+				0EC860531ACC053700F6F7D5 /* RentDescriptionController.h */,
+				0EC860541ACC053700F6F7D5 /* RentDescriptionController.m */,
 				0E5FAEA41AC5463A00BEBE5F /* ChannelWebsiteController.h */,
 				0E5FAEA51AC5463A00BEBE5F /* ChannelWebsiteController.m */,
 			);
@@ -2008,6 +2018,7 @@
 				0ECE7DB51AA55A2B00E250B6 /* TreeNodeInfo.m in Sources */,
 				1A9A1B831AAFD22C00A9AA04 /* MerchantModel.m in Sources */,
 				0ECE7D981AA5579800E250B6 /* FilterContentViewController.m in Sources */,
+				0EC860551ACC053700F6F7D5 /* RentDescriptionController.m in Sources */,
 				0E5FAEA61AC5463A00BEBE5F /* ChannelWebsiteController.m in Sources */,
 				1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */,
 				0D3887221AB96F8E000DF1D6 /* MASConstraintMaker.m in Sources */,
@@ -2070,6 +2081,7 @@
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				0E0002221AC6422700003E60 /* ChannelModel.m in Sources */,
 				1AC6A2CD1AC3A83500685FC9 /* CustomSwitch.m in Sources */,
+				1AF15B751ACD0C0A00D5C171 /* DredgeModel.m in Sources */,
 				0ECA6D411ABC32B3005316B1 /* ShoppingCartController.m in Sources */,
 				1ADD1EBC1AB685B60014E528 /* SubmitLogisticsController.m in Sources */,
 				1A4258611AB008F900F470C9 /* MineCommonController.m in Sources */,
