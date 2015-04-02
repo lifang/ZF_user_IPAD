@@ -956,16 +956,16 @@
 -(void)exitClicke
 {
     UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:nil message:@"您确定要退出吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    alertV.tag = 9090;
     [alertV show];
 }
 
 #pragma mark - uialertView Delegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if (buttonIndex == 0 && alertView.tag == 9090) {
         AppDelegate *delegate = [AppDelegate shareAppDelegate];
         [delegate clearLoginInfo];
-        delegate.haveExit = YES;
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }

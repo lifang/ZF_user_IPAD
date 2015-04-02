@@ -38,7 +38,19 @@
 @end
 
 @implementation FindPasswordViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (kDeviceVersion < 8.0) {
+        
+        
+        UIImageView *v = [[UIImageView alloc]init];
+        v.frame = CGRectMake(0, -40, kScreenWidth * 2, 40);
+        v.backgroundColor = kColor(231, 95, 53, 1.0);
+        
+        [self.navigationController.navigationBar addSubview:v];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
@@ -51,7 +63,7 @@
     UIColor *mainColor = kColor(231, 88, 8, 1.0);
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBarHidden = NO;
     
     UIBarButtonItem *zeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     zeroBar.width = 30.f;
@@ -478,7 +490,7 @@
                 self.isMobile = YES;
             }
         }
-        else if ([textField.text containsString:@"@"] || [string containsString:@"@"]) {
+        else if ([textField.text rangeOfString:@"@"].length != 0 || [string rangeOfString:@"@"].length != 0) {
             self.isMobile = NO;
         }
         else {

@@ -74,7 +74,7 @@
     self.naviController = [[UINavigationController alloc] initWithRootViewController:self.tabBarViewController];
     self.naviController.navigationBarHidden = YES;
         [self.window setRootViewController:self.naviController];
-    _haveExit = NO;
+    self.haveExit = NO;
     _cityID = @"1";
     AccountModel *account = [AccountTool userModel];
     if (account.password) {
@@ -145,6 +145,7 @@
     AccountModel *account = [AccountTool userModel];
     account.userID = nil;
     account.password = nil;
+    self.haveExit = YES;
     [AccountTool save:account];
 }
 

@@ -197,6 +197,7 @@
 		1A42586D1AB0187B00F470C9 /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A42586C1AB0187B00F470C9 /* MyOrderViewController.m */; };
 		1A4258701AB0189E00F470C9 /* AfterSellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A42586F1AB0189E00F470C9 /* AfterSellViewController.m */; };
 		1A4258731AB018E100F470C9 /* ApplyPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4258721AB018E100F470C9 /* ApplyPlanViewController.m */; };
+		1A56B9491ACBD27A005B56B1 /* tt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A56B9481ACBD27A005B56B1 /* tt@2x.png */; };
 		1A5E10451AB7EB6C0082DA13 /* IntegralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10441AB7EB6C0082DA13 /* IntegralCell.m */; };
 		1A5E10491AB8015C0082DA13 /* ChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10481AB8015C0082DA13 /* ChangePhoneController.m */; };
 		1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E104B1AB801720082DA13 /* ChangeEmailController.m */; };
@@ -622,6 +623,7 @@
 		1A42586F1AB0189E00F470C9 /* AfterSellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AfterSellViewController.m; sourceTree = "<group>"; };
 		1A4258711AB018E100F470C9 /* ApplyPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyPlanViewController.h; sourceTree = "<group>"; };
 		1A4258721AB018E100F470C9 /* ApplyPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyPlanViewController.m; sourceTree = "<group>"; };
+		1A56B9481ACBD27A005B56B1 /* tt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tt@2x.png"; sourceTree = "<group>"; };
 		1A5E10431AB7EB6C0082DA13 /* IntegralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralCell.h; sourceTree = "<group>"; };
 		1A5E10441AB7EB6C0082DA13 /* IntegralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralCell.m; sourceTree = "<group>"; };
 		1A5E10471AB8015C0082DA13 /* ChangePhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneController.h; sourceTree = "<group>"; };
@@ -1184,6 +1186,7 @@
 				0ECD63B21AA3F834001ABB4D /* ZYCustomTabBarViewController.h */,
 				0ECD63B31AA3F834001ABB4D /* ZYCustomTabBarViewController.m */,
 				0ED065B21A9EE398005DF849 /* Main.storyboard */,
+				1A56B9481ACBD27A005B56B1 /* tt@2x.png */,
 				0ED065B51A9EE398005DF849 /* Images.xcassets */,
 				0ED065B71A9EE398005DF849 /* LaunchScreen.xib */,
 				0ED065A81A9EE397005DF849 /* Supporting Files */,
@@ -1874,6 +1877,7 @@
 				0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */,
 				0ED6AD051AA16EEA00D3B025 /* home_hight.png in Resources */,
 				0ED6AD031AA16EEA00D3B025 /* Myinages_nomal.png in Resources */,
+				1A56B9491ACBD27A005B56B1 /* tt@2x.png in Resources */,
 				0ED6AD301AA19BC800D3B025 /* home5.png in Resources */,
 				0D38871F1AB96F8E000DF1D6 /* LICENSE in Resources */,
 				0ED065B61A9EE398005DF849 /* Images.xcassets in Resources */,
