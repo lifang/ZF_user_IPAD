@@ -80,6 +80,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isPush = YES;
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    self.title = @"终端管理";
     _terminalItems = [[NSMutableArray alloc]init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupHeaderView];
@@ -143,10 +146,7 @@
 }
 -(void)setupNavBar
 {
-    self.title = @"终端管理";
     self.view.backgroundColor = [UIColor whiteColor];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage resizedImage:@"orange"] forBarPosition:UIBarPositionTop barMetrics:UIBarMetricsDefault];
     
     UIBarButtonItem *zeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];

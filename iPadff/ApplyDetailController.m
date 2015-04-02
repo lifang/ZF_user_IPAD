@@ -125,6 +125,8 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     [self beginApply];
+    [self getBankList];
+
 }
 //选择终端tableView懒加载
 -(UITableView *)terminalTableView
@@ -547,6 +549,9 @@
             
             blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
             blankbutton.frame = CGRectMake(wide/2-40-280,700+lastheight*70 ,280, 40);
+            NSString *bankCode = [self getApplyValueForKey:model.materialID];
+            [blankbutton setTitle:[self getBankNameWithBankCode:bankCode] forState:UIControlStateNormal];
+            
             
             //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
             [blankbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -866,6 +871,31 @@
 }
 
 #pragma mark - Request
+//银行信息
+- (void)getBankList {
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface selectedBankWithToken:delegate.token finished:^(BOOL success, NSData *response) {
+        NSLog(@"!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [self parseBankListWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+            }
+        }
+        else {
+        }
+    }];
+}
+
 - (NSString *)getBankNameWithBankCode:(NSString *)bankCode {
     for (BankModel *model in _bankItems) {
         if ([model.bankCode isEqualToString:bankCode]) {
@@ -974,7 +1004,6 @@
     
     
 }
-
 //保存获取的内容
 - (void)setPrimaryData {
     if (_applyData.personName) {
@@ -1029,8 +1058,10 @@
         }
     }
     [self.tableView reloadData];
-    
+
 }
+
+
 
 
 //根据对公对私材料的id找到是否已经提交过材料
@@ -1056,6 +1087,7 @@
     //    }
     return nil;
 }
+
 
 - (void)parseImageUploadInfo:(NSDictionary *)dict {
     if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSString class]]) {

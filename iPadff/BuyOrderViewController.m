@@ -456,12 +456,12 @@
         self.addressLabel.font = [UIFont systemFontOfSize:14.f];
         [self.addressView addSubview:self.addressLabel];
         self.addressLabel.text=@"详细地址";
-        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120-120, 0, 60, 20)];
+        UILabel*postlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120-140, 0, 60, 20)];
         [self.addressView addSubview:postlable];
         postlable.textAlignment = NSTextAlignmentCenter;
         
         postlable.text=@"邮编";
-        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide-120, 0, 60, 20)];
+        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide-140, 0, 60, 20)];
         [self.addressView addSubview:phonelable];
         phonelable.textAlignment = NSTextAlignmentCenter;
         
@@ -759,13 +759,11 @@
 }
 - (IBAction)modifyLocation:(id)sender {
     [self pickerScrollOut];
-    //    NSInteger index = [self.pickerView selectedRowInComponent:1];
-    //    _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
-    //
-    //    [_cityField setTitle:[[_cityArray objectAtIndex:index] objectForKey:@"name"] forState:UIControlStateNormal];
-    //
-    //    NSLog(@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"name"]);
-    
+    NSInteger index = [_pickerView selectedRowInComponent:1];
+    NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
+    [_cityField setTitle:cityName forState:UIControlStateNormal];
+    _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
+
 }
 - (void)initPickerView {
     //pickerView
@@ -839,17 +837,7 @@
     if (component == 0) {
         //省
         [_pickerView reloadComponent:1];
-        
     }
-    else {
-        
-        [_cityField setTitle:[[_cityArray objectAtIndex:row] objectForKey:@"name"] forState:UIControlStateNormal];
-        _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:row] objectForKey:@"id"]];
-        
-        
-    }
-    
-    
 }
 
 

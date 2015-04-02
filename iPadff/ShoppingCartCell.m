@@ -476,7 +476,7 @@
     self.titleLabel.text = cart.cartTitle;
     self.brandLabel.text = [NSString stringWithFormat:@"品牌型号   %@",cart.cartModel];
     self.channelLabel.text = [NSString stringWithFormat:@"支付通道   %@",cart.cartChannel];
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",(cart.cartPrice + cart.channelCost) * cart.cartCount];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",(cart.cartPrice + cart.channelCost) ];
     self.countLabel.text = [NSString stringWithFormat:@"X %d",cart.cartCount];
     if (cart.isSelected) {
         [_selectedButton setImage :kImageName(@"select_height") forState:UIControlStateNormal];

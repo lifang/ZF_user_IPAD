@@ -498,6 +498,7 @@
                     if (!isMore) {
                         [_dataItem removeAllObjects];
                     }
+                   
                     id list = [[object objectForKey:@"result"] objectForKey:@"list"];
                     if ([list isKindOfClass:[NSArray class]] && [list count] > 0) {
                         //有数据
