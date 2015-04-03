@@ -27,6 +27,9 @@
         if ([dict objectForKey:@"order_receiver_phone"]) {
             _orderReceiverPhone = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_receiver_phone"]];
         }
+        if ([dict objectForKey:@"terminals"]) {
+            _terminals = [NSString stringWithFormat:@"%@",[dict objectForKey:@"terminals"]];
+        }
         if ([dict objectForKey:@"order_address"]) {
             _orderAddress = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_address"]];
         }

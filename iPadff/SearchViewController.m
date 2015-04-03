@@ -9,7 +9,11 @@
 #import "SearchViewController.h"
 #import "SearchHistoryHelper.h"
 #import "ZFSearchBar.h"
-
+#import "AppDelegate.h"
+#import "NetworkInterface.h"
+#import "GoodListModel.h"
+#import "GoodDetailViewController.h"
+#import "BasicNagigationController.h"
 @interface SearchViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
 @property (nonatomic, strong) ZFSearchBar *searchBar;
@@ -17,6 +21,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *historyItems;
+@property (nonatomic, strong) NSMutableArray *dataItem;
+@property (nonatomic, strong) NSMutableArray *dataItemid;
 
 @end
 
@@ -24,6 +30,47 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _dataItem = [[NSMutableArray alloc] initWithCapacity:0];
+    _dataItemid = [[NSMutableArray alloc] initWithCapacity:0];
+
+    [self gethotname];
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _tableView.backgroundColor = kColor(244, 243, 243, 1);
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:0]];
+
+    
     // Do any additional setup after loading the view.
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                target:nil
@@ -39,8 +86,8 @@
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:nil];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,spaceItem,spaceItem, rightItem,nil];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,spaceItem,spaceItem, rightItems,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,rightItem, spaceItem,nil];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,spaceItem, rightItems,nil];
 
     [self initAndLayoutUI];
 }
@@ -84,83 +131,314 @@
 }
 
 - (void)initContentView {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    _tableView.backgroundColor = kColor(244, 243, 243, 1);
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeTop
-                                                         multiplier:1.0
-                                                           constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
-                                                          attribute:NSLayoutAttributeLeft
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeLeft
-                                                         multiplier:1.0
-                                                           constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
-                                                          attribute:NSLayoutAttributeRight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeRight
-                                                         multiplier:1.0
-                                                           constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:0]];
+    
+    
+   }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+
+{
+    UIView*bigview=[[UIView alloc]init];
+    
+    NSInteger A=self.historyItems.count;
+    
+    NSInteger B=_dataItem.count;
+    
+    
+    
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+    if(A>B)
+    {
+        
+        
+        bigview.frame=CGRectMake(0, 0, wide, A/2*60+80);
+        
+    }
+    else
+    {
+        bigview.frame=CGRectMake(0, 0, wide, B/2*60+80);
+        
+        
+    }
+
+  
+    UILabel*latestlable=[[UILabel alloc]initWithFrame:CGRectMake(40, 49,100, 30)];
+    [bigview addSubview:latestlable];
+    
+    latestlable.text=@"最近搜索";
+    
+    UIView*witeview=[[UIView alloc]initWithFrame:CGRectMake(40, 80, wide/2-80, 1)];
+    witeview.backgroundColor=[UIColor grayColor];
+    
+    [bigview addSubview:witeview];
+    
+    
+    
+    UIButton *cleanButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cleanButton.frame = CGRectMake(wide/2-40-40, 49, 40, 30);
+    
+    [cleanButton setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
+    cleanButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [cleanButton setTitle:@"清空" forState:UIControlStateNormal];
+    [cleanButton addTarget:self action:@selector(clearSearchHistoy:) forControlEvents:UIControlEventTouchUpInside];
+    [bigview addSubview:cleanButton];
+    
+    
+    
+    for(int i=0;i<_historyItems.count;i++)
+    {
+        NSInteger samallwide;
+        
+        
+        samallwide=wide/4-40;
+        UIButton *latesuibutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        latesuibutton.frame = CGRectMake(40+i%2*samallwide, 90+i/2*40, samallwide, 30);
+        latesuibutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
+        latesuibutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+         [latesuibutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        latesuibutton.tag=i;
+        
+        [latesuibutton setTitle:[_historyItems objectAtIndex:i] forState:UIControlStateNormal];
+        [latesuibutton addTarget:self action:@selector(lastebuttonclick:) forControlEvents:UIControlEventTouchUpInside];
+        [bigview addSubview:latesuibutton];
+    
+    }
+    
+    
+
+    
+    UILabel*hotlable=[[UILabel alloc]initWithFrame:CGRectMake(40+wide/2, 49,100, 30)];
+    [bigview addSubview:hotlable];
+    
+    hotlable.text=@"热门推荐";
+    
+    UIView*hotline=[[UIView alloc]initWithFrame:CGRectMake(40+wide/2, 80, wide/2-80, 1)];
+    hotline.backgroundColor=[UIColor grayColor];
+    
+    [bigview addSubview:hotline];
+    
+    
+    
+    
+    
+    
+    for(int i=0;i<_dataItem.count;i++)
+    {
+        NSInteger samallwide;
+        
+        
+        samallwide=wide/4-40;
+        UIButton *hotbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        hotbutton.frame = CGRectMake(40+wide/2+i%2*samallwide, 90+i/2*40, samallwide, 30);
+        hotbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        
+        hotbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        [hotbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        hotbutton.tag=i+502;
+
+        [hotbutton setTitle:[_dataItem objectAtIndex:i] forState:UIControlStateNormal];
+        [hotbutton addTarget:self action:@selector(hotdetalbuttonclick:) forControlEvents:UIControlEventTouchUpInside];
+        [bigview addSubview:hotbutton];
+        
+    }
+    
+
+    
+    
+    
+
+    
+    return bigview;
+    
+    
+    
+    
+}
+-(void)hotdetalbuttonclick:(UIButton*)send
+{
+     
+    GoodDetailViewController *detailC = [[GoodDetailViewController alloc] init];
+    
+    detailC.hidesBottomBarWhenPushed =  YES ;
+    
+    detailC.goodID =[_dataItemid objectAtIndex:send.tag-502];
+    [self.navigationController pushViewController:detailC animated:YES];
+
 }
 
-- (void)setHeaderAndFooterView {
-    if ([_historyItems count] > 0) {
-        CGFloat wide;
-        CGFloat height;
-        if(iOS7)
+//发送邮箱
+-(void)gethotname
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"正在发送...";
+    [NetworkInterface hotget: nil finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                if ([[object objectForKey:@"code"] intValue] == RequestSuccess) {
+                    [hud setHidden:YES];
+                    [self parseDataWithDictionary:object];
+
+                
+                }
+                else {
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+            }
+            else
+            {
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+    
+}
+- (void)parseDataWithDictionary:(NSDictionary *)dict {
+
+    if (![dict objectForKey:@"result"] ) {
+        return;
+    }
+    
+    NSArray *goodList = [dict objectForKey:@"result"];
+    
+    
+    for (int i = 0; i < [goodList count]; i++)
+    
+    {
+        [_dataItem addObject:[[goodList objectAtIndex:i] objectForKey:@"title"]];
+        [_dataItemid addObject:[[goodList objectAtIndex:i] objectForKey:@"id"]];
+
+    }
+    
+    [_tableView reloadData];
+}
+
+-(void)lastebuttonclick:(UIButton*)send
+{
+
+    self.searchBar.text = [_historyItems objectAtIndex:send.tag];
+    [self searchWithString:self.searchBar.text];
+
+
+}
+//- (void)setHeaderAndFooterView {
+//    if ([_historyItems count] > 0) {
+//        CGFloat wide;
+//        CGFloat height;
+//        if(iOS7)
+//        {
+//            wide=SCREEN_HEIGHT;
+//            height=SCREEN_WIDTH;
+//            
+//            
+//        }
+//        else
+//        {  wide=SCREEN_WIDTH;
+//            height=SCREEN_HEIGHT;
+//            
+//        }
+//
+//        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
+//        footerView.backgroundColor = [UIColor clearColor];
+//        UIButton *cleanButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        cleanButton.frame = CGRectMake((wide - 120) / 2, 10, 120, 28);
+//        cleanButton.layer.cornerRadius = 4;
+//        cleanButton.layer.masksToBounds = YES;
+//        cleanButton.layer.borderWidth = 1.f;
+//        cleanButton.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
+//        [cleanButton setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
+//        cleanButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
+//        [cleanButton setTitle:@"清除历史记录" forState:UIControlStateNormal];
+//        [cleanButton setBackgroundImage:[UIImage imageNamed:@"selected.png"] forState:UIControlStateHighlighted];
+//        [cleanButton addTarget:self action:@selector(clearSearchHistoy:) forControlEvents:UIControlEventTouchUpInside];
+//        [footerView addSubview:cleanButton];
+//        _tableView.tableFooterView = footerView;
+//    }
+//    else {
+//        UIView *footerView = [[UIView alloc] init];
+//        footerView.backgroundColor = [UIColor clearColor];
+//        _tableView.tableFooterView = footerView;
+//    }
+//}
+//
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    NSInteger A=self.historyItems.count;
+    
+    NSInteger B=_dataItem.count;
+    CGFloat height;
+    if(iOS7)
+    {
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {
+        height=SCREEN_HEIGHT;
+        
+    }
+
+
+    if(A>B)
+    {
+    
+        if(A/2*60+80>height)
         {
-            wide=SCREEN_HEIGHT;
-            height=SCREEN_WIDTH;
+        
+            return    A/2*60+80;
+
+        }
+        else
+        {
+            return   height;
             
+        
+        }
+    
+
+    }
+    else
+    {
+        if(B/2*60+80>height)
+        {
+            
+            return    B/2*60+80;
             
         }
         else
-        {  wide=SCREEN_WIDTH;
-            height=SCREEN_HEIGHT;
+        {
+            return   height;
+            
             
         }
 
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
-        footerView.backgroundColor = [UIColor clearColor];
-        UIButton *cleanButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        cleanButton.frame = CGRectMake((wide - 120) / 2, 10, 120, 28);
-        cleanButton.layer.cornerRadius = 4;
-        cleanButton.layer.masksToBounds = YES;
-        cleanButton.layer.borderWidth = 1.f;
-        cleanButton.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
-        [cleanButton setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
-        cleanButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
-        [cleanButton setTitle:@"清除历史记录" forState:UIControlStateNormal];
-        [cleanButton setBackgroundImage:[UIImage imageNamed:@"selected.png"] forState:UIControlStateHighlighted];
-        [cleanButton addTarget:self action:@selector(clearSearchHistoy:) forControlEvents:UIControlEventTouchUpInside];
-        [footerView addSubview:cleanButton];
-        _tableView.tableFooterView = footerView;
+    
     }
-    else {
-        UIView *footerView = [[UIView alloc] init];
-        footerView.backgroundColor = [UIColor clearColor];
-        _tableView.tableFooterView = footerView;
-    }
+    
+
 }
-
-
 #pragma mark - Action
 
 - (IBAction)dismiss:(id)sender {
@@ -175,14 +453,12 @@
     if (searchArray) {
         self.historyItems = searchArray;
     }
-    [self setHeaderAndFooterView];
     [_tableView reloadData];
 }
 
 - (IBAction)clearSearchHistoy:(id)sender {
     [self.historyItems removeAllObjects];
     [SearchHistoryHelper removeGoodsHistory];
-    [self setHeaderAndFooterView];
     [_tableView reloadData];
 }
 
@@ -191,7 +467,6 @@
         [self.historyItems addObject:self.searchBar.text];
         //保存搜索历史到本地
         [SearchHistoryHelper saveGoodsHistory:self.historyItems];
-        [self setHeaderAndFooterView];
         [_tableView reloadData];
     }
 }
@@ -223,7 +498,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.historyItems count];
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -232,7 +507,8 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    cell.textLabel.text = [_historyItems objectAtIndex:indexPath.row];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     return cell;
 }
 

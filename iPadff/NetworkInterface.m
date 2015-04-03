@@ -37,6 +37,18 @@ static NSString *HTTP_GET  = @"GET";
 
 #pragma mark - 接口方法
 
+// 热卖
++ (void)hotget:(NSString *)tolen
+      finished:(requestDidFinished)finish
+{
+
+
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_hot_method];
+    [[self class] requestWithURL:urlString
+                          params:nil
+                      httpMethod:HTTP_POST
+                        finished:finish];
+}
 //1.
 + (void)registerWithActivation:(NSString *)activation
                       username:(NSString *)username

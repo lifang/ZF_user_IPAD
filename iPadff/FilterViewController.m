@@ -32,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  
     
     for(int i=0;i<8;i++)
     {
@@ -621,12 +622,12 @@
         
                if(      [[_filterDict objectForKey:s_rent] boolValue])
         {
-            [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+            [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
 
         }
         else
         {
-            [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+            [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
 
         
         }

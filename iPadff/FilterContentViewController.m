@@ -130,6 +130,7 @@
         [alert show];
     }
     else {
+        
         [_selectedFilterDict setObject:selectedFilterItem forKey:_key];
         [self.navigationController popViewControllerAnimated:YES];
     }
