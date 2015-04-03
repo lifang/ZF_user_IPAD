@@ -838,7 +838,9 @@
 
 -(void)locationBtnPressed:(id)sender
 {
-    [self pickerDisplay];
+    sender = _locationTF;
+    [self pickerDisplay:sender];
+    //[self pickerDisplay];
     NSLog(@"11111222222");
 }
 

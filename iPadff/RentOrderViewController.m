@@ -885,25 +885,25 @@
         
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
         footerView.backgroundColor = [UIColor whiteColor];
-        UIButton*addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        addressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
-        //    [addressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
-        [footerView addSubview:addressmangerbutton];
-        //    addressmangerbutton.layer.cornerRadius = 4.f;
-        addressmangerbutton.layer.masksToBounds = YES;
-        [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-        [addressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
-        addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-        
-        UIButton*newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        newaddressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
-        [addressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        newaddressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
+        [newaddressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:newaddressmangerbutton];
         //    newaddressmangerbutton.layer.cornerRadius = 4.f;
         newaddressmangerbutton.layer.masksToBounds = YES;
         [newaddressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-        [newaddressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+        [newaddressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
         newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        
+        UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
+        [addressmangerbutton addTarget:self action:@selector(addressbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:addressmangerbutton];
+        //addressmangerbutton.layer.cornerRadius = 4.f;
+        addressmangerbutton.layer.masksToBounds = YES;
+        [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+        [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+        addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
         UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(0, 59, wide, 1)];
         grayview.backgroundColor = [UIColor grayColor];
         [footerView addSubview:grayview];
@@ -958,6 +958,13 @@
     
     
 }
+
+-(void)addressbuttonclick
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
+
+}
+
 -(void)newbuttonclick
 {
     
