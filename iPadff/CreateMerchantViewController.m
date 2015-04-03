@@ -1240,7 +1240,13 @@
     return YES;
 }
 
-
+-(void)viewDidLayoutSubviews
+{
+    
+    if (iOS7) {
+        _scrollView.contentSize = CGSizeMake(self.view.frame.size.height, _saveBtn.frame.size.height + _saveBtn.frame.origin.y + 100);
+    }
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -1251,16 +1257,7 @@
     }
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
-    NSLog(@"WillDisappear!");
-}
 
--(void)viewDidDisappear:(BOOL)animated
-{
-    NSLog(@"DidDisappear!");
-
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -931,7 +931,13 @@
 }
 
 
-
+-(void)viewDidLayoutSubviews
+{
+    NSLog(@"layout");
+     if (iOS7) {
+    _scrollView.contentSize = CGSizeMake(self.view.frame.size.height, _editBtn.frame.size.height + _editBtn.frame.origin.y + 100);
+     }
+}
 
 
 

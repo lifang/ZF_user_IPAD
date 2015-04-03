@@ -801,7 +801,7 @@
 if(section==0)
 {
     
-    UIView  *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
     footerView.backgroundColor = [UIColor whiteColor];
     UIButton *newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
     newaddressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
@@ -1016,7 +1016,7 @@ if(section==0)
     billLabel.text = @"发票抬头";
     billLabel.userInteractionEnabled = YES;
     [billView addSubview:billLabel];
-    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 110, billHeight)];
+    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 120, billHeight)];
     self.billField .delegate = self;
     self.billField .placeholder = @"     请输入发票抬头";
     
