@@ -120,14 +120,14 @@
     }
 
     //价格
-    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 30, 100, 30)];
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2+30 ,30, 100, 30)];
 //    _priceLabel.textColor = kColor(255, 102, 36, 1);
     _priceLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _priceLabel.textAlignment = NSTextAlignmentCenter;
 
     [self.contentView addSubview:_priceLabel];
     //数量
-    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 80, 30)];
+    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-70, 30, 80, 30)];
     
     _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _numberLabel.textAlignment = NSTextAlignmentCenter;

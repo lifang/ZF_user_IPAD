@@ -469,6 +469,10 @@
 #pragma mark - Action
 
 - (IBAction)submitComment:(id)sender {
+     
+
+    NSLog(@"%d",[_tempField.text length]);
+    
     [_tempField becomeFirstResponder];
     [_tempField resignFirstResponder];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
@@ -559,6 +563,8 @@ if(tableView==_tableViewPJ)
         OrderCommentCell *cell = [[OrderCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         ReviewModel *model = [LLgoodList objectAtIndex:indexPath.section];
         [cell setContentsWithData:model];
+        
+       
         return cell;
     
     }else

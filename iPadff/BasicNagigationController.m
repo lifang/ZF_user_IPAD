@@ -79,8 +79,8 @@
                                                                                target:nil
                                                                                action:nil];
     spaceItem.width = 52;
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,nil];
-    return self.navigationItem.rightBarButtonItems;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
+    return self.navigationItem.leftBarButtonItems;
     
 }
 

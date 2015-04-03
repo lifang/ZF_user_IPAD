@@ -273,7 +273,7 @@
      
     GoodDetailViewController *detailC = [[GoodDetailViewController alloc] init];
     
-    detailC.hidesBottomBarWhenPushed =  YES ;
+   detailC.hidesBottomBarWhenPushed =  YES ;
     
     detailC.goodID =[_dataItemid objectAtIndex:send.tag-502];
     [self.navigationController pushViewController:detailC animated:YES];
