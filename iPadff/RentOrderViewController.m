@@ -245,6 +245,8 @@
 - (IBAction)scanProtocol:(id)sender {
     RentDescriptionController *descC = [[RentDescriptionController alloc] init];
     descC.goodDetail = _goodDetail;
+    descC.hidesBottomBarWhenPushed =  YES ;
+
     [self.navigationController pushViewController:descC animated:YES];
 }
 - (IBAction)ensureOrder:(id)sender {

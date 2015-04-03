@@ -435,7 +435,8 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface reviewMultiOrderWithToken:delegate.token reviewList:reviewList finished:^(BOOL success, NSData *response) {
+    NSLog(@"%@",self.orderID);
+    [NetworkInterface reviewMultiOrderWithToken:delegate.token orderID:self.orderID reviewList:reviewList  finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -449,6 +450,8 @@
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
+                    [self downloadDetail];
+
                     hud.labelText = @"评论成功";
                 }
             }

@@ -25,12 +25,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+
+
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(dismiss:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    UIBarButtonItem *rightItems = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,spaceItem,spaceItem, rightItem,nil];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,spaceItem,spaceItem, rightItems,nil];
+
     [self initAndLayoutUI];
 }
 
