@@ -1263,8 +1263,7 @@ static NSString *s_changeEmail_method = @"index/updateEmail";
  @param reviewList  评论数组
  @result finish  请求回调结果
  */
-+ (void)reviewMultiOrderWithToken:(NSString *)token
-                       reviewList:(NSArray *)reviewList
++ (void)reviewMultiOrderWithToken:(NSString *)token orderID:(NSString *)orderID reviewList:(NSArray *)reviewList
                          finished:(requestDidFinished)finish;
 
 /*!

@@ -127,7 +127,7 @@
 
     [self.contentView addSubview:_priceLabel];
     //数量
-    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-70, 30, 80, 30)];
+    _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 80, 30)];
     
     _numberLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _numberLabel.textAlignment = NSTextAlignmentCenter;

@@ -38,7 +38,21 @@
     CGFloat labelHeight = 14.f;
     
     CGFloat imageSize = 80.f;
-    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     //图片
     _pictureView = [[UIImageView alloc] init];
     _pictureView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -185,7 +199,7 @@
     //星星
     CGFloat starSize = 25.f;
     CGFloat middleSpace = 5.f;
-    CGFloat originX = kScreenWidth / 2 - 2.5 * (starSize + middleSpace);
+    CGFloat originX = wide / 2 - 2.5 * (starSize + middleSpace);
     for (int i = 0; i < 5; i++) {
         UIButton *starBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         starBtn.translatesAutoresizingMaskIntoConstraints = NO;
@@ -208,7 +222,7 @@
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeLeft
                                                                     multiplier:1.0
-                                                                      constant:originX+20]];
+                                                                      constant:originX-80]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:starBtn
                                                                      attribute:NSLayoutAttributeWidth
                                                                      relatedBy:NSLayoutRelationEqual
