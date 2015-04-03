@@ -37,6 +37,18 @@ static NSString *HTTP_GET  = @"GET";
 
 #pragma mark - 接口方法
 
+// 热卖
++ (void)hotget:(NSString *)tolen
+      finished:(requestDidFinished)finish
+{
+
+
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_hot_method];
+    [[self class] requestWithURL:urlString
+                          params:nil
+                      httpMethod:HTTP_POST
+                        finished:finish];
+}
 //1.
 + (void)registerWithActivation:(NSString *)activation
                       username:(NSString *)username
@@ -928,9 +940,10 @@ static NSString *HTTP_GET  = @"GET";
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
     if (token && ![token isEqualToString:@""]) {
         [paramDict setObject:token forKey:@"token"];
+        [paramDict setObject:[NSNumber numberWithInt:[userID intValue]] forKey:@"customer_id"];
     }
     //url
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@",kServiceURL,s_scoreTotal_method,userID];
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_scoreTotal_method];
     [[self class] requestWithURL:urlString
                           params:paramDict
                       httpMethod:HTTP_POST
@@ -1488,12 +1501,14 @@ static NSString *HTTP_GET  = @"GET";
                         finished:finish];
 }
 
-+ (void)reviewMultiOrderWithToken:(NSString *)token
++ (void)reviewMultiOrderWithToken:(NSString *)token orderID:(NSString *)orderID
                        reviewList:(NSArray *)reviewList
                          finished:(requestDidFinished)finish {
     //参数
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
     [paramDict setObject:reviewList forKey:@"json"];
+    [paramDict setObject:orderID forKey:@"id"];
+
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_orderMultiReview_method];
     [[self class] requestWithURL:urlString

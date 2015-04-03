@@ -85,6 +85,9 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 @property(nonatomic,strong)NSString *DealState;
 //是否push过
 @property(nonatomic,assign)BOOL isPush;
+@property(nonatomic,strong)UIButton *selectedStart;
+@property(nonatomic,strong)UIButton *selectedEnd;
+
 
 @end
 
@@ -115,8 +118,6 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     if (!_isPush) {
         //创建头部View
         [self setupHeaderView];
-        //获取所有的终端号数据
-        [self getAllTerminalList];
     }
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
@@ -336,6 +337,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     [rightTerminalBtn1 addTarget:self action:@selector(rightBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [rightTerminalBtn1 setBackgroundImage:[UIImage imageNamed:@"arrow_line"] forState:UIControlStateNormal];
     rightTerminalBtn1.frame = CGRectMake(CGRectGetMaxX(_dateField1.frame) - 50, terminalLabel.frame.origin.y, 50, 36);
+    self.selectedStart = rightTerminalBtn1;
     [_contentView addSubview:_dateField1];
     [_contentView addSubview:rightTerminalBtn1];
     
@@ -360,6 +362,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     [rightTerminalBtn2 addTarget:self action:@selector(rightBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [rightTerminalBtn2 setBackgroundImage:[UIImage imageNamed:@"arrow_line"] forState:UIControlStateNormal];
     rightTerminalBtn2.frame = CGRectMake(CGRectGetMaxX(_dateField2.frame) - 50, terminalLabel.frame.origin.y, 50, 36);
+    self.selectedEnd = rightTerminalBtn2;
     [_contentView addSubview:_dateField2];
     [_contentView addSubview:rightTerminalBtn2];
     
@@ -465,10 +468,12 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     }
     if (button.tag == 1051) {
         NSLog(@"点击了交易日期1");
+        _selectedStart.userInteractionEnabled = NO;
         [self setupStartDate];
     }
     if (button.tag == 1052) {
         NSLog(@"点击了交易日期2");
+        _selectedEnd.userInteractionEnabled = NO;
         [self setupEndDate];
     }
 }
@@ -480,7 +485,6 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
     datePicker.datePickerMode = UIDatePickerModeDate;
     datePicker.frame = CGRectMake(_dateField1.frame.origin.x - 30, CGRectGetMaxY(_dateField1.frame) + 80, _dateField1.frame.size.width + 60, 160);
-    self.datePickerStart = datePicker;
     [_datePickerStart addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
     UIButton *makeSureBtn = [[UIButton alloc]init];
     makeSureBtn.tag = 1112;
@@ -491,7 +495,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
     makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
     self.startSure = makeSureBtn;
-    [self.view addSubview:makeSureBtn];
+    self.datePickerStart = datePicker;
+    [self.view addSubview:_startSure];
     [self.view addSubview:_datePickerStart];
 }
 
@@ -507,7 +512,6 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
     datePicker.datePickerMode = UIDatePickerModeDate;
     datePicker.frame = CGRectMake(_dateField2.frame.origin.x - 30, CGRectGetMaxY(_dateField2.frame) + 80, _dateField2.frame.size.width + 60, 160);
-    self.datePickerEnd = datePicker;
     [_datePickerEnd addTarget:self action:@selector(endPick) forControlEvents:UIControlEventValueChanged];
     UIButton *makeSureBtn = [[UIButton alloc]init];
     makeSureBtn.tag = 1113;
@@ -518,7 +522,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
     makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
     self.endSure = makeSureBtn;
-    [self.view addSubview:makeSureBtn];
+    self.datePickerEnd = datePicker;
+    [self.view addSubview:_endSure];
     [self.view addSubview:_datePickerEnd];
 }
 
@@ -531,14 +536,16 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 -(void)makeSureClick:(UIButton *)button
 {
     if (button.tag == 1112) {
-        [_startSure removeFromSuperview];
+        _selectedStart.userInteractionEnabled = YES;
         [_datePickerStart removeFromSuperview];
+        [_startSure removeFromSuperview];
         [self startPick];
         _dateField1.text = self.startTime;
     }
     if (button.tag == 1113) {
-        [_endSure removeFromSuperview];
+        _selectedEnd.userInteractionEnabled = YES;
         [_datePickerEnd removeFromSuperview];
+        [_endSure removeFromSuperview];
         [self endPick];
         _dateField2.text = self.endTime;
     }
@@ -547,11 +554,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 //创建选择终端tableView
 -(void)setupTerminalTableView
 {
-    self.terminalTableView.frame = CGRectMake(_terminalField.frame.origin.x, CGRectGetMaxY(_terminalField.frame) + 80, _terminalField.frame.size.width, 160);
-    [self.view addSubview:_terminalTableView];
-    if (_terminalItems.count != 0) {
-        [_terminalTableView reloadData];
-    }
+    //获取所有的终端号数据
+    [self getAllTerminalList];
 }
 
 -(void)backHome
@@ -571,7 +575,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
         else{
             _buttonIndex = 1;
             [self tradeTypeFromIndex:1];
-            [self downloadDataWithPage:1 isMore:NO];
+            [_tradeRecords removeAllObjects];
+            [self.tableView reloadData];
             [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
             _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
             _publickBtn.frame = CGRectMake(_publicX, _privateY, 120, 40);
@@ -600,7 +605,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
         _buttonIndex = 2;
         [self tradeTypeFromIndex:2];
         _isChecked = NO;
-        [self downloadDataWithPage:1 isMore:NO];
+        [_tradeRecords removeAllObjects];
+        [self.tableView reloadData];
         [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _privateBtn.frame = CGRectMake(_privateX, _privateY, 120, 40);
@@ -626,7 +632,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
         [self tradeTypeFromIndex:3];
         _buttonIndex = 3;
         _isChecked = NO;
-        [self downloadDataWithPage:1 isMore:NO];
+        [_tradeRecords removeAllObjects];
+        [self.tableView reloadData];
         [_huankuanBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _huankuanBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _huankuanBtn.frame = CGRectMake(_huankuanX, _privateY, 120, 40);
@@ -652,7 +659,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
         _buttonIndex = 4;
         [self tradeTypeFromIndex:4];
         _isChecked = NO;
-        [self downloadDataWithPage:1 isMore:NO];
+        [_tradeRecords removeAllObjects];
+        [self.tableView reloadData];
         [_shenghuochongzhiBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _shenghuochongzhiBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _shenghuochongzhiBtn.frame = CGRectMake(_shenghuochongzhiX, _privateY, 120, 40);
@@ -678,7 +686,8 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
         [self tradeTypeFromIndex:5];
         _buttonIndex = 5;
         _isChecked = NO;
-        [self downloadDataWithPage:1 isMore:NO];
+        [_tradeRecords removeAllObjects];
+        [self.tableView reloadData];
         [_huafeichongzhiBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
         _huafeichongzhiBtn.titleLabel.font = [UIFont systemFontOfSize:22];
         _huafeichongzhiBtn.frame = CGRectMake(_huafeichongzhiX, _privateY, 120, 40);
@@ -757,8 +766,7 @@ else
             cell.payLabel.text = model.payFromAccount;
             cell.getLabel.text = model.payIntoAccount;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -771,8 +779,7 @@ else
             cell.payLabel.text = model.payFromAccount;
             cell.payToLabel.text = model.payIntoAccount;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -784,8 +791,7 @@ else
             cell.usernameLabel.text = model.accountName;
             cell.useraccountLabel.text = model.accountNumber;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -796,8 +802,7 @@ else
             cell.timeLabel.text = model.tradeTime;
             cell.phoneNumLabel.text = model.phoneNumber;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -808,10 +813,9 @@ else
             TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
             cell.timeLabel.text = model.tradeTime;
             cell.settleLabel.text = model.payedTime;
-            cell.poundageLabel.text = model.poundage;
+            cell.poundageLabel.text = [NSString stringWithFormat:@"￥%.2f",model.poundage];
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -992,6 +996,12 @@ else
     for (int i = 0; i < [terminalList count]; i++) {
         TerminalModel *terminal = [[TerminalModel alloc] initWithParseDictionary:[terminalList objectAtIndex:i]];
         [_terminalItems addObject:terminal];
+    }
+    
+    self.terminalTableView.frame = CGRectMake(_terminalField.frame.origin.x, CGRectGetMaxY(_terminalField.frame) + 80, _terminalField.frame.size.width, 160);
+    [self.view addSubview:_terminalTableView];
+    if (_terminalItems.count != 0) {
+        [_terminalTableView reloadData];
     }
 }
 

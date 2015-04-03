@@ -73,9 +73,9 @@
     
     _terminalLabel.frame = CGRectMake(45, mainY, mainWidth, mainheight);
     
-    _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 80, mainY, mainWidth * 0.5, mainheight);
+    _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 50, mainY, mainWidth, mainheight);
     
-    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 100, mainY, mainWidth * 0.5, mainheight);
+    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 60, mainY, mainWidth * 0.5, mainheight);
     
     _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 90, mainY, mainWidth * 0.5, mainheight);
     

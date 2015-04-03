@@ -51,8 +51,36 @@
     // Do any additional setup after loading the view.
     _count = 1;
     [self initSubView];
-
+    //设置间距
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+    UIImage *image=[UIImage imageNamed:@"back_btn_white"];
+    
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btn.frame=CGRectMake(0, 0, 25, 40);
+    
+    [btn setImage :image forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(popself) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
+    
+    // Do any additional setup after loading the view.
 }
+-(void)popself
+
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -986,10 +1014,27 @@
     }else
     {
         
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 140.f)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 200.f)];
         footerView.backgroundColor = [UIColor whiteColor];
+        
+        
+        UILabel *liuyanlable = [[UILabel alloc] initWithFrame:CGRectMake(20, 10,40, 30)];
+        liuyanlable.font = [UIFont systemFontOfSize:16.f];
+        liuyanlable.text=@"留言";
+        [footerView addSubview:liuyanlable];
+        
+        
+        self.reviewField  = [[UITextField alloc] initWithFrame:CGRectMake(60, 5,wide-160, 40)];
+        self.reviewField .borderStyle = UITextBorderStyleLine;
+        self.reviewField .delegate = self;
+        self.reviewField .placeholder = @"留言";
+        self.reviewField .font = [UIFont systemFontOfSize:14.f];
+        
+        [footerView addSubview:self.reviewField ];
+
+        
         self.billBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.billBtn.frame = CGRectMake(20, 10, 28, 28);
+        self.billBtn.frame = CGRectMake(20, 60, 28, 28);
         
         
         if ( isneedpp) {
@@ -1002,7 +1047,7 @@
         [self.billBtn addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:self.billBtn];
         
-        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, wide - 40, 20)];
+        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 65, wide - 40, 20)];
         billLabel.backgroundColor = [UIColor clearColor];
         billLabel.font = [UIFont systemFontOfSize:16.f];
         billLabel.text = @"我要发票";
@@ -1107,7 +1152,7 @@
     }
     
     CGFloat billHeight = 44.f;
-    UIView *billView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, wide, billHeight)];
+    UIView *billView = [[UIView alloc] initWithFrame:CGRectMake(0, 90, wide, billHeight)];
     billView.backgroundColor = [UIColor whiteColor];
     //    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.5)];
     //    firstLine.backgroundColor = kColor(135, 135, 135, 1);
@@ -1377,7 +1422,7 @@
         
     }else
     {
-        return 140;
+        return 200;
         
         
     }}

@@ -435,7 +435,8 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface reviewMultiOrderWithToken:delegate.token reviewList:reviewList finished:^(BOOL success, NSData *response) {
+    NSLog(@"%@",self.orderID);
+    [NetworkInterface reviewMultiOrderWithToken:delegate.token orderID:self.orderID reviewList:reviewList  finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -449,6 +450,8 @@
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
+                    [self downloadDetail];
+
                     hud.labelText = @"评论成功";
                 }
             }
@@ -466,6 +469,10 @@
 #pragma mark - Action
 
 - (IBAction)submitComment:(id)sender {
+     
+
+    NSLog(@"%d",[_tempField.text length]);
+    
     [_tempField becomeFirstResponder];
     [_tempField resignFirstResponder];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
@@ -556,6 +563,8 @@ if(tableView==_tableViewPJ)
         OrderCommentCell *cell = [[OrderCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         ReviewModel *model = [LLgoodList objectAtIndex:indexPath.section];
         [cell setContentsWithData:model];
+        
+       
         return cell;
     
     }else
@@ -921,6 +930,12 @@ if(tableView==_tableViewPJ)
 }
 - (IBAction)scanTerminalNumber:(id)sender {
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:_orderDetail.terminals
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (BOOL) isBlankString:(NSString *)string {

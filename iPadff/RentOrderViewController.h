@@ -36,12 +36,12 @@
 @property (nonatomic, strong) UITextField *billField;  //发票抬头
 
 @property (nonatomic, assign) BillType billType;
+@property (nonatomic, strong) UITextField *reviewField;  //留言
 
 @property (nonatomic, assign) PushWay pushWay;
 
 //@property (nonatomic, strong) AddressModel *defaultAddress;
 
-@property (nonatomic, strong) UITextField *reviewField;  //留言
 
 @property (nonatomic, strong) GoodDetialModel *goodDetail;
 

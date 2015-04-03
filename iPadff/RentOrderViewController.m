@@ -54,6 +54,33 @@
     _count = 1;
     [self initSubView];
     
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+    UIImage *image=[UIImage imageNamed:@"back_btn_white"];
+    
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btn.frame=CGRectMake(0, 0, 25, 40);
+    
+    [btn setImage :image forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(popself) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
+    
+    // Do any additional setup after loading the view.
+}
+-(void)popself
+
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -173,7 +200,7 @@
     }
     NSLog(@"%@-%@-%@-%d-%@-%@",delegate.userID,_goodDetail.goodID,_goodDetail.defaultChannel.channelID,_count,addressID,self.reviewField.text);
 
-    [NetworkInterface createOrderFromGoodRentWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:@"" needInvoice:0 invoiceType:0 invoiceInfo:nil finished:^(BOOL success, NSData *response) {
+    [NetworkInterface createOrderFromGoodRentWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:self.reviewField.text needInvoice:0 invoiceType:0 invoiceInfo:nil finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -245,6 +272,8 @@
 - (IBAction)scanProtocol:(id)sender {
     RentDescriptionController *descC = [[RentDescriptionController alloc] init];
     descC.goodDetail = _goodDetail;
+    descC.hidesBottomBarWhenPushed =  YES ;
+
     [self.navigationController pushViewController:descC animated:YES];
 }
 - (IBAction)ensureOrder:(id)sender {
@@ -915,10 +944,27 @@
     }else
     {
         
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 140.f)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 200.f)];
         footerView.backgroundColor = [UIColor whiteColor];
+        
+        
+        UILabel *liuyanlable = [[UILabel alloc] initWithFrame:CGRectMake(20, 10,40, 30)];
+        liuyanlable.font = [UIFont systemFontOfSize:16.f];
+        liuyanlable.text=@"留言";
+        [footerView addSubview:liuyanlable];
+        
+        
+        self.reviewField  = [[UITextField alloc] initWithFrame:CGRectMake(60, 5,wide-160, 40)];
+        self.reviewField .borderStyle = UITextBorderStyleLine;
+        self.reviewField .delegate = self;
+        self.reviewField .placeholder = @"留言";
+        self.reviewField .font = [UIFont systemFontOfSize:14.f];
+
+        [footerView addSubview:self.reviewField ];
+
+
         self.billBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.billBtn.frame = CGRectMake(20, 10, 28, 28);
+        self.billBtn.frame = CGRectMake(20, 70, 28, 28);
         
         
         if ( isneedpp) {
@@ -931,7 +977,7 @@
         [self.billBtn addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:self.billBtn];
         
-        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, wide - 40, 20)];
+        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 75, wide - 40, 20)];
         billLabel.backgroundColor = [UIColor clearColor];
         billLabel.font = [UIFont systemFontOfSize:16.f];
         NSString *rentInfo = @"我同意《租赁协议》";
@@ -1331,7 +1377,7 @@
         
     }else
     {
-        return 140;
+        return 200;
         
         
     }}

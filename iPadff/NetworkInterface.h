@@ -267,7 +267,7 @@ static NSString *s_mofityUserPassword_method = @"customers/updatePassword";
 static NSString *s_scoreList_method = @"customers/getIntegralList";
 
 //我的积分总计
-static NSString *s_scoreTotal_method = @"customers/getIntegralTotal";
+static NSString *s_scoreTotal_method = @"customers/getjifen";
 
 //积分兑换
 static NSString *s_exchangeScore_method = @"customers/insertIntegralConvert";
@@ -418,9 +418,17 @@ static NSString *s_intention_method = @"paychannel/intention/add";
 
 //修改邮箱验证码
 static NSString *s_changeEmail_method = @"index/updateEmail";
+static NSString *s_hot_method = @"index/pos_list";
 
 @interface NetworkInterface : NSObject
 
+/*!
+ @abstract 1.热卖
+
+ */
+
++ (void)hotget:(NSString *)tolen
+                  finished:(requestDidFinished)finish;
 /*!
  @abstract 1.注册
  @param activation      激活码
@@ -1263,8 +1271,7 @@ static NSString *s_changeEmail_method = @"index/updateEmail";
  @param reviewList  评论数组
  @result finish  请求回调结果
  */
-+ (void)reviewMultiOrderWithToken:(NSString *)token
-                       reviewList:(NSArray *)reviewList
++ (void)reviewMultiOrderWithToken:(NSString *)token orderID:(NSString *)orderID reviewList:(NSArray *)reviewList
                          finished:(requestDidFinished)finish;
 
 /*!

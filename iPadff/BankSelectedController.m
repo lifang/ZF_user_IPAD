@@ -28,9 +28,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"选择银行";
-    
-    self.view.backgroundColor=[UIColor whiteColor];
-    
     if (!_bankItems) {
         _bankItems = [[NSMutableArray alloc] init];
         [self getBankList];
@@ -61,9 +58,10 @@
         height=SCREEN_HEIGHT;
         
     }
+    
 
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 84)];
-//    headerView.backgroundColor = [UIColor clearColor];
+    headerView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = headerView;
     
     CGFloat backHeight = 44.f;
@@ -72,10 +70,10 @@
     backView.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:backView];
     
-    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, height)];
+    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, kLineHeight)];
     firstLine.backgroundColor = kColor(200, 199, 204, 1);
     [backView addSubview:firstLine];
-    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(0, backHeight - height, wide, height)];
+    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(0, backHeight - kLineHeight, wide, kLineHeight)];
     secondLine.backgroundColor = kColor(200, 199, 204, 1);
     [backView addSubview:secondLine];
     
@@ -89,7 +87,7 @@
     
     _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _searchBtn.frame = CGRectMake(wide - 40, 10, 24, 24);
-    [_searchBtn setBackgroundImage:kImageName(@"good_search") forState:UIControlStateNormal];
+    [_searchBtn setBackgroundImage:kImageName(@"search.png") forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(searchBank:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:_searchBtn];
 }
@@ -97,7 +95,7 @@
 - (void)initAndLayoutUI {
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-   _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.backgroundColor = kColor(244, 243, 243, 1);
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self setHeaderAndFooterView];
@@ -194,7 +192,7 @@
 - (IBAction)searchBank:(id)sender {
     [_searchItem removeAllObjects];
     for (BankModel *model in _bankItems) {
-        if ([model.bankName containsString:_bankField.text]) {
+        if ([model.bankName rangeOfString:_bankField.text].length != 0) {
             [_searchItem addObject:model];
         }
     }
@@ -226,8 +224,6 @@
     else {
         cell.imageView.hidden = YES;
     }
-    cell.backgroundColor=[UIColor whiteColor];
-    
     return cell;
 }
 
@@ -253,25 +249,10 @@
             return nil;
         }
         else {
-            CGFloat wide;
-            CGFloat height;
-            if(iOS7)
-            {
-                wide=SCREEN_HEIGHT;
-                height=SCREEN_WIDTH;
-                
-                
-            }
-            else
-            {  wide=SCREEN_WIDTH;
-                height=SCREEN_HEIGHT;
-                
-            }
-
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, height, 30)];
-//            view.backgroundColor = [UIColor clearColor];
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, height - 20, 20)];
-//            label.backgroundColor = [UIColor clearColor];
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenHeight, 30)];
+            view.backgroundColor = [UIColor clearColor];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, kScreenHeight - 20, 20)];
+            label.backgroundColor = [UIColor clearColor];
             label.font = [UIFont systemFontOfSize:14.f];
             label.text = @"搜索结果";
             [view addSubview:label];

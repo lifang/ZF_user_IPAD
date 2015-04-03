@@ -37,6 +37,8 @@
 
 @property(nonatomic,assign)BOOL isPush;
 
+@property(nonatomic,strong)UIView *headerView;
+
 @end
 
 @implementation TerminalViewController
@@ -104,6 +106,7 @@
 -(void)setupHeaderView
 {
     UIView *headerView = [[UIView alloc]init];
+    headerView.backgroundColor = [UIColor whiteColor];
     headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 60);
     if (iOS7) {
         headerView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 60);
@@ -141,8 +144,7 @@
         bottomView.frame = CGRectMake(0, 36, SCREEN_HEIGHT, 24);
     }
     [headerView addSubview:bottomView];
-    self.tableView.tableHeaderView = headerView;
-    
+    self.headerView = headerView;
 }
 -(void)setupNavBar
 {
@@ -154,14 +156,6 @@
     
     UIBarButtonItem *rightZeroBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     rightZeroBar.width = 40.f;
-    
-    UIButton *leftBtn = [[UIButton alloc]init];
-    [leftBtn addTarget:self action:@selector(backHome) forControlEvents:UIControlEventTouchUpInside];
-    leftBtn.frame = CGRectMake(0, 0, 48, 48);
-    [leftBtn setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
-    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    NSArray *leftArr = [NSArray arrayWithObjects:zeroBar,leftBar, nil];
-    self.navigationItem.leftBarButtonItems = leftArr;
     
     UIButton *rightBtn = [[UIButton alloc]init];
     [rightBtn addTarget:self action:@selector(addTerminal) forControlEvents:UIControlEventTouchUpInside];
@@ -206,10 +200,6 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
--(void)backHome
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -299,6 +289,16 @@
     return _terminalItems.count;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return _headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 60;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_terminalItems.count == 0) {
@@ -318,7 +318,7 @@
         }
         cell.selectedID = model.TM_ID;
         cell.terminalLabel.text = model.TM_serialNumber;
-        cell.posLabel.text = model.TM_brandsName;
+        cell.posLabel.text = [NSString stringWithFormat:@"%@%@",model.TM_brandsName,model.TM_model_number];
         cell.payRoad.text = model.TM_channelName;
         cell.indexNum = indexPath.row;
         if ([model.TM_status isEqualToString:@"1"]) {

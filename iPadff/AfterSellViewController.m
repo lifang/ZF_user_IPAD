@@ -94,7 +94,6 @@
     if (account.password) {
         [self setupHeaderView];
         [self firstLoadData];
-        [self.view addSubview:self.tableView];
     }
     else
     {
@@ -113,7 +112,6 @@
 {
     [self setupHeaderView];
     [self firstLoadData];
-    [self.view addSubview:self.tableView];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -136,7 +134,11 @@
             _tableView.frame = CGRectMake(160, 80, SCREEN_HEIGHT - 160, SCREEN_WIDTH - 100);
         }
         UIView *v = [[UIView alloc]init];
-        v.frame = CGRectMake(0, 0, 1, 1);
+        v.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0.5);
+        if (iOS7) {
+            v.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 0.5);
+        }
+        v.backgroundColor = kColor(199, 197, 204, 1.0);
         _tableView.tableFooterView = v;
         [self setupRefreshView];
     }
@@ -159,6 +161,7 @@
     NSArray *arr = [NSArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",nil];
     [_dateArray addObjectsFromArray:arr];
     [self setLeftViewWith:ChooseViewAfterSell];
+    [self.view addSubview:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -704,29 +707,27 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    }else{
-        return _AfterSelldateArray.count;
-    }
+    return _AfterSelldateArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //标题Cell
-    if (indexPath.section == 0)
-    {
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     NSString *ID = [NSString stringWithFormat:@"cell%d",_buttonIndex];
     AfterTitleCell *cell = [[AfterTitleCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     return cell;
-    }
-    else
-    //内容Cell
-    {
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 60;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
         //维修
         if (_buttonIndex == 1 && _AfterSelldateArray.count!=0) {
             CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
@@ -834,26 +835,23 @@
             }
             return cancelCell;
         }
-    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 60;
-    }else{
-        CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
-        if ([model.status isEqualToString:@"1"] && _buttonIndex==2) {
-            if (_isFirst) {
-                return 120;
-            }else{
-                return 80;
-            }
-            
-        }else{
-            
+    CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+    if ([model.status isEqualToString:@"1"]) {
+        if (_buttonIndex == 1) {
+            return 120;
+        }
+        else
+        {
             return 80;
         }
+        }
+    else
+    {
+        return 80;
     }
 }
 

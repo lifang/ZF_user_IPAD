@@ -16,6 +16,7 @@
 #import "ApplyDetailController.h"
 #import "LoginViewController.h"
 #import "AccountTool.h"
+#import "DredgeModel.h"
 
 @interface DredgeViewController ()<RefreshDelegate,LoginSuccessDelegate>
 
@@ -34,6 +35,7 @@
 
 //终端信息数据
 @property (nonatomic, strong) NSMutableArray *applyList;
+
 
 @end
 
@@ -111,6 +113,7 @@
 -(void)setupHeaderAndFooterView
 {
     UIView *headerView = [[UIView alloc]init];
+    headerView.backgroundColor = [UIColor whiteColor];
     headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 60);
     if (iOS7) {
         headerView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 60);
@@ -149,7 +152,6 @@
     }
     [headerView addSubview:bottomView];
     self.headerView = headerView;
-    self.tableView.tableHeaderView = headerView;
     
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);
@@ -248,7 +250,7 @@
     }
     NSArray *TM_List = [dict objectForKey:@"result"];
     for (int i = 0; i < [TM_List count]; i++) {
-        TerminalManagerModel *tm_Model = [[TerminalManagerModel alloc] initWithParseDictionary:[TM_List objectAtIndex:i]];
+        DredgeModel *tm_Model = [[DredgeModel alloc] initWithParseDictionary:[TM_List objectAtIndex:i]];
         [_applyList addObject:tm_Model];
     }
     [self.tableView reloadData];
@@ -380,25 +382,35 @@
     return _applyList.count;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return _headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 60;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DredgeViewCell *cell = [DredgeViewCell cellWithTableView:tableView];
-    TerminalManagerModel *model = [_applyList objectAtIndex:indexPath.row];
+    DredgeModel *model = [_applyList objectAtIndex:indexPath.row];
     cell.terminalLabel.text = model.TM_serialNumber;
-    cell.posLabel.text = model.TM_brandsName;
+    cell.posLabel.text = [NSString stringWithFormat:@"%@%@",model.TM_brandsName,model.TM_model_number];
     cell.payRoad.text = model.TM_channelName;
     self.status = model.TM_status;
     cell.dredgeStatus.text = [self getStatusString];
     
     //用来标识数据的id
-    cell.applicationBtn.tag = [model.TM_ID intValue];
+    cell.applicationBtn.tag = indexPath.row;
     cell.vedioConfirmBtn.tag = [model.TM_ID intValue];
     if(  [model.TM_status  isEqualToString:@"2"])
     {
         [cell.applicationBtn setTitle:@"重新申请开通" forState:UIControlStateNormal];
 
         cell.applicationBtn.titleLabel.font=[UIFont systemFontOfSize:16];
-        [cell.applicationBtn addTarget:self action:@selector(applicationClicks:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
 
         
     }
@@ -421,24 +433,36 @@
 
 -(void)applicationClick:(UIButton *)button
 {
-    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
-    detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
-    detailC.openStatus = OpenStatusNew;
-    detailC.hidesBottomBarWhenPushed = YES;
-
-    [self.navigationController pushViewController:detailC animated:YES];
-}
--(void)applicationClicks:(UIButton *)button
-{
-    NSLog(@"%ld",(long)button.tag);
+    TerminalManagerModel *model = [_applyList objectAtIndex:button.tag];
 
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
     detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
-    detailC.openStatus = OpenStatusReopen;
     detailC.hidesBottomBarWhenPushed = YES;
-    
+    if(  [model.TM_status  isEqualToString:@"2"])
+    {
+        detailC.openStatus = OpenStatusReopen;
+        
+        
+    }else
+    {
+        detailC.openStatus = OpenStatusNew;
+        
+    }
+    detailC.terminalID = model.TM_ID;
+
     [self.navigationController pushViewController:detailC animated:YES];
 }
+//-(void)applicationClicks:(UIButton *)button
+//{
+//    NSLog(@"%ld",(long)button.tag);
+//
+//    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+//    detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
+//    detailC.openStatus = OpenStatusReopen;
+//    detailC.hidesBottomBarWhenPushed = YES;
+//    
+//    [self.navigationController pushViewController:detailC animated:YES];
+//}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];

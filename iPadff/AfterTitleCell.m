@@ -49,7 +49,7 @@
         label.font = [UIFont systemFontOfSize:16];
         label.backgroundColor = [UIColor clearColor];
         label.tag = i +1234;
-        label.frame = CGRectMake(20 + i * labelWidth, 0, labelWidth, 25);
+        label.frame = CGRectMake(20 + i * labelWidth, 3, labelWidth, 25);
         self.lable = label;
         [self layoutTitle];
         [_bottomView addSubview:label];

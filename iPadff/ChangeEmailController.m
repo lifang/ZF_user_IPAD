@@ -40,7 +40,7 @@
 -(void)initAndLayoutUI
 {
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"修改手机";
+    self.title = @"修改邮箱";
     
     CGFloat mainWidth = 280.f;
     CGFloat mainHeight = 40.f;
@@ -267,7 +267,7 @@
     [submitBtn addTarget:self action:@selector(submitClicked) forControlEvents:UIControlEventTouchUpInside];
     submitBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [submitBtn setBackgroundColor:kColor(254, 79, 29, 1.0)];
-    [submitBtn setTitle:@"获取激活邮箱" forState:UIControlStateNormal];
+    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
     [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:submitBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn

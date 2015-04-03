@@ -20,6 +20,7 @@
 @property (nonatomic, assign) CGFloat orderDeliveryFee;    //配送费
 
 @property (nonatomic, strong) NSString *orderReceiver;       //收件人
+@property (nonatomic, strong) NSString *terminals;       //终端号
 
 @property (nonatomic, strong) NSString *orderReceiverPhone;  //收件人电话
 
