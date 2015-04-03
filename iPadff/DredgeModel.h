@@ -1,24 +1,23 @@
 //
-//  TerminalManagerModel.h
-//  ZFUB
+//  DredgeModel.h
+//  iPadff
 //
-//  Created by 徐宝桥 on 15/2/27.
-//  Copyright (c) 2015年 ___MyCompanyName___. All rights reserved.
+//  Created by 黄含章 on 15/4/2.
+//  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-/*终端管理列表*/
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    TerminalStatusNone = 0,
-    TerminalStatusOpened,       //已开通
-    TerminalStatusPartOpened,   //部分开通
-    TerminalStatusUnOpened,     //未开通
-    TerminalStatusCanceled,     //已注销
-    TerminalStatusStopped,      //已停用
-}TerminalStatus;
+    SerminalStatusNone = 0,
+    SerminalStatusOpened,       //已开通
+    SerminalStatusPartOpened,   //部分开通
+    SerminalStatusUnOpened,     //未开通
+    SerminalStatusCanceled,     //已注销
+    SerminalStatusStopped,      //已停用
+}SerminalStatus;
 
-@interface TerminalManagerModel : NSObject
+@interface DredgeModel : NSObject
 
 @property (nonatomic, strong) NSString *TM_ID;      //终端记录id
 
@@ -39,5 +38,4 @@ typedef enum {
 - (id)initWithParseDictionary:(NSDictionary *)dict;
 
 - (NSString *)getStatusString;
-
 @end

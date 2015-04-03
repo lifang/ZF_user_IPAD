@@ -704,29 +704,27 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    }else{
-        return _AfterSelldateArray.count;
-    }
+    return _AfterSelldateArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //标题Cell
-    if (indexPath.section == 0)
-    {
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     NSString *ID = [NSString stringWithFormat:@"cell%d",_buttonIndex];
     AfterTitleCell *cell = [[AfterTitleCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     return cell;
-    }
-    else
-    //内容Cell
-    {
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 60;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
         //维修
         if (_buttonIndex == 1 && _AfterSelldateArray.count!=0) {
             CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
@@ -834,26 +832,21 @@
             }
             return cancelCell;
         }
-    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 60;
-    }else{
-        CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
-        if ([model.status isEqualToString:@"1"] && _buttonIndex==2) {
-            if (_isFirst) {
-                return 120;
-            }else{
-                return 80;
-            }
-            
+    CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
+    if ([model.status isEqualToString:@"1"] && _buttonIndex==2) {
+        if (_isFirst) {
+            return 120;
         }else{
-            
             return 80;
         }
+        
+    }else{
+        
+        return 80;
     }
 }
 

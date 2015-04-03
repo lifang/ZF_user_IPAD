@@ -113,63 +113,53 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 1;
-    }else{
-        return _addressItems.count;
-    }
+    return _addressItems.count;
 }
-
-
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    static NSString *ID = @"AddressCell1";
+    AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[AddressCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
+    }
+    cell.defaultLabel.hidden = YES;
+    cell.changeBtn.hidden = YES;
+    return cell;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        NSString *ID = @"AddressCell1";
-        AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        if (cell==nil) {
-            cell = [[AddressCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
-        }
-        cell.defaultLabel.hidden = YES;
-        cell.changeBtn.hidden = YES;
-        return cell;
-    }else{
-        AddressModel *model = [_addressItems objectAtIndex:indexPath.row];
-        NSString *ID = @"AddressCell2";
-        AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        if (cell == nil) {
-            cell = [[AddressCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
-        }
-        cell.AddressCellDelegate = self;
-        cell.indexP = indexPath.row;
-        cell.consigneeLabel.text = model.addressReceiver;
-        cell.areaLabel.text = [NSString stringWithFormat:@"%@%@",model.city_parent_name,model.city_name];
-        cell.particularAddressLabel.text = model.address;
-        cell.postcodeLabel.text = model.zipCode;
-        cell.telLabel.text = model.addressPhone;
-        cell.defaultLabel.hidden = YES;
-        if ([model.isDefault isEqualToString:@"1"]) {
-            cell.defaultLabel.hidden = NO;
-        }
-        return cell;
-
+    AddressModel *model = [_addressItems objectAtIndex:indexPath.row];
+    NSString *ID = @"AddressCell2";
+    AddressCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[AddressCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     }
-    
+    cell.AddressCellDelegate = self;
+    cell.indexP = indexPath.row;
+    cell.consigneeLabel.text = model.addressReceiver;
+    cell.areaLabel.text = [NSString stringWithFormat:@"%@%@",model.city_parent_name,model.city_name];
+    cell.particularAddressLabel.text = model.address;
+    cell.postcodeLabel.text = model.zipCode;
+    cell.telLabel.text = model.addressPhone;
+    cell.defaultLabel.hidden = YES;
+    if ([model.isDefault isEqualToString:@"1"]) {
+        cell.defaultLabel.hidden = NO;
+    }
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 25;
-    }
-    else
-    {
-        return 50;
-    }
+    return 50;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

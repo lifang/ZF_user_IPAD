@@ -21,6 +21,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         NSLog(@"创建的标示%@",reuseIdentifier);
         self.reuseIdentifierID = reuseIdentifier;
         UIView *topView = [[UIView alloc]init];

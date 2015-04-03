@@ -292,6 +292,7 @@
 		1ADD1EE11AB6F0CE0014E528 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADD1EE01AB6F0CE0014E528 /* AddressCell.m */; };
 		1ADFE4291AC2537600AA5F3F /* AccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADFE4281AC2537600AA5F3F /* AccountTool.m */; };
 		1ADFE42C1AC2A00300AA5F3F /* ScanImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADFE42B1AC2A00300AA5F3F /* ScanImageViewController.m */; };
+		1AF15B751ACD0C0A00D5C171 /* DredgeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF15B741ACD0C0A00D5C171 /* DredgeModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -811,6 +812,8 @@
 		1ADFE4281AC2537600AA5F3F /* AccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTool.m; sourceTree = "<group>"; };
 		1ADFE42A1AC2A00300AA5F3F /* ScanImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanImageViewController.h; sourceTree = "<group>"; };
 		1ADFE42B1AC2A00300AA5F3F /* ScanImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanImageViewController.m; sourceTree = "<group>"; };
+		1AF15B731ACD0C0A00D5C171 /* DredgeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DredgeModel.h; sourceTree = "<group>"; };
+		1AF15B741ACD0C0A00D5C171 /* DredgeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DredgeModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1052,6 +1055,8 @@
 				1A94FA271AC15D18006D8FF7 /* AccountModel.m */,
 				1ADFE4271AC2537600AA5F3F /* AccountTool.h */,
 				1ADFE4281AC2537600AA5F3F /* AccountTool.m */,
+				1AF15B731ACD0C0A00D5C171 /* DredgeModel.h */,
+				1AF15B741ACD0C0A00D5C171 /* DredgeModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2081,6 +2086,7 @@
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				0E0002221AC6422700003E60 /* ChannelModel.m in Sources */,
 				1AC6A2CD1AC3A83500685FC9 /* CustomSwitch.m in Sources */,
+				1AF15B751ACD0C0A00D5C171 /* DredgeModel.m in Sources */,
 				0ECA6D411ABC32B3005316B1 /* ShoppingCartController.m in Sources */,
 				1ADD1EBC1AB685B60014E528 /* SubmitLogisticsController.m in Sources */,
 				1A4258611AB008F900F470C9 /* MineCommonController.m in Sources */,

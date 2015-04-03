@@ -543,8 +543,8 @@
                     [hud hide:YES];
                     NSDictionary *dict = [object objectForKey:@"result"];
                     _totalScore = [NSString stringWithFormat:@"%@",[dict objectForKey:@"quantityTotal"]];
-                    int money = [[dict objectForKey:@"moneyTotal"] intValue];
-                    NSString *totalM = [NSString stringWithFormat:@"%d",money/100];
+                    float money = [[dict objectForKey:@"dh_total"]floatValue];
+                    NSString *totalM = [NSString stringWithFormat:@"%.2f",money];
                     _totalMoney = totalM;
                     _totalLabel.text = [NSString stringWithFormat:@"总积分：%@",_totalScore];
                 }

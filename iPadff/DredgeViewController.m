@@ -16,6 +16,7 @@
 #import "ApplyDetailController.h"
 #import "LoginViewController.h"
 #import "AccountTool.h"
+#import "DredgeModel.h"
 
 @interface DredgeViewController ()<RefreshDelegate,LoginSuccessDelegate>
 
@@ -34,6 +35,7 @@
 
 //终端信息数据
 @property (nonatomic, strong) NSMutableArray *applyList;
+
 
 @end
 
@@ -111,6 +113,7 @@
 -(void)setupHeaderAndFooterView
 {
     UIView *headerView = [[UIView alloc]init];
+    headerView.backgroundColor = [UIColor whiteColor];
     headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 60);
     if (iOS7) {
         headerView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 60);
@@ -149,7 +152,6 @@
     }
     [headerView addSubview:bottomView];
     self.headerView = headerView;
-    self.tableView.tableHeaderView = headerView;
     
     UIView *footerView = [[UIView alloc]init];
     footerView.backgroundColor = kColor(210, 210, 210, 1.0);
@@ -248,7 +250,7 @@
     }
     NSArray *TM_List = [dict objectForKey:@"result"];
     for (int i = 0; i < [TM_List count]; i++) {
-        TerminalManagerModel *tm_Model = [[TerminalManagerModel alloc] initWithParseDictionary:[TM_List objectAtIndex:i]];
+        DredgeModel *tm_Model = [[DredgeModel alloc] initWithParseDictionary:[TM_List objectAtIndex:i]];
         [_applyList addObject:tm_Model];
     }
     [self.tableView reloadData];
@@ -380,12 +382,22 @@
     return _applyList.count;
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return _headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 60;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DredgeViewCell *cell = [DredgeViewCell cellWithTableView:tableView];
-    TerminalManagerModel *model = [_applyList objectAtIndex:indexPath.row];
+    DredgeModel *model = [_applyList objectAtIndex:indexPath.row];
     cell.terminalLabel.text = model.TM_serialNumber;
-    cell.posLabel.text = model.TM_brandsName;
+    cell.posLabel.text = [NSString stringWithFormat:@"%@%@",model.TM_brandsName,model.TM_model_number];
     cell.payRoad.text = model.TM_channelName;
     self.status = model.TM_status;
     cell.dredgeStatus.text = [self getStatusString];
