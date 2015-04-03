@@ -924,6 +924,12 @@ if(tableView==_tableViewPJ)
 }
 - (IBAction)scanTerminalNumber:(id)sender {
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:_orderDetail.terminals
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (BOOL) isBlankString:(NSString *)string {

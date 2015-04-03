@@ -418,9 +418,17 @@ static NSString *s_intention_method = @"paychannel/intention/add";
 
 //修改邮箱验证码
 static NSString *s_changeEmail_method = @"index/updateEmail";
+static NSString *s_hot_method = @"index/pos_list";
 
 @interface NetworkInterface : NSObject
 
+/*!
+ @abstract 1.热卖
+
+ */
+
++ (void)hotget:(NSString *)tolen
+                  finished:(requestDidFinished)finish;
 /*!
  @abstract 1.注册
  @param activation      激活码
