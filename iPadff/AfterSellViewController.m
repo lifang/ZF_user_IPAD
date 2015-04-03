@@ -837,10 +837,14 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CustomerServiceModel *model = [_AfterSelldateArray objectAtIndex:indexPath.row];
-    if ([model.status isEqualToString:@"1"] && _buttonIndex==2) {
+    if ([model.status isEqualToString:@"1"]) {
         if (_isFirst) {
             return 120;
-        }else{
+        }
+        if (_buttonIndex == 2) {
+            return 80;
+        }
+        else{
             return 80;
         }
         
