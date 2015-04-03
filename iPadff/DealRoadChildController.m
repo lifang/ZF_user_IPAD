@@ -16,8 +16,8 @@
 
 //解析字段
 @property (nonatomic, strong) NSString *tradeStatus;    //状态
-@property (nonatomic, strong) NSString *tradeAmount;    //交易金额
-@property (nonatomic, strong) NSString *tradePoundage;  //手续费
+@property (nonatomic, assign) CGFloat tradeAmount;    //交易金额
+@property (nonatomic, assign) CGFloat tradePoundage;  //手续费
 @property (nonatomic, strong) NSString *tradeTime;      //交易时间
 @property (nonatomic, strong) NSString *merchantNumber; //商户编号
 @property (nonatomic, strong) NSString *agentID;        //代理商ID
@@ -183,14 +183,17 @@
                                                            constant:30.f]];
     //交易金额
     UILabel *moneyLabel = [[UILabel alloc] init];
+    moneyLabel.textAlignment = NSTextAlignmentRight;
     [self setLabel:moneyLabel withTopView:_scrollView middleSpace:space * 2 labelTag:1];
     moneyLabel.textColor = [UIColor blackColor];
     //手续费
     UILabel *poundageLabel = [[UILabel alloc] init];
+    poundageLabel.textAlignment = NSTextAlignmentRight;
     [self setLabel:poundageLabel withTopView:moneyLabel middleSpace:space labelTag:2];
     poundageLabel.textColor = [UIColor blackColor];
     //交易时间
     UILabel *tradeTimeLabel = [[UILabel alloc] init];
+    tradeTimeLabel.textAlignment = NSTextAlignmentRight;
     [self setLabel:tradeTimeLabel withTopView:poundageLabel middleSpace:space labelTag:3];
     tradeTimeLabel.textColor = [UIColor blackColor];
     
@@ -392,12 +395,12 @@
         [self setLabel:payToLabel withTopView:payFromLabel middleSpace:space labelTag:0];
         [self setLabel:channelLabel withTopView:payToLabel middleSpace:space labelTag:0];
     }
-    //分润金额
-    UILabel *profitLabel = [[UILabel alloc] init];
-    [self setLabel:profitLabel withTopView:channelLabel middleSpace:space labelTag:0];
+//    //分润金额
+//    UILabel *profitLabel = [[UILabel alloc] init];
+//    [self setLabel:profitLabel withTopView:channelLabel middleSpace:space labelTag:0];
     //交易金额
     UILabel *tradeMoneyLabel = [[UILabel alloc] init];
-    [self setLabel:tradeMoneyLabel withTopView:profitLabel middleSpace:space labelTag:0];
+    [self setLabel:tradeMoneyLabel withTopView:channelLabel middleSpace:space labelTag:0];
     //交易时间
     UILabel *timeLabel = [[UILabel alloc] init];
     [self setLabel:timeLabel withTopView:tradeMoneyLabel middleSpace:space labelTag:0];
@@ -433,9 +436,8 @@
     }
     
     statusLabel.text = [self statusForIndexString:_tradeStatus];
-    int money = [_tradeAmount intValue];
-    moneyLabel.text = [NSString stringWithFormat:@"交易金额：￥%d",money / 100];
-    poundageLabel.text = [NSString stringWithFormat:@"手续费：￥%@",_tradePoundage];
+    moneyLabel.text = [NSString stringWithFormat:@"交易金额：￥%.2f",_tradeAmount];
+    poundageLabel.text = [NSString stringWithFormat:@"手续费：￥%.2f",_tradePoundage];
     tradeTimeLabel.text = [NSString stringWithFormat:@"交易时间：%@",_tradeTime];
     merchantTitleLabel.text = @"商户信息";
     merchantNumberLabel.text = [NSString stringWithFormat:@"编       号   %@",_merchantNumber];
@@ -450,7 +452,7 @@
             break;
         case TradeTypeConsume:
             payFromLabel.text = [NSString stringWithFormat:@"结 算 时 间   %@",_payedTime];
-            payToLabel.text = [NSString stringWithFormat:@"手   续   费   ￥%@",_tradePoundage];
+            payToLabel.text = [NSString stringWithFormat:@"手   续   费   ￥%.2f",_tradePoundage];
             break;
         case TradeTypeRepayment:
             payFromLabel.text = [NSString stringWithFormat:@"付 款 账 号   %@",_payFromAccount];
@@ -467,15 +469,13 @@
             break;
     }
     channelLabel.text = [NSString stringWithFormat:@"支 付 通 道   %@",_channelName];
-    profitLabel.text = [NSString stringWithFormat:@"分 润 金 额   %@",_profitPrice];
-    tradeMoneyLabel.text = [NSString stringWithFormat:@"交 易 金 额   ￥%d",money / 100];
+//    profitLabel.text = [NSString stringWithFormat:@"分 润 金 额   %@",_profitPrice];
+    tradeMoneyLabel.text = [NSString stringWithFormat:@"交 易 金 额   ￥%.2f",_tradeAmount];
     timeLabel.text = [NSString stringWithFormat:@"交 易 时 间   %@",_tradeTime];
     tradeStatusLabel.text = [NSString stringWithFormat:@"交 易 状 态   %@",[self statusForIndexString:_tradeStatus]];
     batchLabel.text = [NSString stringWithFormat:@"交易批次号   %@",_batchNumber];
     tradeNumberLabel.text = [NSString stringWithFormat:@"交易流水号   %@",_tradeNumber];
     payBankLabel.text = @"付款银行号";
-
-
 }
 
 #pragma mark - Layout
@@ -507,14 +507,14 @@
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeLeft
                                                              multiplier:1.0
-                                                               constant:leftSpace2 + 5]];
+                                                               constant:500.f]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                               attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeRight
                                                              multiplier:1.0
-                                                               constant:rightSpce * 2]];
+                                                               constant:-rightSpce * 3]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
@@ -538,14 +538,14 @@
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeLeft
                                                              multiplier:1.0
-                                                               constant:leftSpace2 + 20]];
+                                                               constant:500.f]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                               attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeRight
                                                              multiplier:1.0
-                                                               constant:rightSpce * 2]];
+                                                               constant:-rightSpce * 3]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
@@ -569,14 +569,14 @@
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeLeft
                                                              multiplier:1.0
-                                                               constant:leftSpace2 - 100]];
+                                                               constant:500.f]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                               attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self.view
                                                               attribute:NSLayoutAttributeRight
                                                              multiplier:1.0
-                                                               constant:rightSpce * 2]];
+                                                               constant:-rightSpce * 3]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
@@ -608,7 +608,7 @@
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
-                                                           constant:-rightSpce]];
+                                                           constant:rightSpce * 2]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -669,8 +669,8 @@
         return;
     }
     _tradeStatus = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"tradedStatus"]];
-    _tradeAmount = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"amount"]];
-    _tradePoundage = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"poundage"]];
+    _tradeAmount = [[infoDict objectForKey:@"amount"] floatValue] / 100;
+    _tradePoundage = [[infoDict objectForKey:@"poundage"] floatValue] / 100;
     _tradeTime = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"tradedTimeStr"]];
     _merchantNumber = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"merchantNumber"]];
     _merchantName = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"merchantName"]];

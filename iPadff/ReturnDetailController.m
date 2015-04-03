@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString *channelName;
 @property (nonatomic, strong) NSString *merchantName;
 @property (nonatomic, strong) NSString *merchantPhone;
-@property (nonatomic, strong) NSString *refund;
+@property (nonatomic, assign) NSString *refund;
 @property (nonatomic, strong) NSString *refundBank;
 @property (nonatomic, strong) NSString *refundAccount;
 @property (nonatomic, strong) NSString *refundReason;
@@ -504,7 +504,8 @@
     channelLabel.text = [NSString stringWithFormat:@"支付平台  %@",_channelName];
     merchantNameLabel.text = [NSString stringWithFormat:@"商 户  名  %@",_merchantName];
     merchantPhoneLabel.text = [NSString stringWithFormat:@"商户电话  %@",_merchantPhone];
-    refundLabel.text = [NSString stringWithFormat:@"退款金额  ￥%@",_refund];
+    
+    refundLabel.text = [NSString stringWithFormat:@"退款金额  ￥%.2f",[_refund floatValue]/100];
     refundBankLabel.text = [NSString stringWithFormat:@"退款银行  %@",_refundBank];
     accountLabel.text = [NSString stringWithFormat:@"退款账号  %@",_refundAccount];
     reasonLabel.text = [NSString stringWithFormat:@"退款原因  %@",_refundReason];
