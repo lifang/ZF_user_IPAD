@@ -21,6 +21,8 @@
 
 @property(nonatomic,strong)HHZTextView *contentTextView;
 
+@property(nonatomic,strong)UILabel *limitLabel;
+
 @end
 
 @implementation ContactusUsController
@@ -432,6 +434,7 @@
     limiteLabel.text = @"最多填写200个汉字";
     limiteLabel.font = [UIFont systemFontOfSize:15];
     limiteLabel.textColor = kColor(64, 63, 63, 1.0);
+    self.limitLabel = limiteLabel;
     [self.view addSubview:limiteLabel];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:limiteLabel
                                                           attribute:NSLayoutAttributeTop
@@ -606,6 +609,26 @@
     }];
 }
 
+#pragma mark - UITextView
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    else if ([textView.text length] + [text length] > 200 && ![text isEqualToString:@""]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    NSInteger number = 200 - [textView.text length];
+    if (number < 0) {
+        number = 0;
+    }
+    _limitLabel.text = [NSString stringWithFormat:@"最多填写%ld个汉字", number];
+}
 
 
 //处理键盘

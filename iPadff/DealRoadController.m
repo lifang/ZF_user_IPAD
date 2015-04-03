@@ -766,8 +766,7 @@ else
             cell.payLabel.text = model.payFromAccount;
             cell.getLabel.text = model.payIntoAccount;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -780,8 +779,7 @@ else
             cell.payLabel.text = model.payFromAccount;
             cell.payToLabel.text = model.payIntoAccount;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -793,8 +791,7 @@ else
             cell.usernameLabel.text = model.accountName;
             cell.useraccountLabel.text = model.accountNumber;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -805,8 +802,7 @@ else
             cell.timeLabel.text = model.tradeTime;
             cell.phoneNumLabel.text = model.phoneNumber;
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;
@@ -817,10 +813,9 @@ else
             TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
             cell.timeLabel.text = model.tradeTime;
             cell.settleLabel.text = model.payedTime;
-            cell.poundageLabel.text = model.poundage;
+            cell.poundageLabel.text = [NSString stringWithFormat:@"￥%.2f",model.poundage];
             cell.terminalLabel.text = model.terminalNumber;
-            int money = [model.amount intValue];
-            cell.dealMoney.text = [NSString stringWithFormat:@"%d",money/100];
+            cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
             cell.dealStates.text = _DealState;
             return cell;

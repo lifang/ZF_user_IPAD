@@ -411,7 +411,7 @@
         return;
     }
     NSDictionary *infoDict = [dict objectForKey:@"result"];
-    NSString *amountTotal = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"amountTotal"]];
+    CGFloat amountTotal = [[infoDict objectForKey:@"amountTotal"] floatValue]/100;
     NSString *channelName = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"payChannelName"]];
     NSString *terminalNum = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"terminalNumber"]];
     NSString *tradeTotal = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"tradeTotal"]];
@@ -420,8 +420,7 @@
     
     NSString *start = [self transformDateStringWithStrting:_startTime];
     NSString *end = [self transformDateStringWithStrting:_endTime];
-    int totalPrice = [amountTotal intValue];
-    _priceLabel.text = [NSString stringWithFormat:@"￥%d",totalPrice/100];
+    _priceLabel.text = [NSString stringWithFormat:@"￥%.2f",amountTotal];
     _countLabel.text = [NSString stringWithFormat:@"交易笔数：%@",tradeTotal];
     _timeLabel.text = [NSString stringWithFormat:@"%@-%@",start,end];
     _terminalLabel.text = [NSString stringWithFormat:@"终  端  号      %@",terminalNum];

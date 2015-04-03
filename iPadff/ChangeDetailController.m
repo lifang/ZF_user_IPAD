@@ -495,8 +495,9 @@
     channelLabel.text = [NSString stringWithFormat:@"支付平台  %@",_channelName];
     merchantNameLabel.text = [NSString stringWithFormat:@"商 户  名  %@",_merchantName];
     merchantPhoneLabel.text = [NSString stringWithFormat:@"商户电话  %@",_merchantPhone];
-    addressLabel.text = [NSString stringWithFormat:@"收货地址  ￥%@",_address];
-    reasonLabel.text = [NSString stringWithFormat:@"退款银行  %@",_reason];
+    addressLabel.text = [NSString stringWithFormat:@"收货地址  %@",_address];
+    reasonLabel.text = [NSString stringWithFormat:@"换货原因  %@",_reason];
+    
 
     
     //添加按钮
@@ -572,8 +573,8 @@
     if ([infoDict objectForKey:@"receiver_addr"]) {
         _address = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"receiver_addr"]];
     }
-    if ([infoDict objectForKey:@"receiver_person"]) {
-        _reason = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"receiver_person"]];
+    if ([infoDict objectForKey:@"change_reason"]) {
+        _reason = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"change_reason"]];
     }
     id resourceObject = [infoDict objectForKey:@"resource_info"];
     if ([resourceObject isKindOfClass:[NSArray class]]) {

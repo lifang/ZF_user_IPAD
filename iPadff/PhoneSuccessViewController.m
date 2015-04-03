@@ -43,7 +43,7 @@
     UIFont *mainFont = [UIFont systemFontOfSize:20];
     label1.text = @"恭喜您的";
     label1.font = mainFont;
-    label1.frame = CGRectMake(480, 60, 80, 40);
+    label1.frame = CGRectMake(480, 120, 80, 40);
     [self.view addSubview:label1];
     UILabel *label2 = [[UILabel alloc]init];
     label2.font = mainFont;
