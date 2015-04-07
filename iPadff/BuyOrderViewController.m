@@ -994,6 +994,8 @@
         [newaddressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
         newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
         
+        //此处取消地址管理
+        /*
         UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
         addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
         [addressmangerbutton addTarget:self action:@selector(addressbuttonclick) forControlEvents:UIControlEventTouchUpInside];
@@ -1003,6 +1005,7 @@
         [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
         addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+         */
         UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(0, 59, wide, 1)];
         grayview.backgroundColor = [UIColor grayColor];
         [footerView addSubview:grayview];
