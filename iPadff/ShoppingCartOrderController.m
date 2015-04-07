@@ -1183,8 +1183,8 @@ if(section==0)
             [cell.contentView addSubview:priceLabel];
             priceLabel.textAlignment = NSTextAlignmentRight;
 
-            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
-            [cell.contentView addSubview:self.reviewField];
+//            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
+//            [cell.contentView addSubview:self.reviewField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
             return cell;
@@ -1206,6 +1206,28 @@ if(section==0)
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
            
+            CGFloat wide;
+            CGFloat height;
+            if(iOS7)
+            {
+                wide=SCREEN_HEIGHT;
+                height=SCREEN_WIDTH;
+                
+                
+            }
+            else
+            {  wide=SCREEN_WIDTH;
+                height=SCREEN_HEIGHT;
+                
+            }
+
+            UILabel* linlable  = [[UILabel alloc] initWithFrame:CGRectMake(20, 89, wide-40-60, 1)];
+            
+            
+            linlable.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
+            
+            
+            [cell.contentView addSubview:linlable];
             
 
            
