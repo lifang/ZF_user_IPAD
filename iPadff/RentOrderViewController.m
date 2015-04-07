@@ -8,13 +8,14 @@
 
 #import "RentOrderViewController.h"
 #import "PayWayViewController.h"
-#import "AddressTableViewCell.h"
+//#import "AddressTableViewCell.h"
 #import "KxMenu.h"
 #import "RegularFormat.h"
 #import "CityHandle.h"
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
 #import "RentDescriptionController.h"
+#import "POSAddressTableViewCell.h"
 @interface RentOrderViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
 
@@ -1182,11 +1183,13 @@
         
         static NSString *cellIdentifier = @"Cell";
         
-        AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
+       // AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        POSAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
         if (!cell)
         {
-            cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+           // cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+             cell = [[POSAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
         }
         AddressModel *model =[addressarry objectAtIndex:indexPath.row];
         
