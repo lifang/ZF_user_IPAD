@@ -334,6 +334,8 @@
 #pragma mark - Data
 
 - (void)parseOrderDetailDataWithDictionary:(NSDictionary *)dict {
+    
+    
     if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
         return;
     }
@@ -818,10 +820,10 @@ if(tableView==_tableViewPJ)
                     goodslable.text=@"商品";
 
                     
-                    UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-15, 0, 60, 20)];
+                    UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-35, 0, 60, 20)];
                     [rootview addSubview:phonelable];
                     //                phonelable.textAlignment = NSTextAlignmentCenter;
-                    UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-180, 0, 80, 20)];
+                    UILabel*numberlable=[[UILabel alloc]initWithFrame:CGRectMake(wide-200, 0, 80, 20)];
                     [rootview addSubview:numberlable];
                     //                numberlable.textAlignment = NSTextAlignmentCenter;
                     
@@ -909,6 +911,13 @@ if(tableView==_tableViewPJ)
                         height=SCREEN_HEIGHT;
                         
                     }
+                   UILabel* linlable  = [[UILabel alloc] initWithFrame:CGRectMake(50, 89, wide-100, 1)];
+                    
+                    
+                    linlable.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
+                    
+                    
+                    [cell.contentView addSubview:linlable];
                     
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
@@ -928,9 +937,12 @@ if(tableView==_tableViewPJ)
     
   
 }
-- (IBAction)scanTerminalNumber:(id)sender {
+- (IBAction)scanTerminalNumber:(id)sender
+{
+    NSLog(@"%@",_orderDetail.terminals);
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"终端号"
                                                     message:_orderDetail.terminals
                                                    delegate:self
                                           cancelButtonTitle:@"确定"

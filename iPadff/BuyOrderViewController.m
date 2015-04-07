@@ -1355,8 +1355,8 @@
             [cell.contentView addSubview:priceLabel];
             priceLabel.textAlignment = NSTextAlignmentRight;
             
-            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
-            [cell.contentView addSubview:self.reviewField];
+//            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
+//            [cell.contentView addSubview:self.reviewField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
