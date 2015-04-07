@@ -851,9 +851,13 @@
     
 }
 
+
+
 -(void)locationBtnPressed:(id)sender
 {
-     [self pickerDisplay];
+    // [self pickerDisplay];
+    sender=_locationTF;
+    [self pickerDisplay:sender];
     
 }
 
@@ -1054,6 +1058,14 @@
         hud.labelText = @"请输入法人身份证号";
         return;
     }
+    if (!([_person_IDTF.text length]==18)) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请输入18位身份证号";
+        return;
+    }
     if (!_licenceTF.text || [_licenceTF.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -1165,6 +1177,8 @@
 }
 
 
+
+
 #pragma mark - Data
 
 - (void)saveWithURLString:(NSString *)urlString {
@@ -1226,7 +1240,13 @@
     return YES;
 }
 
-
+-(void)viewDidLayoutSubviews
+{
+    
+    if (iOS7) {
+        _scrollView.contentSize = CGSizeMake(self.view.frame.size.height, _saveBtn.frame.size.height + _saveBtn.frame.origin.y + 100);
+    }
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -1236,6 +1256,7 @@
        
     }
 }
+
 
 
 - (void)didReceiveMemoryWarning {

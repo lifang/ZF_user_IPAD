@@ -803,27 +803,26 @@ if(section==0)
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
     footerView.backgroundColor = [UIColor whiteColor];
-    UIButton*addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
-//    [addressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:addressmangerbutton];
-//    addressmangerbutton.layer.cornerRadius = 4.f;
-    addressmangerbutton.layer.masksToBounds = YES;
-    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [addressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
-    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-    
-    UIButton*newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    newaddressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
-    [addressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    newaddressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
+//    [newaddressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:newaddressmangerbutton];
 //    newaddressmangerbutton.layer.cornerRadius = 4.f;
     newaddressmangerbutton.layer.masksToBounds = YES;
-    [newaddressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
-
     [newaddressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [newaddressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+    [newaddressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
     newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [newaddressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
+    [footerView addSubview:addressmangerbutton];
+//    addressmangerbutton.layer.cornerRadius = 4.f;
+    addressmangerbutton.layer.masksToBounds = YES;
+    [addressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+    [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(20, 59, wide-40, 1)];
     grayview.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
     [footerView addSubview:grayview];
@@ -904,7 +903,6 @@ if(section==0)
 
 -(void)newbuttonclick
 {
-
 
     [self createui];
     
@@ -1018,7 +1016,7 @@ if(section==0)
     billLabel.text = @"发票抬头";
     billLabel.userInteractionEnabled = YES;
     [billView addSubview:billLabel];
-    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 110, billHeight)];
+    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 120, billHeight)];
     self.billField .delegate = self;
     self.billField .placeholder = @"     请输入发票抬头";
     

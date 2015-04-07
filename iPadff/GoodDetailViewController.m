@@ -890,7 +890,7 @@
     NSLog(@"buy ");
     _buyButton.selected = YES;
     _rentButton.selected = NO;
-//    _shopcartButton.hidden=NO;
+   // _shopcartButton.hidden=NO;
 
     _shopcartButton.enabled = YES;
     [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
@@ -946,7 +946,7 @@
     [self ShowLoginVC];
     _buyButton.selected = NO;
     _rentButton.selected = YES;
-//    _shopcartButton.hidden=YES;
+   //_shopcartButton.hidden=YES;
     
     _shopcartButton.enabled = NO;
     [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];

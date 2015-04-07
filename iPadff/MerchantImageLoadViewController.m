@@ -164,6 +164,7 @@
 
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]&&
         buttonIndex != actionSheet.cancelButtonIndex) {
+ 
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.delegate = self;
         imagePickerController.allowsEditing = YES;
@@ -179,7 +180,7 @@
    
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
-                [self.popViewController presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                [self.popViewController presentPopoverFromRect:CGRectMake(self.view.frame.size.width/2.0,0, 0, 42) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 
             }];
             
@@ -187,14 +188,19 @@
         else
         {
           
-          [self.popViewController presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+          [self.popViewController presentPopoverFromRect:CGRectMake(self.view.frame.size.width/2.0, 0, 0, 42) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
          // [self presentViewController:imagePickerController animated:nil completion:nil];
-            NSLog(@"GOGO");
+           
         }
-    
     }
-
+  
 }
+
+
+
+
+
+
 
 
 #pragma mark - UIImagePickerDelegate
@@ -210,7 +216,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
 
-      //[picker dismissViewControllerAnimated:YES completion:nil];
+    //[picker dismissViewControllerAnimated:YES completion:nil];
     [self.popViewController dismissPopoverAnimated:NO];
 }
 
@@ -257,47 +263,44 @@
 
 #pragma mark - UIPickerView
 
-- (void)pickerDisplay {
-    
+
+- (void)pickerDisplay:(id)sender {
+ 
     NSLog(@"pickerDiplay");
-    
+ 
     UIViewController *sortViewController = [[UIViewController alloc] init];
     UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
-    
+ 
     _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(pickerHide)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerHide)];
     UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(modifyLocation:)];
+    style:UIBarButtonItemStyleDone
+    target:self
+    action:@selector(modifyLocation:)];
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:nil
-                                                                               action:nil];
+    target:nil action:nil];
     [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
     [theView addSubview:_toolbar];
-    
+ 
     _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 60, 320, 216)];
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
     _pickerView.showsSelectionIndicator = YES;
     [theView addSubview:_pickerView];
-    
+ 
     sortViewController.view = theView;
-    
+ 
     _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
-    [_popViewController setPopoverContentSize:CGSizeMake(320, 216) animated:YES];
-    [_popViewController presentPopoverFromRect:CGRectMake(100, 40, 320, 276) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+   [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+   [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     _popViewController.delegate = self;
-    
-    
-}
+ 
+ 
+ }
+
 
 - (void)pickerHide
 {
-    
     [_popViewController dismissPopoverAnimated:NO];
     
 }

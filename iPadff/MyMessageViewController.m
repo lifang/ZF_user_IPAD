@@ -24,6 +24,7 @@
 //重构
 - (id)init
 {
+   
     MyMessageViewController * myMessage =[super init];
     [[NSNotificationCenter defaultCenter] addObserver:myMessage selector:@selector(addressqqq) name:@"addressmanger" object:nil];
     return myMessage;
@@ -110,5 +111,7 @@
             break;
     }
 }
+
+
 
 @end
