@@ -838,7 +838,9 @@
 
 -(void)locationBtnPressed:(id)sender
 {
-    [self pickerDisplay];
+    sender = _locationTF;
+    [self pickerDisplay:sender];
+    //[self pickerDisplay];
     NSLog(@"11111222222");
 }
 
@@ -1280,6 +1282,14 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+-(void)viewDidLayoutSubviews
+{
+    NSLog(@"layout");
+    if (iOS7) {
+        _scrollView.contentSize = CGSizeMake(self.view.frame.size.height, _saveBtn.frame.size.height + _saveBtn.frame.origin.y + 100);
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -79,7 +79,32 @@
     spaceItem.width = 52;
     UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem, shoppingItem,nil];
+    
+    
+    
+    
+    UIImage *image=[UIImage imageNamed:@"back_btn_white"];
+    
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btn.frame=CGRectMake(0, 0, 25, 40);
+    
+    [btn setImage :image forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(popself) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
     [self downloadGoodDetail];
+}
+-(void)popself
+
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+    
 }
 - (IBAction)goShoppingCart:(id)sender {
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -865,7 +890,7 @@
     NSLog(@"buy ");
     _buyButton.selected = YES;
     _rentButton.selected = NO;
-//    _shopcartButton.hidden=NO;
+   // _shopcartButton.hidden=NO;
 
     _shopcartButton.enabled = YES;
     [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
@@ -921,7 +946,7 @@
     [self ShowLoginVC];
     _buyButton.selected = NO;
     _rentButton.selected = YES;
-//    _shopcartButton.hidden=YES;
+   //_shopcartButton.hidden=YES;
     
     _shopcartButton.enabled = NO;
     [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];

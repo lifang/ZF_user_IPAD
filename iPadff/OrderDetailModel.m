@@ -15,8 +15,8 @@
         if ([dict objectForKey:@"order_status"]) {
             _orderStatus = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_status"]];
         }
-        if ([dict objectForKey:@"order_totalPrice"]) {
-            _orderTotalPrice = [[dict objectForKey:@"order_totalPrice"] floatValue] / 100;
+        if ([dict objectForKey:@"order_totalprice"]) {
+            _orderTotalPrice = [[dict objectForKey:@"order_totalprice"] floatValue] / 100;
         }
         if ([dict objectForKey:@"order_psf"]) {
             _orderDeliveryFee = [[dict objectForKey:@"order_psf"] floatValue] / 100;
@@ -27,7 +27,10 @@
         if ([dict objectForKey:@"order_receiver_phone"]) {
             _orderReceiverPhone = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_receiver_phone"]];
         }
-        if ([dict objectForKey:@"terminals"]) {
+        
+        if ([dict objectForKey:@"terminals"])
+        
+        {
             _terminals = [NSString stringWithFormat:@"%@",[dict objectForKey:@"terminals"]];
         }
         if ([dict objectForKey:@"order_address"]) {

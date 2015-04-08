@@ -31,8 +31,9 @@
             make.centerY.equalTo(_backView.centerY);
             make.left.equalTo(_backView.left).offset(120);
             //make.right.equalTo(_backView.right).offset(-5);
-            make.width.equalTo(@120);
+            //make.width.equalTo(@120);
            // make.height.equalTo(@50);
+            make.right.equalTo(self.centerX);
         }];
 
     

@@ -8,13 +8,14 @@
 
 #import "RentOrderViewController.h"
 #import "PayWayViewController.h"
-#import "AddressTableViewCell.h"
+//#import "AddressTableViewCell.h"
 #import "KxMenu.h"
 #import "RegularFormat.h"
 #import "CityHandle.h"
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
 #import "RentDescriptionController.h"
+#import "POSAddressTableViewCell.h"
 @interface RentOrderViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
 
@@ -53,6 +54,33 @@
     // Do any additional setup after loading the view.
     _count = 1;
     [self initSubView];
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+    UIImage *image=[UIImage imageNamed:@"back_btn_white"];
+    
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btn.frame=CGRectMake(0, 0, 25, 40);
+    
+    [btn setImage :image forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(popself) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
+    
+    // Do any additional setup after loading the view.
+}
+-(void)popself
+
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
     
 }
 
@@ -173,7 +201,7 @@
     }
     NSLog(@"%@-%@-%@-%d-%@-%@",delegate.userID,_goodDetail.goodID,_goodDetail.defaultChannel.channelID,_count,addressID,self.reviewField.text);
 
-    [NetworkInterface createOrderFromGoodRentWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:@"" needInvoice:0 invoiceType:0 invoiceInfo:nil finished:^(BOOL success, NSData *response) {
+    [NetworkInterface createOrderFromGoodRentWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:self.reviewField.text needInvoice:0 invoiceType:0 invoiceInfo:nil finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -887,25 +915,27 @@
         
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
         footerView.backgroundColor = [UIColor whiteColor];
-        UIButton*addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        addressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
-        //    [addressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
-        [footerView addSubview:addressmangerbutton];
-        //    addressmangerbutton.layer.cornerRadius = 4.f;
-        addressmangerbutton.layer.masksToBounds = YES;
-        [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-        [addressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
-        addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-        
-        UIButton*newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        newaddressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
-        [addressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        newaddressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
+        [newaddressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:newaddressmangerbutton];
-        //    newaddressmangerbutton.layer.cornerRadius = 4.f;
+        //newaddressmangerbutton.layer.cornerRadius = 4.f;
         newaddressmangerbutton.layer.masksToBounds = YES;
         [newaddressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-        [newaddressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+        [newaddressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
         newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        //此处取消地址管理
+        /*
+        UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
+        [addressmangerbutton addTarget:self action:@selector(addressbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+        [footerView addSubview:addressmangerbutton];
+        //addressmangerbutton.layer.cornerRadius = 4.f;
+        addressmangerbutton.layer.masksToBounds = YES;
+        [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+        [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+        addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+         */
         UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(0, 59, wide, 1)];
         grayview.backgroundColor = [UIColor grayColor];
         [footerView addSubview:grayview];
@@ -917,10 +947,27 @@
     }else
     {
         
-        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 140.f)];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 200.f)];
         footerView.backgroundColor = [UIColor whiteColor];
+        
+        
+        UILabel *liuyanlable = [[UILabel alloc] initWithFrame:CGRectMake(20, 10,40, 30)];
+        liuyanlable.font = [UIFont systemFontOfSize:16.f];
+        liuyanlable.text=@"留言";
+        [footerView addSubview:liuyanlable];
+        
+        
+        self.reviewField  = [[UITextField alloc] initWithFrame:CGRectMake(60, 5,wide-160, 40)];
+        self.reviewField .borderStyle = UITextBorderStyleLine;
+        self.reviewField .delegate = self;
+        self.reviewField .placeholder = @"留言";
+        self.reviewField .font = [UIFont systemFontOfSize:14.f];
+
+        [footerView addSubview:self.reviewField ];
+
+
         self.billBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.billBtn.frame = CGRectMake(20, 10, 28, 28);
+        self.billBtn.frame = CGRectMake(20, 70, 28, 28);
         
         
         if ( isneedpp) {
@@ -933,7 +980,7 @@
         [self.billBtn addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:self.billBtn];
         
-        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, wide - 40, 20)];
+        UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 75, wide - 40, 20)];
         billLabel.backgroundColor = [UIColor clearColor];
         billLabel.font = [UIFont systemFontOfSize:16.f];
         NSString *rentInfo = @"我同意《租赁协议》";
@@ -960,6 +1007,13 @@
     
     
 }
+
+-(void)addressbuttonclick
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
+
+}
+
 -(void)newbuttonclick
 {
     
@@ -1129,11 +1183,13 @@
         
         static NSString *cellIdentifier = @"Cell";
         
-        AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
+       // AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        POSAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
         if (!cell)
         {
-            cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+           // cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+             cell = [[POSAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
         }
         AddressModel *model =[addressarry objectAtIndex:indexPath.row];
         
@@ -1256,8 +1312,8 @@
             [cell.contentView addSubview:priceLabel];
             priceLabel.textAlignment = NSTextAlignmentRight;
             
-            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
-            [cell.contentView addSubview:self.reviewField];
+//            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
+//            [cell.contentView addSubview:self.reviewField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             return cell;
@@ -1326,7 +1382,7 @@
         
     }else
     {
-        return 140;
+        return 200;
         
         
     }}

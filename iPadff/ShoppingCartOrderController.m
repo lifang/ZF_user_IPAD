@@ -803,27 +803,26 @@ if(section==0)
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 60)];
     footerView.backgroundColor = [UIColor whiteColor];
-    UIButton*addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
-//    [addressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:addressmangerbutton];
-//    addressmangerbutton.layer.cornerRadius = 4.f;
-    addressmangerbutton.layer.masksToBounds = YES;
-    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [addressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
-    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-    
-    UIButton*newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    newaddressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
-    [addressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *newaddressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    newaddressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
+//    [newaddressmangerbutton addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:newaddressmangerbutton];
 //    newaddressmangerbutton.layer.cornerRadius = 4.f;
     newaddressmangerbutton.layer.masksToBounds = YES;
-    [newaddressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
-
     [newaddressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [newaddressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+    [newaddressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
     newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+    [newaddressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
+    [footerView addSubview:addressmangerbutton];
+//    addressmangerbutton.layer.cornerRadius = 4.f;
+    addressmangerbutton.layer.masksToBounds = YES;
+    [addressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+    [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(20, 59, wide-40, 1)];
     grayview.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
     [footerView addSubview:grayview];
@@ -835,10 +834,34 @@ if(section==0)
 }else
 {
 
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 140.f)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 200.f)];
     footerView.backgroundColor = [UIColor whiteColor];
+    
+    
+    UILabel *liuyanlable = [[UILabel alloc] initWithFrame:CGRectMake(20, 10,40, 30)];
+    liuyanlable.font = [UIFont systemFontOfSize:16.f];
+    liuyanlable.text=@"留言";
+    [footerView addSubview:liuyanlable];
+    
+    
+    self.reviewField  = [[UITextField alloc] initWithFrame:CGRectMake(60, 5,wide-80, 40)];
+    self.reviewField .borderStyle = UITextBorderStyleLine;
+    self.reviewField .delegate = self;
+    self.reviewField .placeholder = @"留言";
+    self.reviewField .font = [UIFont systemFontOfSize:14.f];
+    
+    [footerView addSubview:self.reviewField ];
+    
+
+    
+    
+    
+    
+    
+    
+    
     self.billBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.billBtn.frame = CGRectMake(20, 10, 28, 28);
+    self.billBtn.frame = CGRectMake(20, 60, 28, 28);
 
     
     if ( isneedpp) {
@@ -851,7 +874,7 @@ if(section==0)
     [self.billBtn addTarget:self action:@selector(needBill:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:self.billBtn];
     
-    UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 15, wide - 40, 20)];
+    UILabel *billLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 65, wide - 40, 20)];
     billLabel.backgroundColor = [UIColor clearColor];
     billLabel.font = [UIFont systemFontOfSize:16.f];
     billLabel.text = @"我要发票";
@@ -880,7 +903,6 @@ if(section==0)
 
 -(void)newbuttonclick
 {
-
 
     [self createui];
     
@@ -959,7 +981,7 @@ if(section==0)
     }
 
     CGFloat billHeight = 44.f;
-    UIView *billView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, wide, billHeight)];
+    UIView *billView = [[UIView alloc] initWithFrame:CGRectMake(0, 90, wide, billHeight)];
     billView.backgroundColor = [UIColor whiteColor];
 //    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.5)];
 //    firstLine.backgroundColor = kColor(135, 135, 135, 1);
@@ -1159,8 +1181,8 @@ if(section==0)
             [cell.contentView addSubview:priceLabel];
             priceLabel.textAlignment = NSTextAlignmentRight;
 
-            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
-            [cell.contentView addSubview:self.reviewField];
+//            self.reviewField.frame = CGRectMake(10, 40, wide - 20, 32);
+//            [cell.contentView addSubview:self.reviewField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
             return cell;
@@ -1182,6 +1204,28 @@ if(section==0)
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
            
+            CGFloat wide;
+            CGFloat height;
+            if(iOS7)
+            {
+                wide=SCREEN_HEIGHT;
+                height=SCREEN_WIDTH;
+                
+                
+            }
+            else
+            {  wide=SCREEN_WIDTH;
+                height=SCREEN_HEIGHT;
+                
+            }
+
+            UILabel* linlable  = [[UILabel alloc] initWithFrame:CGRectMake(20, 89, wide-40-60, 1)];
+            
+            
+            linlable.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
+            
+            
+            [cell.contentView addSubview:linlable];
             
 
            
@@ -1214,7 +1258,7 @@ if(section==0)
         
     }else
     {
-        return 140;
+        return 200;
         
         
     }}

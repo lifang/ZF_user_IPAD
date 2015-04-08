@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1694001AD3B8C900B50A17 /* POSAddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1693FF1AD3B8C900B50A17 /* POSAddressTableViewCell.m */; };
 		0D38871F1AB96F8E000DF1D6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0D3887051AB96F8E000DF1D6 /* LICENSE */; };
 		0D3887201AB96F8E000DF1D6 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3887081AB96F8E000DF1D6 /* MASCompositeConstraint.m */; };
 		0D3887211AB96F8E000DF1D6 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D38870B1AB96F8E000DF1D6 /* MASConstraint.m */; };
@@ -306,6 +307,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D1693FE1AD3B8C900B50A17 /* POSAddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSAddressTableViewCell.h; sourceTree = "<group>"; };
+		0D1693FF1AD3B8C900B50A17 /* POSAddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POSAddressTableViewCell.m; sourceTree = "<group>"; };
 		0D3887051AB96F8E000DF1D6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		0D3887071AB96F8E000DF1D6 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		0D3887081AB96F8E000DF1D6 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -1101,6 +1104,8 @@
 				0EC860541ACC053700F6F7D5 /* RentDescriptionController.m */,
 				0E5FAEA41AC5463A00BEBE5F /* ChannelWebsiteController.h */,
 				0E5FAEA51AC5463A00BEBE5F /* ChannelWebsiteController.m */,
+				0D1693FE1AD3B8C900B50A17 /* POSAddressTableViewCell.h */,
+				0D1693FF1AD3B8C900B50A17 /* POSAddressTableViewCell.m */,
 			);
 			name = POS;
 			sourceTree = "<group>";
@@ -1956,6 +1961,7 @@
 				0E5FAE9E1AC4F83B00BEBE5F /* BankModel.m in Sources */,
 				1AA8FF751AA4074D009D41B3 /* SDWebImagePrefetcher.m in Sources */,
 				1A627DA71ABA5DD60024A644 /* FindPasswordSuccessController.m in Sources */,
+				0D1694001AD3B8C900B50A17 /* POSAddressTableViewCell.m in Sources */,
 				1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */,
 				0ED6042E1ACCE125009A0220 /* BankSelectedController.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
@@ -2245,8 +2251,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -2261,8 +2268,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/iPadff/iPadff.pch";
 				INFOPLIST_FILE = iPadff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

@@ -42,7 +42,9 @@ static NSString *key_bankImage = @"key_bankImage";
 - (void)modifyLocation:(id)sender;
 
 - (void)pickerHide;
-- (void)pickerDisplay;
+//- (void)pickerDisplay;
+- (void)pickerDisplay:(UIButton *)button;
+
 
 
 @end
