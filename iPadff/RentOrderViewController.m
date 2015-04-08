@@ -8,13 +8,14 @@
 
 #import "RentOrderViewController.h"
 #import "PayWayViewController.h"
-#import "AddressTableViewCell.h"
+//#import "AddressTableViewCell.h"
 #import "KxMenu.h"
 #import "RegularFormat.h"
 #import "CityHandle.h"
 #import "NetworkInterface.h"
 #import "AppDelegate.h"
 #import "RentDescriptionController.h"
+#import "POSAddressTableViewCell.h"
 @interface RentOrderViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
 
@@ -918,12 +919,13 @@
         newaddressmangerbutton.frame = CGRectMake(wide-140, 10, 100, 40);
         [newaddressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
         [footerView addSubview:newaddressmangerbutton];
-        //    newaddressmangerbutton.layer.cornerRadius = 4.f;
+        //newaddressmangerbutton.layer.cornerRadius = 4.f;
         newaddressmangerbutton.layer.masksToBounds = YES;
         [newaddressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         [newaddressmangerbutton setTitle:@"新增地址" forState:UIControlStateNormal];
         newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-        
+        //此处取消地址管理
+        /*
         UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
         addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
         [addressmangerbutton addTarget:self action:@selector(addressbuttonclick) forControlEvents:UIControlEventTouchUpInside];
@@ -933,6 +935,7 @@
         [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
         addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+         */
         UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(0, 59, wide, 1)];
         grayview.backgroundColor = [UIColor grayColor];
         [footerView addSubview:grayview];
@@ -1180,11 +1183,13 @@
         
         static NSString *cellIdentifier = @"Cell";
         
-        AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
+       // AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        POSAddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
         if (!cell)
         {
-            cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+           // cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+             cell = [[POSAddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
         }
         AddressModel *model =[addressarry objectAtIndex:indexPath.row];
         
