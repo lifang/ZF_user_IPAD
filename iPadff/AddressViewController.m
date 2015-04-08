@@ -13,7 +13,7 @@
 #import "CityHandle.h"
 #import "RegularFormat.h"
 
-@interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,AddressCellDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate>
+@interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,AddressCellDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate,UIAlertViewDelegate>
 
 @property(nonatomic,strong)UITableView *addressTableView;
 
@@ -382,7 +382,7 @@
     if (_isChange) {
         UIButton *deleteBtn = [[UIButton alloc]init];
         deleteBtn.frame = CGRectMake( 360, 350, 120, 40);
-        [deleteBtn addTarget:self action:@selector(deleteAddresses) forControlEvents:UIControlEventTouchUpInside];
+        [deleteBtn addTarget:self action:@selector(deleteAddressesS) forControlEvents:UIControlEventTouchUpInside];
         deleteBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [deleteBtn setBackgroundColor:[UIColor clearColor]];
         [deleteBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
@@ -403,6 +403,19 @@
     _particularLocationField=(UITextField*)[self.view viewWithTag:1060];
     
     [self initPickerView];
+}
+
+-(void)deleteAddressesS
+{
+    UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"" message:@"您确定要删除此地址吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    [alertV show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self deleteAddresses];
+    }
 }
 
 -(void)cancelclick
@@ -638,7 +651,7 @@
     if (_isChange) {
         [self changeRequest];
     }else{
-    [self saveAddressRequest];
+        [self saveAddressRequest];
     }
 
 }
@@ -652,7 +665,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface modifyAddressWithToken:delegate.token addressID:_selectedID cityID:_cityID receiverName:_nameField.text phoneNumber:_telField.text zipCode:_postcodeField.text address:_particularLocationField.text isDefault:isDefault finished:^(BOOL success, NSData *response) {
+    [NetworkInterface modifyAddressWithToken:delegate.token addressID:_selectedID cityID:_selectedCityID receiverName:_nameField.text phoneNumber:_telField.text zipCode:_postcodeField.text address:_particularLocationField.text isDefault:isDefault finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
