@@ -19,9 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"选择支付方式";
     self.view.backgroundColor=[UIColor whiteColor];
-    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    self.title = @"选择支付方式";
     NSLog(@"!!!!!!!!!!%@~~~~~~~~~~~~~%f",_orderID,_totalPrice);
     
    [self setHeaderAndFooterView];
@@ -81,7 +82,7 @@
     priceLabel.textColor = [UIColor whiteColor];
     priceLabel.font = [UIFont boldSystemFontOfSize:48.f];
     priceLabel.adjustsFontSizeToFitWidth = YES;
-    priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_totalPrice];
+    priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_totalPrice/100];
     [blackView addSubview:priceLabel];
     
     UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, hearderHeight +40, wide - leftSpace - rightSpace, 20.f)];
