@@ -204,7 +204,7 @@
     hud.labelText = @"加载中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     [NetworkInterface getAddressListWithToken:delegate.token usedID:delegate.userID finished:^(BOOL success, NSData *response) {
-       // NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
@@ -408,18 +408,23 @@
 -(void)deleteAddressesS
 {
     UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"" message:@"您确定要删除此地址吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    alertV.tag = 11122;
     [alertV show];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        [self deleteAddresses];
+    if (alertView.tag == 11122) {
+        if (buttonIndex == 0) {
+            _isChange = NO;
+            [self deleteAddresses];
+        }
     }
 }
 
 -(void)cancelclick
 {
+    _isChange = NO;
     _nameField.text = nil;
     _telField.text = nil;
     _postcodeField.text = nil;
@@ -588,7 +593,7 @@
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写收件人姓名";
+        hud.labelText = @"收件人姓名过长";
         return;
     }
     if (!_telField.text || [_telField.text isEqualToString:@""]) {
@@ -680,6 +685,7 @@
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
                     hud.labelText = @"地址修改成功";
+                    _isChange = NO;
                     [_bigsview removeFromSuperview];
                     [self getAddressList];
                 }
@@ -727,6 +733,7 @@
                                                           cancelButtonTitle:@"确定"
                                                           otherButtonTitles:nil];
                     [alert show];
+                    _isChange = NO;
                     [_bigsview removeFromSuperview];
                     [self getAddressList];
                 }

@@ -912,6 +912,7 @@ else
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
+                    [_terminalItems removeAllObjects];
                     [self parseTerminalDataWithDictionary:object];
                 }
             }
