@@ -203,7 +203,7 @@
         
     }
 
-    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 1)];
+    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide+64, 1)];
     firstLine.backgroundColor = kColor(135, 135, 135, 1);
     [_detailFooterView addSubview:firstLine];
     CGFloat space = 10.f;
