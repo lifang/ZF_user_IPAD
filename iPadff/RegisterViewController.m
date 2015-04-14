@@ -554,22 +554,20 @@
 #pragma mark - UITextField
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == _phoneField) {
     if ([string isEqualToString:@""]) {
         //删除
-        if ([textField.text length] > 0 && [@"@" rangeOfString:[textField.text substringToIndex:[textField.text length] - 1]].length!=0) {
+        if ([textField.text length] > 0 && [[textField.text substringToIndex:[textField.text length] - 1] rangeOfString:@"@"].length != 0) {
             self.isMobile = NO;
         }
         else {
             self.isMobile = YES;
         }
     }
-    else if ([@"@" rangeOfString:textField.text].length != 0 || [@"@" rangeOfString:string].length != 0) {
+    else if ([textField.text rangeOfString:@"@"].length != 0 || [string rangeOfString:@"@"].length != 0) {
         self.isMobile = NO;
     }
     else {
         self.isMobile = YES;
-    }
     }
     return YES;
 }

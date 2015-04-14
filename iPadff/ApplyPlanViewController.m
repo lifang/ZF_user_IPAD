@@ -12,7 +12,7 @@
 #import "NetworkInterface.h"
 #import "RegularFormat.h"
 
-@interface ApplyPlanViewController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface ApplyPlanViewController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong)UITextField *phoneField;
 
@@ -165,7 +165,19 @@
                                                          multiplier:1.0
                                                            constant:40.f]];
     
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.delegate = self;
+    [self.view addGestureRecognizer:tapRecognizer];
+    
 }
+
+-(void)tapClicked
+{
+    [_phoneField resignFirstResponder];
+}
+
 
 -(void)initTableView
 {

@@ -792,7 +792,6 @@
 
 {
     _imageRect = [[send superview] convertRect:send.frame toView:self.view];
-
     
     _selectedKey =[NSString stringWithFormat:@"%d", send.tag];
     
@@ -1333,8 +1332,6 @@
         {
             
             [self.popViewController presentPopoverFromRect:CGRectMake(100, 100, 200, 300) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            // [self presentViewController:imagePickerController animated:nil completion:nil];
-            NSLog(@"GOGO");
         }
         
     }
