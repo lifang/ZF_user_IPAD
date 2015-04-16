@@ -368,6 +368,7 @@
     }
     if (btnTag == 3000) {
         NSLog(@"点击了找回POS密码（部分开通）");
+        [self initFindPosViewWithSelectedID:selectedID WithIndexNum:indexNum];
     }
     if (btnTag == 3001) {
         NSLog(@"点击了视频认证(部分开通)");

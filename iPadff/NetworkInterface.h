@@ -418,6 +418,8 @@ static NSString *s_intention_method = @"paychannel/intention/add";
 
 //修改邮箱验证码
 static NSString *s_changeEmail_method = @"index/updateEmail";
+//热卖
+
 static NSString *s_hot_method = @"index/pos_list";
 
 @interface NetworkInterface : NSObject
@@ -1001,6 +1003,7 @@ static NSString *s_hot_method = @"index/pos_list";
 + (void)getAddressListWithToken:(NSString *)token
                          usedID:(NSString *)userID
                        finished:(requestDidFinished)finish;
+
 
 /*!
  @abstract 46.新增地址

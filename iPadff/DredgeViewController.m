@@ -36,6 +36,8 @@
 //终端信息数据
 @property (nonatomic, strong) NSMutableArray *applyList;
 
+@property(nonatomic,assign)BOOL *isPush;
+
 
 @end
 
@@ -70,7 +72,11 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self ShowLoginVC];
+    if (!_isPush) {
+        
+    }else{
+       [self ShowLoginVC];
+    }
 }
 
 - (void)viewDidLoad {
@@ -433,6 +439,7 @@
 
 -(void)applicationClick:(UIButton *)button
 {
+    self.isPush = NO;
     TerminalManagerModel *model = [_applyList objectAtIndex:button.tag];
 
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];

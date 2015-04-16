@@ -456,7 +456,7 @@
     if ([self.records count] > 0) {
         UILabel *tipLabel = [[UILabel alloc] init];
         [self setLabel:tipLabel withTopView:reasonLabel middleSpace:resourceHeight + lineSpace];
-        tipLabel.font = [UIFont systemFontOfSize:10.f];
+        tipLabel.font = [UIFont systemFontOfSize:15.f];
         tipLabel.text = @"追踪记录：";
         RecordView *recordView = [[RecordView alloc] initWithRecords:self.records
                                                                width:(kScreenWidth - leftSpace * 2)];

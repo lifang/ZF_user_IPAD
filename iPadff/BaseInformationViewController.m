@@ -17,7 +17,7 @@
 #import "AccountTool.h"
 #import "RegularFormat.h"
 
-@interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate,UIAlertViewDelegate>
+@interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate>
 
 @property(nonatomic,strong)UIButton *exitBtn;
 
@@ -87,6 +87,7 @@
     NSLog(@"当前是~~~~~~~~~~~~%d",self.Index);
     self.view.backgroundColor = kColor(251, 251, 251, 1.0);
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self initAndLayoutUI];
     [self initPickerView];
 }
 //选择城市
@@ -163,41 +164,36 @@
 //修改所在地
 - (void)modifyLocationWithCityID:(NSString *)cityID
                         cityName:(NSString *)cityName {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"提交中...";
-    AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:nil email:nil cityID:cityID finished:^(BOOL success, NSData *response) {
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:0.5f];
-        if (success) {
-            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-            if ([object isKindOfClass:[NSDictionary class]]) {
-                NSString *errorCode = [object objectForKey:@"code"];
-                if ([errorCode intValue] == RequestFail) {
-                    //返回错误代码
-                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
-                }
-                else if ([errorCode intValue] == RequestSuccess) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                                    message:@"用户信息修改成功"
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"确定"
-                                                          otherButtonTitles:nil];
-                    [alert show];
-                    _userInfo.cityID = cityID;
-                    _locatonField.text = [CityHandle getCityNameWithCityID:cityID];
-                }
-            }
-            else {
-                //返回错误数据
-                hud.labelText = kServiceReturnWrong;
-            }
-        }
-        else {
-            hud.labelText = kNetworkFailed;
-        }
-    }];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    hud.labelText = @"提交中...";
+//    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+//    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:nil email:nil cityID:cityID finished:^(BOOL success, NSData *response) {
+//        hud.customView = [[UIImageView alloc] init];
+//        hud.mode = MBProgressHUDModeCustomView;
+//        [hud hide:YES afterDelay:0.5f];
+//        if (success) {
+//            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+//            if ([object isKindOfClass:[NSDictionary class]]) {
+//                NSString *errorCode = [object objectForKey:@"code"];
+//                if ([errorCode intValue] == RequestFail) {
+//                    //返回错误代码
+//                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+//                }
+//                else if ([errorCode intValue] == RequestSuccess) {
+//                    
+//                }
+//            }
+//            else {
+//                //返回错误数据
+//                hud.labelText = kServiceReturnWrong;
+//            }
+//        }
+//        else {
+//            hud.labelText = kNetworkFailed;
+//        }
+//    }];
+    _userInfo.cityID = cityID;
+    _locatonField.text = [CityHandle getCityNameWithCityID:cityID];
 }
 
 
@@ -207,7 +203,6 @@
     }
     NSDictionary *infoDict = [dict objectForKey:@"result"];
     _userInfo = [[UserModel alloc] initWithParseDictionary:infoDict];
-    [self initAndLayoutUI];
     self.IntegralNum = _userInfo.userScore;
     _nameField.text = _userInfo.userName;
     _phoneField.text = _userInfo.phoneNumber;
@@ -376,7 +371,7 @@
                                                            constant:btnHeight]];
     
     _phoneField = [[UITextField alloc]init];
-    _phoneField.userInteractionEnabled = YES;
+    _phoneField.userInteractionEnabled = NO;
     _phoneField.translatesAutoresizingMaskIntoConstraints = NO;
     _phoneField.textColor = kColor(111, 111, 111, 1.0);
     _phoneField.borderStyle = UITextBorderStyleNone;
@@ -773,6 +768,17 @@
                                                          multiplier:1.0
                                                            constant:btnHeight]];
     
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.numberOfTapsRequired = 1;
+    tapRecognizer.delegate = self;
+    [self.view addGestureRecognizer:tapRecognizer];
+    
+}
+
+-(void)tapClicked
+{
+    [_nameField resignFirstResponder];
 }
 
 - (void)setLabel:(UILabel *)label
@@ -1011,7 +1017,7 @@
 #pragma mark - UIPickerView
 
 - (void)pickerScrollIn {
-    self.exitBtn.hidden = YES;
+    _exitBtn.hidden = YES;
     CGFloat wide;
     CGFloat height;
     if(iOS7)

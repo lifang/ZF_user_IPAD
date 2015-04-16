@@ -52,8 +52,10 @@
 		0EBBC5961AB1665100E0ED16 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5951AB1665100E0ED16 /* OrderModel.m */; };
 		0EBBC5991AB1666C00E0ED16 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5981AB1666C00E0ED16 /* OrderDetailModel.m */; };
 		0EC589CE1AB3DAFA00B690F5 /* GoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC589CD1AB3DAFA00B690F5 /* GoodDetailViewController.m */; };
+		0EC67F061AD60B42005BAB26 /* chose_Btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC67F051AD60B42005BAB26 /* chose_Btn.png */; };
 		0EC688C51AB1237800F4058B /* backimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC688C41AB1237800F4058B /* backimage.png */; };
 		0EC688C71AB1238E00F4058B /* xx.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC688C61AB1238E00F4058B /* xx.png */; };
+		0EC696E91ADB8732009D544E /* searchbackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC696E81ADB8732009D544E /* searchbackground@2x.png */; };
 		0EC7B9E01AC3935000080E2A /* NetworkInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DB1AC3935000080E2A /* NetworkInterface.m */; };
 		0EC7B9E11AC3935000080E2A /* NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DD1AC3935000080E2A /* NetworkRequest.m */; };
 		0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7B9DF1AC3935000080E2A /* EncryptHelper.m */; };
@@ -390,8 +392,10 @@
 		0EBBC5981AB1666C00E0ED16 /* OrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
 		0EC589CC1AB3DAFA00B690F5 /* GoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetailViewController.h; sourceTree = "<group>"; };
 		0EC589CD1AB3DAFA00B690F5 /* GoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodDetailViewController.m; sourceTree = "<group>"; };
+		0EC67F051AD60B42005BAB26 /* chose_Btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chose_Btn.png; sourceTree = "<group>"; };
 		0EC688C41AB1237800F4058B /* backimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backimage.png; sourceTree = "<group>"; };
 		0EC688C61AB1238E00F4058B /* xx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xx.png; sourceTree = "<group>"; };
+		0EC696E81ADB8732009D544E /* searchbackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchbackground@2x.png"; sourceTree = "<group>"; };
 		0EC7B9DA1AC3935000080E2A /* NetworkInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkInterface.h; sourceTree = "<group>"; };
 		0EC7B9DB1AC3935000080E2A /* NetworkInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkInterface.m; sourceTree = "<group>"; };
 		0EC7B9DC1AC3935000080E2A /* NetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRequest.h; sourceTree = "<group>"; };
@@ -1335,6 +1339,8 @@
 		0ED6ACF81AA16ECB00D3B025 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0EC696E81ADB8732009D544E /* searchbackground@2x.png */,
+				0EC67F051AD60B42005BAB26 /* chose_Btn.png */,
 				0ED6042F1ACCEBF9009A0220 /* search@2x.png */,
 				0E5FAEA21AC5416900BEBE5F /* info@2x.png */,
 				0E5FAE971AC4F26A00BEBE5F /* upload@2x.png */,
@@ -1864,6 +1870,7 @@
 				0ED6AD2E1AA19BC800D3B025 /* home3.png in Resources */,
 				0EC91B361ABA624800947B4F /* star_light@2x.png in Resources */,
 				0EC905EE1AA947060053B694 /* select_height.png in Resources */,
+				0EC696E91ADB8732009D544E /* searchbackground@2x.png in Resources */,
 				0D3887311AB96F98000DF1D6 /* LICENCE in Resources */,
 				0EC905F01AA9470C0053B694 /* select_normal.png in Resources */,
 				0ED8EBEF1AA6E2BC00CE9F61 /* 9kind_height.png in Resources */,
@@ -1873,6 +1880,7 @@
 				0ED6AD2D1AA19BC800D3B025 /* home2.png in Resources */,
 				0ED6AD0B1AA18E7400D3B025 /* set.png in Resources */,
 				0DF80EEB1AC009A000B1053E /* hasimage.png in Resources */,
+				0EC67F061AD60B42005BAB26 /* chose_Btn.png in Resources */,
 				0EC91B3F1ABA905700947B4F /* pagH.png in Resources */,
 				0ED6AD311AA19BC800D3B025 /* home6.png in Resources */,
 				0ECE7DE01AA5793F00E250B6 /* btn_selected@2x.png in Resources */,
