@@ -542,6 +542,9 @@
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
                     NSDictionary *dict = [object objectForKey:@"result"];
+                    if (!dict || ![dict isKindOfClass:[NSDictionary class]]) {
+                        return;
+                    }
                     _totalScore = [NSString stringWithFormat:@"%@",[dict objectForKey:@"quantityTotal"]];
                     float money = [[dict objectForKey:@"dh_total"]floatValue];
                     NSString *totalM = [NSString stringWithFormat:@"%.2f",money];

@@ -419,6 +419,7 @@ if(iOS7)
 	
     //把视图放到TabBar下面
 	[self.view sendSubviewToBack:currentViewController.view];
+    [self initBackView];
 	
 }
 -(void)tabBarButtonClicked:(id)sender
@@ -585,7 +586,7 @@ if(iOS7)
 #pragma mark - setting Clicked
 -(void)setclick
 {
-    [self initBackView];
+    _backView.hidden = NO;
 }
 
 -(void)initBackView
@@ -682,12 +683,13 @@ if(iOS7)
     memoryLabel.text = @"200M";
     memoryLabel.frame = CGRectMake(CGRectGetMaxX(getNews.frame) + 50, CGRectGetMaxY(line3.frame) + 15, 85, 50);
     [whiteView addSubview:memoryLabel];
+    _backView.hidden = YES;
     
 }
 
 -(void)cancelClicked
 {
-    [_backView removeFromSuperview];
+    _backView.hidden = YES;
 }
 
 -(void)switchAction:(id)sender

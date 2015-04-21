@@ -216,7 +216,7 @@
         resourceLabel.backgroundColor = [UIColor clearColor];
         resourceLabel.textColor = kColor(46, 46, 46, 1);
         resourceLabel.font = [UIFont systemFontOfSize:16.f];
-        resourceLabel.text = @"退货所需资料";
+        resourceLabel.text = @"更新所需资料";
         [self.scrollView addSubview:resourceLabel];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:resourceLabel
                                                               attribute:NSLayoutAttributeTop

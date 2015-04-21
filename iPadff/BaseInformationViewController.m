@@ -44,6 +44,7 @@
 @property(nonatomic,strong)UIButton *changePhoneBtn;
 
 @property(nonatomic,strong)UIButton *makeSureEmailBtn;
+@property(nonatomic,strong)NSString *authCode;
 
 
 @end
@@ -207,7 +208,7 @@
     _nameField.text = _userInfo.userName;
     _phoneField.text = _userInfo.phoneNumber;
     _emailField.text = _userInfo.email;
-    if (_userInfo.email == nil) {
+    if (_userInfo.email == nil || [_userInfo.email isEqualToString:@""]) {
         CALayer *readBtnLayer2 = [_emailField layer];
         [readBtnLayer2 setMasksToBounds:YES];
         [readBtnLayer2 setCornerRadius:2.0];
@@ -253,7 +254,7 @@
                                                              multiplier:1.0
                                                                constant:40.f]];
     }
-    if (_userInfo.phoneNumber == nil) {
+    if (_userInfo.phoneNumber == nil || [_userInfo.phoneNumber isEqualToString:@""]) {
         _phoneField.placeholder = @"请添加手机";
         _phoneField.userInteractionEnabled = YES;
         CALayer *readBtnLayer1 = [_phoneField layer];
@@ -288,7 +289,8 @@
         hud.labelText = @"邮箱格式不正确";
         return;
     }
-    
+    [self addEmail];
+   
 }
 
 
@@ -457,7 +459,6 @@
     _emailField.translatesAutoresizingMaskIntoConstraints = NO;
     _emailField.borderStyle = UITextBorderStyleNone;
     _emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _emailField.placeholder = @"1234567898@qq.com";
     [_emailField setValue:[UIFont systemFontOfSize:18] forKeyPath:@"_placeholderLabel.font"];
     [_emailField setValue:kColor(111, 111, 111, 1.0) forKeyPath:@"_placeholderLabel.color"];
     _emailField.delegate = self;
@@ -848,6 +849,43 @@
 -(void)ChangePhoneNumSuccessWithNewPhoneNum:(NSString *)newPhoneNum
 {
     _phoneField.text = newPhoneNum;
+}
+//添加邮箱
+-(void)addEmail
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    [NetworkInterface sendEmailChangeWithName:_nameField.text email:_emailField.text finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    ChangeEmailController *changgeEmailVC = [[ChangeEmailController alloc]init];
+                    changgeEmailVC.oldEmail = _emailField.text;
+                    changgeEmailVC.isAdd = NO;
+                    changgeEmailVC.authCode = [object objectForKey:@"result"];
+                    [self.navigationController pushViewController:changgeEmailVC animated:YES];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
 }
 //修改邮箱
 -(void)changeEmail

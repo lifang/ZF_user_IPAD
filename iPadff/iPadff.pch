@@ -21,7 +21,7 @@
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #define kServiceReturnWrong  @"服务端数据返回错误"
 #define kNetworkFailed       @"网络连接失败"
-#define kServiceURL @"http://114.215.149.242:18080/ZFMerchant/api"
+#define kServiceURL @"http://121.40.84.2:8080/ZFMerchant/api"
 //随机色
 #define RandomColor kColor(arc4random_uniform(256),arc4random_uniform(256),arc4random_uniform(256),1.0)
 #endif
