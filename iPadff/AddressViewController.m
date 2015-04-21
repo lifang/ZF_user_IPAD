@@ -667,6 +667,7 @@
     if (_isDefault) {
         isDefault = AddressDefault;
     }
+    NSLog(@"%@",_selectedCityID);
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];

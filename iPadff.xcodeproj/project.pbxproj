@@ -225,6 +225,7 @@
 		1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D85F1AA7F20E00E9851C /* TerminalViewCell.m */; };
 		1A76D8641AA820C200E9851C /* DealRoadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8631AA820C200E9851C /* DealRoadController.m */; };
 		1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8661AA8501900E9851C /* TopDealRoadCell.m */; };
+		1A7AE6E91ADF4C7100836C09 /* DealRoadChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7AE6E81ADF4C7100836C09 /* DealRoadChildController.m */; };
 		1A81ACEC1AAE7CB8003CB96C /* TerminalChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A81ACEB1AAE7CB8003CB96C /* TerminalChildController.m */; };
 		1A81ACEF1AAE7EF3003CB96C /* OpeningModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A81ACEE1AAE7EF3003CB96C /* OpeningModel.m */; };
 		1A81ACF21AAE7F2D003CB96C /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A81ACF11AAE7F2D003CB96C /* RecordView.m */; };
@@ -246,7 +247,6 @@
 		1A94EB721AA952600056E921 /* RepaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB711AA952600056E921 /* RepaymentCell.m */; };
 		1A94EB751AA9542A0056E921 /* LiferechargeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB741AA9542A0056E921 /* LiferechargeCell.m */; };
 		1A94EB781AA956620056E921 /* TelephonechargeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB771AA956620056E921 /* TelephonechargeCell.m */; };
-		1A94EB7B1AA967950056E921 /* DealRoadChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB7A1AA967950056E921 /* DealRoadChildController.m */; };
 		1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB7D1AA96CA10056E921 /* TradeModel.m */; };
 		1A94EB811AA98B4A0056E921 /* TerminalChoseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB801AA98B4A0056E921 /* TerminalChoseCell.m */; };
 		1A94EB841AA98E430056E921 /* TerminalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB831AA98E430056E921 /* TerminalModel.m */; };
@@ -679,6 +679,8 @@
 		1A76D8631AA820C200E9851C /* DealRoadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadController.m; sourceTree = "<group>"; };
 		1A76D8651AA8501900E9851C /* TopDealRoadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopDealRoadCell.h; sourceTree = "<group>"; };
 		1A76D8661AA8501900E9851C /* TopDealRoadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopDealRoadCell.m; sourceTree = "<group>"; };
+		1A7AE6E71ADF4C7100836C09 /* DealRoadChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealRoadChildController.h; sourceTree = "<group>"; };
+		1A7AE6E81ADF4C7100836C09 /* DealRoadChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadChildController.m; sourceTree = "<group>"; };
 		1A81ACEA1AAE7CB8003CB96C /* TerminalChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalChildController.h; sourceTree = "<group>"; };
 		1A81ACEB1AAE7CB8003CB96C /* TerminalChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalChildController.m; sourceTree = "<group>"; };
 		1A81ACED1AAE7EF3003CB96C /* OpeningModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpeningModel.h; sourceTree = "<group>"; };
@@ -721,8 +723,6 @@
 		1A94EB741AA9542A0056E921 /* LiferechargeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiferechargeCell.m; sourceTree = "<group>"; };
 		1A94EB761AA956620056E921 /* TelephonechargeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelephonechargeCell.h; sourceTree = "<group>"; };
 		1A94EB771AA956620056E921 /* TelephonechargeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelephonechargeCell.m; sourceTree = "<group>"; };
-		1A94EB791AA967950056E921 /* DealRoadChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealRoadChildController.h; sourceTree = "<group>"; };
-		1A94EB7A1AA967950056E921 /* DealRoadChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadChildController.m; sourceTree = "<group>"; };
 		1A94EB7C1AA96CA10056E921 /* TradeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeModel.h; sourceTree = "<group>"; };
 		1A94EB7D1AA96CA10056E921 /* TradeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeModel.m; sourceTree = "<group>"; };
 		1A94EB7F1AA98B4A0056E921 /* TerminalChoseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalChoseCell.h; sourceTree = "<group>"; };
@@ -1562,8 +1562,8 @@
 			children = (
 				1A76D8621AA820C200E9851C /* DealRoadController.h */,
 				1A76D8631AA820C200E9851C /* DealRoadController.m */,
-				1A94EB791AA967950056E921 /* DealRoadChildController.h */,
-				1A94EB7A1AA967950056E921 /* DealRoadChildController.m */,
+				1A7AE6E71ADF4C7100836C09 /* DealRoadChildController.h */,
+				1A7AE6E81ADF4C7100836C09 /* DealRoadChildController.m */,
 				1A8EE2C31AAD99DE0014A7A5 /* DealRoadDetailController.h */,
 				1A8EE2C41AAD99DE0014A7A5 /* DealRoadDetailController.m */,
 			);
@@ -2014,7 +2014,6 @@
 				0D3887291AB96F8E000DF1D6 /* README.md in Sources */,
 				1A6B0E091AC556300096E128 /* CityModel.m in Sources */,
 				0D3887241AB96F8E000DF1D6 /* MASViewAttribute.m in Sources */,
-				1A94EB7B1AA967950056E921 /* DealRoadChildController.m in Sources */,
 				0ED8EBF41AA6E94A00CE9F61 /* GoodsCollectionViewCell2.m in Sources */,
 				0EC589CE1AB3DAFA00B690F5 /* GoodDetailViewController.m in Sources */,
 				1A81ACEC1AAE7CB8003CB96C /* TerminalChildController.m in Sources */,
@@ -2131,6 +2130,7 @@
 				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
 				0E0002251AC644CF00003E60 /* SMPageControl.m in Sources */,
+				1A7AE6E91ADF4C7100836C09 /* DealRoadChildController.m in Sources */,
 				0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */,
 				0D38873C1AB970D7000DF1D6 /* CreateMerchantViewController.m in Sources */,
 				0ECE7DCE1AA55E4500E250B6 /* SortView.m in Sources */,

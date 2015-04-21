@@ -1035,7 +1035,9 @@ static NSString *HTTP_GET  = @"GET";
         [paramDict setObject:token forKey:@"token"];
     }
     [paramDict setObject:[NSNumber numberWithInt:[addressID intValue]] forKey:@"id"];
-    [paramDict setObject:cityID forKey:@"cityId"];
+    if (cityID) {
+          [paramDict setObject:cityID forKey:@"cityId"];
+    }
     [paramDict setObject:receiverName forKey:@"receiver"];
     [paramDict setObject:phoneNumber forKey:@"moblephone"];
     [paramDict setObject:zipCode forKey:@"zipCode"];

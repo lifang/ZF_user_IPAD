@@ -277,6 +277,7 @@
                 [self sendMobileValidate];
             }
             else {
+                [_phoneField resignFirstResponder];
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
                 hud.customView = [[UIImageView alloc] init];
                 hud.mode = MBProgressHUDModeCustomView;

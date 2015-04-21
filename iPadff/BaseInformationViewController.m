@@ -288,6 +288,7 @@
         hud.labelText = @"邮箱格式不正确";
         return;
     }
+    
 }
 
 
@@ -329,7 +330,7 @@
     _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _nameField.textColor = kColor(111, 111, 111, 1.0);
     _nameField.placeholder = @"请输入昵称";
-    [_nameField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
+    [_nameField setValue:[UIFont systemFontOfSize:18] forKeyPath:@"_placeholderLabel.font"];
     [_nameField setValue:kColor(111, 111, 111, 1.0) forKeyPath:@"_placeholderLabel.color"];
     _nameField.delegate = self;
     _nameField.leftViewMode = UITextFieldViewModeAlways;
@@ -779,6 +780,8 @@
 -(void)tapClicked
 {
     [_nameField resignFirstResponder];
+    [_phoneField resignFirstResponder];
+    [_emailField resignFirstResponder];
 }
 
 - (void)setLabel:(UILabel *)label

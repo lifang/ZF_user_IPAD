@@ -717,11 +717,11 @@
     if(iOS7)
     {
         wide=SCREEN_HEIGHT;
-        height=SCREEN_WIDTH - 40;
+        height=SCREEN_WIDTH;
     }
     else
     {  wide=SCREEN_WIDTH;
-        height=SCREEN_HEIGHT - 40;
+        height=SCREEN_HEIGHT;
     }
     [UIView animateWithDuration:.3f animations:^{
         _toolbar.frame = CGRectMake(0, height - 260, wide, 44);
@@ -736,11 +736,11 @@
     if(iOS7)
     {
         wide=SCREEN_HEIGHT;
-        height=SCREEN_WIDTH - 40;
+        height=SCREEN_WIDTH;
     }
     else
     {  wide=SCREEN_WIDTH;
-        height=SCREEN_HEIGHT - 40;
+        height=SCREEN_HEIGHT;
         
     }
     
