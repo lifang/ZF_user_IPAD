@@ -87,7 +87,7 @@
                     [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
                     button.tag = i + 227;
                     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                    button.frame = CGRectMake(mainBtnX, 15 + i * mainBtnH, mainBtnW, mainBtnH);
+                    button.frame = CGRectMake(mainBtnX, 20 + i * mainBtnH, mainBtnW, mainBtnH);
                     button.backgroundColor = kColor(252, 78, 29, 1.0);
                     [button setTitle:@"提交物流信息" forState:UIControlStateNormal];
                     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

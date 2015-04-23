@@ -240,6 +240,7 @@
 		1A76D8601AA7F20E00E9851C /* TerminalViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D85F1AA7F20E00E9851C /* TerminalViewCell.m */; };
 		1A76D8641AA820C200E9851C /* DealRoadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8631AA820C200E9851C /* DealRoadController.m */; };
 		1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76D8661AA8501900E9851C /* TopDealRoadCell.m */; };
+		1A7AE6E91ADF4C7100836C09 /* DealRoadChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7AE6E81ADF4C7100836C09 /* DealRoadChildController.m */; };
 		1A81ACEC1AAE7CB8003CB96C /* TerminalChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A81ACEB1AAE7CB8003CB96C /* TerminalChildController.m */; };
 		1A81ACEF1AAE7EF3003CB96C /* OpeningModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A81ACEE1AAE7EF3003CB96C /* OpeningModel.m */; };
 		1A81ACF21AAE7F2D003CB96C /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A81ACF11AAE7F2D003CB96C /* RecordView.m */; };
@@ -261,7 +262,6 @@
 		1A94EB721AA952600056E921 /* RepaymentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB711AA952600056E921 /* RepaymentCell.m */; };
 		1A94EB751AA9542A0056E921 /* LiferechargeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB741AA9542A0056E921 /* LiferechargeCell.m */; };
 		1A94EB781AA956620056E921 /* TelephonechargeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB771AA956620056E921 /* TelephonechargeCell.m */; };
-		1A94EB7B1AA967950056E921 /* DealRoadChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB7A1AA967950056E921 /* DealRoadChildController.m */; };
 		1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB7D1AA96CA10056E921 /* TradeModel.m */; };
 		1A94EB811AA98B4A0056E921 /* TerminalChoseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB801AA98B4A0056E921 /* TerminalChoseCell.m */; };
 		1A94EB841AA98E430056E921 /* TerminalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94EB831AA98E430056E921 /* TerminalModel.m */; };
@@ -795,6 +795,8 @@
 		1A76D8631AA820C200E9851C /* DealRoadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadController.m; sourceTree = "<group>"; };
 		1A76D8651AA8501900E9851C /* TopDealRoadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopDealRoadCell.h; sourceTree = "<group>"; };
 		1A76D8661AA8501900E9851C /* TopDealRoadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopDealRoadCell.m; sourceTree = "<group>"; };
+		1A7AE6E71ADF4C7100836C09 /* DealRoadChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealRoadChildController.h; sourceTree = "<group>"; };
+		1A7AE6E81ADF4C7100836C09 /* DealRoadChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadChildController.m; sourceTree = "<group>"; };
 		1A81ACEA1AAE7CB8003CB96C /* TerminalChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalChildController.h; sourceTree = "<group>"; };
 		1A81ACEB1AAE7CB8003CB96C /* TerminalChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalChildController.m; sourceTree = "<group>"; };
 		1A81ACED1AAE7EF3003CB96C /* OpeningModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpeningModel.h; sourceTree = "<group>"; };
@@ -837,8 +839,6 @@
 		1A94EB741AA9542A0056E921 /* LiferechargeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiferechargeCell.m; sourceTree = "<group>"; };
 		1A94EB761AA956620056E921 /* TelephonechargeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelephonechargeCell.h; sourceTree = "<group>"; };
 		1A94EB771AA956620056E921 /* TelephonechargeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TelephonechargeCell.m; sourceTree = "<group>"; };
-		1A94EB791AA967950056E921 /* DealRoadChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DealRoadChildController.h; sourceTree = "<group>"; };
-		1A94EB7A1AA967950056E921 /* DealRoadChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DealRoadChildController.m; sourceTree = "<group>"; };
 		1A94EB7C1AA96CA10056E921 /* TradeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeModel.h; sourceTree = "<group>"; };
 		1A94EB7D1AA96CA10056E921 /* TradeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeModel.m; sourceTree = "<group>"; };
 		1A94EB7F1AA98B4A0056E921 /* TerminalChoseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalChoseCell.h; sourceTree = "<group>"; };
@@ -1815,8 +1815,8 @@
 			children = (
 				1A76D8621AA820C200E9851C /* DealRoadController.h */,
 				1A76D8631AA820C200E9851C /* DealRoadController.m */,
-				1A94EB791AA967950056E921 /* DealRoadChildController.h */,
-				1A94EB7A1AA967950056E921 /* DealRoadChildController.m */,
+				1A7AE6E71ADF4C7100836C09 /* DealRoadChildController.h */,
+				1A7AE6E81ADF4C7100836C09 /* DealRoadChildController.m */,
 				1A8EE2C31AAD99DE0014A7A5 /* DealRoadDetailController.h */,
 				1A8EE2C41AAD99DE0014A7A5 /* DealRoadDetailController.m */,
 			);
@@ -2054,11 +2054,10 @@
 				TargetAttributes = {
 					0ED065A41A9EE397005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = X6GEEF4LU9;
 					};
 					0ED065BD1A9EE398005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 63FVWL9TD6;
+						DevelopmentTeam = X6GEEF4LU9;
 						TestTargetID = 0ED065A41A9EE397005DF849;
 					};
 				};
@@ -2273,7 +2272,6 @@
 				0D3887291AB96F8E000DF1D6 /* README.md in Sources */,
 				1A6B0E091AC556300096E128 /* CityModel.m in Sources */,
 				0D3887241AB96F8E000DF1D6 /* MASViewAttribute.m in Sources */,
-				1A94EB7B1AA967950056E921 /* DealRoadChildController.m in Sources */,
 				0ED8EBF41AA6E94A00CE9F61 /* GoodsCollectionViewCell2.m in Sources */,
 				0EC589CE1AB3DAFA00B690F5 /* GoodDetailViewController.m in Sources */,
 				1A81ACEC1AAE7CB8003CB96C /* TerminalChildController.m in Sources */,
@@ -2395,6 +2393,7 @@
 				0ECD63B41AA3F834001ABB4D /* ZYCustomTabBarViewController.m in Sources */,
 				0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */,
 				0E0002251AC644CF00003E60 /* SMPageControl.m in Sources */,
+				1A7AE6E91ADF4C7100836C09 /* DealRoadChildController.m in Sources */,
 				0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */,
 				0D38873C1AB970D7000DF1D6 /* CreateMerchantViewController.m in Sources */,
 				0ECE7DCE1AA55E4500E250B6 /* SortView.m in Sources */,
@@ -2460,6 +2459,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2480,6 +2480,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2501,6 +2502,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2514,6 +2516,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2524,8 +2527,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iPadff/Alipay",
@@ -2544,7 +2547,7 @@
 					"$(PROJECT_DIR)/iPadff/Alipay",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2554,8 +2557,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iPadff/Alipay",
@@ -2574,7 +2577,7 @@
 					"$(PROJECT_DIR)/iPadff/Alipay",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
@@ -2583,6 +2586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2594,6 +2598,7 @@
 				INFOPLIST_FILE = iPadffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadff.app/iPadff";
 			};
 			name = Debug;
@@ -2602,6 +2607,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2609,6 +2615,7 @@
 				INFOPLIST_FILE = iPadffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadff.app/iPadff";
 			};
 			name = Release;

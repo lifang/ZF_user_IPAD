@@ -1027,7 +1027,7 @@
     [_merchantTF becomeFirstResponder];
     [_merchantTF resignFirstResponder];
     
-    /*
+    
     if (!_merchantTF.text || [_merchantTF.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -1156,7 +1156,7 @@
         hud.labelText = @"请上传银行开户许可证照片";
         return;
     }
-    */
+    
     
     [self modifyUserInfo];
     

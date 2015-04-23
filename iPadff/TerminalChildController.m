@@ -607,7 +607,7 @@
         tipLabel.translatesAutoresizingMaskIntoConstraints = NO;
         tipLabel.backgroundColor = [UIColor clearColor];
         tipLabel.textColor = kColor(108, 108, 108, 1);
-        tipLabel.font = [UIFont systemFontOfSize:14.f];
+        tipLabel.font = [UIFont systemFontOfSize:15.f];
         tipLabel.text = @"追踪记录：";
         [_scrollView addSubview:tipLabel];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tipLabel

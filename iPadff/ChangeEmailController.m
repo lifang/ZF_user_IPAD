@@ -13,8 +13,6 @@
 
 @interface ChangeEmailController ()<UITextFieldDelegate>
 
-@property(nonatomic,strong)UITextField *newsEmailField;
-
 @property(nonatomic,strong)UITextField *oldEmailField;
 
 @property(nonatomic,strong)UITextField *authCodeField;
@@ -45,13 +43,19 @@
     CGFloat mainWidth = 280.f;
     CGFloat mainHeight = 40.f;
     
-    UILabel *newEmail = [[UILabel alloc]init];
-    newEmail.text = @"新 邮 箱 号";
-    [self setLabel:newEmail withTopView:self.view middleSpace:120 labelTag:1];
+    _newsEmail = [[UILabel alloc]init];
+    _newsEmail.text = @"新 邮 箱 号";
+    [self setLabel:_newsEmail withTopView:self.view middleSpace:120 labelTag:1];
+    if (!_isAdd) {
+        _newsEmail.hidden = YES;
+    }
     
     UILabel *oldEmail = [[UILabel alloc]init];
     oldEmail.text = @"原 邮 箱 号";
-    [self setLabel:oldEmail withTopView:newEmail middleSpace:30 labelTag:2];
+    if (!_isAdd) {
+       oldEmail.text = @"新 邮 箱 号";
+    }
+    [self setLabel:oldEmail withTopView:_newsEmail middleSpace:30 labelTag:2];
     
     UILabel *authCode = [[UILabel alloc]init];
     authCode.text = @"验   证   码";
@@ -85,7 +89,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_newsEmailField
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:newEmail
+                                                             toItem:_newsEmail
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
                                                            constant:120.f]];
@@ -103,6 +107,9 @@
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:mainHeight]];
+    if (!_isAdd) {
+        _newsEmailField.hidden = YES;
+    }
     
     _oldEmailField = [[UITextField alloc]init];
     _oldEmailField.userInteractionEnabled = NO;
@@ -280,7 +287,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:newEmail
+                                                             toItem:_newsEmail
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
                                                            constant:- 50.f]];
