@@ -119,7 +119,7 @@
 
 - (void)layoutButton:(UIButton *)button position:(OperationBtn)position {
     CGFloat topSpace = 30.f;
-    CGFloat middleSpace = 5.f;
+//    CGFloat middleSpace = 5.f;
     CGFloat btnWidth = 110.f;
     CGFloat btnHeight = 40.f;
     [_scrollView addSubview:button];

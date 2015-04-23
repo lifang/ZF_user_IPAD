@@ -355,7 +355,7 @@
     [self setLabel:brandLabel withTitle:stringlong font:[UIFont boldSystemFontOfSize:17.f]];
     
     //厂家信息
-    CGFloat originX = leftSpace + leftLabelWidth + firstSpace + 80;
+//    CGFloat originX = leftSpace + leftLabelWidth + firstSpace + 80;
     UILabel *factoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(brandLabel.frame.size.width+brandLabel.frame.origin.x+40, originY, 90.f, labelHeight)];
     factoryLabel.backgroundColor = [UIColor clearColor];
     factoryLabel.font = [UIFont systemFontOfSize:14.f];

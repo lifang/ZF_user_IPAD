@@ -209,10 +209,10 @@
     
     CGFloat rightSpace = 25.f; //右侧间距
     CGFloat labelHeight = 20.f; //label 高度
-    CGFloat firstSpace = 5.f;
+//    CGFloat firstSpace = 5.f;
     CGFloat vSpace = 12.f;  //label 垂直间距
-    CGFloat hSpace = 10.f;
-    CGFloat leftLabelWidth = 60.f;  //左侧标题label宽度
+//    CGFloat hSpace = 10.f;
+//    CGFloat leftLabelWidth = 60.f;  //左侧标题label宽度
     //    CGFloat btnHeight = 20.f;  //支付通道 和 购买方式 按钮高度
     //    CGFloat btnWidth = (kScreenWidth - leftSpace - rightSpace - leftLabelWidth - firstSpace - 2 * hSpace) / 3;
     CGFloat originY =10;
@@ -1520,7 +1520,16 @@
             rentButton.titleLabel.font = [UIFont systemFontOfSize: 17.0];
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [viewgf addSubview:rentButton];
-            rentButton.tag=i+1024;
+            if(i==3)
+            {
+                rentButton.tag=1028;
+                
+            }
+            else{
+                
+                rentButton.tag=i+1024;
+                
+            }
             
             UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewgf.frame.size.width / 4*(i+1), 20, 1, 30)];
             line.backgroundColor = [UIColor grayColor];

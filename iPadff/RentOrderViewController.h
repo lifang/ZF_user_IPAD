@@ -18,7 +18,8 @@
     UIButton*_cityField;
     NSInteger B;
     BOOL isneedpp;
-    
+    NSString*textnsstring;
+
     UIImageView*bigsview;
 }
 //若从购物车跳转过来 保存选中的数据

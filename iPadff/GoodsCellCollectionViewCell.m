@@ -34,10 +34,10 @@
     
     CGFloat pictureSize = 110.f;  //图片大小
     
-    CGFloat attrViewWidth = 30.f;
-    CGFloat attrViewHeight = 13.f;
-    
-    CGFloat priceWidth = 120.f;
+//    CGFloat attrViewWidth = 30.f;
+//    CGFloat attrViewHeight = 13.f;
+//    
+//    CGFloat priceWidth = 120.f;
     
     
     

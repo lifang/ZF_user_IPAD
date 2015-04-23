@@ -470,7 +470,7 @@ typedef enum {
         
     }
 
-    CGFloat leftSpace = 10.f;
+//    CGFloat leftSpace = 10.f;
     CGFloat labelHeight = 16.f;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.backgroundColor = [UIColor clearColor];

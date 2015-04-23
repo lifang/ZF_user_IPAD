@@ -799,7 +799,7 @@ if(tableView==_tableViewPJ)
                         
                     }
                     //80
-                    CGFloat btnWidth = 80.f;
+//                    CGFloat btnWidth = 80.f;
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
                     
                     
@@ -941,7 +941,14 @@ if(tableView==_tableViewPJ)
 {
     NSLog(@"%@",_orderDetail.terminals);
     
+if([self isBlankString:_orderDetail.terminals])
+{
+
+_orderDetail.terminals=@"暂无终端号";
     
+
+
+}
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"终端号"
                                                     message:_orderDetail.terminals
                                                    delegate:self
