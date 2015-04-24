@@ -20,7 +20,9 @@ static NSString *RefreshAddressListNotification = @"RefreshAddressListNotificati
     NSInteger B;
     BOOL isneedpp;
     NSString *cityID;
-    
+    NSString*textnsstring;
+    NSString*billnsstring;
+
     UIImageView*bigsview;
 }
 //若从购物车跳转过来 保存选中的数据

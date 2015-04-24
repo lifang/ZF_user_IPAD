@@ -40,7 +40,9 @@ typedef enum {
     NSInteger pickint;
     UIButton* blankbutton ;
     UIButton* zhifubutton;
-    
+    UIView*datepickview;
+    UIButton *cancelBtn;
+    BOOL isopen;
     
 }
 

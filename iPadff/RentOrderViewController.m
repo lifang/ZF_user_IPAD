@@ -45,7 +45,16 @@
 @end
 
 @implementation RentOrderViewController
+@synthesize addressLabel;
 
+@synthesize addressView;
+@synthesize nameLabel;
+@synthesize phoneLabel;
+@synthesize billBtn;
+@synthesize billField;
+@synthesize billType;
+@synthesize pushWay;
+@synthesize reviewField;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"租赁订单确认";
@@ -324,6 +333,23 @@
 }
 
 #pragma mark - UITextField
+#pragma mark - UITextField
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    if(textField==self.billField )
+    {
+        
+        
+    }
+    if(textField==self.reviewField)
+    {
+        textnsstring=textField.text;
+        
+        
+    }
+    
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -450,7 +476,7 @@
             
         }
         CGFloat hearderHeight = 50.f;
-        CGFloat blackViewHeight = 80.f;
+//        CGFloat blackViewHeight = 80.f;
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, hearderHeight)];
         headerView.backgroundColor = [UIColor whiteColor];
         
@@ -625,7 +651,20 @@
 }
 -(void)cityclick
 {
+    _cityField.userInteractionEnabled=NO;
+    UITextField*textfield=(UITextField*)[self.view viewWithTag:1056];
     
+    UITextField*textfield1=(UITextField*)[self.view viewWithTag:1057];
+    UITextField*textfield2=(UITextField*)[self.view viewWithTag:1058];
+    UITextField*textfield3=(UITextField*)[self.view viewWithTag:1060];
+    
+    [textfield1 resignFirstResponder];
+    [textfield2 resignFirstResponder];
+    
+    [textfield3 resignFirstResponder];
+    
+    [textfield resignFirstResponder];
+
     [self initPickerView];
     
     
@@ -713,6 +752,15 @@
         hud.labelText = @"请填写正确的电话";
         return;
     }
+    if (![RegularFormat isCorrectEmail:_zipField.text]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的邮箱";
+        return;
+    }
+
     
     [self addAddress];
     
@@ -774,6 +822,9 @@
     }
 }
 - (IBAction)modifyLocation:(id)sender {
+    
+    _cityField.userInteractionEnabled=YES;
+
     [self pickerScrollOut];
     NSInteger index = [_pickerView selectedRowInComponent:1];
     NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
@@ -803,6 +854,8 @@
 
 
 - (void)pickerScrollOut {
+    _cityField.userInteractionEnabled=YES;
+
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -962,6 +1015,7 @@
         self.reviewField .delegate = self;
         self.reviewField .placeholder = @"留言";
         self.reviewField .font = [UIFont systemFontOfSize:14.f];
+        reviewField.text=textnsstring;
 
         [footerView addSubview:self.reviewField ];
 

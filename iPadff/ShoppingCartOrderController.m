@@ -32,7 +32,17 @@
 @end
 
 @implementation ShoppingCartOrderController
+@synthesize addressLabel;
 
+@synthesize addressView;
+@synthesize nameLabel;
+@synthesize phoneLabel;
+@synthesize billBtn;
+@synthesize billField;
+@synthesize billType;
+@synthesize pushWay;
+@synthesize defaultAddress;
+@synthesize reviewField;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -331,7 +341,7 @@
             
         }
         CGFloat hearderHeight = 50.f;
-        CGFloat blackViewHeight = 80.f;
+//        CGFloat blackViewHeight = 80.f;
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, hearderHeight)];
         headerView.backgroundColor = [UIColor whiteColor];
         
@@ -468,7 +478,7 @@
             neworiginaltextfield.tag=i+1056;
             
             [witeview addSubview:neworiginaltextfield];
-            //        neworiginaltextfield.delegate=self;
+//            neworiginaltextfield.delegate=self;
             neworiginaltextfield.textAlignment=NSTextAlignmentCenter;
             
             CALayer *layer=[neworiginaltextfield layer];
@@ -511,6 +521,19 @@
 }
 -(void)cityclick
 {
+    _cityField.userInteractionEnabled=NO;
+    UITextField*textfield=(UITextField*)[self.view viewWithTag:1056];
+    
+    UITextField*textfield1=(UITextField*)[self.view viewWithTag:1057];
+    UITextField*textfield2=(UITextField*)[self.view viewWithTag:1058];
+    UITextField*textfield3=(UITextField*)[self.view viewWithTag:1060];
+    
+    [textfield1 resignFirstResponder];
+    [textfield2 resignFirstResponder];
+    
+    [textfield3 resignFirstResponder];
+    
+    [textfield resignFirstResponder];
 
     [self initPickerView];
     
@@ -599,11 +622,28 @@
         hud.labelText = @"请填写正确的电话";
         return;
     }
- 
+    if (![RegularFormat isCorrectEmail:_zipField.text]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的邮箱";
+        return;
+    }
+
         [self addAddress];
  
 }
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+  
+    [self pickerScrollOut];
+
+    
+}
 - (IBAction)modifyLocation:(id)sender {
+    _cityField.userInteractionEnabled=YES;
+
     [self pickerScrollOut];
     NSInteger index = [_pickerView selectedRowInComponent:1];
      cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
@@ -690,7 +730,8 @@
 
 
 - (void)pickerScrollOut {
-    
+    _cityField.userInteractionEnabled=YES;
+
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -849,7 +890,8 @@ if(section==0)
     self.reviewField .delegate = self;
     self.reviewField .placeholder = @"留言";
     self.reviewField .font = [UIFont systemFontOfSize:14.f];
-    
+    self.reviewField.text=textnsstring;
+
     [footerView addSubview:self.reviewField ];
     
 
@@ -1019,6 +1061,7 @@ if(section==0)
     self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 120, billHeight)];
     self.billField .delegate = self;
     self.billField .placeholder = @"     请输入发票抬头";
+    self.billField.text=billnsstring;
     
 //  self.billField.textInputMode= UIEdgeInsetsMake(0, 0, 0, 10);
 
@@ -1280,17 +1323,31 @@ if(section==0)
 #pragma mark - UITextField
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    
+    if(textField==self.reviewField)
+    {
+        textnsstring=textField.text;
+        
+        
+    }
+    if(textField==self.billField)
+    {
+        billnsstring=textField.text;
+        
+        
+    }
+
     [self  closeKeyboard];
     
-    
+    [self pickerScrollOut];
+
     [self.billField resignFirstResponder];
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField              // called when 'return' key pressed. return NO to ignore.
 {
     [self  closeKeyboard];
-    
+    [self pickerScrollOut];
+
     
     [self.billField resignFirstResponder];
     
@@ -1321,10 +1378,12 @@ if(section==0)
     
     [UIView commitAnimations];
 }
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 
 {
-    
+    [self pickerScrollOut];
+
     NSTimeInterval animationDuration = 0.30f;
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:animationDuration];

@@ -39,10 +39,10 @@
 - (void)initAndLayoutUI {
     CGFloat leftBorderSpace = 35.f; //左间距
     CGFloat topBorderSpace = 10.f;  //上间距
-    CGFloat labelHeight = 30.f;     //标题高度
+//    CGFloat labelHeight = 30.f;     //标题高度
     CGFloat selectBtnSize = 24.f;   //选中按钮大小
     CGFloat pictureSize = 80.f;     //图片大小
-    CGFloat editHeight = 24.f;      //编辑按钮高度
+//    CGFloat editHeight = 24.f;      //编辑按钮高度
     CGFloat deleteSize = 40.f;      //删除按钮大小
     
     //选中按钮
@@ -172,40 +172,7 @@
     _titleLabel.font = [UIFont systemFontOfSize:16.f];
     [self.contentView addSubview:_titleLabel];
    
-    //竖线
-    UIImageView *vLine = [[UIImageView alloc] init];
-    vLine.translatesAutoresizingMaskIntoConstraints = NO;
-//    vLine.image = kImageName(@"gray.png");
-    [self.contentView addSubview:vLine];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:vLine
-                                                                 attribute:NSLayoutAttributeRight
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:_editButton
-                                                                 attribute:NSLayoutAttributeLeft
-                                                                multiplier:1.0
-                                                                  constant:20]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:vLine
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.contentView
-                                                                 attribute:NSLayoutAttributeTop
-                                                                multiplier:1.0
-                                                                  constant:topBorderSpace]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:vLine
-                                                                 attribute:NSLayoutAttributeWidth
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:nil
-                                                                 attribute:NSLayoutAttributeNotAnAttribute
-                                                                multiplier:0.0
-                                                                  constant:kLineHeight]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:vLine
-                                                                 attribute:NSLayoutAttributeHeight
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:nil
-                                                                 attribute:NSLayoutAttributeNotAnAttribute
-                                                                multiplier:0.0
-                                                                  constant:16.f]];
-    //横线
+       //横线
 //    UIImageView *hLine = [[UIImageView alloc] init];
 //    hLine.translatesAutoresizingMaskIntoConstraints = NO;
 //    hLine.image = kImageName(@"gray.png");
@@ -310,7 +277,7 @@
 }
 
 - (void)normalStyleUI {
-    CGFloat priceWidth = 100.f;
+//    CGFloat priceWidth = 100.f;
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -348,8 +315,8 @@
 }
 
 - (void)editStyleUI {
-    CGFloat vSpace = 5.f;
-    CGFloat inputwidth = 90.f;
+//    CGFloat vSpace = 5.f;
+//    CGFloat inputwidth = 90.f;
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -434,7 +401,9 @@
 
 #pragma mark - Data
 -(void)deletealert
-{UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您确定删除吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+{
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"您确定删除吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                [alert show];
 
 

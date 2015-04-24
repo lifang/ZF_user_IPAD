@@ -82,7 +82,7 @@
     priceLabel.textColor = [UIColor whiteColor];
     priceLabel.font = [UIFont boldSystemFontOfSize:48.f];
     priceLabel.adjustsFontSizeToFitWidth = YES;
-    priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_totalPrice/100];
+    priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_totalPrice];
     [blackView addSubview:priceLabel];
     
     UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, hearderHeight +40, wide - leftSpace - rightSpace, 20.f)];
@@ -100,18 +100,18 @@
     zhifubao.backgroundColor = [UIColor clearColor];
     [zhifubao setBackgroundImage:[UIImage imageNamed:@"zhifubao"] forState:UIControlStateNormal];
        zhifubao.frame = CGRectMake(0,0,200,62);
-    zhifubao.center=CGPointMake(wide/4, hearderHeight +40+80);
+    zhifubao.center=CGPointMake(wide/4, hearderHeight +40+100);
     
-    [headerView addSubview:zhifubao];
+    [self.view addSubview:zhifubao];
     UIButton *yinlianbutton = [[UIButton alloc]init];
     
     [yinlianbutton addTarget:self action:@selector(yinlianclick) forControlEvents:UIControlEventTouchUpInside];
     yinlianbutton.backgroundColor = [UIColor clearColor];
     [yinlianbutton setBackgroundImage:[UIImage imageNamed:@"yinlian"] forState:UIControlStateNormal];
     yinlianbutton.frame = CGRectMake(0,0,200,62);
-    yinlianbutton.center=CGPointMake(wide/4*3, hearderHeight +40+80);
+    yinlianbutton.center=CGPointMake(wide/4*3, hearderHeight +40+100);
     
-    [headerView addSubview:yinlianbutton];
+    [self.view addSubview:yinlianbutton];
 
 }
 -(void)zhifubaoclick

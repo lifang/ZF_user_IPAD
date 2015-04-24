@@ -472,7 +472,7 @@
         [textView resignFirstResponder];
         return NO;
     }
-    else if ([textView.text length] >= 20 && ![text isEqualToString:@""]) {
+    else if ([textView.text length] >= 200 && ![text isEqualToString:@""]) {
         return NO;
     }
     return YES;

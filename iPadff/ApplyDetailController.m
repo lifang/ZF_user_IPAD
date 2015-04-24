@@ -46,6 +46,7 @@
 @property(nonatomic,strong)NSString *startTime;
 
 @property (nonatomic, assign) OpenApplyType applyType;  //对公 对私
+@property(nonatomic,strong)UIButton *startSure;
 
 @property (nonatomic, strong) ApplyOpenModel *applyData;
 
@@ -70,6 +71,7 @@
 @property (nonatomic, strong) NSString *selectedKey;
 
 @property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) UIDatePicker *datePickerStart;
 
 
 @property (nonatomic, strong) UIToolbar *toolbar;
@@ -149,6 +151,19 @@
     }
     else
     {
+        
+        isopen=!isopen;
+        if(isopen)
+        {
+            self.terminalTableView.hidden=NO;
+            
+        }
+        else
+        {
+            self.terminalTableView.hidden=YES;
+
+        }
+        
         
         NSInteger numberrow;
         numberrow=_applyData.merchantList.count;
@@ -841,6 +856,7 @@
 -(void)birthdaybuttonclick
 {
     
+    birthdaybutton.userInteractionEnabled=NO;
     
     [self setupStartDate ];
     
@@ -1464,6 +1480,10 @@
     
     
     [datePicker addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
+    
+    datepickview=[[UIView alloc]initWithFrame:CGRectMake(datePicker.frame.origin.x  , CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width, 30)];
+    [_scrollView addSubview:datepickview];
+    datepickview.backgroundColor=kColor(212, 212, 212, 1.0);
     makeSureBtn = [[UIButton alloc]init];
     makeSureBtn.tag = 1112;
     [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -1472,11 +1492,41 @@
     [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
     makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
     makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
-    [_scrollView addSubview:makeSureBtn];
-    [_scrollView addSubview:datePicker];
+    
+    self.startSure = makeSureBtn;
+    self.datePickerStart = datePicker;
+    [_scrollView addSubview:_startSure];
+    
+    
+    cancelBtn = [[UIButton alloc]init];
+    cancelBtn.tag = 1212;
+    [cancelBtn addTarget:self action:@selector(caneClick) forControlEvents:UIControlEventTouchUpInside];
+    [cancelBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
+    [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    cancelBtn.frame = CGRectMake(datePicker.frame.origin.x, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
+    
+    [_scrollView addSubview:cancelBtn];
+    [_scrollView addSubview:_datePickerStart];
+}
+-(void)caneClick
+{
+
+    birthdaybutton.userInteractionEnabled=YES;
+    
+    [cancelBtn removeFromSuperview];
+    [datepickview removeFromSuperview];
+    [makeSureBtn removeFromSuperview];
+    [datePicker removeFromSuperview];
+
 }
 -(void)makeSureClick:(UIButton *)button
 {
+    birthdaybutton.userInteractionEnabled=YES;
+
+    [cancelBtn removeFromSuperview];
+    [datepickview removeFromSuperview];
     [makeSureBtn removeFromSuperview];
     [datePicker removeFromSuperview];
     [self startPick];
