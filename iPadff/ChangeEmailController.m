@@ -409,6 +409,18 @@
 
 -(void)submitClicked
 {
+    if (!_isChecked) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"请先验证您的验证码!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_isAdd) {
+        [self saveDate];
+    }
     if (!_newsEmailField.text || [_newsEmailField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                         message:@"邮箱不能为空!"
@@ -428,16 +440,6 @@
         return;
     }
     
-    if (!_isChecked) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"请先验证您的验证码!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    
     [self saveDate];
 }
 
@@ -448,7 +450,11 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:nil email:_newsEmailField.text cityID:nil finished:^(BOOL success, NSData *response) {
+    NSString *email = _newsEmailField.text;
+    if (!_isAdd) {
+        email = _oldEmailField.text;
+    }
+    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:nil email:email cityID:nil finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
