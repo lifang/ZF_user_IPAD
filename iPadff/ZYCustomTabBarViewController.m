@@ -56,7 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList) name:@"getnumber" object:nil];
     _nomalImageArray = [[NSArray alloc] initWithObjects:@"平板UI套件-用户版_89",@"shopping_nomal.png",@"Myinages_nomal",@"my_nomal",@"tabbar_button_notes_normal.png",nil];
     
     _hightlightedImageArray = [[NSArray alloc]initWithObjects:@"home_hight",@"shoppomg_hight",@"myinages_hight",@"Myhight",@"tabbar_button_notes_selected.png",nil];
@@ -75,7 +75,13 @@
     
     
 }
+-(void)refreshList
+{
+    [self getShoppingList ];
+    
 
+
+}
 - (void)showMessage:(NSString*)message viewHeight:(float)height;
 {
     if(self)
@@ -144,7 +150,7 @@
     [button1 addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [button1.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [button1 setContentEdgeInsets:UIEdgeInsetsMake(0,0,10,0)];
-    UIButton*button2=[UIButton buttonWithType:UIButtonTypeCustom];
+   button2=[UIButton buttonWithType:UIButtonTypeCustom];
      button2.tag=2;
     
     
@@ -317,6 +323,83 @@
     [_tabView addSubview:button5];
     [button5 setImage:[UIImage imageNamed:@"set"] forState:UIControlStateNormal];
     [button5 addTarget:self action:@selector(setclick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    
+   redimage=[[UIImageView alloc]initWithFrame:CGRectMake(button2.frame.size.width+button2.frame.origin.x-30, -10, 60, 20)];
+    [button2 addSubview:redimage];
+    UIImage*image =[UIImage imageNamed:@"redpoint"];
+
+    image = [image stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    redimage.image=image;
+    redimage.hidden=YES;
+
+    badgelable=[[UILabel alloc]initWithFrame:CGRectMake(5, 2, 15, 20)];
+    badgelable.textColor=[UIColor whiteColor];
+    badgelable.textAlignment=NSTextAlignmentCenter;
+    badgelable.font=[UIFont systemFontOfSize:14];
+    
+    [redimage addSubview:badgelable];
+    
+    
+    
+}
+- (void)getShoppingList {
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface getShoppingCartWithToken:delegate.token userID:delegate.userID finished:^(BOOL success, NSData *response) {
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.3f];
+        if (success) {
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    if (![object objectForKey:@"result"] || ![[object objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+                        return;
+                    }
+                    redimage.hidden=NO;
+
+                    NSArray *cartList = [object objectForKey:@"result"];
+                    
+                    
+                    if(cartList.count>99)
+                    {
+                        badgelable.text=[NSString stringWithFormat:@"%d+",99];
+
+                    
+                    }else
+                    {
+                        badgelable.text=[NSString stringWithFormat:@"%d",cartList.count];
+
+                    
+                    }
+                    [badgelable sizeToFit];
+                    
+                    redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-35, -12, badgelable.frame.size.width+10, 20);
+                    
+
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
 }
 
 - (void)setSeletedIndex:(int)aIndex
@@ -427,7 +510,13 @@ if(iOS7)
     //获得索引
 	UIButton *btn = (UIButton *)sender;
 	int index = btn.tag - 1.0;
+   if(index==1)
+   {
+       redimage.hidden=YES;
+       
    
+   
+   }
     //用self.赋值默认会调set方法
     [self setSeletedIndex:index];
     

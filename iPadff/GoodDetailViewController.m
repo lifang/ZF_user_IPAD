@@ -1006,6 +1006,8 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     hud.labelText = @"添加到购物车成功";
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"getnumber" object:nil];
+
                 }
             }
             else {
