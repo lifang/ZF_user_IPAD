@@ -14,6 +14,8 @@
 
 @interface OrderCommentCell : UITableViewCell<UITextViewDelegate>
 
+{UILabel *tipLabel;
+}
 @property (nonatomic, strong) UIImageView *pictureView;
 
 @property (nonatomic, strong) UILabel *nameLabel;

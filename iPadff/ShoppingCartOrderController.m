@@ -855,15 +855,15 @@ if(section==0)
     newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [newaddressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
-    [footerView addSubview:addressmangerbutton];
-//    addressmangerbutton.layer.cornerRadius = 4.f;
-    addressmangerbutton.layer.masksToBounds = YES;
-    [addressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
-    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
-    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+//    UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
+//    [footerView addSubview:addressmangerbutton];
+////    addressmangerbutton.layer.cornerRadius = 4.f;
+//    addressmangerbutton.layer.masksToBounds = YES;
+//    [addressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+//    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+//    [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+//    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(20, 59, wide-40, 1)];
     grayview.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
     [footerView addSubview:grayview];
@@ -933,14 +933,14 @@ if(section==0)
 
    
 }
--(void)addressmangerbuttonclick
-{
-
-    //AddressViewController*address=[[AddressViewController alloc]init];
-   // [self.navigationController pushViewController:address animated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
- 
-}
+//-(void)addressmangerbuttonclick
+//{
+//
+//    //AddressViewController*address=[[AddressViewController alloc]init];
+//   // [self.navigationController pushViewController:address animated:YES];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
+// 
+//}
 
 
 -(void)newbuttonclick

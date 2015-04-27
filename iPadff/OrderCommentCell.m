@@ -358,7 +358,7 @@
                                                                 multiplier:0.0
                                                                   constant:20.f]];
     //字数提示
-    UILabel *tipLabel = [[UILabel alloc] init];
+   tipLabel = [[UILabel alloc] init];
     tipLabel.translatesAutoresizingMaskIntoConstraints = NO;
     tipLabel.backgroundColor = [UIColor clearColor];
     tipLabel.textAlignment = NSTextAlignmentRight;
@@ -467,6 +467,11 @@
 
 #pragma mark - UITextView
 
+
+
+
+
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
@@ -489,6 +494,16 @@
     else {
         _placeholderLabel.text = @"";
     }
+    
+    NSInteger number = 200 - [textView.text length];
+    if (number < 0) {
+        number = 0;
+    }
+    tipLabel.text = [NSString stringWithFormat:@"最多填写%ld个汉字", number];
+
+    
+    
+    
 }
 
 @end
