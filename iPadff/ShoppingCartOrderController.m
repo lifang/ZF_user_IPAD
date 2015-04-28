@@ -168,12 +168,21 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
+                    NSString *orderID = [NSString stringWithFormat:@"%@",[object objectForKey:@"result"]];
+                    NSString *titleName = @"";
+                    if ([_shoppingCartItem count] > 0) {
+                        ShoppingCartModel *model = [_shoppingCartItem objectAtIndex:0];
+                        titleName = model.cartTitle;
+                    }
+
                     [[NSNotificationCenter defaultCenter] postNotificationName:RefreshShoppingCartNotification object:nil];
                     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
                     payWayC.totalPrice = [self getSummaryPrice];
                     
                     payWayC.hidesBottomBarWhenPushed =  YES ;
-
+                    payWayC.orderID = orderID;
+                    payWayC.goodName = titleName;
+                    payWayC.fromType = PayWayFromCart;
                     [self.navigationController pushViewController:payWayC animated:YES];
                 }
                 else if ([errorCode intValue] == -2)

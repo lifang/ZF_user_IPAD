@@ -898,6 +898,8 @@
     repairVC.totalMoney = [_repair_price intValue];
     repairVC.csType = csType;
     repairVC.csID = csId;
+    repairVC.goodName=@"维修记录";
+    
     [self.navigationController pushViewController:repairVC animated:YES];
 }
 
@@ -986,6 +988,10 @@
     PayWayViewController *payVC = [[PayWayViewController alloc]init];
     payVC.orderID = _selectedId;
     payVC.totalPrice = [repair_price intValue];
+    
+    
+    payVC.fromType = PayWayFromCS;
+    payVC.goodName = @"维修记录";
     payVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:payVC animated:YES];
 }

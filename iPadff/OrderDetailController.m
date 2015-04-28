@@ -16,6 +16,9 @@
 #import "OrderCommentController.h"
 #import "ReviewModel.h"
 #import "OrderCommentCell.h"
+#import "MyOrderViewController.h"
+#import "GoodListViewController.h"
+#import "ShoppingCartController.h"
 @interface OrderDetailController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -51,6 +54,76 @@
 
     self.view.backgroundColor = kColor(244, 243, 243, 1);
     [self downloadDetail];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                               target:nil
+                                                                               action:nil];
+    spaceItem.width = 52;
+    UIImage *image=[UIImage imageNamed:@"back_btn_white"];
+    
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    
+    btn.frame=CGRectMake(0, 0, 25, 40);
+    
+    [btn setImage :image forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(goPervious:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
+}
+- (IBAction)goPervious:(id)sender {
+    if (_fromType == PayWayFromNone) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else if (_fromType == PayWayFromOrder) {
+        UIViewController *controller = nil;
+        for (UIViewController *listC in self.navigationController.childViewControllers) {
+            if ([listC isMemberOfClass:[MyOrderViewController class]]) {
+                controller = listC;
+                break;
+            }
+        }
+        if (controller) {
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }
+    else if (_fromType == PayWayFromGood) {
+        UIViewController *controller = nil;
+        for (UIViewController *listC in self.navigationController.childViewControllers) {
+            if ([listC isMemberOfClass:[GoodListViewController class]]) {
+                controller = listC;
+                break;
+            }
+        }
+        if (controller) {
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }
+    else if (_fromType == PayWayFromCart) {
+        UIViewController *controller = nil;
+        for (UIViewController *listC in self.navigationController.childViewControllers) {
+            if ([listC isMemberOfClass:[ShoppingCartController class]]) {
+                controller = listC;
+                break;
+            }
+        }
+        if (controller) {
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+        else {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }
+    else if (_fromType == PayWayFromCS) {
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -1089,6 +1162,14 @@ _orderDetail.terminals=@"暂无终端号";
     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
     payWayC.totalPrice = _orderDetail.orderTotalPrice;
     payWayC.orderID = _orderID;
+    payWayC.goodName = _goodName;
+    if (_fromType == PayWayFromNone) {
+        payWayC.fromType = PayWayFromOrder;
+    }
+    else {
+        payWayC.fromType = _fromType;
+    }
+
     payWayC.hidesBottomBarWhenPushed =  YES ;
 
 

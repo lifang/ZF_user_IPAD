@@ -660,6 +660,7 @@ typedef enum {
         self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f(押金)",_cellData.orderGood.goodPrice];
 
     }
+    
     self.numberLabel.text = [NSString stringWithFormat:@"X %d",[_cellData.orderGood.goodNumber intValue]];
     self.brandLabel.text = [NSString stringWithFormat:@"品牌型号  %@",_cellData.orderGood.goodBrand];
     self.channelLabel.text = [NSString stringWithFormat:@"支付通道  %@",_cellData.orderGood.goodChannel];

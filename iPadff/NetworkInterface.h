@@ -421,6 +421,11 @@ static NSString *s_changeEmail_method = @"index/updateEmail";
 //热卖
 
 static NSString *s_hot_method = @"index/pos_list";
+//维修单付款
+static NSString *s_repairPay_method = @"cs/repair/repairPay";
+
+//订单信息
+static NSString *s_orderConfirm_method = @"order/payOrder";
 
 @interface NetworkInterface : NSObject
 
@@ -1387,6 +1392,19 @@ static NSString *s_hot_method = @"index/pos_list";
 + (void)sendEmailChangeWithName:(NSString *)name
                            email:(NSString *)email
                         finished:(requestDidFinished)finish;
+
+/*!
+ @abstract 订单信息
+ @result finish  请求回调结果
+ */
++ (void)orderConfirmWithOrderID:(NSString *)orderID
+                       finished:(requestDidFinished)finish;
+/*!
+ @abstract 维修单支付
+ @result finish  请求回调结果
+ */
++ (void)repairConfirmWithRepairID:(NSString *)repairID
+                         finished:(requestDidFinished)finish;
 
 
 @end

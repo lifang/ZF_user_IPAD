@@ -35,7 +35,8 @@
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
 
-
+#define kVideoAuthIP    @"121.40.84.2"
+#define kVideoAuthPort  8906
 
 
 

@@ -17,6 +17,8 @@
 #import "LoginViewController.h"
 #import "AccountTool.h"
 #import "DredgeModel.h"
+#import "VideoAuthController.h"
+
 
 @interface DredgeViewController ()<RefreshDelegate,LoginSuccessDelegate>
 
@@ -434,8 +436,11 @@
 
 -(void)vedioConfirmClick:(UIButton *)button
 {
-    NSLog(@"%d",button.tag);
-}
+    VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+    videoAuthC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
+    videoAuthC.hidesBottomBarWhenPushed=YES;
+    
+    [self.navigationController pushViewController:videoAuthC animated:YES];}
 
 -(void)applicationClick:(UIButton *)button
 {
