@@ -31,6 +31,11 @@
 		0D714C6F1AB320BC007FF2C5 /* merchant1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C6E1AB320BC007FF2C5 /* merchant1@2x.png */; };
 		0D714C711AB320CA007FF2C5 /* merchant2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D714C701AB320CA007FF2C5 /* merchant2@2x.png */; };
 		0D91F66D1ABA7B74004EB428 /* BaseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D91F66C1ABA7B74004EB428 /* BaseApi.m */; };
+		0D9BD75F1AEF450A0007B7B4 /* userpad1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9BD75E1AEF450A0007B7B4 /* userpad1@2x.png */; };
+		0D9BD7611AEF45100007B7B4 /* userpad2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9BD7601AEF45100007B7B4 /* userpad2@2x.png */; };
+		0D9BD7631AEF45150007B7B4 /* userpad3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9BD7621AEF45150007B7B4 /* userpad3@2x.png */; };
+		0D9BD7651AEF451A0007B7B4 /* userpad4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9BD7641AEF451A0007B7B4 /* userpad4@2x.png */; };
+		0D9BD7681AEF49D30007B7B4 /* GuideUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9BD7671AEF49D30007B7B4 /* GuideUIViewController.m */; };
 		0DF80EEB1AC009A000B1053E /* hasimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DF80EEA1AC009A000B1053E /* hasimage.png */; };
 		0E0002221AC6422700003E60 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0002211AC6422700003E60 /* ChannelModel.m */; };
 		0E0002251AC644CF00003E60 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0002241AC644CF00003E60 /* SMPageControl.m */; };
@@ -371,6 +376,12 @@
 		0D714C701AB320CA007FF2C5 /* merchant2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "merchant2@2x.png"; sourceTree = "<group>"; };
 		0D91F66B1ABA7B74004EB428 /* BaseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApi.h; sourceTree = "<group>"; };
 		0D91F66C1ABA7B74004EB428 /* BaseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseApi.m; sourceTree = "<group>"; };
+		0D9BD75E1AEF450A0007B7B4 /* userpad1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userpad1@2x.png"; sourceTree = "<group>"; };
+		0D9BD7601AEF45100007B7B4 /* userpad2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userpad2@2x.png"; sourceTree = "<group>"; };
+		0D9BD7621AEF45150007B7B4 /* userpad3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userpad3@2x.png"; sourceTree = "<group>"; };
+		0D9BD7641AEF451A0007B7B4 /* userpad4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userpad4@2x.png"; sourceTree = "<group>"; };
+		0D9BD7661AEF49D30007B7B4 /* GuideUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideUIViewController.h; sourceTree = "<group>"; };
+		0D9BD7671AEF49D30007B7B4 /* GuideUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideUIViewController.m; sourceTree = "<group>"; };
 		0DF80EEA1AC009A000B1053E /* hasimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hasimage.png; sourceTree = "<group>"; };
 		0E0002201AC6422700003E60 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
 		0E0002211AC6422700003E60 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
@@ -1056,6 +1067,17 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		0D9BD75D1AEF44E80007B7B4 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				0D9BD75E1AEF450A0007B7B4 /* userpad1@2x.png */,
+				0D9BD7601AEF45100007B7B4 /* userpad2@2x.png */,
+				0D9BD7621AEF45150007B7B4 /* userpad3@2x.png */,
+				0D9BD7641AEF451A0007B7B4 /* userpad4@2x.png */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
 		0EC99CA01AAFE67500D20386 /* KxMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1318,6 +1340,7 @@
 				0ED6AD0C1AA1911F00D3B025 /* views */,
 				0ED6ACF71AA16EB000D3B025 /* Library */,
 				0ED6ACE41AA16C8600D3B025 /* Controllers */,
+				0D9BD75D1AEF44E80007B7B4 /* image */,
 				0ED065AC1A9EE397005DF849 /* AppDelegate.h */,
 				0ED065AD1A9EE397005DF849 /* AppDelegate.m */,
 				0ECE7D8A1AA5573500E250B6 /* Constants.h */,
@@ -1556,6 +1579,8 @@
 				1A94FA1D1AC13246006D8FF7 /* Contactus */,
 				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
 				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
+				0D9BD7661AEF49D30007B7B4 /* GuideUIViewController.h */,
+				0D9BD7671AEF49D30007B7B4 /* GuideUIViewController.m */,
 				1A94FA131AC10B58006D8FF7 /* SystemNotice */,
 				1A76D8611AA81DDD00E9851C /* DealRoad */,
 				1A76D85A1AA7EDDF00E9851C /* Terminal */,
@@ -2054,6 +2079,7 @@
 				TargetAttributes = {
 					0ED065A41A9EE397005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = X6GEEF4LU9;
 					};
 					0ED065BD1A9EE398005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -2116,11 +2142,13 @@
 				0ECA837E1AB7C11D003B005B /* arrow_line1.png in Resources */,
 				0ED6AD011AA16EEA00D3B025 /* 平板UI套件-用户版_89.png in Resources */,
 				0ED8EBEE1AA6E2BC00CE9F61 /* 8kind_height.png in Resources */,
+				0D9BD75F1AEF450A0007B7B4 /* userpad1@2x.png in Resources */,
 				0ECE7DE21AA5795A00E250B6 /* btn_unselected@2x.png in Resources */,
 				0ECCB2D71AAECBF100E0591E /* numberback@2x.png in Resources */,
 				0ECE7DE41AA5797400E250B6 /* arrow_down@2x.png in Resources */,
 				0ED6AD2E1AA19BC800D3B025 /* home3.png in Resources */,
 				0EC91B361ABA624800947B4F /* star_light@2x.png in Resources */,
+				0D9BD7651AEF451A0007B7B4 /* userpad4@2x.png in Resources */,
 				0EC905EE1AA947060053B694 /* select_height.png in Resources */,
 				0EC696E91ADB8732009D544E /* searchbackground@2x.png in Resources */,
 				0D3887311AB96F98000DF1D6 /* LICENCE in Resources */,
@@ -2159,8 +2187,10 @@
 				0ECE7DE61AA579FE00E250B6 /* good_rent@2x.png in Resources */,
 				0EC91B381ABA628500947B4F /* star_gray@2x.png in Resources */,
 				0EC688C51AB1237800F4058B /* backimage.png in Resources */,
+				0D9BD7611AEF45100007B7B4 /* userpad2@2x.png in Resources */,
 				0ED6AD071AA16EEA00D3B025 /* myinages_hight.png in Resources */,
 				0ECE7DDC1AA573B900E250B6 /* good_right2@2x.png in Resources */,
+				0D9BD7631AEF45150007B7B4 /* userpad3@2x.png in Resources */,
 				0EC91B3C1ABA6FC600947B4F /* star_gray.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2338,6 +2368,7 @@
 				0ED369211AE88D2D00663627 /* MD5DataSigner.m in Sources */,
 				1AA8FF781AA4074D009D41B3 /* UIImage+MultiFormat.m in Sources */,
 				1A76D8641AA820C200E9851C /* DealRoadController.m in Sources */,
+				0D9BD7681AEF49D30007B7B4 /* GuideUIViewController.m in Sources */,
 				0ED065AB1A9EE397005DF849 /* main.m in Sources */,
 				0EC8D60A1AAE7E43003661C5 /* ShoppingCartCell.m in Sources */,
 				1A5E10451AB7EB6C0082DA13 /* IntegralCell.m in Sources */,
@@ -2547,7 +2578,7 @@
 					"$(PROJECT_DIR)/iPadff/Alipay",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2577,7 +2608,7 @@
 					"$(PROJECT_DIR)/iPadff/Alipay",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
@@ -2586,7 +2617,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2598,7 +2630,7 @@
 				INFOPLIST_FILE = iPadffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadff.app/iPadff";
 			};
 			name = Debug;
@@ -2607,7 +2639,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2615,7 +2648,7 @@
 				INFOPLIST_FILE = iPadffTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iPadff.app/iPadff";
 			};
 			name = Release;
