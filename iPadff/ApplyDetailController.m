@@ -820,6 +820,7 @@
     ChannelSelectedController *channelC = [[ChannelSelectedController alloc] init];
     channelC.delegate = self;
     channelC.hidesBottomBarWhenPushed = YES;
+    channelC.channelID = _applyData.terminalChannelID;
     
     [self.navigationController pushViewController:channelC animated:YES];
     
@@ -830,7 +831,7 @@
 {
     BankSelectedController *bankC = [[BankSelectedController alloc] init];
     bankC.delegate = self;
-    bankC.bankItems = self.bankItems;
+    bankC.terminalID = _terminalID;
     bankC.hidesBottomBarWhenPushed = YES;
     _selectedKey =[NSString stringWithFormat:@"%ld",(long)send.tag] ;
 

@@ -169,6 +169,8 @@ static NSString *s_applyChannel_method = @"apply/getChannels";
 
 //选择银行
 static NSString *s_applyBank_method = @"apply/ChooseBank";
+static NSString *s_applyBank_methods = @"terminal/ChooseBank";
+
 
 //上传图片
 static NSString *s_loadImage_method = @"comment/upload/tempImage";
@@ -534,6 +536,17 @@ static NSString *s_orderConfirm_method = @"order/payOrder";
  */
 + (void)selectedChannelWithToken:(NSString *)token
                         finished:(requestDidFinished)finish;
+/*!
+ @abstract 10.选择银行
+ @param token       登录返回
+ @result finish  请求回调结果
+ */
++ (void)getBankListWithToken:(NSString *)token
+                  terminalID:(NSString *)terminalID
+                     keyword:(NSString *)keyword
+                        page:(int)page
+                        rows:(int)rows
+                    finished:(requestDidFinished)finish;
 
 /*!
  @abstract 10.选择银行

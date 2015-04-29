@@ -214,6 +214,29 @@ static NSString *HTTP_GET  = @"GET";
                       httpMethod:HTTP_POST
                         finished:finish];
 }
++ (void)getBankListWithToken:(NSString *)token
+                  terminalID:(NSString *)terminalID
+                     keyword:(NSString *)keyword
+                        page:(int)page
+                        rows:(int)rows
+                    finished:(requestDidFinished)finish {
+    //参数
+    NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
+    if (terminalID) {
+        [paramDict setObject:terminalID forKey:@"terminalId"];
+    }
+    if (keyword) {
+        [paramDict setObject:keyword forKey:@"keyword"];
+    }
+    [paramDict setObject:[NSNumber numberWithInt:page] forKey:@"page"];
+    [paramDict setObject:[NSNumber numberWithInt:rows] forKey:@"pageSize"];
+    //url
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_applyBank_methods];
+    [[self class] requestWithURL:urlString
+                          params:paramDict
+                      httpMethod:HTTP_POST
+                        finished:finish];
+}
 
 //10.
 + (void)selectedBankWithToken:(NSString *)token
