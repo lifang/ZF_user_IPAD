@@ -1839,26 +1839,26 @@
         hud.labelText = @"请选择支付通道";
         return;
     }
-//    for (MaterialModel *model in _applyData.materialList) {
-//        if (![_infoDict objectForKey:model.materialID]) {
-//            NSString *infoString = nil;
-//            if (model.materialType == MaterialText) {
-//                infoString = [NSString stringWithFormat:@"请填写%@",model.materialName];
-//            }
-//            else if (model.materialType == MaterialList) {
-//                infoString = [NSString stringWithFormat:@"请选择%@",model.materialName];
-//            }
-//            else if (model.materialType == MaterialImage) {
-//                infoString = [NSString stringWithFormat:@"请上传%@",model.materialName];
-//            }
-//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-//            hud.customView = [[UIImageView alloc] init];
-//            hud.mode = MBProgressHUDModeCustomView;
-//            [hud hide:YES afterDelay:1.f];
-//            hud.labelText = infoString;
-//            return;
-//        }
-//    }
+    for (MaterialModel *model in _applyData.materialList) {
+        if (![_infoDict objectForKey:model.materialID]) {
+            NSString *infoString = nil;
+            if (model.materialType == MaterialText) {
+                infoString = [NSString stringWithFormat:@"请填写%@",model.materialName];
+            }
+            else if (model.materialType == MaterialList) {
+                infoString = [NSString stringWithFormat:@"请选择%@",model.materialName];
+            }
+            else if (model.materialType == MaterialImage) {
+                infoString = [NSString stringWithFormat:@"请上传%@",model.materialName];
+            }
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.customView = [[UIImageView alloc] init];
+            hud.mode = MBProgressHUDModeCustomView;
+            [hud hide:YES afterDelay:1.f];
+            hud.labelText = infoString;
+            return;
+        }
+    }
     NSMutableArray *paramList = [[NSMutableArray alloc] init];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -1887,16 +1887,15 @@
     for (MaterialModel *model in _applyData.materialList) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         NSString *value = nil;
-        if (model.materialType == MaterialList) {
-            value = _bankID;
+        value = [_infoDict objectForKey:model.materialID];
+        if (model.materialName) {
+            [dict setObject:model.materialName forKey:@"key"];
         }
-        else {
-            value = [_infoDict objectForKey:model.materialID];
-        }
-        [dict setObject:model.materialName forKey:@"Key"];
         if (value) {
-            [dict setObject:value forKey:@"Value"];
+            [dict setObject:value forKey:@"value"];
         }
+
+      
         [dict setObject:[NSNumber numberWithInt:model.materialType] forKey:@"types"];
         [dict setObject:[NSNumber numberWithInt:[model.materialID intValue]] forKey:@"targetId"];
         [dict setObject:[NSNumber numberWithInt:[model.levelID intValue]] forKey:@"openingRequirementId"];
