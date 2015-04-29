@@ -214,9 +214,13 @@
         
     }else
     {
-        AddressModel *model =[addressarry objectAtIndex:B];
+        if(addressarry.count>0)
+        {
+            AddressModel *model =[addressarry objectAtIndex:B];
+            
+            addressID=model.addressID;
+        }
         
-        addressID=model.addressID;
         
         
     }
@@ -847,14 +851,14 @@
         hud.labelText = @"请填写正确的电话";
         return;
     }
-    if (![RegularFormat isCorrectEmail:_zipField.text]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写正确的邮箱";
-        return;
-    }
+//    if (![RegularFormat isCorrectEmail:_zipField.text]) {
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//        hud.customView = [[UIImageView alloc] init];
+//        hud.mode = MBProgressHUDModeCustomView;
+//        [hud hide:YES afterDelay:1.f];
+//        hud.labelText = @"请填写正确的邮箱";
+//        return;
+//    }
 
     [self addAddress];
     
