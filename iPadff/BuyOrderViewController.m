@@ -262,6 +262,7 @@
                     payWayC.orderID = orderID;
                     payWayC.goodName = _goodDetail.goodName;
                     payWayC.fromType = PayWayFromGood;
+                    payWayC.ordertype=1;
 
                     payWayC.totalPrice = [self getSummaryPrice];
                     payWayC.hidesBottomBarWhenPushed =  YES ;

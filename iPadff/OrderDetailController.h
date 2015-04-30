@@ -22,5 +22,6 @@ static NSString *RefreshMyOrderListNotification = @"RefreshMyOrderListNotificati
 @property (nonatomic, assign) NSInteger  ordertype;
 @property (nonatomic, assign) PayWayFromType fromType;
 @property (nonatomic, strong) NSString *goodName;
+@property (nonatomic, strong) NSString *titlename;
 
 @end

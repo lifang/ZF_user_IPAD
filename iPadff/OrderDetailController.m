@@ -1162,6 +1162,8 @@ _orderDetail.terminals=@"暂无终端号";
     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
     payWayC.totalPrice = _orderDetail.orderTotalPrice;
     payWayC.orderID = _orderID;
+    payWayC.ordertype=self.ordertype;
+    
     payWayC.goodName = _goodName;
     if (_fromType == PayWayFromNone) {
         payWayC.fromType = PayWayFromOrder;

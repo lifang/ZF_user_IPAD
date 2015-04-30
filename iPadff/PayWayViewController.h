@@ -24,6 +24,7 @@ typedef enum {
 { UILabel *priceLabel ;
 }
 @property (nonatomic, assign) CGFloat totalPrice;
+@property (nonatomic, assign) NSInteger  ordertype;
 
 @property (nonatomic, strong) NSString *orderID;
 @property (nonatomic, strong) NSString *goodName;

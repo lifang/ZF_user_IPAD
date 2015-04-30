@@ -206,6 +206,8 @@
                     payWayC.orderID = orderID;
                     payWayC.goodName = titleName;
                     payWayC.fromType = PayWayFromCart;
+                    payWayC.ordertype=1;
+
                     [self.navigationController pushViewController:payWayC animated:YES];
                 }
                 else if ([errorCode intValue] == -2)

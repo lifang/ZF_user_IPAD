@@ -247,6 +247,8 @@
     detailC.fromType = _fromType;
     detailC.orderID = _orderID;
     detailC.goodName = _goodName;
+    detailC.ordertype=self.ordertype;
+    
     detailC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:detailC animated:YES];
