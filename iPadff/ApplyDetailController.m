@@ -262,9 +262,20 @@
         
         
     }
+if(_applyType==OpenApplyPublic)
+{
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
+
+
+}else
+{
+
+
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"支  付   通  道", nil];
+
+}
     
     
-    NSArray*namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
     
     CGFloat borderSpace = 40.f;
     CGFloat topSpace = 10.f;
@@ -463,13 +474,39 @@
             [_scrollView addSubview:locationbutton];
         }
         
-        else if(i==13)
+        else if(i==13&&_applyType==OpenApplyPublic)
+        {
+         
+            zhifubutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [zhifubutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            zhifubutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [zhifubutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[zhifubutton  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            zhifubutton.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+            zhifubutton.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+           
+                zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+                NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+                
+                [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+
+                
+            
+            [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:zhifubutton];
+        }
+        else if(i==11&&_applyType==OpenApplyPrivate)
         {
             zhifubutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            
-            [zhifubutton setTitle:accountname forState:UIControlStateNormal];
             [zhifubutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             zhifubutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [zhifubutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
@@ -486,11 +523,19 @@
             zhifubutton.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
             zhifubutton.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
-            
+            zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 6+20,280, 40);
+  
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+                
+            [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+           
             [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:zhifubutton];
-        }
+
         
+        
+        }
+
         else
         {
             UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40)];
@@ -952,9 +997,7 @@
 {
     _applyType = OpenApplyPublic;
     
-    
-    
-    
+     keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankID",@"key_bankAccount",@"key_taxID",@"key_organID",@"key_channel", nil];
     [self beginApply];
 }
 
@@ -962,7 +1005,7 @@
 {        _applyType = OpenApplyPrivate;
     
     _isChecked = NO;
-    
+     keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankID",@"key_bankAccount",@"key_channel", nil];
     
     [self beginApply];
     

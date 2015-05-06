@@ -9,4 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface CommonViewController : UIViewController
+//正在编辑的textfield
+@property (nonatomic, strong) UITextField *editingField;
+
+@property (nonatomic, assign) CGPoint primaryPoint;
+
+@property (nonatomic, assign) CGFloat offset;
+
+- (void)handleKeyboardDidShow:(NSNotification*)paramNotification;
+
+- (void)handleKeyboardDidHidden;
+
+
 @end

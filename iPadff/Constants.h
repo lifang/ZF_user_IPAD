@@ -21,9 +21,10 @@
 #define kPageSize 10   //分页加载每页行数
 #define NavTitle_FONTSIZE  36
 //#define kServiceURL @"http://114.215.149.242:18080/ZFMerchant/api"
-//#define kServiceURL @"http://114.215.149.242:18080/ZFMerchant/api"
 
-#define kServiceURL  @"http://www.ebank007.com/api"
+#define kServiceURL @"http://121.40.64.167:8080/api"
+
+//#define kServiceURL  @"http://www.ebank007.com/api"
 
 #define kImageName(name) [UIImage imageNamed:name]
 

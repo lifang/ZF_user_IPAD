@@ -359,7 +359,7 @@
     
     if(textField==self.billField )
     {
-        [self  closeKeyboard];
+//        [self  closeKeyboard];
         billnsstring=textField.text;
 
         
@@ -376,12 +376,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
-    if(textField==self.billField )
-    {
-        [self  closeKeyboard];
-
-    
-    }
+//    if(textField==self.billField )
+//    {
+//        [self  closeKeyboard];
+//
+//    
+//    }
     
     
     [self.billField resignFirstResponder];
@@ -400,70 +400,101 @@
 }
 
 
--(void)closeKeyboard
-{
-    NSTimeInterval animationDuration = 0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    if(iOS7)
-    {
-        
-        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
-        
-    }
-    
-    else
-        
-    {
-        
-        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
-        
-        
-        
-    }
-    
-    
-    [UIView commitAnimations];
+//-(void)closeKeyboard
+//{
+//    NSTimeInterval animationDuration = 0.30f;
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    if(iOS7)
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
+//        
+//    }
+//    
+//    else
+//        
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
+//        
+//        
+//        
+//    }
+//    
+//    
+//    [UIView commitAnimations];
+//}
+//- (void)textFieldDidBeginEditing:(UITextField *)textField
+//
+//{
+//    
+//    
+//    
+//    NSTimeInterval animationDuration = 0.30f;
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    
+//    if(textField==self.billField )
+//    {
+//        if(iOS7)
+//        {
+//            
+//            self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
+//            
+//        }
+//        
+//        else
+//            
+//        {
+//            
+//            self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
+//            
+//            
+//            
+//        }
+//  
+//        
+//    }
+//
+//    
+//    
+//    
+//    [UIView commitAnimations];
+//    
+//    
+//}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    self.editingField = textField;
+    return YES;
 }
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-
-{
-    
-    
-    
-    NSTimeInterval animationDuration = 0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    
-    if(textField==self.billField )
-    {
-        if(iOS7)
-        {
-            
-            self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
-            
-        }
-        
-        else
-            
-        {
-            
-            self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
-            
-            
-            
-        }
-  
-        
+- (void)handleKeyboardDidShow:(NSNotification *)paramNotification {
+    //获取键盘高度
+    CGRect keyboardRect = [[[paramNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect fieldRect = [[self.editingField superview] convertRect:self.editingField.frame toView:self.view];
+    CGFloat topHeight = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat offsetY = keyboardRect.size.height - (kScreenHeight - topHeight - fieldRect.origin.y - fieldRect.size.height);
+    self.primaryPoint = self.tableView.contentOffset;
+    if (offsetY > 0 && self.offset == 0) {
+        self.offset = offsetY;
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y + self.offset) animated:YES];
     }
-
-    
-    
-    
-    [UIView commitAnimations];
-    
-    
 }
+
+- (void)handleKeyboardDidHidden {
+    if (self.offset != 0) {
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y) animated:YES];
+        self.offset = 0;
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if (self.editingField) {
+        self.offset = 0;
+        [self.editingField resignFirstResponder];
+    }
+}
+
 
 
 #pragma mark - UITableView
