@@ -10,11 +10,14 @@
 #import "Order.h"
 #import "DataSigner.h"
 
+
+
 @implementation AlipayHelper
 
 + (void)alipayWithOrderNumber:(NSString *)orderNumber
                      goodName:(NSString *)goodName
                    totalPrice:(CGFloat)totalPrice
+                   isOrderPay:(BOOL)isOrderPay
                     payResult:(CompletionBlock)payResult {
     //将商品信息赋予AlixPayOrder的成员变量
     Order *order = [[Order alloc] init];
@@ -22,10 +25,14 @@
     order.seller = SellerID;
     order.tradeNO = orderNumber; //订单ID
     order.productName = goodName; //商品标题
-    order.productDescription = @""; //商品描述
-    order.amount = [NSString stringWithFormat:@"%.2f",totalPrice]; //商品价格
-    order.notifyURL = @"http://121.40.84.2:8080/ZFMerchant/notify_url.jsp"; //回调URL
-    
+    order.productDescription = goodName; //商品描述
+    order.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
+    if (isOrderPay) {
+        order.notifyURL = kOrderCallBackURL;//回调URL
+    }
+    else {
+        order.notifyURL = kCSCallBackURL;
+    }
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
     order.inputCharset = @"utf-8";
@@ -33,7 +40,7 @@
     order.showUrl = @"m.alipay.com";
     
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
-    NSString *appScheme = @"alipayZFAB";
+    NSString *appScheme = @"alipayZFUB";
     
     //将商品信息拼接成字符串
     NSString *orderSpec = [order description];
@@ -48,7 +55,7 @@
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:payResult];
     }
-
+    
 }
 
 @end

@@ -21,6 +21,7 @@
 #import "ContactusUsController.h"
 #import "ChannelWebsiteController.h"
 #import "AppDelegate.h"
+#import "GuideUIViewController.h"
 
 @interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
@@ -31,6 +32,8 @@
 @property (nonatomic, strong) NSMutableArray *pictureItem;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
+
+@property (nonatomic, strong) UIView *GuideView;
 
 @end
 
@@ -54,6 +57,40 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
+    //判断是不是第一次启动应用
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"])
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+        NSLog(@"第一次启动");
+        
+        //[self setGuideUI];
+        GuideUIViewController *loginC = [[GuideUIViewController alloc]init];
+       // loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:NO completion:nil];
+
+    }
+    else
+    {
+        [self setContentUI];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endGuideUI) name:@"GuideUI" object:nil];
+   
+}
+
+-(void)endGuideUI
+{
+    
+ [self setContentUI];
+
+}
+
+-(void)setContentUI
+{
     _pictureItem = [[NSMutableArray alloc] init];
     [self loadHomeImageList];
     
@@ -77,7 +114,11 @@
     }
     [self getUserLocation];
     [self initNavigationView];
+
 }
+
+
+
 #pragma mark - Request
 
 - (void)loadHomeImageList {

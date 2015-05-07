@@ -630,7 +630,8 @@
     payWayC.orderID = _selectedModel.orderID;
     payWayC.totalPrice = _selectedModel.orderTotalPrice;
     payWayC.hidesBottomBarWhenPushed =  YES ;
-
+    payWayC.goodName = _selectedModel.orderGood.goodName;
+    payWayC.fromType = PayWayFromOrder;
     [self.navigationController pushViewController:payWayC animated:YES];
 }
 

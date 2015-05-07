@@ -552,32 +552,81 @@
 }
 
 #pragma mark - UITextField
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if ([string isEqualToString:@""]) {
-        //删除
-        if ([textField.text length] > 0 && [[textField.text substringToIndex:[textField.text length] - 1] rangeOfString:@"@"].length != 0) {
-            self.isMobile = NO;
-        }
-        else {
-            self.isMobile = YES;
-        }
+
+    if ([_phoneField.text rangeOfString:@"@"].location != NSNotFound)
+    {
+
+
+              self.isMobile = NO;
+
+
     }
-    else if ([textField.text rangeOfString:@"@"].length != 0 || [string rangeOfString:@"@"].length != 0) {
-        self.isMobile = NO;
-    }
-    else {
+    else
+    {
         self.isMobile = YES;
-    }
-    return YES;
-}
 
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if (textField==_phoneField) {
-    self.isMobile = YES;
+    
     }
-    return YES;
+
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+
+
+
+    if ([_phoneField.text rangeOfString:@"@"].location != NSNotFound)
+    {
+        
+        
+        self.isMobile = NO;
+        
+        
+    }
+    else
+    {
+        self.isMobile = YES;
+        
+        
+    }
+
+
+    return YES;
+    
+
+
+}// called when 'return' key pressed. return NO to ignore.
+
+
+
+// became first responde
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//    if ([string isEqualToString:@""]) {
+//        //删除
+//        if ([textField.text length] > 0 && [[textField.text substringToIndex:[textField.text length] - 1] rangeOfString:@"@"].length != 0) {
+//            self.isMobile = NO;
+//        }
+//        else {
+//            self.isMobile = YES;
+//        }
+//    }
+//    else if ([textField.text rangeOfString:@"@"].length != 0 || [string rangeOfString:@"@"].length != 0) {
+//        self.isMobile = NO;
+//    }
+//    else {
+//        self.isMobile = YES;
+//    }
+//    return YES;
+//}
+//
+//- (BOOL)textFieldShouldClear:(UITextField *)textField {
+//    if (textField==_phoneField) {
+//    self.isMobile = YES;
+//    }
+//    return YES;
+//}
 
 #pragma mark - UIAlertView
 

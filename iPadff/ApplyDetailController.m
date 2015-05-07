@@ -262,9 +262,20 @@
         
         
     }
+if(_applyType==OpenApplyPublic)
+{
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
+
+
+}else
+{
+
+
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"支  付   通  道", nil];
+
+}
     
     
-    NSArray*namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
     
     CGFloat borderSpace = 40.f;
     CGFloat topSpace = 10.f;
@@ -463,13 +474,39 @@
             [_scrollView addSubview:locationbutton];
         }
         
-        else if(i==13)
+        else if(i==13&&_applyType==OpenApplyPublic)
+        {
+         
+            zhifubutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [zhifubutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            zhifubutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [zhifubutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[zhifubutton  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            zhifubutton.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+            zhifubutton.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+           
+                zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+                NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+                
+                [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+
+                
+            
+            [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:zhifubutton];
+        }
+        else if(i==11&&_applyType==OpenApplyPrivate)
         {
             zhifubutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            
-            [zhifubutton setTitle:accountname forState:UIControlStateNormal];
             [zhifubutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             zhifubutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [zhifubutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
@@ -486,11 +523,19 @@
             zhifubutton.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
             zhifubutton.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
-            
+            zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 6+20,280, 40);
+  
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+                
+            [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+           
             [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:zhifubutton];
-        }
+
         
+        
+        }
+
         else
         {
             UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40)];
@@ -820,6 +865,7 @@
     ChannelSelectedController *channelC = [[ChannelSelectedController alloc] init];
     channelC.delegate = self;
     channelC.hidesBottomBarWhenPushed = YES;
+    channelC.channelID = _applyData.terminalChannelID;
     
     [self.navigationController pushViewController:channelC animated:YES];
     
@@ -830,7 +876,7 @@
 {
     BankSelectedController *bankC = [[BankSelectedController alloc] init];
     bankC.delegate = self;
-    bankC.bankItems = self.bankItems;
+    bankC.terminalID = _terminalID;
     bankC.hidesBottomBarWhenPushed = YES;
     _selectedKey =[NSString stringWithFormat:@"%ld",(long)send.tag] ;
 
@@ -951,9 +997,7 @@
 {
     _applyType = OpenApplyPublic;
     
-    
-    
-    
+     keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankID",@"key_bankAccount",@"key_taxID",@"key_organID",@"key_channel", nil];
     [self beginApply];
 }
 
@@ -961,7 +1005,7 @@
 {        _applyType = OpenApplyPrivate;
     
     _isChecked = NO;
-    
+     keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankID",@"key_bankAccount",@"key_channel", nil];
     
     [self beginApply];
     
@@ -1839,26 +1883,26 @@
         hud.labelText = @"请选择支付通道";
         return;
     }
-//    for (MaterialModel *model in _applyData.materialList) {
-//        if (![_infoDict objectForKey:model.materialID]) {
-//            NSString *infoString = nil;
-//            if (model.materialType == MaterialText) {
-//                infoString = [NSString stringWithFormat:@"请填写%@",model.materialName];
-//            }
-//            else if (model.materialType == MaterialList) {
-//                infoString = [NSString stringWithFormat:@"请选择%@",model.materialName];
-//            }
-//            else if (model.materialType == MaterialImage) {
-//                infoString = [NSString stringWithFormat:@"请上传%@",model.materialName];
-//            }
-//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-//            hud.customView = [[UIImageView alloc] init];
-//            hud.mode = MBProgressHUDModeCustomView;
-//            [hud hide:YES afterDelay:1.f];
-//            hud.labelText = infoString;
-//            return;
-//        }
-//    }
+    for (MaterialModel *model in _applyData.materialList) {
+        if (![_infoDict objectForKey:model.materialID]) {
+            NSString *infoString = nil;
+            if (model.materialType == MaterialText) {
+                infoString = [NSString stringWithFormat:@"请填写%@",model.materialName];
+            }
+            else if (model.materialType == MaterialList) {
+                infoString = [NSString stringWithFormat:@"请选择%@",model.materialName];
+            }
+            else if (model.materialType == MaterialImage) {
+                infoString = [NSString stringWithFormat:@"请上传%@",model.materialName];
+            }
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.customView = [[UIImageView alloc] init];
+            hud.mode = MBProgressHUDModeCustomView;
+            [hud hide:YES afterDelay:1.f];
+            hud.labelText = infoString;
+            return;
+        }
+    }
     NSMutableArray *paramList = [[NSMutableArray alloc] init];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -1887,16 +1931,15 @@
     for (MaterialModel *model in _applyData.materialList) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         NSString *value = nil;
-        if (model.materialType == MaterialList) {
-            value = _bankID;
+        value = [_infoDict objectForKey:model.materialID];
+        if (model.materialName) {
+            [dict setObject:model.materialName forKey:@"key"];
         }
-        else {
-            value = [_infoDict objectForKey:model.materialID];
-        }
-        [dict setObject:model.materialName forKey:@"Key"];
         if (value) {
-            [dict setObject:value forKey:@"Value"];
+            [dict setObject:value forKey:@"value"];
         }
+
+      
         [dict setObject:[NSNumber numberWithInt:model.materialType] forKey:@"types"];
         [dict setObject:[NSNumber numberWithInt:[model.materialID intValue]] forKey:@"targetId"];
         [dict setObject:[NSNumber numberWithInt:[model.levelID intValue]] forKey:@"openingRequirementId"];

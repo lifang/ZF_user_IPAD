@@ -27,6 +27,9 @@ ZYSlideDirection;
     UIView*lingquview;
     UIImageView*lingquimage;
     UIButton*lingqubutton;
+    UIImageView*redimage;
+    UILabel*badgelable;
+    UIButton*button2;
     
     //TabBar视图
      UIView *_tabView;

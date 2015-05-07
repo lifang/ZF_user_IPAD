@@ -176,6 +176,18 @@
 }
 
 #pragma mark - Request
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 
 - (void)createOrderForBuy {
     //是否需要发票
@@ -202,11 +214,27 @@
         
     }else
     {
-        AddressModel *model =[addressarry objectAtIndex:B];
+        if(addressarry.count>0)
+        {
+            AddressModel *model =[addressarry objectAtIndex:B];
+            
+            addressID=model.addressID;
+        }
         
-        addressID=model.addressID;
         
         
+    }
+    if([self isBlankString:addressID])
+    {
+    
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请选择地址";
+        return;
+    
+    
     }
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -227,8 +255,15 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
+                    NSString *orderID = [NSString stringWithFormat:@"%@",[object objectForKey:@"result"]];
+
                     [[NSNotificationCenter defaultCenter] postNotificationName:RefreshShoppingCartNotification object:nil];
                     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
+                    payWayC.orderID = orderID;
+                    payWayC.goodName = _goodDetail.goodName;
+                    payWayC.fromType = PayWayFromGood;
+                    payWayC.ordertype=1;
+
                     payWayC.totalPrice = [self getSummaryPrice];
                     payWayC.hidesBottomBarWhenPushed =  YES ;
 
@@ -324,7 +359,7 @@
     
     if(textField==self.billField )
     {
-        [self  closeKeyboard];
+//        [self  closeKeyboard];
         billnsstring=textField.text;
 
         
@@ -341,12 +376,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
-    if(textField==self.billField )
-    {
-        [self  closeKeyboard];
-
-    
-    }
+//    if(textField==self.billField )
+//    {
+//        [self  closeKeyboard];
+//
+//    
+//    }
     
     
     [self.billField resignFirstResponder];
@@ -365,70 +400,101 @@
 }
 
 
--(void)closeKeyboard
-{
-    NSTimeInterval animationDuration = 0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    if(iOS7)
-    {
-        
-        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
-        
-    }
-    
-    else
-        
-    {
-        
-        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
-        
-        
-        
-    }
-    
-    
-    [UIView commitAnimations];
+//-(void)closeKeyboard
+//{
+//    NSTimeInterval animationDuration = 0.30f;
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    if(iOS7)
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
+//        
+//    }
+//    
+//    else
+//        
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
+//        
+//        
+//        
+//    }
+//    
+//    
+//    [UIView commitAnimations];
+//}
+//- (void)textFieldDidBeginEditing:(UITextField *)textField
+//
+//{
+//    
+//    
+//    
+//    NSTimeInterval animationDuration = 0.30f;
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    
+//    if(textField==self.billField )
+//    {
+//        if(iOS7)
+//        {
+//            
+//            self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
+//            
+//        }
+//        
+//        else
+//            
+//        {
+//            
+//            self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
+//            
+//            
+//            
+//        }
+//  
+//        
+//    }
+//
+//    
+//    
+//    
+//    [UIView commitAnimations];
+//    
+//    
+//}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    self.editingField = textField;
+    return YES;
 }
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-
-{
-    
-    
-    
-    NSTimeInterval animationDuration = 0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    
-    if(textField==self.billField )
-    {
-        if(iOS7)
-        {
-            
-            self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
-            
-        }
-        
-        else
-            
-        {
-            
-            self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
-            
-            
-            
-        }
-  
-        
+- (void)handleKeyboardDidShow:(NSNotification *)paramNotification {
+    //获取键盘高度
+    CGRect keyboardRect = [[[paramNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect fieldRect = [[self.editingField superview] convertRect:self.editingField.frame toView:self.view];
+    CGFloat topHeight = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat offsetY = keyboardRect.size.height - (kScreenHeight - topHeight - fieldRect.origin.y - fieldRect.size.height);
+    self.primaryPoint = self.tableView.contentOffset;
+    if (offsetY > 0 && self.offset == 0) {
+        self.offset = offsetY;
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y + self.offset) animated:YES];
     }
-
-    
-    
-    
-    [UIView commitAnimations];
-    
-    
 }
+
+- (void)handleKeyboardDidHidden {
+    if (self.offset != 0) {
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y) animated:YES];
+        self.offset = 0;
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if (self.editingField) {
+        self.offset = 0;
+        [self.editingField resignFirstResponder];
+    }
+}
+
 
 
 #pragma mark - UITableView
@@ -558,7 +624,7 @@
         
         goodslable.text=@"商品";
         
-        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-20, 0, 100, 20)];
+        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-40, 0, 100, 20)];
         [rootview addSubview:phonelable];
         phonelable.textAlignment = NSTextAlignmentCenter;
         
@@ -817,14 +883,14 @@
         hud.labelText = @"请填写正确的电话";
         return;
     }
-    if (![RegularFormat isCorrectEmail:_zipField.text]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写正确的邮箱";
-        return;
-    }
+//    if (![RegularFormat isCorrectEmail:_zipField.text]) {
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//        hud.customView = [[UIImageView alloc] init];
+//        hud.mode = MBProgressHUDModeCustomView;
+//        [hud hide:YES afterDelay:1.f];
+//        hud.labelText = @"请填写正确的邮箱";
+//        return;
+//    }
 
     [self addAddress];
     

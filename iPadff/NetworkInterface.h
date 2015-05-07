@@ -169,6 +169,8 @@ static NSString *s_applyChannel_method = @"apply/getChannels";
 
 //选择银行
 static NSString *s_applyBank_method = @"apply/ChooseBank";
+static NSString *s_applyBank_methods = @"terminal/ChooseBank";
+
 
 //上传图片
 static NSString *s_loadImage_method = @"comment/upload/tempImage";
@@ -421,6 +423,11 @@ static NSString *s_changeEmail_method = @"index/updateEmail";
 //热卖
 
 static NSString *s_hot_method = @"index/pos_list";
+//维修单付款
+static NSString *s_repairPay_method = @"cs/repair/repairPay";
+
+//订单信息
+static NSString *s_orderConfirm_method = @"order/payOrder";
 
 @interface NetworkInterface : NSObject
 
@@ -529,6 +536,17 @@ static NSString *s_hot_method = @"index/pos_list";
  */
 + (void)selectedChannelWithToken:(NSString *)token
                         finished:(requestDidFinished)finish;
+/*!
+ @abstract 10.选择银行
+ @param token       登录返回
+ @result finish  请求回调结果
+ */
++ (void)getBankListWithToken:(NSString *)token
+                  terminalID:(NSString *)terminalID
+                     keyword:(NSString *)keyword
+                        page:(int)page
+                        rows:(int)rows
+                    finished:(requestDidFinished)finish;
 
 /*!
  @abstract 10.选择银行
@@ -1387,6 +1405,19 @@ static NSString *s_hot_method = @"index/pos_list";
 + (void)sendEmailChangeWithName:(NSString *)name
                            email:(NSString *)email
                         finished:(requestDidFinished)finish;
+
+/*!
+ @abstract 订单信息
+ @result finish  请求回调结果
+ */
++ (void)orderConfirmWithOrderID:(NSString *)orderID
+                       finished:(requestDidFinished)finish;
+/*!
+ @abstract 维修单支付
+ @result finish  请求回调结果
+ */
++ (void)repairConfirmWithRepairID:(NSString *)repairID
+                         finished:(requestDidFinished)finish;
 
 
 @end

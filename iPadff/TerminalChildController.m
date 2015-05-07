@@ -14,6 +14,7 @@
 #import "FormView.h"
 #import "RecordView.h"
 #import "ApplyDetailController.h"
+#import "VideoAuthController.h"
 
 @interface TerminalChildController ()
 
@@ -1012,14 +1013,24 @@
             [self initFindPosViewWithSelectedID];
             break;
         case 3334:
-            NSLog(@"点击了视频认证（已开通）");
-            break;
+        {
+            VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+            videoAuthC.hidesBottomBarWhenPushed=YES;
+            
+            videoAuthC.terminalID = self.tm_ID;
+            [self.navigationController pushViewController:videoAuthC animated:YES];
+        }break;
         case 4444:
             NSLog(@"点击了找回POS密码（部分开通）");
             break;
         case 4445:
-            NSLog(@"点击了视频认证（部分开通）");
-            break;
+        {
+            VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+            videoAuthC.hidesBottomBarWhenPushed=YES;
+            
+            videoAuthC.terminalID = self.tm_ID;
+            [self.navigationController pushViewController:videoAuthC animated:YES];
+        }            break;
         case 4446:
             NSLog(@"点击了重新申请通（部分开通）");
             [self pushApplyVCWithSelectedID:_tm_ID];
@@ -1028,8 +1039,13 @@
             NSLog(@"点击了同步（部分开通）");
             break;
         case 5555:
-            NSLog(@"点击了视频认证（未开通）");
-            break;
+        {
+            VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+            videoAuthC.hidesBottomBarWhenPushed=YES;
+            
+            videoAuthC.terminalID = self.tm_ID;
+            [self.navigationController pushViewController:videoAuthC animated:YES];
+        }            break;
         case 5556:
             NSLog(@"点击了申请开通（未开通）");
             [self pushApplyNewVCWithSelectedID:_tm_ID];

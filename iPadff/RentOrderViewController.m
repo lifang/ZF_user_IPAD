@@ -176,6 +176,18 @@
 }
 
 #pragma mark - Request
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 
 - (void)createOrderForBuy {
     
@@ -208,7 +220,19 @@
         
     
     }
-    NSLog(@"%@-%@-%@-%d-%@-%@",delegate.userID,_goodDetail.goodID,_goodDetail.defaultChannel.channelID,_count,addressID,self.reviewField.text);
+    if([self isBlankString:addressID])
+    {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请选择地址";
+        return;
+        
+        
+    }
+
 
     [NetworkInterface createOrderFromGoodRentWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:self.reviewField.text needInvoice:0 invoiceType:0 invoiceInfo:nil finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
@@ -228,10 +252,16 @@
                 else if ([errorCode intValue] == RequestSuccess)
                 {
                     [hud hide:YES];
+                    NSString *orderID = [NSString stringWithFormat:@"%@",[object objectForKey:@"result"]];
+
                     [[NSNotificationCenter defaultCenter] postNotificationName:RefreshShoppingCartNotification object:nil];
                     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
                     payWayC.totalPrice = [self getSummaryPrice];
                     payWayC.hidesBottomBarWhenPushed =  YES ;
+                    payWayC.orderID = orderID;
+                    payWayC.goodName = _goodDetail.goodName;
+                    payWayC.fromType = PayWayFromGood;
+                    payWayC.ordertype=2;
 
                     [self.navigationController pushViewController:payWayC animated:YES];
                 }
@@ -369,6 +399,37 @@
     return YES;
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    self.editingField = textField;
+    return YES;
+}
+- (void)handleKeyboardDidShow:(NSNotification *)paramNotification {
+    //获取键盘高度
+    CGRect keyboardRect = [[[paramNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect fieldRect = [[self.editingField superview] convertRect:self.editingField.frame toView:self.view];
+    CGFloat topHeight = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat offsetY = keyboardRect.size.height - (kScreenHeight - topHeight - fieldRect.origin.y - fieldRect.size.height);
+    self.primaryPoint = self.tableView.contentOffset;
+    if (offsetY > 0 && self.offset == 0) {
+        self.offset = offsetY;
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y + self.offset) animated:YES];
+    }
+}
+
+- (void)handleKeyboardDidHidden {
+    if (self.offset != 0) {
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y) animated:YES];
+        self.offset = 0;
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if (self.editingField) {
+        self.offset = 0;
+        [self.editingField resignFirstResponder];
+    }
+}
+
 
 #pragma mark - UITableView
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -497,7 +558,7 @@
         
         goodslable.text=@"商品";
         
-        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-20, 0, 100, 20)];
+        UILabel*phonelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-40, 0, 100, 20)];
         [rootview addSubview:phonelable];
         phonelable.textAlignment = NSTextAlignmentCenter;
         

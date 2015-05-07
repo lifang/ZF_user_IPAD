@@ -17,6 +17,7 @@
 #import "LoginViewController.h"
 #import "AccountTool.h"
 #import "ApplyDetailController.h"
+#import "VideoAuthController.h"
 
 
 @interface TerminalViewController ()<terminalCellSendBtnClicked,RefreshDelegate,addTerminal,LoginSuccessDelegate>
@@ -356,11 +357,18 @@
         [self initFindPosViewWithSelectedID:selectedID WithIndexNum:indexNum];
     }
     if (btnTag == 1001) {
-        NSLog(@"点击了视频认证(已开通)");
-    }
+        VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+        videoAuthC.terminalID = selectedID;
+        videoAuthC.hidesBottomBarWhenPushed=YES;
+        
+        
+        [self.navigationController pushViewController:videoAuthC animated:YES];    }
     if (btnTag == 2000) {
-        NSLog(@"点击了视频认证(未开通)");
-    }
+        VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+        videoAuthC.terminalID = selectedID;
+        videoAuthC.hidesBottomBarWhenPushed=YES;
+
+        [self.navigationController pushViewController:videoAuthC animated:YES];    }
     if (btnTag == 2001) {
         NSLog(@"点击了申请开通");
         [self pushApplyVCWithSelectedID:selectedID];
@@ -373,8 +381,11 @@
         [self initFindPosViewWithSelectedID:selectedID WithIndexNum:indexNum];
     }
     if (btnTag == 3001) {
-        NSLog(@"点击了视频认证(部分开通)");
-    }
+        VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+        videoAuthC.hidesBottomBarWhenPushed=YES;
+
+        videoAuthC.terminalID = selectedID;
+        [self.navigationController pushViewController:videoAuthC animated:YES];    }
     if (btnTag == 3002) {
         NSLog(@"点击了重新申请开通");
         [self pushApplyNewVCWithSelectedID:selectedID];

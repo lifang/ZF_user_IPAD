@@ -107,6 +107,18 @@
     }
 }
 
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 
 
 - (void)createOrderForCart {
@@ -152,7 +164,18 @@
         
         
     }
-
+    if([self isBlankString:addressID])
+    {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请选择地址";
+        return;
+        
+        
+    }
     [NetworkInterface createOrderFromCartWithToken:delegate.token userID:delegate.userID cartsID:cartsID addressID:addressID comment:@"" needInvoice:needInvoice invoiceType:self.billType invoiceInfo:self.billField.text finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -168,11 +191,22 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     [hud hide:YES];
+                    NSString *orderID = [NSString stringWithFormat:@"%@",[object objectForKey:@"result"]];
+                    NSString *titleName = @"";
+                    if ([_shoppingCartItem count] > 0) {
+                        ShoppingCartModel *model = [_shoppingCartItem objectAtIndex:0];
+                        titleName = model.cartTitle;
+                    }
+
                     [[NSNotificationCenter defaultCenter] postNotificationName:RefreshShoppingCartNotification object:nil];
                     PayWayViewController *payWayC = [[PayWayViewController alloc] init];
                     payWayC.totalPrice = [self getSummaryPrice];
                     
                     payWayC.hidesBottomBarWhenPushed =  YES ;
+                    payWayC.orderID = orderID;
+                    payWayC.goodName = titleName;
+                    payWayC.fromType = PayWayFromCart;
+                    payWayC.ordertype=1;
 
                     [self.navigationController pushViewController:payWayC animated:YES];
                 }
@@ -855,15 +889,15 @@ if(section==0)
     newaddressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [newaddressmangerbutton addTarget:self action:@selector(newbuttonclick) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
-    [footerView addSubview:addressmangerbutton];
-//    addressmangerbutton.layer.cornerRadius = 4.f;
-    addressmangerbutton.layer.masksToBounds = YES;
-    [addressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
-    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
-    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+//    UIButton *addressmangerbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    addressmangerbutton.frame = CGRectMake(wide-260, 10, 100, 40);
+//    [footerView addSubview:addressmangerbutton];
+////    addressmangerbutton.layer.cornerRadius = 4.f;
+//    addressmangerbutton.layer.masksToBounds = YES;
+//    [addressmangerbutton addTarget:self action:@selector(addressmangerbuttonclick) forControlEvents:UIControlEventTouchUpInside];
+//    [addressmangerbutton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+//    [addressmangerbutton setTitle:@"地址管理" forState:UIControlStateNormal];
+//    addressmangerbutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     UIView *grayview = [[UIView alloc] initWithFrame:CGRectMake(20, 59, wide-40, 1)];
     grayview.backgroundColor=[UIColor colorWithWhite:0.7 alpha:1];
     [footerView addSubview:grayview];
@@ -933,14 +967,14 @@ if(section==0)
 
    
 }
--(void)addressmangerbuttonclick
-{
-
-    //AddressViewController*address=[[AddressViewController alloc]init];
-   // [self.navigationController pushViewController:address animated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
- 
-}
+//-(void)addressmangerbuttonclick
+//{
+//
+//    //AddressViewController*address=[[AddressViewController alloc]init];
+//   // [self.navigationController pushViewController:address animated:YES];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"addressmanger" object:self userInfo:nil];
+// 
+//}
 
 
 -(void)newbuttonclick
@@ -1355,28 +1389,28 @@ if(section==0)
 }
 -(void)closeKeyboard
 {
-    NSTimeInterval animationDuration = 0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    if(iOS7)
-    {
-        
-        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
-        
-    }
-    
-    else
-        
-    {
-        
-        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
-        
-        
-        
-    }
-    
-    
-    [UIView commitAnimations];
+//    NSTimeInterval animationDuration = 0.30f;
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    if(iOS7)
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH-64-60);
+//        
+//    }
+//    
+//    else
+//        
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-60);
+//        
+//        
+//        
+//    }
+//    
+//    
+//    [UIView commitAnimations];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -1384,35 +1418,65 @@ if(section==0)
 {
     [self pickerScrollOut];
 
-    NSTimeInterval animationDuration = 0.30f;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    
-    
-    if(iOS7)
-    {
-        
-        self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
-        
-    }
-    
-    else
-        
-    {
-        
-        self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
-        
-        
-        
-    }
-    
-    
-    
-    [UIView commitAnimations];
+//    NSTimeInterval animationDuration = 0.30f;
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    
+//    
+//    if(iOS7)
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, -360, SCREEN_HEIGHT, SCREEN_WIDTH-64);
+//        
+//    }
+//    
+//    else
+//        
+//    {
+//        
+//        self.tableView.frame=CGRectMake(0, -360, SCREEN_WIDTH, SCREEN_HEIGHT-64);
+//        
+//        
+//        
+//    }
+//    
+//    
+//    
+//    [UIView commitAnimations];
     
     
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    self.editingField = textField;
+    return YES;
+}
+- (void)handleKeyboardDidShow:(NSNotification *)paramNotification {
+    //获取键盘高度
+    CGRect keyboardRect = [[[paramNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect fieldRect = [[self.editingField superview] convertRect:self.editingField.frame toView:self.view];
+    CGFloat topHeight = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat offsetY = keyboardRect.size.height - (kScreenHeight - topHeight - fieldRect.origin.y - fieldRect.size.height);
+    self.primaryPoint = self.tableView.contentOffset;
+    if (offsetY > 0 && self.offset == 0) {
+        self.offset = offsetY;
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y + self.offset) animated:YES];
+    }
+}
+
+- (void)handleKeyboardDidHidden {
+    if (self.offset != 0) {
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y) animated:YES];
+        self.offset = 0;
+    }
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if (self.editingField) {
+        self.offset = 0;
+        [self.editingField resignFirstResponder];
+    }
+}
 
 
 @end

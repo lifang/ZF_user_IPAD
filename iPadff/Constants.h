@@ -21,8 +21,10 @@
 #define kPageSize 10   //分页加载每页行数
 #define NavTitle_FONTSIZE  36
 //#define kServiceURL @"http://114.215.149.242:18080/ZFMerchant/api"
-//#define kServiceURL @"http://114.215.149.242:18080/ZFMerchant/api"//
-#define kServiceURL @"http://121.40.84.2:8080/ZFMerchant/api"
+
+#define kServiceURL @"http://121.40.64.167:8080/api"
+
+//#define kServiceURL  @"http://www.ebank007.com/api"
 
 #define kImageName(name) [UIImage imageNamed:name]
 
@@ -35,10 +37,12 @@
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
 
+#define kVideoAuthIP      @"121.40.64.120"    //线上
+#define kVideoAuthPort  8906
 
 
-
-
+#define kOrderCallBackURL  @"http://www.ebank007.com/app_notify_url.jsp"
+#define kCSCallBackURL     @"http://www.ebank007.com/repair_app_notify_url.jsp"
 
 #define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]
 #define NavTitle_FONT(s) [UIFont fontWithName:@"[STHeitiSC](Medium)" size:s]

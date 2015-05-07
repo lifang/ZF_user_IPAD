@@ -19,6 +19,7 @@
 #import "AccountTool.h"
 #import "SwitchView.h"
 #import "MyMessageViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface AppDelegate ()
 
@@ -81,7 +82,7 @@
         _userID = account.userID;
         _token = account.token;
     }
-//   _userID = @"80";
+//  _userID = @"80";
 //    _token = @"123";
     return YES;
 }
@@ -136,6 +137,21 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    NSLog(@"%@",url);
+    if ([url.host isEqualToString:@"safepay"]) {
+        NSLog(@"!!!");
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            for (NSString *key in resultDic) {
+                NSLog(@"%@->%@",key,[resultDic objectForKey:key]);
+            }
+        }];
+    }
+    return YES;
 }
 
 -(void)clearLoginInfo

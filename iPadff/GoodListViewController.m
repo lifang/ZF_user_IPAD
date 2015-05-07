@@ -396,6 +396,8 @@
 //上拉刷新加载更多微博数据
 -(void)loadMoreStatuses
 {
+    self.page++;
+
     [self downloadDataWithPage:self.page isMore:YES];
 
     
@@ -503,7 +505,6 @@
                     id list = [[object objectForKey:@"result"] objectForKey:@"list"];
                     if ([list isKindOfClass:[NSArray class]] && [list count] > 0) {
                         //有数据
-                        self.page++;
                         [hud hide:YES];
                     }
                     else {

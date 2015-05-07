@@ -28,9 +28,6 @@
         if ([dict objectForKey:@"order_totalPrice"]) {
             _orderTotalPrice = [[dict objectForKey:@"order_totalPrice"] floatValue] / 100;
         }
-        if ([dict objectForKey:@"order_type"]) {
-            _order_type = [[dict objectForKey:@"order_type"] floatValue];
-        }
         if ([dict objectForKey:@"order_psf"]) {
             _orderDeliverFee = [[dict objectForKey:@"order_psf"] floatValue] / 100;
         }
@@ -54,7 +51,8 @@
             cellIdentifier = unPaidIdentifier;
             break;
         case OrderStatusSending:
-            cellIdentifier = sendingIdentifier;
+            //现在列表不显示评价按钮
+            cellIdentifier = otherIdentifier;
             break;
         default:
             cellIdentifier = otherIdentifier;

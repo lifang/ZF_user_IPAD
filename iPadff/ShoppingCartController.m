@@ -129,13 +129,13 @@
     
     if(iOS7)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_HEIGHT-64, SCREEN_WIDTH-64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_HEIGHT-64, SCREEN_WIDTH-80) style:UITableViewStyleGrouped];
         _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, SCREEN_HEIGHT-50, 80)];
 
         
     }else
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_WIDTH-64, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, SCREEN_WIDTH-64, SCREEN_HEIGHT-80) style:UITableViewStyleGrouped];
         
         _topRefreshView = [[RefreshView alloc] initWithFrame:CGRectMake(0, -80, SCREEN_WIDTH-50, 80)];
 

@@ -100,23 +100,8 @@
 }
 
 - (void)initPickerView {
-    CGFloat wide;
-    CGFloat height;
-    if(iOS7)
-    {
-        wide=SCREEN_HEIGHT;
-        height=SCREEN_WIDTH;
-        
-        
-    }
-    else
-    {  wide=SCREEN_WIDTH;
-        height=SCREEN_HEIGHT;
-        
-    }
-
     //pickerView
-    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height - 260, wide, 44)];
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, kScreenHeight - 260, kScreenWidth, 44)];
 //    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
 //                                                                   style:UIBarButtonItemStyleDone
 //                                                                  target:self
@@ -130,7 +115,7 @@
                                                                                action:nil];
     [_toolbar setItems:[NSArray arrayWithObjects:spaceItem,finishItem, nil]];
     [self.view addSubview:_toolbar];
-    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, height - 216, wide, 216)];
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kScreenHeight - 216, kScreenWidth, 216)];
     _pickerView.backgroundColor = kColor(244, 243, 243, 1);
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
@@ -184,7 +169,9 @@
     for (int i = 0; i < [list count]; i++) {
         NSDictionary *channelDict = [list objectAtIndex:i];
         ChannelListModel *model = [[ChannelListModel alloc] initWithParseDictionary:channelDict];
-        [_channelItems addObject:model];
+        if ([model.channelID isEqualToString:_channelID]) {
+            [_channelItems addObject:model];
+        }
     }
     [_pickerView reloadAllComponents];
 }
@@ -221,28 +208,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     switch (indexPath.section) {
         case 0: {
-            CGFloat wide;
-            CGFloat height;
-            if(iOS7)
-            {
-                wide=SCREEN_HEIGHT;
-                height=SCREEN_WIDTH;
-                
-                
-            }
-            else
-            {  wide=SCREEN_WIDTH;
-                height=SCREEN_HEIGHT;
-                
-            }
-
             //
-            _channelField.frame = CGRectMake(0, 0, wide, cell.contentView.bounds.size.height);
+            _channelField.frame = CGRectMake(0, 0, kScreenWidth, cell.contentView.bounds.size.height);
             [cell.contentView addSubview:_channelField];
         }
             break;

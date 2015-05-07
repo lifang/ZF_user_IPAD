@@ -329,6 +329,7 @@
     //商品详细说明
     originY += openHeight + 20;
     UILabel *descriptionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, labelHeight)];
+    
     [self setLabels:descriptionTitleLabel withTitle:@"商品详细说明" font:[UIFont systemFontOfSize:16.f]];
     
     //划线
@@ -343,7 +344,7 @@
                                                  width:wide - leftSpace - rightSpace
                                               fontSize:16.f];
     descriptionHeight = descriptionHeight < labelHeight ? labelHeight : descriptionHeight;
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, openHeight)];
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, wide - leftSpace - rightSpace, descriptionHeight)];
     descriptionLabel.numberOfLines = 0;
     [self setLabels:descriptionLabel withTitle:_detailModel.goodDescription font:[UIFont systemFontOfSize:13.f]];
     
@@ -1316,7 +1317,7 @@
     rateLabel.backgroundColor = [UIColor clearColor];
     rateLabel.font = [UIFont systemFontOfSize:15.f];
     rateLabel.textAlignment = NSTextAlignmentCenter;
-    rateLabel.text = [NSString stringWithFormat:@"%.3f%%",rate];
+    rateLabel.text = [NSString stringWithFormat:@"%.1f%%",rate];
     [_scrollView addSubview:rateLabel];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:rateLabel
                                                           attribute:NSLayoutAttributeTop
