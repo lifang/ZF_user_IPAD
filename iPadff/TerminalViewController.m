@@ -40,6 +40,8 @@
 
 @property(nonatomic,strong)UIView *headerView;
 
+@property(nonatomic,strong)UILabel *findPassword;
+
 @end
 
 @implementation TerminalViewController
@@ -456,14 +458,50 @@
     POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 40, CGRectGetMaxY(line.frame) + 50, 120, 30);
     [whiteView addSubview:POSLable];
     
-    UILabel *passwordLabel = [[UILabel alloc]init];
-    passwordLabel.textColor = kColor(132, 132, 132, 1.0);
-    passwordLabel.font = [UIFont systemFontOfSize:20];
-    passwordLabel.text = @"asdasdas";
-    passwordLabel.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
-    [whiteView addSubview:passwordLabel];
     
+    
+    _findPassword = [[UILabel alloc]init];
+    _findPassword.textColor = kColor(132, 132, 132, 1.0);
+    _findPassword.font = [UIFont systemFontOfSize:20];
+    _findPassword.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
+    [whiteView addSubview:_findPassword];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+     AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface findPOSPasswordWithToken:delegate.token tmID:selectedID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    id tipInfo = [object objectForKey:@"result"];
+                    if ([tipInfo isKindOfClass:[NSString class]]) {
+                        _findPassword.text = tipInfo;
+                    }
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+
 }
+
 
 
 //重新申请开通
