@@ -378,9 +378,12 @@
         
         rect.origin.x += relateViewWidth + middleSpace;
     }
-    
-    int relateRow = (int)([_detailModel.relativeItem count] - 1) / 4 + 1;
-    originY += relateRow * (relateViewHeight + middleSpace);
+    if ([_detailModel.relativeItem count] > 0) {
+        int relateRow = (int)([_detailModel.relativeItem count] - 1) / 4 + 1;
+        originY += relateRow * (relateViewHeight + middleSpace);
+    }
+
+   
     
     _mainScrollView.userInteractionEnabled=YES;
     

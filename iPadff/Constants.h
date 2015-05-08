@@ -44,6 +44,13 @@
 #define kOrderCallBackURL  @"http://www.ebank007.com/app_notify_url.jsp"
 #define kCSCallBackURL     @"http://www.ebank007.com/repair_app_notify_url.jsp"
 
+
+
+#define kWhalesaleCallBackURL   @"http://121.40.64.167:8080/deposit_app_notify_url.jsp"
+#define kProcurementCallBackURL @"http://121.40.64.167:8080/app_notify_url.jsp"
+
+
+
 #define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]
 #define NavTitle_FONT(s) [UIFont fontWithName:@"[STHeitiSC](Medium)" size:s]
 
