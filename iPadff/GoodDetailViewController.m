@@ -887,7 +887,7 @@
     }];
 }
 - (IBAction)buyGood:(id)sender {
-    [self ShowLoginVC];
+//    [self ShowLoginVC];
     NSLog(@"buy ");
     _buyButton.selected = YES;
     _rentButton.selected = NO;
@@ -944,7 +944,7 @@
 
 - (IBAction)rentGood:(id)sender {
     NSLog(@"rent");
-    [self ShowLoginVC];
+//    [self ShowLoginVC];
     _buyButton.selected = NO;
     _rentButton.selected = YES;
    //_shopcartButton.hidden=YES;

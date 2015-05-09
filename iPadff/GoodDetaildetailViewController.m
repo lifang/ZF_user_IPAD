@@ -131,6 +131,7 @@
     _mainScrollView.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_mainScrollView];
+    
     [self  handleViewWithOriginYs:64];
     
     

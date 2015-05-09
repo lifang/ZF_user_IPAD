@@ -22,8 +22,10 @@
 #import "ChannelWebsiteController.h"
 #import "AppDelegate.h"
 #import "GuideUIViewController.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 
-@interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate>
+@interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate,LoginSuccessDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
 @property(nonatomic,strong)LocationViewController *locationVC;
 @property(nonatomic,strong)NSString *cityName;
@@ -38,6 +40,23 @@
 @end
 
 @implementation ZYHomeViewController
+
+
+
+
+-(void)LoginSuccess
+{
+    DredgeViewController *dregeVC = [[DredgeViewController alloc]init];
+    dregeVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:dregeVC animated:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     _locationVC.delegate = self;
@@ -391,9 +410,27 @@
             break;
         case 1001: {
             //开通认证
-            DredgeViewController *dregeVC = [[DredgeViewController alloc]init];
-            dregeVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:dregeVC animated:YES];
+            
+            AccountModel *account = [AccountTool userModel];
+            NSLog(@"%@",account);
+            if (account.password) {
+                DredgeViewController *dregeVC = [[DredgeViewController alloc]init];
+                dregeVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:dregeVC animated:YES];
+            }
+            else
+            {
+                LoginViewController *loginC = [[LoginViewController alloc]init];
+                loginC.LoginSuccessDelegate = self;
+                loginC.view.frame = CGRectMake(0, 0, 320, 320);
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+                nav.navigationBarHidden = YES;
+                nav.modalPresentationStyle = UIModalPresentationCustom;
+                nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                [self presentViewController:nav animated:YES completion:nil];
+            }
+
+          
         }
             break;
         case 1002: {
