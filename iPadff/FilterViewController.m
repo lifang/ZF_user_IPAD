@@ -849,7 +849,7 @@
           
           if(boolcountA%4==0)
           {
-              return  boolcountA/4*40;
+              return  boolcountA/4*60;
               
               
           }
@@ -881,7 +881,7 @@
             
             if(boolcountA%4==0)
             {
-                return  boolcountA/4*40;
+                return  boolcountA/4*60;
                 
                 
             }
@@ -911,7 +911,7 @@
             
             if(boolcountA%4==0)
             {
-                return  boolcountA/4*40;
+                return  boolcountA/4*60;
                 
                 
             }
@@ -941,7 +941,7 @@
             
             if(boolcountA%4==0)
             {
-                return  boolcountA/4*40;
+                return  boolcountA/4*60;
                 
                 
             }
@@ -971,7 +971,7 @@
             
             if(boolcountA%4==0)
             {
-                return  boolcountA/4*40;
+                return  boolcountA/4*60;
                 
                 
             }
@@ -1001,7 +1001,7 @@
             
             if(boolcountA%4==0)
             {
-                return  boolcountA/4*40;
+                return  boolcountA/4*60;
                 
                 
             }
@@ -1031,7 +1031,7 @@
             
             if(boolcountA%4==0)
             {
-                return  boolcountA/4*40;
+                return  boolcountA/4*60;
                 
                 
             }
