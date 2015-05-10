@@ -88,6 +88,10 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 @property(nonatomic,strong)UIButton *selectedStart;
 @property(nonatomic,strong)UIButton *selectedEnd;
 
+//查询button
+@property(nonatomic,strong)UIButton *startStatisticsBtn;
+@property(nonatomic,strong)UIButton *startFindBtn;
+
 
 @end
 
@@ -366,23 +370,25 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     [_contentView addSubview:_dateField2];
     [_contentView addSubview:rightTerminalBtn2];
     
-    UIButton *startFindBtn = [[UIButton alloc]init];
-    [startFindBtn addTarget:self action:@selector(startFind) forControlEvents:UIControlEventTouchUpInside];
-    [startFindBtn setTitle:@"开始查询" forState:UIControlStateNormal];
-    [startFindBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
-    [startFindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    startFindBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    startFindBtn.frame = CGRectMake(_terminalField.frame.origin.x, CGRectGetMaxY(_terminalField.frame) + 30, 100, 40);
-    [_contentView addSubview:startFindBtn];
+    _startFindBtn = [[UIButton alloc]init];
+    _startFindBtn.userInteractionEnabled = NO;
+    [_startFindBtn addTarget:self action:@selector(startFind) forControlEvents:UIControlEventTouchUpInside];
+    [_startFindBtn setTitle:@"开始查询" forState:UIControlStateNormal];
+    [_startFindBtn setBackgroundColor:kColor(241, 81, 8, 0.5)];
+    [_startFindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _startFindBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    _startFindBtn.frame = CGRectMake(_terminalField.frame.origin.x, CGRectGetMaxY(_terminalField.frame) + 30, 100, 40);
+    [_contentView addSubview:_startFindBtn];
     
-    UIButton *startStatisticsBtn = [[UIButton alloc]init];
-    [startStatisticsBtn addTarget:self action:@selector(startStatistics) forControlEvents:UIControlEventTouchUpInside];
-    [startStatisticsBtn setTitle:@"开始统计" forState:UIControlStateNormal];
-    [startStatisticsBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
-    [startStatisticsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    startStatisticsBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    startStatisticsBtn.frame = CGRectMake(CGRectGetMaxX(startFindBtn.frame) + 60, CGRectGetMaxY(_terminalField.frame) + 30, 100, 40);
-    [_contentView addSubview:startStatisticsBtn];
+    _startStatisticsBtn = [[UIButton alloc]init];
+    _startStatisticsBtn.userInteractionEnabled = NO;
+    [_startStatisticsBtn addTarget:self action:@selector(startStatistics) forControlEvents:UIControlEventTouchUpInside];
+    [_startStatisticsBtn setTitle:@"开始统计" forState:UIControlStateNormal];
+    [_startStatisticsBtn setBackgroundColor:kColor(241, 81, 8, 0.5)];
+    [_startStatisticsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _startStatisticsBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    _startStatisticsBtn.frame = CGRectMake(CGRectGetMaxX(_startFindBtn.frame) + 60, CGRectGetMaxY(_terminalField.frame) + 30, 100, 40);
+    [_contentView addSubview:_startStatisticsBtn];
     [self setRefreshView];
     
 }
@@ -548,6 +554,11 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
         [_endSure removeFromSuperview];
         [self endPick];
         _dateField2.text = self.endTime;
+        _startFindBtn.userInteractionEnabled = YES;
+        [_startFindBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
+        
+        _startStatisticsBtn.userInteractionEnabled = YES;
+        [_startStatisticsBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
     }
 }
 
@@ -864,6 +875,21 @@ else
     }
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *v = [[UIView alloc]init];
+    v.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0.7);
+    if (iOS7) {
+        v.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 0.7);
+    }
+    return v;
+}
+
+-(CGFloat )tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.7;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _isPush = YES;
@@ -887,7 +913,6 @@ else
     [self.navigationController pushViewController:dealVC animated:YES];
     }
 }
-
 
 #pragma mark - Request
 

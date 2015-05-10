@@ -43,9 +43,9 @@
         self.contentViews = contentView;
         [self setupContentView];
         contentView.backgroundColor = kColor(228, 228, 228, 1.0);
-        contentView.frame = CGRectMake(0, CGRectGetMaxY(dealLabel.frame) + 15, SCREEN_WIDTH,50 -  CGRectGetMaxY(dealLabel.frame) + 15);
+        contentView.frame = CGRectMake(0, CGRectGetMaxY(dealLabel.frame) + 17, SCREEN_WIDTH,50 -  CGRectGetMaxY(dealLabel.frame) + 15);
         if (iOS7) {
-            contentView.frame = CGRectMake(0, CGRectGetMaxY(dealLabel.frame) + 15, SCREEN_HEIGHT,50 -  CGRectGetMaxY(dealLabel.frame) + 15);
+            contentView.frame = CGRectMake(0, CGRectGetMaxY(dealLabel.frame) + 17, SCREEN_HEIGHT,50 -  CGRectGetMaxY(dealLabel.frame) + 15);
         }
         [self addSubview:contentView];
         

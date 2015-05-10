@@ -16,6 +16,7 @@
 #import "LoginViewController.h"
 #import "AccountTool.h"
 #import "RegularFormat.h"
+#import "ZYHomeViewController.h"
 
 @interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate>
 
@@ -1013,7 +1014,12 @@
     if (buttonIndex == 0 && alertView.tag == 9090) {
         AppDelegate *delegate = [AppDelegate shareAppDelegate];
         [delegate clearLoginInfo];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [delegate.tabBarViewController setSeletedIndex:0];
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+        _nameField.text = nil;
+        _phoneField.text = nil;
+        _emailField.text = nil;
+        _locatonField.text = nil;
     }
 }
 

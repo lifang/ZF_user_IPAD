@@ -420,7 +420,7 @@
     }
     if (!_isAdd) {
         [self saveDate];
-    }
+    }else{
     if (!_newsEmailField.text || [_newsEmailField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                         message:@"邮箱不能为空!"
@@ -441,6 +441,7 @@
     }
     
     [self saveDate];
+    }
 }
 
 
