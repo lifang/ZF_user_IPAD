@@ -10,6 +10,10 @@
 //#import "favorableViewController.h"
 //标记一下方向
 #import "MineCommonController.h"
+
+static NSString *s_shopcart = @"shopcart";
+
+static NSString *ShowColumnNotification = @"ShowColumnNotification";
 typedef enum
 {
     ZYSlideDirectionRight = 0,

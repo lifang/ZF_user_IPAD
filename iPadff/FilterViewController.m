@@ -615,7 +615,7 @@
     {
         
         _switchButton =[UIButton buttonWithType:UIButtonTypeCustom];
-   _switchButton.Frame=CGRectMake(50, 65, 30, 30);
+   _switchButton.frame=CGRectMake(50, 65, 30, 30);
         [_switchButton addTarget:self action:@selector(rentboolclick) forControlEvents:UIControlEventTouchUpInside];
         
         [rootimageviews addSubview:_switchButton];
@@ -697,6 +697,18 @@
         _highField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_maxPrice] intValue]];
         _highField.textAlignment = NSTextAlignmentRight;
 
+        _highField.rightViewMode = UITextFieldViewModeAlways;
+        _lowField.rightViewMode = UITextFieldViewModeAlways;
+        
+        UIView *v = [[UIView alloc]init];
+        v.frame = CGRectMake(0, 0, 10, 40);
+        UIView *v1 = [[UIView alloc]init];
+        v1.frame = CGRectMake(0, 0, 10, 40);
+        _highField.rightView = v;
+        _lowField.rightView = v1;
+
+        
+        
         CALayer *layers=[_highField layer];
         //是否设置边框以及是否可见
         [layers setMasksToBounds:YES];
@@ -1219,6 +1231,19 @@
 }
 
 #pragma mark - UITextField
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+
+
+
+
+    [self  closeKeyboard];
+
+
+
+
+
+}// may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField              // called when 'return' key pressed. return NO to ignore.
 {

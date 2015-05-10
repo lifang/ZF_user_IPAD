@@ -1414,7 +1414,7 @@
             deliveryLabel.backgroundColor = [UIColor clearColor];
                      deliveryLabel.font = [UIFont systemFontOfSize:16.f];
             deliveryLabel.adjustsFontSizeToFitWidth = YES;
-            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"123"];
+            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"0"];
             [cell.contentView addSubview:deliveryLabel];
             
             

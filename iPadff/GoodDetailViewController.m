@@ -109,6 +109,8 @@
 - (IBAction)goShoppingCart:(id)sender {
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [del.tabBarViewController setSeletedIndex:1];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"clearo" object:nil userInfo:nil];
+
 }
 
 
@@ -1008,6 +1010,11 @@
                 else if ([errorCode intValue] == RequestSuccess) {
                     hud.labelText = @"添加到购物车成功";
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"getnumber" object:nil];
+                    delegate.shopcartCount ++;
+                    NSDictionary *shopDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              [NSNumber numberWithInt:delegate.shopcartCount],s_shopcart,
+                                              nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ShowColumnNotification object:nil userInfo:shopDict];
 
                 }
             }

@@ -19,7 +19,7 @@
 @property(nonatomic,strong)NSArray *array5;
 
 @property(nonatomic,assign)BOOL haveExit;
-
+@property (nonatomic, assign) int shopcartCount;
 + (AppDelegate *)shareAppDelegate;
 
 //登录后返回
