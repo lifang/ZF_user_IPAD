@@ -428,8 +428,8 @@
         originXs += btnWidth + hSpace;
     }
     
-    originY += labelHeight + 10.f;
-    UILabel *introducelable = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY+20, leftLabelWidth, btnHeight)];
+    int rows = (int)([_detailModel.channelItem count] - 1) / 3 + 1;
+    originY += rows * (btnHeight + hSpace)-10;    UILabel *introducelable = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY+20, leftLabelWidth, btnHeight)];
     [self setLabel:introducelable withTitle:@"通道介绍" font:[UIFont systemFontOfSize:17.f]];
     //厂家图片
     originY += vSpace + 1;
@@ -452,13 +452,13 @@
     CGFloat summaryHeight = [self heightWithString:_detailModel.factorySummary
                                              width:wide - leftSpace - rightSpace
                                           fontSize:13.f];
-    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+80, originY-15, leftSpace - 140, summaryHeight)];
+    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+80, originY-15, leftSpace - 140, 60)];
     [self setLabel:factorySummaryLabel withTitle:_detailModel.defaultChannel.channelFactoryDescription font:[UIFont systemFontOfSize:13.f]];
-    factorySummaryLabel.numberOfLines=2;
+    factorySummaryLabel.numberOfLines=3;
 
     
-    int rows = (int)([_detailModel.channelItem count] - 1) / 3 + 1;
-    originY += rows * (btnHeight + hSpace);
+    originY += labelHeight + 30.f;
+
     
     //购买方式
     UILabel *buyTypeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, btnHeight)];

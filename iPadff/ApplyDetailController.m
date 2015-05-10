@@ -271,7 +271,7 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
 {
 
 
-namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"支  付   通  道", nil];
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"查询银行接口",@"结算银行代码",@"结算银行账户",@"支  付   通  道", nil];
 
 }
     
