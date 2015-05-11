@@ -272,6 +272,7 @@
 
 -(void)authClick:(UIButton *)sender
 {
+    [_phoneField resignFirstResponder];
         if (_isMobile) {
             if ([RegularFormat isMobileNumber:_phoneField.text]) {
                 [self sendMobileValidate];
@@ -303,6 +304,7 @@
 
 -(void)makeSureClick:(UIButton *)sender
 {
+    [_authField resignFirstResponder];
     if (!_authField.text || [_authField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                         message:@"验证码不能为空!"

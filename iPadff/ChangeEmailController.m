@@ -48,6 +48,8 @@
     [self setLabel:_newsEmail withTopView:self.view middleSpace:120 labelTag:1];
     if (!_isAdd) {
         _newsEmail.hidden = YES;
+    }else{
+        _newsEmail.hidden = NO;
     }
     
     UILabel *oldEmail = [[UILabel alloc]init];
@@ -109,6 +111,8 @@
                                                            constant:mainHeight]];
     if (!_isAdd) {
         _newsEmailField.hidden = YES;
+    }else{
+        _newsEmailField.hidden = NO;
     }
     
     _oldEmailField = [[UITextField alloc]init];
