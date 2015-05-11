@@ -75,6 +75,8 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        delegate.shopcartCount = 0;
     
 }
 - (void)dealloc {

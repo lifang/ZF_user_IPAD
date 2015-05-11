@@ -390,7 +390,7 @@
                     [hud hide:YES];
                     hud.labelText = @"订单取消成功";
                     [[NSNotificationCenter defaultCenter] postNotificationName:RefreshMyOrderListNotification object:nil];
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self goPervious:nil];
                 }
             }
             else {

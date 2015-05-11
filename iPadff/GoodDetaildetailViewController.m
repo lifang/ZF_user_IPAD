@@ -93,6 +93,7 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
+    self.view.backgroundColor=[UIColor whiteColor];
     
     // Do any additional setup after loading the view.
 }
@@ -107,6 +108,8 @@
 - (IBAction)goShoppingCart:(id)sender {
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [del.tabBarViewController setSeletedIndex:1];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"clearo" object:nil userInfo:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -282,27 +285,27 @@
                                                   hasTitle:YES];
     FormView *standForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, wide, standFormHeight)];
     [standForm setGoodDetailDataWithFormTitle:@"刷卡交易标准手续费"
-                                      content:_detailModel.defaultChannel.standRateItem
+                                      content:_channelData.standRateItem
                                    titleArray:[NSArray arrayWithObjects:@"商户类",@"费率",@"说明",nil]];
     [_mainScrollView addSubview:standForm];
     
     //资金服务费
     originY += standFormHeight + 10;
-    CGFloat dateFormHeight = [FormView heightWithRowCount:[_detailModel.defaultChannel.dateRateItem count]
+    CGFloat dateFormHeight = [FormView heightWithRowCount:[_channelData.dateRateItem count]
                                                  hasTitle:YES];
     FormView *dateForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, wide, dateFormHeight)];
     [dateForm setGoodDetailDataWithFormTitle:@"资金服务费"
-                                     content:_detailModel.defaultChannel.dateRateItem
+                                     content:_channelData.dateRateItem
                                   titleArray:[NSArray arrayWithObjects:@"结算周",@"费率",@"说明", nil]];
     [_mainScrollView addSubview:dateForm];
     
     //其它交易费率
     originY += dateFormHeight + 10;
-    CGFloat otherFormHeight = [FormView heightWithRowCount:[_detailModel.defaultChannel.otherRateItem count]
+    CGFloat otherFormHeight = [FormView heightWithRowCount:[_channelData.otherRateItem count]
                                                   hasTitle:YES];
     FormView *otherForm = [[FormView alloc] initWithFrame:CGRectMake(0, originY, wide-0, otherFormHeight)];
     [otherForm setGoodDetailDataWithFormTitle:@"其它交易费率"
-                                      content:_detailModel.defaultChannel.otherRateItem
+                                      content:_channelData.otherRateItem
                                    titleArray:[NSArray arrayWithObjects:@"交易类",@"费率",@"说明", nil]];
     [_mainScrollView addSubview:otherForm];
     
@@ -906,6 +909,13 @@
     _scrollViewmaterial.backgroundColor = kColor(244, 243, 243, 1);
     
     [self.view addSubview:_scrollViewmaterial];
+    _mainScrollView.hidden=YES;
+    _tableView.hidden=YES;
+    _scrollViewrent.hidden=YES;
+    _scrollViewmaterial.hidden=YES;
+    
+    _scrollView.hidden=YES;
+
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewmaterial
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual

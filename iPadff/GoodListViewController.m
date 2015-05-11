@@ -548,6 +548,8 @@
 - (IBAction)goShoppingCart:(id)sender {
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [del.tabBarViewController setSeletedIndex:1];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"clearo" object:nil userInfo:nil];
+
 }
 
 

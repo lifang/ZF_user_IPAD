@@ -44,7 +44,9 @@ typedef enum {
     UIButton *cancelBtn;
     BOOL isopen;
     NSArray*namesarry;
-    
+    NSInteger lastlength;
+    UIButton *submitBtn ;
+       int pictureint;
 }
 
 @property (nonatomic, strong) NSString *terminalID;

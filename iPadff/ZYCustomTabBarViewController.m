@@ -57,7 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList) name:@"getnumber" object:nil];
+//     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList) name:@"getnumber" object:nil];
     _nomalImageArray = [[NSArray alloc] initWithObjects:@"平板UI套件-用户版_89",@"shopping_nomal.png",@"Myinages_nomal",@"my_nomal",@"tabbar_button_notes_normal.png",nil];
     
     _hightlightedImageArray = [[NSArray alloc]initWithObjects:@"home_hight",@"shoppomg_hight",@"myinages_hight",@"Myhight",@"tabbar_button_notes_selected.png",nil];
@@ -68,7 +68,14 @@
     _seletedIndex = 0;
         //用self.赋值默认会调set方法
 //		self.seletedIndex = _seletedIndex;
-   
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showColumnCount:)
+                                                 name:ShowColumnNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(clearo)
+                                                 name:@"clearo"
+                                               object:nil];
     
     self.view.backgroundColor=[UIColor whiteColor];
     
@@ -76,6 +83,39 @@
     
     
 }
+#pragma mark - NSNotification
+-(void)clearo
+{
+
+    redimage.hidden=YES;
+    
+
+}
+- (void)showColumnCount:(NSNotification *)notification {
+    int shopcartCount = [[notification.userInfo objectForKey:s_shopcart] intValue];
+    if (shopcartCount > 0) {
+        
+        redimage.hidden=NO;
+        if(shopcartCount>99)
+        {
+            badgelable.text=[NSString stringWithFormat:@"%d+",99];
+            [badgelable sizeToFit];
+            
+            redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-35, -12, badgelable.frame.size.width+10, 20);
+            
+        }else
+        {
+            badgelable.text=[NSString stringWithFormat:@"%d",shopcartCount];
+            [badgelable sizeToFit];
+            
+            redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-30, -12, badgelable.frame.size.width+10, 20);
+            
+        }
+
+
+    }
+}
+
 -(void)refreshList
 {
     [self getShoppingList ];

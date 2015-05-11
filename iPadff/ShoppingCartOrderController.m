@@ -238,7 +238,7 @@
 
 - (void)setContentsForControls {
     self.payLabel.text = [NSString stringWithFormat:@"实付：￥%.2f",[self getSummaryPrice]];
-    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%@)",@"123"];
+    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%@)",@"0"];
 }
 
 //计算总价
@@ -1056,7 +1056,7 @@ if(section==0)
         
     }
 
-    CGFloat billHeight = 44.f;
+    CGFloat billHeight = 64.f;
     UIView *billView = [[UIView alloc] initWithFrame:CGRectMake(0, 90, wide, billHeight)];
     billView.backgroundColor = [UIColor whiteColor];
 //    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.5)];
@@ -1092,7 +1092,7 @@ if(section==0)
     billLabel.text = @"发票抬头";
     billLabel.userInteractionEnabled = YES;
     [billView addSubview:billLabel];
-    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 120, billHeight)];
+    self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 120, 44)];
     self.billField .delegate = self;
     self.billField .placeholder = @"     请输入发票抬头";
     self.billField.text=billnsstring;

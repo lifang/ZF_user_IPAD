@@ -704,6 +704,7 @@ static NSString *HTTP_GET  = @"GET";
             [paramDict setObject:invoiceTitle forKey:@"invoice_info"];
         }
     }
+
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_createOrderFromCart_method];
     [[self class] requestWithURL:urlString
@@ -744,6 +745,7 @@ static NSString *HTTP_GET  = @"GET";
             [paramDict setObject:invoiceTitle forKey:@"invoice_info"];
         }
     }
+
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_createOrderFromGood_method];
     [[self class] requestWithURL:urlString

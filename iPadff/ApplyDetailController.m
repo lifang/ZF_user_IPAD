@@ -264,14 +264,14 @@
     }
 if(_applyType==OpenApplyPublic)
 {
-namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行账号名",@"结算银行卡号",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
 
 
 }else
 {
 
 
-namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行名称",@"结算银行代码",@"结算银行账户",@"支  付   通  道", nil];
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"查询银行接口",@"结算银行代码",@"结算银行账户",@"支  付   通  道", nil];
 
 }
     
@@ -701,13 +701,13 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
                     MaterialModel *model = [MaterialTexttypeArry objectAtIndex:i-1];
 
                     //文字
-                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(wide/2*LR, 700+lastheight*70+i/2*50+10,140, 40)];
+                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(wide/2*LR+42, 700+lastheight*70+i/2*50+10,140, 40)];
                     [_scrollView addSubview:newaddress];
                     newaddress.textAlignment = NSTextAlignmentCenter;
                     newaddress.font=[UIFont systemFontOfSize:18];
                     
                     newaddress.text=model.materialName;
-                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+150,700+lastheight*70+i/2*50+10,280, 40)];
+                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+192,700+lastheight*70+i/2*50+10,280, 40)];
                     neworiginaltextfield.tag=i+1056;
                     
                     [_scrollView addSubview:neworiginaltextfield];
@@ -755,13 +755,13 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
                     MaterialModel *model = [MaterialTexttypeArry objectAtIndex:i];
 
                     //文字
-                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+wide/2*LR, 700+lastheight*70+i/2*50+10,140, 40)];
+                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(42+wide/2*LR, 700+lastheight*70+i/2*50+10,140, 40)];
                     [_scrollView addSubview:newaddress];
                     newaddress.textAlignment = NSTextAlignmentCenter;
                     newaddress.font=[UIFont systemFontOfSize:18];
                     
                     newaddress.text=model.materialName;
-                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+190,700+lastheight*70+i/2*50+10,280, 40)];
+                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+192,700+lastheight*70+i/2*50+10,280, 40)];
                     neworiginaltextfield.tag=i+1056;
                     
                     [_scrollView addSubview:neworiginaltextfield];
@@ -830,9 +830,12 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
         
     }
     
-    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    int llastint;
+    llastint=_applyData.materialList.count/2;
+
+submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     submitBtn.frame = CGRectMake(80, 700+lastheightY*70+80, 160, 40);
-    submitBtn.center=CGPointMake(wide/2, 700+lastheightY*70+150);
+    submitBtn.center=CGPointMake(wide/2, 700+llastint*70+150);
     
     submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
@@ -1494,18 +1497,18 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
     {
         
         NSInteger lastheightY;
-        lastheightY=_applyData.materialList.count-2;
-        if(lastheightY%3==0)
-        {
-            lastheightY=_applyData.materialList.count/3;
-            
-        }
-        else
-        {
-            
-            lastheightY=_applyData.materialList.count/3+1;
-            
-        }
+        lastheightY=_applyData.materialList.count/2;
+//        if(lastheightY%3==0)
+//        {
+//            lastheightY=_applyData.materialList.count/3;
+//            
+//        }
+//        else
+//        {
+//            
+//            lastheightY=_applyData.materialList.count/3+1;
+//            
+//        }
         
         return    1000+lastheightY*70;
 
