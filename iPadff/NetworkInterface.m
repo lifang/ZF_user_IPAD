@@ -386,7 +386,7 @@ static NSString *HTTP_GET  = @"GET";
     if (token && ![token isEqualToString:@""]) {
         [paramDict setObject:token forKey:@"token"];
     }
-    [paramDict setObject:tmID forKey:@"terminalid"];
+    [paramDict setObject:[NSNumber numberWithInt:[tmID intValue]] forKey:@"terminalid"];
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_terminalFindPsw_method];
     [[self class] requestWithURL:urlString
@@ -422,7 +422,7 @@ static NSString *HTTP_GET  = @"GET";
     if (token && ![token isEqualToString:@""]) {
         [paramDict setObject:token forKey:@"token"];
     }
-//    [paramDict setObject:tmID forKey:@"terminalid"];
+    [paramDict setObject:[NSNumber numberWithInt:[tmID intValue]] forKey:@"terminalId"];
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_synchronize_method];
     [[self class] requestWithURL:urlString

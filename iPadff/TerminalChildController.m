@@ -40,6 +40,8 @@
 
 @property(nonatomic,strong)UIImageView *findPosView;
 
+@property(nonatomic,strong)UILabel *findPassword;
+
 @end
 
 @implementation TerminalChildController
@@ -1005,12 +1007,12 @@
 
 #pragma mark ---按钮点击时间
 
--(void)buttonClick:(UIButton *)button
+-(void)buttonClick:(UIButton *)sender
 {
-    switch (button.tag) {
+    switch (sender.tag) {
         case 3333:
             NSLog(@"点击了找回POS密码（已开通）");
-            [self initFindPosViewWithSelectedID];
+            [self initFindPosViewWithSelectedID:_tm_ID WithIndexNum:0];
             break;
         case 3334:
         {
@@ -1022,6 +1024,7 @@
         }break;
         case 4444:
             NSLog(@"点击了找回POS密码（部分开通）");
+            [self initFindPosViewWithSelectedID:_tm_ID WithIndexNum:0];
             break;
         case 4445:
         {
@@ -1103,7 +1106,8 @@
     }
 }
 
--(void)initFindPosViewWithSelectedID
+//找回PS密码
+-(void)initFindPosViewWithSelectedID:(NSString *)selectedID WithIndexNum:(int)indexP
 {
     CGFloat width;
     CGFloat height;
@@ -1117,8 +1121,11 @@
         width = SCREEN_WIDTH;
         height = SCREEN_HEIGHT;
     }
-    _findPosView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
-    [self.view addSubview:_findPosView];
+    _findPosView = [[UIImageView alloc]init];
+    
+    _findPosView.frame = CGRectMake(0, 0, width, height);
+    
+    [self.view.window addSubview:_findPosView];
     _findPosView.image=[UIImage imageNamed:@"backimage"];
     _findPosView.userInteractionEnabled=YES;
     
@@ -1149,16 +1156,50 @@
     POSLable.text = @"POS机密码";
     POSLable.textColor = kColor(56, 56, 56, 1.0);
     POSLable.font = [UIFont systemFontOfSize:20];
-    POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 40, CGRectGetMaxY(line.frame) + 50, 120, 30);
+    POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 80, CGRectGetMaxY(line.frame) + 50, 120, 30);
     [whiteView addSubview:POSLable];
     
-    UILabel *passwordLabel = [[UILabel alloc]init];
-    passwordLabel.textColor = kColor(132, 132, 132, 1.0);
-    passwordLabel.font = [UIFont systemFontOfSize:20];
-    NSLog(@"点了第%@个ID",_tm_ID);
-    passwordLabel.text = @"asdasdas";
-    passwordLabel.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
-    [whiteView addSubview:passwordLabel];
+    
+    
+    _findPassword = [[UILabel alloc]init];
+    _findPassword.textColor = kColor(132, 132, 132, 1.0);
+    _findPassword.font = [UIFont systemFontOfSize:20];
+    _findPassword.frame = CGRectMake(CGRectGetMaxX(POSLable.frame), POSLable.frame.origin.y, 300, 30);
+    [whiteView addSubview:_findPassword];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface findPOSPasswordWithToken:delegate.token tmID:selectedID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    id tipInfo = [object objectForKey:@"result"];
+                    if ([tipInfo isKindOfClass:[NSString class]]) {
+                        _findPassword.text = tipInfo;
+                    }
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
     
 }
 

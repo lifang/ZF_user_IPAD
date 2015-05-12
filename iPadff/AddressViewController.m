@@ -656,7 +656,17 @@
     if (_isChange) {
         [self changeRequest];
     }else{
-        [self saveAddressRequest];
+        if (_addressItems.count >= 10) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.customView = [[UIImageView alloc] init];
+            hud.mode = MBProgressHUDModeCustomView;
+            [hud hide:YES afterDelay:1.f];
+            hud.labelText = @"最多只能有10个地址";
+            return;
+        }else{
+            [self saveAddressRequest];
+        }
+
     }
 
 }

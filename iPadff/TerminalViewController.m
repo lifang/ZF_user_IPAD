@@ -306,7 +306,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_terminalItems.count == 0) {
         NSString *ID = @"cell";
-        TerminalViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        TerminalViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID ];
         if (cell == nil) {
             cell = [[TerminalViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
         }
@@ -316,7 +316,8 @@
         NSString *IDs = [NSString stringWithFormat:@"cell-%@",model.TM_status];
         TerminalViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IDs];
         if (cell == nil) {
-            cell = [[TerminalViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:IDs];
+            cell = [[TerminalViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:IDs
+                                               WithVedeos:model.isHaveVideo];
             cell.TerminalViewCellDelegate = self;
         }
         cell.selectedID = model.TM_ID;
@@ -360,8 +361,6 @@
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.terminalID = selectedID;
         videoAuthC.hidesBottomBarWhenPushed=YES;
-        
-        
         [self.navigationController pushViewController:videoAuthC animated:YES];    }
     if (btnTag == 2000) {
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
@@ -375,6 +374,7 @@
     }
     if (btnTag == 2002) {
         NSLog(@"点击了同步(未开通)");
+        [self synchronizeWithSelectedID:selectedID];
     }
     if (btnTag == 3000) {
         NSLog(@"点击了找回POS密码（部分开通）");
@@ -392,19 +392,21 @@
     }
     if (btnTag == 3003) {
         NSLog(@"点击了同步（部分开通）");
+        [self synchronizeWithSelectedID:selectedID];
     }
     if (btnTag == 4000) {
         NSLog(@"点击了更新资料");
     }
     if (btnTag == 4001) {
         NSLog(@"点击了同步（已停用）");
+        [self synchronizeWithSelectedID:selectedID];
     }
     if (btnTag == 5000) {
         NSLog(@"点击了租凭退换");
     }
     
 }
-//找回PS密码
+//找回PoS密码
 -(void)initFindPosViewWithSelectedID:(NSString *)selectedID WithIndexNum:(int)indexP
 {
     CGFloat width;
@@ -455,7 +457,7 @@
     POSLable.text = @"POS机密码";
     POSLable.textColor = kColor(56, 56, 56, 1.0);
     POSLable.font = [UIFont systemFontOfSize:20];
-    POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 40, CGRectGetMaxY(line.frame) + 50, 120, 30);
+    POSLable.frame = CGRectMake(FindPOSLable.frame.origin.x - 80, CGRectGetMaxY(line.frame) + 50, 120, 30);
     [whiteView addSubview:POSLable];
     
     
@@ -525,6 +527,41 @@
     detailC.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:detailC animated:YES];
+}
+
+-(void)synchronizeWithSelectedID:(NSString *)selectedID
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface synchronizeWithToken:delegate.token tmID:selectedID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    hud.labelText = @"同步成功";
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
