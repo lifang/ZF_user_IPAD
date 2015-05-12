@@ -11,11 +11,18 @@
 #import "UIImageView+WebCache.h"
 
 #define kCommentCellHeight 230.f
+@protocol OrderCommentDelegate <NSObject>
 
+- (void)commentViewWillEdit:(UITextView *)textView;
+- (void)commentViewEndEdit;
+
+@end
 @interface OrderCommentCell : UITableViewCell<UITextViewDelegate>
 
 {UILabel *tipLabel;
 }
+@property (nonatomic, assign) id<OrderCommentDelegate>delegate;
+
 @property (nonatomic, strong) UIImageView *pictureView;
 
 @property (nonatomic, strong) UILabel *nameLabel;

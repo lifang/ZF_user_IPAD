@@ -24,7 +24,9 @@
 #import "GuideUIViewController.h"
 #import "LoginViewController.h"
 #import "AccountTool.h"
+#import "MoneyManagementViewController.h"
 
+#import "LoanViewController.h"
 @interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate,LoginSuccessDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
 @property(nonatomic,strong)LocationViewController *locationVC;
@@ -448,11 +450,20 @@
         }
             break;
         case 1004: {
+            
+            MoneyManagementViewController*money=[[MoneyManagementViewController alloc]init];
+            money.hidesBottomBarWhenPushed=YES;
+            [self.navigationController pushViewController:money animated:YES];
+            
             //我要贷款
         }
             break;
         case 1005: {
             //我要理财
+            LoanViewController*money=[[LoanViewController alloc]init];
+            money.hidesBottomBarWhenPushed=YES;
+            [self.navigationController pushViewController:money animated:YES];
+
         }
             break;
         case 1006: {

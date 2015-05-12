@@ -134,8 +134,7 @@
     if (isneedpp) {
         needInvoice = 1;
     }
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"加载中...";
+ 
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     
     
@@ -176,7 +175,9 @@
         
         
     }
-    [NetworkInterface createOrderFromCartWithToken:delegate.token userID:delegate.userID cartsID:cartsID addressID:addressID comment:@"" needInvoice:needInvoice invoiceType:self.billType invoiceInfo:self.billField.text finished:^(BOOL success, NSData *response) {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    [NetworkInterface createOrderFromCartWithToken:delegate.token userID:delegate.userID cartsID:cartsID addressID:addressID comment:self.reviewField.text needInvoice:needInvoice invoiceType:self.billType invoiceInfo:self.billField.text finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -656,14 +657,14 @@
         hud.labelText = @"请填写正确的电话";
         return;
     }
-    if (![RegularFormat isCorrectEmail:_zipField.text]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写正确的邮箱";
-        return;
-    }
+//    if (![RegularFormat isCorrectEmail:_zipField.text]) {
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//        hud.customView = [[UIImageView alloc] init];
+//        hud.mode = MBProgressHUDModeCustomView;
+//        [hud hide:YES afterDelay:1.f];
+//        hud.labelText = @"请填写正确的邮箱";
+//        return;
+//    }
 
         [self addAddress];
  

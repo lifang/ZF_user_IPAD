@@ -240,7 +240,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface createOrderFromGoodBuyWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:@"" needInvoice:needInvoice invoiceType:self.billType invoiceInfo:self.billField.text finished:^(BOOL success, NSData *response) {
+    [NetworkInterface createOrderFromGoodBuyWithToken:delegate.token userID:delegate.userID goodID:_goodDetail.goodID channelID:_goodDetail.defaultChannel.channelID count:_count addressID:addressID comment:self.reviewField.text needInvoice:needInvoice invoiceType:self.billType invoiceInfo:self.billField.text finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -1459,7 +1459,7 @@
             deliveryLabel.backgroundColor = [UIColor clearColor];
             //            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
             deliveryLabel.adjustsFontSizeToFitWidth = YES;
-            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"123"];
+            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"0"];
             [cell.contentView addSubview:deliveryLabel];
             
             

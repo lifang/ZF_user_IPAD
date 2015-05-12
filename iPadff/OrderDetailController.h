@@ -13,7 +13,8 @@
 static NSString *RefreshMyOrderListNotification = @"RefreshMyOrderListNotification";
 
 @interface OrderDetailController : CommonViewController
-{    UIImageView*bigsview;
+{
+    UIImageView*bigsview;
     NSMutableArray*LLgoodList;
     
 }
