@@ -78,6 +78,8 @@
 
 @property (nonatomic, strong) NSArray *cityArray;  //pickerView 第二列
 @property(nonatomic,strong)UITableView *terminalTableView;
+@property (nonatomic, strong) NSString *bankTitleName; //银行名
+@property (nonatomic, strong) NSString *bankTitleName2; //银行名
 
 @property (nonatomic, strong) NSString *merchantID;
 @property (nonatomic, strong) NSString *bankID;  //银行代码
@@ -264,14 +266,14 @@
     }
 if(_applyType==OpenApplyPublic)
 {
-namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行账号名",@"结算银行卡号",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行账户名",@"结算银行名称",@"结算银行账户",@"税务登记证号",@"组 织 机 构 号",@"支  付   通  道", nil];
 
 
 }else
 {
 
 
-namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"查询银行接口",@"结算银行代码",@"结算银行账户",@"支  付   通  道", nil];
+namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   称",@"性              别",@"选   择   生  日",@"身  份  证  号",@"联   系  电  话",@"邮              箱",@"所      在     地",@"结算银行账户名",@"结算银行名称",@"结算银行账户",@"支  付   通  道", nil];
 
 }
     
@@ -504,6 +506,50 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:zhifubutton];
         }
+        
+        else if(i==9)
+        {
+            blankseclectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            blankseclectbutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+            
+
+            
+            
+            if(_bankTitleName)
+     
+            {
+
+    
+                [blankbutton setTitle:_bankTitleName forState:UIControlStateNormal];
+
+
+     
+            }
+            
+            
+
+            [blankseclectbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            blankseclectbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [blankseclectbutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
+            CALayer *layer=[blankseclectbutton  layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            blankseclectbutton.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+            blankseclectbutton.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+            
+            blankseclectbutton.tag=14055;
+
+            [blankseclectbutton addTarget:self action:@selector(blankclick:) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:blankseclectbutton];
+        }
+
         else if(i==11&&_applyType==OpenApplyPrivate)
         {
             zhifubutton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -542,8 +588,19 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             neworiginaltextfield.delegate=self;
             
             neworiginaltextfield.tag=i+1056;
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            neworiginaltextfield.text=[NSString stringWithFormat:@"  %@",accountname];
+            
+            if([self isBlankString:[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]]])
+            {
+                 neworiginaltextfield.text=@"";
+                
+            }else
+            {
+                NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+                neworiginaltextfield.text=[NSString stringWithFormat:@"  %@",accountname];
+
+            
+            }
+          
             neworiginaltextfield.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
             [_scrollView addSubview:neworiginaltextfield];
             //        neworiginaltextfield.delegate=self;
@@ -599,15 +656,15 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             
             NSInteger lastheight;
             lastheight=_applyData.materialList.count-2;
-            if(lastheight%3==0)
+            if(lastheight%2==0)
             {
-                lastheight=_applyData.materialList.count/3;
+                lastheight=_applyData.materialList.count/2;
                 
             }
             else
             {
                 
-                lastheight=_applyData.materialList.count/3+1;
+                lastheight=_applyData.materialList.count/2+1;
                 
             }
             //选项 银行
@@ -683,15 +740,15 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
                  
                 NSInteger lastheight;
                 lastheight=_applyData.materialList.count-2;
-                if(lastheight%3==0)
+                if(lastheight%2==0)
                 {
-                    lastheight=_applyData.materialList.count/3;
+                    lastheight=_applyData.materialList.count/2;
                     
                 }
                 else
                 {
                     
-                    lastheight=_applyData.materialList.count/3+1;
+                    lastheight=_applyData.materialList.count/2+1;
                     
                 }
                 for(int i=1;i<MaterialTexttypeArry.count+1;i++)
@@ -735,15 +792,15 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             
                 NSInteger lastheight;
                 lastheight=_applyData.materialList.count-2;
-                if(lastheight%3==0)
+                if(lastheight%2==0)
                 {
-                    lastheight=_applyData.materialList.count/3;
+                    lastheight=_applyData.materialList.count/2;
                     
                 }
                 else
                 {
                     
-                    lastheight=_applyData.materialList.count/3+1;
+                    lastheight=_applyData.materialList.count/2+1;
                     
                 }
                 for(int i=0;i<MaterialTexttypeArry.count;i++)
@@ -790,18 +847,18 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
                   }
         else if (model.materialType == MaterialImage) {
             NSInteger row;
-            row=imageint%3;
+            row=imageint%2;
             NSInteger heightlk;
             
-            heightlk=imageint/3;
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(20+(wide-80)/3*row, 700+heightlk*70,(wide-80)/3-112, 40)];
+            heightlk=imageint/2;
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide/2-40)*row, 700+heightlk*70,250, 40)];
             [_scrollView addSubview:newaddress];
-            newaddress.textAlignment = NSTextAlignmentLeft;
+            newaddress.textAlignment = NSTextAlignmentCenter;
             newaddress.font=[UIFont systemFontOfSize:17];
             
             newaddress.text=model.materialName;
             UIButton*imagebutton= [UIButton buttonWithType:UIButtonTypeCustom];
-            imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-122, 700+heightlk*70,80, 40);
+            imagebutton.frame=CGRectMake(300+(wide/2-40)*row, 700+heightlk*70,170, 40);
             imagebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
             [imagebutton addTarget:self action:@selector(imageclick:) forControlEvents:UIControlEventTouchUpInside];
             imagebutton.tag=[model.materialID integerValue];
@@ -849,6 +906,18 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 }
 #pragma mark - UI
 #pragma mark - 点击事件
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 
 //上传图片
 -(void)imageclick:(UIButton*)send
@@ -877,11 +946,24 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 }
 -(void)blankclick:(UIButton*)send
 {
+    
+
     BankSelectedController *bankC = [[BankSelectedController alloc] init];
     bankC.delegate = self;
     bankC.terminalID = _terminalID;
     bankC.hidesBottomBarWhenPushed = YES;
-    _selectedKey =[NSString stringWithFormat:@"%ld",(long)send.tag] ;
+    
+    if(send.tag==14055)
+    {
+        _selectedKey=[keynamesarry objectAtIndex:9];
+        
+    
+    }else
+    {
+        _selectedKey =[NSString stringWithFormat:@"%ld",(long)send.tag] ;
+
+    
+    }
 
     [self.navigationController pushViewController:bankC animated:YES];
 
@@ -969,29 +1051,85 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     privateBtn.frame = CGRectMake(CGRectGetMaxX(publicBtn.frame), 44, 120, 36);
     self.privateX = CGRectGetMaxX(publicBtn.frame);
     [headerView addSubview:privateBtn];
-    if(_applyType==OpenApplyPublic)
-    {
-        [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
-        _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-        _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
-        
-        [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
-        _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-        _privateBtn.frame = CGRectMake(_privateX + 10, _privateY, 120, 36);
-    }else
-    {
-        [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
-        _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-        _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
-        
-        [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
-        _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-        _publickBtn.frame = CGRectMake(_publicX + 10, _privateY, 120, 36);
-        
-    }
+    
+    
     
     
     [self.view addSubview:headerView];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    switch (_applyData.openType) {
+        case OpenTypePrivate: {
+            [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+            _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+            _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
+            _privateBtn.center=CGPointMake(wide/2, _privateY);
+
+//            [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
+//            _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+            _publickBtn.frame = CGRectMake(_publicX + 210, _privateY, 120, 36);
+            _publickBtn.hidden=YES;
+_applyType = OpenApplyPrivate;
+        }
+            break;
+        case OpenTypePublic: {
+            [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+            _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+            _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
+            _publickBtn.center=CGPointMake(wide/2, _privateY);
+            
+//            [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
+//            _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+            _privateBtn.frame = CGRectMake(_privateX + 210, _privateY, 120, 36);
+            _applyType = OpenApplyPublic;
+            _privateBtn.hidden=YES;
+            
+            
+            
+            
+        }
+            break;
+        case OpenTypeAll: {
+            if(_applyType==OpenApplyPublic)
+            {
+                [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+                _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+                _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
+                
+                [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
+                _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+                _privateBtn.frame = CGRectMake(_privateX + 10, _privateY, 120, 36);
+            }else
+            {
+                [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+                _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+                _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
+                
+                [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
+                _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+                _publickBtn.frame = CGRectMake(_publicX + 10, _privateY, 120, 36);
+                
+            }
+
+            _applyType = OpenApplyPublic;
+        }
+            break;
+        default:
+            break;
+    }
+
 }
 #pragma mark - Request
 
@@ -1927,6 +2065,7 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [params setObject:[_infoDict objectForKey:key_bankAccount] forKey:@"bankNum"];
     [params setObject:[_infoDict objectForKey:key_bank] forKey:@"bankName"];
     [params setObject:[_infoDict objectForKey:key_bankID] forKey:@"bankCode"];
+    
     [params setObject:[_infoDict objectForKey:key_organID] forKey:@"organizationNo"];
     [params setObject:[_infoDict objectForKey:key_taxID] forKey:@"registeredNo"];
     
@@ -1973,6 +2112,18 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 #pragma mark - ChannelSelectedDelegate
 - (void)getSelectedBank:(BankModel *)model {
     if (model) {
+        NSLog(@"%@%@",model.bankName,_selectedKey);
+        if([_selectedKey isEqualToString: @"key_bankID"])
+        {
+            _bankTitleName=model.bankName;
+
+        }else
+        {
+        
+            _bankTitleName2=model.bankName;
+
+        }
+        
         //此处没有保存对象 因为infoDict的值都为NSString，防止报错
         [_infoDict setObject:model.bankCode forKey:_selectedKey];
         [_tableView reloadData];

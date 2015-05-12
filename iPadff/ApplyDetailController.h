@@ -36,6 +36,8 @@ typedef enum {
     UIDatePicker *datePicker;
     UIButton *makeSureBtn;
     UIButton* locationbutton;
+    UIButton*blankseclectbutton;
+
     NSArray*keynamesarry;
     NSInteger pickint;
     UIButton* blankbutton ;

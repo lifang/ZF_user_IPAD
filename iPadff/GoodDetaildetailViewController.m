@@ -632,13 +632,13 @@
     return _reloading;
 }
 
-- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)view {
+- (void)refreshViewDidEndTrackingForRefresh:(RefreshView *)viewgg {
     [self refreshViewReloadData];
     //loading...
-    if (view == _topRefreshView) {
+    if (viewgg == _topRefreshView) {
         [self pullDownToLoadData];
     }
-    else if (view == _bottomRefreshView) {
+    else if (viewgg == _bottomRefreshView) {
         [self pullUpToLoadData];
     }
 }
