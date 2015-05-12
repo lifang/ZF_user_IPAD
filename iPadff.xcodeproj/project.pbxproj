@@ -122,7 +122,6 @@
 		0ECB82AD1AEF185100986D0E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECB82AC1AEF185100986D0E /* CoreTelephony.framework */; };
 		0ECB82AF1AEF187000986D0E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECB82AE1AEF187000986D0E /* CoreFoundation.framework */; };
 		0ECB82B11AEF188200986D0E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECB82B01AEF188200986D0E /* CFNetwork.framework */; };
-		0ECB82B51AEF18D100986D0E /* VideoAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECB82B41AEF18D100986D0E /* VideoAuthController.m */; };
 		0ECB82CE1AEF199500986D0E /* libanychatcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECB82BD1AEF199500986D0E /* libanychatcore.a */; };
 		0ECB82CF1AEF199500986D0E /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECB82BE1AEF199500986D0E /* libavcodec.a */; };
 		0ECB82D01AEF199500986D0E /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECB82BF1AEF199500986D0E /* libavformat.a */; };
@@ -203,6 +202,9 @@
 		0ED369241AE88D2D00663627 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED369171AE88D2D00663627 /* RSADataSigner.m */; };
 		0ED369251AE88D2D00663627 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED369191AE88D2D00663627 /* RSADataVerifier.m */; };
 		0ED369271AE88DC600663627 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED369261AE88DC600663627 /* SystemConfiguration.framework */; };
+		0ED482D31AFF4BE60045D4A6 /* MoneyManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED482D21AFF4BE60045D4A6 /* MoneyManagementViewController.m */; };
+		0ED482D61AFF4F090045D4A6 /* LoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED482D51AFF4F090045D4A6 /* LoanViewController.m */; };
+		0ED482D91AFF7C360045D4A6 /* VideoAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED482D81AFF7C360045D4A6 /* VideoAuthController.m */; };
 		0ED5FD3C1AB910A90057385C /* MyMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD3B1AB910A90057385C /* MyMessageViewController.m */; };
 		0ED5FD3F1AB913460057385C /* InterestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD3E1AB913460057385C /* InterestView.m */; };
 		0ED5FD421AB956920057385C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD411AB956920057385C /* SearchViewController.m */; };
@@ -560,8 +562,6 @@
 		0ECB82AC1AEF185100986D0E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		0ECB82AE1AEF187000986D0E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		0ECB82B01AEF188200986D0E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		0ECB82B31AEF18D100986D0E /* VideoAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoAuthController.h; sourceTree = "<group>"; };
-		0ECB82B41AEF18D100986D0E /* VideoAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoAuthController.m; sourceTree = "<group>"; };
 		0ECB82B91AEF196100986D0E /* AnyChatDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyChatDefine.h; sourceTree = "<group>"; };
 		0ECB82BA1AEF196100986D0E /* AnyChatErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyChatErrorCode.h; sourceTree = "<group>"; };
 		0ECB82BB1AEF196100986D0E /* AnyChatPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnyChatPlatform.h; sourceTree = "<group>"; };
@@ -758,6 +758,12 @@
 		0ED369181AE88D2D00663627 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		0ED369191AE88D2D00663627 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		0ED369261AE88DC600663627 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0ED482D11AFF4BE60045D4A6 /* MoneyManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyManagementViewController.h; sourceTree = "<group>"; };
+		0ED482D21AFF4BE60045D4A6 /* MoneyManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyManagementViewController.m; sourceTree = "<group>"; };
+		0ED482D41AFF4F090045D4A6 /* LoanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanViewController.h; sourceTree = "<group>"; };
+		0ED482D51AFF4F090045D4A6 /* LoanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanViewController.m; sourceTree = "<group>"; };
+		0ED482D71AFF7C360045D4A6 /* VideoAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoAuthController.h; sourceTree = "<group>"; };
+		0ED482D81AFF7C360045D4A6 /* VideoAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoAuthController.m; sourceTree = "<group>"; };
 		0ED5FD3A1AB910A90057385C /* MyMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMessageViewController.h; sourceTree = "<group>"; };
 		0ED5FD3B1AB910A90057385C /* MyMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMessageViewController.m; sourceTree = "<group>"; };
 		0ED5FD3D1AB913460057385C /* InterestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestView.h; sourceTree = "<group>"; };
@@ -1246,8 +1252,8 @@
 		0ECB82B21AEF18B500986D0E /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				0ECB82B31AEF18D100986D0E /* VideoAuthController.h */,
-				0ECB82B41AEF18D100986D0E /* VideoAuthController.m */,
+				0ED482D71AFF7C360045D4A6 /* VideoAuthController.h */,
+				0ED482D81AFF7C360045D4A6 /* VideoAuthController.m */,
 			);
 			name = Video;
 			sourceTree = "<group>";
@@ -1731,6 +1737,24 @@
 			name = AlipayHelper;
 			sourceTree = "<group>";
 		};
+		0ED482CF1AFF4A8D0045D4A6 /* Loan */ = {
+			isa = PBXGroup;
+			children = (
+				0ED482D41AFF4F090045D4A6 /* LoanViewController.h */,
+				0ED482D51AFF4F090045D4A6 /* LoanViewController.m */,
+			);
+			name = Loan;
+			sourceTree = "<group>";
+		};
+		0ED482D01AFF4AE20045D4A6 /* MoneyManagement */ = {
+			isa = PBXGroup;
+			children = (
+				0ED482D11AFF4BE60045D4A6 /* MoneyManagementViewController.h */,
+				0ED482D21AFF4BE60045D4A6 /* MoneyManagementViewController.m */,
+			);
+			name = MoneyManagement;
+			sourceTree = "<group>";
+		};
 		0ED6ACE41AA16C8600D3B025 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1794,6 +1818,8 @@
 		0ED6ACF31AA16D6A00D3B025 /* Homepages */ = {
 			isa = PBXGroup;
 			children = (
+				0ED482D01AFF4AE20045D4A6 /* MoneyManagement */,
+				0ED482CF1AFF4A8D0045D4A6 /* Loan */,
 				1A94FA1D1AC13246006D8FF7 /* Contactus */,
 				0ECD63B51AA3F850001ABB4D /* ZYHomeViewController.h */,
 				0ECD63B61AA3F850001ABB4D /* ZYHomeViewController.m */,
@@ -2444,7 +2470,9 @@
 				0ECA6D351ABBFC3A005316B1 /* ReviewModel.m in Sources */,
 				1AA8FF771AA4074D009D41B3 /* UIImage+GIF.m in Sources */,
 				1A727B2D1AA5957100E1643D /* EmailSuccessViewController.m in Sources */,
+				0ED482D31AFF4BE60045D4A6 /* MoneyManagementViewController.m in Sources */,
 				0EC99C991AAFE5F300D20386 /* OrderDetailCell.m in Sources */,
+				0ED482D91AFF7C360045D4A6 /* VideoAuthController.m in Sources */,
 				1A123ACF1ABC1D7E00F642B4 /* ProgressModel.m in Sources */,
 				0D3887271AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0ED8EBE41AA6D7E000CE9F61 /* MJRefreshHeaderView.m in Sources */,
@@ -2516,6 +2544,7 @@
 				1A76D85D1AA7EE0700E9851C /* TerminalViewController.m in Sources */,
 				1ADA04231AB2CE6C0074A58B /* AddressViewController.m in Sources */,
 				0ECE7DA51AA5589400E250B6 /* TreeDataHandle.m in Sources */,
+				0ED482D61AFF4F090045D4A6 /* LoanViewController.m in Sources */,
 				0D3887291AB96F8E000DF1D6 /* README.md in Sources */,
 				1A6B0E091AC556300096E128 /* CityModel.m in Sources */,
 				0D3887241AB96F8E000DF1D6 /* MASViewAttribute.m in Sources */,
@@ -2595,7 +2624,6 @@
 				0EBBC5931AB1663300E0ED16 /* OrderCell.m in Sources */,
 				0ECE7DA81AA558CC00E250B6 /* TreeNodeModel.m in Sources */,
 				0D3887231AB96F8E000DF1D6 /* MASLayoutConstraint.m in Sources */,
-				0ECB82B51AEF18D100986D0E /* VideoAuthController.m in Sources */,
 				1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */,
 				1A76D8671AA8501900E9851C /* TopDealRoadCell.m in Sources */,
 				0EBBC58F1AB1660400E0ED16 /* PayWayViewController.m in Sources */,

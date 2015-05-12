@@ -300,7 +300,7 @@
 
 - (void)updatPrice {
     self.payLabel.text = [NSString stringWithFormat:@"实付：￥%.2f",[self getSummaryPrice]];
-    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%@)",@"123"];
+    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%@)",@"0"];
 }
 
 //计算总价
@@ -813,14 +813,14 @@
         hud.labelText = @"请填写正确的电话";
         return;
     }
-    if (![RegularFormat isCorrectEmail:_zipField.text]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写正确的邮箱";
-        return;
-    }
+//    if (![RegularFormat isCorrectEmail:_zipField.text]) {
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//        hud.customView = [[UIImageView alloc] init];
+//        hud.mode = MBProgressHUDModeCustomView;
+//        [hud hide:YES afterDelay:1.f];
+//        hud.labelText = @"请填写正确的邮箱";
+//        return;
+//    }
 
     
     [self addAddress];

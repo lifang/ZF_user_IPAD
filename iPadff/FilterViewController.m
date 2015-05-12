@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UITextField *lowField;
 
 @property (nonatomic, strong) UITextField *highField;
+@property (nonatomic, strong) UITableView *tableViewPJ;
 
 @property (nonatomic, strong) UIButton *switchButton;
 ///下载的筛选条件
@@ -33,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
   
+    self.view.backgroundColor=[UIColor whiteColor];
     
     for(int i=0;i<8;i++)
     {
@@ -206,17 +208,30 @@
                     
                     for(int i=0;i<arry2.count;i++)
                     {
-                        NSArray*at=[[arry2 objectAtIndex:i] objectForKey:@"son"];
+                        NSString *ID = [NSString stringWithFormat:@"%@",[[arry2 objectAtIndex:i] objectForKey:@"id"]];
+                        NSString *value = [NSString stringWithFormat:@"%@",[[arry2 objectAtIndex:i] objectForKey:@"value"]];
+                        NSArray *children = [[arry2 objectAtIndex:i] objectForKey:@"son"];
                         
-                        for(int i=0;i<at.count;i++)
-                        {
-                            
-                            TreeNodeModel*tree=[[TreeNodeModel alloc]init];
-                            tree.nodeID=[[at objectAtIndex:i] objectForKey:@"id"];
-                            tree.nodeName=[[at objectAtIndex:i] objectForKey:@"value"];
-                            
-                            [_chagnearry1 addObject:tree ];                        }
-                    }
+                        
+                        
+                        
+                        //                        NSArray*at=[[arry2 objectAtIndex:i] objectForKey:@"son"];
+                        //                        NSMutableArray*muarry=[[NSMutableArray alloc]init];
+                        //
+                        //                        for(int i=0;i<at.count;i++)
+                        //                        {
+                        
+                        TreeNodeModel*tree=[[TreeNodeModel alloc]init];
+                        tree.nodeID=ID;
+                        tree.nodeName=value;
+                        tree.children=children;
+                        
+                        
+                        //                        }
+                        [_chagnearry1 addObject:tree ];
+                        
+                   }
+                    
                     NSArray*arry3=[[object objectForKey:@"result"] objectForKey:[namekey objectAtIndex:3]];
                     
                     for(int i=0;i<arry3.count;i++)
@@ -342,208 +357,226 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView*rootimageview=[[UIView alloc]init];
-    UIView*rootimageviews=[[UIView alloc]init];
-
-    if (_flagArray[section])
+    if(tableView==_tableViewPJ)
+    {
+        
+        UIView*rootimageview=[[UIView alloc]init];
+        return rootimageview;
+        
+        
+    }else
     {
         
         
         
-        if(iOS7)
-        {
-            rootimageviews.frame=CGRectMake(0, 0, SCREEN_HEIGHT, 100);
-            
-            rootimageview.frame=CGRectMake(0, 0, SCREEN_HEIGHT, 40);
-        }
-        else
-        {
-            rootimageview.frame=CGRectMake(0, 0, SCREEN_WIDTH, 40);
-            rootimageviews.frame=CGRectMake(0, 0, SCREEN_WIDTH, 100);
-            
-            
-        }
-
+        UIView*rootimageview=[[UIView alloc]init];
+        UIView*rootimageviews=[[UIView alloc]init];
         
-        
-        
-    }
-    else
-    {
-     
-        
-        if(section<7)
-        {
-        boolcountA=[[bigarry objectAtIndex:section ] count];
-        }
-        
-        if(iOS7)
-        {
-            rootimageviews.frame=CGRectMake(0, 0, SCREEN_HEIGHT, 100);
-            
-            if(boolcountA%4==0)
-            {
-                rootimageview.frame=CGRectMake(0, 0, SCREEN_HEIGHT, boolcountA/4*60);
-
-            }else
-            {
-                rootimageview.frame=CGRectMake(0, 0, SCREEN_HEIGHT, boolcountA/4*60+60);
-
-            
-            }
-        }
-        else
-        {
-            if(boolcountA%4==0)
-            {
-                rootimageview.frame=CGRectMake(0, 0, SCREEN_WIDTH, boolcountA/4*60);
-                
-            }else
-            {
-                rootimageview.frame=CGRectMake(0, 0, SCREEN_WIDTH, boolcountA/4*60+60);
-                
-                
-            }
-            rootimageviews.frame=CGRectMake(0, 0, SCREEN_WIDTH, 100);
-            
-            
-        }
-
-    }
-        rootimageviews.userInteractionEnabled=YES;
-    rootimageviews.backgroundColor=[UIColor whiteColor];
-    rootimageview.userInteractionEnabled=YES;
-    rootimageview.backgroundColor=[UIColor whiteColor];
-    UILabel*line=[[UILabel alloc]init];
-    line.frame=CGRectMake(40,0, rootimageview.frame.size.width-80, 2);
-    line.backgroundColor=[UIColor grayColor];
-    
-    [rootimageview addSubview:line];
-    UILabel*lines=[[UILabel alloc]init];
-    lines.frame=CGRectMake(40,0, rootimageviews.frame.size.width-80, 2);
-    lines.backgroundColor=[UIColor grayColor];
-    
-    [rootimageviews addSubview:lines];
-
-    if(section<7)
-    {
-        
-        UILabel*addresslable=[[UILabel alloc]init];
-        addresslable.frame=CGRectMake(100,15, 100, 30);
-        
-        addresslable.font=[UIFont systemFontOfSize:15];
-        [rootimageview addSubview:addresslable];
-        addresslable.text=[nameking objectAtIndex:section];
-        
-        
-        
-        
-        UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
-        
-        phonebutton.frame=CGRectMake( 200, 15,30, 30);
-        if (_allbool[section])
-        {
-            
-            [phonebutton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-            
-            
-            
-        }
-        else
-        {
-        
-            [phonebutton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
-
-        }
-
-        [phonebutton addTarget:self action:@selector(allclick:) forControlEvents:UIControlEventTouchUpInside];
-        phonebutton.tag=section+1026;
-        
-        [rootimageview addSubview:phonebutton];
-        
-        UILabel*allnamelable=[[UILabel alloc]init];
-        allnamelable.frame=CGRectMake(235,15, 30, 30);
-        
-        allnamelable.font=[UIFont systemFontOfSize:15];
-        [rootimageview addSubview:allnamelable];
-        allnamelable.text=@"全部";
-        NSInteger countA;
-        
-        countA=[[bigarry objectAtIndex:section ] count];
         if (_flagArray[section])
         {
-            if(countA<5)
+            
+            
+            
+            if(iOS7)
             {
-                for(int i=0;i<countA;i++)
+                rootimageviews.frame=CGRectMake(0, 0, SCREEN_HEIGHT, 100);
+                
+                rootimageview.frame=CGRectMake(0, 0, SCREEN_HEIGHT, 40);
+            }
+            else
+            {
+                rootimageview.frame=CGRectMake(0, 0, SCREEN_WIDTH, 40);
+                rootimageviews.frame=CGRectMake(0, 0, SCREEN_WIDTH, 100);
+                
+                
+            }
+            
+            
+            
+            
+        }
+        else
+        {
+            
+            
+            if(section<7)
+            {
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+            }
+            
+            if(iOS7)
+            {
+                rootimageviews.frame=CGRectMake(0, 0, SCREEN_HEIGHT, 100);
+                
+                if(boolcountA%4==0)
                 {
-                    UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-                    whichkindButton.frame= CGRectMake(290+i*140, 15, 30, 30);
-                    [rootimageview addSubview:whichkindButton];
-                    [whichkindButton addTarget:self action:@selector(selsctButtonclick:) forControlEvents:UIControlEventTouchUpInside];
-                    TreeNodeModel *node = [[bigarry objectAtIndex:section] objectAtIndex:i];
-
-                    if (node.isSelected) {
-                        
-                        [whichkindButton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
-                    }
-                    else {
-                        [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-                        
-                    }
-                    whichkindButton.tag=section*1000+i;
-
-                    UILabel*whichlable=[[UILabel alloc]init];
-                    whichlable.frame=CGRectMake(320+i*140, 15, 100, 30);
-                    whichlable.font=[UIFont systemFontOfSize:15];
-                    [rootimageview addSubview:whichlable];
-                    TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                    rootimageview.frame=CGRectMake(0, 0, SCREEN_HEIGHT, boolcountA/4*60);
                     
-                    whichlable.text=tr.nodeName;
-                    
+                }else
+                {
+                    rootimageview.frame=CGRectMake(0, 0, SCREEN_HEIGHT, boolcountA/4*60+60);
                     
                     
                 }
             }
             else
             {
-                
-                for(int i=0;i<4;i++)
+                if(boolcountA%4==0)
                 {
-                    UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-                    whichkindButton.frame= CGRectMake(290+i*140, 15, 30, 30);
-                    [rootimageview addSubview:whichkindButton];
-                          [whichkindButton addTarget:self action:@selector(selsctButtonclick:) forControlEvents:UIControlEventTouchUpInside];
-                    TreeNodeModel *node = [[bigarry objectAtIndex:section] objectAtIndex:i];
+                    rootimageview.frame=CGRectMake(0, 0, SCREEN_WIDTH, boolcountA/4*60);
                     
-                    if (node.isSelected) {
-                        
-                        [whichkindButton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
-                    }
-                    else {
-                        [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-                        
-                    }
-                    whichkindButton.tag=section*1000+i;
-
-                    UILabel*whichlable=[[UILabel alloc]init];
-                    whichlable.frame=CGRectMake(320+i*140, 15, 100, 30);
-                    whichlable.font=[UIFont systemFontOfSize:15];
-                    [rootimageview addSubview:whichlable];
-                    TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
-                    
-                    whichlable.text=tr.nodeName;
-                    
+                }else
+                {
+                    rootimageview.frame=CGRectMake(0, 0, SCREEN_WIDTH, boolcountA/4*60+60);
                     
                     
                 }
+                rootimageviews.frame=CGRectMake(0, 0, SCREEN_WIDTH, 100);
+                
                 
             }
-
             
-        }else
-        {
+        }
+        rootimageviews.userInteractionEnabled=YES;
+        rootimageviews.backgroundColor=[UIColor whiteColor];
+        rootimageview.userInteractionEnabled=YES;
+        rootimageview.backgroundColor=[UIColor whiteColor];
+        UILabel*line=[[UILabel alloc]init];
+        line.frame=CGRectMake(40,0, rootimageview.frame.size.width-80, 2);
+        line.backgroundColor=[UIColor grayColor];
         
-           
+        [rootimageview addSubview:line];
+        UILabel*lines=[[UILabel alloc]init];
+        lines.frame=CGRectMake(40,0, rootimageviews.frame.size.width-80, 2);
+        lines.backgroundColor=[UIColor grayColor];
+        
+        [rootimageviews addSubview:lines];
+        
+        if(section<7)
+        {
+            
+            UILabel*addresslable=[[UILabel alloc]init];
+            addresslable.frame=CGRectMake(100,15, 100, 30);
+            
+            addresslable.font=[UIFont systemFontOfSize:15];
+            [rootimageview addSubview:addresslable];
+            addresslable.text=[nameking objectAtIndex:section];
+            
+            
+            
+            
+            UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
+            
+            phonebutton.frame=CGRectMake( 200, 15,30, 30);
+            if (_allbool[section])
+            {
+                
+                [phonebutton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                
+                
+                
+            }
+            else
+            {
+                
+                [phonebutton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                
+            }
+            
+            [phonebutton addTarget:self action:@selector(allclick:) forControlEvents:UIControlEventTouchUpInside];
+            phonebutton.tag=section+1026;
+            
+            [rootimageview addSubview:phonebutton];
+            
+            UILabel*allnamelable=[[UILabel alloc]init];
+            allnamelable.frame=CGRectMake(235,15, 30, 30);
+            
+            allnamelable.font=[UIFont systemFontOfSize:15];
+            [rootimageview addSubview:allnamelable];
+            allnamelable.text=@"全部";
+            NSInteger countA;
+            
+            countA=[[bigarry objectAtIndex:section ] count];
+            if (_flagArray[section])
+            {
+                if(countA<5)
+                {
+                    for(int i=0;i<countA;i++)
+                    {
+                        
+                        
+                        UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+                        whichkindButton.frame= CGRectMake(290+i*140, 15, 30, 30);
+                        [rootimageview addSubview:whichkindButton];
+                        [whichkindButton addTarget:self action:@selector(selsctButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+                        TreeNodeModel *node = [[bigarry objectAtIndex:section] objectAtIndex:i];
+                        
+                        if (node.isSelected) {
+                            
+                            [whichkindButton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                        }
+                        else {
+                            [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                            
+                        }
+                        whichkindButton.tag=section*1000+i;
+                        
+                        UILabel*whichlable=[[UILabel alloc]init];
+                        whichlable.frame=CGRectMake(320+i*140, 15, 100, 30);
+                        whichlable.font=[UIFont systemFontOfSize:15];
+                        whichlable.tag=(section*1000+i)*10;
+                        
+                        [rootimageview addSubview:whichlable];
+                        TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                        
+                        whichlable.text=tr.nodeName;
+                        
+                        
+                        
+                    }
+                }
+                else
+                {
+                    
+                    for(int i=0;i<4;i++)
+                    {
+                        UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+                        whichkindButton.frame= CGRectMake(290+i*140, 15, 30, 30);
+                        [rootimageview addSubview:whichkindButton];
+                        [whichkindButton addTarget:self action:@selector(selsctButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+                        TreeNodeModel *node = [[bigarry objectAtIndex:section] objectAtIndex:i];
+                        
+                        if (node.isSelected) {
+                            
+                            [whichkindButton setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                        }
+                        else {
+                            [whichkindButton setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                            
+                        }
+                        whichkindButton.tag=section*1000+i;
+                        
+                        UILabel*whichlable=[[UILabel alloc]init];
+                        whichlable.frame=CGRectMake(320+i*140, 15, 100, 30);
+                        whichlable.font=[UIFont systemFontOfSize:15];
+                        [rootimageview addSubview:whichlable];
+                        TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                        
+                        whichlable.text=tr.nodeName;
+                        
+                        whichlable.tag=(section*1000+i)*10;
+                        
+                        
+                    }
+                    
+                }
+                
+                
+            }
+            else
+            {
+                
+                
                 for(int i=0;i<countA;i++)
                 {
                     UIButton*whichkindButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
@@ -569,214 +602,230 @@
                     whichlable.font=[UIFont systemFontOfSize:15];
                     [rootimageview addSubview:whichlable];
                     TreeNodeModel*tr=[[bigarry objectAtIndex:section ] objectAtIndex:i ];
+                    whichlable.tag=(section*1000+i)*10;
                     
                     whichlable.text=tr.nodeName;
                     
                     
                     
                 }
+                
+            }
             
-        }
-        
-        UIButton*morebutton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-        morebutton.tag=section;
-        
-        morebutton.frame= CGRectMake(rootimageview.frame.size.width-130, 15, 80, 30);
-        [rootimageview addSubview:morebutton];
-        [morebutton addTarget:self action:@selector(moreclick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        
-        if (_flagArray[section])
-        {
+            UIButton*morebutton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+            morebutton.tag=section;
             
-            [morebutton setTitle:@"更多" forState:UIControlStateNormal];
-
+            morebutton.frame= CGRectMake(rootimageview.frame.size.width-130, 15, 80, 30);
+            [rootimageview addSubview:morebutton];
+            [morebutton addTarget:self action:@selector(moreclick:) forControlEvents:UIControlEventTouchUpInside];
             
             
-        }
-        else
-        {if(countA<5)
-        {
-            [morebutton setTitle:@"已无更多" forState:UIControlStateNormal];
-
-        }else
-        {
-            [morebutton setTitle:@"收起" forState:UIControlStateNormal];
-        }
-        }
-        
-
-        [morebutton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
-        
+            
+            if (_flagArray[section])
+            {
+                
+                [morebutton setTitle:@"更多" forState:UIControlStateNormal];
+                
+                
+                
+            }
+            else
+            {if(countA<5)
+            {
+                [morebutton setTitle:@"已无更多" forState:UIControlStateNormal];
+                
+            }else
+            {
+                [morebutton setTitle:@"收起" forState:UIControlStateNormal];
+            }
+            }
+            
+            
+            [morebutton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
+            
             return rootimageview;
-    }
-    else
-    {
-        
-        _switchButton =[UIButton buttonWithType:UIButtonTypeCustom];
-   _switchButton.frame=CGRectMake(50, 65, 30, 30);
-        [_switchButton addTarget:self action:@selector(rentboolclick) forControlEvents:UIControlEventTouchUpInside];
-        
-        [rootimageviews addSubview:_switchButton];
-        
-               if(      [[_filterDict objectForKey:s_rent] boolValue])
-        {
-            [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
-
         }
         else
         {
-            [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-
-        
-        }
-        
-        
-        UILabel*rentlable=[[UILabel alloc]init];
-        rentlable.frame=CGRectMake(80,65, 140, 30);
-        rentlable.text=@"仅支持租赁的机器";
-        rentlable.font=[UIFont systemFontOfSize:16];
-        rentlable.textColor=[UIColor grayColor];
-        [rootimageviews addSubview:rentlable];
-        
-        
-        if(iOS7)
-        {
-            _highField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT-210-100, 60, 80, 40)];
-            _lowField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT-210-90-120, 60, 80, 40)];
-
             
-        }
-        
-        
-        
-        
-        else
-        {
-            _highField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-210-100, 60, 80, 40)];
-            _lowField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-210-90-120, 60, 80, 40)];
-
-        
-        }
-        
-        _lowField.keyboardType = UIKeyboardTypeNumberPad;
-        _highField.keyboardType = UIKeyboardTypeNumberPad;
-
-        _lowField.font = [UIFont systemFontOfSize:14.f];
-        _lowField.backgroundColor = [UIColor clearColor];
-        _lowField.textAlignment = NSTextAlignmentRight;
-//        _lowField.placeholder = @"0    ";
-        _lowField.delegate = self;
-        CALayer *layer=[_lowField layer];
-        //是否设置边框以及是否可见
-        [layer setMasksToBounds:YES];
-        //设置边框圆角的弧度
-        
-        //设置边框线的宽
-        //
-        [layer setBorderWidth:1];
-        //设置边框线的颜色
-        [layer setBorderColor:[[UIColor grayColor] CGColor]];
-        
-        [rootimageviews addSubview:_lowField];
-
-        UILabel*pricelable=[[UILabel alloc]init];
-        pricelable.frame=CGRectMake(_lowField.frame.origin.x-50,65, 50, 30);
-        pricelable.text=@"价格： ";
-        pricelable.font=[UIFont systemFontOfSize:16];
-        pricelable.textColor=[UIColor grayColor];
-        [rootimageviews addSubview:pricelable];
-
-        _highField.font = [UIFont systemFontOfSize:14.f];
-        _highField.backgroundColor = [UIColor clearColor];
-//        _highField.placeholder = @"0   ";
-        _highField.delegate = self;
-
-        _lowField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_minPrice] intValue]];
-        _highField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_maxPrice] intValue]];
-        _highField.textAlignment = NSTextAlignmentRight;
-
-        _highField.rightViewMode = UITextFieldViewModeAlways;
-        _lowField.rightViewMode = UITextFieldViewModeAlways;
-        
-        UIView *v = [[UIView alloc]init];
-        v.frame = CGRectMake(0, 0, 10, 40);
-        UIView *v1 = [[UIView alloc]init];
-        v1.frame = CGRectMake(0, 0, 10, 40);
-        _highField.rightView = v;
-        _lowField.rightView = v1;
-
-        
-        
-        CALayer *layers=[_highField layer];
-        //是否设置边框以及是否可见
-        [layers setMasksToBounds:YES];
-        //设置边框圆角的弧度
-        
-        //设置边框线的宽
-        //
-        [layers setBorderWidth:1];
-        //设置边框线的颜色
-        [layers setBorderColor:[[UIColor grayColor] CGColor]];
-        [rootimageviews addSubview:_highField];
-
-        UILabel*adlable=[[UILabel alloc]init];
-        adlable.frame=CGRectMake(_lowField.frame.size.width+_lowField.frame.origin.x+10,80, 10, 2);
-        adlable.font=[UIFont systemFontOfSize:20];
-        adlable.backgroundColor=[UIColor grayColor];
-        [rootimageviews addSubview:adlable];
-    
-        UIButton *signOut = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIButton *canebutton = [UIButton buttonWithType:UIButtonTypeCustom];
-
-        if(iOS7)
-        {
+            _switchButton =[UIButton buttonWithType:UIButtonTypeCustom];
+            _switchButton.frame=CGRectMake(50, 65, 30, 30);
+            [_switchButton addTarget:self action:@selector(rentboolclick) forControlEvents:UIControlEventTouchUpInside];
             
-            signOut.frame = CGRectMake(SCREEN_HEIGHT-40-80, 60, 80, 40);
-            canebutton.frame = CGRectMake(SCREEN_HEIGHT-40-80-90, 60, 80, 40);
-
+            [rootimageviews addSubview:_switchButton];
             
-        }
-        else
+            if(      [[_filterDict objectForKey:s_rent] boolValue])
+            {
+                [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                
+            }
+            else
+            {
+                [_switchButton setBackgroundImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                
+                
+            }
             
-        {
             
-            signOut.frame = CGRectMake(SCREEN_WIDTH-40-80, 60, 80, 40);
-            canebutton.frame = CGRectMake(SCREEN_WIDTH-40-80-90, 60, 80, 40);
-
+            UILabel*rentlable=[[UILabel alloc]init];
+            rentlable.frame=CGRectMake(80,65, 140, 30);
+            rentlable.text=@"仅支持租赁的机器";
+            rentlable.font=[UIFont systemFontOfSize:16];
+            rentlable.textColor=[UIColor grayColor];
+            [rootimageviews addSubview:rentlable];
             
-        }
-//        canebutton.layer.cornerRadius = 4;
-        canebutton.layer.masksToBounds = YES;
-        canebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-        [canebutton setTitle:@"取消" forState:UIControlStateNormal];
-        [canebutton setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
-        CALayer *layercane=[canebutton layer];
-        //是否设置边框以及是否可见
-        [layercane setMasksToBounds:YES];
-        //设置边框圆角的弧度
-        
-        //设置边框线的宽
-        //
-        [layercane setBorderWidth:1];
-        //设置边框线的颜色
-        [layercane setBorderColor:[kColor(255, 102, 36, 1) CGColor]];
-        
-//        signOut.layer.cornerRadius = 4;
-        signOut.layer.masksToBounds = YES;
-        signOut.titleLabel.font = [UIFont systemFontOfSize:16.f];
-        [signOut setTitle:@"确认" forState:UIControlStateNormal];
-        [signOut setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
-        [signOut addTarget:self action:@selector(filterFinished:) forControlEvents:UIControlEventTouchUpInside];
-        [rootimageviews addSubview:signOut];
-        [rootimageviews addSubview:canebutton];
-
-        
+            
+            if(iOS7)
+            {
+                _highField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT-210-100, 60, 80, 40)];
+                _lowField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_HEIGHT-210-90-120, 60, 80, 40)];
+                
+                
+            }
+            
+            
+            
+            
+            else
+            {
+                _highField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-210-100, 60, 80, 40)];
+                _lowField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-210-90-120, 60, 80, 40)];
+                
+                
+            }
+            
+            _lowField.keyboardType = UIKeyboardTypeNumberPad;
+            _highField.keyboardType = UIKeyboardTypeNumberPad;
+            _highField.rightViewMode = UITextFieldViewModeAlways;
+            _lowField.rightViewMode = UITextFieldViewModeAlways;
+            
+            UIView *v = [[UIView alloc]init];
+            v.frame = CGRectMake(0, 0, 10, 40);
+            UIView *v1 = [[UIView alloc]init];
+            v1.frame = CGRectMake(0, 0, 10, 40);
+            _highField.rightView = v;
+            _lowField.rightView = v1;
+            
+            _lowField.font = [UIFont systemFontOfSize:14.f];
+            _lowField.backgroundColor = [UIColor clearColor];
+            _lowField.textAlignment = NSTextAlignmentRight;
+            //        _lowField.placeholder = @"0    ";
+            _lowField.delegate = self;
+            CALayer *layer=[_lowField layer];
+            //是否设置边框以及是否可见
+            [layer setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layer setBorderWidth:1];
+            //设置边框线的颜色
+            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+            
+            [rootimageviews addSubview:_lowField];
+            
+            UILabel*pricelable=[[UILabel alloc]init];
+            pricelable.frame=CGRectMake(_lowField.frame.origin.x-50,65, 50, 30);
+            pricelable.text=@"价格： ";
+            pricelable.font=[UIFont systemFontOfSize:16];
+            pricelable.textColor=[UIColor grayColor];
+            [rootimageviews addSubview:pricelable];
+            
+            _highField.font = [UIFont systemFontOfSize:14.f];
+            _highField.backgroundColor = [UIColor clearColor];
+            //        _highField.placeholder = @"0   ";
+            _highField.delegate = self;
+            
+            _lowField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_minPrice] intValue]];
+            _highField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_maxPrice] intValue]];
+            _highField.textAlignment = NSTextAlignmentRight;
+            
+            CALayer *layers=[_highField layer];
+            //是否设置边框以及是否可见
+            [layers setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layers setBorderWidth:1];
+            //设置边框线的颜色
+            [layers setBorderColor:[[UIColor grayColor] CGColor]];
+            [rootimageviews addSubview:_highField];
+            
+            UILabel*adlable=[[UILabel alloc]init];
+            adlable.frame=CGRectMake(_lowField.frame.size.width+_lowField.frame.origin.x+10,80, 10, 2);
+            adlable.font=[UIFont systemFontOfSize:20];
+            adlable.backgroundColor=[UIColor grayColor];
+            [rootimageviews addSubview:adlable];
+            
+            UIButton *signOut = [UIButton buttonWithType:UIButtonTypeCustom];
+            UIButton *canebutton = [UIButton buttonWithType:UIButtonTypeCustom];
+            
+            if(iOS7)
+            {
+                
+                signOut.frame = CGRectMake(SCREEN_HEIGHT-40-80, 60, 80, 40);
+                canebutton.frame = CGRectMake(SCREEN_HEIGHT-40-80-90, 60, 80, 40);
+                
+                
+            }
+            else
+                
+            {
+                
+                signOut.frame = CGRectMake(SCREEN_WIDTH-40-80, 60, 80, 40);
+                canebutton.frame = CGRectMake(SCREEN_WIDTH-40-80-90, 60, 80, 40);
+                
+                
+            }
+            //        canebutton.layer.cornerRadius = 4;
+            canebutton.layer.masksToBounds = YES;
+            canebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+            [canebutton setTitle:@"取消" forState:UIControlStateNormal];
+            [canebutton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
+            [canebutton addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
+            
+            CALayer *layercane=[canebutton layer];
+            //是否设置边框以及是否可见
+            [layercane setMasksToBounds:YES];
+            //设置边框圆角的弧度
+            
+            //设置边框线的宽
+            //
+            [layercane setBorderWidth:1];
+            //设置边框线的颜色
+            [layercane setBorderColor:[kColor(233, 91, 38, 1) CGColor]];
+            
+            //        signOut.layer.cornerRadius = 4;
+            signOut.layer.masksToBounds = YES;
+            signOut.titleLabel.font = [UIFont systemFontOfSize:16.f];
+            [signOut setTitle:@"确认" forState:UIControlStateNormal];
+            [signOut setBackgroundColor:kColor(233, 91, 38, 1)];
+            
+            [signOut addTarget:self action:@selector(filterFinished:) forControlEvents:UIControlEventTouchUpInside];
+            [rootimageviews addSubview:signOut];
+            [rootimageviews addSubview:canebutton];
+            
+            
             return rootimageviews;
+        }
+        
+        
     }
+    
+    
 
-
+}
+-(void)goback
+{
+    
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+    
+    
 }
 -(void)allclick:(UIButton*)sender
 {
@@ -803,24 +852,176 @@
 
 
 }
+-(void)createui
+{
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+    bigsview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wide, height)];
+    
+    [self.view addSubview:bigsview];
+    bigsview.image=[UIImage imageNamed:@"backimage"];
+    bigsview.userInteractionEnabled=YES;
+    
+    
+    UIView*witeview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, wide/2, wide/2)];
+    witeview.backgroundColor=[UIColor whiteColor];
+    witeview.center=CGPointMake(wide/2, height/2-120);
+    witeview.alpha=1;
+    
+    [bigsview addSubview:witeview];
+    
+    
+    
+    UIButton *okButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    okButton.frame = CGRectMake(  10, 10, 30, 30);
+    [okButton setImage:kImageName(@"xx.png") forState:UIControlStateNormal];
+    [okButton addTarget:self action:@selector(cancelclick) forControlEvents:UIControlEventTouchUpInside];
+    [witeview addSubview:okButton];
+    
+    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(0, 10,wide/2, 30)];
+    [witeview addSubview:newaddress];
+    newaddress.textAlignment = NSTextAlignmentCenter;
+    
+    newaddress.text=@"POS类型";
+    newaddress .font = [UIFont systemFontOfSize:20.f];
+    
+    UIView*lineview=[[UIView alloc]initWithFrame:CGRectMake(0, 50, wide/2, 1)];
+    lineview.backgroundColor=[UIColor grayColor];
+    
+    [witeview addSubview:lineview];
+    _tableViewPJ = [[UITableView alloc] initWithFrame:CGRectMake(0, 51, wide/2, wide/2) style:UITableViewStylePlain];
+    _tableViewPJ.backgroundColor =[UIColor whiteColor];
+    _tableViewPJ.delegate = self;
+    _tableViewPJ.dataSource = self;
+    [witeview addSubview:_tableViewPJ];
+    _tableViewPJ.tableFooterView = [[UIView alloc]init];
+    
+    
+    
+    
+}
+-(void)cancelclick
+{
+    
+    
+    [bigsview removeFromSuperview];
+}
+
 -(void)selsctButtonclick:(UIButton*)sender
 {
-    NSInteger b=sender.tag/1000;
+    selectinttag=sender.tag;
     
-    TreeNodeModel *node = [[bigarry objectAtIndex:b] objectAtIndex:sender.tag-b*1000];
+    selectint=sender.tag/1000;
+    //    [_namesnumber removeAllObjects];
+    _smallarry=[[NSMutableArray alloc]init];
+    [_smallarry removeLastObject];
     
-    NSLog(@"%@--%@---%@",node.nodeName,node.nodeID,node.children);
+    _namesnumber=[[NSArray alloc]init];
     
-    node.isSelected = !node.isSelected;
-    if (node.isSelected) {
+    
+    if(selectint==1)
+    {
+        TreeNodeModel*tr=[[bigarry objectAtIndex:selectint ] objectAtIndex:sender.tag-selectint*1000 ];
         
-        [sender setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+        _namesnumber=tr.children;
+        
+        for(int i=0;i<_namesnumber.count;i++)
+        {
+            
+            TreeNodeModel*trs=[[TreeNodeModel alloc]init];
+            trs.nodeID=[[_namesnumber objectAtIndex:i] objectForKey:@"id"];
+            trs.nodeName=[[_namesnumber objectAtIndex:i] objectForKey:@"value"];
+            
+            [_smallarry addObject:trs];
+            
+            
+            
+            
+        }
+        
+        
+        if(_namesnumber.count>=1)
+        {
+            
+            [self createui];
+            
+            
+            
+        }else
+        {
+            
+            //        TreeNodeModel *node = [[bigarry objectAtIndex:selectint] objectAtIndex:sender.tag-selectint*1000];
+            
+            NSArray*arry=[bigarry objectAtIndex:selectint];
+            for(int i=0;i<arry.count;i++)
+            {    UIButton*button=(UIButton*)[self.view viewWithTag:1000+i];
+                TreeNodeModel *node = [[bigarry objectAtIndex:selectint] objectAtIndex:i];
+                
+                if(button.tag==selectinttag)
+                {
+                    node.isSelected =YES;
+                    
+                    [button setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+                    
+                }else
+                {
+                    node.isSelected = NO;
+                    
+                    
+                    [button setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+                    
+                    
+                }
+                
+                
+            }
+            
+            //        if (node.isSelected) {
+            //
+            //            [sender setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+            //        }
+            //        else {
+            //            [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+            //
+            //        }
+            
+            
+            
+            
+        }
+        
+        
     }
-    else {
-        [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
-
+    else
+    {
+        
+        TreeNodeModel *node = [[bigarry objectAtIndex:selectint] objectAtIndex:sender.tag-selectint*1000];
+        
+        
+        node.isSelected = !node.isSelected;
+        if (node.isSelected) {
+            
+            [sender setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+        }
+        else {
+            [sender setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+            
+        }
     }
-
+    
 
 
 }
@@ -845,243 +1046,261 @@
         
         
         
-  
-  
-  if(section==0)
-  {
-  
-      if (_flagArray[section])
-      {
-          return 40;
-          
-      }
-      else
-      {
-          boolcountA=[[bigarry objectAtIndex:section ] count];
-          
-          if(boolcountA%4==0)
-          {
-              return  boolcountA/4*60;
-              
-              
-          }
-          else
-          {
-              return boolcountA/4*60+40;
-              
-              
-          }
-          
-          
-          
-      }
-      
-  }
     
-    
-    if(section==1)
+    if(tableView==_tableViewPJ)
+    {
+        return 0;
+        
+        
+    }else
     {
         
-        if (_flagArray[section])
+        
+        if(section==0)
         {
-            return 40;
             
-        }
-        else
-        {
-            boolcountA=[[bigarry objectAtIndex:section ] count];
-            
-            if(boolcountA%4==0)
+            if (_flagArray[section])
             {
-                return  boolcountA/4*60;
-                
+                return 40;
                 
             }
             else
             {
-                return boolcountA/4*60+40;
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+                
+                if(boolcountA%4==0)
+                {
+                    return  boolcountA/4*60;
+                    
+                    
+                }
+                else
+                {
+                    return boolcountA/4*60+40;
+                    
+                    
+                }
+                
                 
                 
             }
             
-            
-            
         }
         
-    }
-    if(section==2)
-    {
         
-        if (_flagArray[section])
+        if(section==1)
         {
-            return 40;
             
-        }
-        else
-        {
-            boolcountA=[[bigarry objectAtIndex:section ] count];
-            
-            if(boolcountA%4==0)
+            if (_flagArray[section])
             {
-                return  boolcountA/4*60;
-                
+                return 40;
                 
             }
             else
             {
-                return boolcountA/4*60+40;
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+                
+                if(boolcountA%4==0)
+                {
+                    return  boolcountA/4*60;
+                    
+                    
+                }
+                else
+                {
+                    return boolcountA/4*60+40;
+                    
+                    
+                }
+                
                 
                 
             }
             
-            
-            
         }
-        
-    }
-    if(section==3)
-    {
-        
-        if (_flagArray[section])
+        if(section==2)
         {
-            return 40;
             
-        }
-        else
-        {
-            boolcountA=[[bigarry objectAtIndex:section ] count];
-            
-            if(boolcountA%4==0)
+            if (_flagArray[section])
             {
-                return  boolcountA/4*60;
-                
+                return 40;
                 
             }
             else
             {
-                return boolcountA/4*60+40;
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+                
+                if(boolcountA%4==0)
+                {
+                    return  boolcountA/4*60;
+                    
+                    
+                }
+                else
+                {
+                    return boolcountA/4*60+40;
+                    
+                    
+                }
+                
                 
                 
             }
             
-            
-            
         }
-        
-    }
-    if(section==4)
-    {
-        
-        if (_flagArray[section])
+        if(section==3)
         {
-            return 40;
             
-        }
-        else
-        {
-            boolcountA=[[bigarry objectAtIndex:section ] count];
-            
-            if(boolcountA%4==0)
+            if (_flagArray[section])
             {
-                return  boolcountA/4*60;
-                
+                return 40;
                 
             }
             else
             {
-                return boolcountA/4*60+40;
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+                
+                if(boolcountA%4==0)
+                {
+                    return  boolcountA/4*60;
+                    
+                    
+                }
+                else
+                {
+                    return boolcountA/4*60+40;
+                    
+                    
+                }
+                
                 
                 
             }
             
-            
-            
         }
-        
-    }
-    if(section==5)
-    {
-        
-        if (_flagArray[section])
+        if(section==4)
         {
-            return 40;
             
-        }
-        else
-        {
-            boolcountA=[[bigarry objectAtIndex:section ] count];
-            
-            if(boolcountA%4==0)
+            if (_flagArray[section])
             {
-                return  boolcountA/4*60;
-                
+                return 40;
                 
             }
             else
             {
-                return boolcountA/4*60+40;
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+                
+                if(boolcountA%4==0)
+                {
+                    return  boolcountA/4*60;
+                    
+                    
+                }
+                else
+                {
+                    return boolcountA/4*60+40;
+                    
+                    
+                }
+                
                 
                 
             }
             
-            
-            
         }
-        
-    }
-    if(section==6)
-    {
-        
-        if (_flagArray[section])
+        if(section==5)
         {
-            return 40;
             
-        }
-        else
-        {
-            boolcountA=[[bigarry objectAtIndex:section ] count];
-            
-            if(boolcountA%4==0)
+            if (_flagArray[section])
             {
-                return  boolcountA/4*60;
-                
+                return 40;
                 
             }
             else
             {
-                return boolcountA/4*60+40;
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+                
+                if(boolcountA%4==0)
+                {
+                    return  boolcountA/4*60;
+                    
+                    
+                }
+                else
+                {
+                    return boolcountA/4*60+40;
+                    
+                    
+                }
+                
                 
                 
             }
             
+        }
+        if(section==6)
+        {
+            
+            if (_flagArray[section])
+            {
+                return 40;
+                
+            }
+            else
+            {
+                boolcountA=[[bigarry objectAtIndex:section ] count];
+                
+                if(boolcountA%4==0)
+                {
+                    return  boolcountA/4*60;
+                    
+                    
+                }
+                else
+                {
+                    return boolcountA/4*60+40;
+                    
+                    
+                }
+                
+                
+                
+            }
+            
+        }
+        
+        
+        else
+        {
+            
+            return 120;
             
             
         }
         
+        
+        
+        
+        
+        
+        
+        
     }
-
     
-    else
-    {
     
-        return 100;
-        
     
-    }
-
-
-
-
-
     
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
@@ -1089,130 +1308,98 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 8;
+    if(tableView==_tableViewPJ)
+    {
+        return 1;
+        
+    }else
+    {
+        return 8;
+        
+        
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   
+    if(tableView==_tableViewPJ)
+    {
+        return _namesnumber.count;
+        
+    }else
+    {
         return 0;
+        
+        
+    }
+    
+    
 
     
 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-//    switch (indexPath.section) {
-//        case 0: {
-//            cell.textLabel.text = @"只包含租赁";
-//            _switchButton.frame = CGRectMake(kScreenWidth - 60, 6, 40, 30);
-//            [cell.contentView addSubview:_switchButton];
-//        }
-//            break;
-//        case 1: {
-//            NSString *titleName = nil;
-//            NSString *key = nil;
-//            switch (indexPath.row) {
-//                case 0:
-//                    titleName = @"选择POS品牌";
-//                    key = s_brands;
-//                    break;
-//                case 1:
-//                    titleName = @"选择POS类型";
-//                    key = s_category;
-//                    break;
-//                case 2:
-//                    titleName = @"选择支付通道";
-//                    key = s_channel;
-//                    break;
-//                case 3:
-//                    titleName = @"选择支付卡类型";
-//                    key = s_card;
-//                    break;
-//                case 4:
-//                    titleName = @"选择支付交易类型";
-//                    key = s_trade;
-//                    break;
-//                case 5:
-//                    titleName = @"选择签购单方式";
-//                    key = s_slip;
-//                    break;
-//                case 6:
-//                    titleName = @"选择对账日期";
-//                    key = s_date;
-//                    break;
-//                default:
-//                    break;
-//            }
-//            cell.textLabel.text = titleName;
-//            cell.detailTextLabel.font = [UIFont systemFontOfSize:14.f];
-//            cell.detailTextLabel.text = [self nameForSelectedKey:key];
-//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//        }
-//            break;
-//        case 2: {
-//            switch (indexPath.row) {
-//                case 0: {
-//                    cell.textLabel.text = @"最低价￥";
-//                    _lowField.frame = CGRectMake(kScreenWidth - 120, 0, 100, cell.frame.size.height);
-//                    [cell.contentView addSubview:_lowField];
-//                }
-//                    break;
-//                case 1: {
-//                    cell.textLabel.text = @"最高价￥";
-//                    _highField.frame = CGRectMake(kScreenWidth - 120, 0, 100, cell.frame.size.height);
-//                    [cell.contentView addSubview:_highField];
-//                }
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//    cell.textLabel.font = [UIFont systemFontOfSize:15.f];
-    return cell;
+    if(tableView==_tableViewPJ)
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        
+        
+        cell.imageView.image=[UIImage imageNamed:@"select_normal"];
+        cell.textLabel.text=[[_namesnumber objectAtIndex:indexPath.row ] objectForKey:@"value"];
+        
+        return cell;
+        
+    }else
+    {    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+        
+        
+        return cell;
+        
+    }
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath.section == 1) {
-        NSString *key = nil;
-        switch (indexPath.row) {
-            case 0:
-                key = s_brands;
-                break;
-            case 1:
-                key = s_category;
-                break;
-            case 2:
-                key = s_channel;
-                break;
-            case 3:
-                key = s_card;
-                break;
-            case 4:
-                key = s_trade;
-                break;
-            case 5:
-                key = s_slip;
-                break;
-            case 6:
-                key = s_date;
-                break;
-            default:
-                break;
+    TreeNodeModel *node = [_smallarry objectAtIndex:indexPath.row];
+    
+    
+    node.isSelected = !node.isSelected;
+    [bigsview removeFromSuperview];
+    UILabel*lable=(UILabel*)[self.view viewWithTag:selectinttag*10];
+    lable.text=node.nodeName;
+    
+    NSArray*arry=[bigarry objectAtIndex:selectint];
+    
+    
+    //    nodes.isSelected = !nodes.isSelected;
+    for(int i=0;i<arry.count;i++)
+        
+        
+    {            TreeNodeModel *node = [[bigarry objectAtIndex:selectint] objectAtIndex:i];
+        
+        
+        UIButton*button=(UIButton*)[self.view viewWithTag:1000+i];
+        
+        if(button.tag==selectinttag)
+        {
+            node.isSelected=YES;
+            
+            [button setImage:[UIImage imageNamed:@"select_height"] forState:UIControlStateNormal];
+            
+        }else
+        {
+            node.isSelected=NO;
+            
+            [button setImage:[UIImage imageNamed:@"select_normal"] forState:UIControlStateNormal];
+            
+            
         }
-        FilterContentViewController *filterC = [[FilterContentViewController alloc] init];
-        filterC.title = cell.textLabel.text;
-        filterC.key = key;
-        filterC.selectedFilterDict = _filterDict;
-        filterC.dataItem = [_loadDict objectForKey:key];
-        [self.navigationController pushViewController:filterC animated:YES];
+        
+        
     }
+    
 }
 
 

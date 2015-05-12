@@ -19,12 +19,13 @@
 #import "MyOrderViewController.h"
 #import "GoodListViewController.h"
 #import "ShoppingCartController.h"
-@interface OrderDetailController ()<UITableViewDataSource,UITableViewDelegate>
+@interface OrderDetailController ()<UITableViewDataSource,UITableViewDelegate,OrderCommentDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) OrderDetailModel *orderDetail;
 @property (nonatomic, strong) UITableView *tableViewPJ;
+@property (nonatomic, strong) UITextView *editingView;
 
 @property (nonatomic, strong) UITextField *tempField;
 @property (nonatomic, strong) UIView *detailFooterView;
@@ -639,6 +640,8 @@ if(tableView==_tableViewPJ)
     {
         OrderCommentCell *cell = [[OrderCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         ReviewModel *model = [LLgoodList objectAtIndex:indexPath.section];
+        cell.delegate = self;
+
         [cell setContentsWithData:model];
         
        
@@ -808,6 +811,27 @@ if(tableView==_tableViewPJ)
                         typeLabel.backgroundColor = [UIColor clearColor];
                         typeLabel.font = [UIFont systemFontOfSize:16.f];
                         //                    typeLabel.textColor = kColor(116, 116, 116, 1);
+                        if([_orderDetail.orderPayType  isEqualToString:@"1"])
+                        {
+                            typeLabel.text = [NSString stringWithFormat:@"支付方式 :支付宝"];
+                            
+                            
+                        }
+                        if([_orderDetail.orderPayType  isEqualToString:@"2"])
+                        {
+                            typeLabel.text = [NSString stringWithFormat:@"支付方式：银联"];
+                            
+                            
+                        }
+                        
+                        if([_orderDetail.orderPayType  isEqualToString:@"3"])
+                        {
+                            typeLabel.text = [NSString stringWithFormat:@"支付方式：现金"];
+                            
+                            
+                        }
+                        
+
                         typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
                         [cell.contentView addSubview:typeLabel];
                         //订单日期
@@ -1029,6 +1053,8 @@ _orderDetail.terminals=@"暂无终端号";
                                                    delegate:self
                                           cancelButtonTitle:@"确定"
                                           otherButtonTitles:nil];
+    alert.tag=102;
+    
     [alert show];
 }
 
@@ -1155,7 +1181,25 @@ _orderDetail.terminals=@"暂无终端号";
 #pragma mark - Action
 
 - (IBAction)cancelOrder:(id)sender {
-    [self cancelOrder];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:@"确定取消此订单？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定", nil];
+    [alert show];
+    alert.tag=1028;
+    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if(alertView.tag==1028)
+    {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [self cancelOrder];
+        }
+    
+    }
+    
 }
 
 - (IBAction)payOrder:(id)sender {
@@ -1181,6 +1225,15 @@ _orderDetail.terminals=@"暂无终端号";
 - (IBAction)commentOrder:(id)sender {
     [self createui];
     
+}
+#pragma mark - OrderCommentDelegate
+
+- (void)commentViewWillEdit:(UITextView *)textView {
+    self.editingView = textView;
+}
+
+- (void)commentViewEndEdit {
+    self.editingView = nil;
 }
 
 @end

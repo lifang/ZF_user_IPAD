@@ -794,14 +794,14 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             NSInteger heightlk;
             
             heightlk=imageint/3;
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide-80)/3*row, 700+heightlk*70,(wide-80)/3-142, 40)];
+            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(20+(wide-80)/3*row, 700+heightlk*70,(wide-80)/3-112, 40)];
             [_scrollView addSubview:newaddress];
             newaddress.textAlignment = NSTextAlignmentLeft;
-            newaddress.font=[UIFont systemFontOfSize:18];
+            newaddress.font=[UIFont systemFontOfSize:17];
             
             newaddress.text=model.materialName;
             UIButton*imagebutton= [UIButton buttonWithType:UIButtonTypeCustom];
-            imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-142, 700+heightlk*70,100, 40);
+            imagebutton.frame=CGRectMake(40+(wide-80)/3*row+(wide-80)/3-122, 700+heightlk*70,80, 40);
             imagebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
             [imagebutton addTarget:self action:@selector(imageclick:) forControlEvents:UIControlEventTouchUpInside];
             imagebutton.tag=[model.materialID integerValue];

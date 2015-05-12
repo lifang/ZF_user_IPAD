@@ -19,6 +19,9 @@
         if ([dict objectForKey:@"order_status"]) {
             _orderStatus = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_status"]];
         }
+        if ([dict objectForKey:@"order_type"]) {
+            _order_type =[[dict objectForKey:@"order_type"] integerValue];
+        }
         if ([dict objectForKey:@"order_createTime"]) {
             _orderTime = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_createTime"]];
         }

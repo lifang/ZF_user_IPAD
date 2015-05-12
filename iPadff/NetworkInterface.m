@@ -493,7 +493,13 @@ static NSString *HTTP_GET  = @"GET";
         [paramDict setObject:brandID forKey:@"brands_id"];
     }
     if (category) {
-        [paramDict setObject:category forKey:@"category"];
+        
+        if(category.count>0)
+        {
+            [paramDict setObject:[category objectAtIndex:0] forKey:@"category"];
+
+        
+        }
     }
     if (channelID) {
         [paramDict setObject:channelID forKey:@"pay_channel_id"];
@@ -745,7 +751,6 @@ static NSString *HTTP_GET  = @"GET";
             [paramDict setObject:invoiceTitle forKey:@"invoice_info"];
         }
     }
-
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_createOrderFromGood_method];
     [[self class] requestWithURL:urlString

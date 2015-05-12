@@ -498,7 +498,7 @@
     //获得对应的按钮并且设置为高亮状态下的图片
     UILabel*lab=(UILabel *)[self.view viewWithTag:aIndex + 10];
     //设置为正常状态下的图片
-    lab.textColor=[UIColor redColor];
+    lab.textColor=kColor(254, 115, 40, 1);
 	UIButton *currentButton = (UIButton *)[self.view viewWithTag:(aIndex + 1)];
 	[currentButton setImage:[UIImage imageNamed:[_hightlightedImageArray objectAtIndex:aIndex]] forState:UIControlStateNormal];
 	

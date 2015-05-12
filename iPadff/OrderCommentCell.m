@@ -283,16 +283,16 @@
     _textView.returnKeyType = UIReturnKeyDone;
     _textView.font = [UIFont systemFontOfSize:14.f];
     [self.contentView addSubview:_textView];
-    CALayer *layer=[_textView  layer];
-    //是否设置边框以及是否可见
-    [layer setMasksToBounds:YES];
-    //设置边框圆角的弧度
-    
-    //设置边框线的宽
-    //
-    [layer setBorderWidth:1];
-    //设置边框线的颜色
-    [layer setBorderColor:[[UIColor grayColor] CGColor]];
+//    CALayer *layer=[_textView  layer];
+//    //是否设置边框以及是否可见
+//    [layer setMasksToBounds:YES];
+//    //设置边框圆角的弧度
+//    
+//    //设置边框线的宽
+//    //
+//    [layer setBorderWidth:1];
+//    //设置边框线的颜色
+//    [layer setBorderColor:[[UIColor grayColor] CGColor]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_textView
                                                                  attribute:NSLayoutAttributeTop
                                                                  relatedBy:NSLayoutRelationEqual
@@ -320,7 +320,23 @@
                                                                     toItem:nil
                                                                  attribute:NSLayoutAttributeNotAnAttribute
                                                                 multiplier:0.0
-                                                                  constant:90.f]];
+                                                                  constant:70.f]];
+    UILabel*lableline1 = [[UILabel alloc] initWithFrame:CGRectMake(17, 124, wide/2-34, 1)];
+    lableline1.backgroundColor = [UIColor grayColor];
+    [self.contentView addSubview:lableline1];
+    
+    UILabel*lableline2 = [[UILabel alloc] initWithFrame:CGRectMake(17, 124, 1, 90)];
+    lableline2.backgroundColor = [UIColor grayColor];
+    [self.contentView addSubview:lableline2];
+    
+    UILabel*lableline3 = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-17, 124, 1, 90)];
+    lableline3.backgroundColor = [UIColor grayColor];
+    [self.contentView addSubview:lableline3];
+    
+    UILabel*lableline4= [[UILabel alloc] initWithFrame:CGRectMake(17, 124+90, wide/2-34, 1)];
+    lableline4.backgroundColor = [UIColor grayColor];
+    [self.contentView addSubview:lableline4];
+  
     
     _placeholderLabel = [[UILabel alloc] init];
     _placeholderLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -335,7 +351,7 @@
                                                                     toItem:secondLine
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:17.f]];
+                                                                  constant:10.f]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_placeholderLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -371,7 +387,7 @@
                                                                     toItem:_textView
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:-20.f]];
+                                                                  constant:0.f]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:tipLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -467,17 +483,19 @@
 
 #pragma mark - UITextView
 
-
-
-
-
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    if (_delegate && [_delegate respondsToSelector:@selector(commentViewWillEdit:)]) {
+        [_delegate commentViewWillEdit:_textView];
+    }
+    return YES;
+}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         return NO;
     }
-    else if ([textView.text length] >= 200 && ![text isEqualToString:@""]) {
+    else if ([textView.text length] + [text length] > 200 && ![text isEqualToString:@""]) {
         return NO;
     }
     return YES;
@@ -485,6 +503,9 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     _goodModel.review = textView.text;
+    if (_delegate && [_delegate respondsToSelector:@selector(commentViewEndEdit)]) {
+        [_delegate commentViewEndEdit];
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -494,16 +515,11 @@
     else {
         _placeholderLabel.text = @"";
     }
-    
     NSInteger number = 200 - [textView.text length];
     if (number < 0) {
         number = 0;
     }
-    tipLabel.text = [NSString stringWithFormat:@"最多填写%ld个汉字", number];
-
-    
-    
-    
+    tipLabel.text = [NSString stringWithFormat:@"最多填写%ld个汉字", (long)number];
 }
 
 @end
