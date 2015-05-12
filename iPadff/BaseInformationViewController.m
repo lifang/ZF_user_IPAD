@@ -834,6 +834,7 @@
 //选择城市
 -(void)locationClicked
 {
+    [_nameField resignFirstResponder];
     [self pickerScrollIn];
 }
 
@@ -929,7 +930,7 @@
     }
     ChangeEmailController *changeEmailVC =[[ChangeEmailController alloc]init];
     changeEmailVC.authCode = [dict objectForKey:@"result"];
-    NSLog(@"$$$$$$%@",[dict objectForKey:@"result"]);
+    changeEmailVC.isAdd = YES;
     changeEmailVC.ChangeEmailSuccessDelegate = self;
     changeEmailVC.oldEmail = _emailField.text;
     changeEmailVC.hidesBottomBarWhenPushed = YES;
