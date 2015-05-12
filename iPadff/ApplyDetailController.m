@@ -520,7 +520,7 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             {
 
     
-                [blankbutton setTitle:_bankTitleName forState:UIControlStateNormal];
+                [blankseclectbutton setTitle:_bankTitleName forState:UIControlStateNormal];
 
 
      
@@ -678,10 +678,20 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             
             blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
             blankbutton.frame = CGRectMake(wide/2-40-280,710+lastheight*70 ,280, 40);
-            NSString *bankCode = [self getApplyValueForKey:model.materialID];
-            [blankbutton setTitle:[self getBankNameWithBankCode:bankCode] forState:UIControlStateNormal];
+//            NSString *bankCode = [self getApplyValueForKey:model.materialID];
+//            [blankbutton setTitle:[self getBankNameWithBankCode:bankCode] forState:UIControlStateNormal];
+//            
             
-            
+            if(_bankTitleName2)
+                
+            {
+                
+                
+                [blankbutton setTitle:_bankTitleName forState:UIControlStateNormal];
+                
+                
+                
+            }
             //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
             [blankbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             blankbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
