@@ -81,6 +81,8 @@
 
 @property (nonatomic, strong) CityModel *currentCity;
 
+@property(nonatomic,strong)UILabel *nowCity;
+
 @end
 
 @implementation LocationViewController
@@ -306,16 +308,16 @@
             currentLabel.font = [UIFont systemFontOfSize:14.f];
             currentLabel.text = @"当前";
             [cell.contentView addSubview:currentLabel];
-            UILabel *cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, cell.bounds.size.height)];
-            cityLabel.backgroundColor = [UIColor clearColor];
-            cityLabel.font = [UIFont systemFontOfSize:16.f];
+            _nowCity = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, cell.bounds.size.height)];
+            _nowCity.backgroundColor = [UIColor clearColor];
+            _nowCity.font = [UIFont systemFontOfSize:16.f];
             if (_currentCity) {
-                cityLabel.text = _currentCity.cityName;
+                _nowCity.text = _currentCity.cityName;
             }
             else {
-                cityLabel.text = @"定位失败";
+                _nowCity.text = @"定位失败";
             }
-            [cell.contentView addSubview:cityLabel];
+            [cell.contentView addSubview:_nowCity];
             return cell;
         }
         else {
@@ -377,6 +379,7 @@
     }
     if (_delegate && [_delegate respondsToSelector:@selector(getSelectedLocation:)]) {
         [_delegate getSelectedLocation:selectedCity];
+        _nowCity.text = selectedCity.cityName;
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

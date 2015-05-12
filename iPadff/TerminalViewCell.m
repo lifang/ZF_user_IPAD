@@ -10,7 +10,7 @@
 
 @implementation TerminalViewCell
 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -64,7 +64,11 @@
                     [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
                 }
                 else{
-                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                    if (ishaveVideo) {
+                        button.hidden = YES;
+                    }else{
+                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                    }
                 }
             }
         }
@@ -81,10 +85,18 @@
                 button.backgroundColor = [UIColor clearColor];
                 button.tag = i + 2000;
                 [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+                if (ishaveVideo) {
+                    button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
+                }else{
+                    button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+                }
                 [self addSubview:button];
                 if (i == 0) {
-                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                    if (ishaveVideo) {
+                        button.hidden = YES;
+                    }else{
+                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                    }
                 }
                 if (i == 1) {
                     [button setTitle:@"申请开通" forState:UIControlStateNormal];
@@ -107,13 +119,25 @@
                 button.backgroundColor = [UIColor clearColor];
                 button.tag = i + 3000;
                 [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+                if (ishaveVideo) {
+                    if (i >= 2) {
+                        button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
+                    }else{
+                        button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+                    }
+                }else{
+                    button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+                }
                 [self addSubview:button];
                 if (i == 0) {
                     [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
                 }
                 if (i == 1) {
-                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                    if (ishaveVideo) {
+                        button.hidden = YES;
+                    }else{
+                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                    }
                 }
                 if (i == 2) {
                     [button setTitle:@"重新申请开通" forState:UIControlStateNormal];

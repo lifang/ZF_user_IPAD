@@ -774,8 +774,8 @@ else
             TransferCell *cell = [TransferCell cellWithTableView:tableView];
             TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
             cell.timeLabel.text = model.tradeTime;
-            cell.payLabel.text = model.payFromAccount;
-            cell.getLabel.text = model.payIntoAccount;
+            cell.payLabel.text = [self serectString:model.payFromAccount];
+            cell.getLabel.text = [self serectString:model.payIntoAccount];
             cell.terminalLabel.text = model.terminalNumber;
             cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
@@ -787,8 +787,8 @@ else
             RepaymentCell *cell = [RepaymentCell cellWithTableView:tableView];
             TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
             cell.timeLabel.text = model.tradeTime;
-            cell.payLabel.text = model.payFromAccount;
-            cell.payToLabel.text = model.payIntoAccount;
+            cell.payLabel.text = [self serectString:model.payFromAccount];
+            cell.payToLabel.text = [self serectString:model.payIntoAccount];
             cell.terminalLabel.text = model.terminalNumber;
             cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
@@ -799,8 +799,8 @@ else
             LiferechargeCell *cell = [LiferechargeCell cellWithTableView:tableView];
             TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
             cell.timeLabel.text = model.tradeTime;
-            cell.usernameLabel.text = model.accountName;
-            cell.useraccountLabel.text = model.accountNumber;
+            cell.usernameLabel.text = [self serectNameString:model.accountName];
+            cell.useraccountLabel.text = [self serectString:model.accountNumber];
             cell.terminalLabel.text = model.terminalNumber;
             cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
@@ -811,7 +811,7 @@ else
             TelephonechargeCell *cell = [TelephonechargeCell cellWithTableView:tableView];
             TradeModel *model = [_tradeRecords objectAtIndex:indexPath.row];
             cell.timeLabel.text = model.tradeTime;
-            cell.phoneNumLabel.text = model.phoneNumber;
+            cell.phoneNumLabel.text = [self serectString:model.phoneNumber];
             cell.terminalLabel.text = model.terminalNumber;
             cell.dealMoney.text = [NSString stringWithFormat:@"￥%.2f",model.amount];
             [self StringWithdealStates:model.tradeStatus];
@@ -834,6 +834,29 @@ else
         
     }
 }
+}
+
+//加密位数
+- (NSString *)serectString:(NSString *)string {
+    //倒数5-8位星号
+    NSInteger length = [string length];
+    if (length < 8) {
+        return string;
+    }
+    NSMutableString *encryptString = [NSMutableString stringWithString:string];
+    [encryptString replaceCharactersInRange:NSMakeRange(length - 8, 4) withString:@"****"];
+    return encryptString;
+}
+
+- (NSString *)serectNameString:(NSString *)string {
+    //名字第二位
+    NSInteger length = [string length];
+    if (length < 2) {
+        return string;
+    }
+    NSMutableString *encryptString = [NSMutableString stringWithString:string];
+    [encryptString replaceCharactersInRange:NSMakeRange(length - 2, 1) withString:@"*"];
+    return encryptString;
 }
 
 - (void)StringWithdealStates:(NSString *)dealStates

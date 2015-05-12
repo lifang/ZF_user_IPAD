@@ -243,7 +243,7 @@
     {
         topView.frame = CGRectMake(SCREEN_HEIGHT/2-67-60, 20, 134, 38);
         itemImageView.frame = CGRectMake(SCREEN_HEIGHT/2+15, 25, 119, 30);
-               rightBtn.frame = CGRectMake(SCREEN_HEIGHT-180, itemImageView.frame.origin.y, 60, 30);
+               rightBtn.frame = CGRectMake(SCREEN_HEIGHT-180, itemImageView.frame.origin.y, 120, 40);
         
     }
     else
@@ -252,7 +252,7 @@
         itemImageView.frame = CGRectMake(SCREEN_WIDTH/2+15, 25, 119, 30);
         
 
-        rightBtn.frame = CGRectMake(SCREEN_WIDTH-180, itemImageView.frame.origin.y, 60, 30);
+        rightBtn.frame = CGRectMake(SCREEN_WIDTH-180, itemImageView.frame.origin.y, 120, 40);
         
         
     }
