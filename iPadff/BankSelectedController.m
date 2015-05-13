@@ -265,8 +265,11 @@
     BankModel *model = [_dataItem objectAtIndex:indexPath.row];
     model.isSelected = YES;
     [_tableView reloadData];
+    NSLog(@"%@",model.bankCode);
+
     if (_delegate && [_delegate respondsToSelector:@selector(getSelectedBank:)]) {
         [_delegate getSelectedBank:model];
+
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
