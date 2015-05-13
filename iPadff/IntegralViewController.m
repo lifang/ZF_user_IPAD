@@ -120,6 +120,7 @@
                                                            constant:50.f]];
     
     UIButton *integralBtn = [[UIButton alloc]init];
+    integralBtn.hidden = YES;
     [integralBtn addTarget:self action:@selector(exchange) forControlEvents:UIControlEventTouchUpInside];
     integralBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [integralBtn setTitle:@"积分兑换" forState:UIControlStateNormal];

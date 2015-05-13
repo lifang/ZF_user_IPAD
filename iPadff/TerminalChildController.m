@@ -151,6 +151,9 @@
                     button.hidden = YES;
                 }
             }
+            if ([_type isEqualToString:@"1"]) {
+                button.hidden = YES;
+            }
         }
 
     }
@@ -189,10 +192,17 @@
                 }
             }
             if (i == 2) {
-                [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                if ([_appID isEqualToString:@""]) {
+                    [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                }else{
+                    [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                }
             }
             if (i == 3) {
                 [button setTitle:@"同步" forState:UIControlStateNormal];
+            }
+            if ([_type isEqualToString:@"1"]) {
+                button.hidden = YES;
             }
 
         }
@@ -226,10 +236,17 @@
                 }
             }
             if (i == 1) {
-                [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                if ([_appID isEqualToString:@""]) {
+                    [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                }else{
+                    [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                }
             }
             if (i == 2) {
                 [button setTitle:@"同步" forState:UIControlStateNormal];
+            }
+            if ([_type isEqualToString:@"1"]) {
+                button.hidden = YES;
             }
         }
 
@@ -277,6 +294,9 @@
             }
             if (i == 1) {
                 [button setTitle:@"同步" forState:UIControlStateNormal];
+            }
+            if ([_type isEqualToString:@"1"]) {
+                button.hidden = YES;
             }
         }
     }

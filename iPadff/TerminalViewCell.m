@@ -10,7 +10,7 @@
 
 @implementation TerminalViewCell
 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo Appid:(NSString *)appid WithType:(NSString *)type
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -70,7 +70,11 @@
                         [button setTitle:@"视频认证" forState:UIControlStateNormal];
                     }
                 }
+                if ([type isEqualToString:@"1"]) {
+                    button.hidden = YES;
+                }
             }
+            
         }
         if ([reuseIdentifier isEqualToString:@"cell-3"]) {
             for (int i = 0; i < 3; i++) {
@@ -99,10 +103,17 @@
                     }
                 }
                 if (i == 1) {
-                    [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                    if ([appid isEqualToString:@""]) {
+                        [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                    }else{
+                        [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                    }
                 }
                 if (i == 2) {
                     [button setTitle:@"同步" forState:UIControlStateNormal];
+                }
+                if ([type isEqualToString:@"1"]) {
+                    button.hidden = YES;
                 }
             }
         }
@@ -140,10 +151,17 @@
                     }
                 }
                 if (i == 2) {
-                    [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                    if ([appid isEqualToString:@""]) {
+                        [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                    }else{
+                        [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                    }
                 }
                 if (i == 3) {
                     [button setTitle:@"同步" forState:UIControlStateNormal];
+                }
+                if ([type isEqualToString:@"1"]) {
+                    button.hidden = YES;
                 }
             }
         }
@@ -167,6 +185,9 @@
                 }
                 if (i == 1) {
                     [button setTitle:@"同步" forState:UIControlStateNormal];
+                }
+                if ([type isEqualToString:@"1"]) {
+                    button.hidden = YES;
                 }
             }
         }
@@ -217,7 +238,7 @@
     
     _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 35, mainY, mainWidth * 0.5 + 30, mainheight);
     
-    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 50, mainY, mainWidth * 0.5, mainheight);
+    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 45, mainY, mainWidth * 0.5, mainheight);
 }
 
 @end

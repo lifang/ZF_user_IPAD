@@ -9,7 +9,7 @@
 #import "MessageChildViewController.h"
 #import "NetworkInterface.h"
 
-@interface MessageChildViewController ()
+@interface MessageChildViewController ()<UIAlertViewDelegate>
 
 
 @property(nonatomic,strong)UIScrollView *contentView;
@@ -104,10 +104,22 @@
     NSArray *rightArr = [NSArray arrayWithObjects:kongBar,rightBar, nil];
     self.navigationItem.rightBarButtonItems = rightArr;
 }
-
 -(void)rightClicked:(id)sender
 {
-    [self deleteMessage:nil];
+    UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"" message:@"您确定要删除这条消息吗？" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    alertV.delegate = self;
+    alertV.tag = 11144;
+    [alertV show];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 11144) {
+        if (buttonIndex == 0) {
+            [self deleteMessage:nil];
+        }
+    }
 }
 
 #pragma mark - Action

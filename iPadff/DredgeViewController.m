@@ -419,13 +419,16 @@
     if(  [model.TM_status  isEqualToString:@"2"])
     {
         [cell.applicationBtn setTitle:@"重新申请开通" forState:UIControlStateNormal];
-
         cell.applicationBtn.titleLabel.font=[UIFont systemFontOfSize:16];
         [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     else
     {
-        [cell.applicationBtn setTitle:@"申请开通" forState:UIControlStateNormal];
+        if ([model.appID isEqualToString:@""]) {
+            [cell.applicationBtn setTitle:@"申请开通" forState:UIControlStateNormal];
+        }else{
+            [cell.applicationBtn setTitle:@"重新申请开通" forState:UIControlStateNormal];
+        }
         [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     [cell.vedioConfirmBtn addTarget:self action:@selector(vedioConfirmClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -18,4 +18,8 @@
 
 @property (nonatomic, strong) NSString *tm_ID; //终端信息id
 
+@property(nonatomic,strong)NSString *appID;
+
+@property(nonatomic,strong)NSString *type;
+
 @end
