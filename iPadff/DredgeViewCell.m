@@ -12,7 +12,7 @@
 
 +(instancetype)cellWithTableView:(UITableView *)tableView
 {
-    static NSString *ID = @"dynamic";
+    static NSString *ID = @"DredgeViewCell";
     DredgeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[DredgeViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
@@ -56,6 +56,12 @@
         [_vedioConfirmBtn setTitle:@"视频认证" forState:UIControlStateNormal];
         [_vedioConfirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_vedioConfirmBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
+        if ([reuseIdentifier isEqualToString:@"isHaveVedio0"]) {
+            _vedioConfirmBtn.userInteractionEnabled = NO;
+            [_vedioConfirmBtn setBackgroundColor:kColor(219, 219, 219, 1.0)];
+        }else{
+            [_vedioConfirmBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
+        }
         [self addSubview:_vedioConfirmBtn];
         
     }
@@ -75,9 +81,9 @@
     
     _posLabel.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 50, mainY, mainWidth, mainheight);
     
-    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 60, mainY, mainWidth * 0.5, mainheight);
+    _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 40, mainY, mainWidth * 0.7, mainheight);
     
-    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 90, mainY, mainWidth * 0.5, mainheight);
+    _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 70, mainY, mainWidth * 0.5, mainheight);
     
     _applicationBtn.frame = CGRectMake(CGRectGetMaxX(_dredgeStatus.frame) + 100, mainY / 3, mainWidth * 0.7, mainheight * 1.5);
     

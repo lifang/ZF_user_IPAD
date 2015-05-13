@@ -582,6 +582,7 @@
         TerminalChildController *terminalChildV = [[TerminalChildController alloc]init];
         terminalChildV.hidesBottomBarWhenPushed = YES;
         terminalChildV.dealStatus = model.TM_status;
+        terminalChildV.isHaveVideo = model.isHaveVideo;
         terminalChildV.tm_ID = model.TM_ID;
         [self.navigationController pushViewController:terminalChildV animated:YES];
     }

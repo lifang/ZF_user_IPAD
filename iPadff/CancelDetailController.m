@@ -7,6 +7,7 @@
 //
 
 #import "CancelDetailController.h"
+#import "ChannelWebsiteController.h"
 
 @interface CancelDetailController ()
 
@@ -325,6 +326,8 @@
             if (model.path && ![model.path isEqualToString:@""]) {
                 [button setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
                 [button setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
+                [button addTarget:self action:@selector(scanResource:) forControlEvents:UIControlEventTouchUpInside];
+                button.tag = i + 1;
                 [button setTitle:@"点击查看" forState:UIControlStateNormal];
             }
             else {
@@ -369,7 +372,7 @@
     //417
     CGFloat recordHeight = 0.f;
     //追踪记录
-    if ([self.records count] > 0) {
+    if ([self.records count] == 1111111111) {
         UILabel *tipLabel = [[UILabel alloc] init];
         [self setLabel:tipLabel withTopView:merchantPhoneLabel middleSpace:resourceHeight + lineSpace];
         tipLabel.font = [UIFont systemFontOfSize:15.f];
@@ -509,12 +512,47 @@
 
 #pragma mark - Action
 
+- (IBAction)scanResource:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    ResourceModel *model = [self.resources objectAtIndex:btn.tag - 1];
+    ChannelWebsiteController *websiteC = [[ChannelWebsiteController alloc] init];
+    websiteC.title = @"资料详情";
+    websiteC.urlString = model.path;
+    [self.navigationController pushViewController:websiteC animated:YES];
+}
+
+
 - (IBAction)cancelApply:(id)sender {
-    [self cancelApply];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:@"确定取消申请？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定", nil];
+    alert.tag = AlertViewCancelTag;
+    [alert show];
 }
 
 - (IBAction)submit:(id)sender {
-    [self submitCanncelApply];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:@"确定提交申请？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定", nil];
+    alert.tag = AlertViewSubmitTag;
+    [alert show];
+}
+
+#pragma mark - AlertView
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        if (alertView.tag == AlertViewCancelTag) {
+            [self cancelApply];
+        }
+        else if (alertView.tag == AlertViewSubmitTag) {
+            [self submitCanncelApply];
+        }
+    }
 }
 
 @end

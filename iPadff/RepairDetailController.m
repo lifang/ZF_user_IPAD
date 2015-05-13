@@ -331,7 +331,7 @@
     //397
     CGFloat height = 0;
     //追踪记录
-    if ([self.records count] > 0) {
+    if ([self.records count] == 1111111111) {
         UILabel *tipLabel = [[UILabel alloc] init];
         [self setLabel:tipLabel withTopView:infoLabel middleSpace:lineSpace];
         tipLabel.font = [UIFont systemFontOfSize:15.f];

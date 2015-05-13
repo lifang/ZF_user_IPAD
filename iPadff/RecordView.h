@@ -11,7 +11,7 @@
 
 @interface RecordView : UIView
 
-@property (nonatomic, strong) NSArray *recordItems;
+@property (nonatomic, strong) NSMutableArray *recordItems;
 
 @property (nonatomic, assign) CGFloat width;
 

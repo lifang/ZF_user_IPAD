@@ -18,6 +18,7 @@
 #import "AccountTool.h"
 #import "DredgeModel.h"
 #import "VideoAuthController.h"
+#import "TerminalChildController.h"
 
 
 @interface DredgeViewController ()<RefreshDelegate,LoginSuccessDelegate>
@@ -402,8 +403,10 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DredgeViewCell *cell = [DredgeViewCell cellWithTableView:tableView];
+    
     DredgeModel *model = [_applyList objectAtIndex:indexPath.row];
+    NSString *ID = [NSString stringWithFormat:@"isHaveVedio%d",model.isHaveVideo];
+    DredgeViewCell *cell = [[DredgeViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     cell.terminalLabel.text = model.TM_serialNumber;
     cell.posLabel.text = [NSString stringWithFormat:@"%@%@",model.TM_brandsName,model.TM_model_number];
     cell.payRoad.text = model.TM_channelName;
@@ -419,17 +422,12 @@
 
         cell.applicationBtn.titleLabel.font=[UIFont systemFontOfSize:16];
         [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
-
-        
     }
     else
     {
         [cell.applicationBtn setTitle:@"申请开通" forState:UIControlStateNormal];
         [cell.applicationBtn addTarget:self action:@selector(applicationClick:) forControlEvents:UIControlEventTouchUpInside];
-
-    
     }
-    
     [cell.vedioConfirmBtn addTarget:self action:@selector(vedioConfirmClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -477,11 +475,13 @@
 //}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];
-    //    DynamicChildViewController *dynamicVC = [[DynamicChildViewController alloc]init];
-    //    dynamicVC.page =  status.ids;
-    //    [self.navigationController pushViewController:dynamicVC animated:YES];
-    //    SLog(@"点击了第%ld行",indexPath.row);
+    DredgeModel *model = [_applyList objectAtIndex:indexPath.row];
+    TerminalChildController *terminalVC = [[TerminalChildController alloc]init];
+    terminalVC.hidesBottomBarWhenPushed = YES;
+    terminalVC.dealStatus = model.TM_status;
+    terminalVC.isHaveVideo = model.isHaveVideo;
+    terminalVC.tm_ID = model.TM_ID;
+    [self.navigationController pushViewController:terminalVC animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
