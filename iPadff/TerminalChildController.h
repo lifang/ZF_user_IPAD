@@ -20,4 +20,6 @@
 
 @property(nonatomic,strong)NSString *appID;
 
+@property(nonatomic,strong)NSString *type;
+
 @end

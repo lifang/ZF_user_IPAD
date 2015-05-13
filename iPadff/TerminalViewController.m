@@ -317,7 +317,7 @@
         TerminalViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IDs];
         if (cell == nil) {
             cell = [[TerminalViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:IDs
-                                               WithVedeos:model.isHaveVideo Appid:model.appID];
+                                               WithVedeos:model.isHaveVideo Appid:model.appID WithType:model.type];
             cell.TerminalViewCellDelegate = self;
         }
         cell.selectedID = model.TM_ID;
@@ -569,7 +569,7 @@
     self.isPush = NO;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];
     
-    if ([model.TM_status intValue] == TerminalStatusOpened && !model.appID) {
+    if ([model.type isEqualToString:@"1"]) {
         //自助开通无法查看详情
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -585,6 +585,7 @@
         terminalChildV.isHaveVideo = model.isHaveVideo;
         terminalChildV.tm_ID = model.TM_ID;
         terminalChildV.appID = model.appID;
+        terminalChildV.type = model.type;
         [self.navigationController pushViewController:terminalChildV animated:YES];
     }
 }

@@ -32,6 +32,9 @@
         if ([dict objectForKey:@"hasVideoVerify"]) {
             _isHaveVideo = [[dict objectForKey:@"hasVideoVerify"] integerValue];
         }
+        if ([dict objectForKey:@"type"]) {
+            _type = [dict objectForKey:@"type"];
+        }
     }
     return self;
 }

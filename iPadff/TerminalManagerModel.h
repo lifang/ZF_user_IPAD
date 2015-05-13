@@ -37,6 +37,8 @@ typedef enum {
  */
 @property (nonatomic, strong) NSString *appID;
 
+@property(nonatomic,strong)NSString *type;
+
 @property(nonatomic,assign)BOOL isHaveVideo;
 - (id)initWithParseDictionary:(NSDictionary *)dict;
 
