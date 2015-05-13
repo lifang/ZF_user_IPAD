@@ -642,7 +642,24 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
     [_scrollView addSubview:threeline];
     NSInteger imageint;
     imageint=0;
-    
+    NSMutableArray *textArray=[[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *imageArray=[[NSMutableArray alloc] initWithCapacity:0];
+    for(int i=0;i<_applyData.materialList.count;i++)
+    {
+        MaterialModel *model = [_applyData.materialList objectAtIndex:i];
+        
+        if (model.materialType == MaterialList||model.materialType==MaterialText) {
+            
+            [textArray addObject:model];
+            
+        }
+        else if (model.materialType == MaterialImage) {
+            //图片
+            [imageArray addObject:model];
+            
+        }
+
+    }
     for(int i=0;i<_applyData.materialList.count;i++)
     {
         
@@ -652,19 +669,21 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
         
         height=i/2;
         MaterialModel *model = [_applyData.materialList objectAtIndex:i];
+        
+       
         if (model.materialType == MaterialList) {
             
             NSInteger lastheight;
-            lastheight=_applyData.materialList.count-2;
+            lastheight=imageArray.count;
             if(lastheight%2==0)
             {
-                lastheight=_applyData.materialList.count/2;
+                lastheight=lastheight/2;
                 
             }
             else
             {
                 
-                lastheight=_applyData.materialList.count/2+1;
+                lastheight=lastheight/2+1;
                 
             }
             //选项 银行
@@ -749,16 +768,16 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
                  
                  
                 NSInteger lastheight;
-                lastheight=_applyData.materialList.count-2;
+                lastheight=imageArray.count;
                 if(lastheight%2==0)
                 {
-                    lastheight=_applyData.materialList.count/2;
+                    lastheight=lastheight/2;
                     
                 }
                 else
                 {
                     
-                    lastheight=_applyData.materialList.count/2+1;
+                    lastheight=lastheight/2+1;
                     
                 }
                 for(int i=1;i<MaterialTexttypeArry.count+1;i++)
@@ -801,16 +820,16 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             {
             
                 NSInteger lastheight;
-                lastheight=_applyData.materialList.count-2;
+                lastheight=imageArray.count;
                 if(lastheight%2==0)
                 {
-                    lastheight=_applyData.materialList.count/2;
+                    lastheight=lastheight/2;
                     
                 }
                 else
                 {
                     
-                    lastheight=_applyData.materialList.count/2+1;
+                    lastheight=lastheight/2+1;
                     
                 }
                 for(int i=0;i<MaterialTexttypeArry.count;i++)
@@ -1133,7 +1152,7 @@ _applyType = OpenApplyPrivate;
                 
             }
 
-            _applyType = OpenApplyPublic;
+//            _applyType = OpenApplyPublic;
         }
             break;
         default:
@@ -1153,7 +1172,8 @@ _applyType = OpenApplyPrivate;
 }
 
 -(void)privateClicked
-{        _applyType = OpenApplyPrivate;
+{
+    _applyType = OpenApplyPrivate;
     
     _isChecked = NO;
      keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankID",@"key_bankAccount",@"key_channel", nil];
