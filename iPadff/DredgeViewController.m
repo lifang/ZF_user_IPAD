@@ -445,6 +445,7 @@
 
 -(void)applicationClick:(UIButton *)button
 {
+    
     self.isPush = NO;
     TerminalManagerModel *model = [_applyList objectAtIndex:button.tag];
 
