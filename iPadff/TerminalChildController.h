@@ -14,6 +14,8 @@
 
 @property(nonatomic,strong)NSString *dealStatus;
 
+@property(nonatomic,assign)BOOL isHaveVideo;
+
 @property (nonatomic, strong) NSString *tm_ID; //终端信息id
 
 @end

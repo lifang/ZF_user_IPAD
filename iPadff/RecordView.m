@@ -17,10 +17,11 @@ static CGFloat  fontSize = 12.f;
 
 @implementation RecordView
 
-- (id)initWithRecords:(NSArray *)records
+- (id)initWithRecords:(NSMutableArray *)records
                 width:(CGFloat)width {
     if (self = [super init]) {
         _recordItems = records;
+        [_recordItems removeAllObjects];
         _width = width;
         self.backgroundColor = kColor(230, 230, 230, 1);
     }

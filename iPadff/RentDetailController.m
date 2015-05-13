@@ -468,7 +468,7 @@
     //417
     CGFloat recordHeight = 0.f;
     //追踪记录
-    if ([self.records count] > 0) {
+    if ([self.records count] == 1111111111) {
         UILabel *tipLabel = [[UILabel alloc] init];
         [self setLabel:tipLabel withTopView:phoneLabel middleSpace:resourceHeight + lineSpace];
         tipLabel.font = [UIFont systemFontOfSize:15.f];

@@ -145,7 +145,11 @@
                 [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
             }
             else{
-                [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                if (_isHaveVideo) {
+                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                }else{
+                    button.hidden = YES;
+                }
             }
         }
 
@@ -164,13 +168,25 @@
             button.backgroundColor = [UIColor clearColor];
             button.tag = i + 4444;
             [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-            button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+            if (!_isHaveVideo) {
+                if (i >= 2) {
+                    button.frame = CGRectMake(mainBtnX - ((i - 1) * 120), mainBtnY, mainBtnW, mainBtnH);
+                }else{
+                    button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+                }
+            }else{
+               button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+            }
             [self.scrollView addSubview:button];
             if (i == 0) {
                 [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
             }
             if (i == 1) {
-                [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                if (!_isHaveVideo) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                }
             }
             if (i == 2) {
                 [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
@@ -196,10 +212,18 @@
             button.backgroundColor = [UIColor clearColor];
             button.tag = i + 5555;
             [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-            button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+            if (!_isHaveVideo) {
+                button.frame = CGRectMake(mainBtnX - ((i - 1) * 120), mainBtnY, mainBtnW, mainBtnH);
+            }else{
+                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+            }
             [self.scrollView addSubview:button];
             if (i == 0) {
-                [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                if (!_isHaveVideo) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                }
             }
             if (i == 1) {
                 [button setTitle:@"申请开通" forState:UIControlStateNormal];
@@ -212,24 +236,24 @@
     }
     if ([_dealStatus isEqualToString:@"4"]) {
         //已注销
-        for (int i = 0; i < 1; i++) {
-            UIButton *button = [[UIButton alloc]init];
-            button.titleLabel.font = [UIFont systemFontOfSize:17];
-            [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-            CALayer *readBtnLayer = [button layer];
-            [readBtnLayer setMasksToBounds:YES];
-            [readBtnLayer setCornerRadius:2.0];
-            [readBtnLayer setBorderWidth:1.0];
-            [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-            button.backgroundColor = [UIColor clearColor];
-            button.tag = i + 6666;
-            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-            button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
-            [self.scrollView addSubview:button];
-            if (i == 0) {
-                [button setTitle:@"租凭退换" forState:UIControlStateNormal];
-            }
-        }
+//        for (int i = 0; i < 1; i++) {
+//            UIButton *button = [[UIButton alloc]init];
+//            button.titleLabel.font = [UIFont systemFontOfSize:17];
+//            [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+//            CALayer *readBtnLayer = [button layer];
+//            [readBtnLayer setMasksToBounds:YES];
+//            [readBtnLayer setCornerRadius:2.0];
+//            [readBtnLayer setBorderWidth:1.0];
+//            [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+//            button.backgroundColor = [UIColor clearColor];
+//            button.tag = i + 6666;
+//            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//            button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+//            [self.scrollView addSubview:button];
+//            if (i == 0) {
+//                [button setTitle:@"租凭退换" forState:UIControlStateNormal];
+//            }
+//        }
 
     }
     if ([_dealStatus isEqualToString:@"5"]) {
@@ -605,7 +629,7 @@
     openHeight += labelHeight + lineSpace;
     //跟踪记录
     CGFloat recordHeight = 0.f;
-    if ([self.records count] > 0) {
+    if ([self.records count] == 1111111111) {
         UILabel *tipLabel = [[UILabel alloc] init];
         tipLabel.translatesAutoresizingMaskIntoConstraints = NO;
         tipLabel.backgroundColor = [UIColor clearColor];

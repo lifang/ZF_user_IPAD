@@ -30,7 +30,7 @@
             _appID = [NSString stringWithFormat:@"%@",[dict objectForKey:@"appid"]];
         }
         if ([dict objectForKey:@"hasVideoVerify"]) {
-            _isHaveVideo = [[dict objectForKey:@"hasVideoVerify"] boolValue];
+            _isHaveVideo = [[dict objectForKey:@"hasVideoVerify"] integerValue];
         }
     }
     return self;
