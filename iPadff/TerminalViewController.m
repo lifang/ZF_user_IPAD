@@ -317,7 +317,7 @@
         TerminalViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IDs];
         if (cell == nil) {
             cell = [[TerminalViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:IDs
-                                               WithVedeos:model.isHaveVideo];
+                                               WithVedeos:model.isHaveVideo Appid:model.appID];
             cell.TerminalViewCellDelegate = self;
         }
         cell.selectedID = model.TM_ID;
@@ -584,6 +584,7 @@
         terminalChildV.dealStatus = model.TM_status;
         terminalChildV.isHaveVideo = model.isHaveVideo;
         terminalChildV.tm_ID = model.TM_ID;
+        terminalChildV.appID = model.appID;
         [self.navigationController pushViewController:terminalChildV animated:YES];
     }
 }

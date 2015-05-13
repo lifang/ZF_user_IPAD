@@ -34,6 +34,6 @@
 
 @property(nonatomic,weak)id<terminalCellSendBtnClicked> TerminalViewCellDelegate;
 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo;
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo Appid:(NSString *)appid;
 
 @end
