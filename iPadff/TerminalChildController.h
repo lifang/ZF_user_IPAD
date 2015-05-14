@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TerminalManagerModel.h"
 #import "ScanImageViewController.h"
+#import "TerminalModel.h"
 
 @interface TerminalChildController : ScanImageViewController
 
@@ -21,5 +22,7 @@
 @property(nonatomic,strong)NSString *appID;
 
 @property(nonatomic,strong)NSString *type;
+
+@property(nonatomic,strong)NSString *openStatus;
 
 @end

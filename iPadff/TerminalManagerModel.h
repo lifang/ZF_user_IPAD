@@ -40,6 +40,9 @@ typedef enum {
 @property(nonatomic,strong)NSString *type;
 
 @property(nonatomic,assign)BOOL isHaveVideo;
+
+@property(nonatomic,strong)NSString *openstatus;
+
 - (id)initWithParseDictionary:(NSDictionary *)dict;
 
 - (NSString *)getStatusString;

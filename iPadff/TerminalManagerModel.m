@@ -35,6 +35,10 @@
         if ([dict objectForKey:@"type"]) {
             _type = [dict objectForKey:@"type"];
         }
+        if ([dict objectForKey:@"openstatus"]) {
+            _openstatus = [dict objectForKey:@"openstatus"];
+        }
+        
     }
     return self;
 }
