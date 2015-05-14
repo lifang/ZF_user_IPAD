@@ -234,7 +234,7 @@
     _tableView.backgroundColor = kColor(244, 243, 243, 1);
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [self setHeaderAndFooterView];
+//    [self setHeaderAndFooterView];
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
