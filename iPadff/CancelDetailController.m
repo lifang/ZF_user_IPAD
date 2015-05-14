@@ -516,6 +516,7 @@
     UIButton *btn = (UIButton *)sender;
     ResourceModel *model = [self.resources objectAtIndex:btn.tag - 1];
     ChannelWebsiteController *websiteC = [[ChannelWebsiteController alloc] init];
+    websiteC.hidesBottomBarWhenPushed = YES;
     websiteC.title = @"资料详情";
     websiteC.urlString = model.path;
     [self.navigationController pushViewController:websiteC animated:YES];

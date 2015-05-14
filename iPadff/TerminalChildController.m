@@ -151,7 +151,7 @@
                     button.hidden = YES;
                 }
             }
-            if ([_type isEqualToString:@"1"]) {
+            if ([_type isEqualToString:@"2"]) {
                 button.hidden = YES;
             }
         }
@@ -201,7 +201,7 @@
             if (i == 3) {
                 [button setTitle:@"同步" forState:UIControlStateNormal];
             }
-            if ([_type isEqualToString:@"1"]) {
+            if ([_type isEqualToString:@"2"]) {
                 button.hidden = YES;
             }
 
@@ -245,7 +245,7 @@
             if (i == 2) {
                 [button setTitle:@"同步" forState:UIControlStateNormal];
             }
-            if ([_type isEqualToString:@"1"]) {
+            if ([_type isEqualToString:@"2"]) {
                 button.hidden = YES;
             }
         }
@@ -295,7 +295,7 @@
             if (i == 1) {
                 [button setTitle:@"同步" forState:UIControlStateNormal];
             }
-            if ([_type isEqualToString:@"1"]) {
+            if ([_type isEqualToString:@"2"]) {
                 button.hidden = YES;
             }
         }

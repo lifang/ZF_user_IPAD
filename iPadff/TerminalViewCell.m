@@ -70,7 +70,7 @@
                         [button setTitle:@"视频认证" forState:UIControlStateNormal];
                     }
                 }
-                if ([type isEqualToString:@"1"]) {
+                if ([type isEqualToString:@"2"]) {
                     button.hidden = YES;
                 }
             }
@@ -112,7 +112,7 @@
                 if (i == 2) {
                     [button setTitle:@"同步" forState:UIControlStateNormal];
                 }
-                if ([type isEqualToString:@"1"]) {
+                if ([type isEqualToString:@"2"]) {
                     button.hidden = YES;
                 }
             }
@@ -160,7 +160,7 @@
                 if (i == 3) {
                     [button setTitle:@"同步" forState:UIControlStateNormal];
                 }
-                if ([type isEqualToString:@"1"]) {
+                if ([type isEqualToString:@"2"]) {
                     button.hidden = YES;
                 }
             }
@@ -186,7 +186,7 @@
                 if (i == 1) {
                     [button setTitle:@"同步" forState:UIControlStateNormal];
                 }
-                if ([type isEqualToString:@"1"]) {
+                if ([type isEqualToString:@"2"]) {
                     button.hidden = YES;
                 }
             }
