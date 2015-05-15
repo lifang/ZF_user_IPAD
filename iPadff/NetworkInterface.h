@@ -174,6 +174,7 @@ static NSString *s_applyBank_methods = @"terminal/ChooseBank";
 
 //上传图片
 static NSString *s_loadImage_method = @"comment/upload/tempImage";
+static NSString *s_loadImage_methodss = @"terminal/upload/tempImage";
 
 //对公对私材料
 static NSString *s_applyMaterial_method = @"apply/getMaterialName";
@@ -562,6 +563,14 @@ static NSString *s_orderConfirm_method = @"order/payOrder";
  @result finish  请求回调结果
  */
 + (void)uploadImageWithImage:(UIImage *)image
+                    finished:(requestDidFinished)finish;
+/*!
+ @abstract 11.上传图片
+ @param image       图片
+ @result finish  请求回调结果
+ */
++ (void)uploadImageWithImage:(UIImage *)image
+                  terminalID:(NSString *)terminalID
                     finished:(requestDidFinished)finish;
 
 /*!

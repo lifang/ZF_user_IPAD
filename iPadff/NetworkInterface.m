@@ -267,6 +267,20 @@ static NSString *HTTP_GET  = @"GET";
                          key:@"img"];
     [request start];
 }
+//11.
++ (void)uploadImageWithImage:(UIImage *)image
+                  terminalID:(NSString *)terminalID
+                    finished:(requestDidFinished)finish {
+    //url
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@/%@",kServiceURL,s_loadImage_methodss,terminalID];
+    NetworkRequest *request = [[NetworkRequest alloc] initWithRequestURL:urlString
+                                                              httpMethod:HTTP_POST
+                                                                finished:finish];
+    [request uploadImageData:UIImagePNGRepresentation(image)
+                   imageName:nil
+                         key:@"img"];
+    [request start];
+}
 
 //12.
 + (void)getApplyMaterialWithToken:(NSString *)token

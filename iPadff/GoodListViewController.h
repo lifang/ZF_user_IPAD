@@ -16,6 +16,7 @@
     UIButton*button1;
     UIButton*button2;
     NSInteger changA;
+    UIBarButtonItem *shoppingItem;
     
     FilterViewController *filterC;
     

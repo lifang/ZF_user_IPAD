@@ -14,7 +14,8 @@
     
     UIView *view;
     
-    
+    UIBarButtonItem *shoppingItem;
+
     
 }
 @property (nonatomic, strong) NSArray *tradeRateItem;

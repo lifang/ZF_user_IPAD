@@ -12,6 +12,7 @@
 #import "MineCommonController.h"
 
 static NSString *s_shopcart = @"shopcart";
+static NSInteger intnumberBB ;
 
 static NSString *ShowColumnNotification = @"ShowColumnNotification";
 typedef enum

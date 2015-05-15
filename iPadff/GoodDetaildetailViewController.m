@@ -21,6 +21,8 @@
 #import "FormView.h"
 #import "InterestView.h"
 #import "GoodDetailViewController.h"
+#import "UIBarButtonItem+Badge.h"
+
 @interface GoodDetaildetailViewController ()<UITableViewDataSource,UITableViewDelegate,RefreshDelegate>
 @property (nonatomic, strong) GoodDetialModel *detailModel;
 @property (nonatomic, strong) RefreshView *topRefreshView;
@@ -56,7 +58,14 @@
     [self initAndLayoutUImaterial];
 
     [self firstLoadData];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showColumnCount:)
+                                                 name:ShowColumnNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(clearo)
+                                                 name:@"clearo"
+                                               object:nil];
     self.title=@"商品详情";
     self.view.backgroundColor=[UIColor whiteColor];
     
@@ -77,7 +86,7 @@
                                                                                target:nil
                                                                                action:nil];
     spaceItem.width = 52;
-    UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
+    shoppingItem= [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem, shoppingItem,nil];
     
     UIImage *image=[UIImage imageNamed:@"back_btn_white"];
@@ -96,7 +105,59 @@
     self.view.backgroundColor=[UIColor whiteColor];
     
     // Do any additional setup after loading the view.
+    self.navigationItem.leftBarButtonItem.badgeBGColor =[UIColor redColor];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+
+  
+    if(delegate.shopcartCount>0)
+        
+    {
+        if(delegate.shopcartCount>99)
+        {
+            shoppingItem.badgeValue = [NSString stringWithFormat:@"%d+",99];
+            
+            
+        }else
+        {
+            
+            shoppingItem.badgeValue =  [NSString stringWithFormat:@"%d",delegate.shopcartCount];
+            
+        }
+        
+        
+    }
+
 }
+-(void)clearo
+{
+    
+    shoppingItem.badgeValue=@"";
+    
+    
+    
+    
+}
+
+- (void)showColumnCount:(NSNotification *)notification {
+    int shopcartCount = [[notification.userInfo objectForKey:s_shopcart] intValue];
+    if (shopcartCount > 0) {
+        
+        if(shopcartCount>99)
+        {
+            shoppingItem.badgeValue = [NSString stringWithFormat:@"%d+",99];
+            
+            
+        }else
+        {
+            
+            shoppingItem.badgeValue =  [NSString stringWithFormat:@"%d",shopcartCount];
+            
+        }
+        
+        
+    }
+}
+
 -(void)popself
 
 {

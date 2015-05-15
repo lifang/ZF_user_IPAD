@@ -21,6 +21,7 @@
 #import "GoodDetailViewController.h"
 #import "GoodsCellCollectionViewCell.h"
 #import "MJRefresh.h"
+#import "UIBarButtonItem+Badge.h"
 
 #import "GoodsCollectionViewCell2.h"
 
@@ -61,7 +62,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showColumnCount:)
+                                                 name:ShowColumnNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(clearo)
+                                                 name:@"clearo"
+                                               object:nil];
+
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
 
   filterC = [[FilterViewController alloc] init];
@@ -80,6 +89,36 @@
                                              selector:@selector(updateGoodList)
                                                  name:UpdateGoodListNotification
                                                object:nil];
+}
+-(void)clearo
+{
+
+shoppingItem.badgeValue=@"";
+    
+    intnumberBB=0;
+    
+
+
+}
+- (void)showColumnCount:(NSNotification *)notification {
+    int shopcartCount = [[notification.userInfo objectForKey:s_shopcart] intValue];
+    if (shopcartCount > 0) {
+        
+        if(shopcartCount>99)
+        {
+            shoppingItem.badgeValue = [NSString stringWithFormat:@"%d+",99];
+
+            
+        }else
+        {
+            
+            shoppingItem.badgeValue =  [NSString stringWithFormat:@"%d",shopcartCount];
+
+        }
+        
+        intnumberBB=shopcartCount;
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,9 +184,31 @@
                                                                                target:nil
                                                                                action:nil];
     spaceItem.width = 52;
-    UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
+    shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
     UIBarButtonItem *filterItem = [[UIBarButtonItem alloc] initWithCustomView:filterButton];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem,shoppingItem,spaceItem,filterItem, spaceItem,nil];
+    self.navigationItem.leftBarButtonItem.badgeBGColor =[UIColor redColor];
+    
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    
+    
+    if(delegate.shopcartCount>0)
+        
+    {
+        if(delegate.shopcartCount>99)
+        {
+            shoppingItem.badgeValue = [NSString stringWithFormat:@"%d+",99];
+            
+            
+        }else
+        {
+            
+            shoppingItem.badgeValue =  [NSString stringWithFormat:@"%d",delegate.shopcartCount];
+            
+        }
+        
+        
+    }
 
 }
 

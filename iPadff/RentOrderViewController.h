@@ -16,10 +16,10 @@
     UIButton *defaultbutton;
     BOOL defaultbool;
     UIButton*_cityField;
-    NSInteger B;
+//    NSInteger B;
     BOOL isneedpp;
     NSString*textnsstring;
-
+    NSInteger resultint;
     UIImageView*bigsview;
 }
 //若从购物车跳转过来 保存选中的数据

@@ -101,14 +101,14 @@
             badgelable.text=[NSString stringWithFormat:@"%d+",99];
             [badgelable sizeToFit];
             
-            redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-35, -12, badgelable.frame.size.width+10, 20);
+            redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-35, -12, badgelable.frame.size.width+12, 20);
             
         }else
         {
             badgelable.text=[NSString stringWithFormat:@"%d",shopcartCount];
             [badgelable sizeToFit];
             
-            redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-30, -12, badgelable.frame.size.width+10, 20);
+            redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-30, -12, badgelable.frame.size.width+12, 20);
             
         }
 
@@ -419,14 +419,14 @@
                         badgelable.text=[NSString stringWithFormat:@"%d+",99];
                         [badgelable sizeToFit];
                         
-                        redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-35, -12, badgelable.frame.size.width+10, 20);
+                        redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-35, -12, badgelable.frame.size.width+15, 20);
                     
                     }else
                     {
                         badgelable.text=[NSString stringWithFormat:@"%d",cartList.count];
                         [badgelable sizeToFit];
                         
-                        redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-30, -12, badgelable.frame.size.width+10, 20);
+                        redimage.frame=CGRectMake(button2.frame.size.width+button2.frame.origin.x-30, -12, badgelable.frame.size.width+15, 20);
                     
                     }
                   

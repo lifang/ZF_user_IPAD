@@ -42,6 +42,7 @@
 		0E0002281AC6483A00003E60 /* PollingViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0002271AC6483A00003E60 /* PollingViews.m */; };
 		0E00022B1AC6690F00003E60 /* ApplyOpenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E00022A1AC6690F00003E60 /* ApplyOpenModel.m */; };
 		0E00022D1AC66E2800003E60 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E00022C1AC66E2800003E60 /* CoreLocation.framework */; };
+		0E153F151B048442000DE72F /* UIBarButtonItem+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E153F141B048442000DE72F /* UIBarButtonItem+Badge.m */; };
 		0E46D5341AEE5341001A9714 /* PollingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E46D5331AEE5341001A9714 /* PollingView.m */; };
 		0E46D5391AEE55A2001A9714 /* AlipayHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E46D5361AEE55A2001A9714 /* AlipayHelper.m */; };
 		0E46D53A1AEE55A2001A9714 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E46D5381AEE55A2001A9714 /* Order.m */; };
@@ -437,6 +438,8 @@
 		0E0002291AC6690F00003E60 /* ApplyOpenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyOpenModel.h; sourceTree = "<group>"; };
 		0E00022A1AC6690F00003E60 /* ApplyOpenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyOpenModel.m; sourceTree = "<group>"; };
 		0E00022C1AC66E2800003E60 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0E153F131B048442000DE72F /* UIBarButtonItem+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Badge.h"; sourceTree = "<group>"; };
+		0E153F141B048442000DE72F /* UIBarButtonItem+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Badge.m"; sourceTree = "<group>"; };
 		0E46D5321AEE5341001A9714 /* PollingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollingView.h; sourceTree = "<group>"; };
 		0E46D5331AEE5341001A9714 /* PollingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollingView.m; sourceTree = "<group>"; };
 		0E46D5351AEE55A2001A9714 /* AlipayHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlipayHelper.h; sourceTree = "<group>"; };
@@ -1216,6 +1219,15 @@
 			name = image;
 			sourceTree = "<group>";
 		};
+		0E153F121B048427000DE72F /* redDD */ = {
+			isa = PBXGroup;
+			children = (
+				0E153F131B048442000DE72F /* UIBarButtonItem+Badge.h */,
+				0E153F141B048442000DE72F /* UIBarButtonItem+Badge.m */,
+			);
+			name = redDD;
+			sourceTree = "<group>";
+		};
 		0EC99CA01AAFE67500D20386 /* KxMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1837,6 +1849,7 @@
 		0ED6ACF71AA16EB000D3B025 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0E153F121B048427000DE72F /* redDD */,
 				0ECB82B61AEF190200986D0E /* AnyChat */,
 				0ED368B71AE88D2D00663627 /* Alipay */,
 				0E0002231AC644CF00003E60 /* SMPageControl.h */,
@@ -2643,6 +2656,7 @@
 				1ADD1EBC1AB685B60014E528 /* SubmitLogisticsController.m in Sources */,
 				1A4258611AB008F900F470C9 /* MineCommonController.m in Sources */,
 				0E5FAEA11AC53F1300BEBE5F /* FactoryDetailController.m in Sources */,
+				0E153F151B048442000DE72F /* UIBarButtonItem+Badge.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
 				0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */,
 				0ED369231AE88D2D00663627 /* openssl_wrapper.m in Sources */,
