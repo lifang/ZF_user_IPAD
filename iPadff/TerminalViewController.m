@@ -163,6 +163,7 @@
     rightZeroBar.width = 40.f;
     
     UIButton *rightBtn = [[UIButton alloc]init];
+    rightBtn.hidden = YES;
     [rightBtn addTarget:self action:@selector(addTerminal) forControlEvents:UIControlEventTouchUpInside];
     rightBtn.frame = CGRectMake(0, 0, 24, 24);
     [rightBtn setImage:[UIImage imageNamed:@"+"] forState:UIControlStateNormal];
