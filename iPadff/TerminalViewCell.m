@@ -10,9 +10,13 @@
 
 @implementation TerminalViewCell
 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo Appid:(NSString *)appid WithType:(NSString *)type
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo Appid:(NSString *)appid WithType:(NSString *)type WithOpenStatus:(NSString *)openstatus
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self.openStatus = openstatus;
+    self.isHaveVideo = ishaveVideo;
+    self.appID = appid;
+    self.type = type;
+    self = [super initWithStyle:style reuseIdentifier:@"button"];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         UIFont *mainFont = [UIFont systemFontOfSize:14];
@@ -45,156 +49,10 @@
         _dredgeStatus.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_dredgeStatus];
         
-        if ([reuseIdentifier isEqualToString:@"cell-1"]) {
-            for (int i = 0; i < 2; i++) {
-                UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:15];
-                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-                CALayer *readBtnLayer = [button layer];
-                [readBtnLayer setMasksToBounds:YES];
-                [readBtnLayer setCornerRadius:2.0];
-                [readBtnLayer setBorderWidth:1.0];
-                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-                button.backgroundColor = [UIColor clearColor];
-                button.tag = i + 1000;
-                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
-                [self addSubview:button];
-                if (i == 0) {
-                    [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
-                }
-                else{
-                    if (!ishaveVideo) {
-                        button.hidden = YES;
-                    }else{
-                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
-                    }
-                }
-                if ([type isEqualToString:@"1"]) {
-                    button.hidden = YES;
-                }
-            }
-            
-        }
-        if ([reuseIdentifier isEqualToString:@"cell-3"]) {
-            for (int i = 0; i < 3; i++) {
-                UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:15];
-                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-                CALayer *readBtnLayer = [button layer];
-                [readBtnLayer setMasksToBounds:YES];
-                [readBtnLayer setCornerRadius:2.0];
-                [readBtnLayer setBorderWidth:1.0];
-                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-                button.backgroundColor = [UIColor clearColor];
-                button.tag = i + 2000;
-                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                if (!ishaveVideo) {
-                    button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
-                }else{
-                    button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
-                }
-                [self addSubview:button];
-                if (i == 0) {
-                    if (!ishaveVideo) {
-                        button.hidden = YES;
-                    }else{
-                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
-                    }
-                }
-                if (i == 1) {
-                    if ([appid isEqualToString:@""]) {
-                        [button setTitle:@"申请开通" forState:UIControlStateNormal];
-                    }else{
-                        [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
-                    }
-                }
-                if (i == 2) {
-                    [button setTitle:@"同步" forState:UIControlStateNormal];
-                }
-                if ([type isEqualToString:@"1"]) {
-                    button.hidden = YES;
-                }
-            }
-        }
-        if ([reuseIdentifier isEqualToString:@"cell-2"]) {
-            for (int i = 0; i < 4; i++) {
-                UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:15];
-                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-                CALayer *readBtnLayer = [button layer];
-                [readBtnLayer setMasksToBounds:YES];
-                [readBtnLayer setCornerRadius:2.0];
-                [readBtnLayer setBorderWidth:1.0];
-                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-                button.backgroundColor = [UIColor clearColor];
-                button.tag = i + 3000;
-                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                if (!ishaveVideo) {
-                    if (i >= 2) {
-                        button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
-                    }else{
-                        button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
-                    }
-                }else{
-                    button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
-                }
-                [self addSubview:button];
-                if (i == 0) {
-                    [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
-                }
-                if (i == 1) {
-                    if (!ishaveVideo) {
-                        button.hidden = YES;
-                    }else{
-                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
-                    }
-                }
-                if (i == 2) {
-                    if ([appid isEqualToString:@""]) {
-                        [button setTitle:@"申请开通" forState:UIControlStateNormal];
-                    }else{
-                        [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
-                    }
-                }
-                if (i == 3) {
-                    [button setTitle:@"同步" forState:UIControlStateNormal];
-                }
-                if ([type isEqualToString:@"1"]) {
-                    button.hidden = YES;
-                }
-            }
-        }
-        if ([reuseIdentifier isEqualToString:@"cell-5"]) {
-            for (int i = 0; i < 2; i++) {
-                UIButton *button = [[UIButton alloc]init];
-                button.titleLabel.font = [UIFont systemFontOfSize:15];
-                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-                CALayer *readBtnLayer = [button layer];
-                [readBtnLayer setMasksToBounds:YES];
-                [readBtnLayer setCornerRadius:2.0];
-                [readBtnLayer setBorderWidth:1.0];
-                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
-                button.backgroundColor = [UIColor clearColor];
-                button.tag = i + 4000;
-                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
-                [self addSubview:button];
-                if (i == 0) {
-                    [button setTitle:@"更新资料" forState:UIControlStateNormal];
-                }
-                if (i == 1) {
-                    [button setTitle:@"同步" forState:UIControlStateNormal];
-                }
-                if ([type isEqualToString:@"1"]) {
-                    button.hidden = YES;
-                }
-            }
-        }
-        if ([reuseIdentifier isEqualToString:@"cell-4"]) {
-//            for (int i = 0; i < 1; i++) {
+//        if ([reuseIdentifier isEqualToString:@"cell-1"]) {
+//            for (int i = 0; i < 2; i++) {
 //                UIButton *button = [[UIButton alloc]init];
-//                button.titleLabel.font = [UIFont systemFontOfSize:17];
+//                button.titleLabel.font = [UIFont systemFontOfSize:15];
 //                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
 //                CALayer *readBtnLayer = [button layer];
 //                [readBtnLayer setMasksToBounds:YES];
@@ -202,15 +60,170 @@
 //                [readBtnLayer setBorderWidth:1.0];
 //                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
 //                button.backgroundColor = [UIColor clearColor];
-//                button.tag = i + 5000;
+//                button.tag = i + 1000;
 //                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-//                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+//                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
 //                [self addSubview:button];
 //                if (i == 0) {
-//                    [button setTitle:@"租凭退换" forState:UIControlStateNormal];
+//                    [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
+//                }
+//                else{
+//                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+//                }
+//                if ([type isEqualToString:@"2"]) {
+//                    button.hidden = YES;
 //                }
 //            }
-        }
+//            
+//        }
+//        if ([reuseIdentifier isEqualToString:@"cell-3"]) {
+//            for (int i = 0; i < 3; i++) {
+//                UIButton *button = [[UIButton alloc]init];
+//                button.titleLabel.font = [UIFont systemFontOfSize:15];
+//                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+//                CALayer *readBtnLayer = [button layer];
+//                [readBtnLayer setMasksToBounds:YES];
+//                [readBtnLayer setCornerRadius:2.0];
+//                [readBtnLayer setBorderWidth:1.0];
+//                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+//                button.backgroundColor = [UIColor clearColor];
+//                button.tag = i + 2000;
+//                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//                if (!ishaveVideo) {
+//                    button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
+//                }else{
+//                    button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+//                }
+//                [self addSubview:button];
+//                if (i == 0) {
+//                    if (!ishaveVideo) {
+//                        button.hidden = YES;
+//                    }else{
+//                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
+//                    }
+//                }
+//                if (i == 1) {
+//                    if ([appid isEqualToString:@""]) {
+//                        [button setTitle:@"申请开通" forState:UIControlStateNormal];
+//                    }else{
+//                        [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+//                    }
+//                }
+//                if (i == 2) {
+//                    if ([appid isEqualToString:@""]) {
+//                        button.hidden = YES;
+//                    }else{
+//                        [button setTitle:@"同步" forState:UIControlStateNormal];
+//                    }
+//                }
+//                if ([type isEqualToString:@"2"]) {
+//                    button.hidden = YES;
+//                }
+//            }
+//        }
+//        if ([reuseIdentifier isEqualToString:@"cell-2"]) {
+//            for (int i = 0; i < 4; i++) {
+//                UIButton *button = [[UIButton alloc]init];
+//                button.titleLabel.font = [UIFont systemFontOfSize:15];
+//                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+//                CALayer *readBtnLayer = [button layer];
+//                [readBtnLayer setMasksToBounds:YES];
+//                [readBtnLayer setCornerRadius:2.0];
+//                [readBtnLayer setBorderWidth:1.0];
+//                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+//                button.backgroundColor = [UIColor clearColor];
+//                button.tag = i + 3000;
+//                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//                if (!ishaveVideo) {
+//                    if (i >= 2) {
+//                        button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
+//                    }else{
+//                        button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+//                    }
+//                }else{
+//                    button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+//                }
+//                [self addSubview:button];
+//                if (i == 0) {
+//                    [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
+//                }
+//                if (i == 1) {
+//                    if (!ishaveVideo) {
+//                        button.hidden = YES;
+//                    }else{
+//                        [button setTitle:@"视频认证" forState:UIControlStateNormal];
+//                    }
+//                }
+//                if (i == 2) {
+//                    if ([appid isEqualToString:@""]) {
+//                        [button setTitle:@"申请开通" forState:UIControlStateNormal];
+//                    }else{
+//                        [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+//                    }
+//                }
+//                if (i == 3) {
+//                    if ([appid isEqualToString:@""]) {
+//                        button.hidden = YES;
+//                    }else{
+//                        [button setTitle:@"同步" forState:UIControlStateNormal];
+//                    }
+//                }
+//                if ([type isEqualToString:@"2"]) {
+//                    button.hidden = YES;
+//                }
+//            }
+//        }
+//        if ([reuseIdentifier isEqualToString:@"cell-5"]) {
+//            for (int i = 0; i < 2; i++) {
+//                UIButton *button = [[UIButton alloc]init];
+//                button.titleLabel.font = [UIFont systemFontOfSize:15];
+//                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+//                CALayer *readBtnLayer = [button layer];
+//                [readBtnLayer setMasksToBounds:YES];
+//                [readBtnLayer setCornerRadius:2.0];
+//                [readBtnLayer setBorderWidth:1.0];
+//                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+//                button.backgroundColor = [UIColor clearColor];
+//                button.tag = i + 4000;
+//                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+//                [self addSubview:button];
+////                if (i == 0) {
+////                    [button setTitle:@"更新资料" forState:UIControlStateNormal];
+////                }
+////                if (i == 1) {
+////                    if ([appid isEqualToString:@""]) {
+////                        button.hidden = YES;
+////                    }else{
+////                        [button setTitle:@"同步" forState:UIControlStateNormal];
+////                    }
+////                }
+////                if ([type isEqualToString:@"2"]) {
+////                    button.hidden = YES;
+////                }
+//                button.hidden = YES;
+//            }
+//        }
+//        if ([reuseIdentifier isEqualToString:@"cell-4"]) {
+////            for (int i = 0; i < 1; i++) {
+////                UIButton *button = [[UIButton alloc]init];
+////                button.titleLabel.font = [UIFont systemFontOfSize:17];
+////                [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+////                CALayer *readBtnLayer = [button layer];
+////                [readBtnLayer setMasksToBounds:YES];
+////                [readBtnLayer setCornerRadius:2.0];
+////                [readBtnLayer setBorderWidth:1.0];
+////                [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+////                button.backgroundColor = [UIColor clearColor];
+////                button.tag = i + 5000;
+////                [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+////                button.frame = CGRectMake(mainBtnX - (i * 120), mainBtnY, mainBtnW, mainBtnH);
+////                [self addSubview:button];
+////                if (i == 0) {
+////                    [button setTitle:@"租凭退换" forState:UIControlStateNormal];
+////                }
+////            }
+//        }
     }
     return self;
 }
@@ -219,7 +232,7 @@
 
 -(void)buttonClick:(UIButton *)button
 {
-    [self.TerminalViewCellDelegate terminalCellBtnClicked:button.tag WithSelectedID:_selectedID Withindex:_indexNum];
+    [self.TerminalViewCellDelegate terminalCellBtnClicked:button.tag WithSelectedID:_selectedID Withindex:_indexNum WithOpenstatus:_openStatus WithAppid:_appID];
 }
 
 
@@ -239,6 +252,227 @@
     _payRoad.frame = CGRectMake(CGRectGetMaxX(_posLabel.frame) + 35, mainY, mainWidth * 0.5 + 30, mainheight);
     
     _dredgeStatus.frame = CGRectMake(CGRectGetMaxX(_payRoad.frame) + 45, mainY, mainWidth * 0.5, mainheight);
+}
+
+-(void)initButtonWithreuseIdentifier:(NSString *)reuseIdentifier WithVedeos:(BOOL)ishaveVideo Appid:(NSString *)appid WithType:(NSString *)type WithOpenStatus:(NSString *)openstatus{
+    
+    for (UIView *button in self.contentView.subviews) {
+        if ([button isKindOfClass:[UIButton class]]) {
+            [button removeFromSuperview];
+        }
+    }
+    
+    CGFloat mainBtnW = 100.f;
+    CGFloat mainBtnH = 40.f;
+    CGFloat mainBtnX = (SCREEN_WIDTH - 130.f);
+    if (iOS7) {
+        mainBtnX = SCREEN_HEIGHT - 130.f;
+    }
+    CGFloat mainBtnY = 20.f;
+    
+    if ([reuseIdentifier isEqualToString:@"cell-1"]) {
+        for (int i = 0; i < 3; i++) {
+            UIButton *button = [[UIButton alloc]init];
+            button.titleLabel.font = [UIFont systemFontOfSize:15];
+            [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            CALayer *readBtnLayer = [button layer];
+            [readBtnLayer setMasksToBounds:YES];
+            [readBtnLayer setCornerRadius:2.0];
+            [readBtnLayer setBorderWidth:1.0];
+            [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = i + 1000;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+            button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+            [self addSubview:button];
+            if (i == 0) {
+                [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
+            }
+            if (i == 1) {
+                [button setTitle:@"视频认证" forState:UIControlStateNormal];
+            }
+            if (i == 2) {
+                if ([appid isEqualToString:@""]) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"同步" forState:UIControlStateNormal];
+                }
+            }
+            if ([type isEqualToString:@"2"]) {
+                button.hidden = YES;
+            }
+        }
+        
+    }
+    if ([reuseIdentifier isEqualToString:@"cell-3"]) {
+        for (int i = 0; i < 3; i++) {
+            UIButton *button = [[UIButton alloc]init];
+            button.titleLabel.font = [UIFont systemFontOfSize:15];
+            [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            CALayer *readBtnLayer = [button layer];
+            [readBtnLayer setMasksToBounds:YES];
+            [readBtnLayer setCornerRadius:2.0];
+            [readBtnLayer setBorderWidth:1.0];
+            [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = i + 2000;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+            if (!ishaveVideo) {
+                button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
+            }else{
+                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+            }
+            [self addSubview:button];
+            if (i == 0) {
+                if (!ishaveVideo) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                }
+            }
+            if (i == 1) {
+                if ([appid isEqualToString:@""]) {
+                    [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                }else{
+                    [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                }
+            }
+            if (i == 2) {
+                if ([appid isEqualToString:@""]) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"同步" forState:UIControlStateNormal];
+                }
+            }
+            if ([type isEqualToString:@"2"]) {
+                button.hidden = YES;
+            }
+        }
+    }
+    if ([reuseIdentifier isEqualToString:@"cell-2"]) {
+        for (int i = 0; i < 4; i++) {
+            UIButton *button = [[UIButton alloc]init];
+            button.titleLabel.font = [UIFont systemFontOfSize:15];
+            [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            CALayer *readBtnLayer = [button layer];
+            [readBtnLayer setMasksToBounds:YES];
+            [readBtnLayer setCornerRadius:2.0];
+            [readBtnLayer setBorderWidth:1.0];
+            [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = i + 3000;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+            if (!ishaveVideo) {
+                if (i >= 2) {
+                    button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
+                }else{
+                    button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+                }
+            }else{
+                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+            }
+            [self addSubview:button];
+            if (i == 0) {
+                [button setTitle:@"找回POS密码" forState:UIControlStateNormal];
+            }
+            if (i == 1) {
+                if (!ishaveVideo) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                }
+            }
+            if (i == 2) {
+                if ([appid isEqualToString:@""]) {
+                    [button setTitle:@"申请开通" forState:UIControlStateNormal];
+                }else{
+                    [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+                }
+            }
+            if (i == 3) {
+                if ([appid isEqualToString:@""]) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"同步" forState:UIControlStateNormal];
+                }
+            }
+            if ([type isEqualToString:@"2"]) {
+                button.hidden = YES;
+            }
+        }
+    }
+    if ([reuseIdentifier isEqualToString:@"cell-5"]) {
+        for (int i = 0; i < 2; i++) {
+            UIButton *button = [[UIButton alloc]init];
+            button.titleLabel.font = [UIFont systemFontOfSize:15];
+            [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            CALayer *readBtnLayer = [button layer];
+            [readBtnLayer setMasksToBounds:YES];
+            [readBtnLayer setCornerRadius:2.0];
+            [readBtnLayer setBorderWidth:1.0];
+            [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = i + 4000;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+            button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+            [self addSubview:button];
+            //                if (i == 0) {
+            //                    [button setTitle:@"更新资料" forState:UIControlStateNormal];
+            //                }
+            //                if (i == 1) {
+            //                    if ([appid isEqualToString:@""]) {
+            //                        button.hidden = YES;
+            //                    }else{
+            //                        [button setTitle:@"同步" forState:UIControlStateNormal];
+            //                    }
+            //                }
+            //                if ([type isEqualToString:@"2"]) {
+            //                    button.hidden = YES;
+            //                }
+            button.hidden = YES;
+        }
+    }
+    if ([reuseIdentifier isEqualToString:@"cell-4"]) {
+        for (int i = 0; i < 3; i++) {
+            UIButton *button = [[UIButton alloc]init];
+            button.titleLabel.font = [UIFont systemFontOfSize:15];
+            [button setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            CALayer *readBtnLayer = [button layer];
+            [readBtnLayer setMasksToBounds:YES];
+            [readBtnLayer setCornerRadius:2.0];
+            [readBtnLayer setBorderWidth:1.0];
+            [readBtnLayer setBorderColor:[[UIColor orangeColor] CGColor]];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = i + 5000;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+            if (!ishaveVideo) {
+                button.frame = CGRectMake(mainBtnX - ((i - 1) * 115), mainBtnY, mainBtnW, mainBtnH);
+            }else{
+                button.frame = CGRectMake(mainBtnX - (i * 115), mainBtnY, mainBtnW, mainBtnH);
+            }
+            [self addSubview:button];
+            if (i == 0) {
+                if (!ishaveVideo) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"视频认证" forState:UIControlStateNormal];
+                }
+            }
+            if (i == 1) {
+                    [button setTitle:@"重新申请开通" forState:UIControlStateNormal];
+            }
+            if (i == 2) {
+                if ([appid isEqualToString:@""]) {
+                    button.hidden = YES;
+                }else{
+                    [button setTitle:@"同步" forState:UIControlStateNormal];
+                }
+            }
+            if ([type isEqualToString:@"2"]) {
+                button.hidden = YES;
+            }
+        }
+    }
 }
 
 @end

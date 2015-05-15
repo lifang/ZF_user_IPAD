@@ -37,6 +37,8 @@ typedef enum {
  若有值，订单状态为未开通，无同步操作
  */
 @property (nonatomic, strong) NSString *appID;
+@property(nonatomic,strong)NSString *type;
+@property(nonatomic,strong)NSString *openstatus;
 - (id)initWithParseDictionary:(NSDictionary *)dict;
 
 - (NSString *)getStatusString;

@@ -79,6 +79,8 @@
     [super viewDidAppear:animated];
     if (_isPush) {
         [self ShowLoginVC];
+    }else{
+        
     }
 }
 
@@ -317,9 +319,12 @@
         TerminalViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IDs];
         if (cell == nil) {
             cell = [[TerminalViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:IDs
-                                               WithVedeos:model.isHaveVideo Appid:model.appID WithType:model.type];
+                                               WithVedeos:model.isHaveVideo Appid:model.appID WithType:model.type WithOpenStatus:model.openstatus];
             cell.TerminalViewCellDelegate = self;
         }
+        [cell initButtonWithreuseIdentifier:IDs
+                                 WithVedeos:model.isHaveVideo Appid:model.appID WithType:model.type WithOpenStatus:model.openstatus];
+        
         cell.selectedID = model.TM_ID;
         cell.terminalLabel.text = model.TM_serialNumber;
         cell.posLabel.text = [NSString stringWithFormat:@"%@%@",model.TM_brandsName,model.TM_model_number];
@@ -351,26 +356,55 @@
 
 
 #pragma mark terminalCell的代理
--(void)terminalCellBtnClicked:(int)btnTag WithSelectedID:(NSString *)selectedID Withindex:(int)indexNum
+-(void)terminalCellBtnClicked:(int)btnTag WithSelectedID:(NSString *)selectedID Withindex:(int)indexNum WithOpenstatus:(NSString *)openStatus WithAppid:(NSString *)appid
 {
     if (btnTag == 1000) {
+        //已开通
         NSLog(@"点击了找回POS密码 信息ID为%@",selectedID);
         [self initFindPosViewWithSelectedID:selectedID WithIndexNum:indexNum];
     }
     if (btnTag == 1001) {
-        VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
-        videoAuthC.terminalID = selectedID;
-        videoAuthC.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:videoAuthC animated:YES];    }
+        //已开通视频认证
+//        VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+//        videoAuthC.terminalID = selectedID;
+//        videoAuthC.hidesBottomBarWhenPushed=YES;
+//        [self.navigationController pushViewController:videoAuthC animated:YES];
+    }
+    if (btnTag == 1002) {
+        [self synchronizeWithSelectedID:selectedID];
+    }
     if (btnTag == 2000) {
-        VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
-        videoAuthC.terminalID = selectedID;
-        videoAuthC.hidesBottomBarWhenPushed=YES;
+        if ([appid isEqualToString:@""]) {
+            //未开通视频认证
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                            message:@"请先申请开通！"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+            [alert show];
 
-        [self.navigationController pushViewController:videoAuthC animated:YES];    }
+        }
+        else{
+            VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+            videoAuthC.terminalID = selectedID;
+            videoAuthC.hidesBottomBarWhenPushed=YES;
+            [self.navigationController pushViewController:videoAuthC animated:YES];
+        }
+    }
     if (btnTag == 2001) {
+        //未开通申请开通
+//        正在第三方审核,请耐心等待...
         NSLog(@"点击了申请开通");
+        if ([openStatus isEqualToString:@"6"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                            message:@"正在第三方审核,请耐心等待..."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }else{
         [self pushApplyVCWithSelectedID:selectedID];
+        }
     }
     if (btnTag == 2002) {
         NSLog(@"点击了同步(未开通)");
@@ -381,12 +415,13 @@
         [self initFindPosViewWithSelectedID:selectedID WithIndexNum:indexNum];
     }
     if (btnTag == 3001) {
+        //部分开通视频认证
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.hidesBottomBarWhenPushed=YES;
-
         videoAuthC.terminalID = selectedID;
         [self.navigationController pushViewController:videoAuthC animated:YES];    }
     if (btnTag == 3002) {
+        //部分开通重新申请开通
         NSLog(@"点击了重新申请开通");
         [self pushApplyNewVCWithSelectedID:selectedID];
     }
@@ -402,7 +437,19 @@
         [self synchronizeWithSelectedID:selectedID];
     }
     if (btnTag == 5000) {
-        NSLog(@"点击了租凭退换");
+        NSLog(@"点击了视频认证");
+        VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
+        videoAuthC.hidesBottomBarWhenPushed=YES;
+        videoAuthC.terminalID = selectedID;
+        [self.navigationController pushViewController:videoAuthC animated:YES];
+    }
+    if (btnTag == 5001) {
+        NSLog(@"点击了重新申请开通");
+        [self pushApplyNewVCWithSelectedID:selectedID];
+    }
+    if (btnTag == 5002) {
+        NSLog(@"点击了同步");
+        [self synchronizeWithSelectedID:selectedID];
     }
     
 }
@@ -509,6 +556,7 @@
 //重新申请开通
 -(void)pushApplyNewVCWithSelectedID:(NSString *)selectedID
 {
+    self.isPush = NO;
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
     detailC.terminalID = selectedID;
     detailC.openStatus = OpenStatusReopen;
@@ -521,6 +569,7 @@
 //新开通
 -(void)pushApplyVCWithSelectedID:(NSString *)selectedID
 {
+    self.isPush = NO;
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
     detailC.terminalID = selectedID;
     detailC.openStatus = OpenStatusNew;
@@ -569,7 +618,7 @@
     self.isPush = NO;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];
     
-    if ([model.type isEqualToString:@"1"]) {
+    if ([model.type isEqualToString:@"2"]) {
         //自助开通无法查看详情
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -586,6 +635,7 @@
         terminalChildV.tm_ID = model.TM_ID;
         terminalChildV.appID = model.appID;
         terminalChildV.type = model.type;
+        terminalChildV.openStatus = model.openstatus;
         [self.navigationController pushViewController:terminalChildV animated:YES];
     }
 }

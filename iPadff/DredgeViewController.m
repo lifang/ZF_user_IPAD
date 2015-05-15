@@ -437,6 +437,16 @@
 
 -(void)vedioConfirmClick:(UIButton *)button
 {
+    
+    if (button.tag == 3) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"请先申请开通！"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
     videoAuthC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
     videoAuthC.hidesBottomBarWhenPushed=YES;
@@ -447,16 +457,24 @@
 {
     
     self.isPush = NO;
+    
     TerminalManagerModel *model = [_applyList objectAtIndex:button.tag];
-
+    if ([model.openstatus isEqualToString:@"6"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                        message:@"正在第三方审核,请耐心等待..."
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
     detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
     detailC.hidesBottomBarWhenPushed = YES;
     if(  [model.TM_status  isEqualToString:@"2"])
     {
         detailC.openStatus = OpenStatusReopen;
-        
-        
     }else
     {
         detailC.openStatus = OpenStatusNew;
@@ -480,12 +498,25 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DredgeModel *model = [_applyList objectAtIndex:indexPath.row];
-    TerminalChildController *terminalVC = [[TerminalChildController alloc]init];
-    terminalVC.hidesBottomBarWhenPushed = YES;
-    terminalVC.dealStatus = model.TM_status;
-    terminalVC.isHaveVideo = model.isHaveVideo;
-    terminalVC.tm_ID = model.TM_ID;
-    [self.navigationController pushViewController:terminalVC animated:YES];
+    if ([model.type isEqualToString:@"2"]) {
+        //自助开通无法查看详情
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"自助开通终端无详情信息";
+        return;
+    }else{
+        TerminalChildController *terminalVC = [[TerminalChildController alloc]init];
+        terminalVC.hidesBottomBarWhenPushed = YES;
+        terminalVC.dealStatus = model.TM_status;
+        terminalVC.isHaveVideo = model.isHaveVideo;
+        terminalVC.tm_ID = model.TM_ID;
+        terminalVC.appID = model.appID;
+        terminalVC.type = model.type;
+        terminalVC.openStatus = model.openstatus;
+        [self.navigationController pushViewController:terminalVC animated:YES];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
