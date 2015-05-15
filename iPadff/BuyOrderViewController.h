@@ -15,10 +15,11 @@
     UIButton *defaultbutton;
     BOOL defaultbool;
     UIButton*_cityField;
-    NSInteger B;
+//    NSInteger B;
     BOOL isneedpp;
     NSString*textnsstring;
     NSString*billnsstring;
+    NSInteger resultint;
 
     UIImageView*bigsview;
 }

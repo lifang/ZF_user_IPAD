@@ -423,8 +423,16 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             birthdaybutton = [UIButton buttonWithType:UIButtonTypeCustom];
             birthdaybutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
             NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-            
-            [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
+            if([self isBlankString:accountname])
+            {
+                [birthdaybutton setTitle:@"" forState:UIControlStateNormal];
+                
+            }else
+            {
+                [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
+                
+            }
+
             [birthdaybutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             birthdaybutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [birthdaybutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
@@ -498,8 +506,16 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
            
                 zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
                 NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+            if([self isBlankString:accountname])
+            {
+                [zhifubutton setTitle:@"" forState:UIControlStateNormal];
                 
+            }else
+            {
                 [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+                
+            }
+
 
                 
             
@@ -572,8 +588,15 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 6+20,280, 40);
   
             NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+            if([self isBlankString:accountname])
+            {
+                [zhifubutton setTitle:@"" forState:UIControlStateNormal];
                 
-            [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+            }else
+            {
+                [zhifubutton setTitle:accountname forState:UIControlStateNormal];
+
+            }
            
             [zhifubutton addTarget:self action:@selector(zhifuclick) forControlEvents:UIControlEventTouchUpInside];
             [_scrollView addSubview:zhifubutton];
@@ -591,7 +614,7 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             
             if([self isBlankString:[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]]])
             {
-                 neworiginaltextfield.text=@"";
+                neworiginaltextfield.text=@"";
                 
             }else
             {
@@ -937,6 +960,9 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 #pragma mark - 点击事件
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isEqualToString:@"(null)"]) {
         return YES;
     }
     if ([string isKindOfClass:[NSNull class]]) {
@@ -1449,7 +1475,7 @@ _applyType = OpenApplyPrivate;
 - (void)uploadPictureWithImage:(UIImage *)image {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"上传中...";
-    [NetworkInterface uploadImageWithImage:image finished:^(BOOL success, NSData *response) {
+    [NetworkInterface uploadImageWithImage:image terminalID:_terminalID finished:^(BOOL success, NSData *response) {
         NSLog(@"!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;

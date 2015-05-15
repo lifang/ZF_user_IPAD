@@ -24,6 +24,7 @@
 #import "AccountTool.h"
 #import "ChannelWebsiteController.h"
 //static CGFloat topImageHeight = 160.f;
+#import "UIBarButtonItem+Badge.h"
 
 @interface GoodDetailViewController ()<UIScrollViewDelegate,ImageScrollViewDelegate,LoginSuccessDelegate>
 
@@ -62,7 +63,14 @@
     self.title = @"商品详情";
     self.view.backgroundColor = kColor(244, 243, 243, 1);
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showColumnCount:)
+                                                 name:ShowColumnNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(clearo)
+                                                 name:@"clearo"
+                                               object:nil];
     UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shoppingButton.frame = CGRectMake(0, 0, 30, 30);
     [shoppingButton setBackgroundImage:[UIImage imageNamed:@"good_right1@2x"] forState:UIControlStateNormal];
@@ -77,7 +85,7 @@
                                                                                target:nil
                                                                                action:nil];
     spaceItem.width = 52;
-    UIBarButtonItem *shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
+     shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:spaceItem, shoppingItem,nil];
     
     
@@ -97,7 +105,53 @@
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
     [self downloadGoodDetail];
+    self.navigationItem.leftBarButtonItem.badgeBGColor =[UIColor redColor];
+    
+    if(intnumberBB==0)
+    {
+        shoppingItem.badgeValue =@"";
+        
+    }else
+    {
+        
+        shoppingItem.badgeValue =[NSString stringWithFormat:@"%d",intnumberBB];
+        
+        
+    }
+    
+
 }
+-(void)clearo
+{
+    
+    shoppingItem.badgeValue=@"";
+    
+    intnumberBB=0;
+    
+    
+    
+}
+- (void)showColumnCount:(NSNotification *)notification {
+    int shopcartCount = [[notification.userInfo objectForKey:s_shopcart] intValue];
+    if (shopcartCount > 0) {
+        
+        if(shopcartCount>99)
+        {
+            shoppingItem.badgeValue = [NSString stringWithFormat:@"%d+",99];
+            
+            
+        }else
+        {
+            
+            shoppingItem.badgeValue =  [NSString stringWithFormat:@"%d",shopcartCount];
+            
+        }
+        
+        intnumberBB=shopcartCount;
+        
+    }
+}
+
 -(void)popself
 
 {

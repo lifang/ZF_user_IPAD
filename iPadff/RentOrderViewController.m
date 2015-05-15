@@ -959,6 +959,8 @@
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
+                    resultint=1256956;
+                    resultint=[[object objectForKey:@"result"] integerValue];
                     [hud hide:YES];
                     //                    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshAddressListNotification object:nil];
                     [self  getAddressLists];
@@ -1182,7 +1184,48 @@
         AddressModel *model = [[AddressModel alloc] initWithParseDictionary:addressDict];
         [addressarry addObject:model];
         
+        
+        if ([model.addressID integerValue]==resultint)
+            
+        {
+            
+            B=i+1;
+            
+            
+            
+            
+            
+            
+            
+        }
+        if([model.addressID isEqualToString:@"1"])
+            
+        {
+            
+            B=i+1;
+            
+            
+            
+            
+            
+            
+            
+        }
+        else
+        {
+            
+            
+        }
+        
+        
     }
+    if(B==0)
+    {
+        B=1;
+        
+        
+    }
+
     [self.tableView reloadData];
     
 }

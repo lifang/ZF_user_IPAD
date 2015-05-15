@@ -28,7 +28,8 @@ static NSString *RefreshShoppingCartNotification = @"RefreshShoppingCartNotifica
 
 @interface OrderConfirmController : CommonViewController<UITableViewDataSource,UITableViewDelegate>
 {
-    
+    NSInteger B;
+
     NSMutableArray*addressarry;
 }
 

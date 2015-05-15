@@ -12,7 +12,8 @@
 
 {    UIView *view;
     UIView *handleViewfrdef;
-    
+    UIBarButtonItem *shoppingItem;
+
 }
 @property (nonatomic, strong) NSString *goodID;
 @property (nonatomic, assign) NSInteger  secletA;
