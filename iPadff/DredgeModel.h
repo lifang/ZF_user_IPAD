@@ -39,6 +39,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *appID;
 @property(nonatomic,strong)NSString *type;
 @property(nonatomic,strong)NSString *openstatus;
+@property(nonatomic,strong)NSString *protocol;
 - (id)initWithParseDictionary:(NSDictionary *)dict;
 
 - (NSString *)getStatusString;

@@ -18,6 +18,7 @@
 #import "AccountTool.h"
 #import "ApplyDetailController.h"
 #import "VideoAuthController.h"
+#import "AgreenMentController.h"
 
 
 @interface TerminalViewController ()<terminalCellSendBtnClicked,RefreshDelegate,addTerminal,LoginSuccessDelegate>
@@ -41,6 +42,8 @@
 @property(nonatomic,strong)UIView *headerView;
 
 @property(nonatomic,strong)UILabel *findPassword;
+
+@property(nonatomic,strong)NSString *tm_id;
 
 @end
 
@@ -84,9 +87,14 @@
     }
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isPush = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushtoNewApply:) name:@"newApplyTerminal" object:nil];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     self.title = @"终端管理";
@@ -404,7 +412,7 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }else{
-        [self pushApplyVCWithSelectedID:selectedID];
+        [self pushApplyVCWithSelectedID:selectedID AndIndex:indexNum];
         }
     }
     if (btnTag == 2002) {
@@ -568,15 +576,23 @@
 
 
 //新开通
--(void)pushApplyVCWithSelectedID:(NSString *)selectedID
+-(void)pushApplyVCWithSelectedID:(NSString *)selectedID AndIndex:(int)index
 {
     self.isPush = NO;
-    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
-    detailC.terminalID = selectedID;
-    detailC.openStatus = OpenStatusNew;
-    detailC.hidesBottomBarWhenPushed = YES;
+    _tm_id = selectedID;
+    TerminalManagerModel *model = [_terminalItems objectAtIndex:index];
+    AgreenMentController *agreenVC = [[AgreenMentController alloc]init];
+    agreenVC.tm_id = selectedID;
+    agreenVC.protocolStr = model.protocol;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:agreenVC];
     
-    [self.navigationController pushViewController:detailC animated:YES];
+    nav.navigationBarHidden = YES;
+    
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 -(void)synchronizeWithSelectedID:(NSString *)selectedID
@@ -753,6 +769,14 @@
 -(void)addTerminalSuccess
 {
     [self firstLoadData];
+}
+
+- (void)pushtoNewApply:(NSNotification *)notification {
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.hidesBottomBarWhenPushed = YES;
+    detailC.openStatus = OpenStatusNew;
+    detailC.terminalID = _tm_id;
+    [self.navigationController pushViewController:detailC animated:YES];
 }
 
 @end

@@ -339,6 +339,7 @@
 		1AA8FF7A1AA4074D009D41B3 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF6B1AA4074D009D41B3 /* UIImageView+WebCache.m */; };
 		1AA8FF7B1AA4074D009D41B3 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF6D1AA4074D009D41B3 /* UIView+WebCacheOperation.m */; };
 		1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF851AA41D67009D41B3 /* LoginViewController.m */; };
+		1AAA57131B05D3FF00196E03 /* AgreenMentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAA57121B05D3FF00196E03 /* AgreenMentController.m */; };
 		1AC6A2CD1AC3A83500685FC9 /* CustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CB1AC3A83500685FC9 /* CustomSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1AC6A2CE1AC3A83500685FC9 /* CustomSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */; };
 		1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */; };
@@ -1002,6 +1003,8 @@
 		1AA8FF6D1AA4074D009D41B3 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		1AA8FF841AA41D67009D41B3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1AA8FF851AA41D67009D41B3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1AAA57111B05D3FF00196E03 /* AgreenMentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreenMentController.h; sourceTree = "<group>"; };
+		1AAA57121B05D3FF00196E03 /* AgreenMentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreenMentController.m; sourceTree = "<group>"; };
 		1AC6A2CA1AC3A83500685FC9 /* CustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSwitch.h; sourceTree = "<group>"; };
 		1AC6A2CB1AC3A83500685FC9 /* CustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSwitch.m; sourceTree = "<group>"; };
 		1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSwitch.xib; sourceTree = "<group>"; };
@@ -2065,6 +2068,8 @@
 				0EC647691AF1187D0038908A /* ChannelSelectedController.m */,
 				0EC6476B1AF119280038908A /* BankSelectedController.h */,
 				0EC6476C1AF119280038908A /* BankSelectedController.m */,
+				1AAA57111B05D3FF00196E03 /* AgreenMentController.h */,
+				1AAA57121B05D3FF00196E03 /* AgreenMentController.m */,
 			);
 			name = DredgeV;
 			sourceTree = "<group>";
@@ -2574,6 +2579,7 @@
 				1A94EB841AA98E430056E921 /* TerminalModel.m in Sources */,
 				0ED8EBE61AA6D7E000CE9F61 /* UIScrollView+MJRefresh.m in Sources */,
 				1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */,
+				1AAA57131B05D3FF00196E03 /* AgreenMentController.m in Sources */,
 				1A8E7C721AB16AB700C021CE /* RentBackCell.m in Sources */,
 				0ECD63B71AA3F850001ABB4D /* ZYHomeViewController.m in Sources */,
 				1A81ACF21AAE7F2D003CB96C /* RecordView.m in Sources */,
