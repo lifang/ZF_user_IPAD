@@ -394,6 +394,8 @@
 
         }
         else{
+            
+            self.isPush = NO;
             VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
             videoAuthC.terminalID = selectedID;
             videoAuthC.hidesBottomBarWhenPushed=YES;
@@ -412,7 +414,11 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }else{
-        [self pushApplyVCWithSelectedID:selectedID AndIndex:indexNum];
+            if ([appid isEqualToString:@""]) {
+                [self pushApplyVCWithSelectedID:selectedID AndIndex:indexNum];
+            }else{
+                [self pushApplyNewVCWithSelectedID:selectedID];
+            }
         }
     }
     if (btnTag == 2002) {
@@ -425,6 +431,7 @@
     }
     if (btnTag == 3001) {
         //部分开通视频认证
+        self.isPush = NO;
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.hidesBottomBarWhenPushed=YES;
         videoAuthC.terminalID = selectedID;
@@ -447,6 +454,8 @@
     }
     if (btnTag == 5000) {
         NSLog(@"点击了视频认证");
+        
+        self.isPush = NO;
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.hidesBottomBarWhenPushed=YES;
         videoAuthC.terminalID = selectedID;

@@ -1174,7 +1174,11 @@
                                                       otherButtonTitles:nil];
                 [alert show];
             }else{
-                [self pushApplyVCWithSelectedID:_tm_ID];
+                if ([_appID isEqualToString:@""]) {
+                    [self pushApplyVCWithSelectedID:_tm_ID];
+                }else{
+                    [self pushApplyNewVCWithSelectedID:_tm_ID];
+                }
             }
             break;
         case 5557:
