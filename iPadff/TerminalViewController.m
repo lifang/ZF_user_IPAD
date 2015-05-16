@@ -18,6 +18,7 @@
 #import "AccountTool.h"
 #import "ApplyDetailController.h"
 #import "VideoAuthController.h"
+#import "AgreenMentController.h"
 
 
 @interface TerminalViewController ()<terminalCellSendBtnClicked,RefreshDelegate,addTerminal,LoginSuccessDelegate>
@@ -41,6 +42,8 @@
 @property(nonatomic,strong)UIView *headerView;
 
 @property(nonatomic,strong)UILabel *findPassword;
+
+@property(nonatomic,strong)NSString *tm_id;
 
 @end
 
@@ -84,9 +87,14 @@
     }
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isPush = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushtoNewApply:) name:@"newApplyTerminal" object:nil];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     self.title = @"终端管理";
@@ -163,6 +171,7 @@
     rightZeroBar.width = 40.f;
     
     UIButton *rightBtn = [[UIButton alloc]init];
+    rightBtn.hidden = YES;
     [rightBtn addTarget:self action:@selector(addTerminal) forControlEvents:UIControlEventTouchUpInside];
     rightBtn.frame = CGRectMake(0, 0, 24, 24);
     [rightBtn setImage:[UIImage imageNamed:@"+"] forState:UIControlStateNormal];
@@ -385,6 +394,8 @@
 
         }
         else{
+            
+            self.isPush = NO;
             VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
             videoAuthC.terminalID = selectedID;
             videoAuthC.hidesBottomBarWhenPushed=YES;
@@ -403,7 +414,11 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }else{
-        [self pushApplyVCWithSelectedID:selectedID];
+            if ([appid isEqualToString:@""]) {
+                [self pushApplyVCWithSelectedID:selectedID AndIndex:indexNum];
+            }else{
+                [self pushApplyNewVCWithSelectedID:selectedID];
+            }
         }
     }
     if (btnTag == 2002) {
@@ -416,6 +431,7 @@
     }
     if (btnTag == 3001) {
         //部分开通视频认证
+        self.isPush = NO;
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.hidesBottomBarWhenPushed=YES;
         videoAuthC.terminalID = selectedID;
@@ -438,6 +454,8 @@
     }
     if (btnTag == 5000) {
         NSLog(@"点击了视频认证");
+        
+        self.isPush = NO;
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.hidesBottomBarWhenPushed=YES;
         videoAuthC.terminalID = selectedID;
@@ -567,15 +585,24 @@
 
 
 //新开通
--(void)pushApplyVCWithSelectedID:(NSString *)selectedID
+-(void)pushApplyVCWithSelectedID:(NSString *)selectedID AndIndex:(int)index
 {
     self.isPush = NO;
-    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
-    detailC.terminalID = selectedID;
-    detailC.openStatus = OpenStatusNew;
-    detailC.hidesBottomBarWhenPushed = YES;
+    _tm_id = selectedID;
+    TerminalManagerModel *model = [_terminalItems objectAtIndex:index];
+    AgreenMentController *agreenVC = [[AgreenMentController alloc]init];
+    agreenVC.pushStyle = PushTeminal;
+    agreenVC.tm_id = selectedID;
+    agreenVC.protocolStr = model.protocol;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:agreenVC];
     
-    [self.navigationController pushViewController:detailC animated:YES];
+    nav.navigationBarHidden = YES;
+    
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    
+    nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 -(void)synchronizeWithSelectedID:(NSString *)selectedID
@@ -636,6 +663,7 @@
         terminalChildV.appID = model.appID;
         terminalChildV.type = model.type;
         terminalChildV.openStatus = model.openstatus;
+        terminalChildV.protocol = model.protocol;
         [self.navigationController pushViewController:terminalChildV animated:YES];
     }
 }
@@ -752,6 +780,14 @@
 -(void)addTerminalSuccess
 {
     [self firstLoadData];
+}
+
+- (void)pushtoNewApply:(NSNotification *)notification {
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.hidesBottomBarWhenPushed = YES;
+    detailC.openStatus = OpenStatusNew;
+    detailC.terminalID = _tm_id;
+    [self.navigationController pushViewController:detailC animated:YES];
 }
 
 @end

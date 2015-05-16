@@ -19,6 +19,7 @@
 #import "DredgeModel.h"
 #import "VideoAuthController.h"
 #import "TerminalChildController.h"
+#import "AgreenMentController.h"
 
 
 @interface DredgeViewController ()<RefreshDelegate,LoginSuccessDelegate>
@@ -40,6 +41,8 @@
 @property (nonatomic, strong) NSMutableArray *applyList;
 
 @property(nonatomic,assign)BOOL *isPush;
+
+@property(nonatomic,strong)NSString *tm_id;
 
 
 @end
@@ -82,12 +85,25 @@
     }
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _applyList = [[NSMutableArray alloc]init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushtoNewApply:) name:@"newApply" object:nil];
     [self setupNavBar];
     [self setupHeaderAndFooterView];
     [self firstLoadData];
+}
+
+- (void)pushtoNewApply:(NSNotification *)notification {
+    ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
+    detailC.hidesBottomBarWhenPushed = YES;
+    detailC.openStatus = OpenStatusNew;
+    detailC.terminalID = _tm_id;
+    [self.navigationController pushViewController:detailC animated:YES];
 }
 
 -(void)setupRefreshView
@@ -470,19 +486,33 @@
     }
     
     ApplyDetailController *detailC = [[ApplyDetailController alloc] init];
-    detailC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
     detailC.hidesBottomBarWhenPushed = YES;
-    if(  [model.TM_status  isEqualToString:@"2"])
+    
+    if( [model.appID  isEqualToString:@""])
     {
-        detailC.openStatus = OpenStatusReopen;
+        _tm_id = model.TM_ID;
+        //申请开通
+        AgreenMentController *agreenVC = [[AgreenMentController alloc]init];
+        agreenVC.tm_id = model.TM_ID;
+        agreenVC.protocolStr = model.protocol;
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:agreenVC];
+        agreenVC.pushStyle = PushDredge;
+        nav.navigationBarHidden = YES;
+        
+        nav.modalPresentationStyle = UIModalPresentationFormSheet;
+        
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
+        [self presentViewController:nav animated:YES completion:nil];
     }else
     {
-        detailC.openStatus = OpenStatusNew;
+        //重新申请开通
+        detailC.openStatus = OpenStatusReopen;
+        detailC.terminalID = model.TM_ID;
         
-    }
-    detailC.terminalID = model.TM_ID;
+        [self.navigationController pushViewController:detailC animated:YES];
 
-    [self.navigationController pushViewController:detailC animated:YES];
+    }
 }
 //-(void)applicationClicks:(UIButton *)button
 //{

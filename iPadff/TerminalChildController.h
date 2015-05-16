@@ -25,4 +25,6 @@
 
 @property(nonatomic,strong)NSString *openStatus;
 
+@property(nonatomic,strong)NSString *protocol;
+
 @end
