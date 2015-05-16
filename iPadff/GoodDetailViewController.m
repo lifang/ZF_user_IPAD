@@ -23,6 +23,7 @@
 #import "LoginViewController.h"
 #import "AccountTool.h"
 #import "ChannelWebsiteController.h"
+#import "PictureModel.h"
 //static CGFloat topImageHeight = 160.f;
 #import "UIBarButtonItem+Badge.h"
 
@@ -62,6 +63,7 @@
     // Do any additional setup after loading the view.
     self.title = @"商品详情";
     self.view.backgroundColor = kColor(244, 243, 243, 1);
+    picturearry=[[NSMutableArray alloc]init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(showColumnCount:)
@@ -388,6 +390,8 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftSpace - rightSpace-30, labelHeight)];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:20.f];
+    titleLabel.textColor=kColor(67.0, 66.0, 66.0, 1);
+    
     titleLabel.text = _detailModel.goodName;
     [_mainScrollView addSubview:titleLabel];
     
@@ -396,7 +400,9 @@
     UILabel *summaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftSpace- rightSpace-30, labelHeight)];
     summaryLabel.backgroundColor = [UIColor clearColor];
     summaryLabel.font = [UIFont systemFontOfSize:17.f];
-    summaryLabel.textColor = [UIColor lightGrayColor];
+//    summaryLabel.textColor = [UIColor lightGrayColor];
+    summaryLabel.textColor=kColor(184.0, 184.0, 184.0, 1);
+
     summaryLabel.text = _detailModel.detailName;
     [_mainScrollView addSubview:summaryLabel];
     
@@ -537,7 +543,7 @@
     _shopcartButton.layer.masksToBounds = YES;
     //    _shopcartButton.layer.borderWidth = 1.f;
     [_shopcartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_shopcartButton setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
+    [_shopcartButton setTitleColor:kColor(252, 171, 1, 1) forState:UIControlStateHighlighted];
     [_shopcartButton setBackgroundImage:kImageName(@"yellowback") forState:UIControlStateNormal];
     
     [_shopcartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
@@ -641,15 +647,16 @@
     viewbutton.backgroundColor = [UIColor whiteColor];
     if (_detailModel.canRent)
     {
+        
         NSString*str=[NSString stringWithFormat:@"评论(%d)",[_detailModel.goodComment intValue]];
         
-        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"租赁说明",@"  交易费率", nil];
+        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"租赁说明",@"交易费率",@"商品图片",nil];
         
         
-        for (int i = 0; i < 5; i++ ) {
+        for (int i = 0; i < 6; i++ ) {
             
             UIButton *rentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rentButton.frame = CGRectMake(viewbutton.frame.size.width / 11*(2*i +1), 10, viewbutton.frame.size.width / 11, 45);
+            rentButton.frame = CGRectMake(viewbutton.frame.size.width / 12*(2*i +1)-80, 10, viewbutton.frame.size.width / 12+70, 45);
             [rentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
@@ -658,7 +665,7 @@
             
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [viewbutton addSubview:rentButton];
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewbutton.frame.size.width / 5*(i+1), 20, 1, 30)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewbutton.frame.size.width / 6*(i+1), 20, 1, 30)];
             line.backgroundColor = [UIColor grayColor];
             [viewbutton addSubview:line];
         }
@@ -668,13 +675,13 @@
     {
         NSString*str=[NSString stringWithFormat:@"评论(%d)",[_detailModel.goodComment intValue]];
         
-        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"交易费率", nil];
+        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"交易费率",@"商品图片", nil];
         
         
-        for (int i = 0; i < 4; i++ ) {
+        for (int i = 0; i < 5; i++ ) {
             
             UIButton *rentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rentButton.frame = CGRectMake(viewbutton.frame.size.width / 9*(2*i +1), 10, viewbutton.frame.size.width / 9, 45);
+            rentButton.frame = CGRectMake(viewbutton.frame.size.width / 10*(2*i +1)-90, 10, viewbutton.frame.size.width /10+70, 45);
             [rentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
@@ -683,7 +690,7 @@
             
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [viewbutton addSubview:rentButton];
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewbutton.frame.size.width / 4*(i+1), 20, 1, 30)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewbutton.frame.size.width /5*(i+1), 20, 1, 30)];
             line.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
             [viewbutton addSubview:line];
         }
@@ -727,7 +734,9 @@
     goodedetal.secletA=sender.tag;
     goodedetal.goodDetail=_detailModel;
     goodedetal.channelData = _detailModel.defaultChannel;
-
+    goodedetal.pictureArry=picturearry;
+    goodedetal.isrent=_detailModel.canRent;
+    
     goodedetal.tradeRateItem = _detailModel.defaultChannel.dateRateItem;
 
     goodedetal.hidesBottomBarWhenPushed =  YES ;
@@ -851,6 +860,27 @@
     }
     NSDictionary *detailDict = [dict objectForKey:@"result"];
     _detailModel = [[GoodDetialModel alloc] initWithParseDictionary:detailDict];
+    if ([[detailDict objectForKey:@"picList"] isKindOfClass:[NSArray class]])
+        
+    {
+        NSArray*pictureArry=[detailDict objectForKey:@"picList"];
+        
+        for(int i=0;i<pictureArry.count;i++)
+        {
+        
+            PictureModel*pictureModel=[[PictureModel alloc]initWithParseDictionary:[pictureArry objectAtIndex:i]];
+
+            [picturearry addObject:pictureModel];
+            
+        
+        }
+        
+        
+        
+        
+    }
+    
+
     [self initAndLayoutUI];
     [_topScorllView downloadImageWithURLs:_detailModel.goodImageList target:self action:@selector(touchPicture:)];
     self.totalPage = [_detailModel.goodImageList count];
