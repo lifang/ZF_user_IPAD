@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSArray *tradeRateItem;
 @property (nonatomic, strong) GoodDetialModel *goodDetail;
 @property (nonatomic, strong) ChannelModel *channelData;
+@property (nonatomic, strong) NSArray *pictureArry;
+@property (nonatomic, assign) BOOL isrent;
 
 @property (nonatomic, strong) NSString *goodID;
 @property (nonatomic, assign) NSInteger  secletA;

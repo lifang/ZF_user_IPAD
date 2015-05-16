@@ -1176,6 +1176,22 @@
         
         UIView *billView = [self addBillView];
         [footerView addSubview:billView];
+        
+        
+        
+        if ( isneedpp) {
+            billView.hidden=NO;
+            
+            
+            [ self.billBtn setBackgroundImage:kImageName(@"btn_selected.png") forState:UIControlStateNormal];
+        }
+        else {
+            
+            billView.hidden=YES;
+            
+            [self.billBtn setBackgroundImage:kImageName(@"btn_unselected.png") forState:UIControlStateNormal];
+        }
+
         return footerView;
         
         

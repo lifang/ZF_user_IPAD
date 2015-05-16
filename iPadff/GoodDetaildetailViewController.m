@@ -22,7 +22,8 @@
 #import "InterestView.h"
 #import "GoodDetailViewController.h"
 #import "UIBarButtonItem+Badge.h"
-
+#import "PictureModel.h"
+#import "UIImageView+WebCache.h"
 @interface GoodDetaildetailViewController ()<UITableViewDataSource,UITableViewDelegate,RefreshDelegate>
 @property (nonatomic, strong) GoodDetialModel *detailModel;
 @property (nonatomic, strong) RefreshView *topRefreshView;
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIScrollView *scrollViewrent;
 @property (nonatomic, strong) UIScrollView *scrollViewmaterial;
+@property (nonatomic, strong) UIScrollView *scrollViewPicture;
 
 @property (nonatomic, assign) CGFloat viewHeightmatel;
 @property (nonatomic, assign) CGFloat viewHeight;
@@ -51,6 +53,7 @@
     [super viewDidLoad];
     _reviewItem = [[NSMutableArray alloc] init];
     [self downloadGoodDetail];
+    [self initpicture];
 
     [self initAndLayoutUIpp];
     [self initAndLayoutUIfl];
@@ -958,10 +961,50 @@
                                         context:nil];
     return rect.size.height + 1 > 20.f ? rect.size.height + 1 : 20.f;
 }
+#pragma mark -商品图片
+- (void)initpicture
+
+{
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+    }
+ 
+    NSInteger count = [self.pictureArry count];
+   
+    _scrollViewPicture = [[UIScrollView alloc] init];
+    
+    _scrollViewPicture.frame=CGRectMake(0, 64, wide, height-64);
+    _scrollViewPicture.contentSize=CGSizeMake(wide, 450*count+64);
+    
+    
+    [self.view addSubview:_scrollViewPicture];
+    for (int i = 0; i < count; i++) {
+        PictureModel*pictureModel=[self.pictureArry objectAtIndex:i];
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(wide/2-225, i*450, 450, 450)];
+           [imageView sd_setImageWithURL:[NSURL URLWithString:pictureModel.pictureName]
+                                        placeholderImage:kImageName(@"test1.png")];
+//        imageView.center=CGPointMake(wide/2,230+i*450);
+        
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        [_scrollViewPicture addSubview:imageView];
+        
+    }
+
+    
+    
+}
+
 
 #pragma mark - 申请开通所需材料
-
-
 #pragma mark - UI
 
 - (void)initAndLayoutUImaterial {
@@ -974,7 +1017,8 @@
     _tableView.hidden=YES;
     _scrollViewrent.hidden=YES;
     _scrollViewmaterial.hidden=YES;
-    
+    _scrollViewPicture.hidden=YES;
+
     _scrollView.hidden=YES;
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_scrollViewmaterial
@@ -1560,23 +1604,23 @@
     if (_detailModel.canRent)
     {
         NSString*str=[NSString stringWithFormat:@"评论(%d)",[_detailModel.goodComment intValue]];
+        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"租赁说明",@"交易费率",@"商品图片",nil];
+
         
-        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"租赁说明",@"交易费率", nil];
         
-        
-        for (int i = 0; i < 5; i++ ) {
+        for (int i = 0; i <6; i++ ) {
             
             UIButton *rentButton = [UIButton buttonWithType:UIButtonTypeCustom];
             
             rentButton.tag=i+1024;
             
-            rentButton.frame = CGRectMake(viewgf.frame.size.width / 11*(2*i +1)-10, 15, viewgf.frame.size.width / 11+10, 45);
+            rentButton.frame = CGRectMake(viewgf.frame.size.width /12*(2*i +1)-80, 15, viewgf.frame.size.width / 12+70, 45);
             [rentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
             rentButton.titleLabel.font = [UIFont systemFontOfSize: 16.0];
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [viewgf addSubview:rentButton];
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewgf.frame.size.width / 5*(i+1), 20, 1, 30)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewgf.frame.size.width /6*(i+1), 20, 1, 30)];
             line.backgroundColor = [UIColor grayColor];
             [viewgf addSubview:line];
         }
@@ -1586,31 +1630,26 @@
     {
         NSString*str=[NSString stringWithFormat:@"评论(%d)",[_detailModel.goodComment intValue]];
         
-        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"交易费率", nil];
+        NSArray*arry=[NSArray arrayWithObjects:@"商品描述",@"开通所需材料",str,@"交易费率",@"商品图片", nil];
+
         
-        
-        for (int i = 0; i < 4; i++ ) {
+        for (int i = 0; i <5; i++ ) {
             
             UIButton *rentButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            rentButton.frame = CGRectMake(viewgf.frame.size.width / 9*(2*i +1), 15, viewgf.frame.size.width / 9, 45);
+            rentButton.frame = CGRectMake(viewgf.frame.size.width /10*(2*i +1)-90, 15, viewgf.frame.size.width /10+80, 45);
             [rentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [rentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
             [rentButton setTitle:[arry objectAtIndex:i] forState:UIControlStateNormal];
             rentButton.titleLabel.font = [UIFont systemFontOfSize: 17.0];
             [rentButton addTarget:self action:@selector(scanRent:) forControlEvents:UIControlEventTouchUpInside];
             [viewgf addSubview:rentButton];
-            if(i==3)
-            {
-                rentButton.tag=1028;
-                
-            }
-            else{
+          
                 
                 rentButton.tag=i+1024;
                 
-            }
+          
             
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewgf.frame.size.width / 4*(i+1), 20, 1, 30)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(viewgf.frame.size.width /5*(i+1), 20, 1, 30)];
             line.backgroundColor = [UIColor grayColor];
             [viewgf addSubview:line];
         }
@@ -1638,76 +1677,192 @@
 }
 - (void)setSeletedIndex:(int)aIndex
 {
-    NSLog(@"%d",aIndex);
-    if(aIndex==1024)
-    {
-        _mainScrollView.hidden=NO;
-        _tableView.hidden=YES;
-        _scrollViewrent.hidden=YES;
-        _scrollViewmaterial.hidden=YES;
-
-        _scrollView.hidden=YES;
-
-        
-    }
-    else if(aIndex==1025)
-        
-    {        _scrollView.hidden=YES;
-        
-        _scrollViewrent.hidden=YES;
-        _scrollViewmaterial.hidden=NO;
-        
-        _tableView.hidden=YES;
-        
-        _mainScrollView.hidden=YES;
-        
-    }
-
-    else if(aIndex==1028)
-
-    {        _scrollView.hidden=NO;
-
-        _scrollViewrent.hidden=YES;
-        _scrollViewmaterial.hidden=YES;
-
-        _tableView.hidden=YES;
-
-        _mainScrollView.hidden=YES;
-  
-    }
-    else if(aIndex==1026)
-        
-    {        _scrollView.hidden=YES;
-        _scrollViewrent.hidden=YES;
-
-        _scrollViewmaterial.hidden=YES;
-
-        _tableView.hidden=NO;
-        
-        _mainScrollView.hidden=YES;
-        
-    }
-    else if(aIndex==1027)
-        
-    {
-        _scrollView.hidden=YES;
-        _scrollViewrent.hidden=NO;
-        
-        _scrollViewmaterial.hidden=YES;
-
-        _tableView.hidden=YES;
-        
-        _mainScrollView.hidden=YES;
-        
-    }
-
-    UIButton *previousButton = (UIButton *)[self.view viewWithTag:self.secletA];
-    [previousButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.secletA = aIndex;
     
-    //设置为正常状态下的图片
-    UIButton *currentButton = (UIButton *)[self.view viewWithTag:(aIndex )];
-    [currentButton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
+    if(self.isrent)
+    {
+        if(aIndex==1024)
+        {
+            _mainScrollView.hidden=NO;
+            _tableView.hidden=YES;
+            _scrollViewrent.hidden=YES;
+            _scrollViewmaterial.hidden=YES;
+            
+            _scrollView.hidden=YES;
+            _scrollViewPicture.hidden=YES;
+
+            
+        }
+        else if(aIndex==1025)
+            
+        {
+            _scrollView.hidden=YES;
+            
+            _scrollViewrent.hidden=YES;
+            _scrollViewmaterial.hidden=NO;
+            
+            _tableView.hidden=YES;
+            _scrollViewPicture.hidden=YES;
+
+            _mainScrollView.hidden=YES;
+            
+        }
+        
+        else if(aIndex==1028)
+            
+        {        _scrollView.hidden=NO;
+            
+            _scrollViewrent.hidden=YES;
+            _scrollViewmaterial.hidden=YES;
+            _scrollViewPicture.hidden=YES;
+
+            _tableView.hidden=YES;
+            
+            _mainScrollView.hidden=YES;
+            
+        }
+        else if(aIndex==1026)
+            
+        {        _scrollView.hidden=YES;
+            _scrollViewrent.hidden=YES;
+            
+            _scrollViewmaterial.hidden=YES;
+            _scrollViewPicture.hidden=YES;
+
+            _tableView.hidden=NO;
+            
+            _mainScrollView.hidden=YES;
+            
+        }
+        else if(aIndex==1027)
+            
+        {
+            _scrollView.hidden=YES;
+            _scrollViewrent.hidden=NO;
+            _scrollViewPicture.hidden=YES;
+
+            _scrollViewmaterial.hidden=YES;
+            
+            _tableView.hidden=YES;
+            
+            _mainScrollView.hidden=YES;
+            
+        }
+        else if(aIndex==1029)
+            
+        {
+            _scrollView.hidden=YES;
+            _scrollViewrent.hidden=YES;
+            
+            _scrollViewmaterial.hidden=YES;
+            
+            _tableView.hidden=YES;
+            
+            _mainScrollView.hidden=YES;
+            _scrollViewPicture.hidden=NO;
+            
+        }
+        
+        
+        UIButton *previousButton = (UIButton *)[self.view viewWithTag:self.secletA];
+        [previousButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        self.secletA = aIndex;
+        
+        //设置为正常状态下的图片
+        UIButton *currentButton = (UIButton *)[self.view viewWithTag:(aIndex )];
+        [currentButton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
+    }else
+    {
+    
+    
+        if(aIndex==1024)
+        {
+            _mainScrollView.hidden=NO;
+            _tableView.hidden=YES;
+            _scrollViewrent.hidden=YES;
+            _scrollViewmaterial.hidden=YES;
+            
+            _scrollView.hidden=YES;
+            _scrollViewPicture.hidden=YES;
+
+            
+        }
+        else if(aIndex==1025)
+            
+        {
+            _scrollView.hidden=YES;
+            
+            _scrollViewrent.hidden=YES;
+            _scrollViewmaterial.hidden=NO;
+            _scrollViewPicture.hidden=YES;
+
+            _tableView.hidden=YES;
+            
+            _mainScrollView.hidden=YES;
+            
+        }
+        
+        else if(aIndex==1028)
+            
+        {
+            
+            _scrollView.hidden=YES;
+            _scrollViewrent.hidden=YES;
+            
+            _scrollViewmaterial.hidden=YES;
+            
+            _tableView.hidden=YES;
+            
+            _mainScrollView.hidden=YES;
+            _scrollViewPicture.hidden=NO;
+        }
+        else if(aIndex==1026)
+            
+        {        _scrollView.hidden=YES;
+            _scrollViewrent.hidden=YES;
+            
+            _scrollViewmaterial.hidden=YES;
+            _scrollViewPicture.hidden=YES;
+
+            _tableView.hidden=NO;
+            
+            _mainScrollView.hidden=YES;
+            
+        }
+        else if(aIndex==1027)
+            
+        {
+            _scrollViewPicture.hidden=YES;
+
+            _scrollView.hidden=NO;
+            _scrollViewrent.hidden=YES;
+            
+            _scrollViewmaterial.hidden=YES;
+            
+            _tableView.hidden=YES;
+            
+            _mainScrollView.hidden=YES;
+            
+        }
+        else if(aIndex==1029)
+            
+        {
+            
+            
+        }
+        
+        
+        UIButton *previousButton = (UIButton *)[self.view viewWithTag:self.secletA];
+        [previousButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        self.secletA = aIndex;
+        
+        //设置为正常状态下的图片
+        UIButton *currentButton = (UIButton *)[self.view viewWithTag:(aIndex)];
+        [currentButton setTitleColor:kColor(233, 91, 38, 1) forState:UIControlStateNormal];
+    
+    
+    
+    }
+   
 }
 /*
 

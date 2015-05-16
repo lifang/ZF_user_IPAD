@@ -13,7 +13,8 @@
 {    UIView *view;
     UIView *handleViewfrdef;
     UIBarButtonItem *shoppingItem;
-
+    NSMutableArray*picturearry;
+    
 }
 @property (nonatomic, strong) NSString *goodID;
 @property (nonatomic, assign) NSInteger  secletA;
