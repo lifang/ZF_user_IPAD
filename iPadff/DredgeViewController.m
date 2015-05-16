@@ -496,7 +496,7 @@
         agreenVC.tm_id = model.TM_ID;
         agreenVC.protocolStr = model.protocol;
         UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:agreenVC];
-        
+        agreenVC.pushStyle = PushDredge;
         nav.navigationBarHidden = YES;
         
         nav.modalPresentationStyle = UIModalPresentationFormSheet;

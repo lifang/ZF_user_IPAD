@@ -255,8 +255,18 @@
     }
     
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"newApply" object:nil userInfo:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"newApplyTerminal" object:nil userInfo:nil];
+        if (_pushStyle == PushDredge) {
+              [[NSNotificationCenter defaultCenter] postNotificationName:@"newApply" object:nil userInfo:nil];
+            _pushStyle = PushNone;
+        }
+        if (_pushStyle == PushTeminal) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newApplyTerminal" object:nil userInfo:nil];
+            _pushStyle = PushNone;
+        }
+        if (_pushStyle == PushTeminalChild) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newDetailApply" object:nil userInfo:nil];
+            _pushStyle = PushNone;
+        }
     }];
 }
 

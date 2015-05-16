@@ -582,6 +582,7 @@
     _tm_id = selectedID;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:index];
     AgreenMentController *agreenVC = [[AgreenMentController alloc]init];
+    agreenVC.pushStyle = PushTeminal;
     agreenVC.tm_id = selectedID;
     agreenVC.protocolStr = model.protocol;
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:agreenVC];
@@ -653,6 +654,7 @@
         terminalChildV.appID = model.appID;
         terminalChildV.type = model.type;
         terminalChildV.openStatus = model.openstatus;
+        terminalChildV.protocol = model.protocol;
         [self.navigationController pushViewController:terminalChildV animated:YES];
     }
 }
