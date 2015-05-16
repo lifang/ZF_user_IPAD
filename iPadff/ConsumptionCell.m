@@ -79,13 +79,13 @@
     
     _settleLabel.frame = CGRectMake(CGRectGetMaxX(_timeLabel.frame) - 20, mainY, 180, mainY);
     
-    _poundageLabel.frame = CGRectMake(CGRectGetMaxX(_settleLabel.frame) - 10, mainY, 180, mainY);
+    _poundageLabel.frame = CGRectMake(CGRectGetMaxX(_settleLabel.frame) - 130, mainY, 180, mainY);
     
-    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_poundageLabel.frame) - 15, mainY, 200, mainY);
+    _terminalLabel.frame = CGRectMake(CGRectGetMaxX(_poundageLabel.frame) + 30, mainY, 200, mainY);
     
-    _dealMoney.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 30, mainY, 200, mainY);
+    _dealMoney.frame = CGRectMake(CGRectGetMaxX(_terminalLabel.frame) + 70, mainY, 200, mainY);
     
-    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) - 50, mainY, 50, mainY);
+    _dealStates.frame = CGRectMake(CGRectGetMaxX(_dealMoney.frame) - 20, mainY, 50, mainY);
     
 }
 
