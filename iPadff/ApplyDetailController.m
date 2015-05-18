@@ -589,7 +589,7 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             
             zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 6+20,280, 40);
   
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:@"key_channel"]];
             if([self isBlankString:accountname])
             {
                 [zhifubutton setTitle:@"" forState:UIControlStateNormal];
@@ -1497,7 +1497,8 @@ _applyType = OpenApplyPrivate;
     
     [_infoDict setObject:[NSNumber numberWithInt:_applyData.sex] forKey:key_sex];
     _merchantID = _applyData.merchantID;
-    
+    _bankTitleName = _applyData.bankTitleName;
+
     /*之前上传过对公对私资料 保存*/
     for (ApplyInfoModel *model in _applyData.applyList) {
         if (model.value && ![model.value isEqualToString:@""]) {

@@ -410,28 +410,29 @@
     //品牌
     UILabel *brandTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY, leftLabelWidth, labelHeight)];
     [self setLabel:brandTitleLabel withTitle:@"品牌型号" font:[UIFont systemFontOfSize:17.f]];
-    UILabel *brandLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, 100, labelHeight)];
+    UILabel *brandLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, wide/2-180, labelHeight)];
     
     NSString*stringlong=[NSString stringWithFormat:@"%@  %@",_detailModel.goodBrand,_detailModel.goodModel];
-    
+    brandLabel.textColor=kColor(67.0, 66.0, 66.0, 1);
+
     [self setLabel:brandLabel withTitle:stringlong font:[UIFont boldSystemFontOfSize:17.f]];
     
     //厂家信息
 //    CGFloat originX = leftSpace + leftLabelWidth + firstSpace + 80;
-    UILabel *factoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(brandLabel.frame.size.width+brandLabel.frame.origin.x+40, originY, 90.f, labelHeight)];
-    factoryLabel.backgroundColor = [UIColor clearColor];
-    factoryLabel.font = [UIFont systemFontOfSize:14.f];
-    factoryLabel.text = @"查看厂家信息";
-    [_mainScrollView addSubview:factoryLabel];
-    
-    //厂家按钮
-    UIButton *factoryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [factoryBtn setBackgroundImage :kImageName(@"info.png") forState:UIControlStateNormal];
-
-    factoryBtn.frame = CGRectMake(factoryLabel.frame.origin.x + factoryLabel.frame.size.width + vSpace, originY, 20, 20);
-//    factoryBtn.enabled = NO;
-    [factoryBtn addTarget:self action:@selector(scanFactoryInfo:) forControlEvents:UIControlEventTouchUpInside];
-    [_mainScrollView addSubview:factoryBtn];
+//    UILabel *factoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(brandLabel.frame.size.width+brandLabel.frame.origin.x+40, originY, 90.f, labelHeight)];
+//    factoryLabel.backgroundColor = [UIColor clearColor];
+//    factoryLabel.font = [UIFont systemFontOfSize:14.f];
+//    factoryLabel.text = @"查看厂家信息";
+//    [_mainScrollView addSubview:factoryLabel];
+//    
+//    //厂家按钮
+//    UIButton *factoryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [factoryBtn setBackgroundImage :kImageName(@"info.png") forState:UIControlStateNormal];
+//
+//    factoryBtn.frame = CGRectMake(factoryLabel.frame.origin.x + factoryLabel.frame.size.width + vSpace, originY, 20, 20);
+////    factoryBtn.enabled = NO;
+//    [factoryBtn addTarget:self action:@selector(scanFactoryInfo:) forControlEvents:UIControlEventTouchUpInside];
+//    [_mainScrollView addSubview:factoryBtn];
     
 //    originY += vSpace + labelHeight;
 //    //型号
@@ -453,7 +454,8 @@
     [self setLabel:terTypeTitleLabel withTitle:@"终端类型" font:[UIFont systemFontOfSize:17.f]];
     UILabel *terTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace + leftLabelWidth + firstSpace, originY, wide - leftSpace - rightSpace - leftLabelWidth, labelHeight)];
     [self setLabel:terTypeLabel withTitle:_detailModel.goodCategory font:[UIFont boldSystemFontOfSize:17.f]];
-    
+    terTypeLabel.textColor=kColor(67.0, 66.0, 66.0, 1);
+
     //价格
     originY += vSpace + labelHeight;
     _priceLabel.frame = CGRectMake(leftSpace, originY, leftSpace- rightSpace, labelHeight);
@@ -491,35 +493,36 @@
     }
     
     int rows = (int)([_detailModel.channelItem count] - 1) / 3 + 1;
-    originY += rows * (btnHeight + hSpace)-10;    UILabel *introducelable = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY+20, leftLabelWidth, btnHeight)];
-    [self setLabel:introducelable withTitle:@"通道介绍" font:[UIFont systemFontOfSize:17.f]];
-    //厂家图片
-    originY += vSpace + 1;
-    UIImageView *factoryImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10, originY+20, 60, labelHeight)];
-    
-    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath] placeholderImage:[UIImage imageNamed:@"test1" ]];
-    
-//    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath]];
-    [_mainScrollView addSubview:factoryImageView];
-   [factoryImageView setContentMode:UIViewContentModeScaleAspectFit];
-    
-    //厂家网址
-    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace-140, labelHeight)];
-    [self setLabel:websiteLabel withTitle:_detailModel.defaultChannel.channelFactoryURL font:[UIFont systemFontOfSize:13.f]];
-    websiteLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *websiteTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpForWebsite:)];
-    [websiteLabel addGestureRecognizer:websiteTap];
-    //厂家简介
-    originY += vSpace + labelHeight+30;
-    CGFloat summaryHeight = [self heightWithString:_detailModel.factorySummary
-                                             width:wide - leftSpace - rightSpace
-                                          fontSize:13.f];
-    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+80, originY-15, leftSpace - 140, 60)];
-    [self setLabel:factorySummaryLabel withTitle:_detailModel.defaultChannel.channelFactoryDescription font:[UIFont systemFontOfSize:13.f]];
-    factorySummaryLabel.numberOfLines=3;
+    originY += rows * (btnHeight + hSpace)-10;
+//    UILabel *introducelable = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace, originY+20, leftLabelWidth, btnHeight)];
+//    [self setLabel:introducelable withTitle:@"通道介绍" font:[UIFont systemFontOfSize:17.f]];
+//    //厂家图片
+//    originY += vSpace + 1;
+//    UIImageView *factoryImageView = [[UIImageView alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10, originY+20, 60, labelHeight)];
+//    
+//    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath] placeholderImage:[UIImage imageNamed:@"test1" ]];
+//    
+////    [factoryImageView sd_setImageWithURL:[NSURL URLWithString:_detailModel.factoryImagePath]];
+//    [_mainScrollView addSubview:factoryImageView];
+//   [factoryImageView setContentMode:UIViewContentModeScaleAspectFit];
+//    
+//    //厂家网址
+//    UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+introducelable.frame.size.width+10+80, originY+20, wide - leftLabelWidth - leftSpace-140, labelHeight)];
+//    [self setLabel:websiteLabel withTitle:_detailModel.defaultChannel.channelFactoryURL font:[UIFont systemFontOfSize:13.f]];
+//    websiteLabel.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *websiteTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jumpForWebsite:)];
+//    [websiteLabel addGestureRecognizer:websiteTap];
+//    //厂家简介
+//    originY += vSpace + labelHeight+30;
+//    CGFloat summaryHeight = [self heightWithString:_detailModel.factorySummary
+//                                             width:wide - leftSpace - rightSpace
+//                                          fontSize:13.f];
+//    UILabel *factorySummaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftSpace+80, originY-15, leftSpace - 140, 60)];
+//    [self setLabel:factorySummaryLabel withTitle:_detailModel.defaultChannel.channelFactoryDescription font:[UIFont systemFontOfSize:13.f]];
+//    factorySummaryLabel.numberOfLines=3;
 
     
-    originY += labelHeight + 30.f;
+    originY += labelHeight + 10.f;
 
     
     //购买方式
