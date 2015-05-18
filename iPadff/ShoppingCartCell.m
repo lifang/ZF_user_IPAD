@@ -167,7 +167,7 @@
         
     }
 
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(155, 10, 180, 30)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(155, 10,wide/2-155-60, 30)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = [UIFont systemFontOfSize:16.f];
     [self.contentView addSubview:_titleLabel];

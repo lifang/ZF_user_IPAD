@@ -430,8 +430,12 @@ static NSString *s_repairPay_method = @"cs/repair/repairPay";
 //订单信息
 static NSString *s_orderConfirm_method = @"order/payOrder";
 
+//商品图片
+static NSString *s_goodImage_method = @"good/getGoodImgUrl";
 @interface NetworkInterface : NSObject
 
++ (void)getGoodImageWithGoodID:(NSString *)goodID
+                      finished:(requestDidFinished)finish;
 /*!
  @abstract 1.热卖
 
