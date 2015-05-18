@@ -140,6 +140,9 @@ typedef enum {
     AddressOther,      //非默认地址
 }AddressType;
 
+static NSString *s_modifyEmailValidate_method = @"index/updateEmail";
+
+static NSString *s_modifyMobileValidate_method = @"index/getPhoneCode";
 //注册
 static NSString *s_register_method = @"user/userRegistration";
 
@@ -1432,5 +1435,12 @@ static NSString *s_goodImage_method = @"good/getGoodImgUrl";
 + (void)repairConfirmWithRepairID:(NSString *)repairID
                          finished:(requestDidFinished)finish;
 
+
++ (void)getModifyEmailValidateWithUserID:(NSString *)userID
+                                   email:(NSString *)email
+                                finished:(requestDidFinished)finish;
+
++ (void)getModifyMobileValidateWithPhoneNumber:(NSString *)phoneNumber
+                                      finished:(requestDidFinished)finish;
 
 @end

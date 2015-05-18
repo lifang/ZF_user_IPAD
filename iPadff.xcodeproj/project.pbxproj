@@ -271,8 +271,6 @@
 		1A4258731AB018E100F470C9 /* ApplyPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4258721AB018E100F470C9 /* ApplyPlanViewController.m */; };
 		1A56B9491ACBD27A005B56B1 /* tt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A56B9481ACBD27A005B56B1 /* tt@2x.png */; };
 		1A5E10451AB7EB6C0082DA13 /* IntegralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10441AB7EB6C0082DA13 /* IntegralCell.m */; };
-		1A5E10491AB8015C0082DA13 /* ChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10481AB8015C0082DA13 /* ChangePhoneController.m */; };
-		1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E104B1AB801720082DA13 /* ChangeEmailController.m */; };
 		1A5E104F1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */; };
 		1A5E10521AB821BD0082DA13 /* ChangeEmialSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */; };
 		1A627DA71ABA5DD60024A644 /* FindPasswordSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A627DA61ABA5DD60024A644 /* FindPasswordSuccessController.m */; };
@@ -346,6 +344,10 @@
 		1AC6A2CE1AC3A83500685FC9 /* CustomSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */; };
 		1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */; };
 		1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F94A1AA5CB3E00C99F5C /* MessageChildViewController.m */; };
+		1AC827D71B09AF8500556FB5 /* ChangeNewEmilController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827D61B09AF8500556FB5 /* ChangeNewEmilController.m */; };
+		1AC827DD1B09D87F00556FB5 /* AddMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827DC1B09D87F00556FB5 /* AddMessageController.m */; };
+		1AC827E21B09D8B100556FB5 /* ChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */; };
+		1AC827E31B09D8B100556FB5 /* ChangeEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */; };
 		1ADA04141AB28B600074A58B /* CustomerServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA04131AB28B600074A58B /* CustomerServiceModel.m */; };
 		1ADA041D1AB2C8120074A58B /* SafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA041C1AB2C8120074A58B /* SafeViewController.m */; };
 		1ADA04201AB2CB700074A58B /* BaseInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA041F1AB2CB700074A58B /* BaseInformationViewController.m */; };
@@ -868,10 +870,6 @@
 		1A56B9481ACBD27A005B56B1 /* tt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tt@2x.png"; sourceTree = "<group>"; };
 		1A5E10431AB7EB6C0082DA13 /* IntegralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralCell.h; sourceTree = "<group>"; };
 		1A5E10441AB7EB6C0082DA13 /* IntegralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralCell.m; sourceTree = "<group>"; };
-		1A5E10471AB8015C0082DA13 /* ChangePhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneController.h; sourceTree = "<group>"; };
-		1A5E10481AB8015C0082DA13 /* ChangePhoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneController.m; sourceTree = "<group>"; };
-		1A5E104A1AB801720082DA13 /* ChangeEmailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailController.h; sourceTree = "<group>"; };
-		1A5E104B1AB801720082DA13 /* ChangeEmailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailController.m; sourceTree = "<group>"; };
 		1A5E104D1AB819CD0082DA13 /* ChangePhoneSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneSuccessViewController.h; sourceTree = "<group>"; };
 		1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneSuccessViewController.m; sourceTree = "<group>"; };
 		1A5E10501AB821BD0082DA13 /* ChangeEmialSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmialSuccessViewController.h; sourceTree = "<group>"; };
@@ -1017,6 +1015,14 @@
 		1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewCell.m; sourceTree = "<group>"; };
 		1AC7F9491AA5CB3E00C99F5C /* MessageChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageChildViewController.h; sourceTree = "<group>"; };
 		1AC7F94A1AA5CB3E00C99F5C /* MessageChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageChildViewController.m; sourceTree = "<group>"; };
+		1AC827D51B09AF8500556FB5 /* ChangeNewEmilController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeNewEmilController.h; sourceTree = "<group>"; };
+		1AC827D61B09AF8500556FB5 /* ChangeNewEmilController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeNewEmilController.m; sourceTree = "<group>"; };
+		1AC827DB1B09D87F00556FB5 /* AddMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMessageController.h; sourceTree = "<group>"; };
+		1AC827DC1B09D87F00556FB5 /* AddMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMessageController.m; sourceTree = "<group>"; };
+		1AC827DE1B09D8B100556FB5 /* ChangePhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneController.h; sourceTree = "<group>"; };
+		1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneController.m; sourceTree = "<group>"; };
+		1AC827E01B09D8B100556FB5 /* ChangeEmailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailController.h; sourceTree = "<group>"; };
+		1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailController.m; sourceTree = "<group>"; };
 		1ADA04121AB28B600074A58B /* CustomerServiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceModel.h; sourceTree = "<group>"; };
 		1ADA04131AB28B600074A58B /* CustomerServiceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceModel.m; sourceTree = "<group>"; };
 		1ADA041B1AB2C8120074A58B /* SafeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeViewController.h; sourceTree = "<group>"; };
@@ -2168,6 +2174,12 @@
 		1A8E7C741AB17DFC00C021CE /* Mymessage */ = {
 			isa = PBXGroup;
 			children = (
+				1AC827DE1B09D8B100556FB5 /* ChangePhoneController.h */,
+				1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */,
+				1AC827E01B09D8B100556FB5 /* ChangeEmailController.h */,
+				1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */,
+				1AC827DB1B09D87F00556FB5 /* AddMessageController.h */,
+				1AC827DC1B09D87F00556FB5 /* AddMessageController.m */,
 				0ED5FD3A1AB910A90057385C /* MyMessageViewController.h */,
 				0ED5FD3B1AB910A90057385C /* MyMessageViewController.m */,
 				1ADA041B1AB2C8120074A58B /* SafeViewController.h */,
@@ -2178,14 +2190,12 @@
 				1ADA04221AB2CE6C0074A58B /* AddressViewController.m */,
 				1ADA04241AB2CEAE0074A58B /* IntegralViewController.h */,
 				1ADA04251AB2CEAE0074A58B /* IntegralViewController.m */,
-				1A5E10471AB8015C0082DA13 /* ChangePhoneController.h */,
-				1A5E10481AB8015C0082DA13 /* ChangePhoneController.m */,
-				1A5E104A1AB801720082DA13 /* ChangeEmailController.h */,
-				1A5E104B1AB801720082DA13 /* ChangeEmailController.m */,
 				1A5E104D1AB819CD0082DA13 /* ChangePhoneSuccessViewController.h */,
 				1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */,
 				1A5E10501AB821BD0082DA13 /* ChangeEmialSuccessViewController.h */,
 				1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */,
+				1AC827D51B09AF8500556FB5 /* ChangeNewEmilController.h */,
+				1AC827D61B09AF8500556FB5 /* ChangeNewEmilController.m */,
 			);
 			name = Mymessage;
 			sourceTree = "<group>";
@@ -2528,8 +2538,10 @@
 				1AA8FF751AA4074D009D41B3 /* SDWebImagePrefetcher.m in Sources */,
 				1A627DA71ABA5DD60024A644 /* FindPasswordSuccessController.m in Sources */,
 				0D1694001AD3B8C900B50A17 /* POSAddressTableViewCell.m in Sources */,
+				1AC827DD1B09D87F00556FB5 /* AddMessageController.m in Sources */,
 				1A94EB7E1AA96CA10056E921 /* TradeModel.m in Sources */,
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
+				1AC827E21B09D8B100556FB5 /* ChangePhoneController.m in Sources */,
 				0D3887201AB96F8E000DF1D6 /* MASCompositeConstraint.m in Sources */,
 				0ED3691E1AE88D2D00663627 /* base64.m in Sources */,
 				1A8E7C771AB17EBC00C021CE /* SwitchView.m in Sources */,
@@ -2618,7 +2630,6 @@
 				0EC99C961AAFE59300D20386 /* ShoppingCartOrderController.m in Sources */,
 				0ECB49391ABFC1FB0064A9FD /* RentOrderViewController.m in Sources */,
 				1A94EB6C1AA943530056E921 /* TransferCell.m in Sources */,
-				1A5E104C1AB801720082DA13 /* ChangeEmailController.m in Sources */,
 				0ED8EBE51AA6D7E000CE9F61 /* UIScrollView+MJExtension.m in Sources */,
 				1AA8FF761AA4074D009D41B3 /* UIButton+WebCache.m in Sources */,
 				0D3887261AB96F8E000DF1D6 /* NSArray+MASAdditions.m in Sources */,
@@ -2663,6 +2674,7 @@
 				1A8E7C661AB1632400C021CE /* CancelCell.m in Sources */,
 				0ED604281ACCD290009A0220 /* MerchantDetailModel.m in Sources */,
 				1ADD1EDA1AB6C92E0014E528 /* UpdateDetailController.m in Sources */,
+				1AC827E31B09D8B100556FB5 /* ChangeEmailController.m in Sources */,
 				0E0002281AC6483A00003E60 /* PollingViews.m in Sources */,
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				0E0002221AC6422700003E60 /* ChannelModel.m in Sources */,
@@ -2674,6 +2686,7 @@
 				0E5FAEA11AC53F1300BEBE5F /* FactoryDetailController.m in Sources */,
 				0E153F151B048442000DE72F /* UIBarButtonItem+Badge.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
+				1AC827D71B09AF8500556FB5 /* ChangeNewEmilController.m in Sources */,
 				0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */,
 				0ED369231AE88D2D00663627 /* openssl_wrapper.m in Sources */,
 				0ECE7DA11AA5584F00E250B6 /* SearchHistoryHelper.m in Sources */,
@@ -2695,7 +2708,6 @@
 				0E00022B1AC6690F00003E60 /* ApplyOpenModel.m in Sources */,
 				0ED8EBE11AA6D7E000CE9F61 /* MJRefreshBaseView.m in Sources */,
 				0ED8EBE31AA6D7E000CE9F61 /* MJRefreshFooterView.m in Sources */,
-				1A5E10491AB8015C0082DA13 /* ChangePhoneController.m in Sources */,
 				1AA8FF741AA4074D009D41B3 /* SDWebImageManager.m in Sources */,
 				0EC7B9E11AC3935000080E2A /* NetworkRequest.m in Sources */,
 				0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */,
