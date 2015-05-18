@@ -17,6 +17,7 @@
 #import "AccountTool.h"
 #import "RegularFormat.h"
 #import "ZYHomeViewController.h"
+#import "AddMessageController.h"
 
 @interface BaseInformationViewController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,ChangePhoneSuccessDelegate,ChangeEmailSuccessDelegate,LoginSuccessDelegate,UIAlertViewDelegate,UIGestureRecognizerDelegate>
 
@@ -46,7 +47,7 @@
 
 @property(nonatomic,strong)UIButton *makeSureEmailBtn;
 @property(nonatomic,strong)NSString *authCode;
-
+@property(nonatomic,assign)BOOL isAdd;
 
 @end
 
@@ -210,88 +211,20 @@
     _phoneField.text = _userInfo.phoneNumber;
     _emailField.text = _userInfo.email;
     if (_userInfo.email == nil || [_userInfo.email isEqualToString:@""]) {
-        CALayer *readBtnLayer2 = [_emailField layer];
-        [readBtnLayer2 setMasksToBounds:YES];
-        [readBtnLayer2 setCornerRadius:2.0];
-        [readBtnLayer2 setBorderWidth:1.0];
-        [readBtnLayer2 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
         _emailField.placeholder = @"请添加邮箱";
-        _changeEmailBtn.hidden = YES;
-        _emailField.userInteractionEnabled = YES;
+        [_changeEmailBtn setTitle:@"去添加" forState:UIControlStateNormal];
+        _isAdd = YES;
         
-        UIButton *makeSureEmailBtn = [[UIButton alloc]init];
-        makeSureEmailBtn.translatesAutoresizingMaskIntoConstraints = NO;
-        [makeSureEmailBtn setTitle:@"去验证" forState:UIControlStateNormal];
-        [makeSureEmailBtn setTitleColor:kColor(251, 93, 46, 1.0) forState:UIControlStateNormal];
-        [makeSureEmailBtn addTarget:self action:@selector(makeSureClicked) forControlEvents:UIControlEventTouchUpInside];
-        self.makeSureEmailBtn = makeSureEmailBtn;
-        [self.view addSubview:makeSureEmailBtn];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
-                                                              attribute:NSLayoutAttributeTop
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:_phoneField
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0
-                                                               constant:20.f]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
-                                                              attribute:NSLayoutAttributeLeft
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.view
-                                                              attribute:NSLayoutAttributeLeft
-                                                             multiplier:1.0
-                                                               constant:590.f]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
-                                                              attribute:NSLayoutAttributeWidth
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:nil
-                                                              attribute:NSLayoutAttributeNotAnAttribute
-                                                             multiplier:1.0
-                                                               constant:100.f]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureEmailBtn
-                                                              attribute:NSLayoutAttributeHeight
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:nil
-                                                              attribute:NSLayoutAttributeNotAnAttribute
-                                                             multiplier:1.0
-                                                               constant:40.f]];
     }
     if (_userInfo.phoneNumber == nil || [_userInfo.phoneNumber isEqualToString:@""]) {
         _phoneField.placeholder = @"请添加手机";
-        _phoneField.userInteractionEnabled = YES;
-        CALayer *readBtnLayer1 = [_phoneField layer];
-        [readBtnLayer1 setMasksToBounds:YES];
-        [readBtnLayer1 setCornerRadius:2.0];
-        [readBtnLayer1 setBorderWidth:1.0];
-        [readBtnLayer1 setBorderColor:[kColor(163, 163, 163, 1.0) CGColor]];
-        _changePhoneBtn.hidden = YES;
+        _isAdd = YES;
+        [_changePhoneBtn setTitle:@"去添加" forState:UIControlStateNormal];
     }
     _locatonField.text = [CityHandle getCityNameWithCityID: _userInfo.cityID];
     [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_userInfo.cityID] inComponent:0 animated:NO];
     [_pickerView reloadAllComponents];
     [_pickerView selectRow:[CityHandle getCityIndexWithCityID:_userInfo.cityID] inComponent:1 animated:NO];
-}
-
-//点击了去验证邮箱
--(void)makeSureClicked
-{
-    if (!_emailField.text || [_emailField.text isEqualToString:@""]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"邮箱不能为空";
-        return;
-    }
-    if (![RegularFormat isCorrectEmail:_emailField.text]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"邮箱格式不正确";
-        return;
-    }
-    [self addEmail];
-   
 }
 
 
@@ -422,7 +355,7 @@
     [changePasswordBtn setTitle:@"修改" forState:UIControlStateNormal];
     [changePasswordBtn setTitleColor:kColor(251, 93, 46, 1.0) forState:UIControlStateNormal];
     changePasswordBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    [changePasswordBtn addTarget:self action:@selector(changePassWord) forControlEvents:UIControlEventTouchUpInside];
+    [changePasswordBtn addTarget:self action:@selector(changePhone) forControlEvents:UIControlEventTouchUpInside];
     self.changePhoneBtn = changePasswordBtn;
     [self.view addSubview:changePasswordBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:changePasswordBtn
@@ -445,7 +378,7 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:btnWidth/6]];
+                                                           constant:btnWidth/5]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:changePasswordBtn
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -525,7 +458,7 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:btnWidth/6]];
+                                                           constant:btnWidth/5]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:changeEmailBtn
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
@@ -838,103 +771,41 @@
     [self pickerScrollIn];
 }
 
-//修改手机
--(void)changePassWord
-{
-    ChangePhoneController *changePhoneVC = [[ChangePhoneController alloc]init];
-    changePhoneVC.ChangePhoneSuccessDelegate = self;
-    changePhoneVC.oldPhoneNum = _phoneField.text;
-    changePhoneVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:changePhoneVC animated:YES];
-}
-
 -(void)ChangePhoneNumSuccessWithNewPhoneNum:(NSString *)newPhoneNum
 {
     _phoneField.text = newPhoneNum;
 }
-//添加邮箱
--(void)addEmail
+
+//修改手机
+-(void)changePhone
 {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"提交中...";
-    [NetworkInterface sendEmailChangeWithName:_nameField.text email:_emailField.text finished:^(BOOL success, NSData *response) {
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:0.5f];
-        if (success) {
-            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
-            if ([object isKindOfClass:[NSDictionary class]]) {
-                NSString *errorCode = [object objectForKey:@"code"];
-                
-                if ([errorCode intValue] == RequestFail) {
-                    //返回错误代码
-                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
-                }
-                else if ([errorCode intValue] == RequestSuccess) {
-                    ChangeEmailController *changgeEmailVC = [[ChangeEmailController alloc]init];
-                    changgeEmailVC.oldEmail = _emailField.text;
-                    changgeEmailVC.isAdd = NO;
-                    changgeEmailVC.authCode = [object objectForKey:@"result"];
-                    [self.navigationController pushViewController:changgeEmailVC animated:YES];
-                }
-            }
-            else {
-                //返回错误数据
-                hud.labelText = kServiceReturnWrong;
-            }
-        }
-        else {
-            hud.labelText = kNetworkFailed;
-        }
-    }];
+    if (_isAdd) {
+        AddMessageController *addVC = [[AddMessageController alloc]init];
+        addVC.hidesBottomBarWhenPushed = YES;
+        addVC.isPhone = YES;
+        [self.navigationController pushViewController:addVC animated:NO];
+    }else{
+        ChangePhoneController *changePhoneVC = [[ChangePhoneController alloc]init];
+        changePhoneVC.hidesBottomBarWhenPushed = YES;
+        changePhoneVC.oldPhoneNum = _phoneField.text;
+        [self.navigationController pushViewController:changePhoneVC animated:NO];
+    }
+
 }
 //修改邮箱
 -(void)changeEmail
 {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"提交中...";
-    [NetworkInterface sendEmailChangeWithName:_nameField.text email:_emailField.text finished:^(BOOL success, NSData *response) {
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:0.5f];
-        if (success) {
-            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
-            if ([object isKindOfClass:[NSDictionary class]]) {
-                NSString *errorCode = [object objectForKey:@"code"];
-                
-                if ([errorCode intValue] == RequestFail) {
-                    //返回错误代码
-                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
-                }
-                else if ([errorCode intValue] == RequestSuccess) {
-                    [self changeAlready:object];
-                }
-            }
-            else {
-                //返回错误数据
-                hud.labelText = kServiceReturnWrong;
-            }
-        }
-        else {
-            hud.labelText = kNetworkFailed;
-        }
-    }];
-}
-
--(void)changeAlready:(NSDictionary *)dict
-{
-    if (![dict objectForKey:@"result"]) {
-        return;
+    if (_isAdd) {
+        AddMessageController *addVC = [[AddMessageController alloc]init];
+        addVC.hidesBottomBarWhenPushed = YES;
+        addVC.isEmial = YES;
+        [self.navigationController pushViewController:addVC animated:NO];
+    }else{
+        ChangeEmailController *changeEmailVC = [[ChangeEmailController alloc]init];
+        changeEmailVC.oldEmail = _emailField.text;
+        changeEmailVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:changeEmailVC animated:NO];
     }
-    ChangeEmailController *changeEmailVC =[[ChangeEmailController alloc]init];
-    changeEmailVC.authCode = [dict objectForKey:@"result"];
-    changeEmailVC.isAdd = YES;
-    changeEmailVC.ChangeEmailSuccessDelegate = self;
-    changeEmailVC.oldEmail = _emailField.text;
-    changeEmailVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:changeEmailVC animated:YES];
 
 }
 

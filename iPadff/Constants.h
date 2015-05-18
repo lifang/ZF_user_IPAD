@@ -18,6 +18,8 @@
 
 #define kLineHeight   1.0f
 
+#define kMainColor kColor(254, 79, 29, 1.0)
+
 #define kPageSize 10   //分页加载每页行数
 #define NavTitle_FONTSIZE  36
 #define kServiceURL @"http://121.40.84.2:8080/ZFMerchant/api"
