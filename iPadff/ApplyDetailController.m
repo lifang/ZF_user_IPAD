@@ -13,7 +13,7 @@
 #import "CityHandle.h"
 #import "ChannelSelectedController.h"
 #import "BankSelectedController.h"
-
+#import "MerchantDetailModel.h"
 #define kTextViewTag   111
 
 @interface ApplyInfoCell : UITableViewCell
@@ -214,10 +214,12 @@
     {
         MerchantModel *model = [_applyData.merchantList objectAtIndex:indexPath.row];
         
-        [_infoDict setObject:model.merchantName forKey:key_selected];
+//        [_infoDict setObject:model.merchantName forKey:key_selected];
+        [self getMerchantDetailWithMerchant:model];
+        isopen=!isopen;
+
         
-        
-        [self beginApply];
+//        [self beginApply];
         
     }
     
@@ -587,7 +589,7 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             
             zhifubutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 6+20,280, 40);
   
-            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
+            NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:@"key_channel"]];
             if([self isBlankString:accountname])
             {
                 [zhifubutton setTitle:@"" forState:UIControlStateNormal];
@@ -625,7 +627,10 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             }
           
             neworiginaltextfield.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            
+           
             [_scrollView addSubview:neworiginaltextfield];
+            
             //        neworiginaltextfield.delegate=self;
             
             CALayer *layer=[neworiginaltextfield layer];
@@ -649,7 +654,11 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
                 newaddress.text=@"例：上海好乐迪KTV";
             }
             
-            
+            if(i==8)
+            {
+                neworiginaltextfield.userInteractionEnabled=NO;
+                
+            }
         }
         
         
@@ -1239,6 +1248,74 @@ _applyType = OpenApplyPrivate;
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 }
+#pragma mark - Request
+
+- (void)getMerchantDetailWithMerchant:(MerchantModel *)model {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface selectedMerchantWithToken:delegate.token merchantID:model.merchantID finished:^(BOOL success, NSData *response) {
+        NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    [self parseMerchantDetaiDataWithDictionary:object
+                                           withSelectedMerchat:model];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+#pragma mark - Data
+
+- (void)parseMerchantDetaiDataWithDictionary:(NSDictionary *)dict
+                         withSelectedMerchat:(MerchantModel *)selected {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    NSDictionary *infoDict = [dict objectForKey:@"result"];
+    MerchantDetailModel *model = [[MerchantDetailModel alloc] initWithParseDictionary:infoDict];
+    if (model.merchantPersonName && ![model.merchantPersonName isEqualToString:@""]) {
+        [_infoDict setObject:model.merchantPersonName forKey:key_selected];
+        [_infoDict setObject:model.merchantPersonName forKey:key_name];
+    }
+    if (model.merchantName && ![model.merchantName isEqualToString:@""]) {
+        [_infoDict setObject:model.merchantName forKey:key_merchantName];
+        [_infoDict setObject:model.merchantName forKey:key_bank];
+    }
+    if (model.merchantPersonID && ![model.merchantPersonID isEqualToString:@""]) {
+        [_infoDict setObject:model.merchantPersonID forKey:key_cardID];
+    }
+    if (model.merchantCityID && ![model.merchantCityID isEqualToString:@""]) {
+        [_infoDict setObject:model.merchantCityID forKey:key_location];
+    }
+    if (model.merchantTaxID && ![model.merchantTaxID isEqualToString:@""]) {
+        [_infoDict setObject:model.merchantTaxID forKey:key_taxID];
+    }
+    if (model.merchantOrganizationID && ![model.merchantOrganizationID isEqualToString:@""]) {
+        [_infoDict setObject:model.merchantOrganizationID forKey:key_organID];
+    }
+    [_tableView reloadData];
+
+}
 
 #pragma mark - Request
 //银行信息
@@ -1420,7 +1497,8 @@ _applyType = OpenApplyPrivate;
     
     [_infoDict setObject:[NSNumber numberWithInt:_applyData.sex] forKey:key_sex];
     _merchantID = _applyData.merchantID;
-    
+    _bankTitleName = _applyData.bankTitleName;
+
     /*之前上传过对公对私资料 保存*/
     for (ApplyInfoModel *model in _applyData.applyList) {
         if (model.value && ![model.value isEqualToString:@""]) {
@@ -2162,6 +2240,12 @@ _applyType = OpenApplyPrivate;
         
         
         [_infoDict setObject:textField.text forKey:[keynamesarry objectAtIndex:textField.tag-1056]];
+        if ([[keynamesarry objectAtIndex:textField.tag-1056] isEqualToString:key_merchantName])
+        {
+            [_infoDict setObject:textField.text forKey:key_bank];
+            [_tableView reloadData];
+        }
+
     }
     
 }
