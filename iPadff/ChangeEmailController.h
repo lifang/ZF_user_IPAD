@@ -16,15 +16,9 @@
 
 @interface ChangeEmailController : UIViewController
 
-@property(nonatomic,assign)BOOL isAdd;
-
-@property(nonatomic,strong)UILabel *newsEmail;
-
-@property(nonatomic,strong)UITextField *newsEmailField;
-
 @property(nonatomic,strong)NSString *oldEmail;
 
-@property(nonatomic,strong)NSString *authCode;
+@property(nonatomic,strong)NSString *oldAuthCode;
 
 @property(nonatomic,weak)id ChangeEmailSuccessDelegate;
 @end
