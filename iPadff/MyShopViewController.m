@@ -212,7 +212,9 @@
         
     }
     
-    
+    UIView *v = [[UIView alloc]init];
+    v.frame = CGRectMake(0,0, 1, 1);
+    _tableView.tableFooterView = v;
     
     //_tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.backgroundColor = [UIColor whiteColor];

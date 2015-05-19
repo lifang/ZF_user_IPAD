@@ -383,6 +383,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     [_contentView addSubview:_startFindBtn];
     
     _startStatisticsBtn = [[UIButton alloc]init];
+    _startStatisticsBtn.hidden = YES;
     _startStatisticsBtn.userInteractionEnabled = NO;
     [_startStatisticsBtn addTarget:self action:@selector(startStatistics) forControlEvents:UIControlEventTouchUpInside];
     [_startStatisticsBtn setTitle:@"开始统计" forState:UIControlStateNormal];
