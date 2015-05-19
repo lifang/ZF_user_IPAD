@@ -35,7 +35,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    self.isFirst = NO;
     self.tabBarViewController.AG=78;
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
@@ -62,7 +62,6 @@
     //释放
 
 //    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-
     //创建一个自定义的TabBar
     self.tabBarViewController = [[ZYCustomTabBarViewController alloc] init];
     //给TabBar的视图数组赋值

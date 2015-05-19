@@ -122,6 +122,12 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     if (!_isPush) {
         //创建头部View
         [self setupHeaderView];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        if (!delegate.isFirst) {
+            UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"" message:@"PAD端交易流水查询仅供单台终端查询，完整查询功能请登陆PC端合作伙伴平台" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+            [alertV show];
+        }
+        delegate.isFirst = YES;
     }
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
@@ -146,8 +152,16 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"" message:@"PAD端交易流水查询仅供单台终端查询，完整查询功能请登陆PC端合作伙伴平台" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-    [alertV show];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+    if (!delegate.isFirst) {
+        UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"" message:@"PAD端交易流水查询仅供单台终端查询，完整查询功能请登陆PC端合作伙伴平台" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        [alertV show];
+    }
+    delegate.isFirst = YES;
+    }
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //初始化数据
     self.buttonIndex = 1;

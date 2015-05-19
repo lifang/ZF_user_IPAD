@@ -24,5 +24,7 @@
 
 //登录后返回
 -(void)clearLoginInfo;
+
+@property(nonatomic,assign)BOOL isFirst;
 @end
 
