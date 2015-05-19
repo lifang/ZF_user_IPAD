@@ -45,6 +45,8 @@ typedef enum {
     UIView*datepickview;
     UIButton *cancelBtn;
     BOOL isopen;
+    BOOL isopens;
+
     NSArray*namesarry;
     NSInteger lastlength;
     UIButton *submitBtn ;

@@ -82,6 +82,7 @@
 @property(nonatomic,strong)UITableView *terminalTableView;
 @property (nonatomic, strong) NSString *bankTitleName; //银行名
 @property (nonatomic, strong) NSString *bankTitleName2; //银行名
+@property (nonatomic, strong) NSString *shanghuname; //银行名
 
 @property (nonatomic, strong) NSString *merchantID;
 @property (nonatomic, strong) NSString *bankID;  //银行代码
@@ -151,23 +152,25 @@
     if(sexint==102)
     {
         self.terminalTableView.frame = CGRectMake(_cityField.frame.origin.x, _cityField.frame.origin.y+_cityField.frame.size.height, 280, 80);
+        NSLog(@"%f%f",_cityField.frame.origin.x,_cityField.frame.origin.y );
         
     }
+    
     else
     {
         
-        isopen=!isopen;
-        if(isopen)
-        {
-            self.terminalTableView.hidden=NO;
-            
-        }
-        else
-        {
-            self.terminalTableView.hidden=YES;
-
-        }
-        
+//        isopen=!isopen;
+//        if(isopen)
+//        {
+//            self.terminalTableView.hidden=NO;
+//            
+//        }
+//        else
+//        {
+//            self.terminalTableView.hidden=YES;
+//
+//        }
+//        
         
         NSInteger numberrow;
         numberrow=_applyData.merchantList.count;
@@ -184,7 +187,6 @@
         
         
     }
-    
     
     [_scrollView addSubview:_terminalTableView];
     if (_applyData.merchantList.count != 0) {
@@ -220,7 +222,9 @@
         
 //        [_infoDict setObject:model.merchantName forKey:key_selected];
         [self getMerchantDetailWithMerchant:model];
-        isopen=!isopen;
+        _shanghuname=model.merchantName;
+        
+//        isopen=!isopen;
 
         
 //        [self beginApply];
@@ -332,9 +336,13 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
     accountnamebutton= [UIButton buttonWithType:UIButtonTypeCustom];
     accountnamebutton.frame = CGRectMake(150+wide/2,  topSpace + labelHeight * 2,280, 40);
     
-    NSString*accountname=[_infoDict objectForKey:key_selected];
+//    NSString*accountname=[_infoDict objectForKey:key_selected];
+    if(_shanghuname)
+    {
+        [accountnamebutton setTitle:_shanghuname forState:UIControlStateNormal];
+
     
-    [accountnamebutton setTitle:accountname forState:UIControlStateNormal];
+    }
     [accountnamebutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     accountnamebutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [accountnamebutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
@@ -1069,8 +1077,14 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
     
     [self setupTerminalTableView];
-    
-    
+    isopens=!isopens;
+
+    if(!isopens)
+    {
+        [_terminalTableView removeFromSuperview];
+        
+    }
+
     
 }
 
@@ -1078,8 +1092,14 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 {
     sexint=103;
     
-    
+     isopen=!isopen;
+
     [self setupTerminalTableView];
+    if(!isopen)
+    {
+        [_terminalTableView removeFromSuperview];
+
+    }
     
     
     
