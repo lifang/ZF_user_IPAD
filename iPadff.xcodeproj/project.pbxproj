@@ -324,6 +324,9 @@
 		1A94FA281AC15D18006D8FF7 /* AccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A94FA271AC15D18006D8FF7 /* AccountModel.m */; };
 		1A9A1B831AAFD22C00A9AA04 /* MerchantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A1B821AAFD22C00A9AA04 /* MerchantModel.m */; };
 		1A9A1BF91AAFEAE100A9AA04 /* ChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A1BF81AAFEAE100A9AA04 /* ChooseView.m */; };
+		1AA1573A1B0B0653004E591B /* ChangePhoneNextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA157391B0B0653004E591B /* ChangePhoneNextController.m */; };
+		1AA1573E1B0B11CF004E591B /* ChangeEmailNextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1573D1B0B11CF004E591B /* ChangeEmailNextController.m */; };
+		1AA1573F1B0B1312004E591B /* ChangeEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */; };
 		1AA8FF6E1AA4074D009D41B3 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF521AA4074D009D41B3 /* NSData+ImageContentType.m */; };
 		1AA8FF6F1AA4074D009D41B3 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF541AA4074D009D41B3 /* SDImageCache.m */; };
 		1AA8FF701AA4074D009D41B3 /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF561AA4074D009D41B3 /* SDWebImageCompat.m */; };
@@ -344,10 +347,8 @@
 		1AC6A2CE1AC3A83500685FC9 /* CustomSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */; };
 		1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */; };
 		1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F94A1AA5CB3E00C99F5C /* MessageChildViewController.m */; };
-		1AC827D71B09AF8500556FB5 /* ChangeNewEmilController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827D61B09AF8500556FB5 /* ChangeNewEmilController.m */; };
 		1AC827DD1B09D87F00556FB5 /* AddMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827DC1B09D87F00556FB5 /* AddMessageController.m */; };
 		1AC827E21B09D8B100556FB5 /* ChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */; };
-		1AC827E31B09D8B100556FB5 /* ChangeEmailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */; };
 		1ADA04141AB28B600074A58B /* CustomerServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA04131AB28B600074A58B /* CustomerServiceModel.m */; };
 		1ADA041D1AB2C8120074A58B /* SafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA041C1AB2C8120074A58B /* SafeViewController.m */; };
 		1ADA04201AB2CB700074A58B /* BaseInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA041F1AB2CB700074A58B /* BaseInformationViewController.m */; };
@@ -975,6 +976,10 @@
 		1A9A1B821AAFD22C00A9AA04 /* MerchantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantModel.m; sourceTree = "<group>"; };
 		1A9A1BF71AAFEAE100A9AA04 /* ChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseView.h; sourceTree = "<group>"; };
 		1A9A1BF81AAFEAE100A9AA04 /* ChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseView.m; sourceTree = "<group>"; };
+		1AA157381B0B0653004E591B /* ChangePhoneNextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneNextController.h; sourceTree = "<group>"; };
+		1AA157391B0B0653004E591B /* ChangePhoneNextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneNextController.m; sourceTree = "<group>"; };
+		1AA1573C1B0B11CF004E591B /* ChangeEmailNextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailNextController.h; sourceTree = "<group>"; };
+		1AA1573D1B0B11CF004E591B /* ChangeEmailNextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailNextController.m; sourceTree = "<group>"; };
 		1AA8FF511AA4074D009D41B3 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		1AA8FF521AA4074D009D41B3 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
 		1AA8FF531AA4074D009D41B3 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -1015,8 +1020,6 @@
 		1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewCell.m; sourceTree = "<group>"; };
 		1AC7F9491AA5CB3E00C99F5C /* MessageChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageChildViewController.h; sourceTree = "<group>"; };
 		1AC7F94A1AA5CB3E00C99F5C /* MessageChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageChildViewController.m; sourceTree = "<group>"; };
-		1AC827D51B09AF8500556FB5 /* ChangeNewEmilController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeNewEmilController.h; sourceTree = "<group>"; };
-		1AC827D61B09AF8500556FB5 /* ChangeNewEmilController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeNewEmilController.m; sourceTree = "<group>"; };
 		1AC827DB1B09D87F00556FB5 /* AddMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMessageController.h; sourceTree = "<group>"; };
 		1AC827DC1B09D87F00556FB5 /* AddMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMessageController.m; sourceTree = "<group>"; };
 		1AC827DE1B09D8B100556FB5 /* ChangePhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneController.h; sourceTree = "<group>"; };
@@ -2174,12 +2177,7 @@
 		1A8E7C741AB17DFC00C021CE /* Mymessage */ = {
 			isa = PBXGroup;
 			children = (
-				1AC827DE1B09D8B100556FB5 /* ChangePhoneController.h */,
-				1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */,
-				1AC827E01B09D8B100556FB5 /* ChangeEmailController.h */,
-				1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */,
-				1AC827DB1B09D87F00556FB5 /* AddMessageController.h */,
-				1AC827DC1B09D87F00556FB5 /* AddMessageController.m */,
+				1AA1573B1B0B0D0A004E591B /* ChangeInFormation */,
 				0ED5FD3A1AB910A90057385C /* MyMessageViewController.h */,
 				0ED5FD3B1AB910A90057385C /* MyMessageViewController.m */,
 				1ADA041B1AB2C8120074A58B /* SafeViewController.h */,
@@ -2190,12 +2188,6 @@
 				1ADA04221AB2CE6C0074A58B /* AddressViewController.m */,
 				1ADA04241AB2CEAE0074A58B /* IntegralViewController.h */,
 				1ADA04251AB2CEAE0074A58B /* IntegralViewController.m */,
-				1A5E104D1AB819CD0082DA13 /* ChangePhoneSuccessViewController.h */,
-				1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */,
-				1A5E10501AB821BD0082DA13 /* ChangeEmialSuccessViewController.h */,
-				1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */,
-				1AC827D51B09AF8500556FB5 /* ChangeNewEmilController.h */,
-				1AC827D61B09AF8500556FB5 /* ChangeNewEmilController.m */,
 			);
 			name = Mymessage;
 			sourceTree = "<group>";
@@ -2239,6 +2231,27 @@
 				1A94FA1F1AC1327D006D8FF7 /* ContactusUsController.m */,
 			);
 			name = Contactus;
+			sourceTree = "<group>";
+		};
+		1AA1573B1B0B0D0A004E591B /* ChangeInFormation */ = {
+			isa = PBXGroup;
+			children = (
+				1AC827DE1B09D8B100556FB5 /* ChangePhoneController.h */,
+				1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */,
+				1AC827E01B09D8B100556FB5 /* ChangeEmailController.h */,
+				1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */,
+				1AC827DB1B09D87F00556FB5 /* AddMessageController.h */,
+				1AC827DC1B09D87F00556FB5 /* AddMessageController.m */,
+				1A5E104D1AB819CD0082DA13 /* ChangePhoneSuccessViewController.h */,
+				1A5E104E1AB819CD0082DA13 /* ChangePhoneSuccessViewController.m */,
+				1A5E10501AB821BD0082DA13 /* ChangeEmialSuccessViewController.h */,
+				1A5E10511AB821BD0082DA13 /* ChangeEmialSuccessViewController.m */,
+				1AA157381B0B0653004E591B /* ChangePhoneNextController.h */,
+				1AA157391B0B0653004E591B /* ChangePhoneNextController.m */,
+				1AA1573C1B0B11CF004E591B /* ChangeEmailNextController.h */,
+				1AA1573D1B0B11CF004E591B /* ChangeEmailNextController.m */,
+			);
+			name = ChangeInFormation;
 			sourceTree = "<group>";
 		};
 		1AA8FF501AA4074D009D41B3 /* SDWebImage */ = {
@@ -2543,9 +2556,11 @@
 				0ED8EBE71AA6D7E000CE9F61 /* UIView+MJExtension.m in Sources */,
 				1AC827E21B09D8B100556FB5 /* ChangePhoneController.m in Sources */,
 				0D3887201AB96F8E000DF1D6 /* MASCompositeConstraint.m in Sources */,
+				1AA1573F1B0B1312004E591B /* ChangeEmailController.m in Sources */,
 				0ED3691E1AE88D2D00663627 /* base64.m in Sources */,
 				1A8E7C771AB17EBC00C021CE /* SwitchView.m in Sources */,
 				0ED369221AE88D2D00663627 /* NSDataEx.m in Sources */,
+				1AA1573E1B0B11CF004E591B /* ChangeEmailNextController.m in Sources */,
 				1A8E7C6F1AB1699600C021CE /* UpdateCell.m in Sources */,
 				1A4258671AB0163800F470C9 /* MyShopViewController.m in Sources */,
 				0ED8EBE21AA6D7E000CE9F61 /* MJRefreshConst.m in Sources */,
@@ -2674,7 +2689,6 @@
 				1A8E7C661AB1632400C021CE /* CancelCell.m in Sources */,
 				0ED604281ACCD290009A0220 /* MerchantDetailModel.m in Sources */,
 				1ADD1EDA1AB6C92E0014E528 /* UpdateDetailController.m in Sources */,
-				1AC827E31B09D8B100556FB5 /* ChangeEmailController.m in Sources */,
 				0E0002281AC6483A00003E60 /* PollingViews.m in Sources */,
 				1A6FC3231AA6A66900F4C6AC /* LocationViewController.m in Sources */,
 				0E0002221AC6422700003E60 /* ChannelModel.m in Sources */,
@@ -2686,7 +2700,6 @@
 				0E5FAEA11AC53F1300BEBE5F /* FactoryDetailController.m in Sources */,
 				0E153F151B048442000DE72F /* UIBarButtonItem+Badge.m in Sources */,
 				1AA8FF721AA4074D009D41B3 /* SDWebImageDownloader.m in Sources */,
-				1AC827D71B09AF8500556FB5 /* ChangeNewEmilController.m in Sources */,
 				0ECA6D201ABBC8CC005316B1 /* GoodDetialModel.m in Sources */,
 				0ED369231AE88D2D00663627 /* openssl_wrapper.m in Sources */,
 				0ECE7DA11AA5584F00E250B6 /* SearchHistoryHelper.m in Sources */,
@@ -2708,6 +2721,7 @@
 				0E00022B1AC6690F00003E60 /* ApplyOpenModel.m in Sources */,
 				0ED8EBE11AA6D7E000CE9F61 /* MJRefreshBaseView.m in Sources */,
 				0ED8EBE31AA6D7E000CE9F61 /* MJRefreshFooterView.m in Sources */,
+				1AA1573A1B0B0653004E591B /* ChangePhoneNextController.m in Sources */,
 				1AA8FF741AA4074D009D41B3 /* SDWebImageManager.m in Sources */,
 				0EC7B9E11AC3935000080E2A /* NetworkRequest.m in Sources */,
 				0EC7B9E21AC3935000080E2A /* EncryptHelper.m in Sources */,

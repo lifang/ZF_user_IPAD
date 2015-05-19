@@ -10,6 +10,7 @@
 #import "ChangePhoneSuccessViewController.h"
 #import "NetworkInterface.h"
 #import "RegularFormat.h"
+#import "ChangePhoneNextController.h"
 
 @interface ChangePhoneController ()<UITextFieldDelegate>
 
@@ -37,7 +38,7 @@
     
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    [self sendOldMobileValidate];
+    [self sendMobileValidate];
     [self initAndLayoutUI];
     
 //    [self getAuthCodeClicked];
@@ -57,21 +58,22 @@
     CGFloat mainHeight = 40.f;
     
     UILabel *oldPhoneLabel = [[UILabel alloc]init];
+    oldPhoneLabel.hidden = YES;
     oldPhoneLabel.text = @"原 手 机 号";
     [self setLabel:oldPhoneLabel withTopView:self.view middleSpace:120.f labelTag:1];
     
     UILabel *authCodeLabel = [[UILabel alloc]init];
+    authCodeLabel.hidden = YES;
     authCodeLabel.text = @"原 验 证 码";
     [self setLabel:authCodeLabel withTopView:oldPhoneLabel middleSpace:30.f labelTag:2];
     
     UILabel *newPhoneLabel = [[UILabel alloc]init];
-    newPhoneLabel.text = @"新 手 机 号";
-    [self setLabel:newPhoneLabel withTopView:authCodeLabel middleSpace:30.f labelTag:2];
+    newPhoneLabel.text = @"原 手 机 号";
+    [self setLabel:newPhoneLabel withTopView:self.view middleSpace:120.f labelTag:1];
     
     UILabel *newCodeLabel = [[UILabel alloc]init];
-    newCodeLabel.text = @"新 验 证 码";
+    newCodeLabel.text = @"原 验 证 码";
     [self setLabel:newCodeLabel withTopView:newPhoneLabel middleSpace:30.f labelTag:2];
-    
     
     _oldPhoneField = [[UITextField alloc]init];
     _oldPhoneField.userInteractionEnabled = NO;
@@ -118,6 +120,7 @@
 
     
     _authCodeField = [[UITextField alloc]init];
+    _authCodeField.hidden = YES;
     _authCodeField.translatesAutoresizingMaskIntoConstraints = NO;
     _authCodeField.borderStyle = UITextBorderStyleLine;
     _authCodeField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -164,6 +167,7 @@
                                                            constant:mainHeight]];
     
     _newsPhoneField = [[UITextField alloc]init];
+    _newsPhoneField.hidden = YES;
     _newsPhoneField.translatesAutoresizingMaskIntoConstraints = NO;
     _newsPhoneField.borderStyle = UITextBorderStyleLine;
     _newsPhoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -183,10 +187,10 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_newsPhoneField
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:_authCodeField
-                                                          attribute:NSLayoutAttributeBottom
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:20.f]];
+                                                           constant:115.f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_newsPhoneField
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
@@ -211,6 +215,7 @@
 
     
     UIButton *makeSureBtn = [[UIButton alloc]init];
+    makeSureBtn.hidden = YES;
     [makeSureBtn addTarget:self action:@selector(makeSureClieked) forControlEvents:UIControlEventTouchUpInside];
     makeSureBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [makeSureBtn setBackgroundColor:kMainColor];
@@ -251,23 +256,23 @@
     _getAuthCode.translatesAutoresizingMaskIntoConstraints = NO;
     _getAuthCode.titleLabel.textAlignment = NSTextAlignmentLeft;
     [_getAuthCode setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [_getAuthCode setTitleColor:kMainColor forState:UIControlStateNormal];
-    [_getAuthCode setBackgroundColor:[UIColor clearColor]];
+    [_getAuthCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_getAuthCode setBackgroundColor:kMainColor];
     [self.view addSubview:_getAuthCode];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_getAuthCode
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:_authCodeField
-                                                          attribute:NSLayoutAttributeBottom
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:20.f]];
+                                                           constant:115.f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_getAuthCode
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:_newsPhoneField
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
-                                                           constant:- 10.f]];
+                                                           constant:10.f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_getAuthCode
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual
@@ -287,7 +292,7 @@
     _newsAuthCodeField.translatesAutoresizingMaskIntoConstraints = NO;
     _newsAuthCodeField.borderStyle = UITextBorderStyleLine;
     _newsAuthCodeField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _newsAuthCodeField.placeholder = @"请输入新验证码";
+    _newsAuthCodeField.placeholder = @"请输入原验证码";
     [_newsAuthCodeField setValue:[UIFont systemFontOfSize:20] forKeyPath:@"_placeholderLabel.font"];
     _newsAuthCodeField.delegate = self;
     _newsAuthCodeField.leftViewMode = UITextFieldViewModeAlways;
@@ -329,6 +334,7 @@
                                                          multiplier:1.0
                                                            constant:mainHeight]];
     UIButton *makeSureNewBtn = [[UIButton alloc]init];
+    makeSureNewBtn.hidden = YES;
     [makeSureNewBtn addTarget:self action:@selector(makeSureNewClieked) forControlEvents:UIControlEventTouchUpInside];
     makeSureNewBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [makeSureNewBtn setBackgroundColor:kMainColor];
@@ -402,7 +408,7 @@
     [submitBtn addTarget:self action:@selector(submitClicked) forControlEvents:UIControlEventTouchUpInside];
     submitBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [submitBtn setBackgroundColor:kMainColor];
-    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:submitBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn
@@ -411,7 +417,7 @@
                                                              toItem:lineV
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
-                                                           constant:70.f]];
+                                                           constant:50.f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:submitBtn
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
@@ -491,29 +497,10 @@
 
 -(void)getAuthCodeClicked
 {
-    if (!_newsPhoneField.text || [_newsPhoneField.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"新手机号不能为空!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    if (![RegularFormat isMobileNumber:_newsPhoneField.text]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"手机号格式不正确!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
     [self sendMobileValidate];
 }
 
 - (void)resetStatus {
-    self.isNewAuth = NO;
     [self countDownStart];
 }
 
@@ -601,27 +588,19 @@
 
 -(void)submitClicked
 {
-    if (!_newsPhoneField.text || [_newsPhoneField.text isEqualToString:@""]) {
+    [_newsAuthCodeField resignFirstResponder];
+    if (!_newsAuthCodeField.text || [_newsAuthCodeField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"新手机号不能为空!"
+                                                        message:@"验证码不能为空!"
                                                        delegate:nil
                                               cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
         [alert show];
         return;
     }
-    if (![RegularFormat isMobileNumber:_newsPhoneField.text]) {
+    if (![_newsAuthCodeField.text isEqualToString:_authCode]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"手机号格式不正确!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    if (_isOldAuth == NO || _isNewAuth == NO) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"请先验证验证码!"
+                                                        message:@"验证码错误!"
                                                        delegate:nil
                                               cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
@@ -636,38 +615,42 @@
 #pragma mark - Request
 -(void)saveDate
 {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"提交中...";
-    AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:_newsPhoneField.text email:nil cityID:nil finished:^(BOOL success, NSData *response) {
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:0.5f];
-        if (success) {
-            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-            if ([object isKindOfClass:[NSDictionary class]]) {
-                NSString *errorCode = [object objectForKey:@"code"];
-                if ([errorCode intValue] == RequestFail) {
-                    //返回错误代码
-                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
-                }
-                else if ([errorCode intValue] == RequestSuccess) {
-                [self.ChangePhoneSuccessDelegate ChangePhoneNumSuccessWithNewPhoneNum:_newsPhoneField.text];
-                //点击了提交
-                ChangePhoneSuccessViewController *changeSuccessVC = [[ChangePhoneSuccessViewController alloc]init];
-                changeSuccessVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:changeSuccessVC animated:YES];
-                }
-            }
-            else {
-                //返回错误数据
-                hud.labelText = kServiceReturnWrong;
-            }
-        }
-        else {
-            hud.labelText = kNetworkFailed;
-        }
-    }];
+    ChangePhoneNextController *changeNext = [[ChangePhoneNextController alloc]init];
+    changeNext.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:changeNext animated:YES];
+    
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    hud.labelText = @"提交中...";
+//    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+//    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:_newsPhoneField.text email:nil cityID:nil finished:^(BOOL success, NSData *response) {
+//        hud.customView = [[UIImageView alloc] init];
+//        hud.mode = MBProgressHUDModeCustomView;
+//        [hud hide:YES afterDelay:0.5f];
+//        if (success) {
+//            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+//            if ([object isKindOfClass:[NSDictionary class]]) {
+//                NSString *errorCode = [object objectForKey:@"code"];
+//                if ([errorCode intValue] == RequestFail) {
+//                    //返回错误代码
+//                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+//                }
+//                else if ([errorCode intValue] == RequestSuccess) {
+//                [self.ChangePhoneSuccessDelegate ChangePhoneNumSuccessWithNewPhoneNum:_newsPhoneField.text];
+//                //点击了提交
+//                ChangePhoneSuccessViewController *changeSuccessVC = [[ChangePhoneSuccessViewController alloc]init];
+//                changeSuccessVC.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:changeSuccessVC animated:YES];
+//                }
+//            }
+//            else {
+//                //返回错误数据
+//                hud.labelText = kServiceReturnWrong;
+//            }
+//        }
+//        else {
+//            hud.labelText = kNetworkFailed;
+//        }
+//    }];
     
 }
 
@@ -694,8 +677,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 _getAuthCode.userInteractionEnabled = NO;
                 NSString *title = [NSString stringWithFormat:@"%d秒后重新获取",timeout];
-                [_getAuthCode setBackgroundImage:nil forState:UIControlStateNormal];
-                [_getAuthCode setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+                [_getAuthCode setBackgroundColor:[UIColor lightGrayColor]];
+                [_getAuthCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [_getAuthCode setTitle:title forState:UIControlStateNormal];
                 
             });
@@ -744,7 +727,7 @@
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在发送...";
-    [NetworkInterface getModifyMobileValidateWithPhoneNumber:_newsPhoneField.text finished:^(BOOL success, NSData *response) {
+    [NetworkInterface getModifyMobileValidateWithPhoneNumber:_oldPhoneField.text finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -756,8 +739,7 @@
                     [hud setHidden:YES];
                     NSString *authcode = [object objectForKey:@"result"];
                     self.authCode = authcode;
-
-                        [self resetStatus];
+                    [self resetStatus];
                 }
                 else {
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
