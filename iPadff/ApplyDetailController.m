@@ -14,6 +14,8 @@
 #import "ChannelSelectedController.h"
 #import "BankSelectedController.h"
 #import "MerchantDetailModel.h"
+#import "RegularFormat.h"
+
 #define kTextViewTag   111
 
 @interface ApplyInfoCell : UITableViewCell
@@ -2045,7 +2047,16 @@ _applyType = OpenApplyPrivate;
 
 - (IBAction)submitApply:(id)sender {
     [_tempField becomeFirstResponder];
+    
     [_tempField resignFirstResponder];
+    if (_applyData.openType == OpenTypeNone) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"未获取到终端开通类型";
+        return;
+    }
     if (![_infoDict objectForKey:key_name]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -2086,6 +2097,14 @@ _applyType = OpenApplyPrivate;
         hud.labelText = @"请填写身份证号";
         return;
     }
+    if (![RegularFormat isCorrectIdentificationCard:[_infoDict objectForKey:key_cardID]]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的身份证号";
+        return;
+    }
     if (![_infoDict objectForKey:key_phone]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -2094,12 +2113,29 @@ _applyType = OpenApplyPrivate;
         hud.labelText = @"请填写电话";
         return;
     }
+    if (!([RegularFormat isMobileNumber:[_infoDict objectForKey:key_phone]] ||
+          [RegularFormat isTelephoneNumber:[_infoDict objectForKey:key_phone]])) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的电话";
+        return;
+    }
     if (![_infoDict objectForKey:key_email]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:1.f];
         hud.labelText = @"请填写邮箱";
+        return;
+    }
+    if (![RegularFormat isCorrectEmail:[_infoDict objectForKey:key_email]]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:1.f];
+        hud.labelText = @"请填写正确的邮箱";
         return;
     }
     if (![_infoDict objectForKey:key_location]) {
@@ -2115,7 +2151,7 @@ _applyType = OpenApplyPrivate;
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写结算银行名称";
+        hud.labelText = @"请填写结算银行账户名";
         return;
     }
     if (![_infoDict objectForKey:key_bankID]) {
@@ -2123,32 +2159,34 @@ _applyType = OpenApplyPrivate;
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写结算银行代码";
+        hud.labelText = @"请填写结算银行卡号";
         return;
     }
-    if (![_infoDict objectForKey:key_bankAccount]) {
+    if (![_infoDict objectForKey:key_bankAccount] || !_bankTitleName) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写结算银行账户";
+        hud.labelText = @"请填写结算银行名称";
         return;
     }
-    if (![_infoDict objectForKey:key_taxID]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写税务登记证号";
-        return;
-    }
-    if (![_infoDict objectForKey:key_organID]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.customView = [[UIImageView alloc] init];
-        hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:1.f];
-        hud.labelText = @"请填写组织机构号";
-        return;
+    if (_applyType == OpenTypePublic) {
+        if (![_infoDict objectForKey:key_taxID]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.customView = [[UIImageView alloc] init];
+            hud.mode = MBProgressHUDModeCustomView;
+            [hud hide:YES afterDelay:1.f];
+            hud.labelText = @"请填写税务登记证号";
+            return;
+        }
+        if (![_infoDict objectForKey:key_organID]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.customView = [[UIImageView alloc] init];
+            hud.mode = MBProgressHUDModeCustomView;
+            [hud hide:YES afterDelay:1.f];
+            hud.labelText = @"请填写组织机构号";
+            return;
+        }
     }
     if (!_channelID || !_billID) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -2185,7 +2223,11 @@ _applyType = OpenApplyPrivate;
     [params setObject:[NSNumber numberWithInt:_openStatus] forKey:@"status"];
     [params setObject:[NSNumber numberWithInt:[delegate.userID intValue]] forKey:@"applyCustomerId"];
     [params setObject:[NSNumber numberWithInt:_applyType] forKey:@"publicPrivateStatus"];
-    [params setObject:[NSNumber numberWithInt:[_merchantID intValue]] forKey:@"merchantId"];
+    
+    
+    if (_merchantID) {
+        [params setObject:[NSNumber numberWithInt:[_merchantID intValue]] forKey:@"merchantId"];
+    }
     [params setObject:[_infoDict objectForKey:key_merchantName] forKey:@"merchantName"];
     [params setObject:[_infoDict objectForKey:key_sex] forKey:@"sex"];
     [params setObject:[_infoDict objectForKey:key_birth] forKey:@"birthday"];
@@ -2196,12 +2238,18 @@ _applyType = OpenApplyPrivate;
     [params setObject:[NSNumber numberWithInt:[[_infoDict objectForKey:key_location] intValue]] forKey:@"cityId"];
     [params setObject:[NSNumber numberWithInt:[_channelID intValue]] forKey:@"channel"];
     [params setObject:[NSNumber numberWithInt:[_billID intValue]] forKey:@"billingId"];
-    [params setObject:[_infoDict objectForKey:key_bankAccount] forKey:@"bankNum"];
-    [params setObject:[_infoDict objectForKey:key_bank] forKey:@"bankName"];
-    [params setObject:[_infoDict objectForKey:key_bankID] forKey:@"bankCode"];
     
-    [params setObject:[_infoDict objectForKey:key_organID] forKey:@"organizationNo"];
-    [params setObject:[_infoDict objectForKey:key_taxID] forKey:@"registeredNo"];
+    [params setObject:[_infoDict objectForKey:key_bankID] forKey:@"bankNum"];
+    [params setObject:[_infoDict objectForKey:key_bank] forKey:@"bankName"];
+    [params setObject:[_infoDict objectForKey:key_bankAccount] forKey:@"bankCode"];
+    if (_bankTitleName) {
+        [params setObject:_bankTitleName forKey:@"bank_name"];
+    }
+    if (_applyType == OpenApplyPublic) {
+        [params setObject:[_infoDict objectForKey:key_organID] forKey:@"organizationNo"];
+        [params setObject:[_infoDict objectForKey:key_taxID] forKey:@"registeredNo"];
+    }
+
     
     [paramList addObject:params];
     for (MaterialModel *model in _applyData.materialList) {
