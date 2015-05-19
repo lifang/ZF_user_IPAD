@@ -343,7 +343,7 @@
     
     [yinlianbutton addTarget:self action:@selector(yinlianclick) forControlEvents:UIControlEventTouchUpInside];
     yinlianbutton.backgroundColor = [UIColor clearColor];
-    [yinlianbutton setBackgroundImage:[UIImage imageNamed:@"yinlian"] forState:UIControlStateNormal];
+//    [yinlianbutton setBackgroundImage:[UIImage imageNamed:@"yinlian"] forState:UIControlStateNormal];
     yinlianbutton.frame = CGRectMake(0,0,400,122);
     yinlianbutton.center=CGPointMake(wide/4*3, hearderHeight +60+100);
     

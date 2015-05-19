@@ -184,6 +184,8 @@
         
         
     }
+    
+    
     [_scrollView addSubview:_terminalTableView];
     if (_applyData.merchantList.count != 0) {
         [_terminalTableView reloadData];
@@ -540,8 +542,8 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             {
 
     
-                [blankseclectbutton setTitle:_bankTitleName forState:UIControlStateNormal];
 
+                [blankseclectbutton setTitle:[NSString stringWithFormat:@"%@        ",_bankTitleName] forState:UIControlStateNormal];
 
      
             }
