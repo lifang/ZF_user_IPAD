@@ -22,5 +22,8 @@
 + (BOOL)isNumber:(NSString *)string;
 //整形
 + (BOOL)isInt:(NSString*)string;
++ (int)stringLength:(NSString *)string;
+
++ (BOOL)isCorrectIdentificationCard:(NSString *)string;
 
 @end
