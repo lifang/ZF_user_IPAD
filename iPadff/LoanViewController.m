@@ -19,7 +19,8 @@
     // Do any additional setup after loading the view.
     self.title=@"我要理财";
     self.view.backgroundColor=[UIColor whiteColor];
-  [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     CGFloat wide;
     CGFloat height;
     if(iOS7)
@@ -34,13 +35,16 @@
         
     }
     UIImageView*bigimageview=[[UIImageView alloc]initWithFrame:CGRectMake(wide/2-20, 240, 24, 32)];
+    
+    bigimageview.image=[UIImage imageNamed:@"images"];
+    
     [self.view addSubview:bigimageview];
-    UILabel*lab=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-60, 200, 120, 40)];
+    UILabel*lab=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-60, 140, 120, 40)];
     lab.text=@"敬请期待";
     lab.font=[UIFont systemFontOfSize:26];
     
     [self.view addSubview:lab];
-    UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-50, 260, 100, 20)];
+    UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-70, 200, 160, 20)];
     lab1.text=@"马不停蹄的开发中...";
     lab1.font=[UIFont systemFontOfSize:14];
     [self.view addSubview:lab1];

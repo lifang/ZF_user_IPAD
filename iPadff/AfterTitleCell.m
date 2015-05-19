@@ -63,7 +63,7 @@
     if ([_reuseIdentifierID isEqualToString:@"cell1"]) {
         switch (_lable.tag) {
             case 1234:
-                _lable.text = @"维修单号";
+                _lable.text = @"维修编号";
                 break;
             case 1235:
                 _lable.text = @"终端号";
@@ -83,7 +83,7 @@
     if ([_reuseIdentifierID isEqualToString:@"cell2"]) {
         switch (_lable.tag) {
             case 1234:
-                _lable.text = @"注销单号";
+                _lable.text = @"注销编号";
                 break;
             case 1235:
                 _lable.text = @"终端号";
@@ -103,7 +103,7 @@
     if ([_reuseIdentifierID isEqualToString:@"cell3"]) {
         switch (_lable.tag) {
             case 1234:
-                _lable.text = @"退货单号";
+                _lable.text = @"退货编号";
                 break;
             case 1235:
                 _lable.text = @"终端号";
@@ -124,7 +124,7 @@
     if ([_reuseIdentifierID isEqualToString:@"cell4"]) {
         switch (_lable.tag) {
             case 1234:
-                _lable.text = @"换货单号";
+                _lable.text = @"换货编号";
                 break;
             case 1235:
                 _lable.text = @"终端号";
@@ -145,7 +145,7 @@
     if ([_reuseIdentifierID isEqualToString:@"cell5"]) {
         switch (_lable.tag) {
             case 1234:
-                _lable.text = @"更新资料单号";
+                _lable.text = @"更新资料编号";
                 break;
             case 1235:
                 _lable.text = @"终端号";
@@ -166,7 +166,7 @@
     if ([_reuseIdentifierID isEqualToString:@"cell6"]) {
         switch (_lable.tag) {
             case 1234:
-                _lable.text = @"租凭退还单号";
+                _lable.text = @"租凭退还编号";
                 break;
             case 1235:
                 _lable.text = @"终端号";

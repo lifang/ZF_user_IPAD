@@ -840,6 +840,7 @@
 
 -(void)get
 {
+    NSLog(@"~~~~~%@",_merchantDetail.merchantPersonName);
     _merchantTV.text = _merchantDetail.merchantName;
     _personTV.text = _merchantDetail.merchantPersonName;
     _person_IDTV.text = _merchantDetail.merchantPersonID;
