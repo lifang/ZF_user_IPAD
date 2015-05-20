@@ -93,16 +93,19 @@
     self.title = @"消息详情";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    
-    UIButton *rightBtn = [[UIButton alloc]init];
-    [rightBtn addTarget:self action:@selector(rightClicked:) forControlEvents:UIControlEventTouchUpInside];
-    rightBtn.frame = CGRectMake(0, 0, 50, 50);
-    [rightBtn setImage:[UIImage imageNamed:@"laji"] forState:UIControlStateNormal];
-    UIBarButtonItem *kongBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    kongBar.width = 30.f;
-    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    NSArray *rightArr = [NSArray arrayWithObjects:kongBar,rightBar, nil];
-    self.navigationItem.rightBarButtonItems = rightArr;
+    if (_isFromPush) {
+        
+    }else{
+        UIButton *rightBtn = [[UIButton alloc]init];
+        [rightBtn addTarget:self action:@selector(rightClicked:) forControlEvents:UIControlEventTouchUpInside];
+        rightBtn.frame = CGRectMake(0, 0, 50, 50);
+        [rightBtn setImage:[UIImage imageNamed:@"laji"] forState:UIControlStateNormal];
+        UIBarButtonItem *kongBar = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        kongBar.width = 30.f;
+        UIBarButtonItem *rightBar = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+        NSArray *rightArr = [NSArray arrayWithObjects:kongBar,rightBar, nil];
+        self.navigationItem.rightBarButtonItems = rightArr;
+    }
 }
 -(void)rightClicked:(id)sender
 {
@@ -169,8 +172,12 @@
 - (void)getMessageDetail {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"加载中...";
+    NSString *messageID = _message.messageID;
+    if (_isFromPush) {
+        messageID = _messageID;
+    }
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface getMyMessageDetailWithToken:delegate.token userID:delegate.userID messageID:_message.messageID finished:^(BOOL success, NSData *response) {
+    [NetworkInterface getMyMessageDetailWithToken:delegate.token userID:delegate.userID messageID:messageID finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
