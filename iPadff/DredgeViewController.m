@@ -431,7 +431,7 @@
     
     //用来标识数据的id
     cell.applicationBtn.tag = indexPath.row;
-    cell.vedioConfirmBtn.tag = [model.TM_ID intValue];
+    cell.vedioConfirmBtn.tag = indexPath.row;
     if(  [model.TM_status  isEqualToString:@"2"])
     {
         [cell.applicationBtn setTitle:@"重新申请开通" forState:UIControlStateNormal];
@@ -453,8 +453,8 @@
 
 -(void)vedioConfirmClick:(UIButton *)button
 {
-    
-    if (button.tag == 3) {
+    TerminalManagerModel *model = [_applyList objectAtIndex:button.tag];
+    if ([model.appID isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                         message:@"请先申请开通！"
                                                        delegate:self
@@ -466,7 +466,7 @@
     [self beginVideoAuthWithTerminalID:[NSString stringWithFormat:@"%d",button.tag]];
 
     VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
-    videoAuthC.terminalID =[NSString stringWithFormat:@"%d",button.tag];
+    videoAuthC.terminalID = model.TM_ID;
     videoAuthC.hidesBottomBarWhenPushed=YES;
     
     [self.navigationController pushViewController:videoAuthC animated:YES];}

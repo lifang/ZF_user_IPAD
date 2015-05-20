@@ -17,7 +17,7 @@
 #define kDeviceVersion [[[UIDevice currentDevice] systemVersion] floatValue]
 
 #define kLineHeight   1.0f
-
+#define kAppChannel  6
 #define kMainColor kColor(254, 79, 29, 1.0)
 
 #define kPageSize 10   //分页加载每页行数

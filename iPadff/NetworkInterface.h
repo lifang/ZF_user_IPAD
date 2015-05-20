@@ -435,6 +435,9 @@ static NSString *s_orderConfirm_method = @"order/payOrder";
 
 //商品图片
 static NSString *s_goodImage_method = @"good/getGoodImgUrl";
+
+//推送
+static NSString *s_push_method = @"customers/sendDeviceCode";
 @interface NetworkInterface : NSObject
 
 + (void)beginVideoAuthWithTerminalID:(NSString *)terminalID
@@ -1444,5 +1447,9 @@ static NSString *s_goodImage_method = @"good/getGoodImgUrl";
 
 + (void)getModifyMobileValidateWithPhoneNumber:(NSString *)phoneNumber
                                       finished:(requestDidFinished)finish;
+
++ (void)uploadPushInfoWithUserID:(NSString *)userID
+                     channelInfo:(NSString *)channelInfo
+                        finished:(requestDidFinished)finish;
 
 @end

@@ -60,7 +60,8 @@
     // Do any additional setup after loading the view.
     self.title = _merchant.merchantLegal;
      self.view.backgroundColor = [UIColor whiteColor];
-    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     /*
     UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     //modifyBtn.frame = CGRectMake(0, 0, 20, 44);

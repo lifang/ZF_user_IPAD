@@ -501,24 +501,24 @@
 
 -(void)getAuthCodeClicked
 {
-    if (!_newsPhoneField.text || [_newsPhoneField.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"新邮箱号不能为空!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    if (![RegularFormat isCorrectEmail:_newsPhoneField.text]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                        message:@"邮箱格式不正确!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
+//    if (!_newsPhoneField.text || [_newsPhoneField.text isEqualToString:@""]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+//                                                        message:@"新邮箱号不能为空!"
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"确定"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//        return;
+//    }
+//    if (![RegularFormat isCorrectEmail:_newsPhoneField.text]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+//                                                        message:@"邮箱格式不正确!"
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"确定"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//        return;
+//    }
     [self sendMobileValidate];
 }
 
@@ -752,7 +752,7 @@
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在发送...";
-    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_oldPhoneField.text finished:^(BOOL success, NSData *response) {
+    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_oldEmail finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
