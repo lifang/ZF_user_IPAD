@@ -439,8 +439,12 @@ static NSString *s_goodImage_method = @"good/getGoodImgUrl";
 //获取app版本
 static NSString *s_appVersion_method = @"index/getVersion";
 
+//推送
+static NSString *s_push_method = @"customers/sendDeviceCode";
 @interface NetworkInterface : NSObject
 
++ (void)beginVideoAuthWithTerminalID:(NSString *)terminalID
+                            finished:(requestDidFinished)finish;
 + (void)getGoodImageWithGoodID:(NSString *)goodID
                       finished:(requestDidFinished)finish;
 /*!
@@ -1449,5 +1453,8 @@ static NSString *s_appVersion_method = @"index/getVersion";
 
 +(void)getappVersionWithTypes:(NSString*)types finished:(requestDidFinished)finish;
 
++ (void)uploadPushInfoWithUserID:(NSString *)userID
+                     channelInfo:(NSString *)channelInfo
+                        finished:(requestDidFinished)finish;
 
 @end

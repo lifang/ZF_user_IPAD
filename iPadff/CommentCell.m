@@ -14,6 +14,8 @@
       reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier]) {
         _content = content;
+         newHeight = [self heightForComment:_content];
+
         [self initAndLayoutUI];
     }
     return self;
@@ -66,7 +68,6 @@
     _contentLabel.numberOfLines = 0;
     _contentLabel.font = [UIFont systemFontOfSize:14.f];
     [self.contentView addSubview:_contentLabel];
-     CGFloat newHeight = [self heightForComment:_content];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_contentLabel
                                                                  attribute:NSLayoutAttributeTop
                                                                  relatedBy:NSLayoutRelationEqual
@@ -238,9 +239,32 @@
                                         context:nil];
     return rect.size.height + 1 > 20.f ? rect.size.height + 1 : 20.f;
 }
-
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isEqualToString:@"(null)"]) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 - (void)setCommentData:(CommentModel *)model {
-    
+    if([self isBlankString:model.name])
+    {
+        model.name=@"";
+        
+    }
+    if([self isBlankString:model.createTime])
+    {
+        model.createTime=@"";
+        
+    }
     NSString *priceString = [NSString stringWithFormat:@"%@    %@",model.name,model.createTime];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:priceString];
     NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -256,6 +280,11 @@
     _nameLabel.attributedText = attrString;
     
     
+    if([self isBlankString:model.content])
+    {
+        model.content=@"";
+        
+    }
 
     _contentLabel.text = model.content;
     NSLog(@"%f",model.score);

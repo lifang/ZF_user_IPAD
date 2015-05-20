@@ -507,7 +507,9 @@
             if ([placemarks count] > 0) {
                 CLPlacemark *placemark = [placemarks lastObject];
                 NSString *cityName = placemark.locality;
+                NSLog(@"定位到得%@",cityName);
                 [self getCurrentCityInfoWithCityName:cityName];
+                [_locationManager stopUpdatingLocation];
             }
         }
     }];
@@ -516,25 +518,31 @@
 - (void)getCurrentCityInfoWithCityName:(NSString *)cityName {
     CityModel *currentCity = nil;
     for (CityModel *model in [CityHandle shareCityList]) {
-        if ([cityName rangeOfString:model.cityName].length != 0) {
+        if ([cityName rangeOfString:model.cityName].length != 0 || [model.cityName rangeOfString:cityName].length != 0) {
             currentCity = model;
             break;
         }
     }
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     if (currentCity) {
         _locationBtn.nameLabel.text = currentCity.cityName;
+        delegate.cityID = currentCity.cityID;
     }
     else {
         _locationBtn.nameLabel.text = @"定位失败";
+        delegate.cityID = kDefaultCityID;
     }
 }
 
 - (void)getSelectedLocation:(CityModel *)selectedCity {
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     if (selectedCity) {
         _locationBtn.nameLabel.text = selectedCity.cityName;
+        delegate.cityID = selectedCity.cityID;
     }
     else {
         _locationBtn.nameLabel.text = @"定位失败";
+        delegate.cityID = kDefaultCityID;
     }
 }
 

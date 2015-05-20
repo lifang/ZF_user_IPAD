@@ -214,7 +214,7 @@
 - (void)getCurrentCityInfoWithCityName:(NSString *)cityName {
     for (CityModel *model in [CityHandle shareCityList]) {
         NSLog(@"%@",model.cityName);
-        if ([cityName rangeOfString:model.cityName].length != 0) {
+        if ([cityName rangeOfString:model.cityName].length != 0 || [model.cityName rangeOfString:cityName].length != 0) {
             _currentCity = model;
             [self.delegate getSelectedLocation:model];
             break;
@@ -394,6 +394,7 @@
             if ([placemarks count] > 0) {
                 CLPlacemark *placemark = [placemarks lastObject];
                 NSString *cityName = placemark.locality;
+                NSLog(@"定位当前城市~%@",cityName);
                 [self getCurrentCityInfoWithCityName:cityName];
             }
         }

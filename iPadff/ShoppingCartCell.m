@@ -47,10 +47,12 @@
     
     //选中按钮
     _selectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _selectedButton.userInteractionEnabled=NO;
+    
     _selectedButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_selectedButton setImage :kImageName(@"select_normal") forState:UIControlStateNormal];
     [_selectedButton setImage:kImageName(@"select_height") forState:UIControlStateHighlighted];
-    [_selectedButton addTarget:self action:@selector(selectedOrder:) forControlEvents:UIControlEventTouchUpInside];
+//    [_selectedButton addTarget:self action:@selector(selectedOrder:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_selectedButton];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_selectedButton
                                                                  attribute:NSLayoutAttributeLeft
@@ -447,7 +449,8 @@
     self.channelLabel.text = [NSString stringWithFormat:@"支付通道   %@",cart.cartChannel];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",(cart.cartPrice + cart.channelCost) ];
     self.countLabel.text = [NSString stringWithFormat:@"X %d",cart.cartCount];
-    if (cart.isSelected) {
+    if (cart.isSelected)
+    {
         [_selectedButton setImage :kImageName(@"select_height") forState:UIControlStateNormal];
     }
     else {

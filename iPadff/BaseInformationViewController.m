@@ -47,7 +47,9 @@
 
 @property(nonatomic,strong)UIButton *makeSureEmailBtn;
 @property(nonatomic,strong)NSString *authCode;
-@property(nonatomic,assign)BOOL isAdd;
+@property(nonatomic,assign)BOOL isEmialAdd;
+@property(nonatomic,assign)BOOL isPhoneAdd;
+
 
 @end
 
@@ -213,12 +215,12 @@
     if (_userInfo.email == nil || [_userInfo.email isEqualToString:@""]) {
         _emailField.placeholder = @"请添加邮箱";
         [_changeEmailBtn setTitle:@"去添加" forState:UIControlStateNormal];
-        _isAdd = YES;
+        _isEmialAdd = YES;
         
     }
     if (_userInfo.phoneNumber == nil || [_userInfo.phoneNumber isEqualToString:@""]) {
         _phoneField.placeholder = @"请添加手机";
-        _isAdd = YES;
+        _isPhoneAdd = YES;
         [_changePhoneBtn setTitle:@"去添加" forState:UIControlStateNormal];
     }
     _locatonField.text = [CityHandle getCityNameWithCityID: _userInfo.cityID];
@@ -779,7 +781,7 @@
 //修改手机
 -(void)changePhone
 {
-    if (_isAdd) {
+    if (_isPhoneAdd) {
         AddMessageController *addVC = [[AddMessageController alloc]init];
         addVC.hidesBottomBarWhenPushed = YES;
         addVC.isPhone = YES;
@@ -795,7 +797,7 @@
 //修改邮箱
 -(void)changeEmail
 {
-    if (_isAdd) {
+    if (_isEmialAdd) {
         AddMessageController *addVC = [[AddMessageController alloc]init];
         addVC.hidesBottomBarWhenPushed = YES;
         addVC.isEmial = YES;

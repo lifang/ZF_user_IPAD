@@ -1251,23 +1251,42 @@ if(section==0)
           
            
             
-            if([model.isDefault isEqualToString:@"1"])
-                
+            if(self.ishaveaddress)
             {
-                cell.logoabel.text=@"默认";
-                cell.logoImageView.image=kImageName(@"select_height") ;
+                if([model.isDefault isEqualToString:@"1"])
+                {
+                    cell.logoabel.text=@"默认";
+                    cell.logoImageView.image=kImageName(@"select_height") ;
+                    
+                    
+                }
+                else
+                {
+                    cell.logoabel.text=@"";
+                    
+                    cell.logoImageView.image=kImageName(@"") ;
+                    
+                }
                 
-                        
                 
-            }
-            
-            else
-                
+            }else
             {
-                        cell.logoabel.text=@"";
-                        
-                        cell.logoImageView.image=kImageName(@"") ;
-                        
+                
+                if(indexPath.row==0)
+                {
+                    cell.logoabel.text=@"";
+                    cell.logoImageView.image=kImageName(@"select_height") ;
+                    
+                    
+                }
+                else
+                {
+                    cell.logoabel.text=@"";
+                    
+                    cell.logoImageView.image=kImageName(@"") ;
+                    
+                }
+                
                 
             }
 
@@ -1322,7 +1341,7 @@ if(section==0)
             deliveryLabel.backgroundColor = [UIColor clearColor];
 //            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
             deliveryLabel.adjustsFontSizeToFitWidth = YES;
-            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"123"];
+            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"0"];
             [cell.contentView addSubview:deliveryLabel];
             
             

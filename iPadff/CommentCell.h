@@ -13,6 +13,8 @@
 
 @interface CommentCell : UITableViewCell
 
+{CGFloat newHeight ;
+}
 @property (nonatomic, strong) UILabel *nameLabel;
 
 @property (nonatomic, strong) UILabel *contentLabel;

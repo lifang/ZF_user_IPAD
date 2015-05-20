@@ -37,6 +37,8 @@
 
 @property(nonatomic,strong)NSString *selectedCityID;
 @property(nonatomic,assign)BOOL isChange;
+
+@property(nonatomic,strong)UILabel *makeSureWrongLabel;
 @end
 
 @implementation RegisterViewController
@@ -139,6 +141,7 @@
     
     UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, mainBtnWidth, _phoneField.frame.size.height)];
     _makeSureBtn = makeSureBtn;
+    _makeSureBtn.hidden = YES;
     [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
     [makeSureBtn setBackgroundColor:mainColor];
     [makeSureBtn setTitle:@"检查" forState:UIControlStateNormal];
@@ -469,18 +472,18 @@
     [NetworkInterface getRegisterValidateCodeWithMobileNumber:_phoneField.text finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:0.3f];
+        [hud hide:YES afterDelay:0.6f];
         if (success) {
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
             if ([object isKindOfClass:[NSDictionary class]]) {
                 if ([[object objectForKey:@"code"] intValue] == RequestSuccess) {
-                    [hud setHidden:YES];
                     _validate = [object objectForKey:@"result"];
                     [self resetStatus];
                     NSLog(@"验证码为~~~~~~%@",_validate);
                 }
                 else {
-                    hud.labelText = [NSString stringWithFormat:@"错误代码:%@",[object objectForKey:@"code"]];
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
             }
             else {
@@ -492,6 +495,73 @@
         }
     }];
 
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == _authField) {
+        if ([_authField.text isEqualToString:_validate]) {
+            UIView *rightBigV = [[UIView alloc]init];
+            rightBigV.frame = CGRectMake(0, 0, 60, 40);
+            UIImageView *rightV = [[UIImageView alloc]init];
+            rightV.frame = CGRectMake(20, 8, 23, 23);
+            rightV.image = kImageName(@"check_right");
+            [rightBigV addSubview:rightV];
+            _authField.rightViewMode = UITextFieldViewModeAlways;
+            _authField.rightView = rightBigV;
+            _isChecked = YES;
+            [_makeSureWrongLabel removeFromSuperview];
+        }else
+        {
+            UIView *rightBigV = [[UIView alloc]init];
+            rightBigV.frame = CGRectMake(0, 0, 60, 40);
+            UIImageView *rightV = [[UIImageView alloc]init];
+            rightV.frame = CGRectMake(20, 8, 23, 23);
+            rightV.image = kImageName(@"check_wrong");
+            [rightBigV addSubview:rightV];
+            _authField.rightViewMode = UITextFieldViewModeAlways;
+            _authField.rightView = rightBigV;
+            _isChecked = NO;
+            
+            _makeSureWrongLabel = [[UILabel alloc]init];
+            _makeSureWrongLabel.font = [UIFont systemFontOfSize:10];
+            _makeSureWrongLabel.textColor = kColor(230, 68, 67, 1.0);
+            _makeSureWrongLabel.text = @"验证码不正确，请重新填写";
+            _makeSureWrongLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.view addSubview:_makeSureWrongLabel];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeTop
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:_authField
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:2.f]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeLeft
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:_makeSureBtn
+                                                                  attribute:NSLayoutAttributeLeft
+                                                                 multiplier:1.0
+                                                                   constant:- 130.f]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1.0
+                                                                   constant:140.f]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1.0
+                                                                   constant:15.f]];
+            return;
+        }
+        
+        
+    }
 }
 
 -(void)makeSureClick:(UIButton *)sender
@@ -540,7 +610,7 @@
     if (_isMobile) {
         _sendButton.hidden = NO;
         _authLabel.hidden = NO;
-        _makeSureBtn.hidden = NO;
+//        _makeSureBtn.hidden = NO;
         _authField.hidden = NO;
     }
     else {
@@ -600,7 +670,7 @@
 
 //倒计时
 - (void)countDownStart {
-    __block int timeout = 60; //倒计时时间
+    __block int timeout = 1; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0 * NSEC_PER_SEC, 0); //每秒执行

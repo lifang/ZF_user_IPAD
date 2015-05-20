@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ZYCustomTabBarViewController.h"
+
+static NSString *s_messageTab = @"s_messageTab";
+#define kDefaultCityID  @"0"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) ZYCustomTabBarViewController *tabBarViewController;
 
@@ -26,5 +29,7 @@
 -(void)clearLoginInfo;
 
 @property(nonatomic,assign)BOOL isFirst;
+//消息数量
+@property (nonatomic, assign) int messageCount;
 @end
 

@@ -38,7 +38,9 @@
 
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *localVideoSurface;
 @property (nonatomic, strong) UIImageView *remoteVideoSurface;
-@property (nonatomic, strong) UIView *theLocalView;
+@property (nonatomic, strong) UIImageView *theLocalView;
+
+@property (nonatomic, strong) MBProgressHUD *tipView;
 
 @end
 
@@ -73,6 +75,11 @@
                                                object:nil];
     
     NSLog(@"terminalID = %@",_terminalID);
+    _tipView = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    _tipView.customView = [[UIImageView alloc] init];
+    _tipView.mode = MBProgressHUDModeCustomView;
+    [_tipView hide:YES afterDelay:10.f];
+    _tipView.labelText = @"正在呼叫客服中心，请耐心等待";
     [self userLoginIn];
 }
 
@@ -85,7 +92,7 @@
 
 - (void)back {
     [self FinishVideoChat];
-    //    [AnyChatPlatform Release];
+//    [AnyChatPlatform Release];
 }
 
 - (void)initUI {
@@ -126,37 +133,37 @@
     _theLocalView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_theLocalView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_theLocalView
-                                                          attribute:NSLayoutAttributeBottom
+                                                          attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
-                                                          attribute:NSLayoutAttributeBottom
+                                                          attribute:NSLayoutAttributeTop
                                                          multiplier:1.0
-                                                           constant:-10]];
+                                                           constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_theLocalView
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
-                                                           constant:-10]];
+                                                           constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_theLocalView
-                                                          attribute:NSLayoutAttributeWidth
+                                                          attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeWidth
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
-                                                           constant:100]];
+                                                           constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_theLocalView
-                                                          attribute:NSLayoutAttributeHeight
+                                                          attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeHeight
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
-                                                           constant:130]];
-    
+                                                           constant:0]];
+
 }
 
-#pragma mark -
+#pragma mark - 
 
 - (void)userLoginIn {
     [AnyChatPlatform SetSDKOptionInt:BRAC_SO_LOCALVIDEO_WIDTHCTRL :640];
@@ -183,7 +190,13 @@
 
 //连接服务器消息
 - (void)OnAnyChatConnect:(BOOL)bSuccess {
-    
+    if (bSuccess) {
+//        [_tipView hide:YES afterDelay:2.f];
+    }
+    else {
+        [_tipView hide:YES afterDelay:2.f];
+        _tipView.labelText = @"连接客服中心失败";
+    }
 }
 
 //用户登录
@@ -205,7 +218,8 @@
 - (void)OnAnyChatOnlineUser:(int)dwUserNum :(int)dwRoomId {
     NSArray *otherUsers = [AnyChatPlatform GetOnlineUser];
     NSLog(@"online = %@",otherUsers);
-    if ([otherUsers count] > 0) {
+    if (_remoteID < 0 && [otherUsers count] > 0) {
+        _tipView.hidden = YES;
         _remoteID = [[otherUsers firstObject] intValue];
         [self StartVideoChat:_remoteID];
     }
@@ -248,7 +262,7 @@
     if (cameraDeviceArray.count > 0)
     {
         [AnyChatPlatform SelectVideoCapture:[cameraDeviceArray objectAtIndex:0]];
-        
+    
     }
     
     // open local video
@@ -258,8 +272,8 @@
     [AnyChatPlatform UserCameraControl:-1 : YES];
     // request other user video
     [AnyChatPlatform UserSpeakControl:userid :YES];
-    //    [AnyChatPlatform SetVideoPos:userid :_remoteVideoSurface :0 :0 :0 :0];
-    //    [AnyChatPlatform UserCameraControl:userid : YES];
+//    [AnyChatPlatform SetVideoPos:userid :_remoteVideoSurface :0 :0 :0 :0];
+//    [AnyChatPlatform UserCameraControl:userid : YES];
     
     //远程视频显示时随设备的方向改变而旋转（参数为int型， 0表示关闭， 1 开启[默认]，视频旋转时需要参考本地视频设备方向参数）
     [AnyChatPlatform SetSDKOptionInt:BRAC_SO_LOCALVIDEO_ORIENTATION : self.interfaceOrientation];
@@ -290,7 +304,8 @@
 - (void) OnLocalVideoInit:(id)session
 {
     self.localVideoSurface = [AVCaptureVideoPreviewLayer layerWithSession: (AVCaptureSession*)session];
-    self.localVideoSurface.frame = CGRectMake(0, 0, kLocalVideo_Width, kLocalVideo_Height);
+//    self.localVideoSurface.frame = CGRectMake(0, 0, kLocalVideo_Width, kLocalVideo_Height);
+    self.localVideoSurface.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64);
     self.localVideoSurface.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
     [self.theLocalView.layer addSublayer:self.localVideoSurface];
