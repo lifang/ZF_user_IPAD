@@ -27,7 +27,7 @@ ZYSlideDirection;
  */
 
 
-@interface ZYCustomTabBarViewController : FLViewController<UINavigationControllerDelegate,UITextFieldDelegate>
+@interface ZYCustomTabBarViewController : FLViewController<UINavigationControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate>
 {
     UIView*lingquview;
     UIImageView*lingquimage;
@@ -61,6 +61,8 @@ int     _seletedIndex;
 	NSTimer * timer1;
     //导航控制器中的视图数组
 	NSArray  *_previousNavViewController;
+    UILabel *_versionsLabel;
+    NSString*down_url;
 }
 /*
  描述的过程其实就是生成set和get方法的过程

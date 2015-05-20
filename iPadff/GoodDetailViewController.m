@@ -273,6 +273,8 @@
 #pragma mark - 图片点击
 
 - (IBAction)touchPicture:(UITapGestureRecognizer *)tap {
+    
+    NSLog(@"点击了小图--------------");
     [self.view bringSubviewToFront:self.scrollPanel];
     self.scrollPanel.alpha = 1.0;
     
