@@ -562,7 +562,17 @@
     //    _buyGoodButton.layer.cornerRadius = 4.f;
     _buyGoodButton.layer.masksToBounds = YES;
     [_buyGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
+    if(_rentButton.selected)
+    {
+        [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];
+
+    }else
+    {
+        [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
+
+    
+    }
+    
     _buyGoodButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [_buyGoodButton addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
     [_mainScrollView addSubview:_buyGoodButton];
