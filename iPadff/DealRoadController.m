@@ -880,13 +880,13 @@ else
 - (void)StringWithdealStates:(NSString *)dealStates
 {
     if ([dealStates isEqualToString:@"1"]) {
-        self.DealState = @"待付款";
+        self.DealState = @"交易完成";
     }
     if ([dealStates isEqualToString:@"2"]) {
-        self.DealState = @"成功";
+        self.DealState = @"交易失败";
     }
     if ([dealStates isEqualToString:@"3"]) {
-        self.DealState = @"失败";
+        self.DealState = @"交易结果待确认";
     }
 }
 
