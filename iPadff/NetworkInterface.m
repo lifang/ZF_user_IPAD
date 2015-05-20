@@ -36,6 +36,7 @@ static NSString *HTTP_GET  = @"GET";
 }
 
 #pragma mark - 接口方法
+
 + (void)getGoodImageWithGoodID:(NSString *)goodID
                       finished:(requestDidFinished)finish {
     //参数
@@ -1914,5 +1915,17 @@ static NSString *HTTP_GET  = @"GET";
                       httpMethod:HTTP_POST
                         finished:finish];
 }
++ (void)beginVideoAuthWithTerminalID:(NSString *)terminalID
+                            finished:(requestDidFinished)finish {
+    //参数
+    NSString *param = [NSString stringWithFormat:@"terminalId=%@",terminalID];
+    NSData *postData = [param dataUsingEncoding:NSUTF8StringEncoding];
+    NetworkRequest *request = [[NetworkRequest alloc] initWithRequestURL:kVideoServiceURL
+                                                              httpMethod:HTTP_POST
+                                                                finished:finish];
+    [request setFormPostBody:postData];
+    [request start];
+}
+
 
 @end

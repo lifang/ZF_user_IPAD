@@ -326,12 +326,12 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
     _terminalLabel.font = [UIFont systemFontOfSize:18.f];
     [_scrollView addSubview:_terminalLabel];
     
-    UILabel*accountnamelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2,topSpace + labelHeight * 2,140, 40)];
+    UILabel*accountnamelable=[[UILabel alloc]initWithFrame:CGRectMake(wide/2-20,topSpace + labelHeight * 2,160, 40)];
     [_scrollView addSubview:accountnamelable];
     accountnamelable.textAlignment = NSTextAlignmentCenter;
     accountnamelable.font=[UIFont systemFontOfSize:19];
     
-    accountnamelable.text=@"选择已有商户";
+    accountnamelable.text=@"可选择的常用商户";
     
     accountnamebutton= [UIButton buttonWithType:UIButtonTypeCustom];
     accountnamebutton.frame = CGRectMake(150+wide/2,  topSpace + labelHeight * 2,280, 40);
@@ -539,6 +539,9 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
         
         else if(i==9)
         {
+            
+            
+            
             blankseclectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
             blankseclectbutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
             
@@ -623,7 +626,10 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
         {
             UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40)];
             neworiginaltextfield.delegate=self;
-            
+            neworiginaltextfield.leftViewMode = UITextFieldViewModeAlways;
+            UIView *leftView = [[UIView alloc]init];
+            leftView.frame = CGRectMake(0, 0, 10, 40);
+            neworiginaltextfield.leftView =leftView;
             neworiginaltextfield.tag=i+1056;
             
             if([self isBlankString:[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]]])
@@ -633,7 +639,7 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             }else
             {
                 NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:[keynamesarry objectAtIndex:i]]];
-                neworiginaltextfield.text=[NSString stringWithFormat:@"  %@",accountname];
+                neworiginaltextfield.text=[NSString stringWithFormat:@"%@",accountname];
 
             
             }
@@ -1008,6 +1014,7 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 }
 -(void)zhifuclick
 {
+    [self.editingField resignFirstResponder];
     
     //选择支付通道
     ChannelSelectedController *channelC = [[ChannelSelectedController alloc] init];
@@ -1023,6 +1030,7 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 -(void)blankclick:(UIButton*)send
 {
     
+    [self.editingField resignFirstResponder];
 
     BankSelectedController *bankC = [[BankSelectedController alloc] init];
     bankC.delegate = self;
@@ -1051,7 +1059,8 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 
 -(void)locationbuttonclick
 {
-    
+    [self.editingField resignFirstResponder];
+
     _selectedKey = key_location;
     
     [self pickerScrollIn];
@@ -1062,7 +1071,8 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 
 -(void)birthdaybuttonclick
 {
-    
+    [self.editingField resignFirstResponder];
+
     birthdaybutton.userInteractionEnabled=NO;
     
     [self setupStartDate ];
@@ -2295,6 +2305,17 @@ _applyType = OpenApplyPrivate;
 }
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    self.editingField=textField;
+    
+
+
+
+    return YES;
+
+
+}// return NO to disallow editing.
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];

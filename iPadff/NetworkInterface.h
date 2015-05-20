@@ -437,6 +437,8 @@ static NSString *s_orderConfirm_method = @"order/payOrder";
 static NSString *s_goodImage_method = @"good/getGoodImgUrl";
 @interface NetworkInterface : NSObject
 
++ (void)beginVideoAuthWithTerminalID:(NSString *)terminalID
+                            finished:(requestDidFinished)finish;
 + (void)getGoodImageWithGoodID:(NSString *)goodID
                       finished:(requestDidFinished)finish;
 /*!

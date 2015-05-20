@@ -37,10 +37,11 @@
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
-
-#define kVideoAuthIP      @"121.40.64.120"    //线上
+#define kVideoAuthIP    @"121.40.84.2"      //测试
+//#define kVideoAuthIP      @"121.40.64.120"    //线上
 #define kVideoAuthPort  8906
-
+//#define kVideoServiceURL @"http://admin.ebank007.com/notice/video"   //线上
+#define kVideoServiceURL @"http://121.40.84.2:38080/ZFManager/notice/video"
 
 #define kOrderCallBackURL  @"http://121.40.84.2:8080/ZFMerchant/app_notify_url.jsp"
 #define kCSCallBackURL     @"http://121.40.84.2:8080/ZFMerchant/repair_app_notify_url.jsp"
