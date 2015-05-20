@@ -435,6 +435,10 @@ static NSString *s_orderConfirm_method = @"order/payOrder";
 
 //商品图片
 static NSString *s_goodImage_method = @"good/getGoodImgUrl";
+
+//获取app版本
+static NSString *s_appVersion_method = @"index/getVersion";
+
 @interface NetworkInterface : NSObject
 
 + (void)getGoodImageWithGoodID:(NSString *)goodID
@@ -1442,5 +1446,8 @@ static NSString *s_goodImage_method = @"good/getGoodImgUrl";
 
 + (void)getModifyMobileValidateWithPhoneNumber:(NSString *)phoneNumber
                                       finished:(requestDidFinished)finish;
+
++(void)getappVersionWithTypes:(NSString*)types finished:(requestDidFinished)finish;
+
 
 @end
