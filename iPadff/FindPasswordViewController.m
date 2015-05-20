@@ -35,6 +35,8 @@
 
 @property(nonatomic,strong)UIImageView *imageV;
 
+@property(nonatomic,strong)UILabel *makeSureWrongLabel;
+
 @end
 
 @implementation FindPasswordViewController
@@ -136,6 +138,7 @@
     
     UIButton *makeSureBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_phoneField.frame)+10, _authField.frame.origin.y, mainBtnWidth, _phoneField.frame.size.height)];
     _makeSureBtn = makeSureBtn;
+    _makeSureBtn.hidden = YES;
     [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
     [makeSureBtn setBackgroundColor:mainColor];
     [makeSureBtn setTitle:@"检查" forState:UIControlStateNormal];
@@ -302,6 +305,69 @@
     }
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == _authField) {
+        if ([_authField.text isEqualToString:_authCode]) {
+            UIView *rightBigV = [[UIView alloc]init];
+            rightBigV.frame = CGRectMake(0, 0, 60, 40);
+            UIImageView *rightV = [[UIImageView alloc]init];
+            rightV.frame = CGRectMake(20, 8, 23, 23);
+            rightV.image = kImageName(@"check_right");
+            [rightBigV addSubview:rightV];
+            _authField.rightView = rightBigV;
+            [_makeSureWrongLabel removeFromSuperview];
+            _isChecked = YES;
+        }else
+        {
+            UIView *rightBigV = [[UIView alloc]init];
+            rightBigV.frame = CGRectMake(0, 0, 60, 40);
+            UIImageView *rightV = [[UIImageView alloc]init];
+            rightV.frame = CGRectMake(20, 8, 23, 23);
+            rightV.image = kImageName(@"check_wrong");
+            [rightBigV addSubview:rightV];
+            _authField.rightView = rightBigV;
+            _isChecked = NO;
+            
+            _makeSureWrongLabel = [[UILabel alloc]init];
+            _makeSureWrongLabel.font = [UIFont systemFontOfSize:10];
+            _makeSureWrongLabel.textColor = kColor(230, 68, 67, 1.0);
+            _makeSureWrongLabel.text = @"验证码不正确，请重新填写";
+            _makeSureWrongLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.view addSubview:_makeSureWrongLabel];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeTop
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:_authField
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:2.f]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeLeft
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:_makeSureBtn
+                                                                  attribute:NSLayoutAttributeLeft
+                                                                 multiplier:1.0
+                                                                   constant:- 130.f]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1.0
+                                                                   constant:140.f]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_makeSureWrongLabel
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1.0
+                                                                   constant:15.f]];
+            return;
+        }
+    }
+}
+
 -(void)makeSureClick:(UIButton *)sender
 {
     [_authField resignFirstResponder];
@@ -350,7 +416,7 @@
         _sendButton.titleLabel.font = [UIFont systemFontOfSize:17];
         [_sendButton setTitle:@"发送验证码" forState:UIControlStateNormal];
         _authLabel.hidden = NO;
-        _makeSureBtn.hidden = NO;
+//        _makeSureBtn.hidden = NO;
         _authField.hidden = NO;
         _newpassworLabel.hidden = NO;
         _newsPassword.hidden = NO;
