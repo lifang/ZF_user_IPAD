@@ -472,18 +472,18 @@
     [NetworkInterface getRegisterValidateCodeWithMobileNumber:_phoneField.text finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
-        [hud hide:YES afterDelay:0.3f];
+        [hud hide:YES afterDelay:0.6f];
         if (success) {
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
             if ([object isKindOfClass:[NSDictionary class]]) {
                 if ([[object objectForKey:@"code"] intValue] == RequestSuccess) {
-                    [hud setHidden:YES];
                     _validate = [object objectForKey:@"result"];
                     [self resetStatus];
                     NSLog(@"验证码为~~~~~~%@",_validate);
                 }
                 else {
-                    hud.labelText = [NSString stringWithFormat:@"错误代码:%@",[object objectForKey:@"code"]];
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
             }
             else {
@@ -670,7 +670,7 @@
 
 //倒计时
 - (void)countDownStart {
-    __block int timeout = 60; //倒计时时间
+    __block int timeout = 1; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0 * NSEC_PER_SEC, 0); //每秒执行

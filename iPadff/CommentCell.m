@@ -240,6 +240,7 @@
 }
 
 - (void)setCommentData:(CommentModel *)model {
+    
     NSString *priceString = [NSString stringWithFormat:@"%@    %@",model.name,model.createTime];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:priceString];
     NSDictionary *normalAttr = [NSDictionary dictionaryWithObjectsAndKeys:

@@ -89,33 +89,35 @@
         return;
     }
     NSArray *addressList = [dict objectForKey:@"result"];
-    for (int i = 0; i < [addressList count]; i++) {
+    for (int i = 0; i < [addressList count]; i++)
+    {
         NSDictionary *addressDict = [addressList objectAtIndex:i];
         
         
         AddressModel *model = [[AddressModel alloc] initWithParseDictionary:addressDict];
         [addressarry addObject:model];
-        if([model.addressID isEqualToString:@"1"])
-            
-        {
-            
-            B=i+1;
-            
-            
-            
-            
-            
-            
-            
-        }
+//        if([model.addressID isEqualToString:@"1"])
+//            
+//        {
+//            
+//            B=i+1;
+//            
+//            
+//            
+//            
+//            
+//            
+//            
+//        }
 
         
-    }if(B==0)
-    {
-        B=1;
-        
-        
     }
+//    if(B==0)
+//    {
+//        B=1;
+//        
+//        
+//    }
 
     
     [self initAndLauoutUI];
