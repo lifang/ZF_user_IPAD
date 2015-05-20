@@ -108,15 +108,16 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
     [self downloadGoodDetail];
     self.navigationItem.leftBarButtonItem.badgeBGColor =[UIColor redColor];
-    
-    if(intnumberBB==0)
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+
+    if(delegate.shopcartCount==0)
     {
         shoppingItem.badgeValue =@"";
         
     }else
     {
         
-        shoppingItem.badgeValue =[NSString stringWithFormat:@"%d",intnumberBB];
+        shoppingItem.badgeValue =[NSString stringWithFormat:@"%d",delegate.shopcartCount];
         
         
     }
