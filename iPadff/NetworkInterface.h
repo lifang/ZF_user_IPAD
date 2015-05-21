@@ -436,10 +436,15 @@ static NSString *s_orderConfirm_method = @"order/payOrder";
 //商品图片
 static NSString *s_goodImage_method = @"good/getGoodImgUrl";
 
+//获取app版本
+static NSString *s_appVersion_method = @"index/getVersion";
+
 //推送
 static NSString *s_push_method = @"customers/sendDeviceCode";
 @interface NetworkInterface : NSObject
 
++ (void)beginVideoAuthWithTerminalID:(NSString *)terminalID
+                            finished:(requestDidFinished)finish;
 + (void)getGoodImageWithGoodID:(NSString *)goodID
                       finished:(requestDidFinished)finish;
 /*!
@@ -1445,6 +1450,8 @@ static NSString *s_push_method = @"customers/sendDeviceCode";
 
 + (void)getModifyMobileValidateWithPhoneNumber:(NSString *)phoneNumber
                                       finished:(requestDidFinished)finish;
+
++(void)getappVersionWithTypes:(NSString*)types finished:(requestDidFinished)finish;
 
 + (void)uploadPushInfoWithUserID:(NSString *)userID
                      channelInfo:(NSString *)channelInfo

@@ -18,7 +18,9 @@
 @property (nonatomic, assign) CGFloat orderTotalPrice;     //实付
 
 @property (nonatomic, assign) CGFloat orderDeliveryFee;    //配送费
+@property (nonatomic, strong) NSString *logisticCompany;
 
+@property (nonatomic, strong) NSString *logisticNumber;
 @property (nonatomic, strong) NSString *orderReceiver;       //收件人
 @property (nonatomic, strong) NSString *terminals;       //终端号
 

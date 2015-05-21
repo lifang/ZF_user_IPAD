@@ -47,6 +47,7 @@ static NSString *RefreshShoppingCartNotification = @"RefreshShoppingCartNotifica
 @property (nonatomic, strong) UIButton *billBtn;   //是否需要发票按钮
 
 @property (nonatomic, strong) UITextField *billField;  //发票抬头
+@property (nonatomic, assign) BOOL ishaveaddress;
 
 @property (nonatomic, assign) BillType billType;
 

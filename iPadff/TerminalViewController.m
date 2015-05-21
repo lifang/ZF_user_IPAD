@@ -363,6 +363,28 @@
     }
 }
 
+//发起视频请求
+- (void)beginVideoAuthWithTerminalID:(NSString *)terminalID {
+    [NetworkInterface beginVideoAuthWithTerminalID:terminalID finished:^(BOOL success, NSData *response) {
+        NSLog(@"!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                }
+            }
+            else {
+                //返回错误数据
+            }
+        }
+        else {
+        }
+    }];
+}
 
 #pragma mark terminalCell的代理
 -(void)terminalCellBtnClicked:(int)btnTag WithSelectedID:(NSString *)selectedID Withindex:(int)indexNum WithOpenstatus:(NSString *)openStatus WithAppid:(NSString *)appid
@@ -394,7 +416,8 @@
 
         }
         else{
-            
+            [self beginVideoAuthWithTerminalID:selectedID];
+
             self.isPush = NO;
             VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
             videoAuthC.terminalID = selectedID;
@@ -432,6 +455,8 @@
     if (btnTag == 3001) {
         //部分开通视频认证
         self.isPush = NO;
+        [self beginVideoAuthWithTerminalID:selectedID];
+
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.hidesBottomBarWhenPushed=YES;
         videoAuthC.terminalID = selectedID;
@@ -454,7 +479,8 @@
     }
     if (btnTag == 5000) {
         NSLog(@"点击了视频认证");
-        
+        [self beginVideoAuthWithTerminalID:selectedID];
+
         self.isPush = NO;
         VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
         videoAuthC.hidesBottomBarWhenPushed=YES;

@@ -1126,6 +1126,8 @@
             break;
         case 4445:
         {
+            [self beginVideoAuth];
+
             VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
             videoAuthC.hidesBottomBarWhenPushed=YES;
             videoAuthC.terminalID = self.tm_ID;
@@ -1152,6 +1154,8 @@
                 
             }
             else{
+                [self beginVideoAuth];
+
                 VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
                 videoAuthC.terminalID = _tm_ID;
                 videoAuthC.hidesBottomBarWhenPushed=YES;
@@ -1188,6 +1192,8 @@
         case 6666:
         {
             NSLog(@"点击了视频认证（已注销）");
+            [self beginVideoAuth];
+
             VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
             videoAuthC.terminalID = _tm_ID;
             videoAuthC.hidesBottomBarWhenPushed=YES;
@@ -1213,6 +1219,29 @@
             break;
     }
 }
+//发起视频请求
+- (void)beginVideoAuth {
+    [NetworkInterface beginVideoAuthWithTerminalID:self.tm_ID finished:^(BOOL success, NSData *response) {
+        NSLog(@"!!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [object objectForKey:@"code"];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                }
+            }
+            else {
+                //返回错误数据
+            }
+        }
+        else {
+        }
+    }];
+}
+
 //重新申请开通
 -(void)pushApplyNewVCWithSelectedID:(NSString *)selectedID
 {

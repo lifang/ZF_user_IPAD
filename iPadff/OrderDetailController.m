@@ -978,12 +978,23 @@ if(tableView==_tableViewPJ)
                         terminalBtn.layer.borderWidth = 1.f;
                         terminalBtn.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
                         [terminalBtn setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
-                        [terminalBtn setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
+//                        [terminalBtn setTitleColor:kColor(134, 56, 0, 1) forState:UIControlStateHighlighted];
                         terminalBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
                         [terminalBtn setTitle:@"查看终端号" forState:UIControlStateNormal];
                         [terminalBtn addTarget:self action:@selector(scanTerminalNumber:) forControlEvents:UIControlEventTouchUpInside];
                         
                         [cell.contentView addSubview:terminalBtn];
+                        UIButton *logisticsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                        logisticsBtn.frame = CGRectMake(170, 5, 100, 30);
+                        logisticsBtn.layer.masksToBounds = YES;
+                        logisticsBtn.layer.borderWidth = 1.f;
+                        logisticsBtn.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
+                        [logisticsBtn setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
+                        logisticsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
+                        [logisticsBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+                        [logisticsBtn addTarget:self action:@selector(scanTerminalNumberhhhl) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        [cell.contentView addSubview:logisticsBtn];
 
                     }
 
@@ -1036,6 +1047,38 @@ if(tableView==_tableViewPJ)
     
   
 }
+-(void)scanTerminalNumberhhhl
+{
+    
+    if([self isBlankString:_orderDetail.logisticCompany])
+    {
+        
+        _orderDetail.logisticCompany=@"暂无物流公司";
+        
+        
+        
+    }
+    
+    if([self isBlankString:_orderDetail.logisticNumber])
+    {
+        
+        _orderDetail.logisticNumber=@"暂无物流单号";
+        
+        
+        
+    }
+    
+    
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"物流信息"
+                                                    message:[NSString stringWithFormat:@"物流公司:%@,物流单号:%@",_orderDetail.logisticCompany,_orderDetail.logisticNumber]
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:nil];
+    [alert show];
+    
+}
+
 - (IBAction)scanTerminalNumber:(id)sender
 {
     NSLog(@"%@",_orderDetail.terminals);
@@ -1060,6 +1103,10 @@ _orderDetail.terminals=@"暂无终端号";
 
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isEqualToString:@"(null)"])
+    {
         return YES;
     }
     if ([string isKindOfClass:[NSNull class]]) {

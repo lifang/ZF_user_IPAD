@@ -190,6 +190,7 @@
 		0ED065D31A9EE801005DF849 /* FLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065D21A9EE801005DF849 /* FLViewController.m */; };
 		0ED065D61A9EE81D005DF849 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065D51A9EE81D005DF849 /* MBProgressHUD.m */; };
 		0ED065E51A9EE9D8005DF849 /* BasicNagigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED065E41A9EE9D8005DF849 /* BasicNagigationController.m */; };
+		0ED214211B0C4E93005F4844 /* VideoAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED214201B0C4E93005F4844 /* VideoAuthController.m */; };
 		0ED3691A1AE88D2D00663627 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0ED368B81AE88D2D00663627 /* AlipaySDK.bundle */; };
 		0ED3691B1AE88D2D00663627 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED368B91AE88D2D00663627 /* AlipaySDK.framework */; };
 		0ED3691C1AE88D2D00663627 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED368BA1AE88D2D00663627 /* libcrypto.a */; };
@@ -205,7 +206,6 @@
 		0ED369271AE88DC600663627 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED369261AE88DC600663627 /* SystemConfiguration.framework */; };
 		0ED482D31AFF4BE60045D4A6 /* MoneyManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED482D21AFF4BE60045D4A6 /* MoneyManagementViewController.m */; };
 		0ED482D61AFF4F090045D4A6 /* LoanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED482D51AFF4F090045D4A6 /* LoanViewController.m */; };
-		0ED482D91AFF7C360045D4A6 /* VideoAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED482D81AFF7C360045D4A6 /* VideoAuthController.m */; };
 		0ED5FD3C1AB910A90057385C /* MyMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD3B1AB910A90057385C /* MyMessageViewController.m */; };
 		0ED5FD3F1AB913460057385C /* InterestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD3E1AB913460057385C /* InterestView.m */; };
 		0ED5FD421AB956920057385C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5FD411AB956920057385C /* SearchViewController.m */; };
@@ -671,6 +671,8 @@
 		0ED065E31A9EE9D8005DF849 /* BasicNagigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicNagigationController.h; sourceTree = "<group>"; };
 		0ED065E41A9EE9D8005DF849 /* BasicNagigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicNagigationController.m; sourceTree = "<group>"; };
 		0ED065E61A9EEA38005DF849 /* FontColorAndSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontColorAndSize.h; sourceTree = "<group>"; };
+		0ED2141F1B0C4E93005F4844 /* VideoAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoAuthController.h; sourceTree = "<group>"; };
+		0ED214201B0C4E93005F4844 /* VideoAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoAuthController.m; sourceTree = "<group>"; };
 		0ED368B81AE88D2D00663627 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		0ED368B91AE88D2D00663627 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		0ED368BA1AE88D2D00663627 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
@@ -772,8 +774,6 @@
 		0ED482D21AFF4BE60045D4A6 /* MoneyManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyManagementViewController.m; sourceTree = "<group>"; };
 		0ED482D41AFF4F090045D4A6 /* LoanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanViewController.h; sourceTree = "<group>"; };
 		0ED482D51AFF4F090045D4A6 /* LoanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanViewController.m; sourceTree = "<group>"; };
-		0ED482D71AFF7C360045D4A6 /* VideoAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoAuthController.h; sourceTree = "<group>"; };
-		0ED482D81AFF7C360045D4A6 /* VideoAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoAuthController.m; sourceTree = "<group>"; };
 		0ED5FD3A1AB910A90057385C /* MyMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMessageViewController.h; sourceTree = "<group>"; };
 		0ED5FD3B1AB910A90057385C /* MyMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMessageViewController.m; sourceTree = "<group>"; };
 		0ED5FD3D1AB913460057385C /* InterestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestView.h; sourceTree = "<group>"; };
@@ -1285,8 +1285,8 @@
 		0ECB82B21AEF18B500986D0E /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				0ED482D71AFF7C360045D4A6 /* VideoAuthController.h */,
-				0ED482D81AFF7C360045D4A6 /* VideoAuthController.m */,
+				0ED2141F1B0C4E93005F4844 /* VideoAuthController.h */,
+				0ED214201B0C4E93005F4844 /* VideoAuthController.m */,
 			);
 			name = Video;
 			sourceTree = "<group>";
@@ -2537,7 +2537,6 @@
 				1A727B2D1AA5957100E1643D /* EmailSuccessViewController.m in Sources */,
 				0ED482D31AFF4BE60045D4A6 /* MoneyManagementViewController.m in Sources */,
 				0EC99C991AAFE5F300D20386 /* OrderDetailCell.m in Sources */,
-				0ED482D91AFF7C360045D4A6 /* VideoAuthController.m in Sources */,
 				1A123ACF1ABC1D7E00F642B4 /* ProgressModel.m in Sources */,
 				0D3887271AB96F8E000DF1D6 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0ED8EBE41AA6D7E000CE9F61 /* MJRefreshHeaderView.m in Sources */,
@@ -2572,6 +2571,7 @@
 				0D3887201AB96F8E000DF1D6 /* MASCompositeConstraint.m in Sources */,
 				1AA1573F1B0B1312004E591B /* ChangeEmailController.m in Sources */,
 				0ED3691E1AE88D2D00663627 /* base64.m in Sources */,
+				0ED214211B0C4E93005F4844 /* VideoAuthController.m in Sources */,
 				1A8E7C771AB17EBC00C021CE /* SwitchView.m in Sources */,
 				0ED369221AE88D2D00663627 /* NSDataEx.m in Sources */,
 				1AA1573E1B0B11CF004E591B /* ChangeEmailNextController.m in Sources */,

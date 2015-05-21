@@ -57,6 +57,19 @@
         if ([dict objectForKey:@"order_totalNum"]) {
             _orderTotalNumber = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_totalNum"]];
         }
+        if ([dict objectForKey:@"logistics_name"]) {
+            _logisticCompany = [NSString stringWithFormat:@"%@",[dict objectForKey:@"logistics_name"]];
+        }
+        else {
+            _logisticCompany = @"";
+        }
+        if ([dict objectForKey:@"logistics_number"]) {
+            _logisticNumber = [NSString stringWithFormat:@"%@",[dict objectForKey:@"logistics_number"]];
+        }
+        else {
+            _logisticNumber = @"";
+        }
+
         id recordObject = [[dict objectForKey:@"comments"] objectForKey:@"content"];
         if ([recordObject isKindOfClass:[NSArray class]]) {
             _recordList = [[NSMutableArray alloc] init];
