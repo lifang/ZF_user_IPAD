@@ -111,6 +111,7 @@
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
 
     if(delegate.shopcartCount==0)
+        
     {
         shoppingItem.badgeValue =@"";
         
@@ -122,7 +123,6 @@
         
     }
     
-    [self getGoodImageList];
     
 }
 -(void)clearo
@@ -568,12 +568,15 @@
     if(_rentButton.selected)
     {
         [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];
+        _shopcartButton.enabled = NO;
+
 
     }else
     {
         [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
 
-    
+        _shopcartButton.enabled =YES;
+
     }
     
     _buyGoodButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
