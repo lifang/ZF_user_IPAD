@@ -396,6 +396,7 @@
                 NSString *cityName = placemark.locality;
                 NSLog(@"定位当前城市~%@",cityName);
                 [self getCurrentCityInfoWithCityName:cityName];
+                 [_locationManager stopUpdatingLocation];
             }
         }
     }];
