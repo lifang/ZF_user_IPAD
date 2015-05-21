@@ -44,8 +44,6 @@
 @implementation ZYHomeViewController
 
 
-
-
 -(void)LoginSuccess
 {
     DredgeViewController *dregeVC = [[DredgeViewController alloc]init];

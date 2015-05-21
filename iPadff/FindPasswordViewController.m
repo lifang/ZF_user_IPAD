@@ -300,7 +300,7 @@
             hud.customView = [[UIImageView alloc] init];
             hud.mode = MBProgressHUDModeCustomView;
             [hud hide:YES afterDelay:1.f];
-            hud.labelText = @"请输入正确的手机号";
+            hud.labelText = @"请输入正确的邮箱号";
         }
     }
 }
@@ -455,13 +455,13 @@
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
             if ([object isKindOfClass:[NSDictionary class]]) {
                 if ([[object objectForKey:@"code"] intValue] == RequestSuccess) {
-                    [hud setHidden:YES];
                     NSString *validate = [object objectForKey:@"result"];
                     [self resetStatus];
                     self.authCode = validate;
                 }
                 else {
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                    [hud hide:YES afterDelay:1.0f];
                 }
             }
             else {
@@ -489,13 +489,13 @@
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
             if ([object isKindOfClass:[NSDictionary class]]) {
                 if ([[object objectForKey:@"code"] intValue] == RequestSuccess) {
-                    [hud setHidden:YES];
                     FindPasswordSuccessController *findVC = [[FindPasswordSuccessController alloc]init];
                     findVC.email = _phoneField.text;
                     [self.navigationController pushViewController:findVC animated:YES];
                 }
                 else {
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                    [hud hide:YES afterDelay:1.0f];
                 }
             }
             else {
