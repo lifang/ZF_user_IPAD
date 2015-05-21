@@ -1451,7 +1451,8 @@ static NSString *s_push_method = @"customers/sendDeviceCode";
 + (void)getModifyMobileValidateWithPhoneNumber:(NSString *)phoneNumber
                                       finished:(requestDidFinished)finish;
 
-+(void)getappVersionWithTypes:(NSString*)types finished:(requestDidFinished)finish;
++ (void)checkVersionFinished:(requestDidFinished)finish;
+
 
 + (void)uploadPushInfoWithUserID:(NSString *)userID
                      channelInfo:(NSString *)channelInfo

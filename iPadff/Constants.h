@@ -16,6 +16,8 @@
 
 #define kDeviceVersion [[[UIDevice currentDevice] systemVersion] floatValue]
 
+#define kAppVersionType  5   //版本更新
+
 #define kLineHeight   1.0f
 #define kAppChannel  6
 #define kMainColor kColor(254, 79, 29, 1.0)
