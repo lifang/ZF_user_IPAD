@@ -15,6 +15,7 @@
     UIView *view;
     
     UIBarButtonItem *shoppingItem;
+    NSMutableArray*picturearry;
 
     
 }
