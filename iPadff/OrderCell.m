@@ -71,7 +71,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0
-                                                                  constant:10.f]];
+                                                                  constant:5.f]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_orderNoLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -106,7 +106,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0
-                                                                  constant:10.f]];
+                                                                  constant:5.f]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_timeLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -142,7 +142,7 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeTop
                                                                 multiplier:1.0
-                                                                  constant:10.f]];
+                                                                  constant:5.f]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_statusLabel
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual
@@ -166,7 +166,7 @@ typedef enum {
                                                                   constant:labelHeight]];
     //划线
     UIImageView *firstLine = [[UIImageView alloc] init];
-//    firstLine.image = kImageName(@"gray.png");
+  firstLine.image = kImageName(@"gray.png");
     firstLine.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:firstLine];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
@@ -182,14 +182,14 @@ typedef enum {
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeLeft
                                                                 multiplier:1.0
-                                                                  constant:leftSpace]];
+                                                                  constant:leftSpace+10]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:-leftSpace]];
+                                                                  constant:-leftSpace-70]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
                                                                  attribute:NSLayoutAttributeHeight
                                                                  relatedBy:NSLayoutRelationEqual
@@ -247,7 +247,7 @@ typedef enum {
     
     //划线
     UIImageView *secondLine = [[UIImageView alloc] init];
-//    secondLine.image = kImageName(@"gray.png");
+   secondLine.image = kImageName(@"gray.png");
     secondLine.translatesAutoresizingMaskIntoConstraints = NO;
     [headerView addSubview:secondLine];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:secondLine
@@ -256,20 +256,20 @@ typedef enum {
                                                                     toItem:_pictureView
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:topSpace]];
+                                                                  constant:topSpace+10]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:secondLine
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:headerView
                                                                  attribute:NSLayoutAttributeLeft
                                                                 multiplier:1.0
-                                                                  constant:leftSpace]];
+                                                                  constant:leftSpace+10]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:secondLine
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:headerView                                                                 attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:-leftSpace]];
+                                                                  constant:-leftSpace-70]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:secondLine
                                                                  attribute:NSLayoutAttributeHeight
                                                                  relatedBy:NSLayoutRelationEqual
@@ -290,7 +290,7 @@ typedef enum {
                                                                     toItem:secondLine
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:topSpace]];
+                                                                  constant:topSpace-5]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_totalCountLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -325,7 +325,7 @@ typedef enum {
                                                                     toItem:secondLine
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:topSpace]];
+                                                                  constant:topSpace-5]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_deliveryFeeLabel
                                                                  attribute:NSLayoutAttributeLeft
                                                                  relatedBy:NSLayoutRelationEqual
@@ -361,7 +361,7 @@ typedef enum {
                                                                     toItem:secondLine
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0
-                                                                  constant:topSpace]];
+                                                                  constant:topSpace-5]];
     [headerView addConstraint:[NSLayoutConstraint constraintWithItem:_payLabel
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual

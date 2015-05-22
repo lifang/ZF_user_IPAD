@@ -1144,10 +1144,20 @@
         
         
         self.reviewField  = [[UITextField alloc] initWithFrame:CGRectMake(60, 5,wide-160, 40)];
-        self.reviewField .borderStyle = UITextBorderStyleLine;
-        self.reviewField .delegate = self;
-        self.reviewField .placeholder = @"留言";
-       reviewField .font = [UIFont systemFontOfSize:14.f];
+//        self.reviewField.borderStyle = UITextBorderStyleLine;
+        self.reviewField.layer.cornerRadius=1.0f;
+        self.reviewField.layer.masksToBounds=YES;
+        self.reviewField.layer.borderColor=[[UIColor grayColor]CGColor];
+        self.reviewField.layer.borderWidth= 1.0f;
+        self.reviewField.delegate = self;
+        reviewField.leftViewMode = UITextFieldViewModeAlways;
+        
+        UIView *v = [[UIView alloc]init];
+        v.frame = CGRectMake(0, 0, 10, 40);
+        reviewField.leftView = v;
+
+        self.reviewField.placeholder = @"  留言";
+        reviewField.font=[UIFont systemFontOfSize:14.f];
         reviewField.text=textnsstring;
         
         [footerView addSubview:self.reviewField ];
@@ -1365,10 +1375,15 @@
     [billView addSubview:billLabel];
     self.billField = [[UITextField alloc] initWithFrame:CGRectMake(wide/2+90, 20, wide/2 - 120, 44)];
     self.billField .delegate = self;
-    self.billField .placeholder = @"     请输入发票抬头";
+    self.billField.placeholder = @"     请输入发票抬头";
     
     //  self.billField.textInputMode= UIEdgeInsetsMake(0, 0, 0, 10);
+    self.billField.leftViewMode = UITextFieldViewModeAlways;
     
+    UIView *v = [[UIView alloc]init];
+    v.frame = CGRectMake(0, 0, 10, 44);
+    self.billField.leftView = v;
+
     self.billField .font = [UIFont systemFontOfSize:16.f];
     self.billField .clearButtonMode = UITextFieldViewModeWhileEditing;
     [billView addSubview:self.billField ];

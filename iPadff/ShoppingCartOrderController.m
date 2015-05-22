@@ -926,13 +926,22 @@ if(section==0)
     
     
     self.reviewField  = [[UITextField alloc] initWithFrame:CGRectMake(60, 5,wide-80, 40)];
-    self.reviewField .borderStyle = UITextBorderStyleLine;
+//    self.reviewField .borderStyle = UITextBorderStyleLine;
     self.reviewField .delegate = self;
-    self.reviewField .placeholder = @"留言";
+    self.reviewField .placeholder = @" 留言";
     self.reviewField .font = [UIFont systemFontOfSize:14.f];
     self.reviewField.text=textnsstring;
-
+    self.reviewField.layer.cornerRadius=1.0f;
+    self.reviewField.layer.masksToBounds=YES;
+    self.reviewField.layer.borderColor=[[UIColor grayColor]CGColor];
+    self.reviewField.layer.borderWidth= 1.0f;
     [footerView addSubview:self.reviewField ];
+    
+    self.reviewField.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIView *v = [[UIView alloc]init];
+    v.frame = CGRectMake(0, 0, 10, 44);
+    self.reviewField.leftView = v;
     
 
     
