@@ -15,7 +15,7 @@
 
 @end
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : CommonViewController
 
 @property(nonatomic,weak)id LoginSuccessDelegate;
 

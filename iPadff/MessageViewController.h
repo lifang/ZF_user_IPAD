@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TableCommonController.h"
 
-@interface MessageViewController : UITableViewController
+@interface MessageViewController : TableCommonController
 
 @end

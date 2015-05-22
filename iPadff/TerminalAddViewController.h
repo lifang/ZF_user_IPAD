@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
 @protocol addTerminal <NSObject>
 
@@ -14,6 +14,6 @@
 -(void)addTerminalSuccess;
 @end
 
-@interface TerminalAddViewController : UIViewController
+@interface TerminalAddViewController : CommonViewController
 @property(nonatomic,weak)id TerminalDelegates;
 @end

@@ -350,6 +350,9 @@
 		1AC7F94B1AA5CB3E00C99F5C /* MessageChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F94A1AA5CB3E00C99F5C /* MessageChildViewController.m */; };
 		1AC827DD1B09D87F00556FB5 /* AddMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827DC1B09D87F00556FB5 /* AddMessageController.m */; };
 		1AC827E21B09D8B100556FB5 /* ChangePhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */; };
+		1AD9079C1B0F4D14005D581C /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD9079A1B0F4D14005D581C /* libMobClickLibrary.a */; };
+		1AD9079E1B0F4F31005D581C /* MappingPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AD9079D1B0F4F31005D581C /* MappingPlist.plist */; };
+		1AD907A11B0F5679005D581C /* TableCommonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AD907A01B0F5679005D581C /* TableCommonController.m */; };
 		1ADA04141AB28B600074A58B /* CustomerServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA04131AB28B600074A58B /* CustomerServiceModel.m */; };
 		1ADA041D1AB2C8120074A58B /* SafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA041C1AB2C8120074A58B /* SafeViewController.m */; };
 		1ADA04201AB2CB700074A58B /* BaseInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA041F1AB2CB700074A58B /* BaseInformationViewController.m */; };
@@ -1029,6 +1032,11 @@
 		1AC827DF1B09D8B100556FB5 /* ChangePhoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneController.m; sourceTree = "<group>"; };
 		1AC827E01B09D8B100556FB5 /* ChangeEmailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeEmailController.h; sourceTree = "<group>"; };
 		1AC827E11B09D8B100556FB5 /* ChangeEmailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeEmailController.m; sourceTree = "<group>"; };
+		1AD9079A1B0F4D14005D581C /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		1AD9079B1B0F4D14005D581C /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		1AD9079D1B0F4F31005D581C /* MappingPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MappingPlist.plist; sourceTree = "<group>"; };
+		1AD9079F1B0F5679005D581C /* TableCommonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCommonController.h; sourceTree = "<group>"; };
+		1AD907A01B0F5679005D581C /* TableCommonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCommonController.m; sourceTree = "<group>"; };
 		1ADA04121AB28B600074A58B /* CustomerServiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceModel.h; sourceTree = "<group>"; };
 		1ADA04131AB28B600074A58B /* CustomerServiceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceModel.m; sourceTree = "<group>"; };
 		1ADA041B1AB2C8120074A58B /* SafeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeViewController.h; sourceTree = "<group>"; };
@@ -1100,6 +1108,7 @@
 				0ECB82A31AEF175900986D0E /* libz.dylib in Frameworks */,
 				0ECB82ED1AEF19A100986D0E /* librtc_base_approved.a in Frameworks */,
 				0ECB82A11AEF174000986D0E /* QuartzCore.framework in Frameworks */,
+				1AD9079C1B0F4D14005D581C /* libMobClickLibrary.a in Frameworks */,
 				0ECB829F1AEF173500986D0E /* CoreAudio.framework in Frameworks */,
 				0ECB829D1AEF172100986D0E /* CoreVideo.framework in Frameworks */,
 				0ECB829B1AEF170B00986D0E /* CoreMedia.framework in Frameworks */,
@@ -1616,6 +1625,7 @@
 		0ED065A81A9EE397005DF849 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1AD9079D1B0F4F31005D581C /* MappingPlist.plist */,
 				1A6FC3241AA6A76C00F4C6AC /* city.js */,
 				0ED065A91A9EE397005DF849 /* Info.plist */,
 				0ED065C11A9EE398005DF849 /* iPadffTests */,
@@ -1803,6 +1813,8 @@
 				0ED6ACEF1AA16D5000D3B025 /* Shopping */,
 				0ED6ACEB1AA16D3900D3B025 /* Mine */,
 				0ED6ACE61AA16CC700D3B025 /* Mymessage */,
+				1AD9079F1B0F5679005D581C /* TableCommonController.h */,
+				1AD907A01B0F5679005D581C /* TableCommonController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1872,6 +1884,7 @@
 		0ED6ACF71AA16EB000D3B025 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				1AD907991B0F4D0A005D581C /* YouMeng */,
 				1A73910D1B0C70B400FAE601 /* LibBPush */,
 				0E153F121B048427000DE72F /* redDD */,
 				0ECB82B61AEF190200986D0E /* AnyChat */,
@@ -2327,6 +2340,15 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		1AD907991B0F4D0A005D581C /* YouMeng */ = {
+			isa = PBXGroup;
+			children = (
+				1AD9079A1B0F4D14005D581C /* libMobClickLibrary.a */,
+				1AD9079B1B0F4D14005D581C /* MobClick.h */,
+			);
+			name = YouMeng;
+			sourceTree = "<group>";
+		};
 		1ADD1EDE1AB6F0B20014E528 /* MyMessageCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2387,7 +2409,6 @@
 				TargetAttributes = {
 					0ED065A41A9EE397005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 63FVWL9TD6;
 					};
 					0ED065BD1A9EE398005DF849 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -2474,6 +2495,7 @@
 				0ED6AD311AA19BC800D3B025 /* home6.png in Resources */,
 				0ECE7DE01AA5793F00E250B6 /* btn_selected@2x.png in Resources */,
 				0ED604301ACCEBF9009A0220 /* search@2x.png in Resources */,
+				1AD9079E1B0F4F31005D581C /* MappingPlist.plist in Resources */,
 				0D714C6F1AB320BC007FF2C5 /* merchant1@2x.png in Resources */,
 				0ED8EBF11AA6E2BC00CE9F61 /* 8kind_normal.png in Resources */,
 				0ED6AD331AA19BC800D3B025 /* home8.png in Resources */,
@@ -2558,6 +2580,7 @@
 				1A8E7C691AB1696A00C021CE /* SalesReturnCell.m in Sources */,
 				0ECA838B1AB82D7D003B005B /* ImageScrollView.m in Sources */,
 				0ECA6D381ABBFCFA005316B1 /* OrderCommentCell.m in Sources */,
+				1AD907A11B0F5679005D581C /* TableCommonController.m in Sources */,
 				0ED5FD421AB956920057385C /* SearchViewController.m in Sources */,
 				0ECE7DAC1AA55A0100E250B6 /* TreeView.m in Sources */,
 				0E5FAE9E1AC4F83B00BEBE5F /* BankModel.m in Sources */,
@@ -2876,8 +2899,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iPadff/Alipay",
@@ -2897,7 +2920,7 @@
 					"$(PROJECT_DIR)/iPadff",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2907,8 +2930,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iPadff/Alipay",
@@ -2928,7 +2951,7 @@
 					"$(PROJECT_DIR)/iPadff",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

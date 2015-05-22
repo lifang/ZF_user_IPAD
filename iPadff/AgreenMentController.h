@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
 typedef enum {
     PushNone = 0,
@@ -15,7 +15,7 @@ typedef enum {
     PushTeminalChild,
 }PushStyle;  //开通类型
 
-@interface AgreenMentController : UIViewController
+@interface AgreenMentController : CommonViewController
 
 @property(nonatomic,strong)NSString *tm_id;
 @property(nonatomic,strong)NSString *protocolStr;

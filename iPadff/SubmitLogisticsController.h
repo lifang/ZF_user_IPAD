@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
 @protocol SubmitLogisticsClickWithDataDelegate <NSObject>
 
@@ -16,7 +16,7 @@
 
 @end
 
-@interface SubmitLogisticsController : UIViewController
+@interface SubmitLogisticsController : CommonViewController
 
 @property(nonatomic,weak)id SubmitLogisticsClickWithDataDelegate;
 @property(nonatomic,assign)BOOL isChild;

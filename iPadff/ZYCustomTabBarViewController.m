@@ -887,7 +887,7 @@ if(iOS7)
     NSDictionary *info=[dic objectForKey:@"result"];
    int versions=[[info objectForKey:@"versions"] intValue];
     
-    NSString *localVersion=[[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    NSString *localVersion=[[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleVersion"];
     down_url=[info objectForKey:@"down_url"];
     
     if ([localVersion intValue] >= versions)

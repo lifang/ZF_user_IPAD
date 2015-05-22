@@ -24,7 +24,7 @@ typedef enum {
 
 static NSString *RefreshCSListNotification = @"RefreshCSListNotification";
 
-@interface CSDetailViewController : UIViewController
+@interface CSDetailViewController : CommonViewController
 
 @property (nonatomic, assign) CSType csType;
 

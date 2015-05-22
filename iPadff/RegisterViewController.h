@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
-@interface RegisterViewController : UIViewController
+@interface RegisterViewController : CommonViewController
 
 @property (nonatomic, strong) NSString *validate;
 

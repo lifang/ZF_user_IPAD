@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZYCustomTabBarViewController.h"
 
+#define UMENG_APPKEY @"553def3e67e58ed8e700015b"
 static NSString *s_messageTab = @"s_messageTab";
 #define kDefaultCityID  @"0"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
