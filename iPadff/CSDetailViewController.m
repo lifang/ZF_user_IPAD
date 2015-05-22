@@ -166,6 +166,50 @@
                                                          multiplier:1.0
                                                            constant:btnHeight]];
 }
+- (void)setLabel:(UILabel *)label
+     withTopView:(UIView *)topView
+     middleSpace:(CGFloat)space
+         WithStr:(NSString *)str{
+    CGFloat leftSpace = 60.f;
+    CGFloat rightSpce = 60.f;
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:16.f];
+    label.textColor = kColor(46, 46, 46, 1);
+    CGSize size = CGSizeMake(self.view.frame.size.width - 160.f,MAXFLOAT); //设置一个行高上限
+    NSDictionary *attribute = @{NSFontAttributeName: label.font};
+    CGSize labelsize = [str boundingRectWithSize:size options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    label.numberOfLines = 0;
+    [self.scrollView addSubview:label];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:topView
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:space]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:leftSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-rightSpce]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                         multiplier:1.0
+                                                           constant:labelsize.height]];
+}
 
 - (UIButton *)buttonWithTitle:(NSString *)titleName Andpositon:(OperationBtn)position Andaction:(SEL)action
 {

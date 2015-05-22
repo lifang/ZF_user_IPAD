@@ -254,7 +254,7 @@
     alterationBtn.backgroundColor = [UIColor clearColor];
     alterationBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [alterationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [alterationBtn setTitle:@"租凭退还" forState:UIControlStateNormal];
+    [alterationBtn setTitle:@"租赁退还" forState:UIControlStateNormal];
     alterationBtn.frame = CGRectMake(CGRectGetMaxX(updateDataBtn.frame) + 18, 45, 90, 36);
     self.alterationBtnX = alterationBtn.frame.origin.x;
     [headerView addSubview:alterationBtn];

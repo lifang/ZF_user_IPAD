@@ -289,7 +289,7 @@
     [self setLabel:accountLabel withTopView:refundBankLabel middleSpace:space];
     //退款原因
     UILabel *reasonLabel = [[UILabel alloc] init];
-    [self setLabel:reasonLabel withTopView:accountLabel middleSpace:space];
+    [self setLabel:reasonLabel withTopView:accountLabel middleSpace:space WithStr:_refundReason];
     
     
     CGFloat resourceHeight = 0.f;
@@ -627,11 +627,28 @@
 }
 
 - (IBAction)cancelApply:(id)sender {
-    [self cancelApply];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:@"确定取消申请？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定", nil];
+    alert.tag = AlertViewCancelTag;
+    [alert show];
 }
 
 - (IBAction)send:(id)sender {
     [self submitLogisticInfomaiton];
 }
+#pragma mark - AlertView
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        if (alertView.tag == AlertViewCancelTag) {
+            [self cancelApply];
+        }
+        else if (alertView.tag == AlertViewSubmitTag) {
+            [self submitCanncelApply];
+        }
+    }
+}
 @end

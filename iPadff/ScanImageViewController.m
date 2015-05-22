@@ -80,11 +80,13 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
 //    imageView.hidden = YES;
     imageView.contentMode=UIViewContentModeScaleAspectFit;
-
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"获取中...";
 //    [self.view addSubview:imageView];
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:nil options:SDWebImageProgressiveDownload progress:nil completed:^(UIImage *image,NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 //        CGRect convertRect = [[imageView superview] convertRect:imageView.frame toView:self.view];
 //        CGPoint contentOffset = self.imagesScrollView.contentOffset;
+           hud.hidden = YES;
         CGFloat wide;
         CGFloat height;
         if(iOS7)

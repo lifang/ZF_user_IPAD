@@ -326,7 +326,7 @@
     [self setLabel:repairFeeLabel withTopView:addressLabel middleSpace:space];
     //故障描述
     UILabel *infoLabel = [[UILabel alloc] init];
-    [self setLabel:infoLabel withTopView:repairFeeLabel middleSpace:space];
+    [self setLabel:infoLabel withTopView:repairFeeLabel middleSpace:space WithStr:_detail];
     
     //397
     CGFloat height = 0;
@@ -481,7 +481,13 @@
 #pragma mark - Action
 
 - (IBAction)cancelApply:(id)sender {
-    [self cancelApply];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:@"确定取消申请？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定", nil];
+    alert.tag = AlertViewCancelTag;
+    [alert show];
 }
 
 //支付
@@ -497,6 +503,18 @@
 
 - (IBAction)send:(id)sender {
     [self submitLogisticInfomaiton];
+}
+#pragma mark - AlertView
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        if (alertView.tag == AlertViewCancelTag) {
+            [self cancelApply];
+        }
+        else if (alertView.tag == AlertViewSubmitTag) {
+            [self submitCanncelApply];
+        }
+    }
 }
 
 @end

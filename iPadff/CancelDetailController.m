@@ -535,7 +535,7 @@
 
 - (IBAction)submit:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
-                                                    message:@"确定提交申请？"
+                                                    message:@"确定重新提交注销？"
                                                    delegate:self
                                           cancelButtonTitle:@"取消"
                                           otherButtonTitles:@"确定", nil];

@@ -55,5 +55,10 @@ static NSString *RefreshCSListNotification = @"RefreshCSListNotification";
 
 //重新提交注销申请
 - (void)submitCanncelApply;
+//根据文字布局高度
+- (void)setLabel:(UILabel *)label
+     withTopView:(UIView *)topView
+     middleSpace:(CGFloat)space
+         WithStr:(NSString *)str;
 
 @end

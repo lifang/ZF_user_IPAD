@@ -166,7 +166,7 @@
     if ([_reuseIdentifierID isEqualToString:@"cell6"]) {
         switch (_lable.tag) {
             case 1234:
-                _lable.text = @"租凭退还编号";
+                _lable.text = @"租赁退还编号";
                 break;
             case 1235:
                 _lable.text = @"终端号";
@@ -175,7 +175,7 @@
                 _lable.text = @"申请日期";
                 break;
             case 1237:
-                _lable.text = @"租凭退还状态";
+                _lable.text = @"租赁退还状态";
                 break;
                 
             default:
