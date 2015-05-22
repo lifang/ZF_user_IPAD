@@ -805,13 +805,19 @@ if(iOS7)
     [whiteView addSubview:_noticeSwitch];
     
     
-     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     _versionsLabel = [[UILabel alloc]init];
     _versionsLabel.textColor = kColor(156, 155, 154, 1.0);
     _versionsLabel.font = [UIFont systemFontOfSize:20];
     _versionsLabel.text =[NSString stringWithFormat:@"V%@",version];
     _versionsLabel.frame = CGRectMake(CGRectGetMaxX(getNews.frame) + 50, CGRectGetMaxY(line2.frame) + 15, 85, 50);
     [whiteView addSubview:_versionsLabel];
+    
+    UIButton *testBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    [testBtn setBackgroundColor:[UIColor clearColor]];
+    testBtn.frame = CGRectMake(CGRectGetMaxX(getNews.frame) + 50, CGRectGetMaxY(line2.frame) + 15, 85, 50);
+    [whiteView addSubview:testBtn];
+    [testBtn addTarget:self action:@selector(examVersion:) forControlEvents:UIControlEventTouchUpInside];
     
     _memoryLabel = [[UILabel alloc]init];
     _memoryLabel.textColor = kColor(156, 155, 154, 1.0);
@@ -833,10 +839,10 @@ if(iOS7)
 //检测版本
 -(void)examVersion:(UIButton*)sender
 {
-    MBProgressHUD *hud=[[MBProgressHUD alloc]init];
+    MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText=@"正在检测...";
     [self.view addSubview:hud];
-    [NetworkInterface getappVersionWithTypes:@"5" finished:^(BOOL success, NSData *response) {
+    [NetworkInterface checkVersionFinished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.3f];
@@ -879,20 +885,21 @@ if(iOS7)
         return;
     }
     NSDictionary *info=[dic objectForKey:@"result"];
-    NSString*versions=[info objectForKey:@"versions"];
-    NSString*str=[NSString stringWithFormat:@"V%@",versions];
+   int versions=[[info objectForKey:@"versions"] intValue];
+    
+    NSString *localVersion=[[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     down_url=[info objectForKey:@"down_url"];
     
-    if ([str isEqualToString:_versionsLabel.text])
+    if ([localVersion intValue] >= versions)
     {
         //没有更新
         UIAlertView *aler =[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"当前是最新版本" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [aler show];
     }else
     {
-        //更新 加载网页
+        // 有更新
     
-        UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"您确定要更新版本" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:@"提示信息" message:@"发现新版本,您确定要更新?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         
         [alertView show];
     }
@@ -901,19 +908,12 @@ if(iOS7)
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex==1)
+    if (buttonIndex==!alertView.cancelButtonIndex)
     {
-        [self updateAppWith:down_url];
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:down_url]];
     }
 }
--(void)updateAppWith:(NSString*)urlString
-{
-    UIWebView *webView=[[UIWebView alloc]initWithFrame:self.view.frame];
-    NSURL *url=[NSURL URLWithString:urlString];
-    NSURLRequest *request=[NSURLRequest requestWithURL:url];
-    [webView loadRequest:request];
-    [self.view addSubview:webView];
-}
+
 -(void)clearImage
 {
     [[SDImageCache sharedImageCache] clearDisk];
