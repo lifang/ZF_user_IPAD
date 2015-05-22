@@ -64,6 +64,12 @@
     }
     else
     {
+        for (UIView *v in self.view.subviews) {
+            if ([v isKindOfClass:[UILabel class]] || [v isKindOfClass:[UITextField class]] || [v isKindOfClass:[UIButton class]]) {
+                [v removeFromSuperview];
+            }
+        }
+        
         LoginViewController *loginC = [[LoginViewController alloc]init];
         loginC.LoginSuccessDelegate = self;
         loginC.view.frame = CGRectMake(0, 0, 320, 320);
@@ -78,6 +84,7 @@
 -(void)LoginSuccess
 {
     [self getUserInfo];
+    [self initAndLayoutUI];
     self.swithView.hidden = NO;
 }
 
