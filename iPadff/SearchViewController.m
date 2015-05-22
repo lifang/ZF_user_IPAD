@@ -443,7 +443,9 @@
 
 - (IBAction)dismiss:(id)sender {
 //    [self searchWithString:nil];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+//    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma mark - 数据
@@ -475,7 +477,7 @@
     if (_delegate && [_delegate respondsToSelector:@selector(getSearchKeyword:)]) {
         [_delegate getSearchKeyword:string];
     }
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - SearchBar

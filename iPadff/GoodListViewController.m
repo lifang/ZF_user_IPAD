@@ -607,6 +607,8 @@ shoppingItem.badgeValue=@"";
 #pragma mark - Action
 
 - (IBAction)goShoppingCart:(id)sender {
+    
+    
     AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [del.tabBarViewController setSeletedIndex:1];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"clearo" object:nil userInfo:nil];
@@ -779,7 +781,11 @@ shoppingItem.badgeValue=@"";
     searchC.keyword = _keyword;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchC];
     [NavigationBarAttr setNavigationBarStyle:nav];
-    [self presentViewController:nav animated:NO completion:nil];
+    searchC.hidesBottomBarWhenPushed=YES;
+    
+    [self.navigationController pushViewController:searchC animated:YES];
+    
+//    [self presentViewController:nav animated:NO completion:nil];
     return NO;
 
 }

@@ -832,7 +832,7 @@ if(tableView==_tableViewPJ)
                         }
                         
 
-                        typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
+//                        typeLabel.text = [NSString stringWithFormat:@"支付方式：%@",_orderDetail.orderPayType];
                         [cell.contentView addSubview:typeLabel];
                         //订单日期
                         UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2 - btnWidth, 20)];
