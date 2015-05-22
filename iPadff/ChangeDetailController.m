@@ -281,7 +281,7 @@
     [self setLabel:addressLabel withTopView:thirdLine middleSpace:space];
     //换货原因
     UILabel *reasonLabel = [[UILabel alloc] init];
-    [self setLabel:reasonLabel withTopView:addressLabel middleSpace:space];
+    [self setLabel:reasonLabel withTopView:addressLabel middleSpace:space WithStr:_reason];
     
     CGFloat resourceHeight = 0.f;
     CGFloat tempHeight = lineSpace; //计算资料高度
@@ -609,11 +609,28 @@
 }
 
 - (IBAction)cancelApply:(id)sender {
-    [self cancelApply];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
+                                                    message:@"确定取消申请？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定", nil];
+    alert.tag = AlertViewCancelTag;
+    [alert show];
 }
 
 - (IBAction)send:(id)sender {
     [self submitLogisticInfomaiton];
 }
+#pragma mark - AlertView
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        if (alertView.tag == AlertViewCancelTag) {
+            [self cancelApply];
+        }
+        else if (alertView.tag == AlertViewSubmitTag) {
+            [self submitCanncelApply];
+        }
+    }
+}
 @end

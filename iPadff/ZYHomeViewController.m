@@ -496,6 +496,13 @@
     }
 }
 
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"~~~~~~~~~~~~%@",error);
+    UIAlertView *alerV = [[UIAlertView alloc]initWithTitle:nil message:@"启动定位失败！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alerV show];
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
