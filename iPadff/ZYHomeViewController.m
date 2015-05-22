@@ -25,7 +25,6 @@
 #import "LoginViewController.h"
 #import "AccountTool.h"
 #import "MoneyManagementViewController.h"
-
 #import "LoanViewController.h"
 @interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate,LoginSuccessDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
