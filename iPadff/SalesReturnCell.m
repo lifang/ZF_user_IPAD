@@ -77,7 +77,7 @@
                 break;
                 
             case SalesReturnCellTypeIng:
-                _SalesReturnStatus.text = @"退货中";
+                _SalesReturnStatus.text = @"处理中";
                 for (int i = 0; i < 1; i++) {
                     UIButton *button = [[UIButton alloc]init];
                     button.titleLabel.font = [UIFont systemFontOfSize:17];

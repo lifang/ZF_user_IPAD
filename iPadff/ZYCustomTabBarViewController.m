@@ -15,6 +15,8 @@
 #import "MBProgressHUD.h"
 #import "ShoppingCartOrderController.h"
 #import "BPush.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 //#import "UIDevice+IdentifierAddition.h"
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #ifdef iOS8
@@ -554,15 +556,30 @@ if(iOS7)
     //获得索引
 	UIButton *btn = (UIButton *)sender;
 	int index = btn.tag - 1.0;
-   if(index==1)
+   if(index==1 || index == 2 || index == 3)
    {
+       AccountModel *account = [AccountTool userModel];
+       NSLog(@"%@",account);
+       if (account.password) {
+           //用self.赋值默认会调set方法
+           [self setSeletedIndex:index];
+       }
+       else
+       {
+           LoginViewController *loginC = [[LoginViewController alloc]init];
+           loginC.LoginSuccessDelegate = self;
+           loginC.view.frame = CGRectMake(0, 0, 320, 320);
+           UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+           nav.navigationBarHidden = YES;
+           nav.modalPresentationStyle = UIModalPresentationCustom;
+           nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+           [self presentViewController:nav animated:YES completion:nil];
+       }
+   }else{
        redimage.hidden=YES;
-       
-   
-   
+       //用self.赋值默认会调set方法
+       [self setSeletedIndex:index];
    }
-    //用self.赋值默认会调set方法
-    [self setSeletedIndex:index];
     
 //	self.seletedIndex = index;
     NSLog(@"mmmmmmm%d",index);
