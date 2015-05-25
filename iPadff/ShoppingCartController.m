@@ -60,6 +60,7 @@
 
 -(void)LoginSuccess
 {
+
     [self initAndLayoutUI];
     [self getShoppingList];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -69,6 +70,8 @@
 {
     [super viewDidAppear:animated];
     [self ShowLoginVC];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"clearo" object:nil userInfo:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

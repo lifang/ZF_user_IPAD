@@ -1095,6 +1095,8 @@
     NSLog(@"%@",account);
     if (account.password) {
         [self LoginSuccess];
+        [self addGoodIntoShoppingCart];
+
     }
     if (delegate.haveExit) {
         LoginViewController *loginC = [[LoginViewController alloc]init];
@@ -1162,7 +1164,6 @@
             hud.labelText = @"未获取到此商品信息";
             return;
         }
-        [self addGoodIntoShoppingCart];
     }
 
 - (void)addGoodIntoShoppingCart {

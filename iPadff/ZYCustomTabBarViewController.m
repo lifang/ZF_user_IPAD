@@ -556,6 +556,12 @@ if(iOS7)
     //获得索引
 	UIButton *btn = (UIButton *)sender;
 	int index = btn.tag - 1.0;
+    if(index==1)
+    {
+//        redimage.hidden=YES;
+
+    }
+ 
    if(index==1 || index == 2 || index == 3)
    {
        AccountModel *account = [AccountTool userModel];
@@ -563,6 +569,7 @@ if(iOS7)
        if (account.password) {
            //用self.赋值默认会调set方法
            [self setSeletedIndex:index];
+           
        }
        else
        {
@@ -575,8 +582,8 @@ if(iOS7)
            nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
            [self presentViewController:nav animated:YES completion:nil];
        }
-   }else{
-       redimage.hidden=YES;
+   }else
+   {
        //用self.赋值默认会调set方法
        [self setSeletedIndex:index];
    }

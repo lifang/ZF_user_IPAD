@@ -60,6 +60,7 @@
 		0EBBC5931AB1663300E0ED16 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5921AB1663300E0ED16 /* OrderCell.m */; };
 		0EBBC5961AB1665100E0ED16 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5951AB1665100E0ED16 /* OrderModel.m */; };
 		0EBBC5991AB1666C00E0ED16 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBC5981AB1666C00E0ED16 /* OrderDetailModel.m */; };
+		0EBE96C81B131D6600CA0715 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EBE96C51B131D6600CA0715 /* libUPPayPlugin.a */; };
 		0EC589CE1AB3DAFA00B690F5 /* GoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC589CD1AB3DAFA00B690F5 /* GoodDetailViewController.m */; };
 		0EC6476A1AF1187D0038908A /* ChannelSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC647691AF1187D0038908A /* ChannelSelectedController.m */; };
 		0EC6476D1AF119280038908A /* BankSelectedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC6476C1AF119280038908A /* BankSelectedController.m */; };
@@ -481,6 +482,9 @@
 		0EBBC5951AB1665100E0ED16 /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
 		0EBBC5971AB1666C00E0ED16 /* OrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailModel.h; sourceTree = "<group>"; };
 		0EBBC5981AB1666C00E0ED16 /* OrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
+		0EBE96C51B131D6600CA0715 /* libUPPayPlugin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUPPayPlugin.a; sourceTree = "<group>"; };
+		0EBE96C61B131D6600CA0715 /* UPPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPlugin.h; sourceTree = "<group>"; };
+		0EBE96C71B131D6600CA0715 /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPluginDelegate.h; sourceTree = "<group>"; };
 		0EC589CC1AB3DAFA00B690F5 /* GoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetailViewController.h; sourceTree = "<group>"; };
 		0EC589CD1AB3DAFA00B690F5 /* GoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodDetailViewController.m; sourceTree = "<group>"; };
 		0EC647681AF1187D0038908A /* ChannelSelectedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelSelectedController.h; sourceTree = "<group>"; };
@@ -1128,7 +1132,7 @@
 				0ED369271AE88DC600663627 /* SystemConfiguration.framework in Frameworks */,
 				0ED3691D1AE88D2D00663627 /* libssl.a in Frameworks */,
 				0ECB82EC1AEF19A100986D0E /* libcommon_audio_sse2.a in Frameworks */,
-				1AB0F5861B131B9C0099D584 /* libUPPayPlugin.a in Frameworks */,
+				0EBE96C81B131D6600CA0715 /* libUPPayPlugin.a in Frameworks */,
 				0ECB82EB1AEF19A100986D0E /* libcommon_audio_neon.a in Frameworks */,
 				0ED3691B1AE88D2D00663627 /* AlipaySDK.framework in Frameworks */,
 				0ECB82DB1AEF199500986D0E /* libvpx.a in Frameworks */,
@@ -1219,6 +1223,13 @@
 			name = MerchantCell;
 			sourceTree = "<group>";
 		};
+		0D4B603B1B12FC98002C3ADC /* UnionPay */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UnionPay;
+			sourceTree = "<group>";
+		};
 		0D714C611AB2EBA1007FF2C5 /* Merchant */ = {
 			isa = PBXGroup;
 			children = (
@@ -1261,6 +1272,16 @@
 				0E153F141B048442000DE72F /* UIBarButtonItem+Badge.m */,
 			);
 			name = redDD;
+			sourceTree = "<group>";
+		};
+		0EBE96C41B131D4800CA0715 /* yinlian */ = {
+			isa = PBXGroup;
+			children = (
+				0EBE96C51B131D6600CA0715 /* libUPPayPlugin.a */,
+				0EBE96C61B131D6600CA0715 /* UPPayPlugin.h */,
+				0EBE96C71B131D6600CA0715 /* UPPayPluginDelegate.h */,
+			);
+			name = yinlian;
 			sourceTree = "<group>";
 		};
 		0EC99CA01AAFE67500D20386 /* KxMenu */ = {
@@ -1889,7 +1910,8 @@
 		0ED6ACF71AA16EB000D3B025 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				1AB0F5841B131B700099D584 /* UnionPay */,
+				0EBE96C41B131D4800CA0715 /* yinlian */,
+				0D4B603B1B12FC98002C3ADC /* UnionPay */,
 				1AD907991B0F4D0A005D581C /* YouMeng */,
 				1A73910D1B0C70B400FAE601 /* LibBPush */,
 				0E153F121B048427000DE72F /* redDD */,
@@ -2918,8 +2940,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: fang qian (YSGNM446KN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fang qian (YSGNM446KN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iPadff/Alipay",
@@ -2941,7 +2963,7 @@
 					/Users/huanghanzhang/Downloads/UnionPay,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2951,8 +2973,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: fang qian (YSGNM446KN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fang qian (YSGNM446KN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/iPadff/Alipay",
@@ -2974,7 +2996,7 @@
 					/Users/huanghanzhang/Downloads/UnionPay,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

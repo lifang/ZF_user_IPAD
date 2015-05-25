@@ -216,7 +216,7 @@
     {
         if(addressarry.count>0)
         {
-            AddressModel *model =[addressarry objectAtIndex:B];
+            AddressModel *model =[addressarry objectAtIndex:B-1];
             
             addressID=model.addressID;
         }
