@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
+#import "CommonViewController.h"
 
-@interface FLViewController : UIViewController{
+@interface FLViewController : CommonViewController{
     MBProgressHUD *HUD;
 }
 

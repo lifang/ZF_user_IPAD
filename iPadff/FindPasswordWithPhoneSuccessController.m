@@ -31,7 +31,7 @@
     UIFont *mainFont = [UIFont systemFontOfSize:20];
     label1.text = @"您的密码已更新！";
     label1.font = mainFont;
-    label1.frame = CGRectMake(430, 120, 160, 40);
+    label1.frame = CGRectMake(430, 60, 160, 40);
     [self.view addSubview:label1];
     
     UIView *line = [[UIView alloc]init];

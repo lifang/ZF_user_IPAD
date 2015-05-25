@@ -306,7 +306,7 @@
         hud.labelText = @"新密码长度过短";
         return;
     }
-    if (_newsPasswordField.text.length >= 20) {
+    if (_newsPasswordField.text.length > 20) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;

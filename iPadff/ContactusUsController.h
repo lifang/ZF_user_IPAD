@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 
-@interface ContactusUsController : UIViewController
+@interface ContactusUsController : CommonViewController
 
 @end

@@ -26,6 +26,8 @@
 #import "AccountTool.h"
 #import "MoneyManagementViewController.h"
 #import "LoanViewController.h"
+#import "LoginViewController.h"
+#import "AccountTool.h"
 @interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate,LoginSuccessDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
 @property(nonatomic,strong)LocationViewController *locationVC;
@@ -434,16 +436,47 @@
             break;
         case 1002: {
             //终端管理
-            TerminalViewController *terminalVC = [[TerminalViewController alloc]init];
-            terminalVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:terminalVC animated:YES];
+            AccountModel *account = [AccountTool userModel];
+            NSLog(@"%@",account);
+            if (account.password) {
+                TerminalViewController *terminalVC = [[TerminalViewController alloc]init];
+                terminalVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:terminalVC animated:YES];
+            }
+            else
+            {
+                LoginViewController *loginC = [[LoginViewController alloc]init];
+                loginC.LoginSuccessDelegate = self;
+                loginC.view.frame = CGRectMake(0, 0, 320, 320);
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+                nav.navigationBarHidden = YES;
+                nav.modalPresentationStyle = UIModalPresentationCustom;
+                nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                [self presentViewController:nav animated:YES completion:nil];
+            }
         }
             break;
         case 1003: {
             //交易流水
-            DealRoadController *dealVC = [[DealRoadController alloc]init];
-            dealVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:dealVC animated:YES];
+            AccountModel *account = [AccountTool userModel];
+            NSLog(@"%@",account);
+            if (account.password) {
+                DealRoadController *dealVC = [[DealRoadController alloc]init];
+                dealVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:dealVC animated:YES];
+            }
+            else
+            {
+                LoginViewController *loginC = [[LoginViewController alloc]init];
+                loginC.LoginSuccessDelegate = self;
+                loginC.view.frame = CGRectMake(0, 0, 320, 320);
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+                nav.navigationBarHidden = YES;
+                nav.modalPresentationStyle = UIModalPresentationCustom;
+                nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                [self presentViewController:nav animated:YES completion:nil];
+            }
+      
         }
             break;
         case 1004: {
@@ -472,9 +505,24 @@
             break;
         case 1007: {
             //联系我们
-            ContactusUsController *contactVC = [[ContactusUsController alloc]init];
-            contactVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:contactVC animated:YES];
+            AccountModel *account = [AccountTool userModel];
+            NSLog(@"%@",account);
+            if (account.password) {
+                ContactusUsController *contactVC = [[ContactusUsController alloc]init];
+                contactVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:contactVC animated:YES];
+            }
+            else
+            {
+                LoginViewController *loginC = [[LoginViewController alloc]init];
+                loginC.LoginSuccessDelegate = self;
+                loginC.view.frame = CGRectMake(0, 0, 320, 320);
+                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+                nav.navigationBarHidden = YES;
+                nav.modalPresentationStyle = UIModalPresentationCustom;
+                nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                [self presentViewController:nav animated:YES completion:nil];
+            }
         }
             break;
         default:

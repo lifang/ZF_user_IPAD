@@ -893,6 +893,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0 && alertView.tag == 9090) {
+        
         AppDelegate *delegate = [AppDelegate shareAppDelegate];
         [delegate clearLoginInfo];
         [delegate.tabBarViewController setSeletedIndex:0];

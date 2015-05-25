@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 LanTaiPro. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CommonViewController.h"
 #import "ChooseView.h"
 
-@interface MineCommonController : UIViewController
+@interface MineCommonController : CommonViewController
 
 @property(nonatomic,strong)ChooseView *chooseView;
 
