@@ -1007,7 +1007,7 @@
             break;
         case 223:
             NSLog(@"点击了重新提交注销");
-            [self submitCanncelApply];
+            [self setAlertViewSubmit];
             break;
         default:
             break;
@@ -1080,7 +1080,15 @@
 
 -(void)setAlertView
 {
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示信息" message:@"确定取消申请?" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示信息" message:@"确定取消申请?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = AlertViewCancelTag;
+    [alertView show];
+}
+
+-(void)setAlertViewSubmit
+{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示信息" message:@"确定重新提交注销?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alertView.tag = AlertViewSubmitTag;
     [alertView show];
 }
 
@@ -1216,14 +1224,15 @@
 }
 
 
-
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        [self cancelApply];
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        if (alertView.tag != AlertViewCancelTag) {
+            [self cancelApply];
+        }
+        else if (alertView.tag == AlertViewSubmitTag) {
+            [self submitCanncelApply];
+        }
     }
 }
-
 
 @end

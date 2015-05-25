@@ -22,7 +22,8 @@
 #import "GoodsCellCollectionViewCell.h"
 #import "MJRefresh.h"
 #import "UIBarButtonItem+Badge.h"
-
+#import "AccountTool.h"
+#import "LoginViewController.h"
 #import "GoodsCollectionViewCell2.h"
 
 @interface GoodListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate,SortViewDelegate,SearchDelegate>
@@ -608,10 +609,24 @@ shoppingItem.badgeValue=@"";
 
 - (IBAction)goShoppingCart:(id)sender {
     
-    
-    AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [del.tabBarViewController setSeletedIndex:1];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"clearo" object:nil userInfo:nil];
+    AccountModel *account = [AccountTool userModel];
+    NSLog(@"%@",account);
+    if (account.password) {
+        AppDelegate *del = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [del.tabBarViewController setSeletedIndex:1];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"clearo" object:nil userInfo:nil];
+    }
+    else
+    {
+        LoginViewController *loginC = [[LoginViewController alloc]init];
+        loginC.LoginSuccessDelegate = self;
+        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+        nav.navigationBarHidden = YES;
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
 
 }
 

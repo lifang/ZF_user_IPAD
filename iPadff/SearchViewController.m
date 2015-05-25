@@ -466,13 +466,32 @@
 
 - (void)saveSearchHistory {
     if (![self.historyItems containsObject:self.searchBar.text]) {
-        [self.historyItems addObject:self.searchBar.text];
-        //保存搜索历史到本地
-        [SearchHistoryHelper saveGoodsHistory:self.historyItems];
-        [_tableView reloadData];
+        
+        
+        if([self isBlankString:self.searchBar.text]==NO)
+        {
+            NSString*headerDatadgdgfgf= [self.searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            [self.historyItems addObject:headerDatadgdgfgf];
+            //保存搜索历史到本地
+            [SearchHistoryHelper saveGoodsHistory:self.historyItems];
+            [_tableView reloadData];
+        }
+
     }
 }
-
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 - (void)searchWithString:(NSString *)string {
     if (_delegate && [_delegate respondsToSelector:@selector(getSearchKeyword:)]) {
         [_delegate getSearchKeyword:string];
