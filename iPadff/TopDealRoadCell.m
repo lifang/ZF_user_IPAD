@@ -26,9 +26,9 @@
         self.reuseIdentifierID = reuseIdentifier;
         UIView *topView = [[UIView alloc]init];
         topView.backgroundColor = kColor(212, 212, 212, 1.0);
-        topView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0.7);
+        topView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1);
         if (iOS7) {
-            topView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 0.7);
+            topView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 1);
         }
         [self addSubview:topView];
         
