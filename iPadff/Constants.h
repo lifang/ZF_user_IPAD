@@ -48,11 +48,16 @@
 #define kOrderCallBackURL  @"http://121.40.84.2:8080/ZFMerchant/app_notify_url.jsp"
 #define kCSCallBackURL     @"http://121.40.84.2:8080/ZFMerchant/repair_app_notify_url.jsp"
 
-
-
 //#define kWhalesaleCallBackURL   @"http://121.40.84.2:8080/ZFMerchant/deposit_app_notify_url.jsp"
 //#define kProcurementCallBackURL @"http://121.40.84.2:8080/ZFMerchant/app_notify_url.jsp"
 
+
+//UnionPay
+#define kMode_Production             @"01" //测试
+#define kUnionPayURL  @"http://121.40.84.2:8080/ZFMerchant/unionpay.do" //测试
+
+//#define kMode_Production             @"00"  //线上
+//#define kUnionPayURL  @"http://121.40.64.167:8080/unionpay.do" //线上
 
 
 #define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]

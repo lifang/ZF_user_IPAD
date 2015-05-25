@@ -7,6 +7,7 @@
 //
 
 #import "CommonViewController.h"
+#import "UPPayPluginDelegate.h"
 
 
 typedef enum {
@@ -19,7 +20,7 @@ typedef enum {
 
 //订单、购物车、商品详情、维修记录可跳转此类
 
-@interface PayWayViewController : CommonViewController
+@interface PayWayViewController : CommonViewController <UPPayPluginDelegate,UIAlertViewDelegate>
 
 { UILabel *priceLabel ;
 }
