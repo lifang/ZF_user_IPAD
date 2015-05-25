@@ -540,11 +540,27 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
         else if(i==9)
         {
             
+            UITextField *neworiginaltextfield=[[UITextField alloc]init];
+            neworiginaltextfield.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
+            UIView *leftView = [[UIView alloc]init];
+            leftView.frame = CGRectMake(0, 0, 10, 40);
+            neworiginaltextfield.leftView =leftView;
+            neworiginaltextfield.delegate=self;
+            neworiginaltextfield.leftViewMode = UITextFieldViewModeAlways;
+            neworiginaltextfield.rightViewMode = UITextFieldViewModeAlways;
             
+            neworiginaltextfield.clearButtonMode = UITextFieldViewModeWhileEditing;
+            neworiginaltextfield.tag=i+1056;
+            
+            [_scrollView addSubview:neworiginaltextfield];
+            neworiginaltextfield.layer.masksToBounds=YES;
+            neworiginaltextfield.layer.borderWidth=1.0;
+            neworiginaltextfield.layer.borderColor=[UIColor grayColor].CGColor;
             
             blankseclectbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            blankseclectbutton.frame = CGRectMake(190+(wide/2-40)*row,  height*70+topSpace + labelHeight * 7,280, 40);
-            
+            blankseclectbutton.frame = CGRectMake(0,0,50, 40);
+            neworiginaltextfield.rightView =blankseclectbutton;
+
 
             
             
@@ -552,9 +568,9 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
      
             {
 
-    
+                neworiginaltextfield.text=_bankTitleName;
+                
 
-                [blankseclectbutton setTitle:[NSString stringWithFormat:@"%@        ",_bankTitleName] forState:UIControlStateNormal];
 
      
             }
@@ -564,19 +580,19 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
             [blankseclectbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             blankseclectbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [blankseclectbutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[blankseclectbutton  layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            blankseclectbutton.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
-            blankseclectbutton.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-            
+//            CALayer *layer=[blankseclectbutton  layer];
+//            //是否设置边框以及是否可见
+//            [layer setMasksToBounds:YES];
+//            //设置边框圆角的弧度
+//            
+//            //设置边框线的宽
+//            //
+//            [layer setBorderWidth:1];
+//            //设置边框线的颜色
+//            [layer setBorderColor:[[UIColor grayColor] CGColor]];
+//            blankseclectbutton.contentEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+//            blankseclectbutton.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
+//            
             blankseclectbutton.tag=14055;
 
             [blankseclectbutton addTarget:self action:@selector(blankclick:) forControlEvents:UIControlEventTouchUpInside];
@@ -2309,6 +2325,12 @@ _applyType = OpenApplyPrivate;
 {
     self.editingField=textField;
     
+    if(textField.tag==1056+9)
+    {
+        
+        
+        _bankTitleName=textField.text;
+    }
 
 
 
@@ -2327,6 +2349,14 @@ _applyType = OpenApplyPrivate;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    
+    if(textField.tag==1056+9)
+    {
+        
+        
+        _bankTitleName=textField.text;
+    }
     if (textField.text && ![textField.text isEqualToString:@""]) {
         
         
