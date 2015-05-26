@@ -779,7 +779,19 @@ if(tableView==_tableViewPJ)
                         [cell.contentView addSubview:receiverLabel];
                         //地址
                         UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
-                        [self setLabel:addressLabel withString:[NSString stringWithFormat:@"收件地址：%@",_orderDetail.orderAddress]];
+                        
+                        if([self isBlankString:_orderDetail.orderAddress])
+                        {
+                            [self setLabel:addressLabel withString:[NSString stringWithFormat:@"收件地址："]];
+
+                        
+                        }else
+                        {
+                        
+                            [self setLabel:addressLabel withString:[NSString stringWithFormat:@"收件地址：%@",_orderDetail.orderAddress]];
+
+                        
+                        }
                         [cell.contentView addSubview:addressLabel];
                     }
                         break;
