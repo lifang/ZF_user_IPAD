@@ -345,7 +345,6 @@
 		1AA8FF7B1AA4074D009D41B3 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF6D1AA4074D009D41B3 /* UIView+WebCacheOperation.m */; };
 		1AA8FF861AA41D67009D41B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA8FF851AA41D67009D41B3 /* LoginViewController.m */; };
 		1AAA57131B05D3FF00196E03 /* AgreenMentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AAA57121B05D3FF00196E03 /* AgreenMentController.m */; };
-		1AB0F5861B131B9C0099D584 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB0F5851B131B9C0099D584 /* libUPPayPlugin.a */; };
 		1AC6A2CD1AC3A83500685FC9 /* CustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CB1AC3A83500685FC9 /* CustomSwitch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1AC6A2CE1AC3A83500685FC9 /* CustomSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */; };
 		1AC7F9481AA5BEB400C99F5C /* MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC7F9471AA5BEB400C99F5C /* MessageViewCell.m */; };
@@ -1024,9 +1023,6 @@
 		1AA8FF851AA41D67009D41B3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1AAA57111B05D3FF00196E03 /* AgreenMentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreenMentController.h; sourceTree = "<group>"; };
 		1AAA57121B05D3FF00196E03 /* AgreenMentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreenMentController.m; sourceTree = "<group>"; };
-		1AB0F5851B131B9C0099D584 /* libUPPayPlugin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUPPayPlugin.a; sourceTree = "<group>"; };
-		1AB0F5871B131BA10099D584 /* UPPayPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UPPayPlugin.h; sourceTree = "<group>"; };
-		1AB0F5881B131BA50099D584 /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UPPayPluginDelegate.h; sourceTree = "<group>"; };
 		1AC6A2CA1AC3A83500685FC9 /* CustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSwitch.h; sourceTree = "<group>"; };
 		1AC6A2CB1AC3A83500685FC9 /* CustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSwitch.m; sourceTree = "<group>"; };
 		1AC6A2CC1AC3A83500685FC9 /* CustomSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSwitch.xib; sourceTree = "<group>"; };
@@ -2368,16 +2364,6 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
-		1AB0F5841B131B700099D584 /* UnionPay */ = {
-			isa = PBXGroup;
-			children = (
-				1AB0F5881B131BA50099D584 /* UPPayPluginDelegate.h */,
-				1AB0F5871B131BA10099D584 /* UPPayPlugin.h */,
-				1AB0F5851B131B9C0099D584 /* libUPPayPlugin.a */,
-			);
-			name = UnionPay;
-			sourceTree = "<group>";
-		};
 		1AD907991B0F4D0A005D581C /* YouMeng */ = {
 			isa = PBXGroup;
 			children = (
@@ -2963,7 +2949,7 @@
 					/Users/huanghanzhang/Downloads/UnionPay,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2996,7 +2982,7 @@
 					/Users/huanghanzhang/Downloads/UnionPay,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
+				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
