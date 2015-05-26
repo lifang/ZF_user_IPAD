@@ -2949,7 +2949,7 @@
 					/Users/huanghanzhang/Downloads/UnionPay,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2982,7 +2982,7 @@
 					/Users/huanghanzhang/Downloads/UnionPay,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "85f56f5a-4a8a-4f04-9e84-5dc2da9ca2ad";
+				PROVISIONING_PROFILE = "bd51ad41-7c37-41b6-80cc-03cc70dcbfba";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

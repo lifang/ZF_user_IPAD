@@ -1095,7 +1095,6 @@
     NSLog(@"%@",account);
     if (account.password) {
         [self LoginSuccess];
-        [self addGoodIntoShoppingCart];
 
     }
     if (delegate.haveExit) {
@@ -1164,6 +1163,16 @@
             hud.labelText = @"未获取到此商品信息";
             return;
         }
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+
+    if (!delegate.userID || [delegate.userID isEqualToString:@""]) {
+    }
+    else
+    {
+        [self addGoodIntoShoppingCart];
+    }
+
+
     }
 
 - (void)addGoodIntoShoppingCart {
