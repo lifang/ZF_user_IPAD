@@ -434,7 +434,7 @@ static NSString *s_repairPay_method = @"cs/repair/repairPay";
 static NSString *s_orderConfirm_method = @"order/payOrder";
 
 //商品图片
-static NSString *s_goodImage_method = @"good/getGoodImgUrl";
+static NSString *s_goodImage_method = @"good/getGoodImgUrlForPad";
 
 //获取app版本
 static NSString *s_appVersion_method = @"index/getVersion";

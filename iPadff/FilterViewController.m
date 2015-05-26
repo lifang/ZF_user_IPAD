@@ -669,7 +669,7 @@
             
             UILabel*rentlable=[[UILabel alloc]init];
             rentlable.frame=CGRectMake(80,65, 140, 30);
-            rentlable.text=@"仅支持租赁";
+            rentlable.text=@"支持租赁";
             rentlable.font=[UIFont systemFontOfSize:16];
             rentlable.textColor=[UIColor grayColor];
             [rootimageviews addSubview:rentlable];
@@ -709,7 +709,7 @@
             _lowField.font = [UIFont systemFontOfSize:14.f];
             _lowField.backgroundColor = [UIColor clearColor];
             _lowField.textAlignment = NSTextAlignmentRight;
-            //        _lowField.placeholder = @"0    ";
+                    _lowField.placeholder = @"0    ";
             _lowField.delegate = self;
             CALayer *layer=[_lowField layer];
             //是否设置边框以及是否可见
@@ -733,13 +733,19 @@
             
             _highField.font = [UIFont systemFontOfSize:14.f];
             _highField.backgroundColor = [UIColor clearColor];
-            //        _highField.placeholder = @"0   ";
             _highField.delegate = self;
-            
-            _lowField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_minPrice] intValue]];
-            _highField.text = [NSString stringWithFormat:@"%d",[[_filterDict objectForKey:s_maxPrice] intValue]];
+            _highField.placeholder = @"0    ";
+
+            if ([[_filterDict objectForKey:s_minPrice] floatValue] != 0) {
+                _lowField.text = [NSString stringWithFormat:@"%.f",[[_filterDict objectForKey:s_minPrice] floatValue]];
+            }
+            if ([[_filterDict objectForKey:s_maxPrice] floatValue] != 0) {
+                _highField.text = [NSString stringWithFormat:@"%.f",[[_filterDict objectForKey:s_maxPrice] floatValue]];
+            }
+
             _highField.textAlignment = NSTextAlignmentRight;
-            
+          
+
             CALayer *layers=[_highField layer];
             //是否设置边框以及是否可见
             [layers setMasksToBounds:YES];
@@ -806,7 +812,7 @@
             [rootimageviews addSubview:signOut];
             [rootimageviews addSubview:canebutton];
             
-            
+           
             return rootimageviews;
         }
         

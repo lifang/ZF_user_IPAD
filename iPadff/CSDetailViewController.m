@@ -170,13 +170,17 @@
      withTopView:(UIView *)topView
      middleSpace:(CGFloat)space
          WithStr:(NSString *)str{
+    NSLog(@"~~~~~~~%@",str);
     CGFloat leftSpace = 60.f;
     CGFloat rightSpce = 60.f;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:16.f];
     label.textColor = kColor(46, 46, 46, 1);
-    CGSize size = CGSizeMake(self.view.frame.size.width - 160.f,MAXFLOAT); //设置一个行高上限
+    CGSize size = CGSizeMake(SCREEN_WIDTH - 300.f,MAXFLOAT); //设置一个行高上限
+    if (iOS7) {
+        size = CGSizeMake(SCREEN_HEIGHT - 300.f,MAXFLOAT); //设置一个行高上限
+    }
     NSDictionary *attribute = @{NSFontAttributeName: label.font};
     CGSize labelsize = [str boundingRectWithSize:size options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
     label.numberOfLines = 0;
