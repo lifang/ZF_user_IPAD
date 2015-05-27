@@ -57,7 +57,7 @@
 #define kUnionPayURL  @"http://121.40.84.2:8080/ZFMerchant/unionpay.do" //测试
 
 //#define kMode_Production             @"00"  //线上
-//#define kUnionPayURL  @"http://121.40.64.167:8080/unionpay.do" //线上
+//#define kUnionPayURL  @"http://www.ebank007.com/unionpay.do" //线上
 
 
 #define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]
