@@ -27,6 +27,7 @@
 @property (nonatomic, assign) CGFloat  refund;
 @property (nonatomic, strong) NSString *contact;
 @property (nonatomic, strong) NSString *phoneNumber;
+@property(nonatomic,assign)CGFloat newsRefund;
 
 @end
 
@@ -527,7 +528,11 @@
     durationLabel.text = [NSString stringWithFormat:@"租赁时长  %@",_rentDuration];
     maxLabel.text = [NSString stringWithFormat:@"最长租赁日期  %@",_maxDuration];
     minLabel.text = [NSString stringWithFormat:@"最短租赁日期  %@",_minDuration];
-    moneyLabel.text = [NSString stringWithFormat:@"退款金额  %.2f",_refund];
+    if (_newsRefund > 0) {
+        moneyLabel.text = [NSString stringWithFormat:@"退款金额  %.2f",_newsRefund];
+    }else{
+        moneyLabel.text = [NSString stringWithFormat:@"退款金额  %.2f",_refund];
+    }
     contactLabel.text = [NSString stringWithFormat:@"联 系  人  %@",_contact];
     phoneLabel.text = [NSString stringWithFormat:@"联系电话  %@",_phoneNumber];
     
@@ -628,6 +633,12 @@
     if ([infoDict objectForKey:@"receiver_phone"]) {
         _phoneNumber = [NSString stringWithFormat:@"%@",[infoDict objectForKey:@"receiver_phone"]];
     }
+    if ([infoDict objectForKey:@"crf_retrun_price"]) {
+        _newsRefund = [[infoDict objectForKey:@"crf_retrun_price"] floatValue] / 100;
+    }else{
+        _newsRefund = 0;
+    }
+    
     id resourceObject = [infoDict objectForKey:@"resource_info"];
     if ([resourceObject isKindOfClass:[NSArray class]]) {
         for (int i = 0; i < [resourceObject count]; i++) {
