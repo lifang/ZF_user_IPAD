@@ -28,6 +28,7 @@
 #import "LoanViewController.h"
 #import "LoginViewController.h"
 #import "AccountTool.h"
+#import "GoodDetailViewController.h"
 @interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate,LoginSuccessDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
 @property(nonatomic,strong)LocationViewController *locationVC;
@@ -184,13 +185,17 @@
 - (void)tapPicture:(UITapGestureRecognizer *)tap {
     UIImageView *imageView = (UIImageView *)[tap view];
     NSInteger index = imageView.tag - 1;
-    ChannelWebsiteController *websiteC = [[ChannelWebsiteController alloc] init];
+    
+    GoodDetailViewController *detailC = [[GoodDetailViewController alloc] init];
+    
+    detailC.hidesBottomBarWhenPushed =  YES ;
+    
+
     if (index >= 0 && index < [_pictureItem count]) {
         HomeImageModel *imageModel = [_pictureItem objectAtIndex:index];
-        websiteC.title = @"详情";
-        websiteC.urlString = imageModel.websiteURL;
-        websiteC.hidesBottomBarWhenPushed =  YES ;
-        [self.navigationController pushViewController:websiteC animated:YES];
+        detailC.goodID = imageModel.goodId;
+
+        [self.navigationController pushViewController:detailC animated:YES];
     }
 }
 

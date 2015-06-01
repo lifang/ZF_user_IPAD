@@ -1221,7 +1221,7 @@
 }
 //发起视频请求
 - (void)beginVideoAuth {
-    [NetworkInterface beginVideoAuthWithTerminalID:self.tm_ID finished:^(BOOL success, NSData *response) {
+    [NetworkInterface beginVideoAuthWithTerminalID:_tm_ID finished:^(BOOL success, NSData *response) {
         NSLog(@"!!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         if (success) {
             id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];

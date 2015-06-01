@@ -463,7 +463,7 @@
         [alert show];
         return;
     }
-    [self beginVideoAuthWithTerminalID:[NSString stringWithFormat:@"%d",button.tag]];
+    [self beginVideoAuthWithTerminalID:[NSString stringWithFormat:@"%@",model.TM_ID]];
 
     VideoAuthController *videoAuthC = [[VideoAuthController alloc] init];
     videoAuthC.terminalID = model.TM_ID;
@@ -482,7 +482,11 @@
                 if ([errorCode intValue] == RequestFail) {
                     //返回错误代码
                 }
-                else if ([errorCode intValue] == RequestSuccess) {
+                else if
+                    ([errorCode intValue] == RequestSuccess)
+                {
+                    
+                    
                 }
             }
             else {
