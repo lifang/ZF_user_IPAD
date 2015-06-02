@@ -298,7 +298,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == _tableView) {
+    if (tableView == _tableView)
+    {
         static NSString *cellIdentifier = @"CityIdentifier";
         UITableViewCell *cell = nil;
         if (indexPath.section == 0) {
@@ -347,6 +348,9 @@
         if (section == 0) {
             return nil;
         }
+        
+        NSLog(@"%@",[[CityHandle shareIndexList] objectAtIndex:section - 1]);
+        
         return [[CityHandle shareIndexList] objectAtIndex:section - 1];
     }
     return nil;
