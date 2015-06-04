@@ -295,6 +295,7 @@
     }
 }
 - (void)onMethod:(NSString*)method response:(NSDictionary *)data {
+    
     NSLog(@"On method:%@", method);
     NSLog(@"data:%@", [data description]);
     NSDictionary* res = [[NSDictionary alloc] initWithDictionary:data];
@@ -316,6 +317,7 @@
 
 //绑定成功向服务端提交信息
 - (void)uploadPushChannel:(NSString *)channel {
+    
     NSString *appInfo = [NSString stringWithFormat:@"%d%@",kAppChannel,channel];
     [NetworkInterface uploadPushInfoWithUserID:self.userID channelInfo:appInfo finished:^(BOOL success, NSData *response) {
         NSLog(@"!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);

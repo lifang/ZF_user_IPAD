@@ -41,6 +41,7 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 @property (nonatomic, strong) GoodButton *buyButton;
 @property (nonatomic, strong) GoodButton *rentButton;
+@property (nonatomic, strong) UIButton *noGoodButton;
 
 @property (nonatomic, strong) UIButton *shopcartButton;  //购物车按钮
 @property (nonatomic, strong) UIButton *buyGoodButton;   //立刻购买
@@ -596,55 +597,77 @@
     else {
         _rentButton.hidden = YES;
     }
+    if (_detailModel.stockNumber <= 0) {
+        _noGoodButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _noGoodButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x+80, _buyButton.frame.origin.y + _buyButton.frame.size.height+30, wide/4-80, 40);
+        _noGoodButton.layer.masksToBounds = YES;
+        [_noGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+        [_noGoodButton setTitle:@"缺货" forState:UIControlStateNormal];
+        _noGoodButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.f];
+        [_noGoodButton addTarget:self action:@selector(noGoods:) forControlEvents:UIControlEventTouchUpInside];
+        [_mainScrollView addSubview:_noGoodButton];
+
+        
+    }
     
-    _shopcartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, wide/4-80, 40);
-    //    _shopcartButton.layer.cornerRadius = 4.f;
-    _shopcartButton.layer.masksToBounds = YES;
-    //    _shopcartButton.layer.borderWidth = 1.f;
-    [_shopcartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_shopcartButton setTitleColor:kColor(252, 171, 1, 1) forState:UIControlStateHighlighted];
-    [_shopcartButton setBackgroundImage:kImageName(@"yellowback") forState:UIControlStateNormal];
-    
-    [_shopcartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
-    _shopcartButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-    [_shopcartButton addTarget:self action:@selector(addShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
-    [_mainScrollView addSubview:_shopcartButton];
-    
-    
-    //立即购买
-    _buyGoodButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _buyGoodButton.frame = CGRectMake(_shopcartButton.frame.origin.x+_shopcartButton.frame.size.width+20, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, wide/4-80, 40);
-    //    _buyGoodButton.layer.cornerRadius = 4.f;
-    _buyGoodButton.layer.masksToBounds = YES;
-    [_buyGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
-    if(_rentButton.selected)
+    else
     {
-        [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];
-        _shopcartButton.enabled = NO;
-
-
-    }else
-    {
-        [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
-
-        _shopcartButton.enabled =YES;
-
-    }
     
-    _buyGoodButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-    [_buyGoodButton addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
-    [_mainScrollView addSubview:_buyGoodButton];
-    if (_detailModel.canRent) {
-        _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height+30, wide/4-80, 40);
-        _buyGoodButton.frame = CGRectMake(_shopcartButton.frame.origin.x+_shopcartButton.frame.size.width+20, _buyButton.frame.origin.y + _buyButton.frame.size.height+30, wide/4-80, 40);
+    
+    
+        _shopcartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, wide/4-80, 40);
+        //    _shopcartButton.layer.cornerRadius = 4.f;
+        _shopcartButton.layer.masksToBounds = YES;
+        //    _shopcartButton.layer.borderWidth = 1.f;
+        [_shopcartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_shopcartButton setTitleColor:kColor(252, 171, 1, 1) forState:UIControlStateHighlighted];
+        [_shopcartButton setBackgroundImage:kImageName(@"yellowback") forState:UIControlStateNormal];
+        
+        [_shopcartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
+        _shopcartButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        [_shopcartButton addTarget:self action:@selector(addShoppingCart:) forControlEvents:UIControlEventTouchUpInside];
+        [_mainScrollView addSubview:_shopcartButton];
+        
+        
+        //立即购买
+        _buyGoodButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _buyGoodButton.frame = CGRectMake(_shopcartButton.frame.origin.x+_shopcartButton.frame.size.width+20, _buyButton.frame.origin.y + _buyButton.frame.size.height+20, wide/4-80, 40);
+        //    _buyGoodButton.layer.cornerRadius = 4.f;
+        _buyGoodButton.layer.masksToBounds = YES;
+        [_buyGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+        if(_rentButton.selected)
+        {
+            [_buyGoodButton setTitle:@"立即租赁" forState:UIControlStateNormal];
+            _shopcartButton.enabled = NO;
+            
+            
+        }else
+        {
+            [_buyGoodButton setTitle:@"立即购买" forState:UIControlStateNormal];
+            
+            _shopcartButton.enabled =YES;
+            
+        }
+        
+        _buyGoodButton.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        [_buyGoodButton addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
+        [_mainScrollView addSubview:_buyGoodButton];
+        if (_detailModel.canRent) {
+            _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height+30, wide/4-80, 40);
+            _buyGoodButton.frame = CGRectMake(_shopcartButton.frame.origin.x+_shopcartButton.frame.size.width+20, _buyButton.frame.origin.y + _buyButton.frame.size.height+30, wide/4-80, 40);
+            
+        }
+        else {    _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height-20, wide/4-80, 40);
+            _buyGoodButton.frame = CGRectMake(_shopcartButton.frame.origin.x+_shopcartButton.frame.size.width+20, _buyButton.frame.origin.y + _buyButton.frame.size.height-20, wide/4-80, 40);
+            
+        }
 
+    
+    
     }
-    else {    _shopcartButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x, _buyButton.frame.origin.y + _buyButton.frame.size.height-20, wide/4-80, 40);
-        _buyGoodButton.frame = CGRectMake(_shopcartButton.frame.origin.x+_shopcartButton.frame.size.width+20, _buyButton.frame.origin.y + _buyButton.frame.size.height-20, wide/4-80, 40);
 
-    }
-    UIView *handleView = [self handleViewWithOriginY:_topScorllView.frame.origin.y+_topScorllView.frame.size.height+60];
+        UIView *handleView = [self handleViewWithOriginY:_topScorllView.frame.origin.y+_topScorllView.frame.size.height+60];
     [_mainScrollView addSubview:handleView];
     handleView.userInteractionEnabled=YES;
     
@@ -671,6 +694,14 @@
 //    originY += handleView.frame.size.height+handleView.frame.origin.y;
     
 }
+- (IBAction)noGoods:(id)sender {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.customView = [[UIImageView alloc] init];
+    hud.mode = MBProgressHUDModeCustomView;
+    [hud hide:YES afterDelay:1.5f];
+    hud.labelText = @"很报歉，该商品正在加紧补货中";
+}
+
 - (IBAction)jumpForWebsite:(id)sender {
     ChannelWebsiteController *websiteC = [[ChannelWebsiteController alloc] init];
     websiteC.hidesBottomBarWhenPushed=YES;
