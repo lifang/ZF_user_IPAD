@@ -689,11 +689,11 @@ if(tableView==_tableViewPJ)
                         [cell.contentView addSubview:statusLabel];
                         //实付
                         UILabel *payLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 30, wide - originX * 2, 20.f)];
-                        [self setLabel:payLabel withString:[NSString stringWithFormat:@"实付金额（含配送费）：￥%.2f",_orderDetail.orderTotalPrice]];
+                        [self setLabel:payLabel withString:[NSString stringWithFormat:@"实付金额（含开通费）：￥%.2f",_orderDetail.orderTotalPrice]];
                         [cell.contentView addSubview:payLabel];
                         //配送费
                         UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, 50, wide - originX * 2, 20.f)];
-                        [self setLabel:deliveryLabel withString:[NSString stringWithFormat:@"配  送  费：￥%.2f",_orderDetail.orderDeliveryFee]];
+                        [self setLabel:deliveryLabel withString:[NSString stringWithFormat:@"开  通  费：￥%.2f",_orderDetail.orderDeliveryFee]];
                         [cell.contentView addSubview:deliveryLabel];
                         
                         
@@ -866,22 +866,21 @@ if(tableView==_tableViewPJ)
                         UILabel *invoceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 10 + height, wide - originX * 2, 20.f)];
                         [cell.contentView addSubview:invoceTypeLabel];
                         UILabel *invoceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2, 30 + height, wide - originX * 2, 20.f)];
-                        
-                        if([self isBlankString:_orderDetail.orderInvoceType])
+                        NSString *invoiceTitle = _orderDetail.orderInvoceTitle;
+                        NSString *invoiceType = _orderDetail.orderInvoceType;
+                        if (_orderDetail.needInvoice == 0)
                         {
-                            
-                            
-                            
+                            invoiceTitle = @"无";
+                            invoiceType = @"无";
                         }
-                        else
-                        {
-                            [self setLabel:invoceTypeLabel withString:[NSString stringWithFormat:@"发票类型：%@",_orderDetail.orderInvoceType]];
 
-                            [self setLabel:invoceTitleLabel withString:[NSString stringWithFormat:@"发票抬头：%@",_orderDetail.orderInvoceTitle]];
+                      
+                            [self setLabel:invoceTypeLabel withString:[NSString stringWithFormat:@"发票类型：%@",invoiceType]];
+
+                            [self setLabel:invoceTitleLabel withString:[NSString stringWithFormat:@"发票抬头：%@",invoiceTitle]];
 
                             
-                        }
-                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                                               cell.selectionStyle = UITableViewCellSelectionStyleNone;
                         
                         [cell.contentView addSubview:invoceTitleLabel];
                     }
@@ -946,7 +945,7 @@ if(tableView==_tableViewPJ)
 
                     }else
                     {
-                        phonelable.text=@"押金";
+                        phonelable.text=@"单价";
                         numberlable.text=@"租赁数量";
 
                         
@@ -1019,6 +1018,16 @@ if(tableView==_tableViewPJ)
                     }
                     OrderGoodModel *model = [_orderDetail.goodList objectAtIndex:indexPath.row - 1];
                     [(OrderDetailCell *)cell setContentsWithData:model];
+                    if(self.ordertype==1)
+                    {
+                        
+                        
+                        
+                    }else
+                    {
+                        
+                        
+                    }
                     CGFloat wide;
                     CGFloat height;
                     if(iOS7)

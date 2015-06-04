@@ -18,8 +18,8 @@
         if ([dict objectForKey:@"order_totalprice"]) {
             _orderTotalPrice = [[dict objectForKey:@"order_totalprice"] floatValue] / 100;
         }
-        if ([dict objectForKey:@"order_psf"]) {
-            _orderDeliveryFee = [[dict objectForKey:@"order_psf"] floatValue] / 100;
+        if ([dict objectForKey:@"bd_cost"]) {
+            _orderDeliveryFee = [[dict objectForKey:@"bd_cost"] floatValue] / 100;
         }
         if ([dict objectForKey:@"order_receiver"]) {
             _orderReceiver = [NSString stringWithFormat:@"%@",[dict objectForKey:@"order_receiver"]];
@@ -69,6 +69,7 @@
         else {
             _logisticNumber = @"";
         }
+        _needInvoice = [[dict objectForKey:@"need_invoice"] intValue];
 
         id recordObject = [[dict objectForKey:@"comments"] objectForKey:@"content"];
         if ([recordObject isKindOfClass:[NSArray class]]) {

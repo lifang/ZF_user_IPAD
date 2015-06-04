@@ -12,12 +12,16 @@
 
 - (id)initWithParseDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
+       
         _goodID = [NSString stringWithFormat:@"%@",[dict objectForKey:@"good_id"]];
         if ([dict objectForKey:@"good_name"]) {
             _goodName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"good_name"]];
         }
         if ([dict objectForKey:@"good_brand"]) {
             _goodBrand = [NSString stringWithFormat:@"%@",[dict objectForKey:@"good_brand"]];
+        }
+        if ([dict objectForKey:@"good_opening_cost"]) {
+            _good_opening_cost = [[dict objectForKey:@"good_opening_cost"] floatValue] / 100;
         }
         if ([dict objectForKey:@"good_price"]) {
             _goodPrice = [[dict objectForKey:@"good_price"] floatValue] / 100;

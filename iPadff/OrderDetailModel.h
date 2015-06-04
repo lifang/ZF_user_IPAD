@@ -43,6 +43,7 @@
 @property (nonatomic, strong) NSString *orderTotalNumber;    //总数量
 
 @property (nonatomic, strong) NSMutableArray *goodList;
+@property (nonatomic, assign) int needInvoice;
 
 @property (nonatomic, strong) NSMutableArray *recordList;
 

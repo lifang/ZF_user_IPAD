@@ -376,7 +376,7 @@
     detailLabel.backgroundColor = [UIColor clearColor];
     detailLabel.font = [UIFont systemFontOfSize:12.f];
     detailLabel.textAlignment = NSTextAlignmentRight;
-    detailLabel.text = @"(不含配送费)";
+    detailLabel.text = @"(不含开通费)";
     [rootview addSubview:detailLabel];
     return rootview;
     

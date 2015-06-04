@@ -9,6 +9,8 @@
 #import "OrderDetailCell.h"
 
 @implementation OrderDetailCell
+
+
 @synthesize linlable;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -36,7 +38,21 @@
     CGFloat labelHeight = 20.f;
     
     CGFloat imageSize = 70.f;
-    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT-64;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH-64;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     //图片
     _pictureView = [[UIImageView alloc] init];
     _pictureView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -71,6 +87,8 @@
                                                                   constant:imageSize]];
     //商品名
     _nameLabel = [[UILabel alloc] init];
+    _nameLabel.numberOfLines=2;
+    
     _nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _nameLabel.backgroundColor = [UIColor clearColor];
     _nameLabel.font = [UIFont boldSystemFontOfSize:16.f];
@@ -95,7 +113,7 @@
                                                                     toItem:self.contentView
                                                                  attribute:NSLayoutAttributeRight
                                                                 multiplier:1.0
-                                                                  constant:-leftSpace]];
+                                                                  constant:-wide/2-30]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_nameLabel
                                                                  attribute:NSLayoutAttributeHeight
                                                                  relatedBy:NSLayoutRelationEqual
@@ -104,28 +122,20 @@
                                                                 multiplier:0.0
                                                                   constant:labelHeight]];
     
-    CGFloat wide;
-    CGFloat height;
-    if(iOS7)
-    {
-        wide=SCREEN_HEIGHT-64;
-        height=SCREEN_WIDTH;
-        
-        
-    }
-    else
-    {  wide=SCREEN_WIDTH-64;
-        height=SCREEN_HEIGHT;
-        
-    }
-
+   
     //价格
-    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2 ,30, 100, 30)];
+    _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(wide/2 ,20, 100, 30)];
 //    _priceLabel.textColor = kColor(255, 102, 36, 1);
     _priceLabel.font = [UIFont boldSystemFontOfSize:16.f];
     _priceLabel.textAlignment = NSTextAlignmentCenter;
 
     [self.contentView addSubview:_priceLabel];
+    _openlable = [[UILabel alloc] initWithFrame:CGRectMake(wide/2-20 ,45, 150, 30)];
+    //    _priceLabel.textColor = kColor(255, 102, 36, 1);
+    _openlable.font = [UIFont boldSystemFontOfSize:13.f];
+    _openlable.textAlignment = NSTextAlignmentCenter;
+    
+    [self.contentView addSubview:_openlable];
     //数量
     _numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(wide-100, 30, 80, 30)];
     
@@ -135,12 +145,12 @@
     [self.contentView addSubview:_numberLabel];
     //型号
     
-    _brandLabel = [[UILabel alloc]initWithFrame:CGRectMake(140, 40, wide-140, 20)];
+    _brandLabel = [[UILabel alloc]initWithFrame:CGRectMake(140, 40, wide/2-180, 20)];
     _brandLabel.font = [UIFont boldSystemFontOfSize:16.f];
     
     [self.contentView addSubview:_brandLabel];
     //支付通道
-    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(140, 60, wide-140, 20)];
+    _channelLabel = [[UILabel alloc] initWithFrame:CGRectMake(140, 60, wide/2-180, 20)];
     _channelLabel.font = [UIFont systemFontOfSize:16.f];
 
     [self.contentView addSubview:_channelLabel];
@@ -201,6 +211,7 @@
 - (void)setContentsWithData:(OrderGoodModel *)data {
     self.nameLabel.text = data.goodName;
     NSLog(@"%f",data.goodPrice);
+    self.openlable.text = [NSString stringWithFormat:@"(含开通费￥%.2f)",data.good_opening_cost];
 
     self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",data.goodPrice];
     self.numberLabel.text = [NSString stringWithFormat:@"X %d",[data.goodNumber intValue]];

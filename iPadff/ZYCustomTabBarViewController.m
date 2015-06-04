@@ -145,14 +145,14 @@
 -(void)createui
 {
     
-    if (iOS8) {
-        _tabView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, SCREEN_HEIGHT)];
+    if (iOS7) {
         
-        
+        _tabView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, SCREEN_WIDTH)];
+
     }
     else
     {
-        _tabView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, SCREEN_WIDTH)];
+        _tabView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, SCREEN_HEIGHT)];
 
     
     }
@@ -198,15 +198,15 @@
      button2.tag=2;
     
     
-    if (iOS8) {
-        button2.frame=CGRectMake(10,2*SCREEN_HEIGHT/8-40,   40, 50);
+    if (iOS7) {
         
-        
+        button2.frame=CGRectMake(10,2*SCREEN_WIDTH/8-40,   40, 50);
+
     }
     else
     {
-        button2.frame=CGRectMake(10,2*SCREEN_WIDTH/8-40,   40, 50);
-        
+        button2.frame=CGRectMake(10,2*SCREEN_HEIGHT/8-40,   40, 50);
+ 
         
     }
     [_tabView addSubview:button2];
@@ -217,14 +217,14 @@
      button3.tag=3;
     
     
-    if (iOS8) {
-        button3.frame=CGRectMake(10,3*SCREEN_HEIGHT/8-40,   40, 50);
+    if (iOS7) {
+        button3.frame=CGRectMake(10,3*SCREEN_WIDTH/8-40,   40, 50);
         
         
     }
     else
     {
-        button3.frame=CGRectMake(10,3*SCREEN_WIDTH/8-40,   40, 50);
+        button3.frame=CGRectMake(10,3*SCREEN_HEIGHT/8-40,   40, 50);
         
         
     }
@@ -235,14 +235,14 @@
     UIButton*button4=[UIButton buttonWithType:UIButtonTypeCustom];
      button4.tag=4;
     
-    if (iOS8) {
-        button4.frame=CGRectMake(10,4*SCREEN_HEIGHT/8-40,   40, 50);
+    if (iOS7) {
+        button4.frame=CGRectMake(10,4*SCREEN_WIDTH/8-40,   40, 50);
         
         
     }
     else
     {
-        button4.frame=CGRectMake(10,4*SCREEN_WIDTH/8-40,   40, 50);
+        button4.frame=CGRectMake(10,4*SCREEN_HEIGHT/8-40,   40, 50);
         
         
     }
@@ -263,48 +263,8 @@
     
     
     
-    if (iOS8) {
-        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_HEIGHT/8+40-40,  60, 20)];
-        [_tabView addSubview:lab1];
-        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_HEIGHT/8+40-40,  60, 20)];
-        [_tabView addSubview:lab2];
-        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_HEIGHT/8+40-40,  60, 20)];
-        [_tabView addSubview:lab3];
-        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_HEIGHT/8+40-40,  60, 20)];
-        [_tabView addSubview:lab4];
-        lab1.text=@"首页";
-        lab1.tag=10;
+    if (iOS7) {
         
-        
-        lab2.text=@"购物车";
-        lab2.tag=11;
-        lab3.tag=12;
-        lab4.tag=13;
-        lab1.font=[UIFont systemFontOfSize:12];
-        
-        lab2.font=[UIFont systemFontOfSize:12];
-        
-        lab3.font=[UIFont systemFontOfSize:12];
-        
-        lab4.font=[UIFont systemFontOfSize:12];
-        
-        lab3.text=@"我的消息";
-        lab4.text=@"我的";
-        lab1.textAlignment=    NSTextAlignmentCenter;
-        lab2.textAlignment=    NSTextAlignmentCenter;
-        lab3.textAlignment=    NSTextAlignmentCenter;
-        lab4.textAlignment=    NSTextAlignmentCenter;
-        
-        lab1.textColor = [UIColor colorWithWhite:1 alpha:1];
-        lab2.textColor = [UIColor colorWithWhite:1 alpha:1];
-        lab3.textColor = [UIColor colorWithWhite:1 alpha:1];
-        lab4.textColor = [UIColor colorWithWhite:1 alpha:1];
-        
-
-        
-    }
-    else
-    {
         UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_WIDTH/8+40-40,  60, 20)];
         [_tabView addSubview:lab1];
         UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_WIDTH/8+40-40,  60, 20)];
@@ -341,7 +301,47 @@
         lab3.textColor = [UIColor colorWithWhite:1 alpha:1];
         lab4.textColor = [UIColor colorWithWhite:1 alpha:1];
         
- 
+    }
+    else
+    {
+       
+        
+        UILabel*lab1=[[UILabel alloc]initWithFrame:CGRectMake(0,SCREEN_HEIGHT/8+40-40,  60, 20)];
+        [_tabView addSubview:lab1];
+        UILabel*lab2=[[UILabel alloc]initWithFrame:CGRectMake(0,2*SCREEN_HEIGHT/8+40-40,  60, 20)];
+        [_tabView addSubview:lab2];
+        UILabel*lab3=[[UILabel alloc]initWithFrame:CGRectMake(0,3*SCREEN_HEIGHT/8+40-40,  60, 20)];
+        [_tabView addSubview:lab3];
+        UILabel*lab4=[[UILabel alloc]initWithFrame:CGRectMake(0,4*SCREEN_HEIGHT/8+40-40,  60, 20)];
+        [_tabView addSubview:lab4];
+        lab1.text=@"首页";
+        lab1.tag=10;
+        
+        
+        lab2.text=@"购物车";
+        lab2.tag=11;
+        lab3.tag=12;
+        lab4.tag=13;
+        lab1.font=[UIFont systemFontOfSize:12];
+        
+        lab2.font=[UIFont systemFontOfSize:12];
+        
+        lab3.font=[UIFont systemFontOfSize:12];
+        
+        lab4.font=[UIFont systemFontOfSize:12];
+        
+        lab3.text=@"我的消息";
+        lab4.text=@"我的";
+        lab1.textAlignment=    NSTextAlignmentCenter;
+        lab2.textAlignment=    NSTextAlignmentCenter;
+        lab3.textAlignment=    NSTextAlignmentCenter;
+        lab4.textAlignment=    NSTextAlignmentCenter;
+        
+        lab1.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab2.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab3.textColor = [UIColor colorWithWhite:1 alpha:1];
+        lab4.textColor = [UIColor colorWithWhite:1 alpha:1];
+
         
     }
     
@@ -350,16 +350,16 @@
     
     UIButton*button5=[UIButton buttonWithType:UIButtonTypeCustom];
     
-    if (iOS8) {
-        button5.frame=CGRectMake(10,SCREEN_HEIGHT-80,  40, 50);
+    if (iOS7) {
         
-        
+        button5.frame=CGRectMake(10,SCREEN_WIDTH-80,  40, 50);
+
     }
     else
     {
-        button5.frame=CGRectMake(10,SCREEN_WIDTH-80,  40, 50);
         
-        
+        button5.frame=CGRectMake(10,SCREEN_HEIGHT-80,  40, 50);
+
     }
     
     

@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *goodBrand;
 
 @property (nonatomic, assign) CGFloat goodPrice;
+@property (nonatomic, assign) CGFloat good_opening_cost;
 
 @property (nonatomic, strong) NSString *goodChannel;
 
