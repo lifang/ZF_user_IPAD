@@ -602,7 +602,9 @@
         _noGoodButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _noGoodButton.frame = CGRectMake(buyTypeTitleLabel.frame.origin.x+80, _buyButton.frame.origin.y + _buyButton.frame.size.height+30, wide/4-80, 40);
         _noGoodButton.layer.masksToBounds = YES;
-        [_noGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
+        [_noGoodButton setBackgroundColor:kColor(179.0, 179.0, 179.0, 1)];
+        
+//        [_noGoodButton setBackgroundImage:kImageName(@"orange.png") forState:UIControlStateNormal];
         [_noGoodButton setTitle:@"缺货" forState:UIControlStateNormal];
         _noGoodButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.f];
         [_noGoodButton addTarget:self action:@selector(noGoods:) forControlEvents:UIControlEventTouchUpInside];
@@ -700,7 +702,7 @@
     hud.customView = [[UIImageView alloc] init];
     hud.mode = MBProgressHUDModeCustomView;
     [hud hide:YES afterDelay:1.5f];
-    hud.labelText = @"很报歉，该商品正在加紧补货中";
+    hud.labelText = @"很抱歉，该商品正在加紧补货中";
 }
 
 - (IBAction)jumpForWebsite:(id)sender {
