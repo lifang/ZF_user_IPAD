@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeAll;
     [self setupNavBar];
     [self initAndLayoutUI];
 }
@@ -223,7 +224,7 @@
     
     UIImageView *tinyImage = [[UIImageView alloc]init];
     tinyImage.translatesAutoresizingMaskIntoConstraints = NO;
-    tinyImage.image = kImageName(@"erweima");
+    tinyImage.image = kImageName(@"erweima-1");
     [self.view addSubview:tinyImage];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tinyImage
                                                           attribute:NSLayoutAttributeTop
@@ -596,6 +597,12 @@
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
                     hud.labelText = @"提交成功";
+                    _nameField.text = nil;
+                    _telField.text = nil;
+                    _contentTextView.text = nil;
+                    [_contentTextView resignFirstResponder];
+                    [_nameField resignFirstResponder];
+                    [_telField resignFirstResponder];
                 }
             }
             else {
