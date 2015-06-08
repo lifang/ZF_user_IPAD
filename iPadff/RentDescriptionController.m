@@ -78,8 +78,21 @@
     topView = [self addRowsWithTitle:@"每月租金" content:[NSString stringWithFormat:@"￥%.2f",_goodDetail.leasePrice] topView:topView];
     topView = [self addRowsWithTitle:@"说明" content:_goodDetail.leaseDescription topView:topView];
     topView = [self addRowsWithTitle:@"租赁协议" content:_goodDetail.leaseProtocol topView:topView];
-    
-    _scrollView.contentSize = CGSizeMake(kScreenWidth, _viewHeight);
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    _scrollView.contentSize = CGSizeMake(wide, _viewHeight);
 }
 
 - (UIView *)addRowsWithTitle:(NSString *)title
@@ -167,11 +180,25 @@
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
                                                            constant:kLineHeight]];
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     //内容
     UIFont *font = [UIFont systemFontOfSize:14.f];
     CGFloat contentHeight = [self heightForContent:content
                                           withFont:font
-                                             width:kScreenWidth - 2 * leftSpace];
+                                             width:wide - 2 * leftSpace];
     UILabel *contentLabel = [[UILabel alloc] init];
     contentLabel.translatesAutoresizingMaskIntoConstraints = NO;
     contentLabel.backgroundColor = [UIColor clearColor];

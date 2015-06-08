@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 
 @property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UILabel *openlable;
 
 @property (nonatomic, strong) UILabel *numberLabel;
 

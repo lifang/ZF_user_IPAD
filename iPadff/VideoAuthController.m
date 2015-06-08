@@ -56,11 +56,11 @@
     self.title = @"视频认证";
     [self initUI];
     
-//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:kImageName(@"back.png")
-//                                                                 style:UIBarButtonItemStyleBordered
-//                                                                target:self
-//                                                                action:@selector(back)];
-//    self.navigationItem.leftBarButtonItem = leftItem;
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:kImageName(@"back.png")
+                                                                 style:UIBarButtonItemStyleBordered
+                                                                target:self
+                                                                action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = leftItem;
     
     //初始化
     [AnyChatPlatform InitSDK:0];
@@ -92,7 +92,7 @@
 
 - (void)back {
     [self FinishVideoChat];
-//    [AnyChatPlatform Release];
+    //    [AnyChatPlatform Release];
 }
 
 - (void)initUI {
@@ -160,10 +160,10 @@
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
                                                            constant:0]];
-
+    
 }
 
-#pragma mark - 
+#pragma mark -
 
 - (void)userLoginIn {
     [AnyChatPlatform SetSDKOptionInt:BRAC_SO_LOCALVIDEO_WIDTHCTRL :640];
@@ -191,7 +191,7 @@
 //连接服务器消息
 - (void)OnAnyChatConnect:(BOOL)bSuccess {
     if (bSuccess) {
-//        [_tipView hide:YES afterDelay:2.f];
+        //        [_tipView hide:YES afterDelay:2.f];
     }
     else {
         [_tipView hide:YES afterDelay:2.f];
@@ -262,7 +262,7 @@
     if (cameraDeviceArray.count > 0)
     {
         [AnyChatPlatform SelectVideoCapture:[cameraDeviceArray objectAtIndex:0]];
-    
+        
     }
     
     // open local video
@@ -272,8 +272,8 @@
     [AnyChatPlatform UserCameraControl:-1 : YES];
     // request other user video
     [AnyChatPlatform UserSpeakControl:userid :YES];
-//    [AnyChatPlatform SetVideoPos:userid :_remoteVideoSurface :0 :0 :0 :0];
-//    [AnyChatPlatform UserCameraControl:userid : YES];
+    //    [AnyChatPlatform SetVideoPos:userid :_remoteVideoSurface :0 :0 :0 :0];
+    //    [AnyChatPlatform UserCameraControl:userid : YES];
     
     //远程视频显示时随设备的方向改变而旋转（参数为int型， 0表示关闭， 1 开启[默认]，视频旋转时需要参考本地视频设备方向参数）
     [AnyChatPlatform SetSDKOptionInt:BRAC_SO_LOCALVIDEO_ORIENTATION : self.interfaceOrientation];
@@ -303,9 +303,23 @@
 
 - (void) OnLocalVideoInit:(id)session
 {
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     self.localVideoSurface = [AVCaptureVideoPreviewLayer layerWithSession: (AVCaptureSession*)session];
-//    self.localVideoSurface.frame = CGRectMake(0, 0, kLocalVideo_Width, kLocalVideo_Height);
-    self.localVideoSurface.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64);
+    //    self.localVideoSurface.frame = CGRectMake(0, 0, kLocalVideo_Width, kLocalVideo_Height);
+    self.localVideoSurface.frame = CGRectMake(0, 0, wide, height - 64);
     self.localVideoSurface.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
     [self.theLocalView.layer addSublayer:self.localVideoSurface];
@@ -347,6 +361,20 @@
 
 -(void)setFrameOfPortrait
 {
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
     //Rotate
     _remoteVideoSurface.layer.transform = kLayer3DRotation_Z_Axis(0.0);
     self.theLocalView.layer.transform = kLayer3DRotation_Z_Axis(0.0);

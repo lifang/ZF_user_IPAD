@@ -22,7 +22,8 @@ static NSString *RefreshAddressListNotification = @"RefreshAddressListNotificati
     NSString*textnsstring;
     NSString*billnsstring;
     NSInteger resultint;
-
+    float allmoney;
+    
     UIImageView*bigsview;
 }
 //若从购物车跳转过来 保存选中的数据

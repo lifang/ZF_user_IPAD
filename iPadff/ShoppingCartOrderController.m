@@ -50,7 +50,21 @@
 
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
     [[UINavigationBar appearance] setBarTintColor:kColor(233, 91, 38, 1)];
+    allmoney=0.00;
+    
+    for(int i=0;i<_shoppingCartItem.count;i++)
+    {
+    
+    
+        ShoppingCartModel *model = [_shoppingCartItem objectAtIndex:i];
+        
 
+        allmoney+=model.cartCount*model.channelCost;
+        
+    
+    }
+    
+    
     // Do any additional setup after loading the view.
 }
 
@@ -256,7 +270,7 @@
 
 - (void)setContentsForControls {
     self.payLabel.text = [NSString stringWithFormat:@"实付：￥%.2f",[self getSummaryPrice]];
-    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%@)",@"0"];
+    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%.2f)",allmoney];
 }
 
 //计算总价
@@ -1367,7 +1381,7 @@ if(section==0)
             deliveryLabel.backgroundColor = [UIColor clearColor];
 //            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
             deliveryLabel.adjustsFontSizeToFitWidth = YES;
-            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"0"];
+            deliveryLabel.text = [NSString stringWithFormat:@"开通费：￥%.2f",allmoney];
             [cell.contentView addSubview:deliveryLabel];
             
             
@@ -1400,7 +1414,8 @@ if(section==0)
             cell.channelLabel.text = [NSString stringWithFormat:@"支付通道 %@",model.cartChannel];
             [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.cartImagePath]
                                 placeholderImage:kImageName(@"test1.png")];
-            
+            cell.openlable.text = [NSString stringWithFormat:@"(含开通费￥%.2f)",model.channelCost];
+
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
            
             CGFloat wide;

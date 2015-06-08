@@ -88,6 +88,13 @@
         if ([dict objectForKey:@"name"]) {
             _channelName = [NSString stringWithFormat:@"%@",[dict objectForKey:@"name"]];
         }
+        else
+        {
+        
+        _channelName=@"";
+            
+        
+        }
         if ([dict objectForKey:@"opening_requirement"]) {
             _openRequirement = [NSString stringWithFormat:@"%@",[dict objectForKey:@"opening_requirement"]];
         }

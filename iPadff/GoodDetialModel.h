@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSString *goodCategory;
 
 @property (nonatomic, assign) CGFloat goodPrice;       //商品价格
+@property (nonatomic, assign) CGFloat oldPrice;       //商品价格
 
 @property (nonatomic, strong) NSString *goodComment;   //评论数
 
@@ -58,6 +59,7 @@
 @property (nonatomic, assign) CGFloat leasePrice;  //租赁价格
 @property (nonatomic, strong) NSString *leaseDescription;  //租赁说明
 @property (nonatomic, strong) NSString *leaseProtocol;     //租赁协议
+@property (nonatomic, assign) int stockNumber;
 
 @property (nonatomic, assign) BOOL canRent;
 

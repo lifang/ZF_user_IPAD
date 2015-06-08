@@ -49,25 +49,40 @@
 #pragma mark - UI
 
 - (void)setHeaderAndFooterView {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 84)];
+    
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, 84)];
     headerView.backgroundColor = [UIColor clearColor];
     _tableView.tableHeaderView = headerView;
     
     CGFloat backHeight = 44.f;
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, kScreenWidth, backHeight)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, wide, backHeight)];
     backView.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:backView];
     
-    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kLineHeight)];
+    UIView *firstLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, wide, kLineHeight)];
     firstLine.backgroundColor = kColor(200, 199, 204, 1);
     [backView addSubview:firstLine];
-    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(0, backHeight - kLineHeight, kScreenWidth, kLineHeight)];
+    UIView *secondLine = [[UIView alloc] initWithFrame:CGRectMake(0, backHeight - kLineHeight, wide, kLineHeight)];
     secondLine.backgroundColor = kColor(200, 199, 204, 1);
     [backView addSubview:secondLine];
     
     _bankField = [[UITextField alloc] init];
-    _bankField.frame = CGRectMake(20, 0, kScreenWidth - 100, backHeight);
+    _bankField.frame = CGRectMake(20, 0, wide - 100, backHeight);
     _bankField.font = [UIFont systemFontOfSize:15.f];
     _bankField.placeholder = @"请输入银行名称";
     _bankField.delegate = self;
@@ -75,7 +90,7 @@
     [backView addSubview:_bankField];
     
     _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _searchBtn.frame = CGRectMake(kScreenWidth - 40, 10, 24, 24);
+    _searchBtn.frame = CGRectMake(wide - 40, 10, 24, 24);
     [_searchBtn setBackgroundImage:kImageName(@"search.png") forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(searchBank:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:_searchBtn];

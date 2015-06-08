@@ -14,6 +14,8 @@
     UIView *handleViewfrdef;
     UIBarButtonItem *shoppingItem;
     NSMutableArray*picturearry;
+    UILabel *allTitleLabel ;
+    UILabel *allmoneypeLabel;
     
 }
 @property (nonatomic, strong) NSString *goodID;

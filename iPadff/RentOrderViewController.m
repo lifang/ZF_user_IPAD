@@ -317,7 +317,7 @@
 
 - (void)updatPrice {
     self.payLabel.text = [NSString stringWithFormat:@"实付：￥%.2f",[self getSummaryPrice]];
-    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%@)",@"0"];
+    self.deliveryLabel.text = [NSString stringWithFormat:@"(含开通费：￥%.2f)",_goodDetail.defaultChannel.openCost*_count];
 }
 
 //计算总价
@@ -1499,7 +1499,7 @@
             deliveryLabel.backgroundColor = [UIColor clearColor];
                      deliveryLabel.font = [UIFont systemFontOfSize:16.f];
             deliveryLabel.adjustsFontSizeToFitWidth = YES;
-            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"0"];
+            deliveryLabel.text = [NSString stringWithFormat:@"开通费：￥%.2f",_goodDetail.defaultChannel.openCost*_count];
             [cell.contentView addSubview:deliveryLabel];
             
             

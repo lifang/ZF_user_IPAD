@@ -323,7 +323,8 @@
 
 - (void)updatPrice {
     self.payLabel.text = [NSString stringWithFormat:@"实付：￥%.2f",[self getSummaryPrice]];
-    self.deliveryLabel.text = [NSString stringWithFormat:@"(含配送费：￥%@)",@"0"];
+    self.deliveryLabel.text = [NSString stringWithFormat:@"(含开通费：￥%.2f)",_goodDetail.defaultChannel.openCost*_count];
+
 }
 
 //计算总价
@@ -1571,14 +1572,14 @@
             totalLabel.backgroundColor = [UIColor clearColor];
             //            totalLabel.font = [UIFont systemFontOfSize:11.f];
             totalLabel.adjustsFontSizeToFitWidth = YES;
-            totalLabel.text = [NSString stringWithFormat:@"共计：%d件商品",1];
+            totalLabel.text = [NSString stringWithFormat:@"共计：%d件商品",_count];
             [cell.contentView addSubview:totalLabel];
             
             UILabel *deliveryLabel = [[UILabel alloc] initWithFrame:CGRectMake(160, 20, 130, 30)];
             deliveryLabel.backgroundColor = [UIColor clearColor];
             //            deliveryLabel.font = [UIFont systemFontOfSize:11.f];
             deliveryLabel.adjustsFontSizeToFitWidth = YES;
-            deliveryLabel.text = [NSString stringWithFormat:@"配送费：￥%@",@"0"];
+            deliveryLabel.text = [NSString stringWithFormat:@"开通费：￥%.2f",_goodDetail.defaultChannel.openCost*_count];
             [cell.contentView addSubview:deliveryLabel];
             
             
@@ -1605,9 +1606,12 @@
             }
             cell.nameLabel.text = _goodDetail.goodName;
             cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",(_goodDetail.goodPrice + _goodDetail.defaultChannel.openCost)];
+            
 //            cell.numberLabel.text = [NSString stringWithFormat:@"X %d",_count];
             cell.brandLabel.text = [NSString stringWithFormat:@"品牌型号 %@%@",_goodDetail.goodBrand,_goodDetail.goodModel];
             cell.channelLabel.text = [NSString stringWithFormat:@"支付通道 %@",_goodDetail.defaultChannel.channelName];
+            cell.openlable.text = [NSString stringWithFormat:@"(含开通费￥%.2f)",_goodDetail.defaultChannel.openCost];
+
             if ([_goodDetail.goodImageList count] > 0) {
                 [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:[_goodDetail.goodImageList objectAtIndex:0]]
                                     placeholderImage:kImageName(@"test1.png")];

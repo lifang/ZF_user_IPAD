@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSString *cartImagePath;
 ///支付通道价格
 @property (nonatomic, assign) CGFloat channelCost;
+@property (nonatomic, assign) CGFloat opening_cost;
 
 @property (nonatomic, assign) BOOL isSelected;
 @property (nonatomic, assign) BOOL isEditing;

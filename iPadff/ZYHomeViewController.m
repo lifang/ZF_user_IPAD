@@ -120,17 +120,19 @@
     self.locationVC = locationVC;
     UIView*vei=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH -60, SCREEN_HEIGHT )];
     [self.view addSubview:vei];
-    if(iOS8)
-    {
-        rootview=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH -60, SCREEN_HEIGHT )];
-        [self.view addSubview:rootview];
-        rootview.backgroundColor=[UIColor whiteColor];
-    }
-    else
+    if(iOS7)
     {
         rootview=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_HEIGHT -60, SCREEN_WIDTH )];
         [self.view addSubview:rootview];
         NSLog(@"%f",SCREEN_WIDTH);
+        rootview.backgroundColor=[UIColor whiteColor];
+    }
+    else
+    {
+       
+        
+        rootview=[[UIView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH -60, SCREEN_HEIGHT )];
+        [self.view addSubview:rootview];
         rootview.backgroundColor=[UIColor whiteColor];
     }
     [self getUserLocation];
