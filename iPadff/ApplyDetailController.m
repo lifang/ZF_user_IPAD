@@ -101,7 +101,7 @@
     self.view.backgroundColor=[UIColor whiteColor];
     _bankItems = [[NSMutableArray alloc] init];
     
-    keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankID",@"key_bankID",@"key_taxID",@"key_organID",@"key_channel", nil];
+    keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankIDfdf",@"key_bankID",@"key_taxID",@"key_organID",@"key_channel", nil];
     // Do any additional setup after loading the view.
     self.title = @"开通申请";
     _applyType = OpenApplyPublic;
@@ -2357,10 +2357,12 @@ _applyType = OpenApplyPrivate;
         
         _bankTitleName=textField.text;
     }
-    if (textField.text && ![textField.text isEqualToString:@""]) {
+    if (textField.text && ![textField.text isEqualToString:@""])
+    {
         
         
         [_infoDict setObject:textField.text forKey:[keynamesarry objectAtIndex:textField.tag-1056]];
+        
         if ([[keynamesarry objectAtIndex:textField.tag-1056] isEqualToString:key_merchantName])
         {
             [_infoDict setObject:textField.text forKey:key_bank];
