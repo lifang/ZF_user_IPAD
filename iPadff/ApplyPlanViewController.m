@@ -254,6 +254,7 @@
 
 -(void)findClicked
 {
+    [_phoneField resignFirstResponder];
     if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
@@ -270,7 +271,6 @@
         hud.labelText = @"请填写正确的手机号";
         return;
     }
-    [_phoneField resignFirstResponder];
     [self initTableView];
     [self getApplyProgress];
     
