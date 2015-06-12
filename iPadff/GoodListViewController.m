@@ -56,7 +56,6 @@
 @end
 
 @implementation GoodListViewController
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

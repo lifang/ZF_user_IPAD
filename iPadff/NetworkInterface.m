@@ -26,7 +26,8 @@ static NSString *HTTP_GET  = @"GET";
                                                               httpMethod:method
                                                                 finished:finish];
     NSLog(@"url = %@,params = %@",urlString,params);
-    if ([method isEqualToString:HTTP_POST] && params) {
+    if ([method isEqualToString:HTTP_POST] && params)
+    {
         NSData *postData = [NSJSONSerialization dataWithJSONObject:params
                                                            options:NSJSONWritingPrettyPrinted
                                                              error:nil];

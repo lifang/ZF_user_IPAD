@@ -74,55 +74,72 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:spaceItem,backItem,spaceItem,nil];
 }
 - (IBAction)goPervious:(id)sender {
-    if (_fromType == PayWayFromNone) {
+    if (_fromType == PayWayFromNone)
+    {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else if (_fromType == PayWayFromOrder) {
+    else if (_fromType == PayWayFromOrder)
+    {
         UIViewController *controller = nil;
-        for (UIViewController *listC in self.navigationController.childViewControllers) {
-            if ([listC isMemberOfClass:[MyOrderViewController class]]) {
+        for (UIViewController *listC in self.navigationController.childViewControllers)
+        {
+            if ([listC isMemberOfClass:[MyOrderViewController class]])
+            {
                 controller = listC;
                 break;
             }
         }
-        if (controller) {
+        if (controller)
+        {
             [self.navigationController popToViewController:controller animated:YES];
         }
-        else {
+        else
+        {
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }
-    else if (_fromType == PayWayFromGood) {
+    else if (_fromType == PayWayFromGood)
+    {
         UIViewController *controller = nil;
-        for (UIViewController *listC in self.navigationController.childViewControllers) {
-            if ([listC isMemberOfClass:[GoodListViewController class]]) {
+        for (UIViewController *listC in self.navigationController.childViewControllers)
+        {
+            if ([listC isMemberOfClass:[GoodListViewController class]])
+            {
                 controller = listC;
                 break;
             }
         }
-        if (controller) {
+        if (controller)
+        {
             [self.navigationController popToViewController:controller animated:YES];
         }
-        else {
+        else
+        {
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }
-    else if (_fromType == PayWayFromCart) {
+    else if (_fromType == PayWayFromCart)
+    {
         UIViewController *controller = nil;
-        for (UIViewController *listC in self.navigationController.childViewControllers) {
-            if ([listC isMemberOfClass:[ShoppingCartController class]]) {
+        for (UIViewController *listC in self.navigationController.childViewControllers)
+        {
+            if ([listC isMemberOfClass:[ShoppingCartController class]])
+            {
                 controller = listC;
                 break;
             }
         }
-        if (controller) {
+        if (controller)
+        {
             [self.navigationController popToViewController:controller animated:YES];
         }
-        else {
+        else
+        {
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }
-    else if (_fromType == PayWayFromCS) {
+    else if (_fromType == PayWayFromCS)
+    {
         
     }
 }
