@@ -89,7 +89,7 @@
            hud.hidden = YES;
         CGFloat wide;
         CGFloat height;
-        if(iOS7)
+        if(iOS7)xa
         {
             wide=SCREEN_HEIGHT;
             height=SCREEN_WIDTH;
