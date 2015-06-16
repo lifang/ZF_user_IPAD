@@ -194,7 +194,8 @@
         
         
     }
-    if([self isBlankString:addressID])
+    
+    if(!addressID)
     {
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];

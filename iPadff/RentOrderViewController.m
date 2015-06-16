@@ -229,7 +229,8 @@
 
        
     
-    }else
+    }
+    else
     {
         AddressModel *model =[addressarry objectAtIndex:B-1];
 
@@ -237,7 +238,7 @@
         
     
     }
-    if([self isBlankString:addressID])
+    if(!addressID)
     {
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
