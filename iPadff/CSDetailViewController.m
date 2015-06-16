@@ -170,19 +170,24 @@
      withTopView:(UIView *)topView
      middleSpace:(CGFloat)space
          WithStr:(NSString *)str{
-    NSLog(@"~~~~~~~%@",str);
+    NSString *str2 = @" 故障描述";
+    NSString *str3 = [[NSString alloc]init];
+    str3 = [str stringByAppendingString:str2];
+    NSLog(@"~~~~~~~%@",str3);
     CGFloat leftSpace = 60.f;
     CGFloat rightSpce = 60.f;
     label.translatesAutoresizingMaskIntoConstraints = NO;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:16.f];
     label.textColor = kColor(46, 46, 46, 1);
-    CGSize size = CGSizeMake(SCREEN_WIDTH - 300.f,MAXFLOAT); //设置一个行高上限
+//    label.backgroundColor = [UIColor cyanColor];
+    CGSize size = CGSizeMake(SCREEN_WIDTH - 120,MAXFLOAT); //设置一个行高上限
     if (iOS7) {
-        size = CGSizeMake(SCREEN_HEIGHT - 300.f,MAXFLOAT); //设置一个行高上限
+        size = CGSizeMake(SCREEN_HEIGHT - 120,MAXFLOAT); //设置一个行高上限
     }
     NSDictionary *attribute = @{NSFontAttributeName: label.font};
-    CGSize labelsize = [str boundingRectWithSize:size options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    CGSize labelsize = [str3 boundingRectWithSize:size options:  NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil].size;
+    NSLog(@"!!!!!!!!!%f",labelsize.height);
     label.numberOfLines = 0;
     [self.scrollView addSubview:label];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:label
@@ -212,7 +217,7 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:labelsize.height]];
+                                                           constant:labelsize.height + 1]];
 }
 
 - (UIButton *)buttonWithTitle:(NSString *)titleName Andpositon:(OperationBtn)position Andaction:(SEL)action
