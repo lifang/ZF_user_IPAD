@@ -1225,8 +1225,8 @@
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == alertView.cancelButtonIndex) {
-        if (alertView.tag != AlertViewCancelTag) {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        if (alertView.tag == AlertViewCancelTag) {
             [self cancelApply];
         }
         else if (alertView.tag == AlertViewSubmitTag) {
