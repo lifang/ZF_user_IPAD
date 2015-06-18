@@ -101,6 +101,43 @@
                                                                  attribute:NSLayoutAttributeNotAnAttribute
                                                                 multiplier:0.0
                                                                   constant:20.f]];
+    
+    //提示框
+    _tipLabel = [[UILabel alloc] init];
+    _tipLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _tipLabel.backgroundColor = [UIColor clearColor];
+    _tipLabel.font = [UIFont systemFontOfSize:18.f];
+    _tipLabel.textAlignment = NSTextAlignmentRight;
+    [self.contentView addSubview:_tipLabel];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_tipLabel
+                                                                 attribute:NSLayoutAttributeTop
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self.contentView
+                                                                 attribute:NSLayoutAttributeTop
+                                                                multiplier:1.0
+                                                                  constant:topSpace]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_tipLabel
+                                                                 attribute:NSLayoutAttributeRight
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self.contentView
+                                                                 attribute:NSLayoutAttributeRight
+                                                                multiplier:1.0
+                                                                  constant:-leftSpace * 1.6]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_tipLabel
+                                                                 attribute:NSLayoutAttributeWidth
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:0.0
+                                                                  constant:100.f]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_tipLabel
+                                                                 attribute:NSLayoutAttributeHeight
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:0.0
+                                                                  constant:20.f]];
+
 }
 
 - (UIView *)addLabelWithTitleName:(NSString *)titleName
@@ -184,6 +221,7 @@
 
 - (void)setContentsWithData:(ProgressModel *)model {
     _terminalLabel.text = model.terminalNum;
+    _tipLabel.text = model.tipInfo;
     UIView *topView = _terminalLabel;
     for (OpenTypeModel *data in model.openList) {
         topView = [self addLabelWithTitleName:data.value contents:data.status topView:topView];

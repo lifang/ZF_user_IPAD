@@ -31,7 +31,10 @@ typedef enum {
 static NSString *s_defaultTerminalNum = @"请选择终端号";
 
 @interface DealRoadController ()<UITextFieldDelegate,RefreshDelegate,LoginSuccessDelegate>
+@property(nonatomic,strong) UIPopoverController *popViewController;
+@property (nonatomic, strong) UIToolbar *toolbar1;
 
+@property (nonatomic, strong) UIToolbar *toolbar2;
 /** 顶部五个Button */
 @property(nonatomic,strong)UIButton *publickBtn;
 @property(nonatomic,strong)UIButton *privateBtn;
@@ -501,27 +504,85 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     }
 }
 
+- (void)pickerHide
+{
+    [_popViewController dismissPopoverAnimated:NO];
+    
+}
 //创建开始日期选择器
 -(void)setupStartDate
 {
-    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
-    datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
-    datePicker.datePickerMode = UIDatePickerModeDate;
-    datePicker.frame = CGRectMake(_dateField1.frame.origin.x - 30, CGRectGetMaxY(_dateField1.frame) + 80, _dateField1.frame.size.width + 60, 160);
-    [_datePickerStart addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
-    UIButton *makeSureBtn = [[UIButton alloc]init];
-    makeSureBtn.tag = 1112;
-    [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
-    [makeSureBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
-    [makeSureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
-    makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-    makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
-    self.startSure = makeSureBtn;
-    self.datePickerStart = datePicker;
-    [self.view addSubview:_startSure];
-    [self.view addSubview:_datePickerStart];
+    
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
+    
+    _toolbar1 = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerHide)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(chooseStartBirthday)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
+    [_toolbar1 setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [theView addSubview:_toolbar1];
+    
+    _datePickerStart = [[UIDatePicker alloc]init];
+    _datePickerStart.datePickerMode = UIDatePickerModeDate;
+    _datePickerStart.frame = CGRectMake(0, 60, 320, 216);
+    _datePickerStart.hidden = NO;
+    [theView addSubview:_datePickerStart];
+    sortViewController.view = theView;
+    
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:_dateField1 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
 }
+
+-(void)chooseStartBirthday
+{
+    _selectedStart.userInteractionEnabled = YES;
+    [_popViewController dismissPopoverAnimated:NO];
+    [self startPick];
+    _dateField1.text = self.startTime;
+}
+
+-(void)chooseEndBirthday
+{
+    _selectedEnd.userInteractionEnabled = YES;
+    
+    [_popViewController dismissPopoverAnimated:NO];
+    [self endPick];
+    _dateField2.text = self.endTime;
+    _startFindBtn.userInteractionEnabled = YES;
+    [_startFindBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
+    
+    _startStatisticsBtn.userInteractionEnabled = YES;
+    [_startStatisticsBtn setBackgroundColor:kColor(241, 81, 8, 1.0)];
+}
+
+////创建开始日期选择器
+//-(void)setupStartDate
+//{
+//    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+//    datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
+//    datePicker.datePickerMode = UIDatePickerModeDate;
+//    datePicker.frame = CGRectMake(_dateField1.frame.origin.x - 30, CGRectGetMaxY(_dateField1.frame) + 80, _dateField1.frame.size.width + 60, 160);
+//    [_datePickerStart addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
+//    UIButton *makeSureBtn = [[UIButton alloc]init];
+//    makeSureBtn.tag = 1112;
+//    [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [makeSureBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
+//    [makeSureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
+//    makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+//    makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
+//    self.startSure = makeSureBtn;
+//    self.datePickerStart = datePicker;
+//    [self.view addSubview:_startSure];
+//    [self.view addSubview:_datePickerStart];
+//}
 
 -(void)startPick
 {
@@ -529,25 +590,55 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 }
 
 //创建结束日期选择器
+//-(void)setupEndDate
+//{
+//    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+//    datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
+//    datePicker.datePickerMode = UIDatePickerModeDate;
+//    datePicker.frame = CGRectMake(_dateField2.frame.origin.x - 30, CGRectGetMaxY(_dateField2.frame) + 80, _dateField2.frame.size.width + 60, 160);
+//    [_datePickerEnd addTarget:self action:@selector(endPick) forControlEvents:UIControlEventValueChanged];
+//    UIButton *makeSureBtn = [[UIButton alloc]init];
+//    makeSureBtn.tag = 1113;
+//    [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [makeSureBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
+//    [makeSureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
+//    makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+//    makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
+//    self.endSure = makeSureBtn;
+//    self.datePickerEnd = datePicker;
+//    [self.view addSubview:_endSure];
+//    [self.view addSubview:_datePickerEnd];
+//}
+
 -(void)setupEndDate
 {
-    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
-    datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
-    datePicker.datePickerMode = UIDatePickerModeDate;
-    datePicker.frame = CGRectMake(_dateField2.frame.origin.x - 30, CGRectGetMaxY(_dateField2.frame) + 80, _dateField2.frame.size.width + 60, 160);
-    [_datePickerEnd addTarget:self action:@selector(endPick) forControlEvents:UIControlEventValueChanged];
-    UIButton *makeSureBtn = [[UIButton alloc]init];
-    makeSureBtn.tag = 1113;
-    [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
-    [makeSureBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
-    [makeSureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
-    makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-    makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
-    self.endSure = makeSureBtn;
-    self.datePickerEnd = datePicker;
-    [self.view addSubview:_endSure];
-    [self.view addSubview:_datePickerEnd];
+    
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
+    
+    _toolbar2 = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerHide)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(chooseEndBirthday)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
+    [_toolbar2 setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [theView addSubview:_toolbar2];
+    
+    _datePickerEnd = [[UIDatePicker alloc]init];
+    _datePickerEnd.datePickerMode = UIDatePickerModeDate;
+    _datePickerEnd.frame = CGRectMake(0, 60, 320, 216);
+    _datePickerEnd.hidden = NO;
+    [theView addSubview:_datePickerEnd];
+    sortViewController.view = theView;
+    
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:_dateField2 permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
 }
 
 -(void)endPick

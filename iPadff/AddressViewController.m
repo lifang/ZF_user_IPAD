@@ -15,6 +15,7 @@
 
 @interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,AddressCellDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate,UIAlertViewDelegate>
 
+@property(nonatomic,strong)UIPopoverController *popViewController;
 @property(nonatomic,strong)UITableView *addressTableView;
 
 @property (nonatomic, strong) NSMutableArray *addressItems;
@@ -75,7 +76,6 @@
     _addressItems = [[NSMutableArray alloc]init];
     [self setupFooterView];
     [self getAddressList];
-    [self initPickerView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -181,7 +181,7 @@
     //点击的id和修改地址事件
     AddressModel *model = [_addressItems objectAtIndex:indexP];
     [self createui];
-    [self initPickerView];
+//    [self initPickerView];
     self.selectedID = model.addressID;
     _nameField.text = model.addressReceiver;
     _telField.text = model.addressPhone;
@@ -331,7 +331,7 @@
             _cityField.imageEdgeInsets = UIEdgeInsetsMake(0,270,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
             
             
-            [_cityField addTarget:self action:@selector(cityclick) forControlEvents:UIControlEventTouchUpInside];
+            [_cityField addTarget:self action:@selector(cityclick:) forControlEvents:UIControlEventTouchUpInside];
             [witeview addSubview:_cityField];
         }
         else
@@ -402,7 +402,6 @@
     _locationField=(UITextField*)[self.view viewWithTag:1059];
     _particularLocationField=(UITextField*)[self.view viewWithTag:1060];
     
-    [self initPickerView];
 }
 
 -(void)deleteAddressesS
@@ -434,56 +433,52 @@
     [_bigsview removeFromSuperview];
 }
 
--(void)cityclick
+-(void)cityclick:(UIButton *)sender
 {
-    [self pickerScrollIn];
+    [self initPickerView:sender];
 }
-
+- (void)pickerHide
+{
+    [_popViewController dismissPopoverAnimated:NO];
+    
+}
 //选择城市
-- (void)initPickerView {
-    CGFloat wide;
-    CGFloat height;
-    if(iOS7)
-    {
-        wide=SCREEN_HEIGHT;
-        height=SCREEN_WIDTH;
-        
-    }
-    else
-    {  wide=SCREEN_WIDTH;
-        height=SCREEN_HEIGHT;
-        
-    }
-
+- (void)initPickerView:(id)sender {
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
+    
     //pickerView
-    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height, wide, 44)];
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(pickerScrollOut)];
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerHide)];
     UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
                                                                    style:UIBarButtonItemStyleDone
                                                                   target:self
                                                                   action:@selector(modifyLocation:)];
-    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                               target:nil
-                                                                               action:nil];
-    spaceItem.width = 830.f;
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
     [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
-    [_bigsview addSubview:_toolbar];
-    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, height, wide, 216)];
-    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+    [theView addSubview:_toolbar];
+    
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 60, 320, 216)];
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
-    if (_isChange) {
-        [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_cityID] inComponent:0 animated:NO];
-        [_pickerView reloadAllComponents];
-        [_pickerView selectRow:[CityHandle getCityIndexWithCityID:_cityID] inComponent:1 animated:NO];
-    }else{
-        
-    }
+    _pickerView.showsSelectionIndicator = YES;
+//    if (_cityID) {
+//        [_pickerView selectRow:[CityHandle getProvinceIndexWithCityID:_cityID] inComponent:0 animated:NO];
+//        [_pickerView selectRow:[CityHandle getCityIndexWithCityID:_cityID] inComponent:1 animated:NO];
+//        
+//        [_pickerView reloadAllComponents];
+//    }else{
+//        
+//    }
+    [theView addSubview:_pickerView];
     
-    [_bigsview addSubview:_pickerView];
+    sortViewController.view = theView;
+    
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -566,7 +561,7 @@
 }
 
 - (void)modifyLocation:(id)sender {
-    [self pickerScrollOut];
+    [_popViewController dismissPopoverAnimated:NO];
     
     NSInteger index = [self.pickerView selectedRowInComponent:1];
     self.selectedCityID = [NSString stringWithFormat:@"%@",[[self.cityArray objectAtIndex:index] objectForKey:@"id"]];
