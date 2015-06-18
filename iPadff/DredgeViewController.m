@@ -93,9 +93,17 @@
     [super viewDidLoad];
     _applyList = [[NSMutableArray alloc]init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushtoNewApply:) name:@"newApply" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SQresh) name:@"SQlist" object:nil];
+
     [self setupNavBar];
     [self setupHeaderAndFooterView];
     [self firstLoadData];
+}
+-(void)SQresh
+{
+    [self firstLoadData];
+
+
 }
 
 - (void)pushtoNewApply:(NSNotification *)notification {
