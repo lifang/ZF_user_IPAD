@@ -16,7 +16,7 @@
 #import "AppDelegate.h"
 #import "RentDescriptionController.h"
 #import "POSAddressTableViewCell.h"
-@interface RentOrderViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
+@interface RentOrderViewController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPopoverPresentationControllerDelegate,UIPickerViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate,UIPopoverControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 
 
@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NSString *selectedCityID;
 
 
+@property(nonatomic,strong) UIPopoverController *popViewController;
 
 
 
@@ -730,7 +731,7 @@
 }
 -(void)cityclick
 {
-    _cityField.userInteractionEnabled=NO;
+//    _cityField.userInteractionEnabled=NO;
     UITextField*textfield=(UITextField*)[self.view viewWithTag:1056];
     
     UITextField*textfield1=(UITextField*)[self.view viewWithTag:1057];
@@ -744,7 +745,7 @@
     
     [textfield resignFirstResponder];
 
-    [self initPickerView];
+    [self pickerDisplay:_cityField];
     
     
 }
@@ -838,7 +839,7 @@
     
 }
 
-- (void)initPickerView {
+- (void)pickerDisplay:(id)sender {
     //pickerView
     CGFloat wide;
     CGFloat height;
@@ -854,30 +855,58 @@
         height=SCREEN_HEIGHT;
         
     }
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
     
-    
-    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height - 340, wide, 44)];
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(pickerScrollOut)];
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerHide)];
     UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
                                                                    style:UIBarButtonItemStyleDone
                                                                   target:self
                                                                   action:@selector(modifyLocation:)];
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:nil
-                                                                               action:nil];
+                                                                               target:nil action:nil];
     [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
-    [self.view addSubview:_toolbar];
-    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, height - 296, wide, 296)];
+    [theView addSubview:_toolbar];
     
-    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+    
+    //    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height - 340, wide, 44)];
+    //    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+    //                                                                   style:UIBarButtonItemStyleDone
+    //                                                                  target:self
+    //                                                                  action:@selector(pickerScrollOut)];
+    //    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+    //                                                                   style:UIBarButtonItemStyleDone
+    //                                                                  target:self
+    //                                                                  action:@selector(modifyLocation:)];
+    //    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+    //                                                                               target:nil
+    //                                                                               action:nil];
+    //    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    //    [self.view addSubview:_toolbar];
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 60, 320, 216)];
+    
+    //    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
     
-    [self.view addSubview:_pickerView];
+    [theView addSubview:_pickerView];
+    
+    sortViewController.view = theView;
+    
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:_cityField permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
+    
 }
+- (void)pickerHide
+{
+    
+    [_popViewController dismissPopoverAnimated:NO];
+    
+}
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
 }
@@ -897,11 +926,12 @@
     
     _cityField.userInteractionEnabled=YES;
 
-    [self pickerScrollOut];
+//    [self pickerScrollOut];
     NSInteger index = [_pickerView selectedRowInComponent:1];
     NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
     [_cityField setTitle:cityName forState:UIControlStateNormal];
     _selectedCityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
+    [self pickerHide];
 
 }
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {

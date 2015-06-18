@@ -432,7 +432,7 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
 #pragma mark 开始查询 开始统计
 -(void)startFind
 {
-    if ([_terminalField.text isEqualToString:s_defaultTerminalNum]) {
+    if ([_terminalField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                         message:@"请选择终端号"
                                                        delegate:nil
@@ -494,12 +494,12 @@ static NSString *s_defaultTerminalNum = @"请选择终端号";
     }
     if (button.tag == 1051) {
         NSLog(@"点击了交易日期1");
-        _selectedStart.userInteractionEnabled = NO;
+//        _selectedStart.userInteractionEnabled = NO;
         [self setupStartDate];
     }
     if (button.tag == 1052) {
         NSLog(@"点击了交易日期2");
-        _selectedEnd.userInteractionEnabled = NO;
+//        _selectedEnd.userInteractionEnabled = NO;
         [self setupEndDate];
     }
 }
