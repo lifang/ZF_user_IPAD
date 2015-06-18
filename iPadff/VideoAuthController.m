@@ -55,12 +55,11 @@
     // Do any additional setup after loading the view.
     self.title = @"视频认证";
     [self initUI];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:kImageName(@"back.png")
-                                                                 style:UIBarButtonItemStyleBordered
-                                                                target:self
-                                                                action:@selector(back)];
-    self.navigationItem.leftBarButtonItem = leftItem;
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:kImageName(@"back.png")
+//                                                                 style:UIBarButtonItemStyleBordered
+//                                                                target:self
+//                                                                action:@selector(back)];
+//    self.navigationItem.leftBarButtonItem = leftItem;
     
     //初始化
     [AnyChatPlatform InitSDK:0];
