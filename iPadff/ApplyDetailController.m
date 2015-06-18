@@ -49,8 +49,10 @@
 
 @property (nonatomic, assign) OpenApplyType applyType;  //对公 对私
 @property(nonatomic,strong)UIButton *startSure;
+@property (nonatomic, strong) NSMutableArray *channelItems;
 
 @property (nonatomic, strong) ApplyOpenModel *applyData;
+@property (nonatomic, strong) NSArray *secondArray;  //pickerView 第二列
 
 @property (nonatomic, strong) NSMutableDictionary *infoDict;
 
@@ -100,7 +102,8 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     _bankItems = [[NSMutableArray alloc] init];
-    
+    _channelItems = [[NSMutableArray alloc] init];
+
     keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankIDfdf",@"key_bankID",@"key_taxID",@"key_organID",@"key_channel", nil];
     // Do any additional setup after loading the view.
     self.title = @"开通申请";
@@ -1031,18 +1034,72 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 -(void)zhifuclick
 {
     [self.editingField resignFirstResponder];
-    
+    zhifuint=105;
+    [self getChannelList];
+    [self pickerDisplay:zhifubutton];
     //选择支付通道
-    ChannelSelectedController *channelC = [[ChannelSelectedController alloc] init];
-    channelC.delegate = self;
-    channelC.hidesBottomBarWhenPushed = YES;
-    channelC.channelID = _applyData.terminalChannelID;
-    
-    [self.navigationController pushViewController:channelC animated:YES];
-    
+//    ChannelSelectedController *channelC = [[ChannelSelectedController alloc] init];
+//    channelC.delegate = self;
+//    channelC.hidesBottomBarWhenPushed = YES;
+//    channelC.channelID = _applyData.terminalChannelID;
+//    
+//    [self.navigationController pushViewController:channelC animated:YES];
+//    
     
     
 }
+- (void)getChannelList {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"加载中...";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    [NetworkInterface selectedChannelWithToken:delegate.token finished:^(BOOL success, NSData *response) {
+        NSLog(@"!!!!%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
+        hud.customView = [[UIImageView alloc] init];
+        hud.mode = MBProgressHUDModeCustomView;
+        [hud hide:YES afterDelay:0.5f];
+        if (success) {
+            id object = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+            if ([object isKindOfClass:[NSDictionary class]]) {
+                NSString *errorCode = [NSString stringWithFormat:@"%@",[object objectForKey:@"code"]];
+                if ([errorCode intValue] == RequestFail) {
+                    //返回错误代码
+                    hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
+                }
+                else if ([errorCode intValue] == RequestSuccess) {
+                    [hud hide:YES];
+                    [self parseChannelListWithDictionary:object];
+                }
+            }
+            else {
+                //返回错误数据
+                hud.labelText = kServiceReturnWrong;
+            }
+        }
+        else {
+            hud.labelText = kNetworkFailed;
+        }
+    }];
+}
+
+#pragma mark - Data
+
+- (void)parseChannelListWithDictionary:(NSDictionary *)dict {
+    if (![dict objectForKey:@"result"] || ![[dict objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+        return;
+    }
+    [_channelItems removeAllObjects];
+    
+    NSArray *list = [dict objectForKey:@"result"];
+    for (int i = 0; i < [list count]; i++) {
+        NSDictionary *channelDict = [list objectAtIndex:i];
+        ChannelListModel *model = [[ChannelListModel alloc] initWithParseDictionary:channelDict];
+        if ([model.channelID isEqualToString:_applyData.terminalChannelID]) {
+            [_channelItems addObject:model];
+        }
+    }
+    [_pickerView reloadAllComponents];
+}
+
 -(void)blankclick:(UIButton*)send
 {
     
@@ -1084,6 +1141,7 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 -(void)locationbuttonclick
 {
     [self.editingField resignFirstResponder];
+    zhifuint=106;
 
     _selectedKey = key_location;
     [self pickerDisplay:locationbutton];
@@ -1945,18 +2003,20 @@ _applyType = OpenApplyPrivate;
 -(void)makeSureClick:(UIButton *)button
 {
     birthdaybutton.userInteractionEnabled=YES;
-
-    [cancelBtn removeFromSuperview];
-    [datepickview removeFromSuperview];
-    [makeSureBtn removeFromSuperview];
-    [datePicker removeFromSuperview];
-    [self startPick];
-    
-    [_infoDict setObject: self.startTime forKey:key_birth];
-    NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:key_birth]];
-    
-    
-    [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
+   
+        [self startPick];
+        
+        [_infoDict setObject: self.startTime forKey:key_birth];
+        NSString*accountname=[NSString stringWithFormat:@"%@",[_infoDict objectForKey:key_birth]];
+        
+        
+        [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
+   
+//    [cancelBtn removeFromSuperview];
+//    [datepickview removeFromSuperview];
+//    [makeSureBtn removeFromSuperview];
+//    [datePicker removeFromSuperview];
+  
     
     [self pickerHide];
 
@@ -2002,28 +2062,91 @@ _applyType = OpenApplyPrivate;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (component == 0) {
-        return [[CityHandle shareProvinceList] count];
+    
+    if (zhifuint==106)
+    
+    
+    {
+        
+        if (component == 0) {
+            return [[CityHandle shareProvinceList] count];
+        }
+        else {
+            NSInteger provinceIndex = [pickerView selectedRowInComponent:0];
+            NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:provinceIndex];
+            _cityArray = [provinceDict objectForKey:@"cities"];
+            return [_cityArray count];
+        }
+
+
     }
-    else {
-        NSInteger provinceIndex = [pickerView selectedRowInComponent:0];
-        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:provinceIndex];
-        _cityArray = [provinceDict objectForKey:@"cities"];
-        return [_cityArray count];
+else
+{
+
+    
+    if (component == 0)
+    {
+        return [_channelItems count];;
     }
+    else
+    {
+        NSInteger channelIndex = [pickerView selectedRowInComponent:0];
+        if ([_channelItems count] > 0)
+        {
+            ChannelListModel *channel = [_channelItems objectAtIndex:channelIndex];
+            _secondArray = channel.children;
+            return [_secondArray count];
+        }
+        return 0;
+    }
+
+
+
+
+
 }
+   }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (component == 0) {
-        //省
-        NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:row];
-        return [provinceDict objectForKey:@"name"];
+    
+    
+    if (zhifuint==106)
+
+    {
+        if (component == 0) {
+            //省
+            NSDictionary *provinceDict = [[CityHandle shareProvinceList] objectAtIndex:row];
+            return [provinceDict objectForKey:@"name"];
+        }
+        else {
+            //市
+            return [[_cityArray objectAtIndex:row] objectForKey:@"name"];
+        }
+
+    
+    }else{
+    
+    
+        if (component == 0) {
+            //通道
+            ChannelListModel *model = [_channelItems objectAtIndex:row];
+            return model.channelName;
+        }
+        else {
+            //结算时间
+            if ([_secondArray count] > 0) {
+                BillingModel *model = [_secondArray objectAtIndex:row];
+                return model.billName;
+            }
+            return @"";
+        }
+
+    
+    
+    
     }
-    else {
-        //市
-        return [[_cityArray objectAtIndex:row] objectForKey:@"name"];
-    }
-}
+    
+   }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (component == 0) {
@@ -2076,11 +2199,51 @@ _applyType = OpenApplyPrivate;
 
 - (IBAction)modifyLocation:(id)sender {
 //    [self pickerScrollOut];
-    NSInteger index = [_pickerView selectedRowInComponent:1];
-    NSString *cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
-    NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
-    [locationbutton setTitle:cityName forState:UIControlStateNormal];
-    [_infoDict setObject:cityID forKey:key_location];
+    
+    
+    if (zhifuint==106)
+    {
+        NSInteger index = [_pickerView selectedRowInComponent:1];
+        NSString *cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
+        NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
+        [locationbutton setTitle:cityName forState:UIControlStateNormal];
+        [_infoDict setObject:cityID forKey:key_location];
+        
+
+    }else
+    {
+        
+        NSInteger firstIndex = [_pickerView selectedRowInComponent:0];
+        NSInteger secondIndex = [_pickerView selectedRowInComponent:1];
+        ChannelListModel *channel = nil;
+        BillingModel *model = nil;
+        if (firstIndex < [_channelItems count]) {
+            channel = [_channelItems objectAtIndex:firstIndex];
+        }
+        if (secondIndex < [_secondArray count]) {
+            model = [_secondArray objectAtIndex:secondIndex];
+        }
+        
+        NSString *channelInfo = [NSString stringWithFormat:@"%@ %@",channel.channelName,model.billName];
+        
+        
+        
+        
+        
+        
+        //        NSString *channelInfo = [NSString stringWithFormat:@"%@ %@",model.channelName,billModel.billName];
+        [_infoDict setObject:channelInfo forKey:key_channel];
+        _channelID = channel.channelID;
+        _billID = model.billID;
+        [zhifubutton setTitle:channelInfo forState:UIControlStateNormal];
+        
+        [_tableView reloadData];
+    }
+
+    
+    
+    
+    
     [self pickerHide];
 
 }
@@ -2448,13 +2611,7 @@ _applyType = OpenApplyPrivate;
 }
 
 - (void)getChannelList:(ChannelListModel *)model billModel:(BillingModel *)billModel {
-    NSString *channelInfo = [NSString stringWithFormat:@"%@ %@",model.channelName,billModel.billName];
-    [_infoDict setObject:channelInfo forKey:key_channel];
-    _channelID = model.channelID;
-    _billID = billModel.billID;
-    [zhifubutton setTitle:channelInfo forState:UIControlStateNormal];
     
-    [_tableView reloadData];
 }
 
 @end
