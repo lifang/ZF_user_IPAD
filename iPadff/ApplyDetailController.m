@@ -1071,6 +1071,14 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 
 
 }
+- (void)pickerHide
+{
+    
+    [_popViewController dismissPopoverAnimated:NO];
+    
+}
+
+
 //选择所在地
 
 -(void)locationbuttonclick
@@ -1078,18 +1086,53 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.editingField resignFirstResponder];
 
     _selectedKey = key_location;
-    
-    [self pickerScrollIn];
+    [self pickerDisplay:locationbutton];
+
+//    [self pickerScrollIn];
     
     
 }
+- (void)pickerDisplay:(id)sender {
+    
+    NSLog(@"pickerDiplay");
+    
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
+    
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerHide)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(modifyLocation:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [theView addSubview:_toolbar];
+    
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 60, 320, 216)];
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    _pickerView.showsSelectionIndicator = YES;
+    [theView addSubview:_pickerView];
+    
+    sortViewController.view = theView;
+    
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
+    
+    
+}
+
 //选择生日
 
 -(void)birthdaybuttonclick
 {
     [self.editingField resignFirstResponder];
 
-    birthdaybutton.userInteractionEnabled=NO;
+//    birthdaybutton.userInteractionEnabled=NO;
     
     [self setupStartDate ];
     
@@ -1840,54 +1883,61 @@ _applyType = OpenApplyPrivate;
 //创建开始日期选择器
 -(void)setupStartDate
 {
+    
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
+    
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(caneClick)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(makeSureClick:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [theView addSubview:_toolbar];
+    
+    
+    
     datePicker = [[UIDatePicker alloc]init];
-    datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
+    //    datePicker.backgroundColor = kColor(212, 212, 212, 1.0);
     datePicker.datePickerMode = UIDatePickerModeDate;
-    datePicker.frame = CGRectMake( birthdaybutton.frame.origin.x , birthdaybutton.frame.origin.y+birthdaybutton.frame.size.height, birthdaybutton.frame.size.width , 160);
+    datePicker.frame = CGRectMake(0, 60, 320, 216);
     
     
     
     
-    [datePicker addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
+//    [datePicker addTarget:self action:@selector(startPick) forControlEvents:UIControlEventValueChanged];
+    [theView addSubview:datePicker];
     
-    datepickview=[[UIView alloc]initWithFrame:CGRectMake(datePicker.frame.origin.x  , CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width, 30)];
-    [_scrollView addSubview:datepickview];
-    datepickview.backgroundColor=kColor(212, 212, 212, 1.0);
-    makeSureBtn = [[UIButton alloc]init];
-    makeSureBtn.tag = 1112;
-    [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
-    [makeSureBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
-    [makeSureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
-    makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-    makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
-    
-    self.startSure = makeSureBtn;
+    //    datepickview=[[UIView alloc]initWithFrame:CGRectMake(datePicker.frame.origin.x  , CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width, 30)];
+    //    [theView addSubview:datePicker];
+    //    datepickview.backgroundColor=kColor(212, 212, 212, 1.0);
+    //    makeSureBtn = [[UIButton alloc]init];
+    //    makeSureBtn.tag = 1112;
+    //    [makeSureBtn addTarget:self action:@selector(makeSureClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    [makeSureBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
+    //    [makeSureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //    [makeSureBtn setTitle:@"确认" forState:UIControlStateNormal];
+    //    makeSureBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    //    makeSureBtn.frame = CGRectMake(datePicker.frame.origin.x + datePicker.frame.size.width * 0.6, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
+    //
+    //    self.startSure = makeSureBtn;
     self.datePickerStart = datePicker;
-    [_scrollView addSubview:_startSure];
     
     
-    cancelBtn = [[UIButton alloc]init];
-    cancelBtn.tag = 1212;
-    [cancelBtn addTarget:self action:@selector(caneClick) forControlEvents:UIControlEventTouchUpInside];
-    [cancelBtn setBackgroundColor:kColor(156, 156, 156, 1.0)];
-    [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-    cancelBtn.frame = CGRectMake(datePicker.frame.origin.x, CGRectGetMaxY(datePicker.frame), datePicker.frame.size.width * 0.4, 30);
+    sortViewController.view = theView;
     
-    [_scrollView addSubview:cancelBtn];
-    [_scrollView addSubview:_datePickerStart];
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:birthdaybutton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
 }
 -(void)caneClick
 {
-
-    birthdaybutton.userInteractionEnabled=YES;
+    [self pickerHide];
     
-    [cancelBtn removeFromSuperview];
-    [datepickview removeFromSuperview];
-    [makeSureBtn removeFromSuperview];
-    [datePicker removeFromSuperview];
 
 }
 -(void)makeSureClick:(UIButton *)button
@@ -1906,7 +1956,8 @@ _applyType = OpenApplyPrivate;
     
     [birthdaybutton setTitle:accountname forState:UIControlStateNormal];
     
-    
+    [self pickerHide];
+
     
     
 }
@@ -2022,13 +2073,14 @@ _applyType = OpenApplyPrivate;
 }
 
 - (IBAction)modifyLocation:(id)sender {
-    [self pickerScrollOut];
+//    [self pickerScrollOut];
     NSInteger index = [_pickerView selectedRowInComponent:1];
     NSString *cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
     NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
     [locationbutton setTitle:cityName forState:UIControlStateNormal];
     [_infoDict setObject:cityID forKey:key_location];
-    
+    [self pickerHide];
+
 }
 
 - (void)pickerScrollIn {

@@ -16,7 +16,7 @@
 
 
 
-@interface ShoppingCartOrderController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
+@interface ShoppingCartOrderController ()<UITextFieldDelegate,UIPickerViewDataSource,UIPopoverPresentationControllerDelegate,UIPickerViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate,UIPopoverControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIButton *typeBtn;
 
@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIToolbar *toolbar;
 
 @property (nonatomic, strong) NSArray *cityArray;  //pickerView 第二列
+@property(nonatomic,strong) UIPopoverController *popViewController;
 
 @property (nonatomic, strong) NSString *selectedCityID;
 
@@ -588,7 +589,7 @@
 }
 -(void)cityclick
 {
-    _cityField.userInteractionEnabled=NO;
+//    _cityField.userInteractionEnabled=NO;
     UITextField*textfield=(UITextField*)[self.view viewWithTag:1056];
     
     UITextField*textfield1=(UITextField*)[self.view viewWithTag:1057];
@@ -602,10 +603,78 @@
     
     [textfield resignFirstResponder];
 
-    [self initPickerView];
+    [self pickerDisplay:_cityField];
     
 
 }
+- (void)pickerDisplay:(id)sender {
+    //pickerView
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    UIViewController *sortViewController = [[UIViewController alloc] init];
+    UIView *theView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 276)];
+    
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerHide)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(modifyLocation:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil action:nil];
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [theView addSubview:_toolbar];
+    
+    
+    //    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height - 340, wide, 44)];
+    //    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+    //                                                                   style:UIBarButtonItemStyleDone
+    //                                                                  target:self
+    //                                                                  action:@selector(pickerScrollOut)];
+    //    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+    //                                                                   style:UIBarButtonItemStyleDone
+    //                                                                  target:self
+    //                                                                  action:@selector(modifyLocation:)];
+    //    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+    //                                                                               target:nil
+    //                                                                               action:nil];
+    //    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    //    [self.view addSubview:_toolbar];
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 60, 320, 216)];
+    
+    //    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    
+    [theView addSubview:_pickerView];
+    
+    sortViewController.view = theView;
+    
+    _popViewController = [[UIPopoverController alloc] initWithContentViewController:sortViewController];
+    [_popViewController setPopoverContentSize:CGSizeMake(320, 300) animated:YES];
+    [_popViewController presentPopoverFromRect:CGRectMake(120, 0, 0, 42) inView:_cityField permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    _popViewController.delegate = self;
+    
+}
+- (void)pickerHide
+{
+    
+    [_popViewController dismissPopoverAnimated:NO];
+    
+}
+
 - (void)setDefaultAddress {
     defaultbool = !defaultbool;
     if(defaultbool)
@@ -701,63 +770,64 @@
         [self addAddress];
  
 }
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    
-  
-    [self pickerScrollOut];
-
-    
-}
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+//    
+//  
+//    [self pickerScrollOut];
+//
+//    
+//}
 - (IBAction)modifyLocation:(id)sender {
     _cityField.userInteractionEnabled=YES;
 
-    [self pickerScrollOut];
+//    [self pickerScrollOut];
     NSInteger index = [_pickerView selectedRowInComponent:1];
      cityID = [NSString stringWithFormat:@"%@",[[_cityArray objectAtIndex:index] objectForKey:@"id"]];
     NSString *cityName = [[_cityArray objectAtIndex:index] objectForKey:@"name"];
     [_cityField setTitle:cityName forState:UIControlStateNormal];
+    [self pickerHide];
     
 }
 
 - (void)initPickerView {
-    //pickerView
-    CGFloat wide;
-    CGFloat height;
-    if(iOS7)
-    {
-        wide=SCREEN_HEIGHT-64;
-        height=SCREEN_WIDTH;
-        
-        
-    }
-    else
-    {  wide=SCREEN_WIDTH-64;
-        height=SCREEN_HEIGHT;
-        
-    }
-    
-
-    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height - 340, wide, 44)];
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(pickerScrollOut)];
-    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
-                                                                   style:UIBarButtonItemStyleDone
-                                                                  target:self
-                                                                  action:@selector(modifyLocation:)];
-    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:nil
-                                                                               action:nil];
-    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
-    [self.view addSubview:_toolbar];
-    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, height - 296, wide, 296)];
-
-    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
-    _pickerView.delegate = self;
-    _pickerView.dataSource = self;
-    
-    [self.view addSubview:_pickerView];
+//    //pickerView
+//    CGFloat wide;
+//    CGFloat height;
+//    if(iOS7)
+//    {
+//        wide=SCREEN_HEIGHT-64;
+//        height=SCREEN_WIDTH;
+//        
+//        
+//    }
+//    else
+//    {  wide=SCREEN_WIDTH-64;
+//        height=SCREEN_HEIGHT;
+//        
+//    }
+//    
+//
+//    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, height - 340, wide, 44)];
+//    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+//                                                                   style:UIBarButtonItemStyleDone
+//                                                                  target:self
+//                                                                  action:@selector(pickerScrollOut)];
+//    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+//                                                                   style:UIBarButtonItemStyleDone
+//                                                                  target:self
+//                                                                  action:@selector(modifyLocation:)];
+//    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+//                                                                               target:nil
+//                                                                               action:nil];
+//    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+//    [self.view addSubview:_toolbar];
+//    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, height - 296, wide, 296)];
+//
+//    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+//    _pickerView.delegate = self;
+//    _pickerView.dataSource = self;
+//    
+//    [self.view addSubview:_pickerView];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
