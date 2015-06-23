@@ -24,10 +24,7 @@
 
 #define kPageSize 10   //分页加载每页行数
 #define NavTitle_FONTSIZE  36
-#define kServiceURL @"http://121.40.84.2:8080/ZFMerchant/api"
-//#define kServiceURL @"http://121.40.64.167:8080/api"
 
-//#define kServiceURL  @"http://www.ebank007.com/api"
 
 #define kImageName(name) [UIImage imageNamed:name]
 
@@ -39,17 +36,25 @@
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
+
+#define kServiceURL @"http://121.40.84.2:8080/ZFMerchant/api" //test
+//#define kServiceURL @"http://121.40.224.25:8080/api" //yufa
+//#define kServiceURL  @"http://www.ebank007.com/api"  //线上
+
 #define kVideoAuthIP    @"121.40.84.2"      //测试
 //#define kVideoAuthIP      @"121.40.64.120"    //线上
 #define kVideoAuthPort  8906
+
+
+#define kVideoServiceURL @"http://121.40.84.2:38080/ZFManager/notice/video" //test
 //#define kVideoServiceURL @"http://admin.ebank007.com/notice/video"   //线上
-#define kVideoServiceURL @"http://121.40.84.2:38080/ZFManager/notice/video"
+
 
 #define kOrderCallBackURL  @"http://121.40.84.2:8080/ZFMerchant/app_notify_url.jsp"
 #define kCSCallBackURL     @"http://121.40.84.2:8080/ZFMerchant/repair_app_notify_url.jsp"
-
-//#define kWhalesaleCallBackURL   @"http://121.40.84.2:8080/ZFMerchant/deposit_app_notify_url.jsp"
-//#define kProcurementCallBackURL @"http://121.40.84.2:8080/ZFMerchant/app_notify_url.jsp"
+//线上
+//#define kOrderCallBackURL  @"http://www.ebank007.com/app_notify_url.jsp"
+//#define kCSCallBackURL     @"http://www.ebank007.com/repair_app_notify_url.jsp"
 
 
 //UnionPay
@@ -58,6 +63,10 @@
 
 //#define kMode_Production             @"00"  //线上
 //#define kUnionPayURL  @"http://www.ebank007.com/unionpay.do" //线上
+
+//#define kMode_Production             @"00"  //yufa
+//#define kUnionPayURL  @"http://121.40.224.25:8080/unionpay.do" //yufa
+
 
 
 #define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]
