@@ -16,6 +16,9 @@
 @end
 
 @interface BankSelectedController : CommonViewController
+{    UIButton *shoppingButtons;
+    UIButton *shoppingButton;
+}
 
 @property (nonatomic, assign) id<BankSelectedDelegate>delegate;
 
