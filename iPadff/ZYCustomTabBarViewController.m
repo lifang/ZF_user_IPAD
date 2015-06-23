@@ -194,7 +194,7 @@
     [button1 addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [button1.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [button1 setContentEdgeInsets:UIEdgeInsetsMake(0,0,10,0)];
-   button2=[UIButton buttonWithType:UIButtonTypeCustom];
+    button2=[UIButton buttonWithType:UIButtonTypeCustom];
      button2.tag=2;
     
     
