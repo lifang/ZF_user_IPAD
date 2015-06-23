@@ -194,7 +194,7 @@
     [button1 addTarget:self action:@selector(tabBarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [button1.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [button1 setContentEdgeInsets:UIEdgeInsetsMake(0,0,10,0)];
-   button2=[UIButton buttonWithType:UIButtonTypeCustom];
+    button2=[UIButton buttonWithType:UIButtonTypeCustom];
      button2.tag=2;
     
     
@@ -957,7 +957,7 @@ if(iOS7)
     NSString *message = @"";
     if (sender.isOn) {
         [BPush bindChannel];
-        message = @"您已成功开启消息推送，请确保在iPhone的“设置”-“通知”中也开启推送通知！";
+        message = @"您已成功开启消息推送，请确保在iPad的“设置”-“通知”中也开启推送通知！";
     }
     else {
          [BPush unbindChannel];
