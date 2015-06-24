@@ -2593,7 +2593,7 @@ else
 - (void)getSelectedBank:(BankModel *)model {
     if (model) {
         NSLog(@"%@%@",model.bankName,_selectedKey);
-        if([_selectedKey isEqualToString: @"key_bankID"])
+        if([_selectedKey isEqualToString: @"key_bankIDfdf"])
         {
             _bankTitleName=model.bankName;
 
