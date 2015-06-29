@@ -816,4 +816,10 @@
     [self.navigationController pushViewController:detailC animated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self firstLoadData];
+
+}
+
 @end
