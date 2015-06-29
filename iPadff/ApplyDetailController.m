@@ -64,6 +64,7 @@
 @property(nonatomic,strong)UIButton *privateBtn;
 @property (nonatomic, strong) UIView *scrollView;
 @property (nonatomic, strong) NSMutableArray *bankItems;//银行信息
+@property (nonatomic, strong) NSMutableArray *textarrys;//银行信息
 
 @property(nonatomic,assign)BOOL isChecked;
 @property(nonatomic,assign)CGFloat publicX;
@@ -103,6 +104,7 @@
     self.view.backgroundColor=[UIColor whiteColor];
     _bankItems = [[NSMutableArray alloc] init];
     _channelItems = [[NSMutableArray alloc] init];
+    _textarrys = [[NSMutableArray alloc] init];
 
     keynamesarry=[NSArray arrayWithObjects:@"key_name",@"key_merchantName",@"key_sex",@"key_birth",@"key_cardID",@"key_phone",@"key_email",@"key_location",@"key_bank",@"key_bankIDfdf",@"key_bankID",@"key_taxID",@"key_organID",@"key_channel", nil];
     // Do any additional setup after loading the view.
@@ -723,8 +725,7 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
         
     }
     
-    
-    
+  
     UILabel*twoline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18,  4*70+topSpace + labelHeight *5+10, wide - 138, 1)];
     twoline.backgroundColor = [UIColor grayColor];
     [_scrollView addSubview:twoline];
@@ -733,6 +734,15 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
     [_scrollView addSubview:threeline];
     NSInteger imageint;
     imageint=0;
+    NSInteger imagerow;
+    NSInteger imageheight;
+    
+    NSInteger textCount;
+    textCount=0;
+    NSInteger textrow;
+    NSInteger textheight = 0 ;
+    
+    
     NSMutableArray *textArray=[[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *imageArray=[[NSMutableArray alloc] initWithCapacity:0];
     for(int i=0;i<_applyData.materialList.count;i++)
@@ -751,268 +761,132 @@ namesarry=[NSArray arrayWithObjects:@"姓              名",@"店   铺  名   �
         }
 
     }
-    for(int i=0;i<_applyData.materialList.count;i++)
+    textint =0;
+    [_textarrys removeAllObjects];
+    
+    for(int i=0;i<textArray.count;i++)
     {
         
-        NSInteger row;
-        row=i%2;
-        NSInteger height;
+        MaterialModel *model = [textArray objectAtIndex:i];
         
-        height=i/2;
-        MaterialModel *model = [_applyData.materialList objectAtIndex:i];
+        textrow =i%2;
+        textheight = i/2;
         
-       
         if (model.materialType == MaterialList) {
             
-            NSInteger lastheight;
-            lastheight=imageArray.count;
-            if(lastheight%2==0)
-            {
-                lastheight=lastheight/2;
-                
-            }
-            else
-            {
-                
-                lastheight=lastheight/2+1;
-                
-            }
-            //选项 银行
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40, 710+lastheight*70,140, 40)];
-            [_scrollView addSubview:newaddress];
-            newaddress.textAlignment = NSTextAlignmentCenter;
-            newaddress.font=[UIFont systemFontOfSize:18];
+            UILabel *listLB=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide/2-40)*textrow,80+710+ textheight*70,140, 40)];
+            [_scrollView addSubview:listLB];
+            listLB.textAlignment = NSTextAlignmentCenter;
+            listLB.font=[UIFont systemFontOfSize:18];
+            listLB.text=model.materialName;
             
-            newaddress.text=model.materialName;
-            
-            
-            blankbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-            blankbutton.frame = CGRectMake(wide/2-40-280,710+lastheight*70 ,280, 40);
-//            NSString *bankCode = [self getApplyValueForKey:model.materialID];
-//            [blankbutton setTitle:[self getBankNameWithBankCode:bankCode] forState:UIControlStateNormal];
-//            
-            
-            if(_bankTitleName2)
-                
-            {
-                
-                
-                [blankbutton setTitle:_bankTitleName forState:UIControlStateNormal];
-                
-                
-                
-            }
-            //            [_cityField setTitle:@"123" forState:UIControlStateNormal];
-            [blankbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            blankbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            [blankbutton setImage:kImageName(@"arrow_line1") forState:UIControlStateNormal];
-            CALayer *layer=[blankbutton  layer];
-            //是否设置边框以及是否可见
-            [layer setMasksToBounds:YES];
-            //设置边框圆角的弧度
-            
-            //设置边框线的宽
-            //
-            [layer setBorderWidth:1];
-            //设置边框线的颜色
-            [layer setBorderColor:[[UIColor grayColor] CGColor]];
-            blankbutton.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
-            blankbutton.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);//设置image在button上的位置（上top，左left，下bottom，右right）这里可以写负值，对上写－5，那么image就象上移动5个像素
-            
-            blankbutton.tag=[model.materialID integerValue];
-     
-            [blankbutton addTarget:self action:@selector(blankclick:) forControlEvents:UIControlEventTouchUpInside];
-            [_scrollView addSubview:blankbutton];
-            
-            
+            UIButton *listBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            listBtn.frame = CGRectMake(190+(wide/2-40)*textrow,80+ 710+ textheight*70,280, 40);
+            [listBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            listBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            [listBtn setImage:kImageName(@"arrow_line") forState:UIControlStateNormal];
+            listBtn.layer.masksToBounds=YES;
+            listBtn.layer.borderWidth=1.0;
+            listBtn.layer.borderColor=[UIColor grayColor].CGColor;
+            listBtn.contentEdgeInsets = UIEdgeInsetsMake(0,10, 0, 0);
+            listBtn.imageEdgeInsets = UIEdgeInsetsMake(0,220,0,0);
+            listBtn.tag=[model.materialID integerValue];
+            [listBtn addTarget:self action:@selector(blankclick:) forControlEvents:UIControlEventTouchUpInside];
+            [_scrollView addSubview:listBtn];
         }
         else if (model.materialType == MaterialText)
         {
-
-            NSMutableArray*typeArry=[[NSMutableArray alloc]initWithCapacity:0];
-            NSMutableArray*MaterialTexttypeArry=[[NSMutableArray alloc]initWithCapacity:0];
-
-            for(int i=0;i<_applyData.materialList.count;i++)
-
+            textint++;
+            [_textarrys addObject:model.materialID];
             
+            //文本
+            UILabel *textLB=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide/2-40)*textrow,710+ textheight*70,140, 40)];
+            
+            [_scrollView addSubview:textLB];
+            textLB.textAlignment = NSTextAlignmentCenter;
+            textLB.font=[UIFont systemFontOfSize:18];
+            textLB.text=model.materialName;
+            
+            UITextField *textTF=[[UITextField alloc] init];
+            textTF.frame=CGRectMake(190+(wide/2-40)*textrow, 710+ textheight*70,280, 40);
+            textTF.tag=[model.materialID integerValue]+999656;
+            if([_infoDict objectForKey:[_textarrys objectAtIndex:textint-1]])
             {
-                MaterialModel *model = [_applyData.materialList objectAtIndex:i];
-
-                [typeArry addObject:[NSString stringWithFormat:@"%u",model.materialType] ];
-                
-             if(model.materialType==MaterialText)
-             {
-             
-                 [MaterialTexttypeArry addObject:model ];
-
-             
-             }
-            
+                textTF.text=[_infoDict objectForKey:[_textarrys objectAtIndex:textint-1]];
             }
-           
-            if ([typeArry containsObject: @"3"])
-                 
-                
-            
-            
-            {
-                 
-                 
-                NSInteger lastheight;
-                lastheight=imageArray.count;
-                if(lastheight%2==0)
-                {
-                    lastheight=lastheight/2;
-                    
-                }
-                else
-                {
-                    
-                    lastheight=lastheight/2+1;
-                    
-                }
-                for(int i=1;i<MaterialTexttypeArry.count+1;i++)
-                    
-                {
-                    NSInteger LR=i%2;
-                    MaterialModel *model = [MaterialTexttypeArry objectAtIndex:i-1];
-
-                    //文字
-                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(wide/2*LR+42, 700+lastheight*70+i/2*50+10,140, 40)];
-                    [_scrollView addSubview:newaddress];
-                    newaddress.textAlignment = NSTextAlignmentCenter;
-                    newaddress.font=[UIFont systemFontOfSize:18];
-                    
-                    newaddress.text=model.materialName;
-                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+192,700+lastheight*70+i/2*50+10,280, 40)];
-                    neworiginaltextfield.tag=i+1056;
-                    
-                    [_scrollView addSubview:neworiginaltextfield];
-                    //        neworiginaltextfield.delegate=self;
-                    
-                    CALayer *layer=[neworiginaltextfield layer];
-                    //是否设置边框以及是否可见
-                    [layer setMasksToBounds:YES];
-                    //设置边框圆角的弧度
-                    
-                    //设置边框线的宽
-                    //
-                    [layer setBorderWidth:1];
-                    //设置边框线的颜色
-                    [layer setBorderColor:[[UIColor grayColor] CGColor]];
-                    
-                    
-                }
-
-                
-            
-            }
-            else
-            {
-            
-                NSInteger lastheight;
-                lastheight=imageArray.count;
-                if(lastheight%2==0)
-                {
-                    lastheight=lastheight/2;
-                    
-                }
-                else
-                {
-                    
-                    lastheight=lastheight/2+1;
-                    
-                }
-                for(int i=0;i<MaterialTexttypeArry.count;i++)
-                    
-                {
-                    
-                    
-                    NSInteger LR=i%2;
-                    MaterialModel *model = [MaterialTexttypeArry objectAtIndex:i];
-
-                    //文字
-                    UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(42+wide/2*LR, 700+lastheight*70+i/2*50+10,140, 40)];
-                    [_scrollView addSubview:newaddress];
-                    newaddress.textAlignment = NSTextAlignmentCenter;
-                    newaddress.font=[UIFont systemFontOfSize:18];
-                    
-                    newaddress.text=model.materialName;
-                    UITextField*neworiginaltextfield=[[UITextField alloc]initWithFrame:CGRectMake(wide/2*LR+192,700+lastheight*70+i/2*50+10,280, 40)];
-                    neworiginaltextfield.tag=i+1056;
-                    
-                    [_scrollView addSubview:neworiginaltextfield];
-                    //        neworiginaltextfield.delegate=self;
-                    
-                    CALayer *layer=[neworiginaltextfield layer];
-                    //是否设置边框以及是否可见
-                    [layer setMasksToBounds:YES];
-                    //设置边框圆角的弧度
-                    
-                    //设置边框线的宽
-                    //
-                    [layer setBorderWidth:1];
-                    //设置边框线的颜色
-                    [layer setBorderColor:[[UIColor grayColor] CGColor]];
-                    
-                    
-                }
-
-            
-            
-            }
-
-            
-            
-                  }
-        else if (model.materialType == MaterialImage) {
-            NSInteger row;
-            row=imageint%2;
-            NSInteger heightlk;
-            
-            heightlk=imageint/2;
-            UILabel*newaddress=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide/2-40)*row, 700+heightlk*70,250, 40)];
-            [_scrollView addSubview:newaddress];
-            newaddress.textAlignment = NSTextAlignmentCenter;
-            newaddress.font=[UIFont systemFontOfSize:17];
-            
-            newaddress.text=model.materialName;
-            UIButton*imagebutton= [UIButton buttonWithType:UIButtonTypeCustom];
-            imagebutton.frame=CGRectMake(300+(wide/2-40)*row, 700+heightlk*70,170, 40);
-            imagebutton.titleLabel.font = [UIFont systemFontOfSize:16.f];
-            [imagebutton addTarget:self action:@selector(imageclick:) forControlEvents:UIControlEventTouchUpInside];
-            imagebutton.tag=[model.materialID integerValue];
-            [self getApplyValueForKey:model.materialID];
-            if ([_infoDict objectForKey:model.materialID] && ![[_infoDict objectForKey:model.materialID] isEqualToString:@""])
-            {            [imagebutton setImage:[UIImage imageNamed:@"upload.png"] forState:UIControlStateNormal];
-                
-            }
-            else {
-                [imagebutton setTitle:@"上传图片" forState:UIControlStateNormal];
-                
-                [imagebutton setBackgroundImage:[UIImage imageNamed:@"orange.png"] forState:UIControlStateNormal];
-                
-            }
-            
-            
-            [_scrollView addSubview:imagebutton];
-            
-            imageint++;
-            
+            [_scrollView addSubview:textTF];
+            textTF.leftViewMode = UITextFieldViewModeAlways;
+            UIView *leftView = [[UIView alloc]init];
+            leftView.frame = CGRectMake(0, 0, 10, 40);
+            textTF.leftView =leftView;
+            textTF.delegate=self;
+            textTF.layer.masksToBounds=YES;
+            textTF.layer.borderWidth=1.0;
+            textTF.layer.borderColor=[UIColor grayColor].CGColor;
         }
-        
-        
-        
-        
         
     }
     
+    NSInteger textH=0;
+    if (textArray.count%2==0) {
+        textH=textArray.count/2;
+    }
+    else
+    {
+        textH=textArray.count/2+1;
+    }
+    for(int i=0;i<imageArray.count;i++)
+    {
+        MaterialModel *model = [imageArray objectAtIndex:i];
+        imagerow =i%2;
+        imageheight = i/2;
+        
+        UILabel *imageLB=[[UILabel alloc]initWithFrame:CGRectMake(40+(wide/2-40)*imagerow,710+ imageheight*70+textH*70,250, 40)];
+        [_scrollView addSubview:imageLB];
+        imageLB.textAlignment = NSTextAlignmentCenter;
+        imageLB.font=[UIFont systemFontOfSize:18];
+        imageLB.text=model.materialName;
+        
+        UIButton *imageBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+        imageBtn.frame=CGRectMake(300+(wide/2-40)*imagerow, 710+ imageheight*70+textH*70,170, 40);
+        imageBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        [imageBtn addTarget:self action:@selector(imageclick:) forControlEvents:UIControlEventTouchUpInside];
+        imageBtn.tag=[model.materialID integerValue];
+        [self getApplyValueForKey:model.materialID];
+        if ([_infoDict objectForKey:model.materialID] && ![[_infoDict objectForKey:model.materialID] isEqualToString:@""])
+        {    [imageBtn setImage:[UIImage imageNamed:@"haveImage.png"] forState:UIControlStateNormal];
+            
+        }
+        else {
+            [imageBtn setTitle:@"上传图片" forState:UIControlStateNormal];
+            imageBtn.backgroundColor=kColor(233, 91, 38, 1);
+            
+        }
+        
+        [_scrollView addSubview:imageBtn];
+        
+    }
+    
+    NSInteger imageH = 0;
+    if (imageArray.count%2==0) {
+        imageH=imageArray.count/2;
+    }
+    else
+    {
+        imageH=imageArray.count/2+1;
+    }
+    if (textArray.count>0||imageArray.count>0) {
+        UILabel *fourline = [[UILabel alloc] initWithFrame:CGRectMake(borderSpace+18, 80+ 710+ imageH*70+textH*70, wide - 138, 1)];
+        fourline.backgroundColor = [UIColor grayColor];
+        [_scrollView addSubview:fourline];
+        
+    }
     int llastint;
     llastint=_applyData.materialList.count/2;
 
 submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitBtn.frame = CGRectMake(80, 700+lastheightY*70+80, 160, 40);
-    submitBtn.center=CGPointMake(wide/2, 700+llastint*70+150);
+    submitBtn.frame = CGRectMake(80,80+ 700+(textH +imageH)*70+80, 160, 40);
+    submitBtn.center=CGPointMake(wide/2, 700+(textH +imageH)*70+150);
     
     submitBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
@@ -1038,11 +912,22 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 
 #pragma mark - UI
 #pragma mark - 点击事件
+//-(void)bankclick:(UIButton*)send
+//{
+//    BankSelectedController *BnakSC=[[BankSelectedController alloc] init];
+//    BnakSC.delegate=self;
+//    BnakSC.terminalID=_terminalID;
+//    BnakSC.hidesBottomBarWhenPushed=YES;
+//    [self.navigationController pushViewController:BnakSC animated:YES];
+//    
+//}
+
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {
         return YES;
     }
-    if ([string isEqualToString:@"(null)"]) {
+    if ([string isEqualToString:@"(null)"])
+    {
         return YES;
     }
     if ([string isKindOfClass:[NSNull class]]) {
@@ -1318,67 +1203,80 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         height=SCREEN_HEIGHT;
         
     }
-
-    switch (_applyData.openType) {
-        case OpenTypePrivate: {
-            [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
-            _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-            _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
-            _privateBtn.center=CGPointMake(wide/2, _privateY);
-
-//            [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
-//            _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-            _publickBtn.frame = CGRectMake(_publicX + 210, _privateY, 120, 36);
-            _publickBtn.hidden=YES;
-_applyType = OpenApplyPrivate;
-        }
-            break;
-        case OpenTypePublic: {
-            [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
-            _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-            _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
-            _publickBtn.center=CGPointMake(wide/2, _privateY);
-            
-//            [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
-//            _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-            _privateBtn.frame = CGRectMake(_privateX + 210, _privateY, 120, 36);
-            _applyType = OpenApplyPublic;
-            _privateBtn.hidden=YES;
-            
-            
-            
-            
-        }
-            break;
-        case OpenTypeAll: {
-            if(_applyType==OpenApplyPublic)
-            {
-                [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
-                _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
-                _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
-                
-                [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
-                _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-                _privateBtn.frame = CGRectMake(_privateX + 10, _privateY, 120, 36);
-            }else
-            {
+    if (_applyData.openType == OpenTypeNone) {
+        
+        [_privateBtn setHidden:YES];
+        [_publickBtn setHidden:YES];
+        
+    }
+    else
+    {
+        switch (_applyData.openType) {
+            case OpenTypePrivate: {
                 [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
                 _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
                 _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
+                _privateBtn.center=CGPointMake(wide/2, _privateY);
                 
-                [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
-                _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
-                _publickBtn.frame = CGRectMake(_publicX + 10, _privateY, 120, 36);
+                //            [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
+                //            _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+                _publickBtn.frame = CGRectMake(_publicX + 210, _privateY, 120, 36);
+                _publickBtn.hidden=YES;
+                _applyType = OpenApplyPrivate;
+            }
+                break;
+            case OpenTypePublic: {
+                [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+                _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+                _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
+                _publickBtn.center=CGPointMake(wide/2, _privateY);
+                
+                //            [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
+                //            _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+                _privateBtn.frame = CGRectMake(_privateX + 210, _privateY, 120, 36);
+                _applyType = OpenApplyPublic;
+                _privateBtn.hidden=YES;
+                
+                
+                
                 
             }
-
-//            _applyType = OpenApplyPublic;
+                break;
+            case OpenTypeAll: {
+                if(_applyType==OpenApplyPublic)
+                {
+                    [_publickBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+                    _publickBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+                    _publickBtn.frame = CGRectMake(_publicX, _privateY, 140, 40);
+                    
+                    [_privateBtn setBackgroundImage:nil forState:UIControlStateNormal];
+                    _privateBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+                    _privateBtn.frame = CGRectMake(_privateX + 10, _privateY, 120, 36);
+                }else
+                {
+                    [_privateBtn setBackgroundImage:[UIImage imageNamed:@"chose_Btn"] forState:UIControlStateNormal];
+                    _privateBtn.titleLabel.font = [UIFont systemFontOfSize:22];
+                    _privateBtn.frame = CGRectMake(_privateX, _privateY, 140, 40);
+                    
+                    [_publickBtn setBackgroundImage:nil forState:UIControlStateNormal];
+                    _publickBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+                    _publickBtn.frame = CGRectMake(_publicX + 10, _privateY, 120, 36);
+                    
+                }
+                
+                //            _applyType = OpenApplyPublic;
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        default:
-            break;
-    }
 
+    }
+    
+    
+    
+    
+    
 }
 #pragma mark - Request
 
@@ -1609,6 +1507,7 @@ _applyType = OpenApplyPrivate;
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"SQlist" object:nil userInfo:nil];
 
                     [self.navigationController popViewControllerAnimated:YES];
+
                 }
             }
             else {
@@ -1956,20 +1855,23 @@ _applyType = OpenApplyPrivate;
     {
         
         NSInteger lastheightY;
-        lastheightY=_applyData.materialList.count/2;
-//        if(lastheightY%3==0)
-//        {
-//            lastheightY=_applyData.materialList.count/3;
-//            
-//        }
-//        else
-//        {
-//            
-//            lastheightY=_applyData.materialList.count/3+1;
-//            
-//        }
+        //lastheightY=_applyData.materialList.count-2;
+        if(lastheightY%2==0)
+        {
+            lastheightY=_applyData.materialList.count/2;
+            
+        }
+        else
+        {
+            
+            lastheightY=_applyData.materialList.count/2+1;
+            
+        }
         
-        return    1000+lastheightY*70;
+        //return    1000+lastheightY*70;
+        return    1200+lastheightY*70;
+        
+
 
         
     }
@@ -2461,7 +2363,7 @@ else
         hud.labelText = @"请填写结算银行卡号";
         return;
     }
-    if (![_infoDict objectForKey:key_bankAccount] || !_bankTitleName) {
+    if ( !_bankTitleName) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -2496,7 +2398,8 @@ else
         return;
     }
     for (MaterialModel *model in _applyData.materialList) {
-        if (![_infoDict objectForKey:model.materialID]) {
+        
+        if ( [self isBlankString:[_infoDict objectForKey:model.materialID]]) {
             NSString *infoString = nil;
             if (model.materialType == MaterialText) {
                 infoString = [NSString stringWithFormat:@"请填写%@",model.materialName];
@@ -2534,13 +2437,26 @@ else
     [params setObject:[_infoDict objectForKey:key_phone] forKey:@"phone"];
     [params setObject:[_infoDict objectForKey:key_name] forKey:@"name"];
     [params setObject:[_infoDict objectForKey:key_email] forKey:@"email"];
+    
     [params setObject:[NSNumber numberWithInt:[[_infoDict objectForKey:key_location] intValue]] forKey:@"cityId"];
+    
     [params setObject:[NSNumber numberWithInt:[_channelID intValue]] forKey:@"channel"];
     [params setObject:[NSNumber numberWithInt:[_billID intValue]] forKey:@"billingId"];
     
     [params setObject:[_infoDict objectForKey:key_bankID] forKey:@"bankNum"];
     [params setObject:[_infoDict objectForKey:key_bank] forKey:@"bankName"];
-    [params setObject:[_infoDict objectForKey:key_bankAccount] forKey:@"bankCode"];
+    
+    if ([self isBlankString:[_infoDict objectForKey:@"key_bankIDfdf"]]) {
+        [params setObject:@"" forKey:@"bankCode"];
+
+    }
+    else
+    {
+        [params setObject:[_infoDict objectForKey:@"key_bankIDfdf"] forKey:@"bankCode"];
+
+    
+    
+    }
     if (_bankTitleName) {
         [params setObject:_bankTitleName forKey:@"bank_name"];
     }
@@ -2572,6 +2488,8 @@ else
 }
 
 #pragma mark - UITextFieldDelegate
+
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     self.editingField=textField;
@@ -2583,6 +2501,15 @@ else
         _bankTitleName=textField.text;
     }
 
+    //    CGRect keyboardRect = [[[paramNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect fieldRect = [[self.editingField superview] convertRect:self.editingField.frame toView:self.view];
+    CGFloat topHeight = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat offsetY = 400 - (kScreenHeight - topHeight - fieldRect.origin.y - fieldRect.size.height);
+    if (offsetY > 0 ) {
+        self.primaryPoint = self.tableView.contentOffset;
+        self.offset = offsetY;
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y + self.offset) animated:YES];
+    }
 
 
     return YES;
@@ -2591,6 +2518,11 @@ else
 }// return NO to disallow editing.
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (self.offset != 0) {
+        [self.tableView setContentOffset:CGPointMake(0, self.primaryPoint.y) animated:YES];
+        self.offset = 0;
+    }
+    self.editingField = nil;
     [textField resignFirstResponder];
     return YES;
 }
@@ -2608,18 +2540,35 @@ else
         
         _bankTitleName=textField.text;
     }
-    if (textField.text && ![textField.text isEqualToString:@""])
+    
+    
+    if (textField.tag>=999656) {
+        for (int i=0; i<_textarrys.count; i++) {
+            if (textField.tag==[[_textarrys objectAtIndex:i] integerValue]+999656)
+            {
+                [_infoDict setObject:textField.text forKey:[_textarrys objectAtIndex:i]];
+                
+            }
+        }
+        
+    }
+    else
     {
-        
-        
-        [_infoDict setObject:textField.text forKey:[keynamesarry objectAtIndex:textField.tag-1056]];
-        
-        if ([[keynamesarry objectAtIndex:textField.tag-1056] isEqualToString:key_merchantName])
+        if (textField.text && ![textField.text isEqualToString:@""])
         {
-            [_infoDict setObject:textField.text forKey:key_bank];
-            [_tableView reloadData];
+            
+            
+            [_infoDict setObject:textField.text forKey:[keynamesarry objectAtIndex:textField.tag-1056]];
+            
+            if ([[keynamesarry objectAtIndex:textField.tag-1056] isEqualToString:key_merchantName])
+            {
+                [_infoDict setObject:textField.text forKey:key_bank];
+                [_tableView reloadData];
+            }
+            
         }
 
+        
     }
     
 }
@@ -2637,9 +2586,14 @@ else
             _bankTitleName2=model.bankName;
 
         }
+        if(model.bankCode)
+        {
+            [_infoDict setObject:model.bankCode forKey:_selectedKey];
+
+        
+        }
         
         //此处没有保存对象 因为infoDict的值都为NSString，防止报错
-        [_infoDict setObject:model.bankCode forKey:_selectedKey];
         [_tableView reloadData];
     }
 }

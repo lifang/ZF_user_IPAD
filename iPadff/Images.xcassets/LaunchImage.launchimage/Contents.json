@@ -3,29 +3,31 @@
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "minimum-system-version" : "7.0",
       "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "filename" : "user.png",
       "scale" : "1x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "minimum-system-version" : "7.0",
       "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "filename" : "user@2x.png",
       "scale" : "2x"
     },
     {
-      "orientation" : "portrait",
+      "orientation" : "landscape",
       "idiom" : "ipad",
-      "minimum-system-version" : "7.0",
       "extent" : "full-screen",
+      "filename" : "user-1.png",
       "scale" : "1x"
     },
     {
-      "orientation" : "portrait",
+      "orientation" : "landscape",
       "idiom" : "ipad",
-      "minimum-system-version" : "7.0",
       "extent" : "full-screen",
+      "filename" : "user@2x-1.png",
       "scale" : "2x"
     }
   ],
