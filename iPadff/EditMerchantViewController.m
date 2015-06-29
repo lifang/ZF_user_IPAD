@@ -1279,10 +1279,46 @@
 
 #pragma mark - UITextField
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    self.editingField = textField;
+    CGFloat wide;
+    CGFloat height;
+    if(iOS7)
+    {
+        wide=SCREEN_HEIGHT;
+        height=SCREEN_WIDTH;
+        
+    }
+    else
+    {  wide=SCREEN_WIDTH;
+        height=SCREEN_HEIGHT;
+        
+    }
+    
+    //    CGRect keyboardRect = [[[paramNotification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect fieldRect = [[self.editingField superview] convertRect:self.editingField.frame toView:self.view];
+    CGFloat topHeight = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat offsetY = 400 - (height - topHeight - fieldRect.origin.y - fieldRect.size.height);
+    if (offsetY > 0 ) {
+        self.primaryPoint = _scrollView.contentOffset;
+        self.offset = offsetY;
+        [_scrollView setContentOffset:CGPointMake(0, self.primaryPoint.y + self.offset) animated:YES];
+    }
+    
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (self.offset != 0) {
+        [_scrollView setContentOffset:CGPointMake(0, self.primaryPoint.y) animated:YES];
+        self.offset = 0;
+    }
+    self.editingField = nil;
+    
     [textField resignFirstResponder];
     return YES;
 }
+
 
 -(void)viewDidLayoutSubviews
 {
