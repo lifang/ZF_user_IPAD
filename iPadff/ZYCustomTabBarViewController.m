@@ -938,18 +938,18 @@ if(iOS7)
     }
 }
 
--(void)clearImage
+- (void)clearImage
 {
     [[SDImageCache sharedImageCache] clearDisk];
     _memoryLabel.text = @"0 M";
 }
 
--(void)cancelClicked
+- (void)cancelClicked
 {
     _backView.hidden = YES;
 }
 
--(void)switchAction:(UISwitch *)sender
+- (void)switchAction:(UISwitch *)sender
 {
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     [userDefault setObject:[NSNumber numberWithBool:sender.isOn] forKey:@"PushStatus"];

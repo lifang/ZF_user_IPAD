@@ -926,7 +926,8 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (string == nil || string == NULL) {
         return YES;
     }
-    if ([string isEqualToString:@"(null)"]) {
+    if ([string isEqualToString:@"(null)"])
+    {
         return YES;
     }
     if ([string isKindOfClass:[NSNull class]]) {
@@ -1506,6 +1507,7 @@ submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"SQlist" object:nil userInfo:nil];
 
                     [self.navigationController popViewControllerAnimated:YES];
+
                 }
             }
             else {
@@ -2443,7 +2445,18 @@ else
     
     [params setObject:[_infoDict objectForKey:key_bankID] forKey:@"bankNum"];
     [params setObject:[_infoDict objectForKey:key_bank] forKey:@"bankName"];
-    [params setObject:[_infoDict objectForKey:@"key_bankIDfdf"] forKey:@"bankCode"];
+    
+    if ([self isBlankString:[_infoDict objectForKey:@"key_bankIDfdf"]]) {
+        [params setObject:@"" forKey:@"bankCode"];
+
+    }
+    else
+    {
+        [params setObject:[_infoDict objectForKey:@"key_bankIDfdf"] forKey:@"bankCode"];
+
+    
+    
+    }
     if (_bankTitleName) {
         [params setObject:_bankTitleName forKey:@"bank_name"];
     }
