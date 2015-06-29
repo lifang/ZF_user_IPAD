@@ -29,6 +29,7 @@
 #import "LoginViewController.h"
 #import "AccountTool.h"
 #import "GoodDetailViewController.h"
+
 @interface ZYHomeViewController ()<sendCity,CLLocationManagerDelegate,LoginSuccessDelegate>
 @property(nonatomic,strong)PollingView *pollingView;
 @property(nonatomic,strong)LocationViewController *locationVC;

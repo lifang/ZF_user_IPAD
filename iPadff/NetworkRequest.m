@@ -50,7 +50,6 @@
         return;
     }
     
-    
     [_request setHTTPMethod:@"POST"];
     
     NSString *charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
