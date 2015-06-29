@@ -1015,6 +1015,8 @@
 
 - (void)scanBigImage {
     NSString *urlString = [_imageDict objectForKey:self.selectedImageKey];
+    
+    NSLog(@"%@",self.selectedImageKey);
     [self showDetailImageWithURL:urlString imageRect:self.imageRect];
     
 }
@@ -1076,7 +1078,7 @@
         hud.labelText = @"请输入组织机构代码证号";
         return;
     }
-    if (!_cityID || [_cityID isEqualToString:@""]) {
+    if (!_locationTF.text || [_locationTF.text isEqualToString:@""]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1100,7 +1102,7 @@
         hud.labelText = @"请输入银行许可证号";
         return;
     }
-    if (![_imageDict objectForKey:key_frontImage] || [[_imageDict objectForKey:key_frontImage] isEqualToString:@""]) {
+    if (!_editmerchant.frontPath) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1108,7 +1110,9 @@
         hud.labelText = @"请上传身份证照片正面";
         return;
     }
-    if (![_imageDict objectForKey:key_backImage] || [[_imageDict objectForKey:key_backImage] isEqualToString:@""]) {
+    
+    
+    if (!_editmerchant.backPath) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1116,7 +1120,7 @@
         hud.labelText = @"请上传身份证照片背面";
         return;
     }
-    if (![_imageDict objectForKey:key_bodyImage] || [[_imageDict objectForKey:key_bodyImage] isEqualToString:@""]) {
+    if (!_editmerchant.bodyPath) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1124,7 +1128,7 @@
         hud.labelText = @"请上传法人上半身照片";
         return;
     }
-    if (![_imageDict objectForKey:key_licenseImage] || [[_imageDict objectForKey:key_licenseImage] isEqualToString:@""]) {
+    if (!_editmerchant.licensePath) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1132,7 +1136,7 @@
         hud.labelText = @"请上传营业执照照片";
         return;
     }
-    if (![_imageDict objectForKey:key_taxImage] || [[_imageDict objectForKey:key_taxImage] isEqualToString:@""]) {
+    if (!_editmerchant.taxPath) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1140,7 +1144,7 @@
         hud.labelText = @"请上传税务证照片";
         return;
     }
-    if (![_imageDict objectForKey:key_organizationImage] || [[_imageDict objectForKey:key_organizationImage] isEqualToString:@""]) {
+    if (!_editmerchant.bankPath) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1148,7 +1152,7 @@
         hud.labelText = @"请上传组织机构代码证照片";
         return;
     }
-    if (![_imageDict objectForKey:key_bankImage] || [[_imageDict objectForKey:key_bankImage] isEqualToString:@""]) {
+    if (!_editmerchant.organizationPath) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -1240,32 +1244,46 @@
         //[_frontImgv setHidden:NO];
         [_frontIMGBtn setHidden:NO];
         [_frontBtn setHidden:YES];
+        [_imageDict setObject:_editmerchant.frontPath forKey:key_frontImage];
     }
     if (_editmerchant.backPath) {
         [_backIMGBtn setHidden:NO];
         [_backBtn setHidden:YES];
+        [_imageDict setObject:_editmerchant.backPath forKey:key_backImage];
+
     }
     if (_editmerchant.bodyPath) {
         [_bodyIMGBtn setHidden:NO];
         [_bodyBtn setHidden:YES];
+        [_imageDict setObject:_editmerchant.bodyPath forKey:key_bodyImage];
+
     }
     if (_editmerchant.licensePath) {
         [_licenseIMGBtn setHidden:NO];
         [_licenseBtn setHidden:YES];
+        [_imageDict setObject:_editmerchant.licensePath forKey:key_licenseImage];
+
     }
     if (_editmerchant.taxPath) {
         [_taxIMGBtn setHidden:NO];
         [_taxBtn setHidden:YES];
+        [_imageDict setObject:_editmerchant.taxPath forKey:key_taxImage];
+
     }
     if (_editmerchant.bankPath) {
         [_bankIMGBtn setHidden:NO];
         [_bankBtn setHidden:YES];
+        [_imageDict setObject:_editmerchant.bankPath forKey:key_bankImage];
+
     }
     if (_editmerchant.organizationPath) {
         [_organzationIMGBtn setHidden:NO];
         [_organzationBtn setHidden:YES];
+        [_imageDict setObject:_editmerchant.organizationPath forKey:key_organizationImage];
+
     }
     
+    NSLog(@"%@",_editmerchant.frontPath);
     
     /*
     [_frontImgv sd_setImageWithURL:[NSURL URLWithString:_editmerchant.frontPath]];
