@@ -882,8 +882,12 @@
     
 }
 
--(void)BtnImagePressed:(id)sender
+- (void)BtnImagePressed:(id)sender
 {
+    UIButton *selectButton=(UIButton *)sender;
+    
+    self.imageRect = [[selectButton superview] convertRect:selectButton.frame toView:self.view];
+
     //[self scanBigImage];
     NSString *urlString = nil;
    

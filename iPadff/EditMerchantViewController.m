@@ -911,6 +911,10 @@
 
 -(void)BtnImagePressed:(id)sender
 {
+    UIButton *selectButton=(UIButton *)sender;
+    
+    self.imageRect = [[selectButton superview] convertRect:selectButton.frame toView:self.view];
+
     NSString *key = nil;
     BOOL hasImage = YES;
     if(sender==_frontIMGBtn)
