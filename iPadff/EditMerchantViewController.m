@@ -100,10 +100,14 @@
     _merchantTF.clipsToBounds = YES;
     _merchantTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _merchantTF.layer.borderWidth = 1.0f;
-    _merchantTF.layer.cornerRadius = 3.0f;
+    //_merchantTF.layer.cornerRadius = 3.0f;
     _merchantTF.font = FONT20;
     _merchantTF.placeholder = @"地域+经营商铺名+行业";
-    _merchantTF.textAlignment=NSTextAlignmentCenter;
+    _merchantTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left1View = [[UIView alloc]init];
+    left1View.frame = CGRectMake(0, 0, 10, 40);
+    _merchantTF.leftView =left1View;
+    //_merchantTF.textAlignment=NSTextAlignmentCenter;
     _merchantTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _merchantTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_merchantTF];
@@ -133,10 +137,14 @@
     _personTF.clipsToBounds = YES;
     _personTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _personTF.layer.borderWidth = 1.0f;
-    _personTF.layer.cornerRadius = 3.0f;
+    //_personTF.layer.cornerRadius = 3.0f;
     _personTF.font = FONT20;
     _personTF.placeholder = @"请输入法人姓名";
-    _personTF.textAlignment=NSTextAlignmentCenter;
+    _personTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left2View = [[UIView alloc]init];
+    left2View.frame = CGRectMake(0, 0, 10, 40);
+    _personTF.leftView =left2View;
+   // _personTF.textAlignment=NSTextAlignmentCenter;
     _personTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _personTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_personTF];
@@ -169,10 +177,14 @@
     _person_IDTF.clipsToBounds = YES;
     _person_IDTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _person_IDTF.layer.borderWidth = 1.0f;
-    _person_IDTF.layer.cornerRadius = 3.0f;
+   // _person_IDTF.layer.cornerRadius = 3.0f;
     _person_IDTF.font = FONT20;
     _person_IDTF.placeholder = @"请输入法人身份证号";
-    _person_IDTF.textAlignment=NSTextAlignmentCenter;
+    _person_IDTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left3View = [[UIView alloc]init];
+    left3View.frame = CGRectMake(0, 0, 10, 40);
+    _person_IDTF.leftView =left3View;
+   // _person_IDTF.textAlignment=NSTextAlignmentCenter;
     _person_IDTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _person_IDTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_person_IDTF];
@@ -202,10 +214,14 @@
     _licenceTF.clipsToBounds = YES;
     _licenceTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _licenceTF.layer.borderWidth = 1.0f;
-    _licenceTF.layer.cornerRadius = 3.0f;
+   // _licenceTF.layer.cornerRadius = 3.0f;
     _licenceTF.font = FONT20;
     _licenceTF.placeholder = @"请输入营业执照号";
-    _licenceTF.textAlignment=NSTextAlignmentCenter;
+    _licenceTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left4View = [[UIView alloc]init];
+    left4View.frame = CGRectMake(0, 0, 10, 40);
+    _licenceTF.leftView =left4View;
+    //_licenceTF.textAlignment=NSTextAlignmentCenter;
     _licenceTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _licenceTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_licenceTF];
@@ -240,10 +256,14 @@
     _taxTF.clipsToBounds = YES;
     _taxTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _taxTF.layer.borderWidth = 1.0f;
-    _taxTF.layer.cornerRadius = 3.0f;
+   // _taxTF.layer.cornerRadius = 3.0f;
     _taxTF.font = FONT20;
     _taxTF.placeholder = @"请输入税务证号";
-    _taxTF.textAlignment=NSTextAlignmentCenter;
+    _taxTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left5View = [[UIView alloc]init];
+    left5View.frame = CGRectMake(0, 0, 10, 40);
+    _taxTF.leftView =left5View;
+   // _taxTF.textAlignment=NSTextAlignmentCenter;
     _taxTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _taxTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_taxTF];
@@ -273,10 +293,14 @@
     _organzationTF.clipsToBounds = YES;
     _organzationTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _organzationTF.layer.borderWidth = 1.0f;
-    _organzationTF.layer.cornerRadius = 3.0f;
+   // _organzationTF.layer.cornerRadius = 3.0f;
     _organzationTF.font = FONT20;
     _organzationTF.placeholder = @"请输入机构代码号";
-    _organzationTF.textAlignment=NSTextAlignmentCenter;
+    _organzationTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left6View = [[UIView alloc]init];
+    left6View.frame = CGRectMake(0, 0, 10, 40);
+    _organzationTF.leftView =left6View;
+   // _organzationTF.textAlignment=NSTextAlignmentCenter;
     _organzationTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _organzationTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_organzationTF];
@@ -311,10 +335,14 @@
     _locationTF.clipsToBounds = YES;
     _locationTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _locationTF.layer.borderWidth = 1.0f;
-    _locationTF.layer.cornerRadius = 3.0f;
+   // _locationTF.layer.cornerRadius = 3.0f;
     _locationTF.font = FONT20;
     _locationTF.placeholder = @"请选择所在地";
-    _locationTF.textAlignment=NSTextAlignmentCenter;
+    _locationTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left7View = [[UIView alloc]init];
+    left7View.frame = CGRectMake(0, 0, 10, 40);
+    _locationTF.leftView =left7View;
+    //_locationTF.textAlignment=NSTextAlignmentCenter;
     _locationTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _locationTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_locationTF];
@@ -372,10 +400,14 @@
     _bankTF.clipsToBounds = YES;
     _bankTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _bankTF.layer.borderWidth = 1.0f;
-    _bankTF.layer.cornerRadius = 3.0f;
+   // _bankTF.layer.cornerRadius = 3.0f;
     _bankTF.font = FONT20;
     _bankTF.placeholder = @"请输入开户银行";
-    _bankTF.textAlignment=NSTextAlignmentCenter;
+    _bankTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left8View = [[UIView alloc]init];
+    left8View.frame = CGRectMake(0, 0, 10, 40);
+    _bankTF.leftView =left8View;
+    //_bankTF.textAlignment=NSTextAlignmentCenter;
     _bankTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _bankTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_bankTF];
@@ -405,10 +437,14 @@
     _bank_IDTF.clipsToBounds = YES;
     _bank_IDTF.layer.borderColor = [UIColor colorWithHexString:@"a8a8a8"].CGColor;
     _bank_IDTF.layer.borderWidth = 1.0f;
-    _bank_IDTF.layer.cornerRadius = 3.0f;
+   // _bank_IDTF.layer.cornerRadius = 3.0f;
     _bank_IDTF.font = FONT20;
     _bank_IDTF.placeholder = @"请输入银行许可证号";
-    _bank_IDTF.textAlignment=NSTextAlignmentCenter;
+    _bank_IDTF.leftViewMode = UITextFieldViewModeAlways;
+    UIView *left9View = [[UIView alloc]init];
+    left9View.frame = CGRectMake(0, 0, 10, 40);
+    _bank_IDTF.leftView =left9View;
+   // _bank_IDTF.textAlignment=NSTextAlignmentCenter;
     _bank_IDTF.textColor = [UIColor colorWithHexString:@"6c6c6c"];
     _bank_IDTF.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_bank_IDTF];
@@ -464,23 +500,7 @@
         
     }];
     
-    /*
-    _frontImgv=[[UIImageView alloc] init];
-    //_frontImgv.layer.masksToBounds = YES;
-   // _frontImgv.layer.cornerRadius = 3.0f;
-   // _frontImgv.layer.borderWidth = 1.0f;
-  //  _frontImgv.layer.borderColor = [UIColor colorWithHexString:LineColor].CGColor;
-    [_frontImgv setImage:[UIImage imageNamed:@"hasimage"]];
-    [_scrollView addSubview:_frontImgv];
-    [_frontImgv setHidden:YES];
-    [_frontImgv makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(frontImageLB.top);
-        make.left.equalTo(frontImageLB.right).offset(24);
-        make.width.equalTo(@42);
-        make.height.equalTo(@42);
-        
-    }];
-*/
+
      _frontIMGBtn=[[UIButton alloc] init];
     [_frontIMGBtn setBackgroundImage:[UIImage imageNamed:@"hasimage"] forState:UIControlStateNormal];
     [_frontIMGBtn addTarget:self action:@selector(BtnImagePressed:) forControlEvents:UIControlEventTouchUpInside];
