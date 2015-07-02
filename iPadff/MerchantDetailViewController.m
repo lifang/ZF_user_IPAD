@@ -882,8 +882,12 @@
     
 }
 
--(void)BtnImagePressed:(id)sender
+- (void)BtnImagePressed:(id)sender
 {
+    UIButton *selectButton=(UIButton *)sender;
+    
+    self.imageRect = [[selectButton superview] convertRect:selectButton.frame toView:self.view];
+
     //[self scanBigImage];
     NSString *urlString = nil;
    
@@ -894,7 +898,7 @@
     }
     else if(sender==_backIMGBtn)
     {
-        urlString = _merchantDetail.bankPath;
+        urlString = _merchantDetail.backPath;
         
     }
     else if(sender==_bodyIMGBtn)
@@ -915,13 +919,12 @@
     }
     else if(sender==_bankIMGBtn)
     {
-         urlString = _merchantDetail.organizationPath;
-        
+        urlString = _merchantDetail.bankPath;
     }
     else if(sender==_organzationIMGBtn)
     {
-       
-         urlString = _merchantDetail.bankPath;
+        urlString = _merchantDetail.organizationPath;
+
     }
     [self showDetailImageWithURL:urlString imageRect:self.imageRect];
     if (iOS7) {
