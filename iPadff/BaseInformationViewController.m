@@ -817,11 +817,13 @@
 {
     if (_isEmialAdd) {
         AddMessageController *addVC = [[AddMessageController alloc]init];
+        addVC.userName = _nameField.text;
         addVC.hidesBottomBarWhenPushed = YES;
         addVC.isEmial = YES;
         [self.navigationController pushViewController:addVC animated:NO];
     }else{
         ChangeEmailController *changeEmailVC = [[ChangeEmailController alloc]init];
+        changeEmailVC.userName = _nameField.text;
         changeEmailVC.oldEmail = _emailField.text;
         changeEmailVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:changeEmailVC animated:NO];
@@ -873,6 +875,7 @@
                     hud.labelText = [NSString stringWithFormat:@"%@",[object objectForKey:@"message"]];
                 }
                 else if ([errorCode intValue] == RequestSuccess) {
+                    [_nameField resignFirstResponder];
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息"
                                                                     message:@"用户信息修改成功"
                                                                    delegate:self

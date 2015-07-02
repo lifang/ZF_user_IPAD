@@ -531,7 +531,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中...";
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:nil mobilePhone:_newsField.text email:nil cityID:nil finished:^(BOOL success, NSData *response) {
+    [NetworkInterface modifyUserInfoWithToken:delegate.token userID:delegate.userID username:_userName mobilePhone:_newsField.text email:nil cityID:nil finished:^(BOOL success, NSData *response) {
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
         [hud hide:YES afterDelay:0.5f];
@@ -640,7 +640,7 @@
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在发送...";
-    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_newsField.text finished:^(BOOL success, NSData *response) {
+    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_newsField.text userName:_userName finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
