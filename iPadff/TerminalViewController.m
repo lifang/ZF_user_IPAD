@@ -48,44 +48,44 @@
 @end
 
 @implementation TerminalViewController
--(void)ShowLoginVC
-{
-    AccountModel *account = [AccountTool userModel];
-    NSLog(@"%@",account);
-    if (account.password) {
-        [self setupNavBar];
-        [self firstLoadData];
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    }
-    else
-    {
-        LoginViewController *loginC = [[LoginViewController alloc]init];
-        loginC.LoginSuccessDelegate = self;
-        loginC.view.frame = CGRectMake(0, 0, 320, 320);
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
-        nav.navigationBarHidden = YES;
-        nav.modalPresentationStyle = UIModalPresentationCustom;
-        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [self presentViewController:nav animated:YES completion:nil];
-    }
-}
-
--(void)LoginSuccess
-{
-    [self setupNavBar];
-    [self firstLoadData];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    if (_isPush) {
-        [self ShowLoginVC];
-    }else{
-        
-    }
-}
+//-(void)ShowLoginVC
+//{
+//    AccountModel *account = [AccountTool userModel];
+//    NSLog(@"%@",account);
+//    if (account.password) {
+//        [self setupNavBar];
+//        [self firstLoadData];
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    }
+//    else
+//    {
+//        LoginViewController *loginC = [[LoginViewController alloc]init];
+//        loginC.LoginSuccessDelegate = self;
+//        loginC.view.frame = CGRectMake(0, 0, 320, 320);
+//        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:loginC];
+//        nav.navigationBarHidden = YES;
+//        nav.modalPresentationStyle = UIModalPresentationCustom;
+//        nav.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+//        [self presentViewController:nav animated:YES completion:nil];
+//    }
+//}
+//
+//-(void)LoginSuccess
+//{
+//    [self setupNavBar];
+//    [self firstLoadData];
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//}
+//
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    if (_isPush) {
+//        [self ShowLoginVC];
+//    }else{
+//        
+//    }
+//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -102,6 +102,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupHeaderView];
     [self setRefreshView];
+    [self setupNavBar];
+    [self firstLoadData];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
 
@@ -312,7 +315,6 @@
 {
     return 60;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_terminalItems.count == 0) {
@@ -668,7 +670,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.isPush = NO;
+    _isPush = NO;
     TerminalManagerModel *model = [_terminalItems objectAtIndex:indexPath.row];
     
     if ([model.type isEqualToString:@"2"]) {

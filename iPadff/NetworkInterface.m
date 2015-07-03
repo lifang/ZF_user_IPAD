@@ -1902,6 +1902,7 @@ static NSString *HTTP_GET  = @"GET";
 
 + (void)getModifyEmailValidateWithUserID:(NSString *)userID
                                    email:(NSString *)email
+                                userName:(NSString *)username
                                 finished:(requestDidFinished)finish {
     //参数
     NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
@@ -1909,6 +1910,7 @@ static NSString *HTTP_GET  = @"GET";
     if (email) {
         [paramDict setObject:email forKey:@"email"];
     }
+    [paramDict setObject:username forKey:@"userName"];
     //url
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",kServiceURL,s_modifyEmailValidate_method];
     [[self class] requestWithURL:urlString

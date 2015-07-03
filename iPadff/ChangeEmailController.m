@@ -640,6 +640,7 @@
 -(void)saveDate
 {
     ChangeEmailNextController *changeV = [[ChangeEmailNextController alloc]init];
+    changeV.userName = _userName;
     changeV.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:changeV animated:YES];
 //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -720,7 +721,7 @@
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在获取旧邮箱验证码...";
-    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_oldEmail finished:^(BOOL success, NSData *response) {
+    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_oldEmail userName:_userName finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;
@@ -753,7 +754,7 @@
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在发送...";
-    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_oldEmail finished:^(BOOL success, NSData *response) {
+    [NetworkInterface getModifyEmailValidateWithUserID:delegate.userID email:_oldEmail userName:_userName finished:^(BOOL success, NSData *response) {
         NSLog(@"%@",[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding]);
         hud.customView = [[UIImageView alloc] init];
         hud.mode = MBProgressHUDModeCustomView;

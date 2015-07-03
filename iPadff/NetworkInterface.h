@@ -1446,6 +1446,7 @@ static NSString *s_push_method = @"customers/sendDeviceCode";
 
 + (void)getModifyEmailValidateWithUserID:(NSString *)userID
                                    email:(NSString *)email
+                                userName:(NSString *)username
                                 finished:(requestDidFinished)finish;
 
 + (void)getModifyMobileValidateWithPhoneNumber:(NSString *)phoneNumber
